@@ -1,0 +1,89 @@
+---
+title: "brand.yml Structure"
+code-annotations: select
+---
+
+
+## Outline
+
+```{.yaml filename="brand.yml"}
+meta:             # <1>
+  # company stuff # <1>
+
+logo:     # <2>
+  icon:   # <2>
+  logo:   # <2>
+
+color:           # <3>
+  # named colors # <3>
+
+theme:              # <4>
+  # semantic colors # <4>
+
+font: # <5>
+  heading: # <5>
+  body: # <5>
+  monospace: # <5>
+
+typography: # <6>
+  # basic rules # <6>
+
+options: # <7>
+  # basic non-color theme settings # <7>
+
+variable: # <8>
+  html: ~ # <8>
+  pdf: ~ # <8>
+  remarkjs: ~ # <8>
+  <format>: ~ # <8>
+
+format: # <8>
+  html: ~ # <8>
+  pdf: ~ # <8>
+  <format>: ~ # <8>
+```
+
+1. [meta](meta.qmd): Key identity information, name of the company, links to brand guidelines, etc.
+
+1. [logo](logo.qmd): Files or links to the brand's logo at various sizes.
+
+1. [color](color.qmd): Named colors in the brand's color palette.
+
+1. [theme](theme.qmd): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+
+1. [font](font.qmd): Font definitions for `heading`, `body` and `monospace` fonts.
+
+1. [typography](typography.qmd): Font family, weight, style, color, and line height for key elements, e.g. headings at levels 1-6, body, blockquote, links, bold, italic, lists, etc.
+
+1. [options](options.qmd): Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
+
+1. [variable, format](variable-and-format.qmd): Format-specific style variables and options. Style variables would be used by     the various pre-processors and the `format` item could be merged into the quarto `format` frontmatter key.
+
+## Description
+
+[meta](meta.qmd)
+:    Key identity information, name of the company, links to brand guidelines, etc.
+
+[logo](logo.qmd)
+:    Files or links to the brand's logo at various sizes.
+
+[color](color.qmd)
+:    Named colors in the brand's color palette.
+
+[theme](theme.qmd)
+:    Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+
+[font](font.qmd)
+:    Font definitions for `heading`, `body` and `monospace` fonts.
+
+[typography](typography.qmd)
+:    Font family, weight, style, color, and line height for key elements, 
+     e.g. headings at levels 1-6, body, blockquote, links, bold, italic, lists, etc.
+
+[options](options.qmd)
+:    Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
+
+[variable, format](variable-and-format.qmd)
+:    Format-specific style variables and options. Style variables would be used by
+     the various pre-processors and the `format` item could be merged into the quarto
+     `format` frontmatter key.

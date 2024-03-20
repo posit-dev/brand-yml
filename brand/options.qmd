@@ -1,0 +1,28 @@
+---
+title: Options
+pagetitle: "options | brand.yml"
+---
+
+## Goal
+
+Some of the most basic non-color concepts found in
+
+* https://getbootstrap.com/docs/5.3/customize/options/
+* https://getbootstrap.com/docs/5.3/customize/css-variables/
+
+
+## Example
+
+```{.yaml filename="brand.yml (simple)"}
+
+```
+
+```{.yaml filename="brand.yml (full)"}
+
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/options.yml >}}
+```

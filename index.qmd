@@ -1,0 +1,17 @@
+---
+title: "brand.yml Design"
+---
+
+Design exploration for `brand.yml` and `shinytheme`.
+
+```{mermaid}
+flowchart LR
+    by{brand.yml}
+    by-->quarto
+    by-->bslib
+    bslib-->R[Shiny for R]
+    bslib-->rmd[R Markdown]
+    by-->shinytheme
+    shinytheme-->bs[bootstrap.min.css]
+    shinytheme-->py[Shiny for Python]
+```

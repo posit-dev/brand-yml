@@ -1,0 +1,29 @@
+---
+title: "Indeed"
+image: indeed.png
+link: https://indeed.design/brand/resources
+description: ""
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+## Logos
+
+### Large
+
+![Blue Indeed logo](Indeed_Logo_Blue.svg)
+
+![White Indeed logo](Indeed_Logo_White.svg){style="background-color: #001c40" .p-2}
+
+
+### Small (icon)
+
+![Blue Indeed icon](Indeed_2021_Icon_RGB_Blue.svg)
+
+![White Indeed icon](Indeed_2021_Icon_RGB_White.svg){style="background-color: #001c40" .p-1}
+
+## Swatches
+
+```{=html}
+<embed src="indeed-swatches.pdf" type="application/pdf" width="100%" height="600px" />
+```

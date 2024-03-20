@@ -1,0 +1,33 @@
+---
+title: "Home Depot"
+image: home-depot-foundation.png
+link: https://corporate.homedepot.com/media/2020-thdf-brand-guidelines
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+![Home Depot (Foundation) Colors and Typography](home-depot-foundation.png)
+
+::: {.callout collapse="true"}
+## `brand.yml`
+
+```yaml
+orange: "#F96302"
+white: "#FFFFFF"
+black: "#000000"
+
+primary: $orange
+secondary: "#747474"
+light: $white
+dark: $black
+
+font:
+  heading:
+    family: Helvetica Nueue LT Pro
+    weight: bold
+    width: condensed
+  body:
+    family: Helvetica Nueue LT Pro
+    weight: normal
+```
+:::

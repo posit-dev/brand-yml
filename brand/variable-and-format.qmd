@@ -1,0 +1,24 @@
+---
+title: Format-specific Settings
+pagetitle: "variable & foramt | brand.yml"
+---
+
+## Goal
+
+About...
+
+## Example
+
+```{.yaml filename="brand.yml (simple)"}
+
+```
+
+```{.yaml filename="brand.yml (full)"}
+
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/variable.yml >}}
+```

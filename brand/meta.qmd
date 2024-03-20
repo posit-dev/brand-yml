@@ -1,0 +1,37 @@
+---
+title: Metadata
+pagetitle: "meta | brand.yml"
+---
+
+## Goal
+
+`meta` provides a place to store metadata about the Company described in `brand.yml`.
+We should anticipate a few key pieces of information, 
+but authors might want to include data we haven't accounted for.
+
+## Example
+
+```{.yaml filename="brand.yml"}
+meta:
+  name: Posit
+  link: https://posit.co
+```
+
+```{.yaml filename="brand.yml"}
+meta:
+  name:
+    full: Posit Software, PBC
+    short: Posit
+  link:
+    home: https://posit.co
+    guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ
+    mastodon: https://fosstodon.org/@Posit
+    linkedin: https://www.linkedin.com/company/posit-software/
+    twitter: https://twitter.com/posit_pbc
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/meta.yml >}}
+```

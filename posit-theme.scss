@@ -1,0 +1,134 @@
+/*-- scss:defaults --*/
+$posit-blue: #447098;
+$posit-orange: #ED6331;
+$posit-gray: #404041;
+$posit-teal: #419498;
+$posit-green: #72984E;
+$posit-burgundy: #994665;
+$posit-blue-light-1: #D0DAE4;
+$posit-blue-light-2: #A1B7CA;
+$posit-blue-light-3: #7493B0;
+$posit-blue-dark-1: #305775;
+$posit-blue-dark-2: #213D4F;
+$posit-blue-dark-3: #17212B;
+$posit-gray-light-1: #C1C1C3;
+$posit-gray-light-2: #939393;
+$posit-gray-light-3: #707073;
+$posit-gray-dark-1: #333333;
+$posit-gray-dark-2: #242426;
+$posit-gray-dark-3: #151515;
+$posit-teal-light-1: #C1D8D8;
+$posit-teal-light-2: #93BCBE;
+$posit-teal-light-3: #70A2A5;
+$posit-teal-dark-1: #297075;
+$posit-teal-dark-2: #1F4F4F;
+$posit-teal-dark-3: #122B2B;
+$posit-green-light-1: #CED8C6;
+$posit-green-light-2: #ACBE98;
+$posit-green-light-3: #89A57A;
+$posit-green-dark-1: #57733D;
+$posit-green-dark-2: #3B4F29;
+$posit-green-dark-3: #212B1C;
+$posit-burgundy-light-1: #D8C3CB;
+$posit-burgundy-light-2: #BE95A2;
+$posit-burgundy-light-3: #A57380;
+$posit-burgundy-dark-1: #78384F;
+$posit-burgundy-dark-2: #542938;
+$posit-burgundy-dark-3: #2E171F;
+$posit-orange-light-1: #ECCBBE;
+$posit-orange-light-2: #EAA28B;
+$posit-orange-light-3: #E48066;
+$posit-orange-dark-1: #AA4D26;
+$posit-orange-dark-2: #80361C;
+$posit-orange-dark-3: #451F12;
+$posit-gray-extra-light: #E9E9EB;
+
+// Bootstrap variables ----
+$body-bg: #FFF;
+$body-color: $posit-gray-dark-2;
+
+$primary: $posit-blue-dark-1;
+$secondary: $posit-gray-extra-light;
+$success: $posit-green;
+$info: $posit-teal;
+$warning: $posit-orange;
+$danger: $posit-burgundy;
+
+$font-family-base: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+$font-family-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+
+$headings-font-weight: 200;
+$h1-font-size: 2.75rem !default;
+$h2-font-size: 2.25rem !default;
+$h3-font-size: 2rem !default;
+$h4-font-size: 1.75rem !default;
+$h5-font-size: 1.5rem !default;
+$h6-font-size: 1.25rem !default;
+
+$enable-rounded: true;
+$border-radius: 4px;
+$input-bg: $posit-gray-extra-light;
+$input-btn-font-size: 0.9rem;
+$btn-font-weight: 300;
+
+$bslib-box-shadow-color-rgb: 29, 31, 33 !default;
+$bslib-box-shadow-color-rgb-dark: 0, 0, 0 !default;
+
+$box-shadow-sm:
+  0px 0px 2px 0px RGBA(var(--bslib-box-shadow-color-rgb), 0.14),
+  0px 2px 4px 0px RGBA(var(--bslib-box-shadow-color-rgb), 0.16) !default;
+
+$box-shadow:
+  0px 1px 2px RGBA(var(--bslib-box-shadow-color-rgb), .1),
+  0px 3px 7px RGBA(var(--bslib-box-shadow-color-rgb), .1),
+  0px 12px 30px RGBA(var(--bslib-box-shadow-color-rgb), .08) !default;
+
+$box-shadow-lg:
+  0px 4px 10px RGBA(var(--bslib-box-shadow-color-rgb), .1),
+  0px 12px 30px RGBA(var(--bslib-box-shadow-color-rgb), 0.17) !default;
+
+/*-- scss:rules --*/
+$btn-font-family: $font-family-monospace;
+
+:root {
+  --bslib-box-shadow-color-rgb: #{$bslib-box-shadow-color-rgb};
+  --bslib-box-shadow-color-rgb-dark: #{$bslib-box-shadow-color-rgb-dark};
+}
+
+// quarto adjustments ----
+.code-with-filename .code-with-filename-file {
+  background-color: $posit-gray;
+  pre {
+    color: $body-bg;
+    font-family: $font-family-base;
+  }
+}
+
+figure {
+  img {
+    @extend .shadow-sm;
+  }
+}
+
+.quarto-figure {
+  margin-bottom: 2em;
+}
+
+figcaption {
+  text-align: right;
+  font-weight: 300;
+}
+
+// Lux fixups ----
+.navbar {
+  font-size: $font-size-base * 0.8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: unset;
+  font-weight: $headings-font-weight;
+}
+
+h2, .h2 {
+  padding-bottom: 0.25rem;
+}

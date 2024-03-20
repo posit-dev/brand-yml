@@ -1,0 +1,47 @@
+project:
+  type: website
+
+website:
+  title: "Unified Branding"
+  
+  bread-crumbs: true
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: brand.yml
+      - text: "Examples"
+        href: examples/index.qmd
+
+  sidebar:
+    - id: brand-yml
+      contents:
+        - href: index.qmd
+          text: Design Goals
+        - href: brand/index.qmd
+          text: Structure
+        - brand/open-questions.qmd
+        - section: Brand Elements
+          contents:
+          - brand/meta.qmd
+          - brand/logo.qmd
+          - brand/color.qmd
+          - brand/theme.qmd
+          - brand/font.qmd
+          - brand/typography.qmd
+          - brand/options.qmd
+          - brand/variable-and-format.qmd
+    - id: examples-brands
+      title: Example Brand Guidelines
+      contents: "examples/brand-guidelines/*/index.qmd"
+
+format:
+  html:
+    theme: [bootstrap, "posit-theme.scss"]
+    toc: true
+
+lightbox: auto
+
+editor:
+  render-on-save: true
+

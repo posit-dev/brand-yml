@@ -1,0 +1,74 @@
+---
+title: Slack
+link: https://brand.slackhq.com/
+image: slack.png
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+## Logos
+
+| Name | Variant | Image |
+|:-----|:--------|:------|
+| Mark |  | ![](SLA-Logo-Mark.svg){height="50px"} |
+| Mark | Black | ![](SLA-Logo-Mark-Black-RGB.svg){height="50px"} |
+| Mark | White | ![](SLA-Logo-Mark-Monochrome-White.svg){height="50px" class="bg-dark"} |
+| Logo | Black | ![](SLA-Slack-From-Salesforce-Logo-BLACK.svg) |
+| Logo | White | ![](SLA-Slack-From-Salesforce-Logo-WHITE.svg) |
+
+## Colors
+
+
+### Core palette
+
+|Name         |Hex        |RGB                 |CMYK         |PMS              |
+|:------------|:----------|:-------------------|:------------|:----------------|
+|Aubergine    |`#4A154B` |`rgb(74 21 75)`    |73 100 37 38 |2623 C           |
+|Horchata     |`#F4EDE4` |`rgb(244 237 228)` |3 5 9 0      |PMS7604 C at 80% |
+|Black        |`#1D1C1D` |`rgb(29 28 29)`    |0 0 0 100    |Black            |
+|White        |`#FFFFFF` |`rgb(255 255 255)` |0 0 0 0      |NA               |
+|Slack blue   |`#36C5F0` |`rgb(54 197 240)`  |63 0 2 0     |298 C            |
+|Slack green  |`#2EB67D` |`rgb(46 182 125)`  |74 0 69 0    |2250 C           |
+|Slack yellow |`#ECB22E` |`rgb(236 178 46)`  |7 31 95 0    |7409 C           |
+|Slack red    |`#E01E5A` |`rgb(224 30 90)`   |6 99 51 0    |214 C            |
+
+### Secondary palette
+
+|Name         |Hex        |RGB             |CMYK              |PMS              |
+|:------------|:----------|:---------------|:-----------------|:----------------|
+|Cobalt       |`#1E328F` |`rgb(30 50 143)`   |100 94 9 1   |661 C            |
+|Sky          |`#0E9DD3` |`rgb(14 157 211)`  |76 22 3 0    |7689 C           |
+|Teal         |`#2392A2` |`rgb(35 146 162)`  |80 26 33 1   |2221 C           |
+|Pool         |`#78D7DD` |`rgb(120 215 221)` |48 0 16 0    |2225 C           |
+|Evergreen    |`#185F34` |`rgb(24 95 52)`    |87 37 95 32  |3425 C           |
+|Moss         |`#729C1A` |`rgb(114 156 26)`   |62 20 100 3  |576 C            |
+|Sandbar      |`#FFD57E` |`rgb(255 213 126)` |0 16 59 0    |7403 C           |
+|Peach        |`#FED4BE` |`rgb(254 212 190)` |0 19 22 0    |489 C            |
+|Salmon       |`#F2606A` |`rgb(242 96 106)`  |0 78 48 0    |709 C            |
+|Bubblegum    |`#FFB6BD` |`rgb(225 182 189)` |0 36 13 0    |495 C            |
+|Crimson      |`#921D21` |`rgb(146 29 33)`   |27 99 95 27  |7623 C           |
+|Terracotta   |`#DE8969` |`rgb(222 137 105)` |10 54 61 0   |2439 C           |
+|Berry        |`#7C2852` |`rgb(124 40 82)`   |45 94 43 25  |7658 C           |
+|Mauve        |`#C05B8C` |`rgb(192 91 140)`  |24 78 19 0   |2060 C           |
+
+## Typography
+
+> Our brand fonts are Larsseit and Slack Circular. The following tables outline how best to use them.
+> 
+> * Use Larsseit for headlines. ...
+> * Use Slack Circular for most other text, including paragraphs. ...
+> * Use Inter for Google Slides presentations
+> * Use Helvetica Neue for email
+
+
+![Slack typography guidelines for headings](slack-typography-headings.png)
+
+![Slack typography guidelines for content](slack-typography-body.png)
+
+## Shape
+
+From https://brand.slackhq.com/brand-shapes
+
+![Slack guidelines for shape](slack-shape-pill.png)
+
+![Slack guidelines for stroke](slack-shape-stroke.png)

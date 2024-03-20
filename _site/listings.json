@@ -1,0 +1,22 @@
+[
+  {
+    "listing": "/examples.html",
+    "items": [
+      "/examples/dell/index.html",
+      "/examples/home-depot/index.html",
+      "/examples/indeed/index.html"
+    ]
+  },
+  {
+    "listing": "/examples/index.html",
+    "items": [
+      "/examples/brand-guidelines/basf/index.html",
+      "/examples/brand-guidelines/dell/index.html",
+      "/examples/brand-guidelines/dow/index.html",
+      "/examples/brand-guidelines/home-depot/index.html",
+      "/examples/brand-guidelines/indeed/index.html",
+      "/examples/brand-guidelines/slack/index.html",
+      "/examples/brand-guidelines/walmart/index.html"
+    ]
+  }
+]

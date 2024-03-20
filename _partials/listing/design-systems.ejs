@@ -1,0 +1,19 @@
+::: {.grid}
+<% for (const item of items) { %>
+```{=html}
+<div class="card g-col-6 shadow-sm">
+    <% if (item.image) { %>
+     <a href="<%= item.link %>"><img src="<%= item.image %>" class="card-img-top" alt=""></a>
+    <% } %>
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="<%= item.link %>/" target="_blank"><%= item.company %></a>
+      </h5>
+      <% if (item.name) {%>
+      <div class="card-subtitle"><%= item.name %></div>
+      <% } %>
+    </div>
+</div>
+```
+<% } %>
+:::

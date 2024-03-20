@@ -1,0 +1,128 @@
+---
+title: Open Questions
+---
+
+## Schema definition?
+
+* [JSON Schema](https://json-schema.org/learn/getting-started-step-by-step)
+* [Example yaml schema from Quarto](https://github.com/quarto-dev/quarto-cli/blob/8df775135b4b4197dc2f750bf0cf88393550fa2d/src/resources/schema/document-editor.yml)
+
+
+## Assets?
+
+It's unlikely that a `brand.yml` will be completely self-contained.
+In many cases, users will want to include static assets, including:
+
+* logo files
+* images and icons
+* stylesheets
+* LaTeX includes
+* custom fonts
+
+## Light/dark themes?
+
+Should `light` and `dark` be high up in the tree or on each field?
+
+* Some fields won't have both
+* Easier to see the full dark or full light theme when higher up
+* In most cases dark mode is light mode with a small number of tweaks
+
+```{.yaml filename="brand.yml (high-level light/dark)"}
+logo:
+  light:
+    small:
+    large:
+  dark:
+    small:
+    large:
+```
+
+```{.yaml filename="brand.yml (local light/dark)"}
+logo:
+  small:
+    light:
+    dark:
+  large:
+    light:
+    dark:
+```
+
+## Reusing fields?
+
+`brand.yml` authors will need to re-use fields in various areas.
+The most obvious of these are the interaction between named colors in the `color` section
+and semantic colors in the `theme` section.
+
+For example, [Home Depot](../examples/home-depot/index.qmd) defines orange as `#F96302`.
+The `brand.yml` author wants to use this specific color for as the primary accent color.
+
+### Sass-like variables
+
+One option is to use Sass-like variables.
+
+```{.yaml filename="brand.yml"}
+color:
+  orange: "#F96302"
+
+theme:
+  primary: "$orange"
+```
+
+This option is very close to how the variables are used in scss files,
+but the `brand.yml` intends to support more formats than Sass and CSS outputs.
+
+Additionally, `$orange` implies a top-level `orange` field,
+but is actually defined in `color.orange`.
+
+### Native YAML anchors and aliases
+
+YAML has a native block re-use concept called _anchors_ and _aliases_.
+It is not pretty and adds a lot of work for the end user.
+
+```{.yaml filename="brand.yml"}
+color:
+  orange: &orange "#F96302"
+
+theme:
+  primary: *orange
+```
+
+It doesn't seem terrible in this small example,
+but it's a lot of extra in larger brand definitions.
+
+This does have the advantage of working with native constructs,
+and all YAML readers and validators should be able to read and validate this format.
+
+### Custom syntax
+
+Another option is to use a custom syntax
+that any `brand.yml` consumer will have to implement.
+This syntax might look like this:
+
+```{.yaml filename="brand.yml"}
+color:
+  orange: "#F96302"
+
+theme:
+  primary: "{{ color['orange'] }}"
+```
+
+In this proposal, the `brand.yml` reader would:
+
+1. Find fields that start and end with `{{ }}`
+2. Evaluate the syntax inside. `color['orange']` is valid R, Python and JavaScript to access the `"orange"` item of the `"color"` list, dictionary or object[^well-actually].
+
+[^well-actually]: Technically, the R version would need to be unnested one level. But importantly, this syntax wouldn't feel out of place to users of our three favorite languages.
+
+After processing, the `brand.yml` imported into R would be equivalent to the following:
+
+```r
+list(
+  color = list(
+    orange = "#F96302"
+  ),
+  theme = list(
+    primary = "#F96302"
+  )
+)
+```

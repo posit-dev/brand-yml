@@ -1,0 +1,36 @@
+---
+title: Logo
+pagetitle: "logo | brand.yml"
+---
+
+## Goal
+
+Provide a logo and an icon for the company.
+
+## Example
+
+```{.yaml filename="brand.yml (simple)"}
+logo: posit.png
+```
+
+```{.yaml filename="brand.yml (full)"}
+logo:
+  small: posit-icon.png
+  medium: posit.png
+  large: posit.svg
+```
+
+```{.yaml filename="brand.yml (light/dark)"}
+logo:
+  small: posit-icon.png
+  medium: 
+    light: posit.png
+    dark: posit-reverese.png
+  large: posit.svg
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/logo.yml >}}
+```

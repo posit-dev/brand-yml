@@ -1,0 +1,51 @@
+---
+title: "Dell"
+feature: dell_20.png
+link: https://hst.tradedoubler.com/file/3466/programme_information/Dell_Brand_Standards.pdf
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+![Dell Principle Color Palette](dell_20.png){group="dell"}
+
+![Dell Supporting Color Palette](dell_21.png){group="dell"}
+
+![Dell Typography](dell_24.png){group="dell"}
+
+::: {.callout collapse="true"}
+## `brand.yml`
+
+```yaml
+colors:
+  blue: "#0085c3"
+  gray: "#aaaaaa"
+  white: "#FFFFFF"
+  green: "#7ab800"
+  yellow: "#f2af00"
+  orange: "#ff7700"
+  red: "#dc5034"
+  red-dark: "#ce1126"
+  purple: "#6e2585"
+  teal: "#71c6c1"
+  periwinkle: "#5482ab"
+  aqua: "#009bbb"
+  gray-dark: "#444444"
+  gray-light: "#eeeeee"
+
+
+primary: $blue
+secondary: $gray
+light: $gray-light
+dark: $gray-dark
+
+font:
+  heading:
+    - family: Museo for Dell
+      weight: 700
+    - family: Trebuchet
+      weight: 700
+  body:
+    family: Museo Sans for Dell
+    weight: normal
+```
+:::

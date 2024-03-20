@@ -1,0 +1,24 @@
+---
+title: Theme
+pagetitle: "theme | brand.yml"
+---
+
+## Goal
+
+About...
+
+## Example
+
+```{.yaml filename="brand.yml (simple)"}
+
+```
+
+```{.yaml filename="brand.yml (full)"}
+
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/theme.yml >}}
+```

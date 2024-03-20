@@ -1,0 +1,53 @@
+---
+title: Walmart
+link: https://walmartbrandcenter.lingoapp.com/s/de9qpe/?v=13
+image: walmart-palette.jpeg
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+## Colors
+
+![Walmart palette](walmart-palette.jpeg)
+
+### Primary color palette
+
+> We are a blue brand with white & yellow. Walmart Blue is the primary color that should be applied across all communications, to uphold brand consistency.
+>
+> * For .com &/or digital platforms, use digital blue to accommodate readability & legibility needs.
+> * White complements digital blue & is either a background color or a type color.
+> * Spark Yellow should be used as an accent color. Note: For yellow headlines used online, please refer to the ADA compliance section below.
+
+| Hex | CMYK | PMS | Name |
+|:----|:-----|:----|:-----|
+| #0071DC | CMYK 100, 45, 0, 0 | PMS 285 C | Walmart Blue |
+|#FFFFFF | CMYK 0, 0, 0, 0 | White |
+| #FFC220 | CMYK 0, 25, 100, 0 | PMS 1235 C | Spark Yellow |
+
+
+### Secondary color palette
+
+> Our secondary color palette is an extension of our primary colors & is used as backgrounds & texture for silhouetted product photography.
+> Where primary colors applied to type fail in legibility & compliance, use Ozark Noir.
+
+| Hex | CMYK | Name |
+|:----|:-----|:-----|
+| #F8E6A5 | CMYK 3, 7, 42, 0 | Yellow Tone |
+| #8CD1FC | CMYK 39, 5, 0, 0 | Blue Tone 1 |
+| #D3EFF8 | CMYK 16, 0, 2, 0 | Blue Tone 2 |
+| #FAFAFA | CMYK 1, 1, 1, 0 | Off White |
+| #041E42 | CMYK 100, 88, 42, 51 | Ozark Noir |
+
+## Logos
+
+[Full logo documentation](https://walmartbrandcenter.lingoapp.com/s/RWp5vq/?v=13)
+
+| Name | Image |
+|:-----|:-----:|
+| Primary blue logo | ![](Walmart%20spark%20logo-digital-blue.png){height="100px"} |
+| Primary white logo | ![](Walmart%20spark%20logo-digital-alpha.png){height="100px"} |
+| Spark icon | ![](Walmart%20spark%20digital-alpha.png){height="100px"} |
+
+## Font
+
+Walmart uses [a custom font named Bogle](https://www.lingoapp.com/101437/s/Typography-and-CTA-PNDyzz/#pwjp7q).
