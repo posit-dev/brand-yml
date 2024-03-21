@@ -1,0 +1,4 @@
+- source: project
+  connect:
+    - id: 7a334c6b-ded1-4d92-9d40-e3ec4d2f3d2b
+      url: 'https://connect.posit.it/content/7a334c6b-ded1-4d92-9d40-e3ec4d2f3d2b/'
