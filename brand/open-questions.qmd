@@ -53,7 +53,7 @@ logo:
 The most obvious of these are the interaction between named colors in the `color` section
 and semantic colors in the `theme` section.
 
-For example, [Home Depot](../examples/home-depot/index.qmd) defines orange as `#F96302`.
+For example, [Home Depot](../examples/brand-guidelines/home-depot/index.qmd) defines orange as `#F96302`.
 The `brand.yml` author wants to use this specific color for as the primary accent color.
 
 ### Sass-like variables
