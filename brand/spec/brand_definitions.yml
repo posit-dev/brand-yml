@@ -1,0 +1,8 @@
+- id: brand-string-light-dark
+  anyOf:
+    - string
+    - object:
+        closed: true
+        properties:
+          light: string
+          dark: string

@@ -33,5 +33,5 @@ meta:
 ## Spec
 
 ```{.yaml}
-{{< include spec/meta.yml >}}
+{{< include spec/brand-meta.yml >}}
 ```

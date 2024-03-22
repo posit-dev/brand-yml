@@ -87,3 +87,19 @@ format: # <8>
 :    Format-specific style variables and options. Style variables would be used by
      the various pre-processors and the `format` item could be merged into the quarto
      `format` frontmatter key.
+
+## YAML Schema
+
+```{.yaml filename="spec/brand.yml"}
+{{< include spec/brand.yml >}}
+```
+
+::: {.callout collapse="true"}
+### Brand Schema Definitions
+
+Additional schema definitions used throughout the `brand.yml` spec.
+
+```{.yaml}
+{{< include spec/brand_definitions.yml >}}
+```
+:::
