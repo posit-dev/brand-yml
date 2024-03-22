@@ -22,6 +22,7 @@ color:
   warm-gray-light: "#f5f5f5"
   warm-gray-medium: "#c4c4c4"
 ```
+See [Home Depot brand guidelines](../examples/brand-guidelines/home-depot/index.qmd).
 
 ```{.yaml filename="brand_posit.yml (simple)"}
 color:
@@ -33,6 +34,7 @@ color:
   green: "#72994E"
   burgundy: "#9A4665"
 ```
+See [Posit brand guidelines](../examples/brand-guidelines/posit/index.qmd).
 
 ## Spec
 

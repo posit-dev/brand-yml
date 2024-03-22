@@ -126,3 +126,24 @@ list(
   )
 )
 ```
+
+### Quarto-shortcode syntax
+
+Another custom syntax option could be to use Quarto shortcode-style syntax: `{{< brand color ____ >}}`.
+While a bit more typing, this does suggest a `brand` shortcode that could be used directly in documents, e.g.
+
+```markdown
+## My Section {style="color: {{< brand color secondary >}}"}
+
+{{< brand logo large >}}
+```
+
+In the `brand.yml` file itself, this might look like this:
+
+```{.yaml filename="brand.yml"}
+color:
+  orange: "#F96302"
+
+theme:
+  primary: "{{< brand color orange >}}"
+```

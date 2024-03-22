@@ -1,20 +1,61 @@
 ---
 title: Format-specific Settings
-pagetitle: "variable & foramt | brand.yml"
+pagetitle: "variable & format | brand.yml"
 ---
 
 ## About
 
-About...
+Individual formats and outputs can expose format-specific variables or options that are relevant to themes, but not global.
+
+For example, [Quarto slides expose a set of Sass variables](https://quarto.org/docs/presentations/revealjs/themes.html#sass-variables) while HTML documents and Shiny apps [use Sass variables set by Bootstrap](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+
+On the other hand, some theme-relevant settings are actually format options, or are built on top of a base of format options.
+For example, when creating a branded Beamer presentation, its often easier to start with a known `theme` or `colortheme`.
+Or similarly, it might be easier in Bootstrap to start with a [Bootswatch theme](https://bootswatch.com/).
+
+### Sources
+
+#### HTML basic options
+
+Example from [Quarto HTML documentation](https://quarto.org/docs/output-formats/html-themes.html#basic-options):
+
+```{.markdown}
+---
+title: "My Document"
+format:
+  html: 
+    theme: cosmo
+    fontsize: 1.1em
+    linestretch: 1.7
+---
+```
+
+#### Beamer options
+
+Example from [Quarto slides with beamer documentation](https://quarto.org/docs/presentations/beamer.html#beamer-options)
+
+```{.markdown}
+---
+format: 
+  beamer: 
+    aspectratio: 32
+    navigation: horizontal
+    theme: AnnArbor
+    colortheme: lily
+---
+```
 
 ## Example
 
-```{.yaml filename="brand.yml (simple)"}
-
-```
-
-```{.yaml filename="brand.yml (full)"}
-
+```{.yaml filename="brand.yml"}
+format: 
+  html:
+    theme: cosmo
+  beamer: 
+    aspectratio: 32
+    navigation: horizontal
+    theme: AnnArbor
+    colortheme: lily
 ```
 
 ## Spec

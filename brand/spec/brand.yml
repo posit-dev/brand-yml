@@ -5,3 +5,11 @@
 - name: logo
   schema:
     ref: brand-logo
+
+- name: color
+  schema:
+    ref: brand-color
+
+- name: theme
+  schema:
+    ref: brand-theme
