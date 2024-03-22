@@ -1,0 +1,48 @@
+---
+title: Posit
+link: https://positpbc.atlassian.net/wiki/spaces/MAR/pages/85983233/Posit+Brand+Assets+Style+Guide
+image: posit-brand-name.png
+---
+
+[{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+## Highlights
+
+![Posit Name Guidance](posit-brand-name.png){group="posit"}
+
+![Posit Typography Guidance](posit-brand-typography.png){group="posit"}
+
+![Posit Color Guidance](posit-brand-colors.png){group="posit"}
+
+![Additional Primary Posit Tints](posit-brand-colors-primary.png){group="posit"}
+
+![Additional Secondary Posit Tints](posit-brand-colors-secondary.png){group="posit"}
+
+## Colors
+
+**Primary**
+
+* Posit Blue  #447099 
+* Posit Orange  #EE6331
+* Posit Gray  #404041
+* Pure White  #FFFFFF 
+
+**Secondary**
+
+* Posit Teal   #419599
+* Posit Green  #72994E
+* Posit Burgundy  #9A4665
+
+## Typography
+
+> Please use [Open Sans](https://fonts.google.com/specimen/Open+Sans "https://fonts.google.com/specimen/Open+Sans"), and see the [brand guidelines](https://drive.google.com/file/d/1uc_A8b4eCTyC37fCTBtAQYWJL0IejVpM/view?usp=share_link "https://drive.google.com/file/d/1uc_A8b4eCTyC37fCTBtAQYWJL0IejVpM/view?usp=share_link") for helpful guidance on font style usage.
+> 
+> If you are limited to web-safe fonts, please use Arial. For monospace font use [Source Code Pro](https://fonts.google.com/specimen/Source+Code+Pro "https://fonts.google.com/specimen/Source+Code+Pro").
+
+## Logo
+
+| Name | Image |
+|:-----|:------|
+| Icon | ![](posit-logo.svg){height="30px"} |
+| Full | ![](posit-logo-fullcolor.svg) |
+| Reverse | ![](posit-logo-reverse.svg){.bg-dark .p-1} |
