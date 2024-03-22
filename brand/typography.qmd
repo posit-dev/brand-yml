@@ -3,7 +3,7 @@ title: Typography
 pagetitle: "typography | brand.yml"
 ---
 
-## Goal
+## About
 
 About...
 

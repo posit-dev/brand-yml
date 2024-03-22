@@ -3,7 +3,7 @@ title: Theme
 pagetitle: "theme | brand.yml"
 ---
 
-## Goal
+## About
 
 About...
 
@@ -20,5 +20,5 @@ About...
 ## Spec
 
 ```{.yaml}
-{{< include spec/theme.yml >}}
+{{< include spec/brand-theme.yml >}}
 ```

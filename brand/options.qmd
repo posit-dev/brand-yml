@@ -3,7 +3,7 @@ title: Options
 pagetitle: "options | brand.yml"
 ---
 
-## Goal
+## About
 
 Some of the most basic non-color concepts found in
 

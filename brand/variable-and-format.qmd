@@ -3,7 +3,7 @@ title: Format-specific Settings
 pagetitle: "variable & foramt | brand.yml"
 ---
 
-## Goal
+## About
 
 About...
 

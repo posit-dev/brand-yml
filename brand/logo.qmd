@@ -3,7 +3,7 @@ title: Logo
 pagetitle: "logo | brand.yml"
 ---
 
-## Goal
+## About
 
 Provide a logo and an icon for the company.
 

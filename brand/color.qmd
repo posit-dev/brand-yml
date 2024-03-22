@@ -3,7 +3,7 @@ title: Color
 pagetitle: "color | brand.yml"
 ---
 
-## Goal
+## About
 
 Brand guidelines often include color palette definitions, ranging from one or two colors to entire palettes.
 Often, these colors are given names with specific meaning to the brand.

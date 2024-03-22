@@ -3,7 +3,7 @@ title: Metadata
 pagetitle: "meta | brand.yml"
 ---
 
-## Goal
+## About
 
 `meta` provides a place to store metadata about the Company described in `brand.yml`.
 We should anticipate a few key pieces of information, 

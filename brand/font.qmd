@@ -3,7 +3,7 @@ title: Fonts
 pagetitle: "font | brand.yml"
 ---
 
-## Goal
+## About
 
 About...
 
