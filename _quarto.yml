@@ -5,6 +5,9 @@ website:
   title: "Unified Branding"
   
   bread-crumbs: true
+  
+  repo-url: https://github.com/posit-dev/brand-yml/
+  repo-actions: [issue, source]
 
   navbar:
     left:
