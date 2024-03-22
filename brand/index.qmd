@@ -11,8 +11,8 @@ meta:             # <1>
   # company stuff # <1>
 
 logo:     # <2>
-  icon:   # <2>
-  logo:   # <2>
+  small:   # <2>
+  large:   # <2>
 
 color:             
   palette:         # <3>
@@ -47,9 +47,9 @@ format: # <8>
 
 1. [logo](logo.qmd): Files or links to the brand's logo at various sizes.
 
-1. [color](color.qmd#color): Named colors in the brand's color palette.
+1. [color.palette](color.qmd#color): Named colors in the brand's color palette.
 
-1. [theme](color.qmd#theme): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+1. [color.theme](color.qmd#theme): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
 
 1. [font](font.qmd): Font definitions for `heading`, `body` and `monospace` fonts.
 
