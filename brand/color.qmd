@@ -5,20 +5,88 @@ pagetitle: "color | brand.yml"
 
 ## Goal
 
-About...
+Brand guidelines often include color palette definitions, ranging from one or two colors to entire palettes.
+Often, these colors are given names with specific meaning to the brand.
+
+The `color` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
+In the [theme][theme.qmd] section, they'll apply these colors to parts of the theme.
 
 ## Example
 
-```{.yaml filename="brand.yml (simple)"}
-
+```{.yaml filename="brand_home-depot.yml"}
+color:
+  orange: "#F96302"
+  white: "#FFFFFF"
+  black: "#000000"
+  warm-gray-dark: "#747474"
+  warm-gray-light: "#f5f5f5"
+  warm-gray-medium: "#c4c4c4"
 ```
 
-```{.yaml filename="brand.yml (full)"}
-
+```{.yaml filename="brand_posit.yml (simple)"}
+color:
+  blue: "#447099"
+  orange: "#EE6331"
+  gray: "#404041"
+  white: "#FFFFFF"
+  teal: "#419599"
+  green: "#72994E"
+  burgundy: "#9A4665"
 ```
 
 ## Spec
 
 ```{.yaml}
-{{< include spec/color.yml >}}
+{{< include spec/brand-color.yml >}}
 ```
+
+## Shades and Tints
+
+We can imagine extending the spec to help create shades and tints of the brand colors.
+Users could provide any of `mid`, `light` or `dark` as an anchor point
+(but best results if only `mid` or `light` + `dark` or all three).
+
+Initially, we'll only support `mid` because this fits [Bootstrap conventions](https://getbootstrap.com/docs/5.3/customize/color/#all-colors) to create a range of shades (darker variants) and tints (lighter variants), numbered from 900 (dark) to 100 (light).
+By default, Bootstrap uses the midpoint to seed the range, e.g. setting `$blue-500` changes the range of blue values.
+
+Note: Bootstrap uses a fixed set of colors for this type of palette -- e.g. `blue`, `indigo`, `red`, etc. -- because their values pass through Sass variables.
+For colors in this named list, we'd use `mid` to set the `$*-500` variable.
+For other colors, we'd directly set CSS variables, replicating Bootstrap's color logic.
+
+### Example: Posit Blue
+
+```{.yaml filename="brand_posit.yml"}
+color:
+  blue:
+    mid: "#447099"
+```
+
+```{=html}
+<p class="codepen" data-height="300" data-default-tab="css,result" data-slug-hash="xxedqZY" data-editable="true" data-user="gadenbuie" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/gadenbuie/pen/xxedqZY">
+  Sass lighten() and darken() vs mix() using black and white</a> by Garrick Aden-Buie (<a href="https://codepen.io/gadenbuie">@gadenbuie</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+```
+
+### Example: Home Depot Warm Gray
+
+```{.yaml filename="brand_home-depot.yml"}
+color:
+  warm_gray:
+    light: "#f5f5f5"
+    mid: "#c4c4c4"
+    dark: "#747474"
+```
+
+```{=html}
+<p class="codepen" data-height="300" data-default-tab="css,result" data-slug-hash="MWRmpqE" data-editable="true" data-user="gadenbuie" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/gadenbuie/pen/MWRmpqE">
+  Sass lighten() and darken() vs mix() using black and white</a> by Garrick Aden-Buie (<a href="https://codepen.io/gadenbuie">@gadenbuie</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+```
+
+(This is just a quick example, not the final algorithm.)

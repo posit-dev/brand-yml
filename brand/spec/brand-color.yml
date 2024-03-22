@@ -1,0 +1,9 @@
+- id: brand-color
+  description: >
+    The brand's custom color definitions. Any number of colors can be defined,
+    each color having a custom name.
+  object:
+    closed: false
+    namingConvention: kebab-case
+    # We don't know the exact properties yet, but we do know they'll all be strings.
+    # I'm not sure how to express that in the spec.
