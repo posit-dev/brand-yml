@@ -5,34 +5,88 @@ pagetitle: "color | brand.yml"
 
 ## About
 
+### Palette
+
 Brand guidelines often include color palette definitions, ranging from one or two colors to entire palettes.
 Often, these colors are given names with specific meaning to the brand.
 
-The `color` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
-In the [theme](theme.qmd) section, they'll apply these colors to parts of the theme.
+The `color.palette` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
+In the [theme](#theme) section, they'll apply these colors to parts of the theme.
+
+### Theme
+
+While brand guidelines might provide [a set of unique colors](color.qmd), the goal of the `theme` section is to provide color values for a key set of semantic theme fields.
+These fields follow Bootstrap conventions closely but are universal and are easily mapped to any themable output format. 
+
+#### Inspiration
+
+**Directly themable**
+
+* [Bootstrap theme colors](https://getbootstrap.com/docs/5.3/customize/color/#colors)
+
+* [Quarto HTML basic theme options](https://quarto.org/docs/output-formats/html-themes.html#basic-options)
+
+* [Quarto revealjs Sass variables](https://quarto.org/docs/presentations/revealjs/themes.html#sass-variables)
+
+**Indirectly themable**
+
+* Office templates
+    * [Quarto Word documents](https://quarto.org/docs/output-formats/ms-word-templates.html)
+    * [Quarto PowerPoint slides](https://quarto.org/docs/presentations/powerpoint.html#powerpoint-templates)
+    * Generally users would provide a `reference-doc`.
+
+* [Quarto PDF outputs](https://quarto.org/docs/output-formats/pdf-basics.html#output-options)
+
+* [Quarto Typst custom formats](https://quarto.org/docs/output-formats/typst-custom.html)
+
 
 ## Example
 
+### Home Depot
+
 ```{.yaml filename="brand_home-depot.yml"}
 color:
-  orange: "#F96302"
-  white: "#FFFFFF"
-  black: "#000000"
-  warm-gray-dark: "#747474"
-  warm-gray-light: "#f5f5f5"
-  warm-gray-medium: "#c4c4c4"
+  palette:
+    orange: "#F96302"
+    white: "#FFFFFF"
+    black: "#000000"
+    warm-gray-dark: "#747474"
+    warm-gray-light: "#f5f5f5"
+    warm-gray-medium: "#c4c4c4"
+  theme:
+    primary: "#F96302"
+    secondary: "#747474"
+    tertiary: "#C4C4C4"
+    light: "#F5F5F5"
+    dark: "#747474"
 ```
+
 See [Home Depot brand guidelines](../examples/brand-guidelines/home-depot/index.qmd).
 
-```{.yaml filename="brand_posit.yml (simple)"}
+### Posit
+
+```{.yaml filename="brand.yml (Posit)"}
 color:
-  blue: "#447099"
-  orange: "#EE6331"
-  gray: "#404041"
-  white: "#FFFFFF"
-  teal: "#419599"
-  green: "#72994E"
-  burgundy: "#9A4665"
+  palette:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+  theme:
+    foreground: "#151515"
+    background: "#FFFFFF"
+    primary: "#447099"
+    secondary: "#707073"
+    tertiary: "#C2C2C4"
+    success: "#72994E"
+    info: "#419599"
+    warning: "#EE6331"
+    danger: "#9A4665"
+    light: "#FFFFFF"
+    dark: "#404041"
 ```
 See [Posit brand guidelines](../examples/brand-guidelines/posit/index.qmd).
 
@@ -42,7 +96,9 @@ See [Posit brand guidelines](../examples/brand-guidelines/posit/index.qmd).
 {{< include spec/brand-color.yml >}}
 ```
 
-## Shades and Tints
+## Additional color features
+
+### Shades and tints
 
 We can imagine extending the spec to help create shades and tints of the brand colors.
 Users could provide any of `mid`, `light` or `dark` as an anchor point
@@ -55,12 +111,13 @@ Note: Bootstrap uses a fixed set of colors for this type of palette -- e.g. `blu
 For colors in this named list, we'd use `mid` to set the `$*-500` variable.
 For other colors, we'd directly set CSS variables, replicating Bootstrap's color logic.
 
-### Example: Posit Blue
+#### Example: Posit Blue
 
 ```{.yaml filename="brand_posit.yml"}
 color:
-  blue:
-    mid: "#447099"
+  palette:
+    blue:
+      mid: "#447099"
 ```
 
 ```{=html}
@@ -72,14 +129,15 @@ color:
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 ```
 
-### Example: Home Depot Warm Gray
+#### Example: Home Depot Warm Gray
 
 ```{.yaml filename="brand_home-depot.yml"}
 color:
-  warm_gray:
-    light: "#f5f5f5"
-    mid: "#c4c4c4"
-    dark: "#747474"
+  palette:
+    warm_gray:
+      light: "#f5f5f5"
+      mid: "#c4c4c4"
+      dark: "#747474"
 ```
 
 ```{=html}
@@ -92,3 +150,87 @@ color:
 ```
 
 (This is just a quick example, not the final algorithm.)
+
+## Additional theme features
+
+### Re-using fields
+
+The above is simple, but it's easy to imagine that `brand.yml` authors might want to re-use colors in `color` in the `theme`.
+In [reusing fields in open questions](open-questions.qmd#reusing-fields) I outlined a possible custom syntax.
+Here's an example using the shortcode-style `{{< brand color palette ____ >}}`{shortcodes="false"} syntax:
+
+```{.yaml filename="brand.yml (reusing colors)" shortcodes="false"}
+color:
+  palette:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+  theme:
+    foreground: "#151515"
+    background: "{{< brand color palette white >}}"
+    primary: "{{< brand color palette blue >}}"
+    secondary: "#707073"
+    tertiary: "#C2C2C4"
+    success: "{{< brand color palette green >}}"
+    info: "{{< brand color palette teal >}}"
+    warning: "{{< brand color palette orange >}}"
+    danger: "{{< brand color palette burgundy >}}"
+    light: "{{< brand color palette white >}}"
+    dark: "{{< brand color palette gray >}}"
+```
+
+Alternatively, assuming that all the colors in `color.palette` become top-level Sass variables (maybe an only okay idea), we could use Sass-alike custom syntax:
+
+```{.yaml filename="brand.yml (reusing colors)"}
+color:
+  palette:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+  theme:
+    foreground: "#151515"
+    background: "$white"
+    primary: "$blue"
+    secondary: "#707073"
+    tertiary: "#C2C2C4"
+    success: "$green"
+    info: "$teal"
+    warning: "$orange"
+    danger: "$burgundy"
+    light: "$white"
+    dark: "$gray"
+```
+
+Finally, without a custom re-usable field implementation, expert YAML users could use native YAML anchor and alias features.
+
+```{.yaml filename="brand.yml (native yaml)"}
+color:
+  palette:
+    blue: &blue "#447099"
+    orange: &orange "#EE6331"
+    gray: &gray "#404041"
+    white: &white "#FFFFFF"
+    teal: &teal "#419599"
+    green: &green "#72994E"
+    burgundy: &burgundy "#9A4665"
+  theme:
+    foreground: "#151515"
+    background: *white
+    primary: *blue
+    secondary: "#707073"
+    tertiary: "#C2C2C4"
+    success: *green
+    info: *teal
+    warning: *orange
+    danger: *burgundy
+    light: *white
+    dark: *gray
+```

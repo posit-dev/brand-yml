@@ -29,7 +29,6 @@ website:
           - brand/meta.qmd
           - brand/logo.qmd
           - brand/color.qmd
-          - brand/theme.qmd
           - brand/font.qmd
           - brand/typography.qmd
           - brand/options.qmd

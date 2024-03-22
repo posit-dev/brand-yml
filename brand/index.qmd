@@ -14,11 +14,11 @@ logo:     # <2>
   icon:   # <2>
   logo:   # <2>
 
-color:           # <3>
-  # named colors # <3>
-
-theme:              # <4>
-  # semantic colors # <4>
+color:             
+  palette:         # <3>
+    # named colors # <3>
+  theme:              # <4>
+    # semantic colors # <4>
 
 font: # <5>
   heading: # <5>
@@ -47,9 +47,9 @@ format: # <8>
 
 1. [logo](logo.qmd): Files or links to the brand's logo at various sizes.
 
-1. [color](color.qmd): Named colors in the brand's color palette.
+1. [color](color.qmd#color): Named colors in the brand's color palette.
 
-1. [theme](theme.qmd): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+1. [theme](color.qmd#theme): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
 
 1. [font](font.qmd): Font definitions for `heading`, `body` and `monospace` fonts.
 
@@ -68,10 +68,7 @@ format: # <8>
 :    Files or links to the brand's logo at various sizes.
 
 [color](color.qmd)
-:    Named colors in the brand's color palette.
-
-[theme](theme.qmd)
-:    Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+:    Named colors in the brand's color `palette` and semantic `theme` colors (e.g. `primary`, `secondary`, `success`, `warning`, etc.)
 
 [font](font.qmd)
 :    Font definitions for `heading`, `body` and `monospace` fonts.
