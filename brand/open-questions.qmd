@@ -59,9 +59,30 @@ The `brand.yml` author wants to use this specific color for as the primary accen
 Below I've outlines several approaches.
 You can also find more detailed examples in the [Color brand specficication](color.qmd#re-using-fields).
 
+### Magic named color re-use
+
+Probably the most simple option I've considered so far.
+For `color` properties, we allow the re-use of named colors with the following rules:
+
+1. In `color.theme` find the named color in `color.palette`.
+2. In all other places, look for the color name in `color.theme` first, followed by `color.palette`.
+3. Assume colors without a match are regular (i.e. CSS, etc.) color names.
+
+```{.yaml filename="brand.yml"}
+color:
+  palette:
+    orange: "#F96302"
+  theme:
+    primary: orange
+
+typography:
+  headings:
+    color: primary
+```
+
 ### Sass-like variables
 
-One option is to use Sass-like variables.
+Another option is to use Sass-like variables.
 
 ```{.yaml filename="brand.yml"}
 color:
@@ -139,7 +160,7 @@ While a bit more typing, this does suggest a `brand` shortcode that could be use
 
 In the `brand.yml` file itself, this might look like this:
 
-```{.yaml filename="brand.yml"}
+```{.yaml filename="brand.yml" shortcodes="false"}
 color:
   palette:
     orange: "#F96302"
