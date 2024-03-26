@@ -18,6 +18,30 @@
         description: >
           The font settings for monospace text. Color in this context refers to inline code.
         ref: brand-typography-options
+      emphasis:
+        description: The text properties used for emphasized (or emboldened) text.
+        object:
+          closed: true
+          properties:
+            weight:
+              ref: brand-font-weight
+            color:
+              ref: brand-maybe-named-color
+            background-color:
+              ref: brand-maybe-named-color
+      link:
+        description: The text properties used for hyperlinks.
+        object:
+          closed: true
+          properties:
+            weight:
+              ref: brand-font-weight
+            decoration: string
+            color:
+              ref: brand-maybe-named-color
+              default: primary
+            background-color:
+              ref: brand-maybe-named-color
       
 - id: brand-typography-options
   description: Typographic options.
