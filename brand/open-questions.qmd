@@ -56,6 +56,9 @@ and semantic colors in the `theme` section of `color`.
 For example, [Home Depot](../examples/brand-guidelines/home-depot/index.qmd) defines orange as `#F96302`.
 The `brand.yml` author wants to use this specific color for as the primary accent color.
 
+Below I've outlines several approaches.
+You can also find more detailed examples in the [Color brand specficication](color.qmd#re-using-fields).
+
 ### Sass-like variables
 
 One option is to use Sass-like variables.
@@ -72,7 +75,18 @@ This option is very close to how the variables are used in scss files,
 but the `brand.yml` intends to support more formats than Sass and CSS outputs.
 
 Additionally, `$orange` implies a top-level `orange` field,
-but is actually defined in `color.orange`.
+but is actually defined in `color.palette.orange`.
+
+Because these names are provided by users, it might be better to use a prefix like `$palette-` for the Sass variables.
+(If it were easier to extract items from a Sass map, we'd use that instead, but `map-get($palette, orange)` isn't user-friendly.)
+
+```{.yaml filename="brand.yml"}
+color:
+  palette:
+    orange: "#F96302"
+  theme:
+    primary: "$palette-orange"
+```
 
 ### Native YAML anchors and aliases
 
