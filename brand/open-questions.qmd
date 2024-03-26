@@ -77,16 +77,33 @@ but the `brand.yml` intends to support more formats than Sass and CSS outputs.
 Additionally, `$orange` implies a top-level `orange` field,
 but is actually defined in `color.palette.orange`.
 
-Because these names are provided by users, it might be better to use a prefix like `$palette-` for the Sass variables.
-(If it were easier to extract items from a Sass map, we'd use that instead, but `map-get($palette, orange)` isn't user-friendly.)
+Because these names are provided by users, it might be better to use a prefix like `$brand-` for the Sass variables.
+(If it were easier to extract items from a Sass map, we'd use that instead, but `map-get($brand, orange)` isn't user-friendly.)
 
 ```{.yaml filename="brand.yml"}
 color:
   palette:
     orange: "#F96302"
   theme:
-    primary: "$palette-orange"
+    primary: "$brand-orange"
 ```
+
+### CSS-like variables
+
+Yet another option could be to use a CSS-like syntax:
+
+```{.yaml filename="brand.yml"}
+color:
+  palette:
+    orange: "#F96302"
+  theme:
+    primary: "--brand-orange"
+typography:
+  heading:
+    color: "--brand-primary"
+```
+
+In this approach, we could easily detect `--brand-` variables and replace them with the appropriate values or wrap them in `var(--brand-...)` in CSS.
 
 ### Native YAML anchors and aliases
 

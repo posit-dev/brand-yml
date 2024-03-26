@@ -183,7 +183,7 @@ color:
     dark: "{{< brand color palette gray >}}"
 ```
 
-Alternatively, assuming that all the colors in `color.palette` become top-level Sass variables (maybe an only okay idea), we could use Sass-alike custom syntax, with a `palette-` prefix to avoid global namespace conflicts.
+Alternatively, assuming that all the colors in `color.palette` become top-level Sass variables (maybe an only okay idea), we could use Sass-alike custom syntax, with a `brand-` prefix to avoid global namespace conflicts.
 
 ```{.yaml filename="brand.yml (reusing colors)"}
 color:
@@ -197,16 +197,42 @@ color:
     burgundy: "#9A4665"
   theme:
     foreground: "#151515"
-    background: "$palette-white"
-    primary: "$palette-blue"
+    background: "$brand-white"
+    primary: "$brand-blue"
     secondary: "#707073"
     tertiary: "#C2C2C4"
-    success: "$palette-green"
-    info: "$palette-teal"
-    warning: "$palette-orange"
-    danger: "$palette-burgundy"
-    light: "$palette-white"
-    dark: "$palette-gray"
+    success: "$brand-green"
+    info: "$brand-teal"
+    warning: "$brand-orange"
+    danger: "$brand-burgundy"
+    light: "$brand-white"
+    dark: "$brand-gray"
+```
+
+Or, possibly just as good, we could use CSS variable declarations.
+
+```{.yaml filename="brand.yml (reusing colors)"}
+color:
+  palette:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+  theme:
+    foreground: "#151515"
+    background: --brand-white
+    primary: "--brand-blue"
+    secondary: "#707073"
+    tertiary: "#C2C2C4"
+    success: "--brand-green"
+    info: "--brand-teal"
+    warning: "--brand-orange"
+    danger: "--brand-burgundy"
+    light: "--brand-white"
+    dark: "--brand-gray"
 ```
 
 Finally, without a custom re-usable field implementation, expert YAML users could use native YAML anchor and alias features.
