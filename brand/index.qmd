@@ -20,13 +20,12 @@ color:
   theme:              # <4>
     # semantic colors # <4>
 
-font: # <5>
-  heading: # <5>
-  body: # <5>
-  monospace: # <5>
-
-typography: # <6>
-  # basic rules # <6>
+typography:
+  fonts: #<5>
+    # Font definitionas # <5>
+  base: # <6>
+  headings: # <6>
+  monospace: # <6>
 
 options: # <7>
   # basic non-color theme settings # <7>
@@ -51,9 +50,9 @@ format: # <8>
 
 1. [color.theme](color.qmd#theme): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
 
-1. [font](font.qmd): Font definitions for `heading`, `body` and `monospace` fonts.
+1. [typography.fonts](typography.qmd#fonts): Font definitions for Google, remote or bundled fonts.
 
-1. [typography](typography.qmd): Font family, weight, style, color, and line height for key elements, e.g. headings at levels 1-6, body, blockquote, links, bold, italic, lists, etc.
+1. [typography](typography.qmd#typography): Font family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text.
 
 1. [options](options.qmd): Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
 

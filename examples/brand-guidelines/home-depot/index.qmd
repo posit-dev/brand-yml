@@ -12,22 +12,22 @@ link: https://corporate.homedepot.com/media/2020-thdf-brand-guidelines
 ## `brand.yml`
 
 ```yaml
-orange: "#F96302"
-white: "#FFFFFF"
-black: "#000000"
+color:
+  palette:
+    orange: "#F96302"
+    white: "#FFFFFF"
+    black: "#000000"
+  theme:
+    primary: orange
+    secondary: "#747474"
+    light: white
+    dark: black
 
-primary: $orange
-secondary: "#747474"
-light: $white
-dark: $black
-
-font:
-  heading:
-    family: Helvetica Nueue LT Pro
-    weight: bold
-    width: condensed
+typography:
   body:
     family: Helvetica Nueue LT Pro
-    weight: normal
+  headings:
+    family: Helvetica Nueue LT Pro Condensed
+    weight: bold
 ```
 :::

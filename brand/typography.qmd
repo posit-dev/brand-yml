@@ -1,24 +1,427 @@
 ---
-title: Typography
+title: Typograqphy
 pagetitle: "typography | brand.yml"
 ---
 
 ## About
 
-About...
+### Fonts
+
+The goal of the `font` property is to specify font files that should be included in the brand theme.
+The primary goal is to provide `brand.yml` consumers to find and download the fonts used by the brand.
+`brand.yml` authors only need to include fonts that are not installed on the system.
+In general, we support three font sources:
+
+* Google Fonts
+* Direct URLs
+* Fonts bundled with the `brand.yml`
+
+`brand.yml` tooling will be able to provision fonts from Google and remote fonts to a local directory.
+Where these fonts are stored might be different depending on the output format.
+
+For bundled fonts, we should consider re-using Quarto extension or custom format infrastructure to make it possible to bundle and share `brand.yml` assets.
+See [Open Questions](open-questions.qmd#assets) for more details.
+
+### Typography
+
+Determining which fonts are used for key elements is a separate step.
+This ensures that the typography settings are independent of the font source,
+and it makes it easier for us to handle the font-downloading tasks by focusing only on the `typography.fonts` property.
+
+The `typography` property is used to specify the fonts and some basic typographic settings for key content types:
+
+`base`
+:    The type used as the default text, primarily in the document body.
+
+`headings`
+:    The type used for headings.
+
+`monospace`
+:    The type used for code blocks and other monospaced text.
+
+In the future we can consider adding more types, such as `h1`, `h2`, etc., or `blockquote`, `links`, etc.
 
 ## Example
 
-```{.yaml filename="brand.yml (simple)"}
+```{.yaml filename="brand.yml"}
+typography:
+  font:
+    - google: "Open Sans"
+    - google: "Fira Code"
+    - google:
+        family: "Roboto Slab"
+        weight: 600
+        style: normal
+        display: block
 
-```
-
-```{.yaml filename="brand.yml (full)"}
-
+  base:
+    family: "Open Sans"
+    line-height: 1.25
+    size: 1rem
+  headings:
+    family: "Roboto Slab"
+    color: primary
+    weight: 600
+  monospace:
+    family: "Fira Code"
+    size: 0.9em
 ```
 
 ## Spec
 
 ```{.yaml}
-{{< include spec/typography.yml >}}
+{{< include spec/brand-typography.yml >}}
+```
+
+## Font Customization in R and Quarto
+
+### Bootstrap
+
+* [Bootstrap typography docs](https://getbootstrap.com/docs/5.3/content/typography/)
+* Font-related variables in [scss/_variables.scss](https://github.com/twbs/bootstrap/blob/9480a3d01d12968f8c0b06cf62d9554120ae1639/scss/_variables.scss#L600-L723)
+
+```{.scss}
+$font-family-sans-serif:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace:   SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+// --
+$font-family-base:        var(--#{$prefix}font-sans-serif) !default;
+$font-family-code:        var(--#{$prefix}font-monospace) !default;
+
+// $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// $font-size-base affects the font size of the body text
+$font-size-root:          null !default;
+$font-size-base:          1rem !default; // Assumes the browser default, typically `16px`
+// --
+$headings-font-family:    null !default;
+$headings-font-style:     null !default;
+$headings-font-weight:    500 !default;
+$headings-line-height:    1.2 !default;
+$headings-color:          inherit !default;
+// --
+$display-font-family:     null !default;
+$display-font-style:      null !default;
+$display-font-weight:     300 !default;
+$display-line-height:     $headings-line-height !default;
+// --
+$input-btn-font-family:   null !default;
+$input-btn-font-size:     $font-size-base !default;
+$input-btn-line-height:   $line-height-base !default;
+// --
+$btn-font-family:         $input-btn-font-family !default;
+$btn-font-size:           $input-btn-font-size !default;
+$btn-line-height:         $input-btn-line-height !default;
+// --
+$input-font-family:       $input-btn-font-family !default;
+$input-font-size:         $input-btn-font-size !default;
+$input-font-weight:       $font-weight-base !default;
+$input-line-height:       $input-btn-line-height !default;
+```
+
+### bslib
+
+<figure>
+```markdown
+---
+output:
+  html_document:
+    theme:
+      base_font:
+        google: "Inter"
+      code_font:
+        google: "Fira Code"
+      heading_font:
+        google: "Roboto Slab"
+---
+```
+<figcaption>R Markdown document example ([source](https://rstudio.github.io/bslib/articles/theming/index.html#main-colors))</figcaption>
+</figure>
+
+```r
+bs_theme(
+  base_font = font_google("Inter"),
+  code_font = font_google("Fira Code"),
+  heading_font = font_google("Roboto Slab")
+)
+```
+
+<figure>
+```r
+font_google(
+  family,
+  local = TRUE,
+  cache = sass_file_cache(sass_cache_context_dir()),
+  wght = NULL,
+  ital = NULL,
+  display = c("swap", "auto", "block", "fallback", "optional")
+)
+```
+<figcaption>`font_google()` is [exported from sass](https://rstudio.github.io/sass/reference/font_face.html)</figcaption>
+</figure>
+
+<details><summary>Details</summary>
+
+`family`
+:    A character string with a _single_ font family name.
+
+`local`
+:    Whether or not download and bundle local (woff2) font files.
+
+`cache`
+:    A [sass_file_cache()](https://rstudio.github.io/sass/reference/sass_file_cache.html) object (or, more generally, a file caching class with `$get_file()` and `$set_file()` methods). Set this argument to `FALSE` or `NULL` to disable caching.
+
+`wght`
+:    One of the following:
+
+    - `NULL`, the default weight for the `family`.
+    - A character string defining an [axis range](https://developers.google.com/fonts/docs/css2#axis_ranges)
+    - A numeric vector of desired font weight(s).
+    
+
+`ital`
+:    One of the following:
+
+    - `NULL`, the default `font-style` for the `family`.
+    - `0`, meaning `font-style: normal`
+    - `1`, meaning `font-style: italic`
+    - `c(0, 1)`, meaning both `normal` and `italic`
+    
+
+`display`
+:    A character vector for the `font-display` `@font-face` property.
+</details>
+
+### pkgdown
+
+<figure>
+```{.yaml}
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
+```
+<figcaption>Basic pkgdown example ([source](https://pkgdown.r-lib.org/articles/customise.html?q=font#bslib-variables))</figcaption>
+</figure>
+
+<figure>
+```{.yaml}
+template:
+  bslib:
+    base_font:
+      google: 
+        family: Open Sans
+        wght: [300, 400, 500]
+    code_font: 
+      google: Source Code Pro
+    sans_font: Open Sans
+    heading_font: Open Sans
+    headings-font-weight: 300
+```
+<figcaption>Complicated font example ([source](https://github.com/rstudio/positthemes/blob/main/pkgdown/_pkgdown.yml))</figcaption>
+</figure>
+
+### Quarto
+
+#### HTML
+
+Provides `mainfont` and `monofont` in [Basic Options](https://quarto.org/docs/output-formats/html-themes.html#basic-options).
+These are used by [src/resources/foramts/html/pandoc/styles.html](https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/pandoc/styles.html).
+Note that a corresponding setting for headings is not included.
+
+<figure>
+```{.scss}
+@import 'https://fonts.googleapis.com/css?family=Lato';
+
+h1, h2, h3, h4, p {
+  font-family: 'Lato', Arial, sans-serif;
+}
+```
+<figcaption>Quarto in-the-wild example ([nhsr-quarto](https://github.com/nhs-r-community/intro-git-github/blob/0fe318eb993ecdf483f96b3e64e3cb3c23f8935b/nhsr-quarto.scss#L11-L15))</figcaption>
+</figure>
+
+#### Presentations
+
+Similar to HTML documents, it appears that Boostrap Sass variables have been [replicated for revealjs](https://quarto.org/docs/presentations/revealjs/themes.html#fonts), with some Sass variables of their own:
+
+* `$font-family-sans-serif`
+* `$font-family-monospace`
+* `$presentation-heading-font`
+
+```{.scss}
+// fonts
+$font-family-sans-serif: "Palatino Linotype", "Book Antiqua", Palatino,
+  FreeSerif, serif !default;
+
+$presentation-heading-font: "Palatino Linotype", "Book Antiqua", Palatino,
+  FreeSerif, serif !default;
+$presentation-heading-color: #383d3d !default;
+```
+
+#### Typst
+
+Typst [only supports `mainfont`](https://quarto.org/docs/output-formats/typst.html#fonts-support)
+
+```{.yaml}
+format: 
+  typst:
+    mainfont: "Agbalumo"
+    font-paths: myfonts
+```
+
+#### PDF
+
+Uses `mainfont`, `sansfont` and `monofont`, which, for `xelatex` (the default LaTeX engine), need to be installed on the system. ([Source](https://github.com/quarto-dev/quarto-cli/blob/86248b461b8def45396305a32567ec91ea7ff2ec/src/resources/formats/pdf/pandoc/template.tex#L124-L132))
+
+## Appendix - Variations
+
+```{.yaml filename="brand.yml (simple)"}
+font:
+  base: "Open Sans"
+  headings: 
+    google: "Roboto Slab"
+  monospace:
+    google: "Fira Code"
+```
+
+```{.yaml filename="brand.yml (full)"}
+font:
+  base: "Open Sans"
+  headings: 
+    google: 
+      family: "Roboto Slab"
+      weight: [600, 800]
+      style: normal
+      display: block
+  monospace:
+    google: 
+      family: "Fira Code"
+      weight: 300
+  galada:
+    family: "Galada"
+    files: "fonts/Galada-Regular.ttf"
+  oswald:
+    family: "Oswald"
+    files:
+      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf
+      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf
+```
+
+Alternatively, the `font` property could be limited to just defining the fonts that should be installed on the system.
+
+```{.yaml filename="brand.yml (separate font and typography)"}
+font:
+  - google: "Fira Code"
+  - google: 
+      family: "Roboto Slab"
+      weight: [600, 800]
+      style: normal
+      display: block
+  - family: "Galada"
+    files: "fonts/Galada-Regular.ttf"
+  - family: "Oswald"
+    files:
+      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf
+      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf
+
+typography:
+  base: 
+    family: "Open Sans"
+  headings: 
+    family: "Roboto Slab"
+  monospace: 
+    family: "Fira Code"
+```
+
+Another approach would be to nest `fonts` under `typography`:
+
+```{.yaml filename="brand.yml (nested font and typography)"}
+typography:
+  fonts:
+    - google: "Fira Code"
+    - google: 
+        family: "Roboto Slab"
+        weight: [600, 800]
+        style: normal
+        display: block
+    - family: "Galada"
+      files: "fonts/Galada-Regular.ttf"
+    - family: "Oswald"
+      files:
+        - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf
+        - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf
+  base: 
+    family: "Open Sans"
+    weight: 400
+    line-height: 1.5
+  headings: 
+    family: "Roboto Slab"
+    color: "--primary"
+  monospace: 
+    family: "Fira Code"
+```
+
+```{.yaml filename="brand.yml (nested font and typography)"}
+typography:
+  fonts:
+    - google: "Fira Code"
+    - google: "Roboto Slab"
+    - google: "Open Sans"
+  base: 
+    family: "Open Sans"
+    weight: 400
+    line-height: 1.5
+  headings: 
+    family: "Roboto Slab"
+    color: "--primary"
+  monospace: 
+    family: "Fira Code"
+```
+
+```{.yaml filename="brand.yml (nested font and typography)"}
+typography:
+  base: 
+    family: 
+      google: "Open Sans"
+    location: google
+    weight: 400
+    line-height: 1.5
+  headings: 
+    family: 
+      google: "Roboto Slab"
+    location:
+      - fonts/Roboto Slab Regular.ttf
+      - fonts/Roboto Slab Bold.ttf
+    color: "--brand-primary"
+  monospace: 
+    family: 
+      google: "Fira Code"
+  h2:
+    family: Open Sans
+    weight: 300
+    color: black
+```
+
+Or `font` could be a property of any `typography` element.
+This makes `font-` properties more consistent, e.g. `font.family`, `font.weight`, etc., but it also makes `typography` items more complex
+(which properties are nested under `font` and which aren't?).
+
+```{.yaml filename="brand.yml (font in typography)"}
+typography:
+  base:
+    font: 
+      family: "Open Sans"
+      weight: 400
+    line-height: 1.5
+  headings:
+    font:
+      google:
+        family: "Roboto Slab"
+        weight: [600, 800]
+        style: normal
+        display: block
+    color: "--primary"
+  monospace:
+    font:
+      google: "Fira Code"
 ```

@@ -67,3 +67,28 @@
             link:
               description: The color used for hyperlinks. Defaults to the primary color.
               schema: string
+
+- id: brand-maybe-named-color
+  description: >
+    A color, which may be a named brand color.
+  oneOf:
+    - ref: brand-named-theme-color
+    - schema: string
+
+- id: brand-named-theme-color
+  description: >
+    A named brand color, taken either from `color.theme` or `color.palette` (in that order).
+  enum: 
+    [
+      primary,
+      secondary,
+      tertiary,
+      success,
+      info,
+      warning,
+      danger,
+      light,
+      dark,
+      emphasis,
+      link
+    ]

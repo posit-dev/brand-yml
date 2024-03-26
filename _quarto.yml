@@ -21,15 +21,15 @@ website:
       contents:
         - href: index.qmd
           text: Design Goals
+        - brand/open-questions.qmd
+        - text: "----"
         - href: brand/index.qmd
           text: Structure
-        - brand/open-questions.qmd
         - section: Brand Elements
           contents:
           - brand/meta.qmd
           - brand/logo.qmd
           - brand/color.qmd
-          - brand/font.qmd
           - brand/typography.qmd
           - brand/options.qmd
           - brand/variable-and-format.qmd

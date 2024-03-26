@@ -19,6 +19,11 @@ In many cases, users will want to include static assets, including:
 * LaTeX includes
 * custom fonts
 
+We should consider using 
+[Quarto extensions](https://quarto.org/docs/extensions/)
+to bundle brand assets as [a custom format](https://quarto.org/docs/extensions/listing-formats.html)
+or as [a starter template](https://quarto.org/docs/extensions/starter-templates.html).
+
 ## Light/dark themes?
 
 Should `light` and `dark` be high up in the tree or on each field?
@@ -120,7 +125,7 @@ color:
   theme:
     primary: "--brand-orange"
 typography:
-  heading:
+  headings:
     color: "--brand-primary"
 ```
 

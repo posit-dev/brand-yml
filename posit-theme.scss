@@ -108,6 +108,9 @@ figure {
   img {
     @extend .shadow-sm;
   }
+  .sourceCode {
+    margin-bottom: 0;
+  }
 }
 
 .quarto-figure {

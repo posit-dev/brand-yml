@@ -1,0 +1,125 @@
+- id: brand-typography
+  description: Typography definitions for the brand.
+  object:
+    closed: true
+    properties:
+      font:
+        description: Font files and definitions for the brand.
+        ref: brand-font
+      base:
+        description: >
+          The base font settings for the brand. These are used as the default for all text.
+        ref: brand-typography-options
+      headings:
+        description: >
+          The font settings for headings.
+        ref: brand-typography-options-no-size
+      monospace:
+        description: >
+          The font settings for monospace text. Color in this context refers to inline code.
+        ref: brand-typography-options
+      
+- id: brand-typography-options
+  description: Typographic options.
+  object:
+    closed: true
+    properties:
+      family: string
+      size: string
+      line-height: string
+      weight: 
+        ref: brand-font-weight
+      style:
+        ref: brand-font-style
+      color: 
+        ref: brand-maybe-named-color
+      background-color:
+        ref: brand-maybe-named-color
+
+- id: brand-typography-options-no-size
+  description: Typographic options without a font size.
+  object:
+    closed: true
+    properties:
+      family: string
+      line-height: string
+      weight: 
+        ref: brand-font-weight
+      style:
+        ref: brand-font-style
+      color: 
+        ref: brand-maybe-named-color
+      background-color:
+        ref: brand-maybe-named-color
+
+- id: brand-font
+  description: Font files and definitions for the brand.
+  arrayOf:
+    anyOf:
+      - ref: brand-font-google
+      - ref: brand-font-file
+      - ref: brand-font-family
+
+- id: brand-font-weight
+  description: A font weight.
+  enum: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+  default: 400
+
+- id: brand-font-style
+  description: A font style.
+  enum: [normal, italic]
+  default: normal
+
+- id: brand-font-google
+  description: A Google Font definition.
+  object:
+    closed: true
+    properties:
+      google:
+        anyOf:
+          - string
+          - object:
+              closed: true
+              properties:
+                family:
+                  description: The font family name, which must match the name of the font on Google Fonts.
+                  schema: string
+                weight:
+                  description: The font weights to include.
+                  maybeArrayOf:
+                    ref: brand-font-weight         
+                  default: [400, 700]
+                style:
+                  description: The font style to include.
+                  maybeArrayOf:
+                    ref: brand-font-style
+                  default: [normal, italic]
+                display:
+                  description: >
+                    The font display method, determines how a font face is font face is shown 
+                    depending on its download status and readiness for use.
+                  enum: [auto, block, swap, fallback, optional]
+                  default: swap
+
+- id: brand-font-file
+  description:
+    A method for providing font files directly, either locally or from an online location.
+  object:
+    closed: true
+    properties:
+      family:
+        description: The font family name.
+        schema: string
+      files:
+        maybeArrayOf:
+          anyOf: [path, string]
+        description: >
+          The font files to include. These can be local or online.
+          Local file paths should be relative to the `brand.yml` file.
+          Online paths should be complete URLs.
+
+- id: brand-font-family
+  description: >
+    A locally-installed font family name. When used, the end-user is responsible
+    for ensuring that the font is installed on their system.
+  schema: string    

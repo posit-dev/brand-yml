@@ -9,3 +9,7 @@
 - name: color
   schema:
     ref: brand-color
+
+- name: typography
+  schema:
+    ref: brand-typography
