@@ -1,6 +1,25 @@
 ---
 title: "brand.yml Structure"
 code-annotations: select
+
+brand-meta: >
+  Key identity information, name of the company, links to brand guidelines, etc.
+brand-logo: >
+  Files or links to the brand's logo at various sizes.
+brand-palette: >
+  Named colors in the brand's color palette.
+brand-theme: >
+  Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+brand-fonts: >
+  Font definitions for Google, remote or bundled fonts.
+brand-typography: >
+  Font family, weight, style, color, and line height for key elements, 
+  e.g. base, headings and monospace text.
+brand-options: >
+  Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
+brand-variables: >
+  Format-specific style variables and options. Style variables would be used by the various
+  pre-processors and the `format` item could be merged into the quarto `format` frontmatter key.
 ---
 
 
@@ -22,7 +41,7 @@ color:
 
 typography:
   fonts: #<5>
-    # Font definitionas # <5>
+    # Font definitions # <5>
   base: # <6>
   headings: # <6>
   monospace: # <6>
@@ -30,7 +49,7 @@ typography:
 options: # <7>
   # basic non-color theme settings # <7>
 
-variable: # <8>
+variables: # <8>
   html: ~ # <8>
   pdf: ~ # <8>
   remarkjs: ~ # <8>
@@ -42,47 +61,47 @@ format: # <8>
   <format>: ~ # <8>
 ```
 
-1. [meta](meta.qmd): Key identity information, name of the company, links to brand guidelines, etc.
+1. [meta](meta.qmd): {{< meta brand-meta >}}
 
-1. [logo](logo.qmd): Files or links to the brand's logo at various sizes.
+1. [logo](logo.qmd): {{< meta brand-logo >}}
 
-1. [color.palette](color.qmd#color): Named colors in the brand's color palette.
+1. [color.palette](color.qmd#color): {{< meta brand-palette >}}
 
-1. [color.theme](color.qmd#theme): Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
+1. [color.theme](color.qmd#theme): {{< meta brand-theme >}}
 
-1. [typography.fonts](typography.qmd#fonts): Font definitions for Google, remote or bundled fonts.
+1. [typography.fonts](typography.qmd#fonts): {{< meta brand-fonts >}}
 
-1. [typography](typography.qmd#typography): Font family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text.
+1. [typography](typography.qmd#typography): {{< meta brand-typography >}}
 
-1. [options](options.qmd): Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
+1. [options](options.qmd): {{< meta brand-options >}}
 
-1. [variable, format](variable-and-format.qmd): Format-specific style variables and options. Style variables would be used by     the various pre-processors and the `format` item could be merged into the quarto `format` frontmatter key.
+1. [variables, format](variables-and-format.qmd): {{< meta brand-variables >}}
 
 ## Description
 
 [meta](meta.qmd)
-:    Key identity information, name of the company, links to brand guidelines, etc.
+:    {{< meta brand-meta >}}
 
 [logo](logo.qmd)
-:    Files or links to the brand's logo at various sizes.
+:    {{< meta brand-logo >}}
 
-[color](color.qmd)
-:    Named colors in the brand's color `palette` and semantic `theme` colors (e.g. `primary`, `secondary`, `success`, `warning`, etc.)
+[color.palette](color.qmd#color)
+:    {{< meta brand-palette >}}
 
-[font](font.qmd)
-:    Font definitions for `heading`, `body` and `monospace` fonts.
+[color.theme](color.qmd#theme)
+:    {{< meta brand-theme >}}
 
-[typography](typography.qmd)
-:    Font family, weight, style, color, and line height for key elements, 
-     e.g. headings at levels 1-6, body, blockquote, links, bold, italic, lists, etc.
+[typography.fonts](typography.qmd#fonts)
+:    {{< meta brand-fonts >}}
+
+[typography](typography.qmd#typography)
+:    {{< meta brand-typography >}}
 
 [options](options.qmd)
-:    Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
+:    {{< meta brand-options >}}
 
-[variable, format](variable-and-format.qmd)
-:    Format-specific style variables and options. Style variables would be used by
-     the various pre-processors and the `format` item could be merged into the quarto
-     `format` frontmatter key.
+[variables, format](variables-and-format.qmd)
+:    {{< meta brand-variables >}}
 
 ## YAML Schema
 
