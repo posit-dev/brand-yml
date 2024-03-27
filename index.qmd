@@ -98,3 +98,11 @@ Users like Kendall and Jacqui will interact with `brand.yml` in three primary wa
 
     1.  This could mean that `brand.yml` tooling is flexible enough to store format-specific options, e.g. to encompass additional assets used in Shiny apps or Quarto websites, or format-specific options for Quarto PDF documents, etc.
     2.  Alternatively, `brand.yml` tooling could fit into larger, existing tools for sharing settings and formats, like R packages, Quarto custom formats, or a Shiny `html_dependency()`.
+
+## Next
+
+Jump to [brand.yml syntax](brand/index.qmd) to see the proposed structure the `brand.yml` file.
+
+I've also collected some [cross-cutting open questions](brand/open-questions.qmd) that need further thinking.
+
+Finally, I've included some [examples of brand guidelines](examples/index.qmd) found in the wild, as well as [examples of design systems](examples/index.qmd#design-systems) to provide inspiration.
