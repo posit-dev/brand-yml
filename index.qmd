@@ -61,7 +61,7 @@ On the other hand, Kendall doesn't want to spend too much time having to rely on
 
 Today, Jacqui was copied on emails from two of her reports who each used Quarto to create attached reports. But when she opened the reports, she was a little embarrassed that her team had sent out two reports with wildly different styles.
 
-Jacqui wants to get every one on her team on the same page. She started collected snippets of code and settings in a page on her departments Confluence space, but she can tell that very few people have even seen it, let alone have been using it.
+Jacqui wants to get everyone on her team on the same page. She started collected snippets of code and settings in a page on her department's Confluence space, but she can tell that very few people have even seen it, let alone have been using it.
 :::
 
 Users like Kendall and Jacqui will interact with `brand.yml` in three primary ways:
