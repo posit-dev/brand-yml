@@ -11,20 +11,22 @@ website:
 
   navbar:
     left:
-      - href: index.qmd
-        text: brand.yml
+      - text: Overview
+        href: index.qmd
+      - text: brand.yml
+        href: brand/index.qmd
       - text: "Examples"
         href: examples/index.qmd
 
   sidebar:
     - id: brand-yml
       contents:
-        - href: index.qmd
-          text: Design Goals
+        - text: Design Goals
+          href: index.qmd
         - brand/open-questions.qmd
         - text: "----"
-        - href: brand/index.qmd
-          text: Structure
+        - text: Structure
+          href: brand/index.qmd
         - section: Brand Elements
           contents:
           - brand/meta.qmd
