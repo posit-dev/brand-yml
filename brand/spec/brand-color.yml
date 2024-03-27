@@ -22,9 +22,11 @@
             foreground:
               description: The foreground color, used for text.
               schema: string
+              default: black
             background: 
               description: The background color, used for the page background.
               schema: string
+              default: white
             primary: 
               description: > 
                 The primary accent color, i.e. the main theme color. Typically used for
@@ -74,6 +76,8 @@
     A named brand color, taken either from `color.theme` or `color.palette` (in that order).
   enum: 
     [
+      foreground,
+      background,
       primary,
       secondary,
       tertiary,
