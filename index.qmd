@@ -1,17 +1,93 @@
 ---
-title: "brand.yml Design"
+title: "brand.yml"
+subtitle: "Design Exploration"
 ---
 
-Design exploration for `brand.yml` and `shinytheme`.
+## Unified branding with a simple YAML file
+
+Posit's open source tools provide an excellent experience for data professionals to quickly build web applications, web pages, emails and print documents. Quarto, in particular, offers authors the ability to write all of the above in a consistent markup format.
+
+Modifying outputs and settings to fit corporate brand guidelines, however, requires providing custom Sass or CSS files for web outputs or setting custom format options to configure PDF outputs to use the brand's preferred colors and fonts.
+
+We aim to unify branding through a single YAML file, dubbed `brand.yml`. This file collects color and typography information, extracted from the brand guidelines. Once authors have created a `brand.yml`, Quarto, R and Python tooling will be able to use this file to create basic themes that match the brand guidelines[^1].
+
+[^1]: At least at a first approximation.
 
 ```{mermaid}
 flowchart LR
     by{brand.yml}
-    by-->quarto
-    by-->bslib
-    bslib-->R[Shiny for R]
+    by-->Quarto
+    Quarto-->html
+    Quarto-->pdf
+    Quarto-->office
+    html-->documents
+    html-->websites
+    html-->emails
+    html-->presentations
+    html-->dashboards
+    
+    by-->R
+    R-->bslib
+    R-->thematic
+    bslib-->shiny-r[Shiny for R]
     bslib-->rmd[R Markdown]
-    by-->shinytheme
+    thematic-->ggplot2
+    thematic-->plot
+    
+    by-->Python
+    Python-->shinytheme
     shinytheme-->bs[bootstrap.min.css]
     shinytheme-->py[Shiny for Python]
 ```
+
+## User Journey
+
+To better connect with our users, consider Katrina Keener and Jacqui Smith, both data scientists **Genewise Therapeutics**, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.
+
+::: {.callout-note collapse="false"}
+### Kendall Keener
+
+**Kendall Keener** is a data scientist with a strong academic background in bioinformatics, in particular biology, genetics and statistical analysis. They frequently collaborates with bioligists and chemists to analyze data and present results in a clear an digestible format.
+
+Kendall uses both R and Python and has recently started using Quarto to create their reports, which they share with non-scientific stakeholders. They noticed that their reports garnered more attention when they started using Quarto, but they suspect that their reports would be even more impactful if they matched the look and feel of the company's branded reports.
+
+On the other hand, Kendall doesn't want to spend too much time having to rely on design teams for their reports, which often need to be re-created when data changes. Once, they tried to learn CSS but found it too complex and intimidating to learn in a few hours, so they settled on a Bootswatch theme that's "close enough" to Genewise's brand.
+:::
+
+::: {.callout-note collapse="false"}
+### Jacqui Smith
+
+**Jacqui Smith** leads a team of data scientists, including Kendall, at Genewise. She's noticed that Kendall isn't the only person on their small team who could benefit from branded reporting. She has been considering talking to a designer she knows on the marketing department, but it's been hard to coordinate a time to meet and the designer sounded confused when he heard about Quarto.
+
+Today, Jacqui was copied on emails from two of her reports who each used Quarto to create attached reports. But when she opened the reports, she was a little embarrassed that her team had sent out two reports with wildly different styles.
+
+Jacqui wants to get every one on her team on the same page. She started collected snippets of code and settings in a page on her departments Confluence space, but she can tell that very few people have even seen it, let alone have been using it.
+:::
+
+Users like Kendall and Jacqui will interact with `brand.yml` in three primary ways:
+
+1.  **Creating a `brand.yml` file**. Kendall has found Genewise's internal branding guidelines. As they're reading through these guidelines, they notice that the guidelines recommend a specific set of colors and fonts. They also find copies of their companies logo, along with several pages of *do this not that* examples.\
+    \
+    At this stage, Kendall wants to codify the best practices mentioned in the brand guidelines into a simple, human readable format. They're excited that they only need to do this once, but they do make a note of the link to brand guidelines, just in case.\
+    \
+    While they have it open, they download the logo files and store them next in the same folder as the `brand.yml` file they're working on.
+
+2.  **Using and sharing the `brand.yml`** **file.** When Kendall shared their new report style with their manager, Jacqui was thrilled. Immediately, she asked everyone on her team to start using the new branded styles. Thanks to Quarto's simple interface, everyone on the team could run a single command to bring the brand assets into their projects and documents, including the logos that Kendall downloaded.\
+    \
+    The next time two members of her team sent out reports on the same day, both attachments looked coherent and professional. She's just as thrilled when she opens up the experiment-tracking Shiny dashboard her team built for a biology group and the Shiny app looks custom-built for Genewise.
+
+3.  **Updating branding tweaks and format settings.** After a few weeks of using the branded theme for her reports, Jacqui needs to present to the C suite. She uses the new brand files to create her presentation, but it's just a little *off*. Thankfully she's able to grab some time with the designer, who gives her a small CSS file that really brings the design home.\
+    \
+    Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their `brand.yml` repository. She also realizes that everyone else would likely also want to use her settings for `slide-number` and `title-slide-attributes`, so she updates the `brand.yml` with these new values for the `revealjs` format.
+
+## Design Considerations
+
+1.  It needs to be easy to translate brand guidelines into the structured format of a `brand.yml` file.
+2.  We aim for *Good Enough theming.* A `brand.yml` is a great place to start and for most people will be all they need.
+3.  A YAML file alone isn't enough. There will be additional assets, like logos and style sheets.
+4.  Users will want to create new documents, projects or apps with the `brand.yml` and related assets.
+5.  Users will want to incorporate the branded theme into existing documents, projects and apps.
+6.  Using `brand.yml` should not impede localized customizations.
+7.  Because the `brand.yml` is by design incomplete for any given output format, it needs to fit into a workflow that makes specific outputs formats shareable and reproducible.
+    1.  This could mean that `brand.yml` tooling is flexible enough to store format-specific options, e.g. to encompass additional assets used in Shiny apps or Quarto websites, or format-specific options for Quarto PDF documents, etc.
+    2.  Alternatively, `brand.yml` tooling could fit into larger, existing tools for sharing settings and formats, like R packages, Quarto custom formats, or a Shiny `html_dependency()`.
