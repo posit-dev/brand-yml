@@ -94,16 +94,17 @@ template: # <7>
 [template](template.qmd)
 :    {{< meta brand-template >}}
 
-## YAML Schema
+## YAML schema
 
 ```{.yaml filename="spec/brand.yml"}
 {{< include spec/brand.yml >}}
 ```
 
 ::: {.callout collapse="true"}
-### Brand Schema Definitions
+### Additional brand schema definitions
 
-Additional schema definitions used throughout the `brand.yml` spec.
+Each of the brand fields have their own schema definition on their section pages.
+Below are additional schema definitions that may appear used throughout the `brand.yml` spec.
 
 ```{.yaml}
 {{< include spec/brand_definitions.yml >}}
