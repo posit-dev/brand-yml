@@ -66,28 +66,35 @@ Jacqui wants to get every one on her team on the same page. She started collecte
 
 Users like Kendall and Jacqui will interact with `brand.yml` in three primary ways:
 
-1.  **Creating a `brand.yml` file**. Kendall has found Genewise's internal branding guidelines. As they're reading through these guidelines, they notice that the guidelines recommend a specific set of colors and fonts. They also find copies of their companies logo, along with several pages of *do this not that* examples.\
-    \
-    At this stage, Kendall wants to codify the best practices mentioned in the brand guidelines into a simple, human readable format. They're excited that they only need to do this once, but they do make a note of the link to brand guidelines, just in case.\
-    \
-    While they have it open, they download the logo files and store them next in the same folder as the `brand.yml` file they're working on.
+1.  **Creating a `brand.yml` file**. Kendall has found Genewise's internal branding guidelines. As they're reading through these guidelines, they notice that the guidelines recommend a specific set of colors and fonts. They also find copies of their companies logo, along with several pages of *do this not that* examples.
 
-2.  **Using and sharing the `brand.yml`** **file.** When Kendall shared their new report style with their manager, Jacqui was thrilled. Immediately, she asked everyone on her team to start using the new branded styles. Thanks to Quarto's simple interface, everyone on the team could run a single command to bring the brand assets into their projects and documents, including the logos that Kendall downloaded.\
-    \
+    At this stage, Kendall wants to codify the best practices mentioned in the brand guidelines into a simple, human readable format. They're excited that they only need to do this once, but they do make a note of the link to brand guidelines, just in case.
+
+    While they have the brand guidelines open, they download the logo files and store them next in the same folder as the `brand.yml` file they're working on.
+
+2.  **Using and sharing the `brand.yml`** **file.** When Kendall shared their new report style with their manager, Jacqui was thrilled. Immediately, she asked everyone on her team to start using the new branded styles. Thanks to Quarto's simple interface, everyone on the team could run a single command to bring the brand assets into their projects and documents, including the logos that Kendall downloaded.
+
     The next time two members of her team sent out reports on the same day, both attachments looked coherent and professional. She's just as thrilled when she opens up the experiment-tracking Shiny dashboard her team built for a biology group and the Shiny app looks custom-built for Genewise.
 
-3.  **Updating branding tweaks and format settings.** After a few weeks of using the branded theme for her reports, Jacqui needs to present to the C suite. She uses the new brand files to create her presentation, but it's just a little *off*. Thankfully she's able to grab some time with the designer, who gives her a small CSS file that really brings the design home.\
-    \
+3.  **Updating branding tweaks and format settings.** After a few weeks of using the branded theme for her reports, Jacqui needs to present to the C suite. She uses the new brand files to create her presentation, but it's just a little *off*. Thankfully she's able to grab some time with the designer, who gives her a small CSS file that really brings the design home.
+
     Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their `brand.yml` repository. She also realizes that everyone else would likely also want to use her settings for `slide-number` and `title-slide-attributes`, so she updates the `brand.yml` with these new values for the `revealjs` format.
 
 ## Design Considerations
 
 1.  It needs to be easy to translate brand guidelines into the structured format of a `brand.yml` file.
+
 2.  We aim for *Good Enough theming.* A `brand.yml` is a great place to start and for most people will be all they need.
+
 3.  A YAML file alone isn't enough. There will be additional assets, like logos and style sheets.
+
 4.  Users will want to create new documents, projects or apps with the `brand.yml` and related assets.
+
 5.  Users will want to incorporate the branded theme into existing documents, projects and apps.
+
 6.  Using `brand.yml` should not impede localized customizations.
+
 7.  Because the `brand.yml` is by design incomplete for any given output format, it needs to fit into a workflow that makes specific outputs formats shareable and reproducible.
+
     1.  This could mean that `brand.yml` tooling is flexible enough to store format-specific options, e.g. to encompass additional assets used in Shiny apps or Quarto websites, or format-specific options for Quarto PDF documents, etc.
     2.  Alternatively, `brand.yml` tooling could fit into larger, existing tools for sharing settings and formats, like R packages, Quarto custom formats, or a Shiny `html_dependency()`.
