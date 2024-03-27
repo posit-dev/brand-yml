@@ -13,3 +13,7 @@
 - name: typography
   schema:
     ref: brand-typography
+
+- name: template
+  schema:
+    ref: brand-template

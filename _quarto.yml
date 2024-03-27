@@ -31,8 +31,7 @@ website:
           - brand/logo.qmd
           - brand/color.qmd
           - brand/typography.qmd
-          - brand/options.qmd
-          - brand/variables-and-format.qmd
+          - brand/template.qmd
     - id: examples-brands
       title: Example Brand Guidelines
       contents: "examples/brand-guidelines/*/index.qmd"

@@ -15,11 +15,10 @@ brand-fonts: >
 brand-typography: >
   Font family, weight, style, color, and line height for key elements, 
   e.g. base, headings and monospace text.
-brand-options: >
-  Non-color related theme options, e.g. border radius, use of shadows or transparency, etc.
-brand-variables: >
-  Format-specific style variables and options. Style variables would be used by the various
-  pre-processors and the `format` item could be merged into the quarto `format` frontmatter key.
+brand-template: >
+  Additional context-specific settings beyond the basic brand colors and typography.
+  These could be options that are folded into existing Quarto yaml fields
+  like `format` or `website`, or they could be new fields for other contexts like `shiny`.
 ---
 
 
@@ -46,19 +45,16 @@ typography:
   headings: # <6>
   monospace: # <6>
 
-options: # <7>
-  # basic non-color theme settings # <7>
-
-variables: # <8>
-  html: ~ # <8>
-  pdf: ~ # <8>
-  remarkjs: ~ # <8>
-  <format>: ~ # <8>
-
-format: # <8>
-  html: ~ # <8>
-  pdf: ~ # <8>
-  <format>: ~ # <8>
+template: # <7>
+  format: # <7>
+    # basic format-specific settings  # <7>
+    html: # <7>
+    pdf:  # <7>
+    revealjs: # <7>
+  website: # <7>
+    # website specific settings # <7>
+  shiny: # <7>
+    # shiny specific settings # <7>
 ```
 
 1. [meta](meta.qmd): {{< meta brand-meta >}}
@@ -73,9 +69,7 @@ format: # <8>
 
 1. [typography](typography.qmd#typography): {{< meta brand-typography >}}
 
-1. [options](options.qmd): {{< meta brand-options >}}
-
-1. [variables, format](variables-and-format.qmd): {{< meta brand-variables >}}
+1. [template](template.qmd): {{< meta brand-template >}}
 
 ## Description
 
@@ -97,11 +91,8 @@ format: # <8>
 [typography](typography.qmd#typography)
 :    {{< meta brand-typography >}}
 
-[options](options.qmd)
-:    {{< meta brand-options >}}
-
-[variables, format](variables-and-format.qmd)
-:    {{< meta brand-variables >}}
+[template](template.qmd)
+:    {{< meta brand-template >}}
 
 ## YAML Schema
 

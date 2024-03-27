@@ -1,0 +1,31 @@
+- id: brand-template
+  description: >
+    Additional format or output-specific options, used as a template
+    for these settings in those contexts.
+  object:
+    properties:
+      format:
+        description: Quarto format options.
+        schema: object
+      website:
+        description: Quarto `website` options.
+        schema: object
+      book:
+        description: Quarto `book` options.
+        schema: object
+      bootstrap:
+        description: Bootstrap theme settings, similar to `bslib::bs_theme()`.
+        object:
+          closed: true
+          properties:
+            uses: string
+            functions: string
+            defaults:
+              description: Sass variables.
+              schema: object
+              namingConvention: kebab-case
+            mixins: string
+            rules: string
+      shiny:
+        description: Settings specific to Shiny applications.
+        schema: object

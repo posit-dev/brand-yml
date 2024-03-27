@@ -1,0 +1,87 @@
+---
+title: Template
+pagetitle: "template | brand.yml"
+---
+
+## About
+
+Individual formats and outputs can expose format-specific variables or options that are relevant to themes, but that can't be set globally.
+
+For example, [Quarto slides expose a set of Sass variables](https://quarto.org/docs/presentations/revealjs/themes.html#sass-variables) while HTML documents and Shiny apps [use Sass variables set by Bootstrap](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+
+On the other hand, some theme-relevant settings are actually format options, or are built on top of a base of format options.
+For example, when creating a branded Beamer presentation, its often easier to start with a known `theme` or `colortheme`.
+Or similarly, it might be easier in Bootstrap to start with a [Bootswatch theme](https://bootswatch.com/).
+
+A source of inspiration for this section is [pkgdown's approach to template packaging](https://pkgdown.r-lib.org/articles/customise.html#template-packages), where a source template provides the initial values for `_pkgdown.yml` settings that can be overridden in local instances.
+In this regard, the `template` section provides a template for the initial values of format- or output-specific settings.
+An alternative name for this section could be `settings`.
+
+
+## Example
+
+```{.yaml filename="brand.yml"}
+template:
+  format:
+    html:
+      toc: true
+      toc-location: left
+    beamer:
+      navigation: horizontal
+      theme: AnnArbor
+      colortheme: lily
+  bootstrap:
+    defaults:
+      enable-rounded: false
+      link-decoration: none
+  website:
+    body-footer: Copyright 2022-2024 Posit Software, PBC
+```
+
+## Spec
+
+```{.yaml}
+{{< include spec/brand-template.yml >}}
+```
+
+## Sources
+
+### Bootstrap
+
+Some of the most basic non-color concepts found in
+
+* <https://getbootstrap.com/docs/5.3/customize/options/>
+* <https://getbootstrap.com/docs/5.3/customize/css-variables/>
+
+If we have a `template.bootstrap` field, it would support the named section used by [theme Sass files in Quarto](https://quarto.org/docs/output-formats/html-themes-more.html).
+
+
+#### HTML basic options
+
+Example from [Quarto HTML documentation](https://quarto.org/docs/output-formats/html-themes.html#basic-options):
+
+```{.markdown}
+---
+title: "My Document"
+format:
+  html: 
+    theme: cosmo
+    fontsize: 1.1em
+    linestretch: 1.7
+---
+```
+
+#### Beamer options
+
+Example from [Quarto slides with beamer documentation](https://quarto.org/docs/presentations/beamer.html#beamer-options)
+
+```{.markdown}
+---
+format: 
+  beamer: 
+    aspectratio: 32
+    navigation: horizontal
+    theme: AnnArbor
+    colortheme: lily
+---
+```
