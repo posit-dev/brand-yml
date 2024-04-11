@@ -98,6 +98,53 @@ See [Posit brand guidelines](../examples/brand-guidelines/posit/index.qmd).
 
 ## Additional color features
 
+### Automatic color definitions
+
+For specific outputs formats, we will automatically make the brand color palette available.
+In HTML/Bootstrap settings, for instance, this would mean creating `$brand-{name}` (Sass) and `--brand-{name}` (CSS) variables for each color in `color.palette`.
+We could similarly define the brand colors in LaTeX and Typst formats.
+
+For example, using the following color palette definition
+
+```{.yaml filename="brand.yml (Posit)"}
+color:
+  palette:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+```
+
+would result in the following Sass for Bootstrap.
+
+```{.sass filename="brand.scss"}
+// Brand colors ---------
+$brand-blue: #447099;
+$brand-orange: #EE6331;
+$brand-gray: #404041;
+$brand-white: #FFFFFF;
+$brand-teal: #419599;
+$brand-green: #72994E;
+$brand-burgundy: #9A4665;
+
+:root {
+  --brand-blue: #{$brand-blue};
+  --brand-orange: #{$brand-orange};
+  --brand-gray: #{$brand-gray};
+  --brand-white: #{$brand-white};
+  --brand-teal: #{$brand-teal};
+  --brand-green: #{$brand-green};
+  --brand-burgundy: #{$brand-burgundy};
+}
+```
+
+In Boostrap, the `color.theme` variables are already Sass variables, e.g. `color.theme.primary` maps to the `$primary` Sass variable or the `--bs-primary` CSS variable.
+That said, for consistency we could also map the `color.theme` definitions to Sass/CSS variables, e.g. `$brand-primary` and `--brand-primary`.
+
+
 ### Shades and tints
 
 We can imagine extending the spec to help create shades and tints of the brand colors.
