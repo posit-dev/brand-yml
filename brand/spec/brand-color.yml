@@ -67,7 +67,7 @@
 - id: brand-maybe-named-color
   description: >
     A color, which may be a named brand color.
-  oneOf:
+  anyOf:
     - ref: brand-named-theme-color
     - schema: string
 
