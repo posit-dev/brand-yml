@@ -1,11 +1,17 @@
 - id: brand-logo
   description: >
-    Provide links to the brand's logo in various formats and sizes.
+    Provide definitions and defaults for brand's logo in various formats and sizes.
   anyOf:
     - string
     - object:
         closed: true
         properties:
+          with:
+            schema:
+              object:
+                additionalProperties:
+                  schema:
+                    ref: brand-string-light-dark
           small:
             description: >
               A link or path to the brand's small-sized logo or icon, or a link or path

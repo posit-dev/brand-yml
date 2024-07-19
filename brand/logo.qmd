@@ -29,6 +29,20 @@ logo:
   large: posit.svg
 ```
 
+```{.yaml filename="brand.yml (with files)"}
+logo:
+  with:
+    primary: posit-full-color.png
+    primary-svg: posit-full-color.svg
+    reverse: posit-full-color-reverse.png
+    black: posit-black.png
+    white: posit-white.png
+    icon: posit-favicon.png
+  small: icon
+  medium: primary
+  large: primrary-svg
+```
+
 ## Spec
 
 ```{.yaml}
