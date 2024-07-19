@@ -11,7 +11,7 @@ brand-palette: >
 brand-theme: >
   Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
 brand-fonts: >
-  Font definitions for Google, remote or bundled fonts.
+  Named font definitions for Google, remote or bundled fonts.
 brand-typography: >
   Font family, weight, style, color, and line height for key elements, 
   e.g. base, headings and monospace text.
@@ -29,6 +29,8 @@ meta:             # <1>
   # company stuff # <1>
 
 logo:     # <2>
+  with:   # <2>
+    # named logo files... # <2>
   small:   # <2>
   large:   # <2>
 
@@ -65,7 +67,7 @@ template: # <7>
 
 1. [color](color.qmd#theme): {{< meta brand-theme >}}
 
-1. [typography.fonts](typography.qmd#fonts): {{< meta brand-fonts >}}
+1. [typography.with](typography.qmd#fonts): {{< meta brand-fonts >}}
 
 1. [typography](typography.qmd#typography): {{< meta brand-typography >}}
 
@@ -79,17 +81,17 @@ template: # <7>
 [logo](logo.qmd)
 :    {{< meta brand-logo >}}
 
-[color.with](color.qmd#color)
-:    {{< meta brand-palette >}}
-
 [color](color.qmd#theme)
 :    {{< meta brand-theme >}}
 
-[typography.fonts](typography.qmd#fonts)
-:    {{< meta brand-fonts >}}
+[color.with](color.qmd#color)
+:    {{< meta brand-palette >}}
 
 [typography](typography.qmd#typography)
 :    {{< meta brand-typography >}}
+
+[typography.with](typography.qmd#fonts)
+:    {{< meta brand-fonts >}}
 
 [template](template.qmd)
 :    {{< meta brand-template >}}
