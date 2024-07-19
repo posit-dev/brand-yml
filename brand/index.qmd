@@ -39,7 +39,7 @@ color:
   secondary: "#..."       # <4>
 
 typography:
-  fonts: #<5>
+  with: #<5>
     # Font definitions # <5>
   base: # <6>
   headings: # <6>

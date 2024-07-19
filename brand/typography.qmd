@@ -34,7 +34,7 @@ The `typography` property is used to specify the fonts and some basic typographi
 :    The type used as the default text, primarily in the document body.
 
 `headings`
-:    The type used for headings.
+:    The type used for headings. Note that these settings cover all heading levels (`h1`, `h2`, etc.).
 
 `monospace`
 :    The type used for code blocks and other monospaced text.
@@ -45,25 +45,28 @@ In the future we can consider adding more types, such as `h1`, `h2`, etc., or `b
 
 ```{.yaml filename="brand.yml"}
 typography:
-  font:
-    - google: "Open Sans"
-    - google: "Fira Code"
-    - google:
+  with:
+    open-sans:
+      google: "Open Sans"
+    fira-code:
+      google: "Fira Code"
+    roboto-slab:
+      google:
         family: "Roboto Slab"
         weight: 600
         style: normal
         display: block
 
   base:
-    family: "Open Sans"
+    family: open-sans
     line-height: 1.25
     size: 1rem
   headings:
-    family: "Roboto Slab"
+    family: robot-slab
     color: primary
     weight: 600
   monospace:
-    family: "Fira Code"
+    family: fira-code
     size: 0.9em
 ```
 

@@ -3,7 +3,7 @@
   object:
     closed: true
     properties:
-      font:
+      with:
         description: Font files and definitions for the brand.
         ref: brand-font
       base:
@@ -38,11 +38,12 @@
               ref: brand-font-weight
             decoration: string
             color:
-              ref: brand-maybe-named-color
+              schema:
+                ref: brand-maybe-named-color
               default: primary
             background-color:
               ref: brand-maybe-named-color
-      
+
 - id: brand-typography-options
   description: Typographic options.
   object:
@@ -51,11 +52,11 @@
       family: string
       size: string
       line-height: string
-      weight: 
+      weight:
         ref: brand-font-weight
       style:
         ref: brand-font-style
-      color: 
+      color:
         ref: brand-maybe-named-color
       background-color:
         ref: brand-maybe-named-color
@@ -67,11 +68,11 @@
     properties:
       family: string
       line-height: string
-      weight: 
+      weight:
         ref: brand-font-weight
       style:
         ref: brand-font-style
-      color: 
+      color:
         ref: brand-maybe-named-color
       background-color:
         ref: brand-maybe-named-color
@@ -111,7 +112,7 @@
                 weight:
                   description: The font weights to include.
                   maybeArrayOf:
-                    ref: brand-font-weight         
+                    ref: brand-font-weight
                   default: [400, 700]
                 style:
                   description: The font style to include.
@@ -126,8 +127,7 @@
                   default: swap
 
 - id: brand-font-file
-  description:
-    A method for providing font files directly, either locally or from an online location.
+  description: A method for providing font files directly, either locally or from an online location.
   object:
     closed: true
     properties:
@@ -146,4 +146,4 @@
   description: >
     A locally-installed font family name. When used, the end-user is responsible
     for ensuring that the font is installed on their system.
-  schema: string    
+  schema: string
