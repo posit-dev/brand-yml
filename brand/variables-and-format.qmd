@@ -60,6 +60,6 @@ format:
 
 ## Spec
 
-```{.yaml}
-{{< include spec/variable.yml >}}
+```{.yaml shortcodes="false"}
+# include spec/variable.yml
 ```
