@@ -84,13 +84,13 @@ template: # <7>
 [color](color.qmd#theme)
 :    {{< meta brand-theme >}}
 
-[color.with](color.qmd#color)
+[color.with](color.qmd#color) (alias: palette)
 :    {{< meta brand-palette >}}
 
 [typography](typography.qmd#typography)
 :    {{< meta brand-typography >}}
 
-[typography.with](typography.qmd#fonts)
+[typography.with](typography.qmd#fonts) (alias: fonts)
 :    {{< meta brand-fonts >}}
 
 [template](template.qmd)

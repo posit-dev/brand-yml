@@ -7,7 +7,7 @@ pagetitle: "typography | brand.yml"
 
 ### Fonts
 
-The goal of the `font` property is to specify font files that should be included in the brand theme.
+The goal of the `with` property (may be aliased as `font` or `fonts`) is to specify font files that should be included in the brand theme.
 The primary goal is to provide `brand.yml` consumers to find and download the fonts used by the brand.
 `brand.yml` authors only need to include fonts that are not installed on the system.
 In general, we support three font sources:
