@@ -22,6 +22,8 @@ Often, these colors are given names with specific meaning to the brand.
 The `color.with` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
 These colors can be used by name for the semantic theme colors under `color`.
 
+`with` may be aliased as `palette`.
+
 ### Color Theme
 
 While brand guidelines might provide [a set of unique colors](color.qmd), the goal of `color` is to provide color values for a key set of semantic theme fields.
