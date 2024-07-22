@@ -5,17 +5,26 @@ pagetitle: "color | brand.yml"
 
 ## About
 
-### Palette
+```{.yaml}
+color:
+  with:
+    # user-provided named colors
+  # semantic theme colors
+  primary: ...
+  secondary ...
+```
+
+### Palette (with)
 
 Brand guidelines often include color palette definitions, ranging from one or two colors to entire palettes.
 Often, these colors are given names with specific meaning to the brand.
 
-The `color.palette` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
-In the [theme](#theme) section, they'll apply these colors to parts of the theme.
+The `color.with` section gives `brand.yml` authors a chance to codify their brand's palette with minimal overhead.
+These colors can be used by name for the semantic theme colors under `color`.
 
-### Theme
+### Color Theme
 
-While brand guidelines might provide [a set of unique colors](color.qmd), the goal of the `theme` section is to provide color values for a key set of semantic theme fields.
+While brand guidelines might provide [a set of unique colors](color.qmd), the goal of `color` is to provide color values for a key set of semantic theme fields.
 These fields follow Bootstrap conventions closely but are universal and are easily mapped to any themable output format. 
 
 #### Inspiration
@@ -46,20 +55,39 @@ These fields follow Bootstrap conventions closely but are universal and are easi
 
 ```{.yaml filename="brand_home-depot.yml"}
 color:
-  palette:
+  with:
     orange: "#F96302"
     white: "#FFFFFF"
     black: "#000000"
     warm-gray-dark: "#747474"
     warm-gray-light: "#f5f5f5"
     warm-gray-medium: "#c4c4c4"
-  theme:
-    primary: "#F96302"
-    secondary: "#747474"
-    tertiary: "#C4C4C4"
-    light: "#F5F5F5"
-    dark: "#747474"
+  primary: "#F96302"
+  secondary: "#747474"
+  tertiary: "#C4C4C4"
+  light: "#F5F5F5"
+  dark: "#747474"
 ```
+
+<details><summary>Alternate syntax</summary>
+
+```{.yaml filename="brand_home-depot.yml"}
+color:
+  with:
+    orange: "#F96302"
+    white: "#FFFFFF"
+    black: "#000000"
+    warm-gray-dark: "#747474"
+    warm-gray-light: "#f5f5f5"
+    warm-gray-medium: "#c4c4c4"
+  primary: orange
+  secondary: warm-gray-dark
+  tertiary: warm-gray-medium
+  light: warm-gray-light
+  dark: warm-gray-dark
+```
+
+</details>
 
 See [Home Depot brand guidelines](../examples/brand-guidelines/home-depot/index.qmd).
 
@@ -67,7 +95,7 @@ See [Home Depot brand guidelines](../examples/brand-guidelines/home-depot/index.
 
 ```{.yaml filename="brand.yml (Posit)"}
 color:
-  palette:
+  with:
     blue: "#447099"
     orange: "#EE6331"
     gray: "#404041"
@@ -75,19 +103,46 @@ color:
     teal: "#419599"
     green: "#72994E"
     burgundy: "#9A4665"
-  theme:
-    foreground: "#151515"
-    background: "#FFFFFF"
-    primary: "#447099"
-    secondary: "#707073"
-    tertiary: "#C2C2C4"
-    success: "#72994E"
-    info: "#419599"
-    warning: "#EE6331"
-    danger: "#9A4665"
-    light: "#FFFFFF"
-    dark: "#404041"
+  foreground: "#151515"
+  background: "#FFFFFF"
+  primary: "#447099"
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: "#72994E"
+  info: "#419599"
+  warning: "#EE6331"
+  danger: "#9A4665"
+  light: "#FFFFFF"
+  dark: "#404041"
 ```
+
+<details><summary>Alternate syntax</summary>
+
+```{.yaml filename="brand.yml (Posit)"}
+color:
+  with:
+    blue: "#447099"
+    orange: "#EE6331"
+    gray: "#404041"
+    white: "#FFFFFF"
+    teal: "#419599"
+    green: "#72994E"
+    burgundy: "#9A4665"
+  foreground: "#151515"
+  background: white
+  primary: blue
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: green
+  info: teal
+  warning: orange
+  danger: burgundy
+  light: white
+  dark: gray
+```
+
+</details>
+
 See [Posit brand guidelines](../examples/brand-guidelines/posit/index.qmd).
 
 ## Spec
@@ -162,7 +217,7 @@ For other colors, we'd directly set CSS variables, replicating Bootstrap's color
 
 ```{.yaml filename="brand_posit.yml"}
 color:
-  palette:
+  with:
     blue:
       mid: "#447099"
 ```
@@ -180,7 +235,7 @@ color:
 
 ```{.yaml filename="brand_home-depot.yml"}
 color:
-  palette:
+  with:
     warm_gray:
       light: "#f5f5f5"
       mid: "#c4c4c4"
@@ -202,13 +257,13 @@ color:
 
 ### Re-using fields
 
-The above is simple, but it's easy to imagine that `brand.yml` authors might want to re-use colors in `color` in the `theme`.
+The above is simple, but it's easy to imagine that `brand.yml` authors might want to re-use colors in `color.with` in the theme colors.
 In [reusing fields in open questions](open-questions.qmd#reusing-fields) I outlined a possible custom syntax.
 Here's an example using the shortcode-style `{{< brand color palette ____ >}}`{shortcodes="false"} syntax:
 
 ```{.yaml filename="brand.yml (reusing colors)" shortcodes="false"}
 color:
-  palette:
+  with:
     blue: "#447099"
     orange: "#EE6331"
     gray: "#404041"

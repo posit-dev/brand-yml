@@ -33,13 +33,13 @@ logo:     # <2>
   large:   # <2>
 
 color:             
-  palette:         # <3>
-    # named colors # <3>
-  theme:              # <4>
-    # semantic colors # <4>
+  with:         # <3>
+    sizzling-red: "#FF3855" # <3>
+  primary: sizzling-red   # <4>
+  secondary: "#..."       # <4>
 
 typography:
-  fonts: #<5>
+  with: #<5>
     # Font definitions # <5>
   base: # <6>
   headings: # <6>
@@ -61,9 +61,9 @@ template: # <7>
 
 1. [logo](logo.qmd): {{< meta brand-logo >}}
 
-1. [color.palette](color.qmd#color): {{< meta brand-palette >}}
+1. [color.with](color.qmd#color): {{< meta brand-palette >}}
 
-1. [color.theme](color.qmd#theme): {{< meta brand-theme >}}
+1. [color](color.qmd#theme): {{< meta brand-theme >}}
 
 1. [typography.fonts](typography.qmd#fonts): {{< meta brand-fonts >}}
 
@@ -79,10 +79,10 @@ template: # <7>
 [logo](logo.qmd)
 :    {{< meta brand-logo >}}
 
-[color.palette](color.qmd#color)
+[color.with](color.qmd#color)
 :    {{< meta brand-palette >}}
 
-[color.theme](color.qmd#theme)
+[color](color.qmd#theme)
 :    {{< meta brand-theme >}}
 
 [typography.fonts](typography.qmd#fonts)
