@@ -15,7 +15,7 @@ brand-fonts: >
 brand-typography: >
   Font family, weight, style, color, and line height for key elements, 
   e.g. base, headings and monospace text.
-brand-template: >
+brand-defaults: >
   Additional context-specific settings beyond the basic brand colors and typography.
   These could be options that are folded into existing Quarto yaml fields
   like `format` or `website`, or they could be new fields for other contexts like `shiny`.
@@ -47,14 +47,15 @@ typography:
   headings: # <6>
   monospace: # <6>
 
-template: # <7>
-  format: # <7>
-    # basic format-specific settings  # <7>
-    html: # <7>
-    pdf:  # <7>
-    revealjs: # <7>
-  website: # <7>
-    # website specific settings # <7>
+defaults: # <7>
+  quarto: # <7>
+    format: # <7>
+      # basic format-specific settings  # <7>
+      html: # <7>
+      pdf:  # <7>
+      revealjs: # <7>
+    website: # <7>
+      # website specific settings # <7>
   shiny: # <7>
     # shiny specific settings # <7>
 ```
@@ -71,7 +72,7 @@ template: # <7>
 
 1. [typography](typography.qmd#typography): {{< meta brand-typography >}}
 
-1. [template](template.qmd): {{< meta brand-template >}}
+1. [defaults](defaults.qmd): {{< meta brand-defaults >}}
 
 ## Description
 
@@ -93,8 +94,8 @@ template: # <7>
 [typography.with](typography.qmd#fonts) (alias: fonts)
 :    {{< meta brand-fonts >}}
 
-[template](template.qmd)
-:    {{< meta brand-template >}}
+[defaults](defaults.qmd)
+:    {{< meta brand-defaults >}}
 
 ## YAML schema
 

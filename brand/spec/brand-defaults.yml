@@ -1,18 +1,21 @@
-- id: brand-template
+- id: brand-defaults
   description: >
     Additional format or output-specific options, used as a template
     for these settings in those contexts.
   object:
     properties:
-      format:
-        description: Quarto format options.
-        schema: object
-      website:
-        description: Quarto `website` options.
-        schema: object
-      book:
-        description: Quarto `book` options.
-        schema: object
+      quarto:
+        object:
+          properties:
+            format:
+              description: Quarto format options.
+              schema: object
+            website:
+              description: Quarto `website` options.
+              schema: object
+            book:
+              description: Quarto `book` options.
+              schema: object
       bootstrap:
         description: Bootstrap theme settings, similar to `bslib::bs_theme()`.
         object:
