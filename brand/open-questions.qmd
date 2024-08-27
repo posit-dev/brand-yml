@@ -154,13 +154,13 @@ and all YAML readers and validators should be able to read and validate this for
 
 Another option is to use a custom syntax
 that any `brand.yml` consumer will have to implement.
-This syntax might look use Quarto shortcode-style syntax: `{{< brand color palette ____ >}}`.
+This syntax might look use Quarto shortcode-style syntax: `{{{< brand color palette ____ >}}}`.
 While a bit more typing, this does suggest a `brand` shortcode that could be used directly in documents, e.g.
 
 ```markdown
-## My Section {style="color: {{< brand color palette secondary >}}"}
+## My Section {style="color: {{{< brand color palette secondary >}}}"}
 
-{{< brand logo large >}}
+{{{< brand logo large >}}}
 ```
 
 In the `brand.yml` file itself, this might look like this:
