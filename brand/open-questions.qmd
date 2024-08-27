@@ -158,7 +158,7 @@ This syntax might look use Quarto shortcode-style syntax: `{{{< brand color pale
 While a bit more typing, this does suggest a `brand` shortcode that could be used directly in documents, e.g.
 
 ```markdown
-## My Section {style="color: {{{< brand color palette secondary >}}}"}
+## My Section {style='color: {{{< brand color palette secondary >}}}'}
 
 {{{< brand logo large >}}}
 ```
