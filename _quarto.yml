@@ -33,7 +33,7 @@ website:
           - brand/logo.qmd
           - brand/color.qmd
           - brand/typography.qmd
-          - brand/template.qmd
+          - brand/defaults.qmd
     - id: examples-brands
       title: Example Brand Guidelines
       contents: "examples/brand-guidelines/*/index.qmd"
