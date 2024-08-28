@@ -29,5 +29,6 @@ jobs:
       uses: quarto-dev/quarto-actions/publish@v2
       with:
         target: connect
+        path: docs
         CONNECT_SERVER: ${{ secrets.CONNECT_SERVER }}
         CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }} 
