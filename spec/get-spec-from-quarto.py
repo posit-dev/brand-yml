@@ -10,8 +10,30 @@ def read_spec_from_quarto(branch="main"):
     return yaml.load(requests.get(url).content)
 
 
+def find_all_refs_recursively(obj: dict[str, object]):
+    refs = set()
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key == "ref":
+                refs.add(value)
+            else:
+                refs |= find_all_refs_recursively(value)
+    elif isinstance(obj, list):
+        for item in obj:
+            refs |= find_all_refs_recursively(item)
+    return refs
+
+
 def filter_spec_brand(spec: list[dict[str, object]]):
     brand = [item for item in spec if "id" in item and item["id"].startswith("brand")]
+
+    # Make sure we've gotten all the references in the set of brand definitions
+    refs = find_all_refs_recursively(brand)
+    extras = refs - {item["id"] for item in brand}
+    if len(extras) > 0:
+        print(f"Including extra definitions: {', '.join(extras)}")
+        brand.extend([item for item in spec if item["id"] in extras])
+
     brand.sort(key=lambda item: item["id"])
     return brand
 
@@ -29,7 +51,6 @@ def read_brand_spec():
 
 
 if __name__ == "__main__":
-    print("Running the thing now!")
     spec = read_spec_from_quarto()
     brand = filter_spec_brand(spec)
     write_brand_spec(brand)
