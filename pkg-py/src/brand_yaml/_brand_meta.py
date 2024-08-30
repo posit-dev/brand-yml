@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Union
+
 from pydantic import BaseModel, ConfigDict, HttpUrl, Field
 
 
@@ -11,10 +13,10 @@ class BrandMeta(BaseModel):
 
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
-    name: str | BrandMetaName = Field(
+    name: Union[str, BrandMetaName] = Field(
         None, examples=["Very Big Corporation of America"]
     )
-    link: HttpUrl | BrandLink = Field(
+    link: Union[HttpUrl, BrandLink] = Field(
         None,
         examples=[
             "https://very-big-corp.com",
