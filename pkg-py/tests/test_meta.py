@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml._brand_meta import BrandMeta
@@ -13,6 +15,20 @@ def test_brand_meta():
     assert meta.name.full == "Very Big Corporation of America"
     assert meta.name.short == "VBC"
     assert meta.link.home == HttpUrl("https://very-big-corp.com/")
+
+
+def test_brand_meta_empty():
+    meta = BrandMeta()
+    assert meta.name is None
+    assert meta.link is None
+
+    meta_empty_name = BrandMeta(link="https://example.com")
+    assert meta_empty_name.name is None
+    assert meta_empty_name.link == HttpUrl("https://example.com")
+
+    meta_empty_link = BrandMeta(name="Very Big Corporation of America")
+    assert meta_empty_link.name == "Very Big Corporation of America"
+    assert meta_empty_link.link is None
 
 
 def test_brand_meta_bad_url():
@@ -38,6 +54,7 @@ def test_brand_meta_yaml_full():
     )
     assert brand.meta.link.twitter == HttpUrl("https://twitter.com/VeryBigCorp")
     assert brand.meta.link.facebook == HttpUrl("https://facebook.com/Very-Big-Corp")
+
 
 def test_brand_meta_yaml_small():
     brand = read_brand_yaml(path_examples("brand-meta-small.yml"))
