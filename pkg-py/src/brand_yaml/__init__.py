@@ -5,7 +5,7 @@ from pathlib import Path
 from pydantic import BaseModel, ConfigDict
 from ruamel.yaml import YAML
 
-from ._meta import BrandMeta
+from ._brand_meta import BrandMeta
 
 yaml = YAML()
 

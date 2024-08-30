@@ -1,6 +1,6 @@
 import pytest
 from brand_yaml import read_brand_yaml
-from brand_yaml._meta import BrandMeta
+from brand_yaml._brand_meta import BrandMeta
 from pydantic import HttpUrl
 from utils import path_examples
 
