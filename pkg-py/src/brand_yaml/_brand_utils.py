@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from pydantic import GenericModel, ConfigDict
-from typing import TypeVar
+from pydantic import BaseModel, ConfigDict
+from typing import TypeVar, Generic
 
 T = TypeVar('T')  # Define a type variable T
 
-class BrandLightDark(GenericModel[T]):
+class BrandLightDark(BaseModel, Generic[T]):
     model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
 
     light: T = None
@@ -13,3 +13,9 @@ class BrandLightDark(GenericModel[T]):
 
 class BrandStringLightDark(BrandLightDark[str]):
     pass
+
+
+class BrandWith(BaseModel, Generic[T]):
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
+
+    with_: dict[str, T] = None

@@ -5,6 +5,7 @@ from pathlib import Path
 from pydantic import BaseModel, ConfigDict
 from ruamel.yaml import YAML
 
+from ._brand_logo import BrandLogo
 from ._brand_meta import BrandMeta
 
 yaml = YAML()
@@ -14,7 +15,7 @@ class Brand(BaseModel):
     model_config = ConfigDict(extra="ignore", revalidate_instances="always")
 
     meta: BrandMeta = None
-    # logo: str | BrandLogo = None
+    logo: str | BrandLogo = None
     # color: BrandColor = None
     # typography: BrandTypography = None
     # defaults: dict[str, Any] = None
