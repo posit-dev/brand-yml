@@ -3,8 +3,8 @@ from __future__ import annotations
 import logging
 from copy import deepcopy
 
-from pydantic import BaseModel, ConfigDict
-from typing import Any, TypeVar, Generic
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, TypeVar, Generic, Optional
 
 T = TypeVar("T")
 
@@ -21,9 +21,13 @@ class BrandLightDarkString(BrandLightDark[str]):
 
 
 class BrandWith(BaseModel, Generic[T]):
-    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
+    model_config = ConfigDict(
+        extra="ignore",
+        str_strip_whitespace=True,
+        populate_by_name=True,
+    )
 
-    with_: dict[str, T] = None
+    with_: Optional[dict[str, T]] = Field(default=None, alias="with")
 
     def model_post_init(self, __context: Any) -> None:
         if self.with_ is None:
@@ -50,8 +54,6 @@ class BrandWith(BaseModel, Generic[T]):
 
         for key in items_keys:
             logging.debug(f"checking key {key}")
-            if key == "with_":
-                continue
 
             if isinstance(items, BaseModel):
                 value = getattr(items, key)
