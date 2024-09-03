@@ -12,17 +12,19 @@ class BrandLogo(BrandWith[Union[str, BrandLightDarkString]]):
     `logo` stores a single brand logo or a set of logos in different sizes and
     possibly in different color schemes.
 
-    Attributes:
+    Attributes
+    ----------
 
     small
-    :    A small logo, typically used as an favicon or mobile app icon.
+        A small logo, typically used as an favicon or mobile app icon.
     
     medium
-    :    A medium-sized logo, typically used in the header of a website.
+        A medium-sized logo, typically used in the header of a website.
 
     large
-    :    A large logo, typically used in a larger format such as a title slide
+        A large logo, typically used in a larger format such as a title slide
         or in marketing materials.
+    
     """
     model_config = ConfigDict(extra="ignore")
 
