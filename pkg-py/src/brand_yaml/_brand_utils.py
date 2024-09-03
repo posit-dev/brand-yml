@@ -68,6 +68,7 @@ class BrandWith(BaseModel, Generic[T]):
                 elif isinstance(items, dict):
                     items[key] = deepcopy(self.with_[value])
             elif isinstance(value, (dict, BaseModel)):
+                # TODO: we may want to avoid recursing into child BrandWith instances
                 logging.debug(f"recursing into {key}")
                 self._replace_with_recursively(value, level + 1)
             else:
