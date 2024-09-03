@@ -80,3 +80,23 @@ def test_brand_with_basemodel():
 
     assert isinstance(thing.small, BrandLightDarkString)
     assert isinstance(thing.medium, BrandLightDarkString)
+
+def test_brand_with_nested():
+    class BrandThing(BrandWith[Union[str, BrandLightDarkString]]):
+        the: Union[str, BrandLightDarkString] = None
+
+    thing = BrandThing(
+        with_={
+            "light": "the-light",
+            "dark": "the-dark",
+            "both": {"light": "the-light", "dark": "the-dark"}
+        },
+        the="both",
+    )
+
+    assert thing.the == thing.with_["both"]
+    assert thing.with_["both"].light == "the-light"
+    assert thing.with_["both"].dark == "the-dark"
+
+    assert isinstance(thing.with_["both"], BrandLightDarkString)
+    assert isinstance(thing.the, BrandLightDarkString)
