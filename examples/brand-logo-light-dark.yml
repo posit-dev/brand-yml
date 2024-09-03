@@ -1,0 +1,6 @@
+logo:
+  small: icon.png
+  medium: 
+    light: logo-light.png
+    dark: logo-dark.png
+  large: display.svg

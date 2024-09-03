@@ -1,0 +1,14 @@
+logo:
+  with:
+    primary: full-color.png
+    primary-svg: full-color.svg
+    reverse: full-color-reverse.png
+    black: black.png
+    white: white.png
+    icon: favicon.png
+    both:
+      light: primary
+      dark: reverse
+  small: icon
+  medium: both
+  large: primary-svg
