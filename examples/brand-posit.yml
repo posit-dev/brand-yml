@@ -1,5 +1,7 @@
 meta:
-  name: Posit Software, PBC
+  name: 
+    full: Posit Software, PBC
+    short: Posit
   link:
     home: https://posit.co
     guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ
