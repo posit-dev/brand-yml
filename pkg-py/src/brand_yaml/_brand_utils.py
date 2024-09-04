@@ -37,6 +37,10 @@ class BrandWith(BaseModel, Generic[T]):
         logging.debug("resolving with_ values")
         self._replace_with_recursively()
 
+    def __setattr__(self, name: str, value: Any) -> None:
+        super().__setattr__(name, value)
+        self._replace_with_recursively()
+
     def _replace_with_recursively(self, items: dict | BaseModel | None = None, level=0):
         if level > 50:
             logging.error("BrandWith recursion limit reached")

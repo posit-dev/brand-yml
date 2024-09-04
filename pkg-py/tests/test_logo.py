@@ -33,3 +33,6 @@ def test_brand_logo_full():
     
     assert brand_logo_full.logo.large == "full-color.svg"
 
+    # replace small with new value from "with"
+    brand_logo_full.logo.small = "black"
+    assert brand_logo_full.logo.small == "black.png"
