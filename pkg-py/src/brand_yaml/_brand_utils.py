@@ -26,6 +26,7 @@ class BrandWith(BaseModel, Generic[T]):
         str_strip_whitespace=True,
         populate_by_name=True,
         revalidate_instances="always",
+        validate_assignment=True,
     )
 
     with_: Optional[dict[str, T]] = Field(default=None, alias="with")

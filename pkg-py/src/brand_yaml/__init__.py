@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional, Union
+from typing import Union
 
 from pydantic import BaseModel, ConfigDict
 from ruamel.yaml import YAML
@@ -14,10 +14,14 @@ yaml = YAML()
 
 
 class Brand(BaseModel):
-    model_config = ConfigDict(extra="ignore", revalidate_instances="always")
+    model_config = ConfigDict(
+        extra="ignore",
+        revalidate_instances="always",
+        validate_assignment=True,
+    )
 
     meta: BrandMeta = None
-    logo: Optional[Union[str, BrandLogo]] = None
+    logo: Union[str, BrandLogo] = None
     color: BrandColor = None
     # typography: BrandTypography = None
     # defaults: dict[str, Any] = None

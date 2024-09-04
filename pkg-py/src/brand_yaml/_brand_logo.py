@@ -27,7 +27,13 @@ class BrandLogo(BrandWith[Union[str, BrandLightDark[str]]]):
         or in marketing materials.
 
     """
-    model_config = ConfigDict(extra="forbid")
+
+    model_config = ConfigDict(
+        extra="forbid",
+        revalidate_instances="always",
+        validate_assignment=True,
+        use_attribute_docstrings=True,
+    )
 
     # TODO: Currently we're using a string for the logo path, but we should
     # update this to use a validated Path or URL in the future.
