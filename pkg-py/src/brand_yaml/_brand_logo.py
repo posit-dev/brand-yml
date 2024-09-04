@@ -3,9 +3,10 @@ from __future__ import annotations
 from typing import Union
 
 from pydantic import ConfigDict
-from ._brand_utils import BrandLightDarkString, BrandWith
+from ._brand_utils import BrandLightDark, BrandWith
 
-class BrandLogo(BrandWith[Union[str, BrandLightDarkString]]):
+
+class BrandLogo(BrandWith[Union[str, BrandLightDark[str]]]):
     """
     Brand Logos
 
@@ -17,20 +18,19 @@ class BrandLogo(BrandWith[Union[str, BrandLightDarkString]]):
 
     small
         A small logo, typically used as an favicon or mobile app icon.
-    
+
     medium
         A medium-sized logo, typically used in the header of a website.
 
     large
         A large logo, typically used in a larger format such as a title slide
         or in marketing materials.
-    
+
     """
     model_config = ConfigDict(extra="forbid")
 
     # TODO: Currently we're using a string for the logo path, but we should
     # update this to use a validated Path or URL in the future.
-    small: str | BrandLightDarkString = None
-    medium: str | BrandLightDarkString = None
-    large: str | BrandLightDarkString = None
-
+    small: str | BrandLightDark[str] = None
+    medium: str | BrandLightDark[str] = None
+    large: str | BrandLightDark[str] = None
