@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Union
 
 from pydantic import ConfigDict
-from ._brand_utils import BrandLightDark, BrandWith
+from ._utils import BrandLightDark, BrandWith
 
 
 class BrandLogo(BrandWith[Union[str, BrandLightDark[str]]]):

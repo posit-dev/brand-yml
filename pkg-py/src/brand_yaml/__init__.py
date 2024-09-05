@@ -6,9 +6,9 @@ from typing import Union
 from pydantic import BaseModel, ConfigDict
 from ruamel.yaml import YAML
 
-from ._brand_logo import BrandLogo
-from ._brand_meta import BrandMeta
-from ._brand_color import BrandColor
+from .logo import BrandLogo
+from .meta import BrandMeta
+from .color import BrandColor
 
 yaml = YAML()
 
