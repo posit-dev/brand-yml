@@ -30,6 +30,10 @@ def is_leaf_node(value: Any) -> bool:
     return not isinstance(value, (dict, BaseModel))
 
 
+def is_non_str_leaf_node(value: Any) -> bool:
+    return not isinstance(value, (dict, BaseModel, str))
+
+
 class BrandWith(BaseModel, Generic[T]):
     model_config = ConfigDict(
         extra="ignore",
@@ -47,6 +51,7 @@ class BrandWith(BaseModel, Generic[T]):
         if value is None:
             return value
 
+        logger.debug("validating field with_ by checking for circular references")
         check_circular_references(value, name="with")
         return value
 
@@ -55,79 +60,122 @@ class BrandWith(BaseModel, Generic[T]):
         if self.with_ is None:
             return self
 
-        logger.debug("resolving with_ values")
-        self._replace_with_recursively()
+        logger.debug("validating model and resolving with_ values")
+        defs_replace_recursively(self.with_, self, name="with_")
         return self
 
-    def __setattr__(self, name: str, value: Any) -> None:
-        super().__setattr__(name, value)
-        if name != "with_":
-            self._replace_with_recursively(value)
 
-    def _get_with(self, key: str, level=0) -> object:
-        """
-        Finds `key` in `with_`, which may require recursively resolving nested
-        values from `with_`.
-        """
-        if key not in self.with_:
-            return key
+def defs_get(defs: dict[str, object], key: str, level: int = 0) -> object:
+    """
+    Finds `key` in `with_`, which may require recursively resolving nested
+    values from `with_`.
 
-        # Note that this is simplified by the fact that we've already confirmed
-        # that no circular references exist in `with_`.
+    Parameters
+    ----------
 
-        with_value = deepcopy(self.with_[key])
-        logger.debug(
-            level_indent(f"key {key} is in with_ with value {with_value!r}", level)
-        )
+    defs
+        A dictionary of definitions.
 
-        if is_leaf_node(self.with_[key]):
-            return with_value
+    key
+        The key to look up in `defs`.
+
+    Returns
+    -------
+    :
+        The value of `key` in `defs`, with any internal references to top-level
+        keys in `defs` also resolved. If `defs[key]` returns a dictionary or
+        pydantic model, internal references to definitions are also replaced.
+    """
+    if key not in defs:
+        return key
+
+    # Note that we assume that `defs` has already been checked for circular
+    # references, so we don't need to check for them here.
+
+    with_value = deepcopy(defs[key])
+    logger.debug(
+        level_indent(f"key {key} is in with_ with value {with_value!r}", level)
+    )
+
+    if is_leaf_node(defs[key]):
+        return with_value
+    else:
+        defs_replace_recursively(defs, with_value, level=level)
+        return with_value
+
+
+def defs_replace_recursively(
+    defs: dict[str, object],
+    items: dict | BaseModel = None,
+    level: int = 0,
+    name: str = None,
+):
+    """
+    Recursively replace string values in `items` with their definition in
+    `defs`. An item in `items` is replaced if it is a string and exactly matches
+    a key in the `defs` dictionary. Definitions in `defs` can refer to other
+    definitions, provided that no definitions are circular, e.g. `a -> b -> a`.
+
+    Parameters
+    ----------
+    defs
+        A dictionary of definitions.
+
+    items
+        A dictionary or pydantic model to replace values in.
+
+    level
+        The current recursion level. Used internally and for logging.
+
+    Returns
+    -------
+    :
+        Nothing. `items` is modified in place. Note that when values in items
+        refer to definitions in `defs`, the are replaced with copies of the
+        definition.
+    """
+    if level == 0:
+        logger.debug("Checking for circular references")
+        check_circular_references(defs, name=name)
+
+    if level > 50:
+        logger.error("BrandWith recursion limit reached")
+        return
+
+    if not isinstance(items, (dict, BaseModel)):
+        return
+
+    for key in item_keys(items):
+        value = get_value(items, key)
+
+        if value is defs:
+            # We replace internal def references when resolving sibling fields
+            continue
+
+        logger.debug(level_indent(f"inspecting key {key}", level))
+        if isinstance(value, str) and value in defs:
+            new_value = defs_get(defs, value, level=level + 1)
+            logger.debug(
+                level_indent(
+                    f"replacing key {key} with definition from {value}: {new_value!r}",
+                    level,
+                )
+            )
+            if isinstance(items, BaseModel):
+                setattr(items, key, new_value)
+            elif isinstance(items, dict):
+                items[key] = new_value
+        elif isinstance(value, (dict, BaseModel)):
+            # TODO: we may want to avoid recursing into child BrandWith instances
+            logger.debug(level_indent(f"recursing into {key}", level))
+            defs_replace_recursively(defs, value, level=level + 1)
         else:
-            self._replace_with_recursively(with_value, level)
-            return with_value
-
-    def _replace_with_recursively(self, items: dict | BaseModel | None = None, level=0):
-        if level > 50:
-            logger.error("BrandWith recursion limit reached")
-            return
-
-        if items is None:
-            items = self
-
-        if not isinstance(items, (dict, BaseModel)):
-            return
-
-        for key in item_keys(items):
-            value = get_value(items, key)
-
-            if value is self.with_:
-                # We replace `with_` when resolving sibling fields
-                continue
-
-            logger.debug(level_indent(f"inspecting key {key}", level))
-            if isinstance(value, str) and value in self.with_:
-                new_value = self._get_with(value, level + 1)
-                logger.debug(
-                    level_indent(
-                        f"replacing key {key} with value from {value}: {new_value!r}",
-                        level,
-                    )
+            logger.debug(
+                level_indent(
+                    f"skipping {key}, not replaceable (or not a dict or pydantic model)",
+                    level,
                 )
-                if isinstance(items, BaseModel):
-                    setattr(items, key, new_value)
-                elif isinstance(items, dict):
-                    items[key] = new_value
-            elif isinstance(value, (dict, BaseModel)):
-                # TODO: we may want to avoid recursing into child BrandWith instances
-                logger.debug(level_indent(f"recursing into {key}", level))
-                self._replace_with_recursively(value, level + 1)
-            else:
-                logger.debug(
-                    level_indent(
-                        f"skipping {key}, not replaceable (or not a dict or pydantic model)",
-                        level,
-                    )
-                )
+            )
 
 
 def level_indent(x: str, level: int) -> str:
