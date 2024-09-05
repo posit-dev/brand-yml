@@ -3,7 +3,8 @@ from __future__ import annotations
 import logging
 from typing import Union
 
-from brand_yaml._brand_utils import BrandLightDarkString, BrandWith
+import pytest
+from brand_yaml._brand_utils import BrandLightDarkString, BrandWith, CircularReferenceError
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -100,3 +101,13 @@ def test_brand_with_nested():
 
     assert isinstance(thing.with_["both"], BrandLightDarkString)
     assert isinstance(thing.the, BrandLightDarkString)
+
+def test_brand_with_errors_on_circular_references():
+    with pytest.raises(CircularReferenceError, match="a -> b -> a"):
+        BrandWith.model_validate({"with_": {"a": "b", "b": "a"}})
+
+    with pytest.raises(CircularReferenceError, match="a -> b -> c -> a"):
+        BrandWith.model_validate({"with_": {"a": "b", "b": "c", "c": "a"}})
+
+    with pytest.raises(CircularReferenceError, match="a -> d -> b -> a"):
+        BrandWith.model_validate({"with_": {"a": "d", "b": "a", "d": {"x": "e", "y": "b"}}})
