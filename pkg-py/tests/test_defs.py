@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import logging
 from typing import Union
 
 import pytest
 from brand_yaml._defs import BrandLightDarkString, BrandWith, CircularReferenceError
 
-logging.basicConfig(level=logging.DEBUG)
+# from brand_yaml._utils_logging import log_set_debug
+# log_set_debug()
 
 
 def test_brand_with_simple():
@@ -68,7 +68,7 @@ def test_brand_with_basemodel():
     thing = BrandThing(
         with_={
             "sm": "small-light",
-            "md": {"light": "medium-light", "dark": "medium-dark"}
+            "md": {"light": "medium-light", "dark": "medium-dark"},
         },
         small={"light": "sm", "dark": "small-dark"},
         medium="md",
@@ -82,6 +82,7 @@ def test_brand_with_basemodel():
     assert isinstance(thing.small, BrandLightDarkString)
     assert isinstance(thing.medium, BrandLightDarkString)
 
+
 def test_brand_with_nested():
     class BrandThing(BrandWith[Union[str, BrandLightDarkString]]):
         the: Union[str, BrandLightDarkString] = None
@@ -90,7 +91,7 @@ def test_brand_with_nested():
         with_={
             "light": "the-light",
             "dark": "the-dark",
-            "both": {"light": "the-light", "dark": "the-dark"}
+            "both": {"light": "the-light", "dark": "the-dark"},
         },
         the="both",
     )
@@ -102,6 +103,7 @@ def test_brand_with_nested():
     assert isinstance(thing.with_["both"], BrandLightDarkString)
     assert isinstance(thing.the, BrandLightDarkString)
 
+
 def test_brand_with_errors_on_circular_references():
     with pytest.raises(CircularReferenceError, match="a -> b -> a"):
         BrandWith.model_validate({"with_": {"a": "b", "b": "a"}})
@@ -110,4 +112,6 @@ def test_brand_with_errors_on_circular_references():
         BrandWith.model_validate({"with_": {"a": "b", "b": "c", "c": "a"}})
 
     with pytest.raises(CircularReferenceError, match="a -> d -> b -> a"):
-        BrandWith.model_validate({"with_": {"a": "d", "b": "a", "d": {"x": "e", "y": "b"}}})
+        BrandWith.model_validate(
+            {"with_": {"a": "d", "b": "a", "d": {"x": "e", "y": "b"}}}
+        )

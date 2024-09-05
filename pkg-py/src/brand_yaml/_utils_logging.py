@@ -9,7 +9,7 @@ def log_add_console_stream_handler():
         if isinstance(handler, logging.StreamHandler):
             return
     
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s - %(name)s - %(funcName)s - %(message)s')
     ch = logging.StreamHandler()
     ch.setFormatter(formatter)
     logger.addHandler(ch)
