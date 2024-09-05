@@ -46,3 +46,23 @@ def test_brand_color_posit_with():
         "teal": "#419599",
         "burgundy": "#9A4665",
     }
+
+
+def test_brand_color_posit_internal():
+    brand = read_brand_yaml(path_examples("brand-color-posit-internal.yml"))
+
+    # Named theme colors are reused in BrandColor
+    assert brand.color.background == "#FFFFFF"
+    assert brand.color.primary == "#447099"
+    assert brand.color.info == brand.color.primary
+    assert brand.color.light == brand.color.background
+
+    assert brand.color.with_ == {
+        "white": "#FFFFFF",
+        "black": "#151515",
+        "blue": "#447099",
+        "orange": "#EE6331",
+        "green": "#72994E",
+        "teal": "#419599",
+        "burgundy": "#9A4665",
+    }

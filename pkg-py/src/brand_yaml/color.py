@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Optional
 
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, model_validator
 
-from ._defs import BrandWith
+from ._defs import BrandWith, defs_replace_recursively
 
 
 class BrandColor(BrandWith[str]):
@@ -63,7 +64,43 @@ class BrandColor(BrandWith[str]):
 
     """
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(
+        extra="forbid",
+        revalidate_instances="always",
+        validate_assignment=True,
+    )
+
+    _color_fields = [
+        "foreground",
+        "background",
+        "primary",
+        "secondary",
+        "tertiary",
+        "success",
+        "info",
+        "warning",
+        "danger",
+        "light",
+        "dark",
+        "emphasis",
+        "link",
+    ]
+
+    @model_validator(mode="after")
+    def resolve_with_values(self):
+        if self.with_ is not None:
+            defs_replace_recursively(self.with_, self, name="with_")
+
+        full_defs = deepcopy(self.with_) if self.with_ is not None else {}
+        full_defs.update(
+            {
+                k: v
+                for k, v in self.model_dump().items()
+                if k in self._color_fields and v is not None
+            }
+        )
+        defs_replace_recursively(full_defs, self, name="color")
+        return self
 
     foreground: Optional[str] = Field(
         default=None,

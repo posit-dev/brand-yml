@@ -64,7 +64,7 @@ class BrandWith(BaseModel, Generic[T]):
         return value
 
     @model_validator(mode="after")
-    def resolve_with_values(self, __context: Any) -> None:
+    def resolve_with_values(self):
         if self.with_ is None:
             return self
 
@@ -156,7 +156,7 @@ def defs_replace_recursively(
     for key in item_keys(items):
         value = get_value(items, key)
 
-        if value is defs:
+        if value is defs or value == "with_":
             # We replace internal def references when resolving sibling fields
             continue
 
