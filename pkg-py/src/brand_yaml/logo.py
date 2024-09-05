@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Union
 
 from pydantic import ConfigDict
+
 from ._defs import BrandLightDark, BrandWith
 
 

@@ -4,7 +4,13 @@ from copy import deepcopy
 from textwrap import indent
 from typing import Any, Generic, Optional, TypeVar, Union
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 from ._utils_logging import logger
 
@@ -51,7 +57,9 @@ class BrandWith(BaseModel, Generic[T]):
         if value is None:
             return value
 
-        logger.debug("validating field with_ by checking for circular references")
+        logger.debug(
+            "validating field with_ by checking for circular references"
+        )
         check_circular_references(value, name="with")
         return value
 
@@ -228,13 +236,17 @@ def check_circular_references(
 
         path_key = [*path, key]
 
-        if isinstance(value, str):  # implied value is also in data by above check
+        if isinstance(
+            value, str
+        ):  # implied value is also in data by above check
             seen_key = [*seen, *([key, value] if len(seen) == 0 else [value])]
             if value in seen:
                 raise CircularReferenceError(seen_key, path_key, name)
             else:
                 new_current = {k: v for k, v in data.items() if k == value}
-                check_circular_references(data, new_current, seen_key, path_key, name)
+                check_circular_references(
+                    data, new_current, seen_key, path_key, name
+                )
         else:
             check_circular_references(data, value, seen, path_key, name)
 

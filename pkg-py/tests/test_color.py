@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from brand_yaml import read_brand_yaml
 from utils import path_examples
+
+from brand_yaml import read_brand_yaml
+
 
 def test_brand_color_posit_direct():
     brand = read_brand_yaml(path_examples("brand-color-posit-direct.yml"))
@@ -17,6 +19,7 @@ def test_brand_color_posit_direct():
     assert brand.color.danger == "#9A4665"
     assert brand.color.light == "#FFFFFF"
     assert brand.color.dark == "#404041"
+
 
 def test_brand_color_posit_with():
     brand = read_brand_yaml(path_examples("brand-color-posit-with.yml"))
@@ -41,5 +44,5 @@ def test_brand_color_posit_with():
         "orange": "#EE6331",
         "green": "#72994E",
         "teal": "#419599",
-        "burgundy": "#9A4665"
+        "burgundy": "#9A4665",
     }

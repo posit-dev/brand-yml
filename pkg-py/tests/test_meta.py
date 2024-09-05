@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import pytest
-from brand_yaml import read_brand_yaml
-from brand_yaml.meta import BrandMeta
 from pydantic import HttpUrl
 from utils import path_examples
+
+from brand_yaml import read_brand_yaml
+from brand_yaml.meta import BrandMeta
 
 
 def test_brand_meta():
@@ -53,7 +54,9 @@ def test_brand_meta_yaml_full():
         "https://linkedin.com/company/very-big-corp"
     )
     assert brand.meta.link.twitter == HttpUrl("https://twitter.com/VeryBigCorp")
-    assert brand.meta.link.facebook == HttpUrl("https://facebook.com/Very-Big-Corp")
+    assert brand.meta.link.facebook == HttpUrl(
+        "https://facebook.com/Very-Big-Corp"
+    )
 
 
 def test_brand_meta_yaml_small():

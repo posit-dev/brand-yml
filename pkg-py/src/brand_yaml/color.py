@@ -62,6 +62,7 @@ class BrandColor(BrandWith[str]):
         used.
 
     """
+
     model_config = ConfigDict(extra="forbid")
 
     foreground: Optional[str] = Field(

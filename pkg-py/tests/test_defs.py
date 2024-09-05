@@ -3,7 +3,12 @@ from __future__ import annotations
 from typing import Union
 
 import pytest
-from brand_yaml._defs import BrandLightDarkString, BrandWith, CircularReferenceError
+
+from brand_yaml._defs import (
+    BrandLightDarkString,
+    BrandWith,
+    CircularReferenceError,
+)
 
 # from brand_yaml._utils_logging import log_set_debug
 # log_set_debug()
