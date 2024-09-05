@@ -4,7 +4,7 @@ from typing import Optional
 
 from pydantic import ConfigDict, Field
 
-from ._utils import BrandWith
+from ._defs import BrandWith
 
 
 class BrandColor(BrandWith[str]):

@@ -4,7 +4,7 @@ import logging
 from typing import Union
 
 import pytest
-from brand_yaml._utils import BrandLightDarkString, BrandWith, CircularReferenceError
+from brand_yaml._defs import BrandLightDarkString, BrandWith, CircularReferenceError
 
 logging.basicConfig(level=logging.DEBUG)
 
