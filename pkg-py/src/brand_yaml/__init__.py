@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Union
+from typing import Any, Union
 
 from pydantic import BaseModel, ConfigDict
 from ruamel.yaml import YAML
@@ -9,6 +9,7 @@ from ruamel.yaml import YAML
 from .color import BrandColor
 from .logo import BrandLogo
 from .meta import BrandMeta
+from .typography import BrandTypography
 
 yaml = YAML()
 
@@ -23,8 +24,8 @@ class Brand(BaseModel):
     meta: BrandMeta = None
     logo: Union[str, BrandLogo] = None
     color: BrandColor = None
-    # typography: BrandTypography = None
-    # defaults: dict[str, Any] = None
+    typography: BrandTypography = None
+    defaults: dict[str, Any] = None
 
 
 def read_brand_yaml(path: str | Path) -> Brand:
