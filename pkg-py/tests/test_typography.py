@@ -15,7 +15,7 @@ from brand_yaml.typography import BrandTypographyFontFile
     ],
 )
 def test_brand_typography_font_file_format(source, fmt):
-    font = BrandTypographyFontFile(source=source)
+    font = BrandTypographyFontFile(source=source, family="My Font")
 
     assert font.source == source
     assert font.format == fmt
@@ -23,28 +23,30 @@ def test_brand_typography_font_file_format(source, fmt):
 
 def test_brand_typography_font_file_format_ignored():
     # ignores user-provided formats, uses `source` field
-    BrandTypographyFontFile(source="my-font.otf", format="invalid")
+    BrandTypographyFontFile(
+        source="my-font.otf",
+        family="My Font",
+        format="invalid",
+    )
 
 
 def test_brand_typography_font_file_weight():
-    src = "my-font.otf"
+    args = {"source": "my-font.otf", "family": "My Font"}
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(source=src, weight="invalid")
+        BrandTypographyFontFile(**args, weight="invalid")
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(source=src, weight=999)
+        BrandTypographyFontFile(**args, weight=999)
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(source=src, weight=150)
+        BrandTypographyFontFile(**args, weight=150)
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(source=src, weight=0)
+        BrandTypographyFontFile(**args, weight=0)
 
-    assert BrandTypographyFontFile(source=src, weight=100).weight == 100
-    assert BrandTypographyFontFile(source=src, weight="thin").weight == 100
-    assert BrandTypographyFontFile(source=src, weight="semi-bold").weight == 600
-    assert BrandTypographyFontFile(source=src, weight="bold").weight == "bold"
-    assert (
-        BrandTypographyFontFile(source=src, weight="normal").weight == "normal"
-    )
+    assert BrandTypographyFontFile(**args, weight=100).weight == 100
+    assert BrandTypographyFontFile(**args, weight="thin").weight == 100
+    assert BrandTypographyFontFile(**args, weight="semi-bold").weight == 600
+    assert BrandTypographyFontFile(**args, weight="bold").weight == "bold"
+    assert BrandTypographyFontFile(**args, weight="normal").weight == "normal"
