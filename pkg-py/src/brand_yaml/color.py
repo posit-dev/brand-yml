@@ -70,33 +70,19 @@ class BrandColor(BrandWith[str]):
         validate_assignment=True,
     )
 
-    _color_fields = [
-        "foreground",
-        "background",
-        "primary",
-        "secondary",
-        "tertiary",
-        "success",
-        "info",
-        "warning",
-        "danger",
-        "light",
-        "dark",
-        "emphasis",
-        "link",
-    ]
-
     @model_validator(mode="after")
     def resolve_with_values(self):
         if self.with_ is not None:
             defs_replace_recursively(self.with_, self, name="with_")
+
+        _color_fields = [k for k in self.model_fields.keys() if k != "with_"]
 
         full_defs = deepcopy(self.with_) if self.with_ is not None else {}
         full_defs.update(
             {
                 k: v
                 for k, v in self.model_dump().items()
-                if k in self._color_fields and v is not None
+                if k in _color_fields and v is not None
             }
         )
         defs_replace_recursively(full_defs, self, name="color")
