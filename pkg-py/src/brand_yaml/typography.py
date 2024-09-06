@@ -14,6 +14,8 @@ from pydantic import (
     model_validator,
 )
 
+from ._utils import BrandBase
+
 T = TypeVar("T")
 
 SingleOrList = Union[T, list[T]]
@@ -183,7 +185,7 @@ class BrandNamedColor(RootModel):
     root: str
 
 
-class BrandTypographyOptionsBase(BaseModel):
+class BrandTypographyOptionsBase(BrandBase):
     model_config = ConfigDict(populate_by_name=True)
 
     weight: BrandTypographyFontWeightSimpleType = None
@@ -194,11 +196,6 @@ class BrandTypographyOptionsBase(BaseModel):
     @classmethod
     def validate_weight(cls, value: int | str):
         return validate_font_weight(value)
-
-    def __repr_args__(self):
-        fields = [f for f in self.model_fields.keys()]
-        values = [getattr(self, f) for f in fields]
-        return ((f, v) for f, v in zip(fields, values) if v is not None)
 
 
 class BrandTypographyOptionsGenericText(BaseModel):
@@ -235,7 +232,7 @@ class BrandTypographyLink(BrandTypographyOptionsBase):
     decoration: str = None
 
 
-class BrandTypography(BaseModel):
+class BrandTypography(BrandBase):
     font: list[
         Annotated[
             Union[
@@ -250,3 +247,8 @@ class BrandTypography(BaseModel):
     monospace: BrandTypographyOptions = None
     emphasis: BrandTypographyEmphasis = None
     link: BrandTypographyLink = None
+
+    def __repr_args__(self):
+        fields = [f for f in self.model_fields.keys()]
+        values = [getattr(self, f) for f in fields]
+        return ((f, v) for f, v in zip(fields, values) if v is not None)

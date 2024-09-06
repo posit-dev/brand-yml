@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from pydantic import ConfigDict, Field, HttpUrl
+
+from ._utils import BrandBase
 
 
-class BrandMeta(BaseModel):
+class BrandMeta(BrandBase):
     """
     Brand metadata is stored in `meta`, providing place to describe the company
     or project, the brand guidelines, additional links, and more.
@@ -23,14 +25,14 @@ class BrandMeta(BaseModel):
     )
 
 
-class BrandMetaName(BaseModel):
+class BrandMetaName(BrandBase):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
     full: str = Field(None, examples=["Very Big Corporation of America"])
     short: str = Field(None, examples=["VBC"])
 
 
-class BrandMetaLink(BaseModel):
+class BrandMetaLink(BrandBase):
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
     home: HttpUrl = Field(

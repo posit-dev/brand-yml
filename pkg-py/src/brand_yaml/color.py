@@ -6,9 +6,10 @@ from typing import Optional
 from pydantic import ConfigDict, Field, model_validator
 
 from ._defs import BrandWith, defs_replace_recursively
+from ._utils import BrandBase
 
 
-class BrandColor(BrandWith[str]):
+class BrandColor(BrandBase, BrandWith[str]):
     """
     Brand Colors
 
