@@ -1,17 +1,28 @@
 version = 1
 requires-python = ">=3.9"
 resolution-markers = [
-    "python_full_version < '3.10'",
-    "python_full_version < '3.11'",
-    "python_full_version < '3.12'",
-    "python_full_version < '3.13'",
-    "python_full_version < '3.10'",
-    "python_full_version == '3.10.*'",
-    "python_full_version == '3.11.*'",
-    "python_full_version == '3.12.*'",
-    "python_full_version < '3.13'",
-    "python_full_version >= '3.13' and python_full_version < '4.0'",
-    "python_full_version >= '4.0'",
+    "python_full_version < '3.10' and platform_system != 'Emscripten'",
+    "python_full_version < '3.10' and platform_system == 'Emscripten'",
+    "python_full_version < '3.11' and platform_system != 'Emscripten'",
+    "python_full_version < '3.11' and platform_system == 'Emscripten'",
+    "python_full_version < '3.12' and platform_system != 'Emscripten'",
+    "python_full_version < '3.12' and platform_system == 'Emscripten'",
+    "python_full_version < '3.13' and platform_system != 'Emscripten'",
+    "python_full_version < '3.13' and platform_system == 'Emscripten'",
+    "python_full_version < '3.10' and platform_system != 'Emscripten'",
+    "python_full_version < '3.10' and platform_system == 'Emscripten'",
+    "python_full_version == '3.10.*' and platform_system != 'Emscripten'",
+    "python_full_version == '3.10.*' and platform_system == 'Emscripten'",
+    "python_full_version == '3.11.*' and platform_system != 'Emscripten'",
+    "python_full_version == '3.11.*' and platform_system == 'Emscripten'",
+    "python_full_version == '3.12.*' and platform_system != 'Emscripten'",
+    "python_full_version == '3.12.*' and platform_system == 'Emscripten'",
+    "python_full_version < '3.13' and platform_system != 'Emscripten'",
+    "python_full_version < '3.13' and platform_system == 'Emscripten'",
+    "python_full_version >= '3.13' and python_full_version < '4.0' and platform_system != 'Emscripten'",
+    "python_full_version >= '3.13' and python_full_version < '4.0' and platform_system == 'Emscripten'",
+    "python_full_version >= '4.0' and platform_system != 'Emscripten'",
+    "python_full_version >= '4.0' and platform_system == 'Emscripten'",
 ]
 
 [[package]]
@@ -45,6 +56,7 @@ dependencies = [
 
 [package.optional-dependencies]
 dev = [
+    { name = "pyright" },
     { name = "pytest" },
 ]
 quarto = [
@@ -60,6 +72,7 @@ requires-dist = [
     { name = "nbclient", marker = "extra == 'quarto'", specifier = ">=0.10.0" },
     { name = "nbformat", marker = "extra == 'quarto'", specifier = ">=5.10.4" },
     { name = "pydantic", specifier = ">=2.8.2" },
+    { name = "pyright", marker = "extra == 'dev'", specifier = ">=1.1.379" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.2" },
     { name = "pyyaml", marker = "extra == 'quarto'", specifier = ">=6.0.2" },
     { name = "ruamel-yaml", specifier = ">=0.18.6" },
@@ -280,6 +293,15 @@ wheels = [
 ]
 
 [[package]]
+name = "nodeenv"
+version = "1.9.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/43/16/fc88b08840de0e0a72a2f9d8c6bae36be573e475a6326ae854bcc549fc45/nodeenv-1.9.1.tar.gz", hash = "sha256:6ec12890a2dab7946721edbfbcd91f3319c6ccc9aec47be7c7e6b7011ee6645f", size = 47437 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d2/1d/1b658dbd2b9fa9c4c9f32accbfc0205d532c8c6194dc0f2a4c0428e7128a/nodeenv-1.9.1-py2.py3-none-any.whl", hash = "sha256:ba11c9782d29c27c70ffbdda2d7415098754709be8a7056d79a737cd901155c9", size = 22314 },
+]
+
+[[package]]
 name = "packaging"
 version = "24.1"
 source = { registry = "https://pypi.org/simple" }
@@ -414,6 +436,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/31/26/b670bd58f1de902c099ff623fe62b9820448a20d70437e7698a57b922d3a/pydantic_core-2.20.1-pp39-pypy39_pp73-musllinux_1_1_aarch64.whl", hash = "sha256:4dd484681c15e6b9a977c785a345d3e378d72678fd5f1f3c0509608da24f2ac0", size = 1960709 },
     { url = "https://files.pythonhosted.org/packages/de/ee/322cad098a0cffc81e985ac2a298d3f29a1da25efe7dc1fb5cd2615c5b04/pydantic_core-2.20.1-pp39-pypy39_pp73-musllinux_1_1_x86_64.whl", hash = "sha256:f6d6cff3538391e8486a431569b77921adfcdef14eb18fbf19b7c0a5294d4e6a", size = 2101218 },
     { url = "https://files.pythonhosted.org/packages/07/8b/30233f741e16b35499fa2fad2f4a69eb127eec6c850a1b14af26e7b08b73/pydantic_core-2.20.1-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:a6d511cc297ff0883bc3708b465ff82d7560193169a8b93260f74ecb0a5e08a7", size = 1915399 },
+]
+
+[[package]]
+name = "pyright"
+version = "1.1.379"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "nodeenv" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/14/62/fd6f13c417087b8e941c3d7cbc37fcf5ec62b6ae7031837194c0926cb704/pyright-1.1.379.tar.gz", hash = "sha256:6f426cb6443786fa966b930c23ad1941c8cb9fe672e4589daea8d80bb34193ea", size = 17481 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1e/4b/98bb2d6eb98ca35fa5fe90d787c3181310ed153c996af3a7f158487b9a87/pyright-1.1.379-py3-none-any.whl", hash = "sha256:01954811ac71db8646f50de1577576dc275ffb891a9e7324350e676cf6df323f", size = 18221 },
 ]
 
 [[package]]

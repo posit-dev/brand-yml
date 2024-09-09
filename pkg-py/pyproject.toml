@@ -18,12 +18,16 @@ quarto = [
     "nbclient>=0.10.0",
 ]
 dev = [
+    "pyright>=1.1.379",
     "pytest>=8.3.2",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.pyright]
+exclude = ["_dev", ".venv", "src/brand_yaml/_brand.py"]
 
 [tool.ruff]
 exclude = [

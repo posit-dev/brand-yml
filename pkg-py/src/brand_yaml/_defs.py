@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from textwrap import indent
-from typing import Any, Generic, Optional, TypeVar, Union
+from typing import Any, Generic, Iterable, TypeVar, Union
 
 from pydantic import (
     BaseModel,
@@ -14,14 +14,18 @@ from pydantic import (
 
 from ._utils_logging import logger
 
+DictString = dict[str, str]
+DictStringRecursive = Union[DictString, dict[str, "DictStringRecursive"]]
+DictStringRecursiveBaseModel = Union[DictStringRecursive, dict[str, BaseModel]]
+
 T = TypeVar("T")
 
 
 class BrandLightDark(BaseModel, Generic[T]):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    light: T = None
-    dark: T = None
+    light: T | None = None
+    dark: T | None = None
 
 
 class BrandLightDarkString(BrandLightDark[str]):
@@ -49,7 +53,7 @@ class BrandWith(BaseModel, Generic[T]):
         validate_assignment=True,
     )
 
-    with_: Optional[dict[str, T]] = Field(default=None, alias="with")
+    with_: dict[str, T] | None = Field(default=None, alias="with")
 
     @field_validator("with_", mode="after")
     @classmethod
@@ -73,7 +77,9 @@ class BrandWith(BaseModel, Generic[T]):
         return self
 
 
-def defs_get(defs: dict[str, object], key: str, level: int = 0) -> object:
+def defs_get(
+    defs: DictStringRecursiveBaseModel, key: str, level: int = 0
+) -> object:
     """
     Finds `key` in `with_`, which may require recursively resolving nested
     values from `with_`.
@@ -105,18 +111,18 @@ def defs_get(defs: dict[str, object], key: str, level: int = 0) -> object:
         level_indent(f"key {key} is in with_ with value {with_value!r}", level)
     )
 
-    if is_leaf_node(defs[key]):
+    if isinstance(with_value, (dict, BaseModel)):
+        defs_replace_recursively(defs, with_value, level=level)
         return with_value
     else:
-        defs_replace_recursively(defs, with_value, level=level)
         return with_value
 
 
 def defs_replace_recursively(
-    defs: dict[str, object],
-    items: dict | BaseModel = None,
+    defs: Any,
+    items: dict | BaseModel | None = None,
     level: int = 0,
-    name: str = None,
+    name: str | None = None,
 ):
     """
     Recursively replace string values in `items` with their definition in
@@ -190,7 +196,7 @@ def level_indent(x: str, level: int) -> str:
     return indent(x, ("." * level))
 
 
-def item_keys(item: dict | BaseModel) -> list[str]:
+def item_keys(item: DictStringRecursiveBaseModel | BaseModel) -> Iterable[str]:
     if isinstance(item, BaseModel):
         return item.model_fields.keys()
     elif hasattr(item, "keys"):
@@ -207,11 +213,11 @@ def get_value(items: dict | BaseModel, key: str) -> object:
 
 
 def check_circular_references(
-    data: dict[str, object],
-    current: object = None,
-    seen: list[str] = None,
-    path: list[str] = None,
-    name: str = None,
+    data: Any,
+    current: object | None = None,
+    seen: list[str] | None = None,
+    path: list[str] | None = None,
+    name: str | None = None,
 ):
     current = current if current is not None else data
     seen = seen if seen is not None else []
@@ -252,7 +258,12 @@ def check_circular_references(
 
 
 class CircularReferenceError(Exception):
-    def __init__(self, seen: list[str], path: list[str], name: str = None):
+    def __init__(
+        self,
+        seen: list[str],
+        path: list[str],
+        name: str | None = None,
+    ):
         self.seen = seen
         self.path = path
         self.name = name

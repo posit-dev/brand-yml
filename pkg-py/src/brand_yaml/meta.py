@@ -13,10 +13,10 @@ class BrandMeta(BrandBase):
 
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
-    name: str | BrandMetaName = Field(
+    name: str | BrandMetaName | None = Field(
         None, examples=["Very Big Corporation of America"]
     )
-    link: HttpUrl | BrandMetaLink = Field(
+    link: HttpUrl | BrandMetaLink | None = Field(
         None,
         examples=[
             "https://very-big-corp.com",
@@ -28,34 +28,34 @@ class BrandMeta(BrandBase):
 class BrandMetaName(BrandBase):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    full: str = Field(None, examples=["Very Big Corporation of America"])
-    short: str = Field(None, examples=["VBC"])
+    full: str | None = Field(None, examples=["Very Big Corporation of America"])
+    short: str | None = Field(None, examples=["VBC"])
 
 
 class BrandMetaLink(BrandBase):
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
-    home: HttpUrl = Field(
+    home: HttpUrl | None = Field(
         None,
         examples=["https://very-big-corp.com"],
     )
-    mastodon: HttpUrl = Field(
+    mastodon: HttpUrl | None = Field(
         None,
         examples=["https://mastodon.social/@VeryBigCorpOfficial"],
     )
-    github: HttpUrl = Field(
+    github: HttpUrl | None = Field(
         None,
         examples=["https://github.com/Very-Big-Corp"],
     )
-    linkedin: HttpUrl = Field(
+    linkedin: HttpUrl | None = Field(
         None,
         examples=["https://linkedin.com/company/very-big-corp"],
     )
-    twitter: HttpUrl = Field(
+    twitter: HttpUrl | None = Field(
         None,
         examples=["https://twitter.com/VeryBigCorp"],
     )
-    facebook: HttpUrl = Field(
+    facebook: HttpUrl | None = Field(
         None,
         examples=["https://facebook.com/Very-Big-Corp"],
     )

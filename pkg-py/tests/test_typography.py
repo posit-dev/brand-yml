@@ -23,10 +23,8 @@ def test_brand_typography_font_file_format(source, fmt):
 
 def test_brand_typography_font_file_format_ignored():
     # ignores user-provided formats, uses `source` field
-    BrandTypographyFontFile(
-        source="my-font.otf",
-        family="My Font",
-        format="invalid",
+    BrandTypographyFontFile.model_validate(
+        {"source": "my-font.otf", "family": "My Font"}
     )
 
 
@@ -34,19 +32,42 @@ def test_brand_typography_font_file_weight():
     args = {"source": "my-font.otf", "family": "My Font"}
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(**args, weight="invalid")
+        BrandTypographyFontFile.model_validate({**args, "weight": "invalid"})
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(**args, weight=999)
+        BrandTypographyFontFile.model_validate({**args, "weight": 999})
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(**args, weight=150)
+        BrandTypographyFontFile.model_validate({**args, "weight": 150})
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile(**args, weight=0)
+        BrandTypographyFontFile.model_validate({**args, "weight": 0})
 
-    assert BrandTypographyFontFile(**args, weight=100).weight == 100
-    assert BrandTypographyFontFile(**args, weight="thin").weight == 100
-    assert BrandTypographyFontFile(**args, weight="semi-bold").weight == 600
-    assert BrandTypographyFontFile(**args, weight="bold").weight == "bold"
-    assert BrandTypographyFontFile(**args, weight="normal").weight == "normal"
+    assert (
+        BrandTypographyFontFile.model_validate({**args, "weight": 100}).weight
+        == 100
+    )
+    assert (
+        BrandTypographyFontFile.model_validate(
+            {**args, "weight": "thin"}
+        ).weight
+        == 100
+    )
+    assert (
+        BrandTypographyFontFile.model_validate(
+            {**args, "weight": "semi-bold"}
+        ).weight
+        == 600
+    )
+    assert (
+        BrandTypographyFontFile.model_validate(
+            {**args, "weight": "bold"}
+        ).weight
+        == "bold"
+    )
+    assert (
+        BrandTypographyFontFile.model_validate(
+            {**args, "weight": "normal"}
+        ).weight
+        == "normal"
+    )

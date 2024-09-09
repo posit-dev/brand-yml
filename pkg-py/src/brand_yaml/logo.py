@@ -38,6 +38,6 @@ class BrandLogo(BrandWith[Union[str, BrandLightDark[str]]]):
 
     # TODO: Currently we're using a string for the logo path, but we should
     # update this to use a validated Path or URL in the future.
-    small: str | BrandLightDark[str] = None
-    medium: str | BrandLightDark[str] = None
-    large: str | BrandLightDark[str] = None
+    small: str | BrandLightDark[str] | None = None
+    medium: str | BrandLightDark[str] | None = None
+    large: str | BrandLightDark[str] | None = None

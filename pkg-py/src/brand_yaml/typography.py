@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Annotated, Literal, TypeVar, Union
+from typing import Annotated, Any, Literal, TypeVar, Union
 
 from pydantic import (
     BaseModel,
@@ -77,7 +77,7 @@ FontFormats = {
 
 
 class BrandInvalidFontWeight(ValueError):
-    def __init__(self, value: any):
+    def __init__(self, value: Any):
         super().__init__(
             f"Invalid font weight {value!r}. Expected a number divisible "
             + "by 100 and between 100 and 900, or one of "
@@ -86,7 +86,7 @@ class BrandInvalidFontWeight(ValueError):
 
 
 class BrandUnsupportedFontFileFormat(ValueError):
-    def __init__(self, value: any):
+    def __init__(self, value: Any):
         supported = ("opentype", "truetype", "woff", "woff2")
         super().__init__(
             f"Unsupported font file {value!r}. Expected one of {', '.join(supported)}."
@@ -118,8 +118,6 @@ class BrandTypographyFontFile(BaseModel):
 
     source: str
     family: str
-    # These are the formats supported by brand_yaml, not *all* available formats
-    format: Literal["opentype", "truetype", "woff", "woff2"] = None
     weight: BrandTypographyFontWeightSimpleType = "normal"
     style: BrandTypographyFontStyleType = "normal"
 
@@ -128,17 +126,29 @@ class BrandTypographyFontFile(BaseModel):
     def validate_weight(cls, value: int | str):
         return validate_font_weight(value)
 
-    @model_validator(mode="before")
+    @field_validator("source", mode="after")
     @classmethod
-    def validate_format(cls, data: any):
-        source = data["source"]
-        if Path(source).suffix not in FontFormats:
-            raise BrandUnsupportedFontFileFormat(source)
+    def validate_source(cls, value: str):
+        if not Path(value).suffix:
+            raise BrandUnsupportedFontFileFormat(value)
 
-        # Get file extension of `source` using built-in modules
-        data["format"] = FontFormats[Path(data["source"]).suffix]
+        if Path(value).suffix not in FontFormats:
+            raise BrandUnsupportedFontFileFormat(value)
 
-        return data
+        return value
+
+    @property
+    def format(self) -> Literal["opentype", "truetype", "woff", "woff2"]:
+        source_ext = Path(self.source).suffix
+
+        if source_ext not in FontFormats:
+            raise BrandUnsupportedFontFileFormat(self.source)
+
+        fmt = FontFormats[source_ext]
+        if fmt not in ("opentype", "truetype", "woff", "woff2"):
+            raise BrandUnsupportedFontFileFormat(self.source)
+
+        return fmt
 
 
 class BrandTypographyFontGoogle(BaseModel):
@@ -188,9 +198,11 @@ class BrandNamedColor(RootModel):
 class BrandTypographyOptionsBase(BrandBase):
     model_config = ConfigDict(populate_by_name=True)
 
-    weight: BrandTypographyFontWeightSimpleType = None
-    color: BrandNamedColor = None
-    background_color: BrandNamedColor = Field(None, alias="background-color")
+    weight: BrandTypographyFontWeightSimpleType | None = None
+    color: BrandNamedColor | None = None
+    background_color: BrandNamedColor | None = Field(
+        None, alias="background-color"
+    )
 
     @field_validator("weight", mode="before")
     @classmethod
@@ -201,9 +213,9 @@ class BrandTypographyOptionsBase(BrandBase):
 class BrandTypographyOptionsGenericText(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    family: str = None
-    line_height: float = Field(None, alias="line-height")
-    style: SingleOrList[BrandTypographyFontStyleType] = None
+    family: str | None = None
+    line_height: float | None = Field(None, alias="line-height")
+    style: SingleOrList[BrandTypographyFontStyleType] | None = None
 
 
 class BrandTypographyOptions(
@@ -212,7 +224,7 @@ class BrandTypographyOptions(
 ):
     model_config = ConfigDict(extra="forbid")
 
-    size: str = None
+    size: str | None = None
 
 
 class BrandTypographyOptionsNoSize(
@@ -229,11 +241,13 @@ class BrandTypographyEmphasis(BrandTypographyOptionsBase):
 class BrandTypographyLink(BrandTypographyOptionsBase):
     model_config = ConfigDict(extra="forbid")
 
-    decoration: str = None
+    decoration: str | None = None
 
 
 class BrandTypography(BrandBase):
-    font: list[
+    model_config = ConfigDict(extra="forbid")
+
+    fonts: list[
         Annotated[
             Union[
                 Annotated[BrandTypographyFontGoogle, Tag("google")],
@@ -241,12 +255,12 @@ class BrandTypography(BrandBase):
             ],
             Discriminator(brand_typography_font_discriminator),
         ]
-    ] = None
-    base: BrandTypographyOptions = None
-    headings: BrandTypographyOptionsNoSize = None
-    monospace: BrandTypographyOptions = None
-    emphasis: BrandTypographyEmphasis = None
-    link: BrandTypographyLink = None
+    ] = Field(default_factory=list)
+    base: BrandTypographyOptions | None = None
+    headings: BrandTypographyOptionsNoSize | None = None
+    monospace: BrandTypographyOptions | None = None
+    emphasis: BrandTypographyEmphasis | None = None
+    link: BrandTypographyLink | None = None
 
     def __repr_args__(self):
         fields = [f for f in self.model_fields.keys()]
