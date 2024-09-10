@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from brand_yaml.typography import BrandTypographyFontFile
+from brand_yaml.typography import BrandTypography, BrandTypographyFontFile
 
 
 @pytest.mark.parametrize(
@@ -71,3 +71,27 @@ def test_brand_typography_font_file_weight():
         ).weight
         == "normal"
     )
+
+
+def test_brand_typography_monospace():
+    bt = BrandTypography.model_validate(
+        {
+            "monospace": {"family": "Fira Code", "size": "1.2rem"},
+            "monospace-inline": {"size": "0.9rem"},
+            "monospace-block": {
+                "family": "Menlo",
+            },
+        }
+    )
+
+    assert bt.monospace is not None
+    assert bt.monospace.family == "Fira Code"
+    assert bt.monospace.size == "1.2rem"
+
+    assert bt.monospace_inline is not None
+    assert bt.monospace_inline.family == "Fira Code"  # inherits family
+    assert bt.monospace_inline.size == "0.9rem"  # overrides size
+
+    assert bt.monospace_block is not None
+    assert bt.monospace_block.family == "Menlo"  # overrides family
+    assert bt.monospace_block.size == "1.2rem"  # inherits size

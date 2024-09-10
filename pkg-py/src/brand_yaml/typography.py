@@ -195,14 +195,17 @@ class BrandNamedColor(RootModel):
     root: str
 
 
-class BrandTypographyOptionsBase(BrandBase):
+class BrandTypographyOptionsColor(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    weight: BrandTypographyFontWeightSimpleType | None = None
     color: BrandNamedColor | None = None
     background_color: BrandNamedColor | None = Field(
         None, alias="background-color"
     )
+
+
+class BrandTypographyOptionsWeight(BaseModel):
+    weight: BrandTypographyFontWeightSimpleType | None = None
 
     @field_validator("weight", mode="before")
     @classmethod
@@ -210,42 +213,76 @@ class BrandTypographyOptionsBase(BrandBase):
         return validate_font_weight(value)
 
 
-class BrandTypographyOptionsGenericText(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-
+class BrandTypographyOptionsGenericText(BrandTypographyOptionsWeight):
     family: str | None = None
-    line_height: float | None = Field(None, alias="line-height")
     style: SingleOrList[BrandTypographyFontStyleType] | None = None
 
 
-class BrandTypographyOptions(
-    BrandTypographyOptionsBase,
-    BrandTypographyOptionsGenericText,
-):
-    model_config = ConfigDict(extra="forbid")
-
+class BrandTypographyOptionsSize(BaseModel):
     size: str | None = None
 
 
-class BrandTypographyOptionsNoSize(
-    BrandTypographyOptionsBase,
+class BrandTypographyOptionsBlockText(BaseModel):
+    line_height: float | None = Field(None, alias="line-height")
+
+
+class BrandTypographyBase(
+    BrandBase,
     BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsColor,
 ):
     model_config = ConfigDict(extra="forbid")
 
 
-class BrandTypographyEmphasis(BrandTypographyOptionsBase):
+class BrandTypographyHeadings(
+    BrandBase,
+    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsColor,
+):
     model_config = ConfigDict(extra="forbid")
 
 
-class BrandTypographyLink(BrandTypographyOptionsBase):
+class BrandTypographyMonospace(
+    BrandBase,
+    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsSize,
+):
+    model_config = ConfigDict(extra="forbid")
+
+
+class BrandTypographyMonospaceInline(
+    BrandBase,
+    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsSize,
+    BrandTypographyOptionsColor,
+):
+    model_config = ConfigDict(extra="forbid")
+
+
+class BrandTypographyMonospaceBlock(
+    BrandBase,
+    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsSize,
+    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsColor,
+):
+    model_config = ConfigDict(extra="forbid")
+
+
+class BrandTypographyLink(
+    BrandBase,
+    BrandTypographyOptionsWeight,
+    BrandTypographyOptionsColor,
+):
     model_config = ConfigDict(extra="forbid")
 
     decoration: str | None = None
 
 
 class BrandTypography(BrandBase):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
     fonts: list[
         Annotated[
@@ -256,13 +293,42 @@ class BrandTypography(BrandBase):
             Discriminator(brand_typography_font_discriminator),
         ]
     ] = Field(default_factory=list)
-    base: BrandTypographyOptions | None = None
-    headings: BrandTypographyOptionsNoSize | None = None
-    monospace: BrandTypographyOptions | None = None
-    emphasis: BrandTypographyEmphasis | None = None
+    base: BrandTypographyBase | None = None
+    headings: BrandTypographyHeadings | None = None
+    monospace: BrandTypographyMonospace | None = None
+    monospace_inline: BrandTypographyMonospaceInline | None = Field(
+        None, alias="monospace-inline"
+    )
+    monospace_block: BrandTypographyMonospaceBlock | None = Field(
+        None, alias="monospace-block"
+    )
     link: BrandTypographyLink | None = None
 
     def __repr_args__(self):
         fields = [f for f in self.model_fields.keys()]
         values = [getattr(self, f) for f in fields]
         return ((f, v) for f, v in zip(fields, values) if v is not None)
+
+    @model_validator(mode="after")
+    def forward_monospace_values(self):
+        """
+        Forward values from `monospace` to inline and block variants.
+
+        `monospace-inline` and `monospace-block` both inherit `family`, `style`,
+        `weight` and `size` from `monospace`.
+        """
+
+        def use_fallback(obj: BaseModel | None, parent: BaseModel | None):
+            if parent is None or obj is None:
+                return
+
+            for field in ("family", "style", "weight", "size"):
+                fallback = getattr(parent, field)
+                if fallback is None:
+                    continue
+                if getattr(obj, field) is None:
+                    setattr(obj, field, fallback)
+
+        use_fallback(self.monospace_inline, self.monospace)
+        use_fallback(self.monospace_block, self.monospace)
+        return self
