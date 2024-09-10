@@ -8,6 +8,8 @@ from pydantic import (
     ConfigDict,
     Discriminator,
     Field,
+    HttpUrl,
+    PositiveInt,
     RootModel,
     Tag,
     field_validator,
@@ -159,6 +161,8 @@ class BrandTypographyFontGoogle(BaseModel):
     weight: SingleOrList[BrandTypographyFontWeightAllType] = [400, 700]
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
     display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
+    version: PositiveInt = 2
+    url: HttpUrl = Field("https://fonts.googleapis.com/")
 
     @field_validator("weight", mode="before")
     @classmethod
@@ -169,10 +173,20 @@ class BrandTypographyFontGoogle(BaseModel):
             return validate_font_weight(value)
 
 
+class BrandTypographyFontBunny(BrandTypographyFontGoogle):
+    model_config = ConfigDict(extra="forbid")
+
+    source: Literal["bunny"] = "bunny"
+    version: PositiveInt = 1
+    url: HttpUrl = Field("https://fonts.bunny.net/")
+
+
 def brand_typography_font_discriminator(
     x: dict[str, object] | BrandTypographyFontFile | BrandTypographyFontGoogle,
 ) -> Literal["google", "file"]:
-    if isinstance(x, BrandTypographyFontGoogle):
+    if isinstance(x, BrandTypographyFontBunny):
+        return "bunny"
+    elif isinstance(x, BrandTypographyFontGoogle):
         return "google"
     elif isinstance(x, BrandTypographyFontFile):
         return "file"
@@ -181,13 +195,13 @@ def brand_typography_font_discriminator(
 
     if not isinstance(value, str):
         pass
-    elif value == "google":
-        return "google"
+    elif value in ("google", "bunny"):
+        return value
     elif Path(value).suffix:
         return "file"
 
     raise ValueError(
-        "Unsupported font source {value!r}, must be a file path or {'google'!r}."
+        "Unsupported font source {value!r}, must be a file path, 'google', or 'bunny'."
     )
 
 
@@ -289,6 +303,7 @@ class BrandTypography(BrandBase):
         Annotated[
             Union[
                 Annotated[BrandTypographyFontGoogle, Tag("google")],
+                Annotated[BrandTypographyFontBunny, Tag("bunny")],
                 Annotated[BrandTypographyFontFile, Tag("file")],
             ],
             Discriminator(brand_typography_font_discriminator),

@@ -5,7 +5,9 @@ import pytest
 from brand_yaml.typography import (
     BrandTypography,
     BrandTypographyBase,
+    BrandTypographyFontBunny,
     BrandTypographyFontFile,
+    BrandTypographyFontGoogle,
     BrandTypographyHeadings,
     BrandTypographyLink,
     BrandTypographyMonospace,
@@ -175,3 +177,22 @@ def test_brand_typography_fields_link():
         "color",
         "background_color",
     }
+
+
+def test_brand_typography_font_bunny():
+    bf = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "bunny",
+                    "family": "Kode Mono",
+                    "weight": [400, 500, 600, 700],
+                    "style": "normal",
+                }
+            ]
+        }
+    )
+
+    assert len(bf.fonts) == 1
+    assert isinstance(bf.fonts[0], BrandTypographyFontBunny)
+    assert isinstance(bf.fonts[0], BrandTypographyFontGoogle)
