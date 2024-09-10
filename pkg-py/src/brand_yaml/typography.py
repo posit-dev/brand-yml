@@ -304,11 +304,6 @@ class BrandTypography(BrandBase):
     )
     link: BrandTypographyLink | None = None
 
-    def __repr_args__(self):
-        fields = [f for f in self.model_fields.keys()]
-        values = [getattr(self, f) for f in fields]
-        return ((f, v) for f, v in zip(fields, values) if v is not None)
-
     @model_validator(mode="after")
     def forward_monospace_values(self):
         """
