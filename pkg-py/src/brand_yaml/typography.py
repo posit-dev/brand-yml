@@ -229,6 +229,7 @@ class BrandTypographyOptionsBlockText(BaseModel):
 class BrandTypographyBase(
     BrandBase,
     BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsSize,
     BrandTypographyOptionsBlockText,
     BrandTypographyOptionsColor,
 ):

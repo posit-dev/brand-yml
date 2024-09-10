@@ -2,7 +2,16 @@ from __future__ import annotations
 
 import pytest
 
-from brand_yaml.typography import BrandTypography, BrandTypographyFontFile
+from brand_yaml.typography import (
+    BrandTypography,
+    BrandTypographyBase,
+    BrandTypographyFontFile,
+    BrandTypographyHeadings,
+    BrandTypographyLink,
+    BrandTypographyMonospace,
+    BrandTypographyMonospaceBlock,
+    BrandTypographyMonospaceInline,
+)
 
 
 @pytest.mark.parametrize(
@@ -95,3 +104,74 @@ def test_brand_typography_monospace():
     assert bt.monospace_block is not None
     assert bt.monospace_block.family == "Menlo"  # overrides family
     assert bt.monospace_block.size == "1.2rem"  # inherits size
+
+
+def test_brand_typography_fields_base():
+    base_fields = set(BrandTypographyBase.model_fields.keys())
+
+    assert base_fields == {
+        "family",
+        "weight",
+        "style",
+        "size",
+        "line_height",
+        "color",
+        "background_color",
+    }
+
+
+def test_brand_typography_fields_headings():
+    headings_fields = set(BrandTypographyHeadings.model_fields.keys())
+
+    assert headings_fields == {
+        "family",
+        "weight",
+        "style",
+        "line_height",
+        "color",
+        "background_color",
+    }
+
+
+def test_brand_typography_fields_monospace():
+    fields = set(BrandTypographyMonospace.model_fields.keys())
+
+    assert fields == {"family", "weight", "style", "size"}
+
+
+def test_brand_typography_fields_monospace_inline():
+    fields = set(BrandTypographyMonospaceInline.model_fields.keys())
+
+    assert fields == {
+        "family",
+        "weight",
+        "style",
+        "size",
+        "color",
+        "background_color",
+    }
+
+
+def test_brand_typography_fields_monospace_block():
+    fields = set(BrandTypographyMonospaceBlock.model_fields.keys())
+
+    assert fields == {
+        "family",
+        "weight",
+        "style",
+        "size",
+        "line_height",
+        "color",
+        "background_color",
+    }
+
+
+def test_brand_typography_fields_link():
+    fields = set(BrandTypographyLink.model_fields.keys())
+
+    assert fields == {
+        "weight",
+        "decoration",
+        "color",
+        "background_color",
+    }
