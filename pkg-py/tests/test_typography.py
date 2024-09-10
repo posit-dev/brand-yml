@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from urllib.parse import unquote
+
 import pytest
 
 from brand_yaml.typography import (
@@ -196,3 +198,47 @@ def test_brand_typography_font_bunny():
     assert len(bf.fonts) == 1
     assert isinstance(bf.fonts[0], BrandTypographyFontBunny)
     assert isinstance(bf.fonts[0], BrandTypographyFontGoogle)
+
+
+def test_brand_typography_font_google_import_url():
+    bg = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "google",
+                    "family": "Open Sans",
+                    "weight": [700, 400],
+                    "style": ["italic", "normal"],
+                }
+            ]
+        }
+    )
+
+    assert len(bg.fonts) == 1
+    assert isinstance(bg.fonts[0], BrandTypographyFontGoogle)
+    assert (
+        unquote(bg.fonts[0].import_url())
+        == "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=auto"
+    )
+
+
+def test_brand_typography_font_bunny_import_url():
+    bg = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "bunny",
+                    "family": "Open Sans",
+                    "weight": [700, 400],
+                    "style": ["italic", "normal"],
+                }
+            ]
+        }
+    )
+
+    assert len(bg.fonts) == 1
+    assert isinstance(bg.fonts[0], BrandTypographyFontBunny)
+    assert (
+        unquote(bg.fonts[0].import_url())
+        == "https://fonts.bunny.net/css?family=Open+Sans:400,400i,700,700i&display=auto"
+    )

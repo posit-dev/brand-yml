@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import itertools
 from pathlib import Path
 from typing import Annotated, Any, Literal, TypeVar, Union
+from urllib.parse import urlencode, urljoin
 
 from pydantic import (
     BaseModel,
@@ -172,6 +174,71 @@ class BrandTypographyFontGoogle(BaseModel):
         else:
             return validate_font_weight(value)
 
+    def import_url(self) -> str:
+        if self.version == 1:
+            return self._import_url_v1()
+        return self._import_url_v2()
+
+    def _import_url_v1(self) -> str:
+        weight = sorted(
+            self.weight if isinstance(self.weight, list) else [self.weight]
+        )
+        style_str = sorted(
+            self.style if isinstance(self.style, list) else [self.style]
+        )
+        style_map = {"normal": "", "italic": "i"}
+        ital: list[str] = sorted([style_map[s] for s in style_str])
+
+        values = []
+        if len(weight) > 0 and len(ital) > 0:
+            values = [f"{w}{i}" for w, i in itertools.product(weight, ital)]
+        elif len(weight) > 0:
+            values = [str(w) for w in weight]
+        elif len(ital) > 0:
+            values = ["regular" if i == "" else "italic" for i in ital]
+
+        family_values = "" if len(values) == 0 else f":{','.join(values)}"
+        params = urlencode(
+            {
+                "family": self.family + family_values,
+                "display": self.display,
+            }
+        )
+
+        return urljoin(str(self.url), f"css?{params}")
+
+    def _import_url_v2(self) -> str:
+        weight = sorted(
+            self.weight if isinstance(self.weight, list) else [self.weight]
+        )
+        style_str = sorted(
+            self.style if isinstance(self.style, list) else [self.style]
+        )
+        style_map = {"normal": 0, "italic": 1}
+        ital: list[int] = sorted([style_map[s] for s in style_str])
+
+        values = []
+        axis = ""
+        if len(weight) > 0 and len(ital) > 0:
+            values = [f"{i},{w}" for i, w in itertools.product(ital, weight)]
+            axis = "ital,wght"
+        elif len(weight) > 0:
+            values = [str(w) for w in weight]
+            axis = "wght"
+        elif len(ital) > 0:
+            values = [str(i) for i in ital]
+            axis = "ital"
+
+        axis_range = f":{axis}@{';'.join(values)}"
+        params = urlencode(
+            {
+                "family": self.family + axis_range,
+                "display": self.display,
+            }
+        )
+
+        return urljoin(str(self.url), f"css2?{params}")
+
 
 class BrandTypographyFontBunny(BrandTypographyFontGoogle):
     model_config = ConfigDict(extra="forbid")
@@ -183,7 +250,7 @@ class BrandTypographyFontBunny(BrandTypographyFontGoogle):
 
 def brand_typography_font_discriminator(
     x: dict[str, object] | BrandTypographyFontFile | BrandTypographyFontGoogle,
-) -> Literal["google", "file"]:
+) -> Literal["google", "bunny", "file"]:
     if isinstance(x, BrandTypographyFontBunny):
         return "bunny"
     elif isinstance(x, BrandTypographyFontGoogle):
