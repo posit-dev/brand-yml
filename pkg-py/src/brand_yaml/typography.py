@@ -155,10 +155,7 @@ class BrandTypographyFontFile(BaseModel):
         return fmt
 
 
-class BrandTypographyFontGoogle(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    source: Literal["google"] = "google"
+class BrandTypographyGoogleFontsApi(BaseModel):
     family: str
     weight: SingleOrList[BrandTypographyFontWeightAllType] = [400, 700]
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
@@ -240,7 +237,13 @@ class BrandTypographyFontGoogle(BaseModel):
         return urljoin(str(self.url), f"css2?{params}")
 
 
-class BrandTypographyFontBunny(BrandTypographyFontGoogle):
+class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
+    model_config = ConfigDict(extra="forbid")
+
+    source: Literal["google"] = "google"
+
+
+class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["bunny"] = "bunny"

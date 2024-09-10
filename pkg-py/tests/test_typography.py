@@ -10,6 +10,7 @@ from brand_yaml.typography import (
     BrandTypographyFontBunny,
     BrandTypographyFontFile,
     BrandTypographyFontGoogle,
+    BrandTypographyGoogleFontsApi,
     BrandTypographyHeadings,
     BrandTypographyLink,
     BrandTypographyMonospace,
@@ -197,7 +198,7 @@ def test_brand_typography_font_bunny():
 
     assert len(bf.fonts) == 1
     assert isinstance(bf.fonts[0], BrandTypographyFontBunny)
-    assert isinstance(bf.fonts[0], BrandTypographyFontGoogle)
+    assert isinstance(bf.fonts[0], BrandTypographyGoogleFontsApi)
 
 
 def test_brand_typography_font_google_import_url():
