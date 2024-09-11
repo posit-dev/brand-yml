@@ -1,6 +1,6 @@
 [project]
 name = "brand-yaml"
-version = "0.1.0"
+version = "0.0.1"
 description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
 requires-python = ">=3.9"
@@ -26,10 +26,6 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.version]
-path = "pkg-py/src/brand_yaml/__init__.py"
-pattern = "BUILD = 'b(?P<version>[^']+)'"
 
 [tool.hatch.build]
 skip-excluded-dirs = true
