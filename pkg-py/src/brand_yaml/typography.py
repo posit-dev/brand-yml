@@ -338,18 +338,14 @@ class BrandTypographyMonospace(
 
 
 class BrandTypographyMonospaceInline(
-    BrandBase,
-    BrandTypographyOptionsGenericText,
-    BrandTypographyOptionsSize,
+    BrandTypographyMonospace,
     BrandTypographyOptionsColor,
 ):
     model_config = ConfigDict(extra="forbid")
 
 
 class BrandTypographyMonospaceBlock(
-    BrandBase,
-    BrandTypographyOptionsGenericText,
-    BrandTypographyOptionsSize,
+    BrandTypographyMonospace,
     BrandTypographyOptionsBlockText,
     BrandTypographyOptionsColor,
 ):
@@ -398,18 +394,34 @@ class BrandTypography(BrandBase):
         `monospace-inline` and `monospace-block` both inherit `family`, `style`,
         `weight` and `size` from `monospace`.
         """
+        if self.monospace is None:
+            return self
 
-        def use_fallback(obj: BaseModel | None, parent: BaseModel | None):
-            if parent is None or obj is None:
+        monospace_defaults = {
+            k: v
+            for k, v in self.monospace.model_dump().items()
+            if v is not None
+        }
+
+        def use_fallback(key: str):
+            obj = getattr(self, key)
+
+            if obj is None:
+                new_type = (
+                    BrandTypographyMonospaceInline
+                    if key == "monospace_inline"
+                    else BrandTypographyMonospaceBlock
+                )
+                setattr(self, key, new_type.model_validate(monospace_defaults))
                 return
 
             for field in ("family", "style", "weight", "size"):
-                fallback = getattr(parent, field)
+                fallback = monospace_defaults.get(field)
                 if fallback is None:
                     continue
                 if getattr(obj, field) is None:
                     setattr(obj, field, fallback)
 
-        use_fallback(self.monospace_inline, self.monospace)
-        use_fallback(self.monospace_block, self.monospace)
+        use_fallback("monospace_inline")
+        use_fallback("monospace_block")
         return self

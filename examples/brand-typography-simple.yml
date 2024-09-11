@@ -1,0 +1,12 @@
+typography:
+  base:
+    family: Open Sans
+    line-height: 1.25
+    size: 1rem
+  headings:
+    family: Roboto Slab
+    color: primary
+    weight: 600
+  monospace:
+    family: Fira Code
+    size: 0.9em

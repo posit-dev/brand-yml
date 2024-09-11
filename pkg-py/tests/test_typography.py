@@ -3,7 +3,9 @@ from __future__ import annotations
 from urllib.parse import unquote
 
 import pytest
+from utils import path_examples
 
+from brand_yaml import read_brand_yaml
 from brand_yaml.typography import (
     BrandTypography,
     BrandTypographyBase,
@@ -242,4 +244,25 @@ def test_brand_typography_font_bunny_import_url():
     assert (
         unquote(bg.fonts[0].import_url())
         == "https://fonts.bunny.net/css?family=Open+Sans:400,400i,700,700i&display=auto"
+    )
+
+
+def test_brand_typography_ex_simple():
+    brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert isinstance(brand.typography.base, BrandTypographyBase)
+    assert isinstance(brand.typography.headings, BrandTypographyHeadings)
+    assert isinstance(brand.typography.monospace, BrandTypographyMonospace)
+    assert isinstance(
+        brand.typography.monospace_inline, BrandTypographyMonospace
+    )
+    assert isinstance(
+        brand.typography.monospace_block, BrandTypographyMonospace
+    )
+    assert isinstance(
+        brand.typography.monospace_inline, BrandTypographyMonospaceInline
+    )
+    assert isinstance(
+        brand.typography.monospace_block, BrandTypographyMonospaceBlock
     )
