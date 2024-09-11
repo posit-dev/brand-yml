@@ -2,7 +2,7 @@
 name = "brand-yaml"
 version = "0.1.0"
 description = "Read brand yaml files, a unified way to store brand information."
-readme = "README.md"
+readme = "pkg-py/README.md"
 requires-python = ">=3.9"
 dependencies = [
     "ruamel-yaml>=0.18.6",
@@ -27,10 +27,22 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.version]
+path = "pkg-py/src/brand_yaml/__init__.py"
+pattern = "BUILD = 'b(?P<version>[^']+)'"
+
+[tool.hatch.build]
+skip-excluded-dirs = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["pkg-py/src/brand_yaml"]
+
 [tool.pyright]
-exclude = ["_dev", ".venv", "src/brand_yaml/_brand.py"]
+include = ["pkg-py"]
+exclude = ["pkg-py/_dev", "pkg-py/.venv", "pkg-py/src/brand_yaml/_brand.py"]
 
 [tool.ruff]
+src = ["pkg-py"]
 exclude = [
     ".bzr",
     ".direnv",
