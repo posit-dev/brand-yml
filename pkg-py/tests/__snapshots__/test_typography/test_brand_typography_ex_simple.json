@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "name": "examples/brand-typography-simple.yml"
+  },
+  "typography": {
+    "base": {
+      "family": "Open Sans",
+      "line-height": 1.25,
+      "size": "1rem"
+    },
+    "headings": {
+      "color": "primary",
+      "family": "Roboto Slab",
+      "weight": 600
+    },
+    "monospace": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-block": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-inline": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    }
+  }
+}

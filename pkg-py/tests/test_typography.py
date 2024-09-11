@@ -3,7 +3,8 @@ from __future__ import annotations
 from urllib.parse import unquote
 
 import pytest
-from utils import path_examples
+from syrupy.extensions.json import JSONSnapshotExtension
+from utils import path_examples, pydantic_data_from_json
 
 from brand_yaml import read_brand_yaml
 from brand_yaml.typography import (
@@ -19,6 +20,11 @@ from brand_yaml.typography import (
     BrandTypographyMonospaceBlock,
     BrandTypographyMonospaceInline,
 )
+
+
+@pytest.fixture
+def snapshot_json(snapshot):
+    return snapshot.use_extension(JSONSnapshotExtension)
 
 
 @pytest.mark.parametrize(
@@ -247,10 +253,12 @@ def test_brand_typography_font_bunny_import_url():
     )
 
 
-def test_brand_typography_ex_simple():
+def test_brand_typography_ex_simple(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
+    assert brand.typography.fonts == []
+    assert brand.typography.link is None
     assert isinstance(brand.typography.base, BrandTypographyBase)
     assert isinstance(brand.typography.headings, BrandTypographyHeadings)
     assert isinstance(brand.typography.monospace, BrandTypographyMonospace)
@@ -266,3 +274,41 @@ def test_brand_typography_ex_simple():
     assert isinstance(
         brand.typography.monospace_block, BrandTypographyMonospaceBlock
     )
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_ex_fonts(snapshot_json):
+    brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert len(brand.typography.fonts) == 5
+
+    for font in brand.typography.fonts[:3]:
+        assert isinstance(font, BrandTypographyFontFile)
+        assert font.source.startswith("Open-Sans")
+        assert font.source.endswith(".ttf")
+        assert font.format == "truetype"
+
+    assert [f.weight for f in brand.typography.fonts[:3]] == [
+        "normal",
+        "bold",
+        "normal",
+    ]
+
+    assert [f.style for f in brand.typography.fonts[:3]] == [
+        "normal",
+        "normal",
+        "italic",
+    ]
+
+    assert isinstance(brand.typography.fonts[3], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[3].family == "Roboto Slab"
+    assert brand.typography.fonts[3].weight == 600
+    assert brand.typography.fonts[3].style == "normal"
+    assert brand.typography.fonts[3].display == "block"
+
+    assert isinstance(brand.typography.fonts[4], BrandTypographyFontBunny)
+    assert brand.typography.fonts[4].family == "Fira Code"
+
+    assert snapshot_json == pydantic_data_from_json(brand)

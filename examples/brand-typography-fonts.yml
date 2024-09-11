@@ -1,0 +1,37 @@
+meta:
+  name: examples/brand-typography-fonts.yml
+typography:
+  fonts:
+    # Local files 
+    # TODO: validate file paths, currently accepts arbitrary strings
+    - source: Open-Sans.ttf
+      family: Open Sans
+    - source: Open-Sans-Bold.ttf
+      family: Open Sans
+      weight: bold
+    - source: Open-Sans-Italic.ttf
+      family: Open Sans
+      style: italic
+    
+    # Online Fonts
+    - source: google
+      family: Roboto Slab
+      weight: semi-bold
+      style: normal
+      display: block
+    - source: bunny
+      family: Fira Code
+
+  base:
+    family: Open Sans
+    line-height: 1.25
+    size: 1rem
+
+  headings:
+    family: Roboto Slab
+    color: primary
+    weight: 600
+
+  monospace:
+    family: Fira Code
+    size: 0.9em

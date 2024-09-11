@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "name": "examples/brand-typography-fonts.yml"
+  },
+  "typography": {
+    "base": {
+      "family": "Open Sans",
+      "line-height": 1.25,
+      "size": "1rem"
+    },
+    "fonts": [
+      {
+        "family": "Open Sans",
+        "source": "Open-Sans.ttf"
+      },
+      {
+        "family": "Open Sans",
+        "source": "Open-Sans-Bold.ttf",
+        "weight": "bold"
+      },
+      {
+        "family": "Open Sans",
+        "source": "Open-Sans-Italic.ttf",
+        "style": "italic"
+      },
+      {
+        "display": "block",
+        "family": "Roboto Slab",
+        "source": "google",
+        "style": "normal",
+        "weight": 600
+      },
+      {
+        "family": "Fira Code",
+        "source": "bunny"
+      }
+    ],
+    "headings": {
+      "color": "primary",
+      "family": "Roboto Slab",
+      "weight": 600
+    },
+    "monospace": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-block": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-inline": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    }
+  }
+}
