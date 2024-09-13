@@ -49,8 +49,26 @@ BrandTypographyFontWeightSimpleType = Union[
     float, int, Literal["normal", "bold"]
 ]
 
+BrandTypographyFontWeightRoundIntType = Literal[
+    100, 200, 300, 400, 500, 600, 700, 800, 900
+]
+
+BrandTypographyFontWeightRoundInt = (
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+)
+
 # https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_mapping
-BrandTypographyFontWeightMap = {
+BrandTypographyFontWeightMap: dict[
+    str, BrandTypographyFontWeightRoundIntType
+] = {
     "thin": 100,
     "extra-light": 200,
     "ultra-light": 200,
@@ -157,7 +175,9 @@ class BrandTypographyFontFile(BaseModel):
 
 class BrandTypographyGoogleFontsApi(BaseModel):
     family: str
-    weight: SingleOrList[BrandTypographyFontWeightAllType] = [400, 700]
+    weight: SingleOrList[BrandTypographyFontWeightSimpleType] = Field(
+        default=list(BrandTypographyFontWeightRoundInt)
+    )
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
     display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
     version: PositiveInt = 2
@@ -165,7 +185,9 @@ class BrandTypographyGoogleFontsApi(BaseModel):
 
     @field_validator("weight", mode="before")
     @classmethod
-    def validate_weight(cls, value: SingleOrList[Union[int, str]]):
+    def validate_weight(
+        cls, value: SingleOrList[Union[int, str]]
+    ) -> SingleOrList[BrandTypographyFontWeightSimpleType]:
         if isinstance(value, list):
             return [validate_font_weight(x) for x in value]
         else:
