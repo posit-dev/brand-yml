@@ -13,7 +13,6 @@ from pydantic import (
     HttpUrl,
     PositiveInt,
     RootModel,
-    Tag,
     field_validator,
     model_validator,
 )
@@ -135,11 +134,18 @@ def validate_font_weight(
     return value
 
 
-class BrandTypographyFontFile(BaseModel):
+class BrandTypographyFontFiles(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    source: str
+    source: Literal["file"] = "file"
     family: str
+    files: list[BrandTypographyFontFilesPath]
+
+
+class BrandTypographyFontFilesPath(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    path: str | HttpUrl  # TODO: FilePath validation
     weight: BrandTypographyFontWeightSimpleType = "normal"
     style: BrandTypographyFontStyleType = "normal"
 
@@ -148,9 +154,9 @@ class BrandTypographyFontFile(BaseModel):
     def validate_weight(cls, value: int | str):
         return validate_font_weight(value)
 
-    @field_validator("source", mode="after")
+    @field_validator("path", mode="after")
     @classmethod
-    def validate_source(cls, value: str):
+    def validate_source(cls, value: str) -> str:
         if not Path(value).suffix:
             raise BrandUnsupportedFontFileFormat(value)
 
@@ -161,14 +167,15 @@ class BrandTypographyFontFile(BaseModel):
 
     @property
     def format(self) -> Literal["opentype", "truetype", "woff", "woff2"]:
-        source_ext = Path(self.source).suffix
+        path = str(self.path)
+        path_ext = Path(path).suffix
 
-        if source_ext not in FontFormats:
-            raise BrandUnsupportedFontFileFormat(self.source)
+        if path_ext not in FontFormats:
+            raise BrandUnsupportedFontFileFormat(path)
 
-        fmt = FontFormats[source_ext]
+        fmt = FontFormats[path_ext]
         if fmt not in ("opentype", "truetype", "woff", "woff2"):
-            raise BrandUnsupportedFontFileFormat(self.source)
+            raise BrandUnsupportedFontFileFormat(path)
 
         return fmt
 
@@ -273,28 +280,28 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
     url: HttpUrl = Field("https://fonts.bunny.net/")
 
 
-def brand_typography_font_discriminator(
-    x: dict[str, object] | BrandTypographyFontFile | BrandTypographyFontGoogle,
-) -> Literal["google", "bunny", "file"]:
-    if isinstance(x, BrandTypographyFontBunny):
-        return "bunny"
-    elif isinstance(x, BrandTypographyFontGoogle):
-        return "google"
-    elif isinstance(x, BrandTypographyFontFile):
-        return "file"
+# def brand_typography_font_discriminator(
+#     x: dict[str, object] | BrandTypographyFontFiles | BrandTypographyFontGoogle,
+# ) -> Literal["google", "bunny", "file"]:
+#     if isinstance(x, BrandTypographyFontBunny):
+#         return "bunny"
+#     elif isinstance(x, BrandTypographyFontGoogle):
+#         return "google"
+#     elif isinstance(x, BrandTypographyFontFiles):
+#         return "file"
 
-    value = x.get("source")
+#     value = x.get("source")
 
-    if not isinstance(value, str):
-        pass
-    elif value in ("google", "bunny"):
-        return value
-    elif Path(value).suffix:
-        return "file"
+#     if not isinstance(value, str):
+#         pass
+#     elif value in ("google", "bunny"):
+#         return value
+#     elif Path(value).suffix:
+#         return "file"
 
-    raise ValueError(
-        "Unsupported font source {value!r}, must be a file path, 'google', or 'bunny'."
-    )
+#     raise ValueError(
+#         "Unsupported font source {value!r}, must be a file path, 'google', or 'bunny'."
+#     )
 
 
 class BrandNamedColor(RootModel):
@@ -390,11 +397,11 @@ class BrandTypography(BrandBase):
     fonts: list[
         Annotated[
             Union[
-                Annotated[BrandTypographyFontGoogle, Tag("google")],
-                Annotated[BrandTypographyFontBunny, Tag("bunny")],
-                Annotated[BrandTypographyFontFile, Tag("file")],
+                BrandTypographyFontFiles,
+                BrandTypographyFontGoogle,
+                BrandTypographyFontBunny,
             ],
-            Discriminator(brand_typography_font_discriminator),
+            Discriminator("source"),
         ]
     ] = Field(default_factory=list)
     base: BrandTypographyBase | None = None

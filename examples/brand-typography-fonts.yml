@@ -3,24 +3,34 @@ meta:
 typography:
   fonts:
     # Local files 
-    # TODO: validate file paths, currently accepts arbitrary strings
-    - source: Open-Sans.ttf
-      family: Open Sans
-    - source: Open-Sans-Bold.ttf
-      family: Open Sans
-      weight: bold
-    - source: Open-Sans-Italic.ttf
-      family: Open Sans
-      style: italic
-    
-    # Online Fonts
-    - source: google
-      family: Roboto Slab
+    - family: Open Sans
+      source: file
+      files:
+        - path: Open-Sans-Bold.ttf  # TODO: FilePath validation
+          weight: bold
+        - path: Open-Sans-Italic.ttf
+          style: italic
+
+    # Online files
+    - family: Closed Sans
+      source: file
+      files:
+        - path: https://example.com/Closed-Sans-Bold.woff2
+          weight: bold
+        - path: https://example.com/Closed-Sans-Italic.woff2
+          style: italic
+
+    # Online Font Foundries
+    - family: Roboto Slab
+      source: google
       weight: semi-bold
       style: normal
       display: block
-    - source: bunny
-      family: Fira Code
+    
+    - family: Fira Code
+      source: bunny
+      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+      # style: [normal, italic]
 
   base:
     family: Open Sans

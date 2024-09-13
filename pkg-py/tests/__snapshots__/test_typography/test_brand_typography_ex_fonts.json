@@ -11,17 +11,31 @@
     "fonts": [
       {
         "family": "Open Sans",
-        "source": "Open-Sans.ttf"
+        "files": [
+          {
+            "path": "Open-Sans-Bold.ttf",
+            "weight": "bold"
+          },
+          {
+            "path": "Open-Sans-Italic.ttf",
+            "style": "italic"
+          }
+        ],
+        "source": "file"
       },
       {
-        "family": "Open Sans",
-        "source": "Open-Sans-Bold.ttf",
-        "weight": "bold"
-      },
-      {
-        "family": "Open Sans",
-        "source": "Open-Sans-Italic.ttf",
-        "style": "italic"
+        "family": "Closed Sans",
+        "files": [
+          {
+            "path": "https://example.com/Closed-Sans-Bold.woff2",
+            "weight": "bold"
+          },
+          {
+            "path": "https://example.com/Closed-Sans-Italic.woff2",
+            "style": "italic"
+          }
+        ],
+        "source": "file"
       },
       {
         "display": "block",

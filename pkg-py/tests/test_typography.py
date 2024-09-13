@@ -3,15 +3,13 @@ from __future__ import annotations
 from urllib.parse import unquote
 
 import pytest
-from syrupy.extensions.json import JSONSnapshotExtension
-from utils import path_examples, pydantic_data_from_json
-
 from brand_yaml import read_brand_yaml
 from brand_yaml.typography import (
     BrandTypography,
     BrandTypographyBase,
     BrandTypographyFontBunny,
-    BrandTypographyFontFile,
+    BrandTypographyFontFiles,
+    BrandTypographyFontFilesPath,
     BrandTypographyFontGoogle,
     BrandTypographyGoogleFontsApi,
     BrandTypographyHeadings,
@@ -20,6 +18,8 @@ from brand_yaml.typography import (
     BrandTypographyMonospaceBlock,
     BrandTypographyMonospaceInline,
 )
+from syrupy.extensions.json import JSONSnapshotExtension
+from utils import path_examples, pydantic_data_from_json
 
 
 @pytest.fixture
@@ -28,7 +28,7 @@ def snapshot_json(snapshot):
 
 
 @pytest.mark.parametrize(
-    "source, fmt",
+    "path, fmt",
     [
         ("my-font.otf", "opentype"),
         ("my-font.ttf", "truetype"),
@@ -36,59 +36,58 @@ def snapshot_json(snapshot):
         ("my-font.woff2", "woff2"),
     ],
 )
-def test_brand_typography_font_file_format(source, fmt):
-    font = BrandTypographyFontFile(source=source, family="My Font")
+def test_brand_typography_font_file_format(path, fmt):
+    font = BrandTypographyFontFilesPath(path=path)
 
-    assert font.source == source
+    assert font.path == path
     assert font.format == fmt
 
 
-def test_brand_typography_font_file_format_ignored():
-    # ignores user-provided formats, uses `source` field
-    BrandTypographyFontFile.model_validate(
-        {"source": "my-font.otf", "family": "My Font"}
-    )
-
-
 def test_brand_typography_font_file_weight():
-    args = {"source": "my-font.otf", "family": "My Font"}
+    args = {
+        "path": "my-font.otf",
+    }
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile.model_validate({**args, "weight": "invalid"})
+        BrandTypographyFontFilesPath.model_validate(
+            {**args, "weight": "invalid"}
+        )
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile.model_validate({**args, "weight": 999})
+        BrandTypographyFontFilesPath.model_validate({**args, "weight": 999})
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile.model_validate({**args, "weight": 150})
+        BrandTypographyFontFilesPath.model_validate({**args, "weight": 150})
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFile.model_validate({**args, "weight": 0})
+        BrandTypographyFontFilesPath.model_validate({**args, "weight": 0})
 
     assert (
-        BrandTypographyFontFile.model_validate({**args, "weight": 100}).weight
+        BrandTypographyFontFilesPath.model_validate(
+            {**args, "weight": 100}
+        ).weight
         == 100
     )
     assert (
-        BrandTypographyFontFile.model_validate(
+        BrandTypographyFontFilesPath.model_validate(
             {**args, "weight": "thin"}
         ).weight
         == 100
     )
     assert (
-        BrandTypographyFontFile.model_validate(
+        BrandTypographyFontFilesPath.model_validate(
             {**args, "weight": "semi-bold"}
         ).weight
         == 600
     )
     assert (
-        BrandTypographyFontFile.model_validate(
+        BrandTypographyFontFilesPath.model_validate(
             {**args, "weight": "bold"}
         ).weight
         == "bold"
     )
     assert (
-        BrandTypographyFontFile.model_validate(
+        BrandTypographyFontFilesPath.model_validate(
             {**args, "weight": "normal"}
         ).weight
         == "normal"
@@ -282,33 +281,45 @@ def test_brand_typography_ex_fonts(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
-    assert len(brand.typography.fonts) == 5
+    assert len(brand.typography.fonts) == 4
 
-    for font in brand.typography.fonts[:3]:
-        assert isinstance(font, BrandTypographyFontFile)
-        assert font.source.startswith("Open-Sans")
-        assert font.source.endswith(".ttf")
+    # Local Font Files
+    local_font = brand.typography.fonts[0]
+    assert isinstance(local_font, BrandTypographyFontFiles)
+    assert local_font.source == "file"
+    assert local_font.family == "Open Sans"
+    for i, font in enumerate(local_font.files):
+        assert isinstance(font, BrandTypographyFontFilesPath)
+        assert str(font.path).startswith("Open-Sans")
+        assert str(font.path).endswith(".ttf")
         assert font.format == "truetype"
+        assert font.weight == ["bold", "normal"][i]
+        assert font.style == ["normal", "italic"][i]
 
-    assert [f.weight for f in brand.typography.fonts[:3]] == [
-        "normal",
-        "bold",
-        "normal",
-    ]
+    # Online Font Files
+    online_font = brand.typography.fonts[1]
+    assert isinstance(online_font, BrandTypographyFontFiles)
+    assert online_font.source == "file"
+    assert online_font.family == "Closed Sans"
+    for i, font in enumerate(online_font.files):
+        assert isinstance(font, BrandTypographyFontFilesPath)
+        assert str(font.path).startswith("https://")
+        assert str(font.path).endswith(".woff2")
+        assert font.format == "woff2"
+        assert font.weight == ["bold", "normal"][i]
+        assert font.style == ["normal", "italic"][i]
 
-    assert [f.style for f in brand.typography.fonts[:3]] == [
-        "normal",
-        "normal",
-        "italic",
-    ]
+    # Google Fonts
+    google_font = brand.typography.fonts[2]
+    assert isinstance(google_font, BrandTypographyFontGoogle)
+    assert google_font.family == "Roboto Slab"
+    assert google_font.weight == 600
+    assert google_font.style == "normal"
+    assert google_font.display == "block"
 
-    assert isinstance(brand.typography.fonts[3], BrandTypographyFontGoogle)
-    assert brand.typography.fonts[3].family == "Roboto Slab"
-    assert brand.typography.fonts[3].weight == 600
-    assert brand.typography.fonts[3].style == "normal"
-    assert brand.typography.fonts[3].display == "block"
-
-    assert isinstance(brand.typography.fonts[4], BrandTypographyFontBunny)
-    assert brand.typography.fonts[4].family == "Fira Code"
+    # Bunny Fonts
+    bunny_font = brand.typography.fonts[3]
+    assert isinstance(bunny_font, BrandTypographyFontBunny)
+    assert bunny_font.family == "Fira Code"
 
     assert snapshot_json == pydantic_data_from_json(brand)
