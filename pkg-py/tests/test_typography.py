@@ -124,11 +124,9 @@ def test_brand_typography_fields_base():
     assert base_fields == {
         "family",
         "weight",
-        "style",
         "size",
         "line_height",
         "color",
-        "background_color",
     }
 
 
@@ -141,14 +139,13 @@ def test_brand_typography_fields_headings():
         "style",
         "line_height",
         "color",
-        "background_color",
     }
 
 
 def test_brand_typography_fields_monospace():
     fields = set(BrandTypographyMonospace.model_fields.keys())
 
-    assert fields == {"family", "weight", "style", "size"}
+    assert fields == {"family", "weight", "size"}
 
 
 def test_brand_typography_fields_monospace_inline():
@@ -157,7 +154,6 @@ def test_brand_typography_fields_monospace_inline():
     assert fields == {
         "family",
         "weight",
-        "style",
         "size",
         "color",
         "background_color",
@@ -170,7 +166,6 @@ def test_brand_typography_fields_monospace_block():
     assert fields == {
         "family",
         "weight",
-        "style",
         "size",
         "line_height",
         "color",

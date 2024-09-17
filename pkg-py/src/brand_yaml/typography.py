@@ -308,13 +308,32 @@ class BrandNamedColor(RootModel):
     root: str
 
 
-class BrandTypographyOptionsColor(BaseModel):
+class BrandTypographyOptionsBackgroundColor(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    color: BrandNamedColor | None = None
     background_color: BrandNamedColor | None = Field(
         None, alias="background-color"
     )
+
+
+class BrandTypographyOptionsColor(BaseModel):
+    color: BrandNamedColor | None = None
+
+
+class BrandTypographyOptionsFamily(BaseModel):
+    family: str | None = None
+
+
+class BrandTypographyOptionsLineHeight(BaseModel):
+    line_height: float | None = Field(None, alias="line-height")
+
+
+class BrandTypographyOptionsSize(BaseModel):
+    size: str | None = None
+
+
+class BrandTypographyOptionsStyle(BaseModel):
+    style: SingleOrList[BrandTypographyFontStyleType] | None = None
 
 
 class BrandTypographyOptionsWeight(BaseModel):
@@ -326,24 +345,12 @@ class BrandTypographyOptionsWeight(BaseModel):
         return validate_font_weight(value)
 
 
-class BrandTypographyOptionsGenericText(BrandTypographyOptionsWeight):
-    family: str | None = None
-    style: SingleOrList[BrandTypographyFontStyleType] | None = None
-
-
-class BrandTypographyOptionsSize(BaseModel):
-    size: str | None = None
-
-
-class BrandTypographyOptionsBlockText(BaseModel):
-    line_height: float | None = Field(None, alias="line-height")
-
-
 class BrandTypographyBase(
     BrandBase,
-    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsFamily,
+    BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
-    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
     model_config = ConfigDict(extra="forbid")
@@ -351,8 +358,10 @@ class BrandTypographyBase(
 
 class BrandTypographyHeadings(
     BrandBase,
-    BrandTypographyOptionsGenericText,
-    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsFamily,
+    BrandTypographyOptionsWeight,
+    BrandTypographyOptionsStyle,
+    BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
     model_config = ConfigDict(extra="forbid")
@@ -360,7 +369,8 @@ class BrandTypographyHeadings(
 
 class BrandTypographyMonospace(
     BrandBase,
-    BrandTypographyOptionsGenericText,
+    BrandTypographyOptionsFamily,
+    BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
 ):
     model_config = ConfigDict(extra="forbid")
@@ -369,14 +379,16 @@ class BrandTypographyMonospace(
 class BrandTypographyMonospaceInline(
     BrandTypographyMonospace,
     BrandTypographyOptionsColor,
+    BrandTypographyOptionsBackgroundColor,
 ):
     model_config = ConfigDict(extra="forbid")
 
 
 class BrandTypographyMonospaceBlock(
     BrandTypographyMonospace,
-    BrandTypographyOptionsBlockText,
+    BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
+    BrandTypographyOptionsBackgroundColor,
 ):
     model_config = ConfigDict(extra="forbid")
 
@@ -385,6 +397,7 @@ class BrandTypographyLink(
     BrandBase,
     BrandTypographyOptionsWeight,
     BrandTypographyOptionsColor,
+    BrandTypographyOptionsBackgroundColor,
 ):
     model_config = ConfigDict(extra="forbid")
 
