@@ -1,0 +1,10 @@
+{
+  "logo": {
+    "large": "display.svg",
+    "medium": {
+      "dark": "logo-dark.png",
+      "light": "logo-light.png"
+    },
+    "small": "icon.png"
+  }
+}

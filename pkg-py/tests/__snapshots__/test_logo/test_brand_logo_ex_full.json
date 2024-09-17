@@ -1,0 +1,22 @@
+{
+  "logo": {
+    "images": {
+      "black": "black.png",
+      "both": {
+        "dark": "full-color-reverse.png",
+        "light": "full-color.png"
+      },
+      "icon": "favicon.png",
+      "primary": "full-color.png",
+      "primary-svg": "full-color.svg",
+      "reverse": "full-color-reverse.png",
+      "white": "white.png"
+    },
+    "large": "full-color.svg",
+    "medium": {
+      "dark": "full-color-reverse.png",
+      "light": "full-color.png"
+    },
+    "small": "black.png"
+  }
+}

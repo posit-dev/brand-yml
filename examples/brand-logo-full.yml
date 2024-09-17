@@ -1,5 +1,5 @@
 logo:
-  with:
+  images:
     primary: full-color.png
     primary-svg: full-color.svg
     reverse: full-color-reverse.png

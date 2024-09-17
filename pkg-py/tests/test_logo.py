@@ -1,10 +1,16 @@
 from __future__ import annotations
 
-from utils import path_examples
-
+import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml._defs import BrandLightDark
 from brand_yaml.logo import BrandLogo
+from syrupy.extensions.json import JSONSnapshotExtension
+from utils import path_examples, pydantic_data_from_json
+
+
+@pytest.fixture
+def snapshot_json(snapshot):
+    return snapshot.use_extension(JSONSnapshotExtension)
 
 
 def test_brand_logo_single():
@@ -13,7 +19,7 @@ def test_brand_logo_single():
     assert brand.logo == "posit.png"
 
 
-def test_brand_logo_simple():
+def test_brand_logo_ex_simple(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-simple.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
@@ -21,8 +27,10 @@ def test_brand_logo_simple():
     assert brand.logo.medium == "logo.png"
     assert brand.logo.large == "display.svg"
 
+    assert snapshot_json == pydantic_data_from_json(brand)
 
-def test_brand_logo_light_dark():
+
+def test_brand_logo_ex_light_dark(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-light-dark.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
@@ -34,8 +42,10 @@ def test_brand_logo_light_dark():
 
     assert brand.logo.large == "display.svg"
 
+    assert snapshot_json == pydantic_data_from_json(brand)
 
-def test_brand_logo_full():
+
+def test_brand_logo_ex_full(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-full.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
@@ -50,3 +60,5 @@ def test_brand_logo_full():
     # replace small with new value from "with"
     brand.logo.small = "black"
     assert brand.logo.small == "black.png"
+
+    assert snapshot_json == pydantic_data_from_json(brand)
