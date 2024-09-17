@@ -19,6 +19,9 @@ from pydantic import (
 
 from ._utils import BrandBase
 
+# Types ------------------------------------------------------------------------
+
+
 T = TypeVar("T")
 
 SingleOrList = Union[T, list[T]]
@@ -97,6 +100,9 @@ FontFormats = {
 }
 
 
+# Custom Errors ----------------------------------------------------------------
+
+
 class BrandInvalidFontWeight(ValueError):
     def __init__(self, value: Any):
         super().__init__(
@@ -104,6 +110,9 @@ class BrandInvalidFontWeight(ValueError):
             + "by 100 and between 100 and 900, or one of "
             + f"{', '.join(BrandTypographyFontWeightMap.keys())}."
         )
+
+
+# Fonts ------------------------------------------------------------------------
 
 
 class BrandUnsupportedFontFileFormat(ValueError):
@@ -280,28 +289,7 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
     url: HttpUrl = Field("https://fonts.bunny.net/")
 
 
-# def brand_typography_font_discriminator(
-#     x: dict[str, object] | BrandTypographyFontFiles | BrandTypographyFontGoogle,
-# ) -> Literal["google", "bunny", "file"]:
-#     if isinstance(x, BrandTypographyFontBunny):
-#         return "bunny"
-#     elif isinstance(x, BrandTypographyFontGoogle):
-#         return "google"
-#     elif isinstance(x, BrandTypographyFontFiles):
-#         return "file"
-
-#     value = x.get("source")
-
-#     if not isinstance(value, str):
-#         pass
-#     elif value in ("google", "bunny"):
-#         return value
-#     elif Path(value).suffix:
-#         return "file"
-
-#     raise ValueError(
-#         "Unsupported font source {value!r}, must be a file path, 'google', or 'bunny'."
-#     )
+# Typography Options -----------------------------------------------------------
 
 
 class BrandNamedColor(RootModel):
@@ -402,6 +390,9 @@ class BrandTypographyLink(
     model_config = ConfigDict(extra="forbid")
 
     decoration: str | None = None
+
+
+# Brand Typography -------------------------------------------------------------
 
 
 class BrandTypography(BrandBase):
