@@ -1,10 +1,17 @@
 from __future__ import annotations
 
+import pytest
 from brand_yaml import read_brand_yaml
-from utils import path_examples
+from syrupy.extensions.json import JSONSnapshotExtension
+from utils import path_examples, pydantic_data_from_json
 
 
-def test_brand_color_posit_direct():
+@pytest.fixture
+def snapshot_json(snapshot):
+    return snapshot.use_extension(JSONSnapshotExtension)
+
+
+def test_brand_color_ex_direct_posit(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-color-direct-posit.yml"))
 
     assert brand.color is not None
@@ -20,8 +27,10 @@ def test_brand_color_posit_direct():
     assert brand.color.light == "#FFFFFF"
     assert brand.color.dark == "#404041"
 
+    assert snapshot_json == pydantic_data_from_json(brand)
 
-def test_brand_color_posit_with():
+
+def test_brand_color_ex_palette_posit(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-color-palette-posit.yml"))
 
     # Same final values as above, but re-uses color definitions from `with`
@@ -49,8 +58,10 @@ def test_brand_color_posit_with():
         "burgundy": "#9A4665",
     }
 
+    assert snapshot_json == pydantic_data_from_json(brand)
 
-def test_brand_color_posit_internal():
+
+def test_brand_color_ex_palette_internal(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-color-palette-internal.yml"))
 
     # Named theme colors are reused in BrandColor
@@ -70,3 +81,5 @@ def test_brand_color_posit_internal():
         "teal": "#419599",
         "burgundy": "#9A4665",
     }
+
+    assert snapshot_json == pydantic_data_from_json(brand)
