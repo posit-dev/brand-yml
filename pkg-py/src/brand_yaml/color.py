@@ -3,13 +3,18 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Optional
 
-from pydantic import ConfigDict, Field, model_validator
+from pydantic import (
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
-from ._defs import BrandWith, defs_replace_recursively
+from ._defs import check_circular_references, defs_replace_recursively
 from ._utils import BrandBase
 
 
-class BrandColor(BrandBase, BrandWith[str]):
+class BrandColor(BrandBase):
     """
     Brand Colors
 
@@ -69,16 +74,34 @@ class BrandColor(BrandBase, BrandWith[str]):
         extra="forbid",
         revalidate_instances="always",
         validate_assignment=True,
+        check_fields=False,
     )
 
+    palette: dict[str, str] | None = None
+
+    @field_validator("palette")
+    @classmethod
+    def create_brand_palette(cls, value: dict[str, str] | None):
+        if value is None:
+            return
+
+        if not isinstance(value, dict):
+            raise ValueError("`palette` must be a dictionary")
+
+        check_circular_references(value)
+        # We resolve `color.palette` on load or on replacement only
+        # TODO: Replace with class with getter/setters
+        #       Retain original values, return resolved values, and re-validate on update.
+        defs_replace_recursively(value, value, name="palette")
+
+        return value
+
     @model_validator(mode="after")
-    def resolve_with_values(self):
-        if self.with_ is not None:
-            defs_replace_recursively(self.with_, self, name="with_")
+    def resolve_palette_values(self):
+        # We currently resolve
+        _color_fields = [k for k in self.model_fields.keys() if k != "palette"]
 
-        _color_fields = [k for k in self.model_fields.keys() if k != "with_"]
-
-        full_defs = deepcopy(self.with_) if self.with_ is not None else {}
+        full_defs = deepcopy(self.palette) if self.palette is not None else {}
         full_defs.update(
             {
                 k: v
@@ -86,7 +109,12 @@ class BrandColor(BrandBase, BrandWith[str]):
                 if k in _color_fields and v is not None
             }
         )
-        defs_replace_recursively(full_defs, self, name="color")
+        defs_replace_recursively(
+            full_defs,
+            self,
+            name="color",
+            exclude="palette",
+        )
         return self
 
     foreground: Optional[str] = Field(

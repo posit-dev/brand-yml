@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from utils import path_examples
-
 from brand_yaml import read_brand_yaml
+from utils import path_examples
 
 
 def test_brand_color_posit_direct():
-    brand = read_brand_yaml(path_examples("brand-color-posit-direct.yml"))
+    brand = read_brand_yaml(path_examples("brand-color-direct-posit.yml"))
 
     assert brand.color is not None
     assert brand.color.foreground == "#151515"
@@ -23,7 +22,7 @@ def test_brand_color_posit_direct():
 
 
 def test_brand_color_posit_with():
-    brand = read_brand_yaml(path_examples("brand-color-posit-with.yml"))
+    brand = read_brand_yaml(path_examples("brand-color-palette-posit.yml"))
 
     # Same final values as above, but re-uses color definitions from `with`
     assert brand.color is not None
@@ -39,8 +38,8 @@ def test_brand_color_posit_with():
     assert brand.color.light == "#FFFFFF"
     assert brand.color.dark == "#404041"
 
-    assert brand.color.with_ is not None
-    assert brand.color.with_ == {
+    assert brand.color.palette is not None
+    assert brand.color.palette == {
         "white": "#FFFFFF",
         "black": "#151515",
         "blue": "#447099",
@@ -52,7 +51,7 @@ def test_brand_color_posit_with():
 
 
 def test_brand_color_posit_internal():
-    brand = read_brand_yaml(path_examples("brand-color-posit-internal.yml"))
+    brand = read_brand_yaml(path_examples("brand-color-palette-internal.yml"))
 
     # Named theme colors are reused in BrandColor
     assert brand.color is not None
@@ -61,8 +60,8 @@ def test_brand_color_posit_internal():
     assert brand.color.info == brand.color.primary
     assert brand.color.light == brand.color.background
 
-    assert brand.color.with_ is not None
-    assert brand.color.with_ == {
+    assert brand.color.palette is not None
+    assert brand.color.palette == {
         "white": "#FFFFFF",
         "black": "#151515",
         "blue": "#447099",

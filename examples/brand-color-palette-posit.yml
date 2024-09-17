@@ -1,5 +1,5 @@
 color:
-  with:
+  palette:
     white: "#FFFFFF"
     black: "#151515"
     blue: "#447099"

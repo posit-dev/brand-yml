@@ -123,6 +123,7 @@ def defs_replace_recursively(
     items: dict | BaseModel | None = None,
     level: int = 0,
     name: str | None = None,
+    exclude: str | None = None,
 ):
     """
     Recursively replace string values in `items` with their definition in
@@ -162,7 +163,7 @@ def defs_replace_recursively(
     for key in item_keys(items):
         value = get_value(items, key)
 
-        if value is defs or value == "with_":
+        if value is defs or key in set((exclude or "with_", "with_")):
             # We replace internal def references when resolving sibling fields
             continue
 
@@ -182,7 +183,13 @@ def defs_replace_recursively(
         elif isinstance(value, (dict, BaseModel)):
             # TODO: we may want to avoid recursing into child BrandWith instances
             logger.debug(level_indent(f"recursing into {key}", level))
-            defs_replace_recursively(defs, value, level=level + 1)
+            defs_replace_recursively(
+                defs,
+                value,
+                level=level + 1,
+                exclude=exclude,
+                name=name,
+            )
         else:
             logger.debug(
                 level_indent(
@@ -224,6 +231,10 @@ def check_circular_references(
     path = path if path is not None else []
 
     if not isinstance(current, (dict, BaseModel)):
+        if not isinstance(current, str):
+            raise ValueError(
+                "All values must be strings, dictionaries, or pydantic models."
+            )
         return
 
     logger.debug(f"current is: {current}")
