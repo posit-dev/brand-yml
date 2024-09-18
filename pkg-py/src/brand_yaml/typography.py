@@ -12,7 +12,6 @@ from pydantic import (
     Field,
     HttpUrl,
     PositiveInt,
-    RootModel,
     field_validator,
     model_validator,
 )
@@ -292,20 +291,14 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 # Typography Options -----------------------------------------------------------
 
 
-class BrandNamedColor(RootModel):
-    root: str
-
-
 class BrandTypographyOptionsBackgroundColor(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    background_color: BrandNamedColor | None = Field(
-        None, alias="background-color"
-    )
+    background_color: str | None = Field(None, alias="background-color")
 
 
 class BrandTypographyOptionsColor(BaseModel):
-    color: BrandNamedColor | None = None
+    color: str | None = None
 
 
 class BrandTypographyOptionsFamily(BaseModel):

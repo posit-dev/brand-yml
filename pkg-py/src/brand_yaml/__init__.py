@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
 
 from ._utils import find_project_file
@@ -29,8 +29,39 @@ class Brand(BaseModel):
     defaults: dict[str, Any] | None = Field(None)
     source: Path | None = Field(None, exclude=True, repr=False)
 
-    # TODO: fill in colors in `brand.color`
     # TODO: resolve paths relative to `brand.source`
+
+    @model_validator(mode="after")
+    def resolve_typography_colors(self):
+        if self.typography is None or self.color is None:
+            return self
+
+        color_defs = self.color._color_defs(resolved=True)
+
+        for top_field in self.typography.model_fields.keys():
+            typography_node = getattr(self.typography, top_field)
+
+            if not isinstance(typography_node, BaseModel):
+                continue
+
+            for typography_node_field in typography_node.model_fields.keys():
+                if typography_node_field not in ("color", "background_color"):
+                    continue
+
+                value = getattr(typography_node, typography_node_field)
+                if value is None or not isinstance(value, str):
+                    continue
+
+                if value not in color_defs:
+                    continue
+
+                setattr(
+                    typography_node,
+                    typography_node_field,
+                    color_defs[value],
+                )
+
+        return self
 
 
 def read_brand_yaml(path: str | Path) -> Brand:

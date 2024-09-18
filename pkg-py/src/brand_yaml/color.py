@@ -103,21 +103,26 @@ class BrandColor(BrandBase):
 
         return value
 
-    @model_validator(mode="after")
-    def resolve_palette_values(self):
-        # We currently resolve
-        _color_fields = [k for k in self.model_fields.keys() if k != "palette"]
-
-        full_defs = deepcopy(self.palette) if self.palette is not None else {}
-        full_defs.update(
+    def _color_defs(self, resolved: bool = False) -> dict[str, str]:
+        defs = deepcopy(self.palette) if self.palette is not None else {}
+        defs.update(
             {
                 k: v
                 for k, v in self.model_dump().items()
-                if k in _color_fields and v is not None
+                if k != "palette" and v is not None
             }
         )
+
+        if resolved:
+            defs_replace_recursively(defs, defs)
+            return defs
+        else:
+            return defs
+
+    @model_validator(mode="after")
+    def resolve_palette_values(self):
         defs_replace_recursively(
-            full_defs,
+            self._color_defs(resolved=False),
             self,
             name="color",
             exclude="palette",

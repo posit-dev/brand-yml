@@ -4,6 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 from brand_yaml import read_brand_yaml
+from brand_yaml.color import BrandColor
 from brand_yaml.typography import (
     BrandTypography,
     BrandTypographyBase,
@@ -322,5 +323,35 @@ def test_brand_typography_ex_fonts(snapshot_json):
     bunny_font = brand.typography.fonts[3]
     assert isinstance(bunny_font, BrandTypographyFontBunny)
     assert bunny_font.family == "Fira Code"
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_ex_color(snapshot_json):
+    brand = read_brand_yaml(path_examples("brand-typography-color.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert isinstance(brand.color, BrandColor)
+
+    t = brand.typography
+    color = brand.color
+    assert color.palette is not None
+
+    assert isinstance(t.base, BrandTypographyBase)
+    assert t.base.color == color.foreground
+
+    assert isinstance(t.headings, BrandTypographyHeadings)
+    assert t.headings.color == color.primary
+
+    assert isinstance(t.monospace_inline, BrandTypographyMonospaceInline)
+    assert t.monospace_inline.color == color.background
+    assert t.monospace_inline.background_color == color.palette["red"]
+
+    assert isinstance(t.monospace_block, BrandTypographyMonospaceBlock)
+    assert t.monospace_block.color == color.foreground
+    assert t.monospace_block.background_color == color.background
+
+    assert isinstance(t.link, BrandTypographyLink)
+    assert t.link.color == color.palette["red"]
 
     assert snapshot_json == pydantic_data_from_json(brand)
