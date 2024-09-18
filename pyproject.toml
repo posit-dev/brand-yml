@@ -11,13 +11,18 @@ dependencies = [
     "eval-type-backport>=0.2.0",
 ]
 
-[tool.uv]
-dev-dependencies = [
-    # Actual dev deps
+[project.optional-dependencies]
+test = [
     "pyright>=1.1.379",
     "pytest>=8.3.2",
     "syrupy>=4.7.1",
+]
+
+[tool.uv]
+dev-dependencies = [
+    # Actual dev deps
     "ruff>=0.6.5",
+    "tox-uv>=1.11.4",
     # Dev work with Quarto + Positron
     "pyyaml>=6.0.2",
     "nbformat>=5.10.4",
@@ -38,6 +43,25 @@ packages = ["pkg-py/src/brand_yaml"]
 [tool.pyright]
 include = ["pkg-py"]
 exclude = ["pkg-py/_dev", "pkg-py/.venv"]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+env_list = type-py3{9,10,11,12}, py3{9,10,11,12}
+isolated_build = True
+
+[testenv]
+package = wheel
+wheel_build_env = .pkg
+commands = pytest
+
+[testenv:type]
+deps = 
+  pyright
+  pytest
+  syrupy
+commands = pyright
+"""
 
 [tool.ruff]
 src = ["pkg-py"]

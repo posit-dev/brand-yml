@@ -13,6 +13,12 @@ py-setup:  ## [py] Setup python environment
 .PHONY: py-check
 py-check:  py-check-tests py-check-format py-check-types ## [py] Run python checks
 
+.PHONY: py-check-tox
+py-check-tox:  ## [py] Run python 3.9 - 3.12 checks with tox
+	@echo ""
+	@echo "🔄 Running tests and type checking with tox for Python 3.9--3.12"
+	uv run tox run-parallel
+
 .PHONY: py-check-tests
 py-check-tests:  ## [py] Run python tests
 	@echo ""
