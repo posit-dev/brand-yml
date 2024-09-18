@@ -11,18 +11,34 @@ py-setup:  ## [py] Setup python environment
 	uv sync --all-extras
 
 .PHONY: py-check
-py-check:  py-check-tests py-check-types ## [py] Run python checks
+py-check:  py-check-tests py-check-format py-check-types ## [py] Run python checks
 
 .PHONY: py-check-tests
 py-check-tests:  ## [py] Run python tests
+	@echo ""
+	@echo "🧪 Running tests with pytest"
 	uv run pytest
 
 .PHONY: py-check-types
 py-check-types:  ## [py] Run python type checks
+	@echo ""
+	@echo "📝 Checking types with pyright"
 	uv run pyright
+
+.PHONY: py-check-format
+py-check-format:
+	@echo ""
+	@echo "📐 Checking format with ruff"
+	uv run ruff check pkg-py --config pyproject.toml
+
+.PHONY: py-format
+py-format: ## [py] Format python code
+	uv run ruff check --fix pkg-py --config pyproject.toml
+	uv run ruff format pkg-py --config pyproject.toml
 
 .PHONY: py-update-snaps
 py-update-snaps:  ## [py] Update python test snapshots
+	@echo "📸 Updating pytest snapshots"
 	uv run pytest --snapshot-update
 
 .PHONY: help

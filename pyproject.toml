@@ -17,6 +17,7 @@ dev-dependencies = [
     "pyright>=1.1.379",
     "pytest>=8.3.2",
     "syrupy>=4.7.1",
+    "ruff>=0.6.5",
     # Dev work with Quarto + Positron
     "pyyaml>=6.0.2",
     "nbformat>=5.10.4",
@@ -36,7 +37,7 @@ packages = ["pkg-py/src/brand_yaml"]
 
 [tool.pyright]
 include = ["pkg-py"]
-exclude = ["pkg-py/_dev", "pkg-py/.venv", "pkg-py/src/brand_yaml/_brand.py"]
+exclude = ["pkg-py/_dev", "pkg-py/.venv"]
 
 [tool.ruff]
 src = ["pkg-py"]
