@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from utils import path_examples
-
 from brand_yaml import read_brand_yaml
 from brand_yaml.meta import BrandMeta, BrandMetaLink
+from utils import path_examples
 
 
 def test_brand_meta():
