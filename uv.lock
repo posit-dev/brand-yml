@@ -55,32 +55,34 @@ dependencies = [
     { name = "ruamel-yaml" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
-    { name = "pyright" },
-    { name = "pytest" },
-    { name = "syrupy" },
-]
-quarto = [
     { name = "ipykernel" },
     { name = "nbclient" },
     { name = "nbformat" },
+    { name = "pyright" },
+    { name = "pytest" },
     { name = "pyyaml" },
+    { name = "syrupy" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "eval-type-backport", specifier = ">=0.2.0" },
-    { name = "ipykernel", marker = "extra == 'quarto'", specifier = ">=6.29.5" },
     { name = "jsonschema", specifier = ">=4.23.0" },
-    { name = "nbclient", marker = "extra == 'quarto'", specifier = ">=0.10.0" },
-    { name = "nbformat", marker = "extra == 'quarto'", specifier = ">=5.10.4" },
     { name = "pydantic", specifier = ">=2.8.2" },
-    { name = "pyright", marker = "extra == 'dev'", specifier = ">=1.1.379" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.2" },
-    { name = "pyyaml", marker = "extra == 'quarto'", specifier = ">=6.0.2" },
     { name = "ruamel-yaml", specifier = ">=0.18.6" },
-    { name = "syrupy", marker = "extra == 'dev'", specifier = ">=4.7.1" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "ipykernel", specifier = ">=6.29.5" },
+    { name = "nbclient", specifier = ">=0.10.0" },
+    { name = "nbformat", specifier = ">=5.10.4" },
+    { name = "pyright", specifier = ">=1.1.379" },
+    { name = "pytest", specifier = ">=8.3.2" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "syrupy", specifier = ">=4.7.1" },
 ]
 
 [[package]]

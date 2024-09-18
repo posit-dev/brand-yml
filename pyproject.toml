@@ -11,17 +11,17 @@ dependencies = [
     "eval-type-backport>=0.2.0",
 ]
 
-[project.optional-dependencies]
-quarto = [
+[tool.uv]
+dev-dependencies = [
+    # Actual dev deps
+    "pyright>=1.1.379",
+    "pytest>=8.3.2",
+    "syrupy>=4.7.1",
+    # Dev work with Quarto + Positron
     "pyyaml>=6.0.2",
     "nbformat>=5.10.4",
     "nbclient>=0.10.0",
     "ipykernel>=6.29.5",
-]
-dev = [
-    "pyright>=1.1.379",
-    "pytest>=8.3.2",
-    "syrupy>=4.7.1",
 ]
 
 [build-system]
