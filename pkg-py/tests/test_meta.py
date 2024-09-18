@@ -3,7 +3,13 @@ from __future__ import annotations
 import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml.meta import BrandMeta, BrandMetaLink, BrandMetaName
-from utils import path_examples
+from syrupy.extensions.json import JSONSnapshotExtension
+from utils import path_examples, pydantic_data_from_json
+
+
+@pytest.fixture
+def snapshot_json(snapshot):
+    return snapshot.use_extension(JSONSnapshotExtension)
 
 
 def test_brand_meta():
@@ -56,7 +62,7 @@ def test_brand_meta_bad_url():
         )
 
 
-def test_brand_meta_yaml_full():
+def test_brand_meta_ex_full(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-meta-full.yml"))
 
     assert brand.meta is not None
@@ -80,8 +86,10 @@ def test_brand_meta_yaml_full():
     assert str(brand.meta.link.twitter) == "https://twitter.com/VeryBigCorp"
     assert str(brand.meta.link.facebook) == "https://facebook.com/Very-Big-Corp"
 
+    assert snapshot_json == pydantic_data_from_json(brand)
 
-def test_brand_meta_yaml_small():
+
+def test_brand_meta_ex_small(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-meta-small.yml"))
 
     assert brand.meta is not None
@@ -89,3 +97,5 @@ def test_brand_meta_yaml_small():
     assert brand.meta.name.full == "Very Big Corp. of America"
     assert isinstance(brand.meta.link, BrandMetaLink)
     assert str(brand.meta.link.home) == "https://very-big-corp.com/"
+
+    assert snapshot_json == pydantic_data_from_json(brand)

@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "link": {
+      "facebook": "https://facebook.com/Very-Big-Corp",
+      "github": "https://github.com/Very-Big-Corp",
+      "home": "https://very-big-corp.com/",
+      "linkedin": "https://linkedin.com/company/very-big-corp",
+      "mastodon": "https://mastodon.social/@VeryBigCorpOfficial",
+      "twitter": "https://twitter.com/VeryBigCorp"
+    },
+    "name": {
+      "full": "Very Big Corporation of America",
+      "short": "VBC"
+    }
+  }
+}
