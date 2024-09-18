@@ -46,8 +46,9 @@ class BrandLogo(BrandBase):
 
     images: dict[str, BrandLogoImageType] | None = None
 
-    # TODO: Currently we're using a string for the logo path, but we should
-    # update this to use a validated Path or URL in the future.
+    # TODO: FilePath validation
+    # Currently we're using a string for the logo path, but we should update
+    # this to use a validated Path or URL in the future.
     small: str | BrandLightDark[str] | None = None
     medium: str | BrandLightDark[str] | None = None
     large: str | BrandLightDark[str] | None = None
