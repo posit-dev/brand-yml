@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import ConfigDict, Field, HttpUrl
+from pydantic import ConfigDict, Field, HttpUrl, field_validator
 
 from ._utils import BrandBase
 
@@ -11,11 +11,15 @@ class BrandMeta(BrandBase):
     or project, the brand guidelines, additional links, and more.
     """
 
-    model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
+    model_config = ConfigDict(
+        extra="allow",
+        str_strip_whitespace=True,
+        validate_assignment=True,
+    )
 
-    # TODO: Always return a BrandMetaName or None
-    name: str | BrandMetaName | None = Field(
-        None, examples=["Very Big Corporation of America"]
+    name: BrandMetaName | None = Field(
+        None,
+        examples=["Very Big Corporation of America"],
     )
 
     # TODO: Always return a BrandMetaLink or None
@@ -27,9 +31,24 @@ class BrandMeta(BrandBase):
         ],
     )
 
+    @field_validator("name", mode="before")
+    @classmethod
+    def validate_name(
+        cls,
+        value: str | dict[str, str] | None,
+    ) -> dict[str, str] | None:
+        if isinstance(value, str):
+            return {"full": value}
+        return value
+
 
 class BrandMetaName(BrandBase):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(
+        extra="forbid",
+        str_strip_whitespace=True,
+        revalidate_instances="always",
+        validate_assignment=True,
+    )
 
     full: str | None = Field(None, examples=["Very Big Corporation of America"])
     short: str | None = Field(None, examples=["VBC"])

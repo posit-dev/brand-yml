@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 from brand_yaml import read_brand_yaml
-from brand_yaml.meta import BrandMeta, BrandMetaLink
+from brand_yaml.meta import BrandMeta, BrandMetaLink, BrandMetaName
 from utils import path_examples
 
 
@@ -36,11 +36,14 @@ def test_brand_meta_empty():
     assert meta_empty_name.name is None
     assert str(meta_empty_name.link) == "https://example.com/"
 
-    meta_empty_link = BrandMeta(
-        name="Very Big Corporation of America",
-        link=None,
+    meta_empty_link = BrandMeta.model_validate(
+        {
+            "name": "Very Big Corporation of America",
+            "link": None,
+        }
     )
-    assert meta_empty_link.name == "Very Big Corporation of America"
+    assert isinstance(meta_empty_link.name, BrandMetaName)
+    assert meta_empty_link.name.full == "Very Big Corporation of America"
     assert meta_empty_link.link is None
 
 
@@ -57,7 +60,7 @@ def test_brand_meta_yaml_full():
 
     assert brand.meta is not None
     assert brand.meta.name is not None
-    assert not isinstance(brand.meta.name, str)
+    assert isinstance(brand.meta.name, BrandMetaName)
     assert brand.meta.name.full == "Very Big Corporation of America"
     assert brand.meta.name.short == "VBC"
 
@@ -81,5 +84,6 @@ def test_brand_meta_yaml_small():
     brand = read_brand_yaml(path_examples("brand-meta-small.yml"))
 
     assert brand.meta is not None
-    assert brand.meta.name == "Very Big Corp. of America"
+    assert isinstance(brand.meta.name, BrandMetaName)
+    assert brand.meta.name.full == "Very Big Corp. of America"
     assert str(brand.meta.link) == "https://very-big-corp.com/"

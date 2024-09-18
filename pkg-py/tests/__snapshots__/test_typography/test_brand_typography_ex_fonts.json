@@ -1,6 +1,8 @@
 {
   "meta": {
-    "name": "examples/brand-typography-fonts.yml"
+    "name": {
+      "full": "examples/brand-typography-fonts.yml"
+    }
   },
   "typography": {
     "base": {
