@@ -5,7 +5,6 @@ from typing import Optional
 
 from pydantic import (
     ConfigDict,
-    Field,
     field_validator,
     model_validator,
 )
@@ -19,65 +18,73 @@ class BrandColor(BrandBase):
     Brand Colors
 
     The brand's custom color palette and theme.
-
-    Attributes
-    ----------
-
-    foreground
-        The foreground color, used for text.
-
-    background
-        The background color, used for the page or main background.
-
-    primary
-        The primary accent color, i.e. the main theme color. Typically used for
-        hyperlinks, active states, primary action buttons, etc.
-
-    secondary
-        The secondary accent color. Typically used for lighter text or disabled
-        states.
-
-    tertiary
-        The tertiary accent color. Typically an even lighter color, used for
-        hover states, accents, and wells.
-
-    success
-        The color used for positive or successful actions and information.
-
-    info
-        The color used for neutral or informational actions and information.
-
-    warning
-        The color used for warning or cautionary actions and information.
-
-    danger
-        The color used for errors, dangerous actions, or negative information.
-
-    light
-        A bright color, used as a high-contrast foreground color on dark
-        elements or low-contrast background color on light elements.
-
-    dark
-        A dark color, used as a high-contrast foreground color on light elements
-        or high-contrast background color on light elements.
-
-    emphasis
-        A color used to emphasize or highlight text or elements.
-
-    link
-        The color used for hyperlinks. If not defined, the `primary` color is
-        used.
-
     """
 
     model_config = ConfigDict(
         extra="forbid",
         revalidate_instances="always",
         validate_assignment=True,
-        check_fields=False,
+        use_attribute_docstrings=True,
     )
 
     palette: dict[str, str] | None = None
+
+    foreground: Optional[str] = None
+    """The foreground color, used for text."""
+
+    background: Optional[str] = None
+    """The background color, used for the page or main background."""
+
+    primary: Optional[str] = None
+    """
+    The primary accent color, i.e. the main theme color. Typically used for
+    hyperlinks, active states, primary action buttons, etc.
+    """
+
+    secondary: Optional[str] = None
+    """
+    The secondary accent color. Typically used for lighter text or disabled
+    states.
+    """
+
+    tertiary: Optional[str] = None
+    """
+    The tertiary accent color. Typically an even lighter color, used for
+    hover states, accents, and wells.
+    """
+
+    success: Optional[str] = None
+    """The color used for positive or successful actions and information."""
+
+    info: Optional[str] = None
+    """The color used for neutral or informational actions and information."""
+
+    warning: Optional[str] = None
+    """The color used for warning or cautionary actions and information."""
+
+    danger: Optional[str] = None
+    """The color used for errors, dangerous actions, or negative information."""
+
+    light: Optional[str] = None
+    """
+    A bright color, used as a high-contrast foreground color on dark elements
+    or low-contrast background color on light elements.
+    """
+
+    dark: Optional[str] = None
+    """
+    A dark color, used as a high-contrast foreground color on light elements
+    or high-contrast background color on light elements.
+    """
+
+    emphasis: Optional[str] = None
+    """A color used to emphasize or highlight text or elements."""
+
+    link: Optional[str] = None
+    """
+    The color used for hyperlinks. If not defined, the `primary` color is
+    used.
+    """
 
     @field_validator("palette")
     @classmethod
@@ -116,58 +123,3 @@ class BrandColor(BrandBase):
             exclude="palette",
         )
         return self
-
-    foreground: Optional[str] = Field(
-        default=None,
-        description="The foreground color, used for text.",
-    )
-    background: Optional[str] = Field(
-        default=None,
-        description="The background color, used for the page or main background.",
-    )
-    primary: Optional[str] = Field(
-        default=None,
-        description="The primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.",
-    )
-    secondary: Optional[str] = Field(
-        default=None,
-        description="The secondary accent color. Typically used for lighter text or disabled states.",
-    )
-    tertiary: Optional[str] = Field(
-        default=None,
-        description="The tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.",
-    )
-
-    success: Optional[str] = Field(
-        default=None,
-        description="The color used for positive or successful actions and information.",
-    )
-    info: Optional[str] = Field(
-        default=None,
-        description="The color used for neutral or informational actions and information.",
-    )
-    warning: Optional[str] = Field(
-        default=None,
-        description="The color used for warning or cautionary actions and information.",
-    )
-    danger: Optional[str] = Field(
-        default=None,
-        description="The color used for errors, dangerous actions, or negative information.",
-    )
-
-    light: Optional[str] = Field(
-        default=None,
-        description="A bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.",
-    )
-    dark: Optional[str] = Field(
-        default=None,
-        description="A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
-    )
-    emphasis: Optional[str] = Field(
-        default=None,
-        description="A color used to emphasize or highlight text or elements.",
-    )
-    link: Optional[str] = Field(
-        default=None,
-        description="The color used for hyperlinks. If not defined, the `primary` color is used.",
-    )
