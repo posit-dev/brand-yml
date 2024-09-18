@@ -22,8 +22,7 @@ class BrandMeta(BrandBase):
         examples=["Very Big Corporation of America"],
     )
 
-    # TODO: Always return a BrandMetaLink or None
-    link: HttpUrl | BrandMetaLink | None = Field(
+    link: BrandMetaLink | None = Field(
         None,
         examples=[
             "https://very-big-corp.com",
@@ -33,12 +32,22 @@ class BrandMeta(BrandBase):
 
     @field_validator("name", mode="before")
     @classmethod
-    def validate_name(
+    def promote_str_name(
         cls,
         value: str | dict[str, str] | None,
     ) -> dict[str, str] | None:
         if isinstance(value, str):
             return {"full": value}
+        return value
+
+    @field_validator("link", mode="before")
+    @classmethod
+    def promote_str_link(
+        cls,
+        value: str | dict[str, str] | None,
+    ) -> dict[str, str] | None:
+        if isinstance(value, str):
+            return {"home": value}
         return value
 
 
@@ -55,7 +64,12 @@ class BrandMetaName(BrandBase):
 
 
 class BrandMetaLink(BrandBase):
-    model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
+    model_config = ConfigDict(
+        extra="forbid",
+        str_strip_whitespace=True,
+        revalidate_instances="always",
+        validate_assignment=True,
+    )
 
     home: HttpUrl | None = Field(
         None,

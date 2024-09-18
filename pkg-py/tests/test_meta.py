@@ -34,7 +34,8 @@ def test_brand_meta_empty():
 
     meta_empty_name = BrandMeta(name=None, link="https://example.com")  # type: ignore
     assert meta_empty_name.name is None
-    assert str(meta_empty_name.link) == "https://example.com/"
+    assert isinstance(meta_empty_name.link, BrandMetaLink)
+    assert str(meta_empty_name.link.home) == "https://example.com/"
 
     meta_empty_link = BrandMeta.model_validate(
         {
@@ -86,4 +87,5 @@ def test_brand_meta_yaml_small():
     assert brand.meta is not None
     assert isinstance(brand.meta.name, BrandMetaName)
     assert brand.meta.name.full == "Very Big Corp. of America"
-    assert str(brand.meta.link) == "https://very-big-corp.com/"
+    assert isinstance(brand.meta.link, BrandMetaLink)
+    assert str(brand.meta.link.home) == "https://very-big-corp.com/"
