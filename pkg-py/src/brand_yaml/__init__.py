@@ -27,8 +27,10 @@ class Brand(BaseModel):
     color: BrandColor | None = Field(None)
     typography: BrandTypography | None = Field(None)
     defaults: dict[str, Any] | None = Field(None)
+    source: Path | None = Field(None, exclude=True, repr=False)
 
     # TODO: fill in colors in `brand.color`
+    # TODO: resolve paths relative to `brand.source`
 
 
 def read_brand_yaml(path: str | Path) -> Brand:
@@ -81,6 +83,8 @@ def read_brand_yaml(path: str | Path) -> Brand:
 
     with open(path, "r") as f:
         brand_data = yaml.load(f)
+
+    brand_data["source"] = path
 
     return Brand.model_validate(brand_data)
 
