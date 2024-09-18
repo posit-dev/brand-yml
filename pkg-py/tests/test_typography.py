@@ -121,6 +121,7 @@ def test_brand_typography_monospace():
 def test_brand_typography_fields_base():
     base_fields = set(BrandTypographyBase.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert base_fields == {
         "family",
         "weight",
@@ -133,6 +134,7 @@ def test_brand_typography_fields_base():
 def test_brand_typography_fields_headings():
     headings_fields = set(BrandTypographyHeadings.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert headings_fields == {
         "family",
         "weight",
@@ -145,12 +147,14 @@ def test_brand_typography_fields_headings():
 def test_brand_typography_fields_monospace():
     fields = set(BrandTypographyMonospace.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert fields == {"family", "weight", "size"}
 
 
 def test_brand_typography_fields_monospace_inline():
     fields = set(BrandTypographyMonospaceInline.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert fields == {
         "family",
         "weight",
@@ -163,6 +167,7 @@ def test_brand_typography_fields_monospace_inline():
 def test_brand_typography_fields_monospace_block():
     fields = set(BrandTypographyMonospaceBlock.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert fields == {
         "family",
         "weight",
@@ -176,6 +181,7 @@ def test_brand_typography_fields_monospace_block():
 def test_brand_typography_fields_link():
     fields = set(BrandTypographyLink.model_fields.keys())
 
+    # TODO: Compare directly with brand-yaml spec
     assert fields == {
         "weight",
         "decoration",

@@ -313,6 +313,8 @@ class BrandTypographyOptionsFamily(BaseModel):
 
 
 class BrandTypographyOptionsLineHeight(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     line_height: float | None = Field(None, alias="line-height")
 
 

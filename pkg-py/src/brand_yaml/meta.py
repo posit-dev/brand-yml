@@ -13,9 +13,12 @@ class BrandMeta(BrandBase):
 
     model_config = ConfigDict(extra="allow", str_strip_whitespace=True)
 
+    # TODO: Always return a BrandMetaName or None
     name: str | BrandMetaName | None = Field(
         None, examples=["Very Big Corporation of America"]
     )
+
+    # TODO: Always return a BrandMetaLink or None
     link: HttpUrl | BrandMetaLink | None = Field(
         None,
         examples=[

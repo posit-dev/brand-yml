@@ -55,7 +55,8 @@ class BrandLogo(BrandBase):
     @field_validator("images")
     @classmethod
     def validate_images(
-        cls, value: dict[str, BrandLogoImageType] | None
+        cls,
+        value: dict[str, BrandLogoImageType] | None,
     ) -> dict[str, BrandLogoImageType] | None:
         if value is None:
             return

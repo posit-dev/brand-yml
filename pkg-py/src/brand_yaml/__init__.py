@@ -27,8 +27,11 @@ class Brand(BaseModel):
     typography: BrandTypography | None = Field(None)
     defaults: dict[str, Any] | None = Field(None)
 
+    # TODO: fill in colors in `brand.color`
+
 
 def read_brand_yaml(path: str | Path) -> Brand:
+    # TODO: Automatically find `_brand.yml` in project
     path = Path(path)
 
     with open(path, "r") as f:
