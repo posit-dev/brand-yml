@@ -27,9 +27,9 @@ class Brand(BaseModel):
     color: BrandColor | None = Field(None)
     typography: BrandTypography | None = Field(None)
     defaults: dict[str, Any] | None = Field(None)
-    source: Path | None = Field(None, exclude=True, repr=False)
+    path: Path | None = Field(None, exclude=True, repr=False)
 
-    # TODO: resolve paths relative to `brand.source`
+    # TODO: resolve paths relative to `brand.path`
 
     @model_validator(mode="after")
     def resolve_typography_colors(self):
@@ -120,7 +120,7 @@ def read_brand_yaml(path: str | Path) -> Brand:
             f"Invalid brand YAML file {str(path)!r}. Must be a dictionary."
         )
 
-    brand_data["source"] = path
+    brand_data["path"] = path
 
     return Brand.model_validate(brand_data)
 
