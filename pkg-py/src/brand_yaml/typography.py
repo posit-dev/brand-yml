@@ -54,7 +54,7 @@ BrandTypographyFontWeightRoundIntType = Literal[
     100, 200, 300, 400, 500, 600, 700, 800, 900
 ]
 
-BrandTypographyFontWeightRoundInt = (
+font_weight_round_int = (
     100,
     200,
     300,
@@ -67,9 +67,7 @@ BrandTypographyFontWeightRoundInt = (
 )
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_mapping
-BrandTypographyFontWeightMap: dict[
-    str, BrandTypographyFontWeightRoundIntType
-] = {
+font_weight_map: dict[str, BrandTypographyFontWeightRoundIntType] = {
     "thin": 100,
     "extra-light": 200,
     "ultra-light": 200,
@@ -86,7 +84,7 @@ BrandTypographyFontWeightMap: dict[
 }
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/src#font_formats
-FontFormats = {
+font_formats = {
     ".otc": "collection",
     ".ttc": "collection",
     ".eot": "embedded-opentype",
@@ -107,7 +105,7 @@ class BrandInvalidFontWeight(ValueError):
         super().__init__(
             f"Invalid font weight {value!r}. Expected a number divisible "
             + "by 100 and between 100 and 900, or one of "
-            + f"{', '.join(BrandTypographyFontWeightMap.keys())}."
+            + f"{', '.join(font_weight_map.keys())}."
         )
 
 
@@ -129,8 +127,8 @@ def validate_font_weight(
     if isinstance(value, str):
         if value in ("normal", "bold"):
             return value
-        if value in BrandTypographyFontWeightMap:
-            return BrandTypographyFontWeightMap[value]
+        if value in font_weight_map:
+            return font_weight_map[value]
 
     try:
         value = int(value)
@@ -169,7 +167,7 @@ class BrandTypographyFontFilesPath(BaseModel):
         if not Path(value).suffix:
             raise BrandUnsupportedFontFileFormat(value)
 
-        if Path(value).suffix not in FontFormats:
+        if Path(value).suffix not in font_formats:
             raise BrandUnsupportedFontFileFormat(value)
 
         return value
@@ -179,10 +177,10 @@ class BrandTypographyFontFilesPath(BaseModel):
         path = str(self.path)
         path_ext = Path(path).suffix
 
-        if path_ext not in FontFormats:
+        if path_ext not in font_formats:
             raise BrandUnsupportedFontFileFormat(path)
 
-        fmt = FontFormats[path_ext]
+        fmt = font_formats[path_ext]
         if fmt not in BrandUnsupportedFontFileFormat.supported:
             raise BrandUnsupportedFontFileFormat(path)
 
@@ -192,7 +190,7 @@ class BrandTypographyFontFilesPath(BaseModel):
 class BrandTypographyGoogleFontsApi(BaseModel):
     family: str
     weight: SingleOrList[BrandTypographyFontWeightSimpleType] = Field(
-        default=list(BrandTypographyFontWeightRoundInt)
+        default=list(font_weight_round_int)
     )
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
     display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
