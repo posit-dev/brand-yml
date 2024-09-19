@@ -115,6 +115,11 @@ def read_brand_yaml(path: str | Path) -> Brand:
     with open(path, "r") as f:
         brand_data = yaml.load(f)
 
+    if not isinstance(brand_data, dict):
+        raise ValueError(
+            f"Invalid brand YAML file {str(path)!r}. Must be a dictionary."
+        )
+
     brand_data["source"] = path
 
     return Brand.model_validate(brand_data)
