@@ -66,7 +66,7 @@ class BrandLogo(BrandBase):
         # We resolve `logo.images` on load or on replacement only
         # TODO: Replace with class with getter/setters
         #       Retain original values, return resolved values, and re-validate on update.
-        defs_replace_recursively(value, value, name="images")
+        defs_replace_recursively(value, name="images")
 
         return value
 
@@ -86,8 +86,8 @@ class BrandLogo(BrandBase):
             }
         )
         defs_replace_recursively(
-            full_defs,
             self,
+            defs=full_defs,
             name="logo",
             exclude="images",
         )

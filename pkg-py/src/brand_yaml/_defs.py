@@ -73,7 +73,7 @@ class BrandWith(BaseModel, Generic[T]):
             return self
 
         logger.debug("validating model and resolving with_ values")
-        defs_replace_recursively(self.with_, self, name="with_")
+        defs_replace_recursively(self, defs=self.with_, name="with_")
         return self
 
 
@@ -112,15 +112,15 @@ def defs_get(
     )
 
     if isinstance(with_value, (dict, BaseModel)):
-        defs_replace_recursively(defs, with_value, level=level)
+        defs_replace_recursively(with_value, defs=defs, level=level)
         return with_value
     else:
         return with_value
 
 
 def defs_replace_recursively(
-    defs: Any,
-    items: dict | BaseModel | None = None,
+    items: dict | BaseModel | None,
+    defs: Any = None,
     level: int = 0,
     name: str | None = None,
     exclude: str | None = None,
@@ -133,11 +133,11 @@ def defs_replace_recursively(
 
     Parameters
     ----------
+    items
+        A dictionary or pydantic model in which values should be replaced.
+
     defs
         A dictionary of definitions.
-
-    items
-        A dictionary or pydantic model to replace values in.
 
     level
         The current recursion level. Used internally and for logging.
@@ -149,6 +149,9 @@ def defs_replace_recursively(
         refer to definitions in `defs`, the are replaced with copies of the
         definition.
     """
+    if defs is None:
+        defs = items
+
     if level == 0:
         logger.debug("Checking for circular references")
         check_circular_references(defs, name=name)
@@ -184,8 +187,8 @@ def defs_replace_recursively(
             # TODO: we may want to avoid recursing into child BrandWith instances
             logger.debug(level_indent(f"recursing into {key}", level))
             defs_replace_recursively(
-                defs,
                 value,
+                defs=defs,
                 level=level + 1,
                 exclude=exclude,
                 name=name,

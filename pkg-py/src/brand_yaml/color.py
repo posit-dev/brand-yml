@@ -99,7 +99,7 @@ class BrandColor(BrandBase):
         # We resolve `color.palette` on load or on replacement only
         # TODO: Replace with class with getter/setters
         #       Retain original values, return resolved values, and re-validate on update.
-        defs_replace_recursively(value, value, name="palette")
+        defs_replace_recursively(value, name="palette")
 
         return value
 
@@ -114,7 +114,7 @@ class BrandColor(BrandBase):
         )
 
         if resolved:
-            defs_replace_recursively(defs, defs)
+            defs_replace_recursively(defs)
             return defs
         else:
             return defs
@@ -122,8 +122,8 @@ class BrandColor(BrandBase):
     @model_validator(mode="after")
     def resolve_palette_values(self):
         defs_replace_recursively(
-            self._color_defs(resolved=False),
             self,
+            defs=self._color_defs(resolved=False),
             name="color",
             exclude="palette",
         )
