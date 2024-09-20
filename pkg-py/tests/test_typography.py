@@ -388,4 +388,5 @@ def test_brand_typography_ex_minimal(snapshot_json):
 def test_brand_typography_css_fonts(snapshot):
     brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
 
+    assert isinstance(brand.typography, BrandTypography)
     assert snapshot == brand.typography.css_include_fonts()
