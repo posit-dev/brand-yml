@@ -123,8 +123,11 @@ class BrandUnsupportedFontFileFormat(ValueError):
 
 
 def validate_font_weight(
-    value: int | str,
+    value: int | str | None,
 ) -> BrandTypographyFontWeightSimpleType:
+    if value is None:
+        return "normal"
+
     if isinstance(value, str):
         if value in ("normal", "bold"):
             return value
@@ -184,7 +187,7 @@ class BrandTypographyFontFilesPath(BaseModel):
 
     @field_validator("weight", mode="before")
     @classmethod
-    def validate_weight(cls, value: int | str):
+    def validate_weight(cls, value: str | int | None):
         return validate_font_weight(value)
 
     @field_validator("path", mode="after")
