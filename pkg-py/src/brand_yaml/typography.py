@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Annotated, Any, Literal, TypeVar, Union
 from urllib.parse import urlencode, urljoin
@@ -144,9 +145,13 @@ def validate_font_weight(
 FontSourceType = Union[Literal["file"], Literal["google"], Literal["bunny"]]
 
 
-class BrandTypographyFontSource(BaseModel):
+class BrandTypographyFontSource(BaseModel, ABC):
     source: FontSourceType = Field(frozen=True)
     family: str = Field(frozen=True)
+
+    @abstractmethod
+    def css_include(self) -> str:
+        pass
 
 
 class BrandTypographyFontFiles(BrandTypographyFontSource):
@@ -154,6 +159,20 @@ class BrandTypographyFontFiles(BrandTypographyFontSource):
 
     source: Literal["file"] = Field("file", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     files: list[BrandTypographyFontFilesPath] = Field(default_factory=list)
+
+    def css_include(self) -> str:
+        if len(self.files) == 0:
+            return ""
+
+        return "\n".join(
+            f"@font-face {{\n"
+            f"  font-family: '{self.family}';\n"
+            f"  font-weight: {font.weight};\n"
+            f"  font-style: {font.style};\n"
+            f"  src: {font.css_font_face_src()};\n"
+            f"}}"
+            for font in self.files
+        )
 
 
 class BrandTypographyFontFilesPath(BaseModel):
@@ -193,8 +212,12 @@ class BrandTypographyFontFilesPath(BaseModel):
 
         return fmt
 
+    def css_font_face_src(self) -> str:
+        # TODO: Handle `file://` vs `https://` or move to correct location
+        return f"url('{self.path}') format('{self.format}')"
 
-class BrandTypographyGoogleFontsApi(BaseModel):
+
+class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     family: str
     weight: SingleOrList[BrandTypographyFontWeightSimpleType] = Field(
         default=list(font_weight_round_int)
@@ -213,6 +236,9 @@ class BrandTypographyGoogleFontsApi(BaseModel):
             return [validate_font_weight(x) for x in value]
         else:
             return validate_font_weight(value)
+
+    def css_include(self) -> str:
+        return f"@import url('{self.import_url()}');"
 
     def import_url(self) -> str:
         if self.version == 1:
@@ -280,19 +306,13 @@ class BrandTypographyGoogleFontsApi(BaseModel):
         return urljoin(str(self.url), f"css2?{params}")
 
 
-class BrandTypographyFontGoogle(
-    BrandTypographyFontSource,
-    BrandTypographyGoogleFontsApi,
-):
+class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["google"] = Field("google", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
 
 
-class BrandTypographyFontBunny(
-    BrandTypographyFontSource,
-    BrandTypographyGoogleFontsApi,
-):
+class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
@@ -518,3 +538,13 @@ class BrandTypography(BrandBase):
         use_fallback("monospace_inline")
         use_fallback("monospace_block")
         return self
+
+    def css_include_fonts(self) -> str:
+        # TODO: Download or move files into a project-relative location
+
+        if len(self.fonts) == 0:
+            return ""
+
+        includes = [font.css_include() for font in self.fonts]
+
+        return "\n".join([i for i in includes if i])

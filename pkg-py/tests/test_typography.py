@@ -383,3 +383,9 @@ def test_brand_typography_ex_minimal(snapshot_json):
     assert brand.typography.fonts[2].family == "Fira Code"
 
     assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_css_fonts(snapshot):
+    brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
+
+    assert snapshot == brand.typography.css_include_fonts()
