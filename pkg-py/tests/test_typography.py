@@ -258,7 +258,16 @@ def test_brand_typography_ex_simple(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
-    assert brand.typography.fonts == []
+
+    assert isinstance(brand.typography.fonts, list)
+    assert len(brand.typography.fonts) == 3
+    assert [f.family for f in brand.typography.fonts] == [
+        "Open Sans",
+        "Roboto Slab",
+        "Fira Code",
+    ]
+    assert [f.source for f in brand.typography.fonts] == ["google"] * 3
+
     assert brand.typography.link is None
     assert isinstance(brand.typography.base, BrandTypographyBase)
     assert isinstance(brand.typography.headings, BrandTypographyHeadings)
@@ -353,5 +362,24 @@ def test_brand_typography_ex_color(snapshot_json):
 
     assert isinstance(t.link, BrandTypographyLink)
     assert t.link.color == color.palette["red"]
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_ex_minimal(snapshot_json):
+    brand = read_brand_yaml(path_examples("brand-typography-minimal.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+
+    assert isinstance(brand.typography.fonts, list)
+    assert len(brand.typography.fonts) == 3
+    assert brand.typography.fonts[0].source == "file"
+    assert brand.typography.fonts[0].files == []
+
+    assert isinstance(brand.typography.fonts[1], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[1].family == "Roboto Slab"
+
+    assert isinstance(brand.typography.fonts[2], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[2].family == "Fira Code"
 
     assert snapshot_json == pydantic_data_from_json(brand)

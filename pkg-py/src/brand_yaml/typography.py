@@ -146,7 +146,7 @@ class BrandTypographyFontFiles(BaseModel):
 
     source: Literal["file"] = "file"
     family: str
-    files: list[BrandTypographyFontFilesPath]
+    files: list[BrandTypographyFontFilesPath] = Field(default_factory=list)
 
 
 class BrandTypographyFontFilesPath(BaseModel):
@@ -412,6 +412,59 @@ class BrandTypography(BrandBase):
         None, alias="monospace-block"
     )
     link: BrandTypographyLink | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def simple_google_fonts(cls, data: Any):
+        if not isinstance(data, dict):
+            return data
+
+        defined_families = set()
+        file_families = set()
+
+        if (
+            "fonts" in data
+            and isinstance(data["fonts"], list)
+            and len(data["fonts"]) > 0
+        ):
+            for font in data["fonts"]:
+                defined_families.add(font["family"])
+                if font["source"] == "file":
+                    file_families.add(font["family"])
+        else:
+            data["fonts"] = []
+
+        for field in (
+            "base",
+            "headings",
+            "monospace",
+            "monospace_inline",
+            "monospace_block",
+        ):
+            if field not in data:
+                continue
+
+            if not isinstance(data[field], (str, dict)):
+                continue
+
+            if isinstance(data[field], str):
+                data[field] = {"family": data[field]}
+
+            if "family" not in data[field]:
+                continue
+
+            if data[field]["family"] in defined_families:
+                continue
+
+            data["fonts"].append(
+                {
+                    "family": data[field]["family"],
+                    "source": "google",
+                }
+            )
+            defined_families.add(data[field]["family"])
+
+        return data
 
     @model_validator(mode="after")
     def forward_monospace_values(self):
