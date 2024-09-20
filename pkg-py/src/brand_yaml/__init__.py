@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, overload
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
@@ -28,6 +28,48 @@ class Brand(BaseModel):
     typography: BrandTypography | None = Field(None)
     defaults: dict[str, Any] | None = Field(None)
     path: Path | None = Field(None, exclude=True, repr=False)
+
+    @classmethod
+    def from_yaml(cls, path: str | Path):
+        """
+        Read a brand YAML file
+
+        Reads a brand YAML file or finds and reads a `_brand.yml` file and returns
+        a validated :class:`Brand` object.
+
+        Parameters
+        ----------
+        path
+            The path to the brand YAML file or a directory where `_brand.yml` is
+            expected to be found. Typically, you can pass `__file__` from the
+            calling script to find `_brand.yml` in the current directory or any of
+            its parent directories.
+
+        Returns
+        -------
+        :
+            A validated :class:`Brand` object with all fields populated according to
+            the brand YAML file.
+
+        Raises
+        ------
+        :
+            Raises a `FileNotFoundError` if no brand configuration file is found
+            within the given path. Raises `ValueError` or other validation errors
+            from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML
+            file is invalid.
+
+        Examples
+        --------
+
+        ```python
+        from brand_yaml import Brand
+
+        brand = Brand.from_yaml(__file__)
+        brand = Brand.from_yaml("path/to/_brand.yml")
+        ```
+        """
+        return cls.model_validate(read_brand_yaml(path, as_data=True))
 
     # TODO: resolve paths relative to `brand.path`
 
@@ -64,7 +106,17 @@ class Brand(BaseModel):
         return self
 
 
-def read_brand_yaml(path: str | Path) -> Brand:
+@overload
+def read_brand_yaml(
+    path: str | Path, as_data: Literal[False] = False
+) -> Brand: ...
+
+
+@overload
+def read_brand_yaml(path: str | Path, as_data: Literal[True]) -> dict: ...
+
+
+def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     """
     Read a brand YAML file
 
@@ -79,11 +131,16 @@ def read_brand_yaml(path: str | Path) -> Brand:
         calling script to find `_brand.yml` in the current directory or any of
         its parent directories.
 
+    as_data
+        When `True`, returns the raw brand data as a dictionary parsed from the
+        YAML file. When `False`, returns a validated :class:`Brand` object.
+
     Returns
     -------
     :
         A validated :class:`Brand` object with all fields populated according to
-        the brand YAML file.
+        the brand YAML file (`as_data=False`, default) or the raw brand data
+        as a dictionary (`as_data=True`).
 
     Raises
     ------
@@ -121,6 +178,9 @@ def read_brand_yaml(path: str | Path) -> Brand:
         )
 
     brand_data["path"] = path
+
+    if as_data:
+        return brand_data
 
     return Brand.model_validate(brand_data)
 
