@@ -141,11 +141,18 @@ def validate_font_weight(
     return value
 
 
-class BrandTypographyFontFiles(BaseModel):
+FontSourceType = Union[Literal["file"], Literal["google"], Literal["bunny"]]
+
+
+class BrandTypographyFontSource(BaseModel):
+    source: FontSourceType = Field(frozen=True)
+    family: str = Field(frozen=True)
+
+
+class BrandTypographyFontFiles(BrandTypographyFontSource):
     model_config = ConfigDict(extra="forbid")
 
-    source: Literal["file"] = "file"
-    family: str
+    source: Literal["file"] = Field("file", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     files: list[BrandTypographyFontFilesPath] = Field(default_factory=list)
 
 
@@ -273,16 +280,22 @@ class BrandTypographyGoogleFontsApi(BaseModel):
         return urljoin(str(self.url), f"css2?{params}")
 
 
-class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
+class BrandTypographyFontGoogle(
+    BrandTypographyFontSource,
+    BrandTypographyGoogleFontsApi,
+):
     model_config = ConfigDict(extra="forbid")
 
-    source: Literal["google"] = "google"
+    source: Literal["google"] = Field("google", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
 
 
-class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
+class BrandTypographyFontBunny(
+    BrandTypographyFontSource,
+    BrandTypographyGoogleFontsApi,
+):
     model_config = ConfigDict(extra="forbid")
 
-    source: Literal["bunny"] = "bunny"
+    source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     version: PositiveInt = 1
     url: HttpUrl = Field("https://fonts.bunny.net/")
 
