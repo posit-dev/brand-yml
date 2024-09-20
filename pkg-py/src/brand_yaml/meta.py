@@ -65,7 +65,7 @@ class BrandMetaName(BrandBase):
 
 class BrandMetaLink(BrandBase):
     model_config = ConfigDict(
-        extra="forbid",
+        extra="allow",
         str_strip_whitespace=True,
         revalidate_instances="always",
         validate_assignment=True,
