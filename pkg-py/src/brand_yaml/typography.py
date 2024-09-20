@@ -228,7 +228,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
     display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
     version: PositiveInt = 2
-    url: HttpUrl = Field("https://fonts.googleapis.com/")
+    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
 
     @field_validator("weight", mode="before")
     @classmethod
@@ -320,7 +320,7 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 
     source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     version: PositiveInt = 1
-    url: HttpUrl = Field("https://fonts.bunny.net/")
+    url: HttpUrl = Field("https://fonts.bunny.net/", validate_default=True)
 
 
 # Typography Options -----------------------------------------------------------
