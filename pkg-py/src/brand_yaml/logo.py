@@ -10,7 +10,7 @@ from ._defs import (
     check_circular_references,
     defs_replace_recursively,
 )
-from ._utils import BrandBase
+from .base import BrandBase
 
 BrandLogoImageType = Union[str, BrandLightDark[str]]
 

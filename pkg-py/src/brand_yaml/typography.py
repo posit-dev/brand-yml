@@ -17,7 +17,7 @@ from pydantic import (
     model_validator,
 )
 
-from ._utils import BrandBase
+from .base import BrandBase
 
 # Types ------------------------------------------------------------------------
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import ConfigDict, Field, HttpUrl, field_validator
 
-from ._utils import BrandBase
+from .base import BrandBase
 
 
 class BrandMeta(BrandBase):
