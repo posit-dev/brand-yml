@@ -15,11 +15,10 @@
         "family": "Open Sans",
         "files": [
           {
-            "path": "Open-Sans-Bold.ttf",
-            "weight": "bold"
+            "path": "fonts/open-sans/OpenSans-Variable.ttf"
           },
           {
-            "path": "Open-Sans-Italic.ttf",
+            "path": "fonts/open-sans/OpenSans-Variable-Italic.ttf",
             "style": "italic"
           }
         ],

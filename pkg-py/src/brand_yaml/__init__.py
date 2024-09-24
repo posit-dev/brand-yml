@@ -6,7 +6,8 @@ from typing import Any, Literal, overload
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
 
-from ._utils import find_project_file
+from ._path import FileLocation
+from ._utils import find_project_file, recurse_dicts_and_models
 from .color import BrandColor
 from .logo import BrandLogo
 from .meta import BrandMeta
@@ -105,6 +106,22 @@ class Brand(BaseModel):
 
         return self
 
+    @model_validator(mode="after")
+    def resolve_paths(self):
+        path = self.path
+        if path is not None:
+            recurse_dicts_and_models(
+                self,
+                pred=lambda value: isinstance(value, FileLocation),
+                modify=lambda value: value._update_root_dir(path.parent),
+            )
+            recurse_dicts_and_models(
+                self,
+                pred=lambda value: isinstance(value, FileLocation),
+                modify=lambda value: value._validate_path_exists(),
+            )
+        return self
+
 
 @overload
 def read_brand_yaml(
@@ -177,7 +194,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
             f"Invalid brand YAML file {str(path)!r}. Must be a dictionary."
         )
 
-    brand_data["path"] = path
+    brand_data["path"] = path.absolute()
 
     if as_data:
         return brand_data

@@ -3,15 +3,15 @@
   '''
   @font-face {
     font-family: 'Open Sans';
-    font-weight: bold;
+    font-weight: auto;
     font-style: normal;
-    src: url('Open-Sans-Bold.ttf') format('truetype');
+    src: url('fonts/open-sans/OpenSans-Variable.ttf') format('truetype');
   }
   @font-face {
     font-family: 'Open Sans';
-    font-weight: normal;
+    font-weight: auto;
     font-style: italic;
-    src: url('Open-Sans-Italic.ttf') format('truetype');
+    src: url('fonts/open-sans/OpenSans-Variable-Italic.ttf') format('truetype');
   }
   @font-face {
     font-family: 'Closed Sans';
@@ -21,7 +21,7 @@
   }
   @font-face {
     font-family: 'Closed Sans';
-    font-weight: normal;
+    font-weight: auto;
     font-style: italic;
     src: url('https://example.com/Closed-Sans-Italic.woff2') format('woff2');
   }

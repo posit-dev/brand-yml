@@ -40,7 +40,7 @@ def snapshot_json(snapshot):
 def test_brand_typography_font_file_format(path, fmt):
     font = BrandTypographyFontFilesPath(path=path)
 
-    assert font.path == path
+    assert str(font.path.root) == path
     assert font.format == fmt
 
 
@@ -301,10 +301,10 @@ def test_brand_typography_ex_fonts(snapshot_json):
     assert local_font.family == "Open Sans"
     for i, font in enumerate(local_font.files):
         assert isinstance(font, BrandTypographyFontFilesPath)
-        assert str(font.path).startswith("Open-Sans")
-        assert str(font.path).endswith(".ttf")
+        assert "OpenSans" in str(font.path.root)
+        assert str(font.path.root).endswith(".ttf")
         assert font.format == "truetype"
-        assert font.weight == ["bold", "normal"][i]
+        assert font.weight == ["auto", "auto"][i]
         assert font.style == ["normal", "italic"][i]
 
     # Online Font Files
@@ -314,10 +314,10 @@ def test_brand_typography_ex_fonts(snapshot_json):
     assert online_font.family == "Closed Sans"
     for i, font in enumerate(online_font.files):
         assert isinstance(font, BrandTypographyFontFilesPath)
-        assert str(font.path).startswith("https://")
-        assert str(font.path).endswith(".woff2")
+        assert str(font.path.root).startswith("https://")
+        assert str(font.path.root).endswith(".woff2")
         assert font.format == "woff2"
-        assert font.weight == ["bold", "normal"][i]
+        assert font.weight == ["bold", "auto"][i]
         assert font.style == ["normal", "italic"][i]
 
     # Google Fonts

@@ -6,9 +6,8 @@ typography:
     - family: Open Sans
       source: file
       files:
-        - path: Open-Sans-Bold.ttf  # TODO: FilePath validation
-          weight: bold
-        - path: Open-Sans-Italic.ttf
+        - path: fonts/open-sans/OpenSans-Variable.ttf
+        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf
           style: italic
 
     # Online files

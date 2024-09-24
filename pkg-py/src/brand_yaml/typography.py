@@ -17,6 +17,7 @@ from pydantic import (
     model_validator,
 )
 
+from ._path import FileLocation
 from .base import BrandBase
 
 # Types ------------------------------------------------------------------------
@@ -48,7 +49,7 @@ BrandTypographyFontWeightAllType = Union[
 ]
 
 BrandTypographyFontWeightSimpleType = Union[
-    float, int, Literal["normal", "bold"]
+    float, int, Literal["normal", "bold", "auto"]
 ]
 
 BrandTypographyFontWeightRoundIntType = Literal[
@@ -126,10 +127,10 @@ def validate_font_weight(
     value: int | str | None,
 ) -> BrandTypographyFontWeightSimpleType:
     if value is None:
-        return "normal"
+        return "auto"
 
     if isinstance(value, str):
-        if value in ("normal", "bold"):
+        if value in ("auto", "normal", "bold"):
             return value
         if value in font_weight_map:
             return font_weight_map[value]
@@ -181,8 +182,8 @@ class BrandTypographyFontFiles(BrandTypographyFontSource):
 class BrandTypographyFontFilesPath(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    path: str | HttpUrl  # TODO: FilePath validation
-    weight: BrandTypographyFontWeightSimpleType = "normal"
+    path: FileLocation
+    weight: BrandTypographyFontWeightSimpleType = "auto"
     style: BrandTypographyFontStyleType = "normal"
 
     @field_validator("weight", mode="before")
@@ -192,18 +193,19 @@ class BrandTypographyFontFilesPath(BaseModel):
 
     @field_validator("path", mode="after")
     @classmethod
-    def validate_source(cls, value: str) -> str:
-        if not Path(value).suffix:
-            raise BrandUnsupportedFontFileFormat(value)
+    def validate_source(cls, value: FileLocation) -> FileLocation:
+        ext = Path(str(value.root)).suffix
+        if not ext:
+            raise BrandUnsupportedFontFileFormat(value.root)
 
-        if Path(value).suffix not in font_formats:
-            raise BrandUnsupportedFontFileFormat(value)
+        if ext not in font_formats:
+            raise BrandUnsupportedFontFileFormat(value.root)
 
         return value
 
     @property
     def format(self) -> Literal["opentype", "truetype", "woff", "woff2"]:
-        path = str(self.path)
+        path = str(self.path.root)
         path_ext = Path(path).suffix
 
         if path_ext not in font_formats:
@@ -217,7 +219,7 @@ class BrandTypographyFontFilesPath(BaseModel):
 
     def css_font_face_src(self) -> str:
         # TODO: Handle `file://` vs `https://` or move to correct location
-        return f"url('{self.path}') format('{self.format}')"
+        return f"url('{self.path.root}') format('{self.format}')"
 
 
 class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
