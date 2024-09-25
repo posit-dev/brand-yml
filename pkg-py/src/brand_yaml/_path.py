@@ -15,6 +15,8 @@ class FileLocation(RootModel):
 
     def __call__(self) -> Path | HttpUrl:
         if isinstance(self.root, Path):
+            if self.root.is_absolute():
+                return self.root
             return self._root_dir / self.root
         return self.root
 
