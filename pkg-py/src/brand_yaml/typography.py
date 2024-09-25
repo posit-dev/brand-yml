@@ -329,7 +329,7 @@ class BrandTypographyFontFilesPath(BaseModel):
 
     @field_validator("path", mode="after")
     @classmethod
-    def validate_source(cls, value: FileLocation) -> FileLocation:
+    def validate_path(cls, value: FileLocation) -> FileLocation:
         ext = Path(str(value.root)).suffix
         if not ext:
             raise BrandUnsupportedFontFileFormat(value.root)
