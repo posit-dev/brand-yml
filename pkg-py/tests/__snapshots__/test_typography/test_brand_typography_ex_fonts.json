@@ -43,7 +43,7 @@
         "family": "Roboto Slab",
         "source": "google",
         "style": "normal",
-        "weight": 600
+        "weight": "600..900"
       },
       {
         "family": "Fira Code",

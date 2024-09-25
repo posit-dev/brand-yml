@@ -3,7 +3,17 @@ from __future__ import annotations
 import itertools
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Annotated, Any, Literal, TypeVar, Union
+from re import split as re_split
+from textwrap import indent
+from typing import (
+    TYPE_CHECKING,
+    Annotated,
+    Any,
+    Literal,
+    TypeVar,
+    Union,
+    overload,
+)
 from urllib.parse import urlencode, urljoin
 
 from pydantic import (
@@ -12,8 +22,12 @@ from pydantic import (
     Discriminator,
     Field,
     HttpUrl,
+    PlainSerializer,
     PositiveInt,
+    RootModel,
+    Tag,
     field_validator,
+    model_serializer,
     model_validator,
 )
 
@@ -26,6 +40,7 @@ from .base import BrandBase
 T = TypeVar("T")
 
 SingleOrList = Union[T, list[T]]
+SingleOrTuple = Union[T, tuple[T, ...]]
 
 
 BrandTypographyFontStyleType = Literal["normal", "italic"]
@@ -44,12 +59,24 @@ BrandTypographyFontWeightNamedType = Literal[
     "ultra-bold",
     "black",
 ]
+
+BrandTypographyFontWeightInt = Annotated[int, Field(ge=1, le=999)]
+
 BrandTypographyFontWeightAllType = Union[
-    float, int, BrandTypographyFontWeightNamedType
+    BrandTypographyFontWeightInt, BrandTypographyFontWeightNamedType
 ]
 
 BrandTypographyFontWeightSimpleType = Union[
-    float, int, Literal["normal", "bold", "auto"]
+    BrandTypographyFontWeightInt, Literal["normal", "bold"]
+]
+
+BrandTypographyFontWeightSimplePairedType = tuple[
+    BrandTypographyFontWeightSimpleType,
+    BrandTypographyFontWeightSimpleType,
+]
+
+BrandTypographyFontWeightSimpleAutoType = Union[
+    BrandTypographyFontWeightInt, Literal["normal", "bold", "auto"]
 ]
 
 BrandTypographyFontWeightRoundIntType = Literal[
@@ -103,15 +130,66 @@ font_formats = {
 
 
 class BrandInvalidFontWeight(ValueError):
-    def __init__(self, value: Any):
+    def __init__(self, value: Any, allow_auto: bool = True):
+        allowed = list(font_weight_map.keys())
+        if allow_auto:
+            allowed = ["auto", *allowed]
+
         super().__init__(
             f"Invalid font weight {value!r}. Expected a number divisible "
             + "by 100 and between 100 and 900, or one of "
-            + f"{', '.join(font_weight_map.keys())}."
+            + f"{', '.join(allowed)}."
         )
 
 
-# Fonts ------------------------------------------------------------------------
+# Font Weights -----------------------------------------------------------------
+@overload
+def validate_font_weight(
+    value: Any,
+    allow_auto: Literal[True] = True,
+) -> BrandTypographyFontWeightSimpleAutoType: ...
+
+
+@overload
+def validate_font_weight(
+    value: Any,
+    allow_auto: Literal[False],
+) -> BrandTypographyFontWeightSimpleType: ...
+
+
+def validate_font_weight(
+    value: Any,
+    allow_auto: bool = True,
+) -> (
+    BrandTypographyFontWeightSimpleAutoType
+    | BrandTypographyFontWeightSimpleType
+):
+    if value is None:
+        return "auto"
+
+    if not isinstance(value, (str, int, float, bool)):
+        raise BrandInvalidFontWeight(value, allow_auto=allow_auto)
+
+    if isinstance(value, str):
+        if allow_auto and value == "auto":
+            return value
+        if value in ("normal", "bold"):
+            return value
+        if value in font_weight_map:
+            return font_weight_map[value]
+
+    try:
+        value = int(value)
+    except ValueError:
+        raise BrandInvalidFontWeight(value, allow_auto=allow_auto)
+
+    if value < 100 or value > 900 or value % 100 != 0:
+        raise BrandInvalidFontWeight(value, allow_auto=allow_auto)
+
+    return value
+
+
+# Fonts (Files) ----------------------------------------------------------------
 
 
 class BrandUnsupportedFontFileFormat(ValueError):
@@ -123,27 +201,73 @@ class BrandUnsupportedFontFileFormat(ValueError):
         )
 
 
-def validate_font_weight(
-    value: int | str | None,
-) -> BrandTypographyFontWeightSimpleType:
-    if value is None:
-        return "auto"
+class BrandTypographyFontFileWeight(RootModel):
+    root: (
+        BrandTypographyFontWeightSimpleAutoType
+        | BrandTypographyFontWeightSimplePairedType
+    )
 
-    if isinstance(value, str):
-        if value in ("auto", "normal", "bold"):
-            return value
-        if value in font_weight_map:
-            return font_weight_map[value]
+    def __str__(self) -> str:
+        if isinstance(self.root, tuple):
+            vals = [
+                str(font_weight_map[v]) if isinstance(v, str) else str(v)
+                for v in self.root
+            ]
+            return " ".join(vals)
+        return str(self.root)
 
-    try:
-        value = int(value)
-    except ValueError:
-        raise BrandInvalidFontWeight(value)
+    @model_serializer
+    def to_str_url(self) -> str:
+        if isinstance(self.root, tuple):
+            return f"{self.root[0]}..{self.root[1]}"
+        return str(self.root)
 
-    if value < 100 or value > 900 or value % 100 != 0:
-        raise BrandInvalidFontWeight(value)
+    if TYPE_CHECKING:
+        # https://docs.pydantic.dev/latest/concepts/serialization/#overriding-the-return-type-when-dumping-a-model
+        # Ensure type checkers see the correct return type
+        def model_dump(
+            self,
+            *,
+            mode: Literal["json", "python"] | str = "python",
+            include: Any = None,
+            exclude: Any = None,
+            context: dict[str, Any] | None = None,
+            by_alias: bool = False,
+            exclude_unset: bool = False,
+            exclude_defaults: bool = False,
+            exclude_none: bool = False,
+            round_trip: bool = False,
+            warnings: bool | Literal["none", "warn", "error"] = True,
+            serialize_as_any: bool = False,
+        ) -> str: ...
 
-    return value
+    @field_validator("root", mode="before")
+    @classmethod
+    def validate_root_before(cls, value: Any) -> Any:
+        if isinstance(value, str) and ".." in value:
+            value = value.split("..")
+            return (v for v in value if v)
+        return value
+
+    @field_validator("root", mode="before")
+    @classmethod
+    def validate_root(
+        cls, value: Any
+    ) -> (
+        BrandTypographyFontWeightSimpleAutoType
+        | BrandTypographyFontWeightSimplePairedType
+    ):
+        if isinstance(value, tuple) or isinstance(value, list):
+            if len(value) != 2:
+                raise ValueError(
+                    "Font weight ranges must have exactly 2 elements."
+                )
+            vals = (
+                validate_font_weight(value[0], allow_auto=False),
+                validate_font_weight(value[1], allow_auto=False),
+            )
+            return vals
+        return validate_font_weight(value, allow_auto=True)
 
 
 FontSourceType = Union[Literal["file"], Literal["google"], Literal["bunny"]]
@@ -169,12 +293,14 @@ class BrandTypographyFontFiles(BrandTypographyFontSource):
             return ""
 
         return "\n".join(
-            f"@font-face {{\n"
-            f"  font-family: '{self.family}';\n"
-            f"  font-weight: {font.weight};\n"
-            f"  font-style: {font.style};\n"
-            f"  src: {font.css_font_face_src()};\n"
-            f"}}"
+            "\n".join(
+                [
+                    "@font-face {",
+                    f"  font-family: '{self.family}';",
+                    indent(font.to_css(), 2 * " "),
+                    "}",
+                ]
+            )
             for font in self.files
         )
 
@@ -183,13 +309,23 @@ class BrandTypographyFontFilesPath(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     path: FileLocation
-    weight: BrandTypographyFontWeightSimpleType = "auto"
+    weight: BrandTypographyFontFileWeight = Field(
+        default_factory=lambda: BrandTypographyFontFileWeight(root="auto"),
+        validate_default=True,
+    )
     style: BrandTypographyFontStyleType = "normal"
 
-    @field_validator("weight", mode="before")
-    @classmethod
-    def validate_weight(cls, value: str | int | None):
-        return validate_font_weight(value)
+    def to_css(self) -> str:
+        # TODO: Handle `file://` vs `https://` or move to correct location
+        weight = self.weight.to_str_url()
+        src = f"url('{self.path.root}') format('{self.format}')"
+        return "\n".join(
+            [
+                f"font-weight: {weight};",
+                f"font-style: {self.style};",
+                f"src: {src};",
+            ]
+        )
 
     @field_validator("path", mode="after")
     @classmethod
@@ -217,43 +353,131 @@ class BrandTypographyFontFilesPath(BaseModel):
 
         return fmt
 
-    def css_font_face_src(self) -> str:
-        # TODO: Handle `file://` vs `https://` or move to correct location
-        return f"url('{self.path.root}') format('{self.format}')"
+
+# Fonts (Google) ---------------------------------------------------------------
+
+
+class BrandTypographyGoogleFontsWeightRange(RootModel):
+    model_config = ConfigDict(json_schema_mode_override="serialization")
+
+    root: list[BrandTypographyFontWeightInt]
+
+    def __str__(self) -> str:
+        return f"{self.root[0]}..{self.root[1]}"
+
+    @model_serializer(mode="plain", when_used="always")
+    def to_serialized(self) -> str:
+        return f"{self.root[0]}..{self.root[1]}"
+
+    def to_url_list(self) -> list[str]:
+        return [str(self)]
+
+    @field_validator("root", mode="before")
+    @classmethod
+    def validate_weight(cls, value: Any) -> list[BrandTypographyFontWeightInt]:
+        if isinstance(value, str) and ".." in value:
+            start, end = re_split(r"\s*[.]{2,3}\s*", value, maxsplit=1)
+            value = [start, end]
+
+        if len(value) != 2:
+            raise ValueError("Font weight ranges must have exactly 2 elements.")
+
+        value = [validate_font_weight(v, allow_auto=False) for v in value]
+        value = [font_weight_map[v] if isinstance(v, str) else v for v in value]
+        return value
+
+    if TYPE_CHECKING:
+        # https://docs.pydantic.dev/latest/concepts/serialization/#overriding-the-return-type-when-dumping-a-model
+        # Ensure type checkers see the correct return type
+        def model_dump(
+            self,
+            *,
+            mode: Literal["json", "python"] | str = "python",
+            include: Any = None,
+            exclude: Any = None,
+            context: dict[str, Any] | None = None,
+            by_alias: bool = False,
+            exclude_unset: bool = False,
+            exclude_defaults: bool = False,
+            exclude_none: bool = False,
+            round_trip: bool = False,
+            warnings: bool | Literal["none", "warn", "error"] = True,
+            serialize_as_any: bool = False,
+        ) -> str: ...
+
+
+class BrandTypographyGoogleFontsWeight(RootModel):
+    root: (
+        BrandTypographyFontWeightSimpleAutoType
+        | list[BrandTypographyFontWeightSimpleType]
+    )
+
+    def to_url_list(self) -> list[str]:
+        weights = self.root if isinstance(self.root, list) else [self.root]
+        vals = [
+            str(font_weight_map[w]) if isinstance(w, str) else str(w)
+            for w in weights
+        ]
+        vals.sort()
+        return vals
+
+    def to_serialized(
+        self,
+    ) -> (
+        BrandTypographyFontWeightSimpleAutoType
+        | list[BrandTypographyFontWeightSimpleType]
+    ):
+        return self.root
+
+    @field_validator("root", mode="before")
+    @classmethod
+    def validate_root(
+        cls,
+        value: str | int | list[str | int],
+    ) -> (
+        BrandTypographyFontWeightSimpleAutoType
+        | list[BrandTypographyFontWeightSimpleType]
+    ):
+        if isinstance(value, list):
+            return [validate_font_weight(v, allow_auto=False) for v in value]
+        return validate_font_weight(value, allow_auto=True)
+
+
+def google_font_weight_discriminator(value: Any) -> str:
+    if isinstance(value, str) and ".." in value:
+        return "range"
+    else:
+        return "weights"
 
 
 class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     family: str
-    weight: SingleOrList[BrandTypographyFontWeightSimpleType] = Field(
-        default=list(font_weight_round_int)
-    )
+    weight: Annotated[
+        Union[
+            Annotated[BrandTypographyGoogleFontsWeightRange, Tag("range")],
+            Annotated[BrandTypographyGoogleFontsWeight, Tag("weights")],
+        ],
+        Discriminator(google_font_weight_discriminator),
+        PlainSerializer(
+            lambda x: x.to_serialized(),
+            return_type=Union[str, int, list[int | str]],
+        ),
+    ] = Field(default=list(font_weight_round_int), validate_default=True)
     style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
     display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
     version: PositiveInt = 2
     url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
 
-    @field_validator("weight", mode="before")
-    @classmethod
-    def validate_weight(
-        cls, value: SingleOrList[Union[int, str]]
-    ) -> SingleOrList[BrandTypographyFontWeightSimpleType]:
-        if isinstance(value, list):
-            return [validate_font_weight(x) for x in value]
-        else:
-            return validate_font_weight(value)
-
     def css_include(self) -> str:
-        return f"@import url('{self.import_url()}');"
+        return f"@import url('{self.to_import_url()}');"
 
-    def import_url(self) -> str:
+    def to_import_url(self) -> str:
         if self.version == 1:
             return self._import_url_v1()
         return self._import_url_v2()
 
     def _import_url_v1(self) -> str:
-        weight = sorted(
-            self.weight if isinstance(self.weight, list) else [self.weight]
-        )
+        weight = self.weight.to_url_list()
         style_str = sorted(
             self.style if isinstance(self.style, list) else [self.style]
         )
@@ -279,9 +503,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
         return urljoin(str(self.url), f"css?{params}")
 
     def _import_url_v2(self) -> str:
-        weight = sorted(
-            self.weight if isinstance(self.weight, list) else [self.weight]
-        )
+        weight = self.weight.to_url_list()
         style_str = sorted(
             self.style if isinstance(self.style, list) else [self.style]
         )
@@ -361,8 +583,8 @@ class BrandTypographyOptionsWeight(BaseModel):
 
     @field_validator("weight", mode="before")
     @classmethod
-    def validate_weight(cls, value: int | str):
-        return validate_font_weight(value)
+    def validate_weight(cls, value: Any) -> BrandTypographyFontWeightSimpleType:
+        return validate_font_weight(value, allow_auto=False)
 
 
 class BrandTypographyBase(

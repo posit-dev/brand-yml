@@ -11,13 +11,16 @@ from brand_yaml.typography import (
     BrandTypographyFontBunny,
     BrandTypographyFontFiles,
     BrandTypographyFontFilesPath,
+    BrandTypographyFontFileWeight,
     BrandTypographyFontGoogle,
     BrandTypographyGoogleFontsApi,
+    BrandTypographyGoogleFontsWeightRange,
     BrandTypographyHeadings,
     BrandTypographyLink,
     BrandTypographyMonospace,
     BrandTypographyMonospaceBlock,
     BrandTypographyMonospaceInline,
+    validate_font_weight,
 )
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
@@ -44,55 +47,58 @@ def test_brand_typography_font_file_format(path, fmt):
     assert font.format == fmt
 
 
+def test_validate_font_weight():
+    assert validate_font_weight(None) == "auto"
+    assert validate_font_weight("auto") == "auto"
+    assert validate_font_weight("normal") == "normal"
+    assert validate_font_weight("bold") == "bold"
+
+    assert validate_font_weight("thin") == 100
+    assert validate_font_weight("semi-bold") == 600
+
+    with pytest.raises(ValueError):
+        validate_font_weight("invalid")
+
+    with pytest.raises(ValueError):
+        validate_font_weight([100, 200])
+
+    with pytest.raises(ValueError):
+        # Auto is only allowed as a single value
+        validate_font_weight(["auto", "normal"])
+
+
 def test_brand_typography_font_file_weight():
-    args = {
-        "path": "my-font.otf",
-    }
+    with pytest.raises(ValueError):
+        BrandTypographyFontFileWeight.model_validate("invalid")
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": "invalid"}
-        )
+        BrandTypographyFontFileWeight.model_validate(999)
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFilesPath.model_validate({**args, "weight": 999})
+        BrandTypographyFontFileWeight.model_validate(150)
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFilesPath.model_validate({**args, "weight": 150})
+        BrandTypographyFontFileWeight.model_validate(0)
+
+    assert BrandTypographyFontFileWeight.model_validate(100).root == 100
+    assert BrandTypographyFontFileWeight.model_validate("thin").root == 100
+    assert BrandTypographyFontFileWeight.model_validate("semi-bold").root == 600
+    assert BrandTypographyFontFileWeight.model_validate("bold").root == "bold"
+    assert (
+        BrandTypographyFontFileWeight.model_validate("normal").root == "normal"
+    )
+    assert BrandTypographyFontFileWeight.model_validate("auto").root == "auto"
+
+    assert BrandTypographyFontFileWeight.model_validate([100, 200]).root == (
+        100,
+        200,
+    )
+    thin_bold = BrandTypographyFontFileWeight.model_validate(["thin", "bold"])
+    assert thin_bold.root == (100, "bold")
+    assert str(thin_bold) == "100 700"
 
     with pytest.raises(ValueError):
-        BrandTypographyFontFilesPath.model_validate({**args, "weight": 0})
-
-    assert (
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": 100}
-        ).weight
-        == 100
-    )
-    assert (
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": "thin"}
-        ).weight
-        == 100
-    )
-    assert (
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": "semi-bold"}
-        ).weight
-        == 600
-    )
-    assert (
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": "bold"}
-        ).weight
-        == "bold"
-    )
-    assert (
-        BrandTypographyFontFilesPath.model_validate(
-            {**args, "weight": "normal"}
-        ).weight
-        == "normal"
-    )
+        BrandTypographyFontFileWeight.model_validate(["thin", "auto"])
 
 
 def test_brand_typography_monospace():
@@ -227,8 +233,31 @@ def test_brand_typography_font_google_import_url():
     assert len(bg.fonts) == 1
     assert isinstance(bg.fonts[0], BrandTypographyFontGoogle)
     assert (
-        unquote(bg.fonts[0].import_url())
+        unquote(bg.fonts[0].to_import_url())
         == "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=auto"
+    )
+
+
+def test_brand_typography_font_google_weight_range_import_url():
+    bg = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "google",
+                    "family": "Open Sans",
+                    "weight": "400..700",
+                    "style": ["italic", "normal"],
+                }
+            ]
+        }
+    )
+
+    assert len(bg.fonts) == 1
+    assert isinstance(bg.fonts[0], BrandTypographyFontGoogle)
+    assert isinstance(bg.fonts[0].weight, BrandTypographyGoogleFontsWeightRange)
+    assert (
+        unquote(bg.fonts[0].to_import_url())
+        == "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400..700;1,400..700&display=auto"
     )
 
 
@@ -249,7 +278,7 @@ def test_brand_typography_font_bunny_import_url():
     assert len(bg.fonts) == 1
     assert isinstance(bg.fonts[0], BrandTypographyFontBunny)
     assert (
-        unquote(bg.fonts[0].import_url())
+        unquote(bg.fonts[0].to_import_url())
         == "https://fonts.bunny.net/css?family=Open+Sans:400,400i,700,700i&display=auto"
     )
 
@@ -304,7 +333,8 @@ def test_brand_typography_ex_fonts(snapshot_json):
         assert "OpenSans" in str(font.path.root)
         assert str(font.path.root).endswith(".ttf")
         assert font.format == "truetype"
-        assert font.weight == ["auto", "auto"][i]
+        assert isinstance(font.weight, BrandTypographyFontFileWeight)
+        assert str(font.weight) == ["auto", "auto"][i]
         assert font.style == ["normal", "italic"][i]
 
     # Online Font Files
@@ -317,14 +347,16 @@ def test_brand_typography_ex_fonts(snapshot_json):
         assert str(font.path.root).startswith("https://")
         assert str(font.path.root).endswith(".woff2")
         assert font.format == "woff2"
-        assert font.weight == ["bold", "auto"][i]
+        assert str(font.weight) == ["bold", "auto"][i]
         assert font.style == ["normal", "italic"][i]
 
     # Google Fonts
     google_font = brand.typography.fonts[2]
     assert isinstance(google_font, BrandTypographyFontGoogle)
     assert google_font.family == "Roboto Slab"
-    assert google_font.weight == 600
+    assert isinstance(google_font.weight, BrandTypographyGoogleFontsWeightRange)
+    assert str(google_font.weight) == "600..900"
+    assert google_font.weight.to_url_list() == ["600..900"]
     assert google_font.style == "normal"
     assert google_font.display == "block"
 

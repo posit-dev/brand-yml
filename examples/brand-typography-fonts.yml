@@ -22,7 +22,7 @@ typography:
     # Online Font Foundries
     - family: Roboto Slab
       source: google
-      weight: semi-bold
+      weight: 600..900
       style: normal
       display: block
     
