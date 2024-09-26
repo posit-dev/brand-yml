@@ -1,10 +1,10 @@
 {
   "logo": {
-    "large": "display.svg",
+    "large": "logos/pandas/pandas.svg",
     "medium": {
-      "dark": "logo-dark.png",
-      "light": "logo-light.png"
+      "dark": "logos/pandas/pandas_secondary_white.svg",
+      "light": "logos/pandas/pandas_secondary.svg"
     },
-    "small": "icon.png"
+    "small": "logos/pandas/pandas_mark.svg"
   }
 }

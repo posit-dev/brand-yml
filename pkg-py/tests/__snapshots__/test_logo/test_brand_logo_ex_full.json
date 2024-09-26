@@ -1,22 +1,18 @@
 {
   "logo": {
     "images": {
-      "black": "black.png",
-      "both": {
-        "dark": "full-color-reverse.png",
-        "light": "full-color.png"
-      },
-      "icon": "favicon.png",
-      "primary": "full-color.png",
-      "primary-svg": "full-color.svg",
-      "reverse": "full-color-reverse.png",
-      "white": "white.png"
+      "mark": "logos/pandas/pandas_mark.svg",
+      "mark-white": "logos/pandas/pandas_mark_white.svg",
+      "pandas": "logos/pandas/pandas.svg",
+      "pandas-white": "logos/pandas/pandas_white.svg",
+      "secondary": "logos/pandas/pandas_secondary.svg",
+      "secondary-white": "logos/pandas/pandas_secondary_white.svg"
     },
-    "large": "full-color.svg",
+    "large": "logos/pandas/pandas.svg",
     "medium": {
-      "dark": "full-color-reverse.png",
-      "light": "full-color.png"
+      "dark": "logos/pandas/pandas_secondary_white.svg",
+      "light": "logos/pandas/pandas_secondary.svg"
     },
-    "small": "black.png"
+    "small": "logos/pandas/pandas_mark.svg"
   }
 }

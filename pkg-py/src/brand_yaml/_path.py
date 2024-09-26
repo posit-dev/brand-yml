@@ -23,6 +23,9 @@ class FileLocation(RootModel):
 
         return self.root
 
+    def __str__(self) -> str:
+        return str(self.root)
+
     def set_root_dir(self, root_dir: Path, validate_path: bool = False) -> None:
         self._root_dir = root_dir
 

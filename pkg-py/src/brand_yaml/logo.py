@@ -1,18 +1,29 @@
 from __future__ import annotations
 
-from copy import deepcopy
-from typing import Union
+from typing import Annotated, Any, Union
 
-from pydantic import ConfigDict, field_validator, model_validator
-
-from ._defs import (
-    BrandLightDark,
-    check_circular_references,
-    defs_replace_recursively,
+from pydantic import (
+    ConfigDict,
+    Discriminator,
+    Tag,
+    model_validator,
 )
+
+from ._defs import BrandLightDark, defs_replace_recursively
+from ._path import FileLocation
 from .base import BrandBase
 
-BrandLogoImageType = Union[str, BrandLightDark[str]]
+BrandLogoFileType = Annotated[
+    Union[
+        Annotated[FileLocation, Tag("file")],
+        Annotated[BrandLightDark[FileLocation], Tag("light-dark")],
+    ],
+    Discriminator(
+        lambda x: "light-dark"
+        if isinstance(x, (dict, BrandLightDark))
+        else "file"
+    ),
+]
 
 
 class BrandLogo(BrandBase):
@@ -39,56 +50,34 @@ class BrandLogo(BrandBase):
 
     model_config = ConfigDict(
         extra="forbid",
-        revalidate_instances="always",
-        validate_assignment=True,
         use_attribute_docstrings=True,
     )
 
-    images: dict[str, BrandLogoImageType] | None = None
+    images: dict[str, FileLocation] | None = None
+    small: BrandLogoFileType | None = None
+    medium: BrandLogoFileType | None = None
+    large: BrandLogoFileType | None = None
 
-    # TODO: FilePath validation
-    # Currently we're using a string for the logo path, but we should update
-    # this to use a validated Path or URL in the future.
-    small: str | BrandLightDark[str] | None = None
-    medium: str | BrandLightDark[str] | None = None
-    large: str | BrandLightDark[str] | None = None
-
-    @field_validator("images")
+    @model_validator(mode="before")
     @classmethod
-    def validate_images(
-        cls,
-        value: dict[str, BrandLogoImageType] | None,
-    ) -> dict[str, BrandLogoImageType] | None:
-        if value is None:
-            return
+    def resolve_image_values(cls, data: Any):
+        if not isinstance(data, dict):
+            raise ValueError("data must be a dictionary")
 
-        check_circular_references(value)
-        # We resolve `logo.images` on load or on replacement only
-        # TODO: Replace with class with getter/setters
-        #       Retain original values, return resolved values, and re-validate on update.
-        defs_replace_recursively(value, name="images")
+        if "images" not in data:
+            return data
 
-        return value
+        images = data["images"]
+        if images is None:
+            return data
 
-    @model_validator(mode="after")
-    def resolve_image_values(self):
-        if self.images is None:
-            return self
+        if not isinstance(images, dict):
+            raise ValueError("images must be a dictionary of file locations")
 
-        _logo_fields = [k for k in self.model_fields.keys() if k != "images"]
+        for key, value in images.items():
+            if not isinstance(value, (str, FileLocation)):
+                raise ValueError(f"images[{key}] must be a file location")
 
-        full_defs = deepcopy(self.images) if self.images is not None else {}
-        full_defs.update(
-            {
-                k: v
-                for k, v in self.model_dump().items()
-                if k in _logo_fields and v is not None
-            }
-        )
-        defs_replace_recursively(
-            self,
-            defs=full_defs,
-            name="logo",
-            exclude="images",
-        )
-        return self
+        defs_replace_recursively(data, defs=images, name="logo")
+
+        return data

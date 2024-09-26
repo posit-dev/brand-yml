@@ -72,8 +72,6 @@ class Brand(BaseModel):
         """
         return cls.model_validate(read_brand_yaml(path, as_data=True))
 
-    # TODO: resolve paths relative to `brand.path`
-
     @model_validator(mode="after")
     def resolve_typography_colors(self):
         if self.typography is None or self.color is None:

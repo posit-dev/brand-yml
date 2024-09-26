@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml._defs import BrandLightDark
+from brand_yaml._path import FileLocation
 from brand_yaml.logo import BrandLogo
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
@@ -23,9 +26,15 @@ def test_brand_logo_ex_simple(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-simple.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
-    assert brand.logo.small == "icon.png"
-    assert brand.logo.medium == "logo.png"
-    assert brand.logo.large == "display.svg"
+
+    assert isinstance(brand.logo.small, FileLocation)
+    assert str(brand.logo.small) == "logos/pandas/pandas_mark.svg"
+
+    assert isinstance(brand.logo.medium, FileLocation)
+    assert str(brand.logo.medium) == "logos/pandas/pandas_secondary.svg"
+
+    assert isinstance(brand.logo.large, FileLocation)
+    assert str(brand.logo.large) == "logos/pandas/pandas.svg"
 
     assert snapshot_json == pydantic_data_from_json(brand)
 
@@ -34,13 +43,19 @@ def test_brand_logo_ex_light_dark(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-light-dark.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
-    assert brand.logo.small == "icon.png"
+    assert isinstance(brand.logo.small, FileLocation)
+    assert str(brand.logo.small) == "logos/pandas/pandas_mark.svg"
 
     assert isinstance(brand.logo.medium, BrandLightDark)
-    assert brand.logo.medium.light == "logo-light.png"
-    assert brand.logo.medium.dark == "logo-dark.png"
+    assert isinstance(brand.logo.medium.light, FileLocation)
+    assert str(brand.logo.medium.light) == "logos/pandas/pandas_secondary.svg"
+    assert isinstance(brand.logo.medium.dark, FileLocation)
+    assert (
+        str(brand.logo.medium.dark) == "logos/pandas/pandas_secondary_white.svg"
+    )
 
-    assert brand.logo.large == "display.svg"
+    assert isinstance(brand.logo.large, FileLocation)
+    assert str(brand.logo.large) == "logos/pandas/pandas.svg"
 
     assert snapshot_json == pydantic_data_from_json(brand)
 
@@ -49,16 +64,28 @@ def test_brand_logo_ex_full(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-full.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
-    assert brand.logo.small == "favicon.png"
+    assert isinstance(brand.logo.images, dict)
+    assert isinstance(brand.logo.small, FileLocation)
+    assert brand.logo.small == brand.logo.images["mark"]
 
     assert isinstance(brand.logo.medium, BrandLightDark)
-    assert brand.logo.medium.light == "full-color.png"
-    assert brand.logo.medium.dark == "full-color-reverse.png"
+    assert isinstance(brand.logo.medium.light, FileLocation)
+    assert brand.logo.medium.light.root == Path(
+        "logos/pandas/pandas_secondary.svg"
+    )
+    assert brand.logo.medium.dark == brand.logo.images["secondary-white"]
 
-    assert brand.logo.large == "full-color.svg"
+    assert isinstance(brand.logo.large, FileLocation)
+    assert brand.logo.large == brand.logo.images["pandas"]
 
-    # replace small with new value from "with"
-    brand.logo.small = "black"
-    assert brand.logo.small == "black.png"
+    ## THIS IS NOT CURRENTLY SUPPORTED
+    ## We handle internal references in before model validation which is too
+    ## early for the updated field value replacement. We could revisit this if
+    ## we change how FileLocations are handled.
+    # replace small with new value from "logo.images"
+    # brand.logo.small = "mark-white"  # type: ignore
+    # brand.model_rebuild()
+    # assert isinstance(brand.logo.small, FileLocation)
+    # assert brand.logo.small == brand.logo.images["mark-white"]
 
     assert snapshot_json == pydantic_data_from_json(brand)
