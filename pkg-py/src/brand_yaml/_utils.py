@@ -6,7 +6,11 @@ from typing import Any, Callable, Dict, List
 from pydantic import BaseModel
 
 
-def find_project_file(filename: str, dir_: Path) -> Path:
+def find_project_file(
+    filename: str,
+    dir_: Path,
+    subdir: tuple[str, ...] = (),
+) -> Path:
     dir_og = dir_
     i = 0
     max_parents = 20
@@ -14,12 +18,19 @@ def find_project_file(filename: str, dir_: Path) -> Path:
     while dir_ != dir_.parent and i < max_parents:
         if (dir_ / filename).exists():
             return dir_ / filename
+        for sub in subdir:
+            if (dir_ / sub / filename).exists():
+                return dir_ / sub / filename
         dir_ = dir_.parent
         i += 1
 
     raise FileNotFoundError(
         f"Could not find {filename} in {dir_og} or its parents."
     )
+
+
+def find_project_brand_yaml(dir_: Path) -> Path:
+    return find_project_file("_brand.yml", dir_, ("brand", "_brand"))
 
 
 PredicateFuncType = Callable[[Any], bool]

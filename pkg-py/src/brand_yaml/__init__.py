@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
 
 from ._path import FileLocation
-from ._utils import find_project_file, recurse_dicts_and_models
+from ._utils import find_project_brand_yaml, recurse_dicts_and_models
 from .color import BrandColor
 from .logo import BrandLogo
 from .meta import BrandMeta
@@ -181,10 +181,10 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     path = Path(path)
 
     if path.is_dir():
-        path = find_project_file("_brand.yml", path)
+        path = find_project_brand_yaml(path)
     elif path.suffix == ".py":
         # allows users to simply pass `__file__`
-        path = find_project_file("_brand.yml", path.parent)
+        path = find_project_brand_yaml(path.parent)
 
     with open(path, "r") as f:
         brand_data = yaml.load(f)
