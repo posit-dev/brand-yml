@@ -113,12 +113,10 @@ class Brand(BaseModel):
             recurse_dicts_and_models(
                 self,
                 pred=lambda value: isinstance(value, FileLocation),
-                modify=lambda value: value._update_root_dir(path.parent),
-            )
-            recurse_dicts_and_models(
-                self,
-                pred=lambda value: isinstance(value, FileLocation),
-                modify=lambda value: value._validate_path_exists(),
+                modify=lambda value: value.set_root_dir(
+                    path.parent,
+                    validate_path=True,
+                ),
             )
         return self
 

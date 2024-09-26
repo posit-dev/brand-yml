@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, Dict, List, Union
 
 from pydantic import BaseModel
 
@@ -34,7 +34,7 @@ def find_project_brand_yaml(dir_: Path) -> Path:
 
 
 PredicateFuncType = Callable[[Any], bool]
-ModifyFuncType = Callable[[Any], bool]
+ModifyFuncType = Callable[[Any], Union[bool, None]]
 
 
 def recurse_dicts_and_models(
