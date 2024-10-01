@@ -174,7 +174,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     ```
     """
 
-    path = Path(path)
+    path = Path(path).absolute()
 
     if path.is_dir():
         path = find_project_brand_yaml(path)
@@ -190,7 +190,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
             f"Invalid brand YAML file {str(path)!r}. Must be a dictionary."
         )
 
-    brand_data["path"] = path.absolute()
+    brand_data["path"] = path
 
     if as_data:
         return brand_data
