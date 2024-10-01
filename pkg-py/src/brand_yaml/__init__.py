@@ -74,10 +74,13 @@ class Brand(BaseModel):
 
     @model_validator(mode="after")
     def resolve_typography_colors(self):
-        if self.typography is None or self.color is None:
+        if self.typography is None:
             return self
 
-        color_defs = self.color._color_defs(resolved=True)
+        color_defs = self.color._color_defs(resolved=True) if self.color else {}
+        color_names = [
+            k for k in BrandColor.model_fields.keys() if k != "palette"
+        ]
 
         for top_field in self.typography.model_fields.keys():
             typography_node = getattr(self.typography, top_field)
@@ -93,8 +96,17 @@ class Brand(BaseModel):
                 if value is None or not isinstance(value, str):
                     continue
 
-                if value not in color_defs:
-                    continue
+                is_defined = value in color_defs
+                is_theme_color = value in color_names
+
+                if not is_defined:
+                    if is_theme_color:
+                        raise ValueError(
+                            f"`typography.{top_field}.{typography_node_field}` "
+                            f"referred to `color.{value}` which is not defined."
+                        )
+                    else:
+                        continue
 
                 setattr(
                     typography_node,

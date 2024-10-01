@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from urllib.parse import unquote
 
 import pytest
@@ -422,3 +423,23 @@ def test_brand_typography_css_fonts(snapshot):
 
     assert isinstance(brand.typography, BrandTypography)
     assert snapshot == brand.typography.css_include_fonts()
+
+
+def test_brand_typography_undefined_colors():
+    fixtures = Path(__file__).parent / "fixtures" / "typography-undefined-color"
+
+    with pytest.raises(ValueError, match="typography.base.color"):
+        read_brand_yaml(fixtures / "undefined-base-color.yml")
+
+    with pytest.raises(
+        ValueError, match="typography.monospace.background-color"
+    ):
+        read_brand_yaml(fixtures / "undefined-monospace-background-color.yml")
+
+    with pytest.raises(ValueError, match="typography.headings.color"):
+        read_brand_yaml(fixtures / "undefined-headings-color.yml")
+
+    brand = read_brand_yaml(fixtures / "undefined-palette-headings-color.yml")
+    assert isinstance(brand.typography, BrandTypography)
+    assert isinstance(brand.typography.headings, BrandTypographyHeadings)
+    assert brand.typography.headings.color == "orange"

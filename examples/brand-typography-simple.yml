@@ -1,5 +1,7 @@
 meta:
   name: examples/brand-typography-simple.yml
+color:
+  primary: blue
 typography:
   base:
     family: Open Sans

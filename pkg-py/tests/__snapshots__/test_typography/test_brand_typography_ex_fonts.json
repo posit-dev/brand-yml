@@ -1,4 +1,7 @@
 {
+  "color": {
+    "primary": "#f24242"
+  },
   "meta": {
     "name": {
       "full": "examples/brand-typography-fonts.yml"
@@ -51,7 +54,7 @@
       }
     ],
     "headings": {
-      "color": "primary",
+      "color": "#f24242",
       "family": "Roboto Slab",
       "weight": 600
     },

@@ -1,4 +1,7 @@
 {
+  "color": {
+    "primary": "blue"
+  },
   "meta": {
     "name": {
       "full": "examples/brand-typography-simple.yml"
@@ -25,7 +28,7 @@
       }
     ],
     "headings": {
-      "color": "primary",
+      "color": "blue",
       "family": "Roboto Slab",
       "weight": 600
     },
