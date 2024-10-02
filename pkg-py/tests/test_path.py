@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from brand_yaml._path import FileLocation, FileLocationLocal, FileLocationUrl
+from brand_yaml.file import FileLocation, FileLocationLocal, FileLocationUrl
 
 
 def test_file_requires_extension():

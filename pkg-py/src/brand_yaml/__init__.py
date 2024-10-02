@@ -6,9 +6,9 @@ from typing import Any, Literal, overload
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
 
-from ._path import FileLocationLocal
 from ._utils import find_project_brand_yaml, recurse_dicts_and_models
 from .color import BrandColor
+from .file import FileLocationLocal
 from .logo import BrandLogo
 from .meta import BrandMeta
 from .typography import BrandTypography
@@ -125,7 +125,8 @@ class Brand(BaseModel):
         `_brand.yml` file, these paths are specified relative to the directory
         containing the source YAML file. This method converts all local file
         paths to be absolute, provided the Brand was read initially from a YAML
-        file via :meth:`Brand.from_yaml` or [](`brand_yaml.read_brand_yaml`).
+        file via :meth:`brand_yaml.Brand.from_yaml` or
+        :func:`brand_yaml.read_brand_yaml`.
         """
 
         path = self.path
@@ -144,7 +145,8 @@ class Brand(BaseModel):
         Finds all fields that expect file paths in `logo` and `typography` and
         converts absolute file paths to local file paths, relative to the source
         YAML file, provided the Brand was read initially from a YAML file via
-        :meth:`Brand.from_yaml` or [](`brand_yaml.read_brand_yaml`).
+        :meth:`brand_yaml.Brand.from_yaml` or
+        :func:`brand_yaml.read_brand_yaml`.
         """
 
         path = self.path

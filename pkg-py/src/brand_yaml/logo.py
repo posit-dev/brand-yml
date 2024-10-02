@@ -10,8 +10,8 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark, defs_replace_recursively
-from ._path import FileLocationLocalOrUrl
 from .base import BrandBase
+from .file import FileLocationLocalOrUrl
 
 BrandLogoFileType = Annotated[
     Union[

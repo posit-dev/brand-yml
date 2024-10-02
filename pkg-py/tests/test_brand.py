@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 from brand_yaml import read_brand_yaml
-from brand_yaml._path import FileLocationLocal
+from brand_yaml.file import FileLocationLocal
 from brand_yaml.logo import BrandLogo
 from brand_yaml.typography import BrandTypography, BrandTypographyFontFiles
 

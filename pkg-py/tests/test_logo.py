@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml._defs import BrandLightDark
-from brand_yaml._path import FileLocation, FileLocationLocal
+from brand_yaml.file import FileLocation, FileLocationLocal
 from brand_yaml.logo import BrandLogo
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json

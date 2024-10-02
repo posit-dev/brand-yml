@@ -31,8 +31,8 @@ from pydantic import (
     model_validator,
 )
 
-from ._path import FileLocationLocalOrUrl
 from .base import BrandBase
+from .file import FileLocationLocalOrUrl
 
 # Types ------------------------------------------------------------------------
 
