@@ -6,7 +6,7 @@ from typing import Any, Literal, overload
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from ruamel.yaml import YAML
 
-from ._path import FileLocation
+from ._path import FileLocationLocal
 from ._utils import find_project_brand_yaml, recurse_dicts_and_models
 from .color import BrandColor
 from .logo import BrandLogo
@@ -116,17 +116,43 @@ class Brand(BaseModel):
 
         return self
 
-    @model_validator(mode="after")
-    def resolve_paths(self):
+    def paths_make_absolute(self):
+        """
+        Make all paths in the brand absolute.
+
+        Finds all fields that expect file paths in `logo` and `typography` and
+        converts these local file paths to local absolute file paths. In a
+        `_brand.yml` file, these paths are specified relative to the directory
+        containing the source YAML file. This method converts all local file
+        paths to be absolute, provided the Brand was read initially from a YAML
+        file via :meth:`Brand.from_yaml` or [](`brand_yaml.read_brand_yaml`).
+        """
+
         path = self.path
         if path is not None:
             recurse_dicts_and_models(
                 self,
-                pred=lambda value: isinstance(value, FileLocation),
-                modify=lambda value: value.set_root_dir(
-                    path.parent,
-                    validate_path=True,
-                ),
+                pred=lambda value: isinstance(value, FileLocationLocal),
+                modify=lambda value: value.make_absolute(path.parent),
+            )
+        return self
+
+    def paths_make_relative(self):
+        """
+        Make all paths in the brand relative.
+
+        Finds all fields that expect file paths in `logo` and `typography` and
+        converts absolute file paths to local file paths, relative to the source
+        YAML file, provided the Brand was read initially from a YAML file via
+        :meth:`Brand.from_yaml` or [](`brand_yaml.read_brand_yaml`).
+        """
+
+        path = self.path
+        if path is not None:
+            recurse_dicts_and_models(
+                self,
+                pred=lambda value: isinstance(value, FileLocationLocal),
+                modify=lambda value: value.make_relative(path.parent),
             )
         return self
 

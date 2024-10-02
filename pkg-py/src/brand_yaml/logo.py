@@ -10,13 +10,13 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark, defs_replace_recursively
-from ._path import FileLocation
+from ._path import FileLocationLocalOrUrl
 from .base import BrandBase
 
 BrandLogoFileType = Annotated[
     Union[
-        Annotated[FileLocation, Tag("file")],
-        Annotated[BrandLightDark[FileLocation], Tag("light-dark")],
+        Annotated[FileLocationLocalOrUrl, Tag("file")],
+        Annotated[BrandLightDark[FileLocationLocalOrUrl], Tag("light-dark")],
     ],
     Discriminator(
         lambda x: "light-dark"
@@ -53,7 +53,7 @@ class BrandLogo(BrandBase):
         use_attribute_docstrings=True,
     )
 
-    images: dict[str, FileLocation] | None = None
+    images: dict[str, FileLocationLocalOrUrl] | None = None
     small: BrandLogoFileType | None = None
     medium: BrandLogoFileType | None = None
     large: BrandLogoFileType | None = None
@@ -75,7 +75,7 @@ class BrandLogo(BrandBase):
             raise ValueError("images must be a dictionary of file locations")
 
         for key, value in images.items():
-            if not isinstance(value, (str, FileLocation)):
+            if not isinstance(value, (str, FileLocationLocalOrUrl)):
                 raise ValueError(f"images[{key}] must be a file location")
 
         defs_replace_recursively(data, defs=images, name="logo")

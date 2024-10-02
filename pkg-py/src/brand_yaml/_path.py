@@ -1,41 +1,54 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Union
 
-from pydantic import HttpUrl, RootModel
+from pydantic import HttpUrl, RootModel, field_validator
 
 
 class FileLocation(RootModel):
-    root: HttpUrl | Path
-    _root_dir: Path | None = None
-
-    def __init__(self, path: str | Path | HttpUrl):
-        super().__init__(path)
-
-    def __call__(self) -> Path | HttpUrl:
-        if self._root_dir is None:
-            return self.root
-
-        if isinstance(self.root, Path):
-            if self.root.is_absolute():
-                return self.root
-            return self._root_dir / self.root
-
-        return self.root
-
     def __str__(self) -> str:
         return str(self.root)
 
-    def set_root_dir(self, root_dir: Path, validate_path: bool = False) -> None:
-        self._root_dir = root_dir
+    @field_validator("root")
+    @classmethod
+    def validate_root(cls, v: Path | HttpUrl) -> Path | HttpUrl:
+        if isinstance(v, Path):
+            v = Path(v).expanduser()
 
-        if validate_path:
-            self._validate_path_exists()
+        vp = Path(str(v))
+        if vp.suffix == "":
+            raise ValueError(
+                "Must be a path to a single file which must include an extension."
+            )
 
-    def _validate_path_exists(self) -> None:
-        path = self()
-        if not path or not isinstance(path, Path):
+        return v
+
+
+class FileLocationUrl(FileLocation):
+    root: HttpUrl
+
+
+class FileLocationLocal(FileLocation):
+    root: Path
+
+    def make_absolute(self, relative_to: str | Path = Path(".")):
+        if self.root.is_absolute():
             return
 
-        if not path.exists():
-            raise FileNotFoundError(f"File not found: {path}")
+        relative_to = Path(relative_to).absolute()
+        self.root = relative_to / self.root
+
+    def make_relative(self, relative_to: str | Path = Path(".")):
+        if not self.root.is_absolute():
+            return
+
+        relative_to = Path(relative_to).absolute()
+        self.root = self.root.relative_to(relative_to)
+
+    def validate_path_exists(self) -> None:
+        if not self.root.exists():
+            raise FileNotFoundError(f"File not found: {self.root}")
+
+
+FileLocationLocalOrUrl = Union[FileLocationUrl, FileLocationLocal]
