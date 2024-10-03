@@ -13,5 +13,5 @@ def test_brand_with_errors_on_circular_references():
 
     with pytest.raises(CircularReferenceError, match="a -> d -> b -> a"):
         check_circular_references(
-            {"a": "d", "b": "a", "d": {"x": "e", "y": "b"}}
+            {"a": "d", "b": "a", "d": {"x": "e", "y": {"y1": "b"}}}
         )

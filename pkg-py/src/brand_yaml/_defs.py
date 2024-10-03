@@ -176,7 +176,7 @@ def get_value(items: dict | BaseModel, key: str) -> object:
 
 
 def check_circular_references(
-    data: Any,
+    data: dict[str, Any],
     current: object | None = None,
     seen: list[str] | None = None,
     path: list[str] | None = None,
