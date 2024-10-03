@@ -102,10 +102,13 @@ def defs_replace_recursively(
         refer to definitions in `defs`, the are replaced with copies of the
         definition.
     """
+    if items is None:
+        return None
+
     if defs is None:
         if isinstance(items, dict):
             defs = items
-        else:
+        else:  # pragma: no cover
             raise ValueError(
                 "When `defs` is `None`, `items` must be a dictionary."
             )
@@ -114,11 +117,8 @@ def defs_replace_recursively(
         logger.debug("Checking for circular references")
         check_circular_references(defs, name=name)
 
-    if level > 50:
+    if level > 50:  # pragma: no cover
         logger.error("BrandWith recursion limit reached")
-        return
-
-    if not isinstance(items, (dict, BaseModel)):
         return
 
     for key in item_keys(items):
@@ -190,7 +190,7 @@ def check_circular_references(
     seen = seen if seen is not None else []
     path = path if path is not None else []
 
-    if not isinstance(current, (dict, BaseModel)):
+    if not isinstance(current, (dict, BaseModel)):  # pragma: no cover
         if not isinstance(current, str):
             raise ValueError(
                 "All values must be strings, dictionaries, or pydantic models."

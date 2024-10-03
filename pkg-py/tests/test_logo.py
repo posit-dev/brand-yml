@@ -22,6 +22,21 @@ def test_brand_logo_single():
     assert brand.logo == "posit.png"
 
 
+def test_brand_logo_errors():
+    with pytest.raises(ValueError):
+        BrandLogo.model_validate("foo")
+
+    with pytest.raises(ValueError):
+        BrandLogo.model_validate({"images": "foo"})
+
+    with pytest.raises(ValueError):
+        BrandLogo.model_validate({"images": {"light": 1234}})
+
+
+def test_brand_logo_images_accept_paths():
+    bl = BrandLogo.model_validate({"images": {"cat": Path("cat.jpg")}})
+
+
 def test_brand_logo_ex_simple(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-simple.yml"))
 

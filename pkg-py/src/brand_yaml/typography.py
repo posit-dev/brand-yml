@@ -222,7 +222,7 @@ class BrandTypographyFontFileWeight(RootModel):
             return f"{self.root[0]}..{self.root[1]}"
         return str(self.root)
 
-    if TYPE_CHECKING:
+    if TYPE_CHECKING:  # pragma: no cover
         # https://docs.pydantic.dev/latest/concepts/serialization/#overriding-the-return-type-when-dumping-a-model
         # Ensure type checkers see the correct return type
         def model_dump(
@@ -388,7 +388,7 @@ class BrandTypographyGoogleFontsWeightRange(RootModel):
         value = [font_weight_map[v] if isinstance(v, str) else v for v in value]
         return value
 
-    if TYPE_CHECKING:
+    if TYPE_CHECKING:  # pragma: no cover
         # https://docs.pydantic.dev/latest/concepts/serialization/#overriding-the-return-type-when-dumping-a-model
         # Ensure type checkers see the correct return type
         def model_dump(

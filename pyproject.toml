@@ -28,6 +28,7 @@ dev-dependencies = [
     "nbformat>=5.10.4",
     "nbclient>=0.10.0",
     "ipykernel>=6.29.5",
+    "coverage>=7.6.1",
 ]
 
 [build-system]

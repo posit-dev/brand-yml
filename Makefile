@@ -42,6 +42,19 @@ py-format: ## [py] Format python code
 	uv run ruff check --fix pkg-py --config pyproject.toml
 	uv run ruff format pkg-py --config pyproject.toml
 
+.PHONY: py-coverage
+py-coverage: ## [py] Generate coverage report
+	@echo "📔 Generating coverage report"
+	uv run coverage run -m pytest pkg-py/tests
+	uv run coverage report
+
+.PHONY: py-coverage-report
+py-coverage-report: py-coverage ## [py] Generate coverage report and open it in browser
+	uv run coverage html
+	@echo ""
+	@echo "📡 Serving coverage report at http://localhost:8081/"
+	@npx http-server htmlcov --silent -p 8081
+
 .PHONY: py-update-snaps
 py-update-snaps:  ## [py] Update python test snapshots
 	@echo "📸 Updating pytest snapshots"

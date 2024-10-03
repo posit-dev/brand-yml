@@ -2,7 +2,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
-from brand_yaml import read_brand_yaml
+from brand_yaml import Brand, read_brand_yaml
 from brand_yaml.file import FileLocationLocal
 from brand_yaml.logo import BrandLogo
 from brand_yaml.typography import BrandTypography, BrandTypographyFontFiles
@@ -13,8 +13,17 @@ path_fixtures = Path(__file__).parent / "fixtures"
 def test_brand_yml_found_in_dir():
     path = path_fixtures / "find-brand-yml" / "_brand.yml"
 
-    brand_direct = read_brand_yaml(path)
+    brand_direct = Brand.from_yaml(path)
     brand_found = read_brand_yaml(path.parent)
+
+    assert brand_found == brand_direct
+
+
+def test_brand_yml_found_in_subdir():
+    path = path_fixtures / "find-brand-dir" / "empty.py"
+
+    brand_direct = Brand.from_yaml(path.parent / "brand" / "_brand.yml")
+    brand_found = read_brand_yaml(path)
 
     assert brand_found == brand_direct
 

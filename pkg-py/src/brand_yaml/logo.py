@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Annotated, Any, Union
 
 from pydantic import (
@@ -11,7 +12,7 @@ from pydantic import (
 
 from ._defs import BrandLightDark, defs_replace_recursively
 from .base import BrandBase
-from .file import FileLocationLocalOrUrl
+from .file import FileLocation, FileLocationLocalOrUrl
 
 BrandLogoFileType = Annotated[
     Union[
@@ -75,7 +76,7 @@ class BrandLogo(BrandBase):
             raise ValueError("images must be a dictionary of file locations")
 
         for key, value in images.items():
-            if not isinstance(value, (str, FileLocationLocalOrUrl)):
+            if not isinstance(value, (str, FileLocation, Path)):
                 raise ValueError(f"images[{key}] must be a file location")
 
         defs_replace_recursively(data, defs=images, name="logo")
