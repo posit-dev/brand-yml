@@ -34,7 +34,7 @@ def test_brand_logo_errors():
 
 
 def test_brand_logo_images_accept_paths():
-    bl = BrandLogo.model_validate({"images": {"cat": Path("cat.jpg")}})
+    BrandLogo.model_validate({"images": {"cat": Path("cat.jpg")}})
 
 
 def test_brand_logo_ex_simple(snapshot_json):
