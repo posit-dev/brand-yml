@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from pathlib import Path
 
 import pytest
@@ -29,9 +30,33 @@ def test_local_file_path_resolution():
     assert isinstance(local, FileLocation)
     assert isinstance(local, FileLocationLocal)
     assert str(local) == "fancy-logo.png"
+    assert local.relative() == Path("fancy-logo.png")
 
-    local.make_absolute(Path(__file__).parent)
-    assert str(local) == str(Path(__file__).parent / "fancy-logo.png")
+    local.set_root_dir(Path(__file__).parent)
+    assert local.absolute() == Path(__file__).parent / "fancy-logo.png"
+
+    assert not local.exists()
 
     with pytest.raises(FileNotFoundError):
-        local.validate_path_exists()
+        local.validate_exists()
+
+
+def test_local_file_cannot_be_absolute():
+    with pytest.raises(ValueError, match="file:///"):
+        FileLocationLocal.model_validate("/fancy-logo.png")
+
+    with pytest.raises(ValueError, match="file:///"):
+        FileLocationLocal.model_validate("~/fancy-logo.png")
+
+
+def test_local_files_retain_root_after_copy():
+    local = FileLocationLocal.model_validate("fancy-logo.png")
+    local.set_root_dir(Path(__file__).parent)
+
+    local_copy = copy.copy(local)
+    assert local_copy.absolute() == local.absolute()
+    assert local_copy.model_dump() == local.model_dump()
+
+    local_deep = copy.deepcopy(local)
+    assert local_deep.absolute() == local.absolute()
+    assert local_deep.model_dump() == local.model_dump()

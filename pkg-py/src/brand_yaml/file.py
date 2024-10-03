@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from copy import copy
 from pathlib import Path
-from typing import Union
+from typing import Any, Union
 
 from pydantic import HttpUrl, RootModel, field_validator
 
@@ -31,24 +32,65 @@ class FileLocationUrl(FileLocation):
 
 class FileLocationLocal(FileLocation):
     root: Path
+    _root_dir: Path | None = None
 
-    def make_absolute(self, relative_to: str | Path = Path(".")):
+    def __init__(self, root: Path):
+        super().__init__(root)
+
+    @field_validator("root", mode="after")
+    @classmethod
+    def validate_not_absolute(cls, value: Path) -> Path:
+        v = value.expanduser()
+        if v.is_absolute():
+            raise ValueError(
+                "Local paths must be relative to the Brand YAML source file. "
+                + f"Use 'file://{v}' if you are certain you want to use "
+                + "an absolute path for a local file."
+            )
+
+        return value
+
+    def __copy__(self):
+        m = super().__copy__()
+        m._root_dir = copy(self._root_dir)
+        return m
+
+    def __deepcopy__(self, memo: dict[int, Any] | None = None):
+        m = super().__deepcopy__(memo)
+        m._root_dir = copy(self._root_dir)
+        return m
+
+    def set_root_dir(self, root_dir: Path) -> None:
+        self._root_dir = root_dir
+
+    def absolute(self) -> Path:
         if self.root.is_absolute():
-            return
+            return self.root
 
-        relative_to = Path(relative_to).absolute()
-        self.root = relative_to / self.root
+        if self._root_dir is None:
+            return self.root.absolute()
 
-    def make_relative(self, relative_to: str | Path = Path(".")):
-        if not self.root.is_absolute():
-            return
+        relative_to = Path(self._root_dir).absolute()
+        return relative_to / self.root
 
-        relative_to = Path(relative_to).absolute()
-        self.root = self.root.relative_to(relative_to)
+    def relative(self) -> Path:
+        if not self.root.is_absolute() or self._root_dir is None:
+            return self.root
 
-    def validate_path_exists(self) -> None:
-        if not self.root.exists():
-            raise FileNotFoundError(f"File not found: {self.root}")
+        relative_to = Path(self._root_dir).absolute()
+        return self.root.relative_to(relative_to)
+
+    def exists(self) -> bool:
+        return self.absolute().exists()
+
+    def validate_exists(
+        self,
+        relative_to: str | Path | None = None,
+    ) -> None:
+        if not self.exists():
+            raise FileNotFoundError(
+                f"File '{self.root}' not found at '{self.absolute()}'"
+            )
 
 
 FileLocationLocalOrUrl = Union[FileLocationUrl, FileLocationLocal]

@@ -3,7 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Literal, overload
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 from ruamel.yaml import YAML
 
 from ._utils import find_project_brand_yaml, recurse_dicts_and_models
@@ -116,46 +122,31 @@ class Brand(BaseModel):
 
         return self
 
-    def paths_make_absolute(self):
-        """
-        Make all paths in the brand absolute.
+    @field_validator("path", mode="after")
+    @classmethod
+    def validate_path_is_absolute(cls, value: Path | None) -> Path | None:
+        if value is None:
+            return None
 
-        Finds all fields that expect file paths in `logo` and `typography` and
-        converts these local file paths to local absolute file paths. In a
-        `_brand.yml` file, these paths are specified relative to the directory
-        containing the source YAML file. This method converts all local file
-        paths to be absolute, provided the Brand was read initially from a YAML
-        file via :meth:`brand_yaml.Brand.from_yaml` or
-        :func:`brand_yaml.read_brand_yaml`.
-        """
+        value = Path(value).expanduser()
 
+        if not value.is_absolute():
+            raise ValueError(
+                f"brand.path must be an absolute path, not `{value}`."
+            )
+
+        return value.resolve()
+
+    @model_validator(mode="after")
+    def set_root_path(self):
         path = self.path
         if path is not None:
             recurse_dicts_and_models(
                 self,
                 pred=lambda value: isinstance(value, FileLocationLocal),
-                modify=lambda value: value.make_absolute(path.parent),
+                modify=lambda value: value.set_root_dir(path.parent),
             )
-        return self
 
-    def paths_make_relative(self):
-        """
-        Make all paths in the brand relative.
-
-        Finds all fields that expect file paths in `logo` and `typography` and
-        converts absolute file paths to local file paths, relative to the source
-        YAML file, provided the Brand was read initially from a YAML file via
-        :meth:`brand_yaml.Brand.from_yaml` or
-        :func:`brand_yaml.read_brand_yaml`.
-        """
-
-        path = self.path
-        if path is not None:
-            recurse_dicts_and_models(
-                self,
-                pred=lambda value: isinstance(value, FileLocationLocal),
-                modify=lambda value: value.make_relative(path.parent),
-            )
         return self
 
 
