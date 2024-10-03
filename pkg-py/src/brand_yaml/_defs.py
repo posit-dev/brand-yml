@@ -73,7 +73,7 @@ def defs_get(
 
 def defs_replace_recursively(
     items: dict | BaseModel | None,
-    defs: Any = None,
+    defs: dict | None = None,
     level: int = 0,
     name: str | None = None,
     exclude: str | None = None,
@@ -103,7 +103,12 @@ def defs_replace_recursively(
         definition.
     """
     if defs is None:
-        defs = items
+        if isinstance(items, dict):
+            defs = items
+        else:
+            raise ValueError(
+                "When `defs` is `None`, `items` must be a dictionary."
+            )
 
     if level == 0:
         logger.debug("Checking for circular references")
@@ -137,7 +142,6 @@ def defs_replace_recursively(
             elif isinstance(items, dict):
                 items[key] = new_value
         elif isinstance(value, (dict, BaseModel)):
-            # TODO: we may want to avoid recursing into child BrandWith instances
             logger.debug(level_indent(f"recursing into {key}", level))
             defs_replace_recursively(
                 value,
