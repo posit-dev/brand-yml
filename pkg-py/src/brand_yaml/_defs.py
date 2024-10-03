@@ -31,11 +31,13 @@ def is_leaf_node(value: Any) -> bool:
 
 
 def defs_get(
-    defs: DictStringRecursiveBaseModel, key: str, level: int = 0
+    defs: DictStringRecursiveBaseModel,
+    key: str,
+    level: int = 0,
 ) -> object:
     """
-    Finds `key` in `with_`, which may require recursively resolving nested
-    values from `with_`.
+    Finds `key` in `deps`, which may require recursively resolving nested
+    values in `deps`.
 
     Parameters
     ----------
@@ -49,9 +51,10 @@ def defs_get(
     Returns
     -------
     :
-        The value of `key` in `defs`, with any internal references to top-level
-        keys in `defs` also resolved. If `defs[key]` returns a dictionary or
-        pydantic model, internal references to definitions are also replaced.
+        The a deep copy of the value of `key` in `defs`, with any internal
+        references to top-level keys in `defs` also resolved. If `defs[key]`
+        returns a dictionary or pydantic model, internal references to
+        definitions are also replaced.
     """
     if key not in defs:
         return key
@@ -61,7 +64,7 @@ def defs_get(
 
     with_value = deepcopy(defs[key])
     logger.debug(
-        level_indent(f"key {key} is in with_ with value {with_value!r}", level)
+        level_indent(f"key {key} is in defs with value {with_value!r}", level)
     )
 
     if isinstance(with_value, (dict, BaseModel)):
@@ -118,7 +121,7 @@ def defs_replace_recursively(
         check_circular_references(defs, name=name)
 
     if level > 50:  # pragma: no cover
-        logger.error("BrandWith recursion limit reached")
+        logger.error("Hit recursion limit recursing into `items`")
         return
 
     for key in item_keys(items):
