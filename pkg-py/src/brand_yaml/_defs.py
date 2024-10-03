@@ -7,9 +7,6 @@ from typing import Any, Generic, Iterable, TypeVar, Union
 from pydantic import (
     BaseModel,
     ConfigDict,
-    Field,
-    field_validator,
-    model_validator,
 )
 
 from ._utils_logging import logger
@@ -28,53 +25,9 @@ class BrandLightDark(BaseModel, Generic[T]):
     dark: T | None = None
 
 
-class BrandLightDarkString(BrandLightDark[str]):
-    pass
-
-
-LeafNode = Union[str, float, int, bool, None]
-
-
 def is_leaf_node(value: Any) -> bool:
     # Note: We treat iterables as leaf nodes
     return not isinstance(value, (dict, BaseModel))
-
-
-def is_non_str_leaf_node(value: Any) -> bool:
-    return not isinstance(value, (dict, BaseModel, str))
-
-
-class BrandWith(BaseModel, Generic[T]):
-    model_config = ConfigDict(
-        extra="ignore",
-        str_strip_whitespace=True,
-        populate_by_name=True,
-        revalidate_instances="always",
-        validate_assignment=True,
-    )
-
-    with_: dict[str, T] | None = Field(default=None, alias="with")
-
-    @field_validator("with_", mode="after")
-    @classmethod
-    def validate_with_(cls, value: dict[str, T] | None) -> dict[str, T] | None:
-        if value is None:
-            return value
-
-        logger.debug(
-            "validating field with_ by checking for circular references"
-        )
-        check_circular_references(value, name="with")
-        return value
-
-    @model_validator(mode="after")
-    def resolve_with_values(self):
-        if self.with_ is None:
-            return self
-
-        logger.debug("validating model and resolving with_ values")
-        defs_replace_recursively(self, defs=self.with_, name="with_")
-        return self
 
 
 def defs_get(
@@ -256,9 +209,8 @@ def check_circular_references(
 
         path_key = [*path, key]
 
-        if isinstance(
-            value, str
-        ):  # implied value is also in data by above check
+        # implied value is also in data by above check
+        if isinstance(value, str):
             seen_key = [*seen, *([key, value] if len(seen) == 0 else [value])]
             if value in seen:
                 raise CircularReferenceError(seen_key, path_key, name)
