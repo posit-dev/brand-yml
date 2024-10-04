@@ -34,9 +34,6 @@ class FileLocationLocal(FileLocation):
     root: Path
     _root_dir: Path | None = None
 
-    def __init__(self, root: Path):
-        super().__init__(root)
-
     @field_validator("root", mode="after")
     @classmethod
     def validate_not_absolute(cls, value: Path) -> Path:
