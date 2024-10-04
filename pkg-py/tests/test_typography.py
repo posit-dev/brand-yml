@@ -4,7 +4,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 import pytest
-from brand_yaml import read_brand_yaml
+from brand_yaml import Brand, read_brand_yaml
 from brand_yaml.color import BrandColor
 from brand_yaml.file import FileLocationLocal
 from brand_yaml.typography import (
@@ -624,6 +624,44 @@ def test_brand_typography_ex_minimal(snapshot_json):
 
 def test_brand_typography_css_fonts(snapshot):
     brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert snapshot == brand.typography.css_include_fonts()
+
+
+def test_brand_typography_css_fonts_local(snapshot):
+    fw = BrandTypographyFontFileWeight.model_validate("400..800")
+    assert str(fw) == "400 800"
+    assert fw.model_dump() == "400..800"
+    assert fw.to_str_url() == "400..800"
+
+    with pytest.raises(ValueError):
+        BrandTypographyFontFileWeight.model_validate("400..600..900")
+
+    fp = BrandTypographyFontFilesPath.model_validate(
+        {"path": "OpenSans-Variable.ttf", "weight": "400..800"}
+    )
+    assert fp.to_css() == "\n".join(
+        [
+            "font-weight: 400 800;",
+            "font-style: normal;",
+            "src: url('OpenSans-Variable.ttf') format('truetype');",
+        ]
+    )
+
+    brand = Brand.from_yaml_str("""
+    typography:
+      fonts:
+        - family: Open Sans
+          source: file
+          files:
+            - path: OpenSans-Variable.ttf
+              weight: 400..800
+              style: italic
+        - family: Roboto
+          source: google
+          weight: 200..500
+    """)
 
     assert isinstance(brand.typography, BrandTypography)
     assert snapshot == brand.typography.css_include_fonts()

@@ -241,22 +241,17 @@ class BrandTypographyFontFileWeight(RootModel):
             serialize_as_any: bool = False,
         ) -> str: ...
 
-    @field_validator("root", mode="before")
+    @model_validator(mode="before")
     @classmethod
-    def validate_root_before(cls, value: Any) -> Any:
-        if isinstance(value, str) and ".." in value:
-            value = value.split("..")
-            return (v for v in value if v)
-        return value
-
-    @field_validator("root", mode="before")
-    @classmethod
-    def validate_root(
+    def validate_root_before(
         cls, value: Any
     ) -> (
         BrandTypographyFontWeightSimpleAutoType
         | BrandTypographyFontWeightSimplePairedType
     ):
+        if isinstance(value, str) and ".." in value:
+            value = tuple(value.split(".."))
+
         if isinstance(value, tuple) or isinstance(value, list):
             if len(value) != 2:
                 raise ValueError(
@@ -267,6 +262,7 @@ class BrandTypographyFontFileWeight(RootModel):
                 validate_font_weight(value[1], allow_auto=False),
             )
             return vals
+
         return validate_font_weight(value, allow_auto=True)
 
 
@@ -317,11 +313,10 @@ class BrandTypographyFontFilesPath(BaseModel):
 
     def to_css(self) -> str:
         # TODO: Handle `file://` vs `https://` or move to correct location
-        weight = self.weight.to_str_url()
         src = f"url('{self.path.root}') format('{self.format}')"
         return "\n".join(
             [
-                f"font-weight: {weight};",
+                f"font-weight: {self.weight};",
                 f"font-style: {self.style};",
                 f"src: {src};",
             ]
