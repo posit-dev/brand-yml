@@ -333,7 +333,7 @@ class BrandTypographyFontFilesPath(BaseModel):
         cls, value: FileLocationLocalOrUrl
     ) -> FileLocationLocalOrUrl:
         ext = Path(str(value.root)).suffix
-        if not ext:
+        if not ext:  # cover: for type checker
             raise BrandUnsupportedFontFileFormat(value.root)
 
         if ext not in font_formats:
@@ -524,7 +524,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
             values = [str(i) for i in ital]
             axis = "ital"
 
-        axis_range = f":{axis}@{';'.join(values)}"
+        axis_range = "" if len(values) == 0 else f":{axis}@{';'.join(values)}"
         params = urlencode(
             {
                 "family": self.family + axis_range,
@@ -678,7 +678,7 @@ class BrandTypography(BrandBase):
     @model_validator(mode="before")
     @classmethod
     def simple_google_fonts(cls, data: Any):
-        if not isinstance(data, dict):
+        if not isinstance(data, dict):  # cover: for type checker
             return data
 
         defined_families = set()
@@ -706,7 +706,7 @@ class BrandTypography(BrandBase):
             if field not in data:
                 continue
 
-            if not isinstance(data[field], (str, dict)):
+            if not isinstance(data[field], (str, dict)):  # pragma: no cover
                 continue
 
             if isinstance(data[field], str):

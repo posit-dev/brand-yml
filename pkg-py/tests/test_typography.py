@@ -6,6 +6,7 @@ from urllib.parse import unquote
 import pytest
 from brand_yaml import read_brand_yaml
 from brand_yaml.color import BrandColor
+from brand_yaml.file import FileLocationLocal
 from brand_yaml.typography import (
     BrandTypography,
     BrandTypographyBase,
@@ -21,6 +22,7 @@ from brand_yaml.typography import (
     BrandTypographyMonospace,
     BrandTypographyMonospaceBlock,
     BrandTypographyMonospaceInline,
+    BrandUnsupportedFontFileFormat,
     validate_font_weight,
 )
 from syrupy.extensions.json import JSONSnapshotExtension
@@ -198,6 +200,73 @@ def test_brand_typography_fields_link():
     }
 
 
+def test_brand_typography_font_local_no_files():
+    """
+    A local font file source without any files can be used to signal that the
+    system font should be used. We expect no errors and for the font-inclusion
+    CSS to be empty.
+    """
+    bf = BrandTypography.model_validate(
+        {
+            "fonts": [{"source": "file", "family": "Arial"}],
+            "base": "Arial",
+        }
+    )
+
+    assert isinstance(bf.fonts, list)
+    assert isinstance(bf.fonts[0], BrandTypographyFontFiles)
+    assert isinstance(bf.base, BrandTypographyBase)
+    assert bf.base.family == "Arial"
+    assert bf.css_include_fonts() == ""
+
+
+@pytest.mark.parametrize("font_file", ["arial", "arial.pdf"])
+def test_brand_typography_font_file_ext_error(font_file):
+    with pytest.raises(ValueError):
+        BrandTypography.model_validate(
+            {
+                "fonts": [
+                    {
+                        "source": "file",
+                        "family": "Arial",
+                        "files": [{"path": font_file}],
+                    }
+                ]
+            }
+        )
+
+    with pytest.raises(ValueError):
+        BrandTypographyFontFilesPath.model_validate({"path": font_file})
+
+    with pytest.raises(BrandUnsupportedFontFileFormat):
+        bt = BrandTypographyFontFilesPath.model_validate({"path": "arial.ttf"})
+
+        assert isinstance(bt.path, FileLocationLocal)
+        bt.path.root = Path("arial")
+        bt.format
+
+
+@pytest.mark.parametrize("font_file", ["arial.svg", "arial.eot", "arial.ttc"])
+def test_brand_typography_font_file_errors(font_file):
+    with pytest.raises(BrandUnsupportedFontFileFormat):
+        bt = BrandTypography.model_validate(
+            {
+                "fonts": [
+                    {
+                        "source": "file",
+                        "family": "Arial",
+                        "files": [{"path": font_file}],
+                    }
+                ]
+            }
+        )
+
+        assert isinstance(bt.fonts[0], BrandTypographyFontFiles)
+        assert isinstance(bt.fonts[0].files, list)
+        assert isinstance(bt.fonts[0].files[0], BrandTypographyFontFilesPath)
+        bt.fonts[0].files[0].format
+
+
 def test_brand_typography_font_bunny():
     bf = BrandTypography.model_validate(
         {
@@ -238,6 +307,66 @@ def test_brand_typography_font_google_import_url():
         == "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=auto"
     )
 
+    bg_no_weight = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "google",
+                    "family": "Open Sans",
+                    "weight": [],
+                    "style": ["italic", "normal"],
+                }
+            ]
+        }
+    )
+
+    assert len(bg_no_weight.fonts) == 1
+    assert isinstance(bg_no_weight.fonts[0], BrandTypographyFontGoogle)
+    assert (
+        unquote(bg_no_weight.fonts[0].to_import_url())
+        == "https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=auto"
+    )
+
+    bg_no_ital = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "google",
+                    "family": "Open Sans",
+                    "weight": [700, 400],
+                    "style": [],
+                }
+            ]
+        }
+    )
+
+    assert len(bg_no_ital.fonts) == 1
+    assert isinstance(bg_no_ital.fonts[0], BrandTypographyFontGoogle)
+    assert (
+        unquote(bg_no_ital.fonts[0].to_import_url())
+        == "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=auto"
+    )
+
+    bg_no_axes = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "google",
+                    "family": "Open Sans",
+                    "weight": [],
+                    "style": [],
+                }
+            ]
+        }
+    )
+
+    assert len(bg_no_axes.fonts) == 1
+    assert isinstance(bg_no_axes.fonts[0], BrandTypographyFontGoogle)
+    assert (
+        unquote(bg_no_axes.fonts[0].to_import_url())
+        == "https://fonts.googleapis.com/css2?family=Open+Sans&display=auto"
+    )
+
 
 def test_brand_typography_font_google_weight_range_import_url():
     bg = BrandTypography.model_validate(
@@ -253,7 +382,6 @@ def test_brand_typography_font_google_weight_range_import_url():
         }
     )
 
-    assert len(bg.fonts) == 1
     assert isinstance(bg.fonts[0], BrandTypographyFontGoogle)
     assert isinstance(bg.fonts[0].weight, BrandTypographyGoogleFontsWeightRange)
     assert (
@@ -262,8 +390,24 @@ def test_brand_typography_font_google_weight_range_import_url():
     )
 
 
+def test_brand_typography_font_google_weight_range_error():
+    with pytest.raises(ValueError):
+        BrandTypography.model_validate(
+            {
+                "fonts": [
+                    {
+                        "source": "google",
+                        "family": "Open Sans",
+                        "weight": "400..700..900",
+                        "style": ["italic", "normal"],
+                    }
+                ]
+            }
+        )
+
+
 def test_brand_typography_font_bunny_import_url():
-    bg = BrandTypography.model_validate(
+    bf = BrandTypography.model_validate(
         {
             "fonts": [
                 {
@@ -276,11 +420,71 @@ def test_brand_typography_font_bunny_import_url():
         }
     )
 
-    assert len(bg.fonts) == 1
-    assert isinstance(bg.fonts[0], BrandTypographyFontBunny)
+    assert len(bf.fonts) == 1
+    assert isinstance(bf.fonts[0], BrandTypographyFontBunny)
     assert (
-        unquote(bg.fonts[0].to_import_url())
+        unquote(bf.fonts[0].to_import_url())
         == "https://fonts.bunny.net/css?family=Open+Sans:400,400i,700,700i&display=auto"
+    )
+
+    bf_no_weight = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "bunny",
+                    "family": "Open Sans",
+                    "weight": [],
+                    "style": ["italic", "normal"],
+                }
+            ]
+        }
+    )
+
+    assert len(bf_no_weight.fonts) == 1
+    assert isinstance(bf_no_weight.fonts[0], BrandTypographyFontBunny)
+    assert (
+        unquote(bf_no_weight.fonts[0].to_import_url())
+        == "https://fonts.bunny.net/css?family=Open+Sans:regular,italic&display=auto"
+    )
+
+    bf_no_ital = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "bunny",
+                    "family": "Open Sans",
+                    "weight": [700, 400],
+                    "style": [],
+                }
+            ]
+        }
+    )
+
+    assert len(bf_no_ital.fonts) == 1
+    assert isinstance(bf_no_ital.fonts[0], BrandTypographyFontBunny)
+    assert (
+        unquote(bf_no_ital.fonts[0].to_import_url())
+        == "https://fonts.bunny.net/css?family=Open+Sans:400,700&display=auto"
+    )
+
+    bf_no_axes = BrandTypography.model_validate(
+        {
+            "fonts": [
+                {
+                    "source": "bunny",
+                    "family": "Open Sans",
+                    "weight": [],
+                    "style": [],
+                }
+            ]
+        }
+    )
+
+    assert len(bf_no_axes.fonts) == 1
+    assert isinstance(bf_no_axes.fonts[0], BrandTypographyFontBunny)
+    assert (
+        unquote(bf_no_axes.fonts[0].to_import_url())
+        == "https://fonts.bunny.net/css?family=Open+Sans&display=auto"
     )
 
 
