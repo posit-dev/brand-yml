@@ -78,6 +78,54 @@ class Brand(BaseModel):
         """
         return cls.model_validate(read_brand_yaml(path, as_data=True))
 
+    @classmethod
+    def from_yaml_str(cls, text: str, path: str | Path | None = None):
+        """
+        Create a Brand instance from a YAML string
+
+        Parameters
+        ----------
+        text
+            The text of the brand YAML file.
+        path
+            The optional path on disk for supporting files like logos and fonts.
+
+        Returns
+        -------
+        :
+            A validated :class:`Brand` object with all fields populated according to
+            the brand YAML text.
+
+        Raises
+        ------
+        :
+            Raises `ValueError` or other validation errors from
+            [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file
+            is invalid.
+
+        Examples
+        --------
+
+        ```python
+        from brand_yaml import Brand
+
+        brand = Brand.from_yaml_str(\"\"\"
+        meta:
+          name: Brand YAML
+        color:
+          primary: "#ff0202"
+        typography:
+          base: Open Sans
+        \"\"\")
+        ```
+        """
+        data = yaml.load(text)
+
+        if path is not None:
+            data["path"] = Path(path).absolute()
+
+        return cls.model_validate(data)
+
     @model_validator(mode="after")
     def resolve_typography_colors(self):
         if self.typography is None:
