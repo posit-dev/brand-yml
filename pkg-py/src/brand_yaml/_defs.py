@@ -8,6 +8,7 @@ from pydantic import (
     BaseModel,
     ConfigDict,
 )
+from typing_extensions import TypeGuard
 
 from ._utils_logging import logger
 
@@ -25,9 +26,8 @@ class BrandLightDark(BaseModel, Generic[T]):
     dark: T | None = None
 
 
-def is_leaf_node(value: Any) -> bool:
-    # Note: We treat iterables as leaf nodes
-    return not isinstance(value, (dict, BaseModel))
+def is_dict_or_basemodel(value: Any) -> TypeGuard[Union[dict, BaseModel]]:
+    return isinstance(value, (dict, BaseModel))
 
 
 def defs_get(
@@ -67,7 +67,7 @@ def defs_get(
         level_indent(f"key {key} is in defs with value {with_value!r}", level)
     )
 
-    if isinstance(with_value, (dict, BaseModel)):
+    if is_dict_or_basemodel(with_value):
         defs_replace_recursively(with_value, defs=defs, level=level)
         return with_value
     else:
@@ -136,7 +136,7 @@ def defs_replace_recursively(
                 setattr(items, key, new_value)
             elif isinstance(items, dict):
                 items[key] = new_value
-        elif isinstance(value, (dict, BaseModel)):
+        elif is_dict_or_basemodel(value):
             logger.debug(level_indent(f"recursing into {key}", level))
             defs_replace_recursively(
                 value,
@@ -185,7 +185,7 @@ def check_circular_references(
     seen = seen if seen is not None else []
     path = path if path is not None else []
 
-    if not isinstance(current, (dict, BaseModel)):  # pragma: no cover
+    if not is_dict_or_basemodel(current):  # pragma: no cover
         if not isinstance(current, str):
             raise ValueError(
                 "All values must be strings, dictionaries, or pydantic models."
@@ -203,7 +203,7 @@ def check_circular_references(
         if isinstance(value, str):
             if value not in data:
                 continue
-        elif is_leaf_node(value):
+        elif not is_dict_or_basemodel(value):
             continue
 
         path_key = [*path, key]
