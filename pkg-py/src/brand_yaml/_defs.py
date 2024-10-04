@@ -36,8 +36,8 @@ def defs_get(
     level: int = 0,
 ) -> object:
     """
-    Finds `key` in `deps`, which may require recursively resolving nested
-    values in `deps`.
+    Finds `key` in `defs`, which may require recursively resolving nested
+    values in `defs`.
 
     Parameters
     ----------
