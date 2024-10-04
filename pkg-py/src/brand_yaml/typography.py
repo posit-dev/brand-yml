@@ -142,6 +142,15 @@ class BrandInvalidFontWeight(ValueError):
         )
 
 
+class BrandUnsupportedFontFileFormat(ValueError):
+    supported = ("opentype", "truetype", "woff", "woff2")
+
+    def __init__(self, value: Any):
+        super().__init__(
+            f"Unsupported font file {value!r}. Expected one of {', '.join(self.supported)}."
+        )
+
+
 # Font Weights -----------------------------------------------------------------
 @overload
 def validate_font_weight(
@@ -190,15 +199,6 @@ def validate_font_weight(
 
 
 # Fonts (Files) ----------------------------------------------------------------
-
-
-class BrandUnsupportedFontFileFormat(ValueError):
-    supported = ("opentype", "truetype", "woff", "woff2")
-
-    def __init__(self, value: Any):
-        super().__init__(
-            f"Unsupported font file {value!r}. Expected one of {', '.join(self.supported)}."
-        )
 
 
 class BrandTypographyFontFileWeight(RootModel):
