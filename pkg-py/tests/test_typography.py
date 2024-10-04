@@ -667,6 +667,23 @@ def test_brand_typography_css_fonts_local(snapshot):
     assert snapshot == brand.typography.css_include_fonts()
 
 
+def test_brand_typography_google_fonts_weight_range(snapshot):
+    fw = BrandTypographyGoogleFontsWeightRange.model_validate("600..800")
+    assert fw.root == [600, 800]
+    assert str(fw) == "600..800"
+    assert fw.model_dump() == "600..800"
+    assert fw.to_url_list() == ["600..800"]
+
+    fw = BrandTypographyGoogleFontsWeightRange.model_validate(["thin", "bold"])
+    assert fw.root == [100, 700]
+
+    with pytest.raises(ValueError):
+        BrandTypographyGoogleFontsWeightRange.model_validate("600..800..123")
+
+    with pytest.raises(ValueError):
+        BrandTypographyGoogleFontsWeightRange.model_validate([200, 400, 600])
+
+
 def test_brand_typography_undefined_colors():
     fixtures = Path(__file__).parent / "fixtures" / "typography-undefined-color"
 

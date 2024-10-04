@@ -364,12 +364,12 @@ class BrandTypographyGoogleFontsWeightRange(RootModel):
 
     @model_serializer(mode="plain", when_used="always")
     def to_serialized(self) -> str:
-        return f"{self.root[0]}..{self.root[1]}"
+        return str(self)
 
     def to_url_list(self) -> list[str]:
         return [str(self)]
 
-    @field_validator("root", mode="before")
+    @model_validator(mode="before")
     @classmethod
     def validate_weight(cls, value: Any) -> list[BrandTypographyFontWeightInt]:
         if isinstance(value, str) and ".." in value:
