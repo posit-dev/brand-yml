@@ -45,7 +45,7 @@ py-format: ## [py] Format python code
 .PHONY: py-coverage
 py-coverage: ## [py] Generate coverage report
 	@echo "📔 Generating coverage report"
-	uv run coverage run -m pytest pkg-py/tests
+	uv run coverage run -m pytest
 	uv run coverage report
 
 .PHONY: py-coverage-report

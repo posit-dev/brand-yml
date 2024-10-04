@@ -45,6 +45,24 @@ packages = ["pkg-py/src/brand_yaml"]
 include = ["pkg-py"]
 exclude = ["pkg-py/_dev", "pkg-py/.venv"]
 
+[tool.coverage.paths]
+source = [
+  "pkg-py/src/brand_yaml",
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+  "pkg-py/src/brand_yaml",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "raise NotImplementedError",
+  "pass",
+]
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
