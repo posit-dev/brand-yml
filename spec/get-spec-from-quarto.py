@@ -5,8 +5,12 @@ from pathlib import Path
 yaml = YAML()
 
 
-def read_spec_from_quarto(branch="main"):
-    url = f"https://github.com/quarto-dev/quarto-cli/raw/{branch}/src/resources/schema/definitions.yml"
+def gh_quarto_cli_raw_url(branch="main"):
+    return f"https://github.com/quarto-dev/quarto-cli/raw/{branch}"
+
+
+def read_yaml_from_quarto(branch="main"):
+    url = gh_quarto_cli_raw_url(branch) + "/src/resources/schema/definitions.yml"
     return yaml.load(requests.get(url).content)
 
 
@@ -51,6 +55,6 @@ def read_brand_spec():
 
 
 if __name__ == "__main__":
-    spec = read_spec_from_quarto()
+    spec = read_yaml_from_quarto()
     brand = filter_spec_brand(spec)
     write_brand_spec(brand)

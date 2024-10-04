@@ -1,0 +1,7 @@
+{
+  "logo": {
+    "large": "logos/pandas/pandas.svg",
+    "medium": "logos/pandas/pandas_secondary.svg",
+    "small": "logos/pandas/pandas_mark.svg"
+  }
+}

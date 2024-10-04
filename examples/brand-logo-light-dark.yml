@@ -1,0 +1,6 @@
+logo:
+  small: logos/pandas/pandas_mark.svg
+  medium: 
+    light: logos/pandas/pandas_secondary.svg
+    dark: logos/pandas/pandas_secondary_white.svg
+  large: logos/pandas/pandas.svg

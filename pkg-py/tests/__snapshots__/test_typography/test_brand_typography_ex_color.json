@@ -1,0 +1,37 @@
+{
+  "color": {
+    "background": "#f7f4f4",
+    "danger": "#FF6F61",
+    "foreground": "#1b1818",
+    "palette": {
+      "red": "#FF6F61"
+    },
+    "primary": "#87CEEB",
+    "secondary": "#50C878"
+  },
+  "meta": {
+    "name": {
+      "full": "examples/brand-typography-color.yml"
+    }
+  },
+  "typography": {
+    "base": {
+      "color": "#1b1818"
+    },
+    "fonts": [],
+    "headings": {
+      "color": "#87CEEB"
+    },
+    "link": {
+      "color": "#FF6F61"
+    },
+    "monospace-block": {
+      "background-color": "#f7f4f4",
+      "color": "#1b1818"
+    },
+    "monospace-inline": {
+      "background-color": "#FF6F61",
+      "color": "#f7f4f4"
+    }
+  }
+}

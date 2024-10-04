@@ -1,0 +1,13 @@
+logo:
+  images:
+    mark: logos/pandas/pandas_mark.svg
+    mark-white: logos/pandas/pandas_mark_white.svg
+    secondary: logos/pandas/pandas_secondary.svg
+    secondary-white: logos/pandas/pandas_secondary_white.svg
+    pandas: logos/pandas/pandas.svg
+    pandas-white: logos/pandas/pandas_white.svg
+  small: mark
+  medium:
+    light: logos/pandas/pandas_secondary.svg
+    dark: secondary-white
+  large: pandas
