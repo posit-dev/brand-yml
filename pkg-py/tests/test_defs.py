@@ -61,7 +61,4 @@ def test_defs_replace_recursively():
         "s2": {"s1": None, "s2": "SS22"},
     }
 
-    with pytest.raises(ValueError, match="must be a dictionary"):
-        defs_replace_recursively(MySubThing(s2="foo"))
-
-    assert defs_replace_recursively(None) is None
+    assert defs_replace_recursively(None, {}) is None

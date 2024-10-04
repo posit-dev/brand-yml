@@ -76,7 +76,7 @@ def defs_get(
 
 def defs_replace_recursively(
     items: dict | BaseModel | None,
-    defs: dict | None = None,
+    defs: dict,
     level: int = 0,
     name: str | None = None,
     exclude: str | None = None,
@@ -107,14 +107,6 @@ def defs_replace_recursively(
     """
     if items is None:
         return None
-
-    if defs is None:
-        if isinstance(items, dict):
-            defs = items
-        else:  # pragma: no cover
-            raise ValueError(
-                "When `defs` is `None`, `items` must be a dictionary."
-            )
 
     if level == 0:
         logger.debug("Checking for circular references")
