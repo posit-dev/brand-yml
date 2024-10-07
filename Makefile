@@ -1,10 +1,23 @@
-.PHONY: docs
-docs:  ## [docs] Build the documentation
-	quarto render docs
+# Use qvm to manage quarto
+QUARTO_VERSION ?= v1.6.21
+QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
 
-.PHONY: docs-preview
+.PHONY: install-quarto
+install-quarto:
+	@echo "🔵 Installing quarto"
+	@if ! [ -z $(command -v qvm)]; then \
+		@echo "Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2 \
+		exit 1; \
+	fi
+	qvm install ${QUARTO_VERSION}
+
+
+.PHONY: docs,docs-preview
+docs:  ## [docs] Build the documentation
+	${QVM_QUARTO_PATH} render docs
+
 docs-preview:  ## [docs] Preview the documentation
-	quarto preview docs
+	${QVM_QUARTO_PATH} preview docs
 
 .PHONY: py-setup
 py-setup:  ## [py] Setup python environment
