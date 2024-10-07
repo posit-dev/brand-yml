@@ -1,0 +1,6 @@
+# meta.BrandMeta { #brand_yaml.meta.BrandMeta }
+
+`meta.BrandMeta()`
+
+Brand metadata is stored in `meta`, providing place to describe the company
+or project, the brand guidelines, additional links, and more.

@@ -213,7 +213,9 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     Read a brand YAML file
 
     Reads a brand YAML file or finds and reads a `_brand.yml` file and returns
-    a validated :class:`Brand` object.
+    a validated :class:`~brand_yaml.Brand` object or [](`brand_yaml.Brand`).
+
+    This is a test :class:`pydantic.BaseModel`?
 
     Parameters
     ----------
@@ -230,7 +232,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     Returns
     -------
     :
-        A validated :class:`Brand` object with all fields populated according to
+        A validated :class:`brand_yaml.Brand` object with all fields populated according to
         the brand YAML file (`as_data=False`, default) or the raw brand data
         as a dictionary (`as_data=True`).
 

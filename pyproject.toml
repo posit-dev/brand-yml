@@ -24,6 +24,8 @@ dev-dependencies = [
     "jsonschema>=4.23.0",
     "ruff>=0.6.5",
     "tox-uv>=1.11.4",
+    # Docs
+    "quartodoc>=0.7.6",
     # Dev work with Quarto + Positron
     "ipykernel>=6.29.5",
     "nbclient>=0.10.0",

@@ -1,0 +1,26 @@
+# Sphinx inventory version 2
+# Project: brand_yaml
+# Version: 0.0.9999
+# The remainder of this file is compressed using zlib.
+brand_yaml.Brand.from_yaml py:function 1 pkg/py/Brand.html#brand_yaml.Brand.from_yaml -
+brand_yaml.Brand.from_yaml_str py:function 1 pkg/py/Brand.html#brand_yaml.Brand.from_yaml_str -
+brand_yaml.Brand py:class 1 pkg/py/Brand.html#brand_yaml.Brand -
+brand_yaml.read_brand_yaml py:function 1 pkg/py/read_brand_yaml.html#brand_yaml.read_brand_yaml -
+brand_yaml.meta.BrandMeta py:class 1 pkg/py/meta.BrandMeta.html#brand_yaml.meta.BrandMeta -
+brand_yaml.logo.BrandLogo py:class 1 pkg/py/logo.BrandLogo.html#brand_yaml.logo.BrandLogo -
+brand_yaml.color.BrandColor.background py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.background -
+brand_yaml.color.BrandColor.danger py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.danger -
+brand_yaml.color.BrandColor.dark py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.dark -
+brand_yaml.color.BrandColor.emphasis py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.emphasis -
+brand_yaml.color.BrandColor.foreground py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.foreground -
+brand_yaml.color.BrandColor.info py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.info -
+brand_yaml.color.BrandColor.light py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.light -
+brand_yaml.color.BrandColor.link py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.link -
+brand_yaml.color.BrandColor.primary py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.primary -
+brand_yaml.color.BrandColor.secondary py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.secondary -
+brand_yaml.color.BrandColor.success py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.success -
+brand_yaml.color.BrandColor.tertiary py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.tertiary -
+brand_yaml.color.BrandColor.warning py:attribute 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor.warning -
+brand_yaml.color.BrandColor py:class 1 pkg/py/color.BrandColor.html#brand_yaml.color.BrandColor -
+brand_yaml.typography.BrandTypography.forward_monospace_values py:function 1 pkg/py/typography.BrandTypography.html#brand_yaml.typography.BrandTypography.forward_monospace_values -
+brand_yaml.typography.BrandTypography py:class 1 pkg/py/typography.BrandTypography.html#brand_yaml.typography.BrandTypography -

@@ -1,0 +1,4 @@
+sidebar: pkg/py
+
+filters:
+  - interlinks

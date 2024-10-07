@@ -1,5 +1,5 @@
 # Use qvm to manage quarto
-QUARTO_VERSION ?= v1.6.21
+QUARTO_VERSION ?= v1.6.22
 QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
@@ -12,10 +12,11 @@ install-quarto:
 	qvm install ${QUARTO_VERSION}
 
 
-.PHONY: docs,docs-preview
+.PHONY: docs
 docs:  ## [docs] Build the documentation
 	${QVM_QUARTO_PATH} render docs
 
+.PHONY: docs-preview
 docs-preview:  ## [docs] Preview the documentation
 	${QVM_QUARTO_PATH} preview docs
 
@@ -72,6 +73,17 @@ py-coverage-report: py-coverage ## [py] Generate coverage report and open it in 
 py-update-snaps:  ## [py] Update python test snapshots
 	@echo "📸 Updating pytest snapshots"
 	uv run pytest --snapshot-update
+
+.PHONY: py-docs
+py-docs:  ## [py] Generate python docs
+	@echo "📖 Generating python docs with quartodoc"
+	cd docs && uv run quartodoc build
+	cd docs && uv run quartodoc interlinks
+
+.PHONY: py-docs-watch
+py-docs-watch:  ## [py] Generate python docs
+	@echo "📖 Generating python docs with quartodoc"
+	uv run quartodoc build --config docs/_quarto.yml --watch
 
 .PHONY: help
 help:  ## Show help messages for make targets

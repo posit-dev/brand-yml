@@ -1,0 +1,16 @@
+website:
+  sidebar:
+  - contents:
+    - pkg/py/index.qmd
+    - contents:
+      - pkg/py/Brand.qmd
+      - pkg/py/read_brand_yaml.qmd
+      section: Read or create a brand
+    - contents:
+      - pkg/py/meta.BrandMeta.qmd
+      - pkg/py/logo.BrandLogo.qmd
+      - pkg/py/color.BrandColor.qmd
+      - pkg/py/typography.BrandTypography.qmd
+      section: Brand Components
+    id: pkg/py
+  - id: dummy-sidebar
