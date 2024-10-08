@@ -2,3 +2,7 @@ sidebar: pkg/py
 
 filters:
   - interlinks
+
+format:
+  html:
+    css: quartodoc.css

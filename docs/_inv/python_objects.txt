@@ -3238,9 +3238,9 @@ Py_BEGIN_CRITICAL_SECTION2 c:macro 1 c-api/init.html#c.$ -
 Py_BLOCK_THREADS c:macro 1 c-api/init.html#c.$ -
 Py_BuildValue c:function 1 c-api/arg.html#c.$ -
 Py_BuildValue.format c:functionParam 1 c-api/arg.html#c.Py_BuildValue -
-Py_BytesMain c:function 1 c-api/veryhigh.html#c.$ -
-Py_BytesMain.argc c:functionParam 1 c-api/veryhigh.html#c.Py_BytesMain -
-Py_BytesMain.argv c:functionParam 1 c-api/veryhigh.html#c.Py_BytesMain -
+Py_BytesMain c:function 1 c-api/init.html#c.$ -
+Py_BytesMain.argc c:functionParam 1 c-api/init.html#c.Py_BytesMain -
+Py_BytesMain.argv c:functionParam 1 c-api/init.html#c.Py_BytesMain -
 Py_BytesWarningFlag c:member 1 c-api/init.html#c.$ -
 Py_CHARMASK c:macro 1 c-api/intro.html#c.$ -
 Py_CLEAR c:function 1 c-api/refcounting.html#c.$ -
@@ -3351,8 +3351,8 @@ Py_IncRef.o c:functionParam 1 c-api/refcounting.html#c.Py_IncRef -
 Py_Initialize c:function 1 c-api/init.html#c.$ -
 Py_InitializeEx c:function 1 c-api/init.html#c.$ -
 Py_InitializeEx.initsigs c:functionParam 1 c-api/init.html#c.Py_InitializeEx -
-Py_InitializeFromConfig c:function 1 c-api/init_config.html#c.$ -
-Py_InitializeFromConfig.config c:functionParam 1 c-api/init_config.html#c.Py_InitializeFromConfig -
+Py_InitializeFromConfig c:function 1 c-api/init.html#c.$ -
+Py_InitializeFromConfig.config c:functionParam 1 c-api/init.html#c.Py_InitializeFromConfig -
 Py_InspectFlag c:member 1 c-api/init.html#c.$ -
 Py_InteractiveFlag c:member 1 c-api/init.html#c.$ -
 Py_Is c:function 1 c-api/structures.html#c.$ -
@@ -3381,9 +3381,9 @@ Py_MOD_GIL_USED c:macro 1 c-api/module.html#c.$ -
 Py_MOD_MULTIPLE_INTERPRETERS_NOT_SUPPORTED c:macro 1 c-api/module.html#c.$ -
 Py_MOD_MULTIPLE_INTERPRETERS_SUPPORTED c:macro 1 c-api/module.html#c.$ -
 Py_MOD_PER_INTERPRETER_GIL_SUPPORTED c:macro 1 c-api/module.html#c.$ -
-Py_Main c:function 1 c-api/veryhigh.html#c.$ -
-Py_Main.argc c:functionParam 1 c-api/veryhigh.html#c.Py_Main -
-Py_Main.argv c:functionParam 1 c-api/veryhigh.html#c.Py_Main -
+Py_Main c:function 1 c-api/init.html#c.$ -
+Py_Main.argc c:functionParam 1 c-api/init.html#c.Py_Main -
+Py_Main.argv c:functionParam 1 c-api/init.html#c.Py_Main -
 Py_NE c:macro 1 c-api/typeobj.html#c.$ -
 Py_NO_INLINE c:macro 1 c-api/intro.html#c.$ -
 Py_NewInterpreter c:function 1 c-api/init.html#c.$ -
@@ -3423,7 +3423,7 @@ Py_ReprEnter c:function 1 c-api/exceptions.html#c.$ -
 Py_ReprEnter.object c:functionParam 1 c-api/exceptions.html#c.Py_ReprEnter -
 Py_ReprLeave c:function 1 c-api/exceptions.html#c.$ -
 Py_ReprLeave.object c:functionParam 1 c-api/exceptions.html#c.Py_ReprLeave -
-Py_RunMain c:function 1 c-api/init_config.html#c.$ -
+Py_RunMain c:function 1 c-api/init.html#c.$ -
 Py_SETREF c:macro 1 c-api/refcounting.html#c.$ -
 Py_SET_REFCNT c:function 1 c-api/refcounting.html#c.$ -
 Py_SET_REFCNT.o c:functionParam 1 c-api/refcounting.html#c.Py_SET_REFCNT -
@@ -14078,6 +14078,7 @@ class-patterns std:label -1 reference/compound_stmts.html#$ Class Patterns
 classes std:label -1 reference/datamodel.html#$ Classes
 classgetitem-versus-getitem std:label -1 reference/datamodel.html#$ __class_getitem__ versus __getitem__
 clear std:pdbcommand 1 library/pdb.html#pdbcommand-$ -
+closure variable std:term -1 glossary.html#term-closure-variable -
 cmd-example std:label -1 library/cmd.html#$ Cmd Example
 cmd-objects std:label -1 library/cmd.html#$ Cmd Objects
 cmdarg-dash std:label -1 using/cmdline.html#$ -
@@ -14546,6 +14547,7 @@ formatting-styles std:label -1 howto/logging-cookbook.html#$ Using particular fo
 frame-objects std:label -1 reference/datamodel.html#$ Frame objects
 frameworks std:label -1 library/frameworks.html#$ Program Frameworks
 free threading std:term -1 glossary.html#term-free-threading -
+free variable std:term -1 glossary.html#term-free-variable -
 free-threaded-memory-allocation std:label -1 howto/free-threading-extensions.html#$ Memory Allocation APIs
 free-threading-build std:label -1 using/configure.html#$ -
 freethreading-extensions-howto std:label -1 howto/free-threading-extensions.html#$ C API Extension Support for Free Threading
@@ -14718,6 +14720,7 @@ incremental-encoder-objects std:label -1 library/codecs.html#$ IncrementalEncode
 incremental-parser-objects std:label -1 library/xml.sax.reader.html#$ IncrementalParser Objects
 indentation std:label -1 reference/lexical_analysis.html#$ Indentation
 init-config std:label -1 c-api/init_config.html#$ Python Initialization Configuration
+init-from-config std:label -1 c-api/init_config.html#$ Initialization with PyConfig
 init-isolated-conf std:label -1 c-api/init_config.html#$ Isolated Configuration
 init-path-config std:label -1 c-api/init_config.html#$ Python Path Configuration
 init-python-config std:label -1 c-api/init_config.html#$ Python Configuration

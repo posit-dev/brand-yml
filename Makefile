@@ -77,13 +77,21 @@ py-update-snaps:  ## [py] Update python test snapshots
 .PHONY: py-docs
 py-docs:  ## [py] Generate python docs
 	@echo "📖 Generating python docs with quartodoc"
+	@$(eval export IN_QUARTODOC=true)
 	cd docs && uv run quartodoc build
 	cd docs && uv run quartodoc interlinks
 
 .PHONY: py-docs-watch
 py-docs-watch:  ## [py] Generate python docs
 	@echo "📖 Generating python docs with quartodoc"
+	@$(eval export IN_QUARTODOC=true)
 	uv run quartodoc build --config docs/_quarto.yml --watch
+
+.PHONY: py-docs-clean
+py-docs-clean:   ## [py] Clean python docs
+	@echo "🧹 Cleaning python docs"
+	find docs/pkg/py -name '*.qmd' ! -name 'index.qmd' -delete
+	find docs/pkg/py -name '*.quarto_ipynb' -delete
 
 .PHONY: help
 help:  ## Show help messages for make targets

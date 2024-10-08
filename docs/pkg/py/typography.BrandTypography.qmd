@@ -4,11 +4,6 @@
 
 
 
-## Attributes
-
-| Name | Description |
-| --- | --- |
-| [model_config](#brand_yaml.typography.BrandTypography.model_config) | dict() -> new empty dictionary |
 
 ## Methods
 

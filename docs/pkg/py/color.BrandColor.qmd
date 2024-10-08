@@ -12,15 +12,14 @@ The brand's custom color palette and theme.
 | --- | --- |
 | [background](#brand_yaml.color.BrandColor.background) | The background color, used for the page or main background. |
 | [danger](#brand_yaml.color.BrandColor.danger) | The color used for errors, dangerous actions, or negative information. |
-| [dark](#brand_yaml.color.BrandColor.dark) | A dark color, used as a high-contrast foreground color on light elements |
+| [dark](#brand_yaml.color.BrandColor.dark) | A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements. |
 | [emphasis](#brand_yaml.color.BrandColor.emphasis) | A color used to emphasize or highlight text or elements. |
 | [foreground](#brand_yaml.color.BrandColor.foreground) | The foreground color, used for text. |
 | [info](#brand_yaml.color.BrandColor.info) | The color used for neutral or informational actions and information. |
-| [light](#brand_yaml.color.BrandColor.light) | A bright color, used as a high-contrast foreground color on dark elements |
-| [link](#brand_yaml.color.BrandColor.link) | The color used for hyperlinks. If not defined, the `primary` color is |
-| [model_config](#brand_yaml.color.BrandColor.model_config) | dict() -> new empty dictionary |
-| [primary](#brand_yaml.color.BrandColor.primary) | The primary accent color, i.e. the main theme color. Typically used for |
-| [secondary](#brand_yaml.color.BrandColor.secondary) | The secondary accent color. Typically used for lighter text or disabled |
+| [light](#brand_yaml.color.BrandColor.light) | A bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements. |
+| [link](#brand_yaml.color.BrandColor.link) | The color used for hyperlinks. If not defined, the `primary` color is used. |
+| [primary](#brand_yaml.color.BrandColor.primary) | The primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc. |
+| [secondary](#brand_yaml.color.BrandColor.secondary) | The secondary accent color. Typically used for lighter text or disabled states. |
 | [success](#brand_yaml.color.BrandColor.success) | The color used for positive or successful actions and information. |
-| [tertiary](#brand_yaml.color.BrandColor.tertiary) | The tertiary accent color. Typically an even lighter color, used for |
+| [tertiary](#brand_yaml.color.BrandColor.tertiary) | The tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells. |
 | [warning](#brand_yaml.color.BrandColor.warning) | The color used for warning or cautionary actions and information. |

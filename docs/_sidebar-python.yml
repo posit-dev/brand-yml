@@ -7,7 +7,7 @@ website:
       - pkg/py/read_brand_yaml.qmd
       section: Read or create a brand
     - contents:
-      - pkg/py/meta.BrandMeta.qmd
+      - pkg/py/meta.qmd
       - pkg/py/logo.BrandLogo.qmd
       - pkg/py/color.BrandColor.qmd
       - pkg/py/typography.BrandTypography.qmd

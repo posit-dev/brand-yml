@@ -26,6 +26,7 @@ dev-dependencies = [
     "tox-uv>=1.11.4",
     # Docs
     "quartodoc>=0.7.6",
+    "griffe>=1.3.2",
     # Dev work with Quarto + Positron
     "ipykernel>=6.29.5",
     "nbclient>=0.10.0",
