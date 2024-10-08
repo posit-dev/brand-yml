@@ -4,3 +4,9 @@
 
 Brand metadata is stored in `meta`, providing place to describe the company
 or project, the brand guidelines, additional links, and more.
+
+## Attributes
+
+| Name | Description |
+| --- | --- |
+| [model_config](#brand_yaml.meta.BrandMeta.model_config) | dict() -> new empty dictionary |

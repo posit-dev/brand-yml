@@ -18,6 +18,7 @@ The brand's custom color palette and theme.
 | [info](#brand_yaml.color.BrandColor.info) | The color used for neutral or informational actions and information. |
 | [light](#brand_yaml.color.BrandColor.light) | A bright color, used as a high-contrast foreground color on dark elements |
 | [link](#brand_yaml.color.BrandColor.link) | The color used for hyperlinks. If not defined, the `primary` color is |
+| [model_config](#brand_yaml.color.BrandColor.model_config) | dict() -> new empty dictionary |
 | [primary](#brand_yaml.color.BrandColor.primary) | The primary accent color, i.e. the main theme color. Typically used for |
 | [secondary](#brand_yaml.color.BrandColor.secondary) | The secondary accent color. Typically used for lighter text or disabled |
 | [success](#brand_yaml.color.BrandColor.success) | The color used for positive or successful actions and information. |

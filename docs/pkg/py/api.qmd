@@ -6,7 +6,7 @@ Read a `_brand.yml` file or create an instance of a Brand.
 
 | | |
 | --- | --- |
-| [Brand](Brand.qmd#brand_yaml.Brand) |  |
+| [Brand](Brand.qmd#brand_yaml.Brand) | A brand instance encapsulates the color, typography and logo preferences for |
 | [read_brand_yaml](read_brand_yaml.qmd#brand_yaml.read_brand_yaml) | Read a brand YAML file |
 
 ## Brand Components

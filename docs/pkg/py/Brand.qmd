@@ -2,7 +2,23 @@
 
 `Brand()`
 
+A brand instance encapsulates the color, typography and logo preferences for
+a given brand, typically found in brand guidelines created by a company's
+marketing department. `brand_yaml.Brand` organizes this information in a
+common, fully-specified class instance that makes it easy to re-use for
+theming any artifact from websites to data visualizations.
 
+Unified brand information following the Brand YAML specification. Read brand
+metadata from a YAML file, typically named `_brand.yml`, with
+`brand_yaml.Brand.from_yaml` or from a YAML string with
+`brand_yaml.Brand.from_yaml_str`. Or create a full brand instance directly
+via this class.
+
+## Attributes
+
+| Name | Description |
+| --- | --- |
+| [model_config](#brand_yaml.Brand.model_config) | dict() -> new empty dictionary |
 
 ## Methods
 
@@ -28,15 +44,15 @@ a validated :class:`Brand` object.
 
 #### Returns
 
-| Type   | Description                                                                                   |
-|--------|-----------------------------------------------------------------------------------------------|
-|        | A validated :class:`Brand` object with all fields populated according to the brand YAML file. |
+| Type   | Description                                                                                       |
+|--------|---------------------------------------------------------------------------------------------------|
+|        | A validated `brand_yaml.Brand` object with all fields populated according to the brand YAML file. |
 
 #### Raises
 
-| Type   | Description                                                                                                                                                                                                                      |
-|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| :      | Raises a `FileNotFoundError` if no brand configuration file is found within the given path. Raises `ValueError` or other validation errors from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
+| Type                                     | Description                                                                                                                                                                                                                      |
+|------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if no brand configuration file is found within the given path. Raises `ValueError` or other validation errors from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
 
 #### Examples
 
@@ -62,19 +78,19 @@ Create a Brand instance from a YAML string
 
 #### Returns
 
-| Type   | Description                                                                                   |
-|--------|-----------------------------------------------------------------------------------------------|
-|        | A validated :class:`Brand` object with all fields populated according to the brand YAML text. |
+| Type   | Description                                                                                       |
+|--------|---------------------------------------------------------------------------------------------------|
+|        | A validated `brand_yaml.Brand` object with all fields populated according to the brand YAML text. |
 
 #### Raises
 
-| Type   | Description                                                                                                                          |
-|--------|--------------------------------------------------------------------------------------------------------------------------------------|
-| :      | Raises `ValueError` or other validation errors from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
+| Type                       | Description                                                                                                                          |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| [ValueError](`ValueError`) | Raises `ValueError` or other validation errors from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
 
 #### Examples
 
-```python
+```{python}
 from brand_yaml import Brand
 
 brand = Brand.from_yaml_str("""
@@ -85,4 +101,12 @@ color:
 typography:
   base: Open Sans
 """)
+```
+
+```{python}
+brand.meta
+```
+
+```{python}
+brand.color.primary
 ```

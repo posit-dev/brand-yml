@@ -4,10 +4,16 @@
 
 Read a brand YAML file
 
-Reads a brand YAML file or finds and reads a `_brand.yml` file and returns
-a validated :class:`~brand_yaml.Brand` object or [](`brand_yaml.Brand`).
+Reads a brand YAML file or finds and reads a project-specific `_brand.yml`
+file and returns a validated `~brand_yaml.Brand` instance.
 
-This is a test :class:`pydantic.BaseModel`?
+To find a project-specific `_brand.yaml` file, pass the project directory or
+`__file__` (the path of the current Python script).
+`brand_yaml.read_brand_yaml` will look in that directory or any parent
+directory for a `_brand.yml`, `brand/_brand.yml` or `_brand/_brand.yml`
+file. Note that it starts the search in the directory passed in and moves
+upward to find the brand YAML file; it does not search into subdirectories
+of the current directory.
 
 ## Parameters
 
@@ -24,9 +30,10 @@ This is a test :class:`pydantic.BaseModel`?
 
 ## Raises
 
-| Type   | Description                                                                                                                                                                                                                      |
-|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| :      | Raises a `FileNotFoundError` if no brand configuration file is found within the given path. Raises `ValueError` or other validation errors from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
+| Type                                     | Description                                                                                                                              |
+|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if no brand configuration file is found within the given path.                                              |
+| [ValueError](`ValueError`)               | `ValueError` or other validation errors are raised from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is invalid. |
 
 ## Examples
 
