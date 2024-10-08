@@ -69,7 +69,6 @@ class BrandMeta(BrandBase):
         extra="allow",
         str_strip_whitespace=True,
         validate_assignment=True,
-        use_attribute_docstrings=True,
     )
 
     name: BrandMetaName | None = Field(

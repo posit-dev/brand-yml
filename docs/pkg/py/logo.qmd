@@ -1,0 +1,202 @@
+# Logos and Images
+
+
+
+# logo.BrandLogo { #brand_yaml.logo.BrandLogo }
+
+`logo.BrandLogo()`
+
+Brand Logos
+
+`logo` stores a single brand logo or a set of logos at three different size
+points and possibly in different color schemes. Store all logo or image
+assets in `images` with meaningful names. Logos can be specified at three
+different sizes -- `small`, `medium`, and `large` -- and each can be either
+a single logo file or a light/dark variant (`brand_yaml.BrandLightDark`).
+
+## Attributes
+
+images
+
+:   [dict](`dict`)\[[str](`str`), [FileLocationLocalOrUrl](`brand_yaml.file.FileLocationLocalOrUrl`)\] \| None
+
+    A dictionary containing any number of logos or brand images. You can
+    refer to these images by their key name in `small`, `medium` or `large`.
+    Local file paths should be relative to the `_brand.yml` source file.
+    Remote files are also permitted; please use a full URL to the image.
+
+    ```yaml
+    logo:
+      images:
+        white: pandas_white.svg
+        white_online: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg"
+      small: white
+    ```
+
+small
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A small logo, typically used as an favicon or mobile app icon.
+
+medium
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A medium-sized logo, typically used in the header of a website.
+
+large
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A large logo, typically used in a larger format such as a title slide
+    or in marketing materials.
+
+## Examples
+
+::: {.panel-tabset}
+
+
+###### Single Logo
+
+```yaml
+logo: posit.png
+```
+
+
+
+###### Minimal
+
+```yaml
+logo:
+  small: logos/pandas/pandas_mark.svg
+  medium: logos/pandas/pandas_secondary.svg
+  large: logos/pandas/pandas.svg
+```
+
+
+
+###### Light/Dark Variants
+
+```yaml
+logo:
+  small: logos/pandas/pandas_mark.svg
+  medium:
+    light: logos/pandas/pandas_secondary.svg
+    dark: logos/pandas/pandas_secondary_white.svg
+  large: logos/pandas/pandas.svg
+```
+
+
+
+###### Complete
+
+```yaml
+logo:
+  images:
+    mark: logos/pandas/pandas_mark.svg
+    mark-white: logos/pandas/pandas_mark_white.svg
+    secondary: logos/pandas/pandas_secondary.svg
+    secondary-white: logos/pandas/pandas_secondary_white.svg
+    pandas: logos/pandas/pandas.svg
+    pandas-white: logos/pandas/pandas_white.svg
+  small: mark
+  medium:
+    light: logos/pandas/pandas_secondary.svg
+    dark: secondary-white
+  large: pandas
+```
+
+:::
+
+# BrandLightDark { #brand_yaml.BrandLightDark }
+
+`BrandLightDark()`
+
+A Light/Dark Variant
+
+Holds variants for light and dark settings. Generally speaking **light**
+settings have white or light backgrounds and dark foreground colors
+(black text on a white page) and **dark** settings use black or dark
+background with light foreground colors (white text on a black page).
+
+## Attributes
+
+| Name | Description |
+| --- | --- |
+| [dark](#brand_yaml._defs.BrandLightDark.dark) | Value in dark mode. |
+| [light](#brand_yaml._defs.BrandLightDark.light) | Value in light mode. |
+
+
+# FileLocation { #brand_yaml.FileLocation }
+
+`FileLocation()`
+
+A local or online file location
+
+# FileLocationLocal { #brand_yaml.FileLocationLocal }
+
+`FileLocationLocal()`
+
+A local file location.
+
+When used in a `brand_yaml.Brand` instance, this class carries both the
+relative path to the file, relative to the source `_brand.yml`, and the
+absolute path of the file on disk.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [absolute](#brand_yaml.FileLocationLocal.absolute) | Returns the absolute path to the file, relative to the root directory, which is most typically the directory containing the `_brand.yml` file. |
+| [exists](#brand_yaml.FileLocationLocal.exists) | Check that the file exists at its absolute path. |
+| [relative](#brand_yaml.FileLocationLocal.relative) | Returns the relative path to the file as it would appear in the source `_brand.yml` file. |
+| [set_root_dir](#brand_yaml.FileLocationLocal.set_root_dir) | Update the root directory of this file location. In general, the root directory is the parent directory containing the source `brand.yml` file. If you relocate the file, this method can be used to update the new local file location. |
+| [validate_exists](#brand_yaml.FileLocationLocal.validate_exists) | Validate that the file exists at its absolute path. |
+
+### absolute { #brand_yaml.FileLocationLocal.absolute }
+
+`FileLocationLocal.absolute()`
+
+Returns the absolute path to the file, relative to the root directory,
+which is most typically the directory containing the `_brand.yml` file.
+
+### exists { #brand_yaml.FileLocationLocal.exists }
+
+`FileLocationLocal.exists()`
+
+Check that the file exists at its absolute path.
+
+### relative { #brand_yaml.FileLocationLocal.relative }
+
+`FileLocationLocal.relative()`
+
+Returns the relative path to the file as it would appear in the source
+`_brand.yml` file.
+
+### set_root_dir { #brand_yaml.FileLocationLocal.set_root_dir }
+
+`FileLocationLocal.set_root_dir(root_dir)`
+
+Update the root directory of this file location. In general, the root
+directory is the parent directory containing the source `brand.yml`
+file. If you relocate the file, this method can be used to update the
+new local file location.
+
+### validate_exists { #brand_yaml.FileLocationLocal.validate_exists }
+
+`FileLocationLocal.validate_exists()`
+
+Validate that the file exists at its absolute path.
+
+#### Raises
+
+| Type                                     | Description                                                                            |
+|------------------------------------------|----------------------------------------------------------------------------------------|
+| [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if the file does not exist at its absolute path location. |
+
+# FileLocationUrl { #brand_yaml.FileLocationUrl }
+
+`FileLocationUrl()`
+
+An online file location, i.e. a URL.

@@ -96,7 +96,16 @@ quartodoc:
             - meta.BrandMeta
             - meta.BrandMetaName
             - meta.BrandMetaLink
-        - logo.BrandLogo
+        - kind: page
+          path: logo
+          summary:
+            name: Logos and Images
+          contents: 
+            - logo.BrandLogo
+            - BrandLightDark
+            - FileLocation
+            - FileLocationLocal
+            - FileLocationUrl
         - color.BrandColor
         - typography.BrandTypography
 

@@ -12,10 +12,11 @@ from pydantic import (
 )
 from ruamel.yaml import YAML
 
+from ._defs import BrandLightDark
 from ._utils import find_project_brand_yaml, recurse_dicts_and_models
 from .base import BrandBase
 from .color import BrandColor
-from .file import FileLocationLocal
+from .file import FileLocation, FileLocationLocal, FileLocationUrl
 from .logo import BrandLogo
 from .meta import BrandMeta
 from .typography import BrandTypography
@@ -37,6 +38,7 @@ class Brand(BrandBase):
     `brand_yaml.Brand.from_yaml_str`. Or create a full brand instance directly
     via this class.
     """
+
     model_config = ConfigDict(
         extra="ignore",
         revalidate_instances="always",
@@ -330,5 +332,9 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
 
 __all__ = [
     "Brand",
+    "BrandLightDark",
+    "FileLocation",
+    "FileLocationLocal",
+    "FileLocationUrl",
     "read_brand_yaml",
 ]

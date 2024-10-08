@@ -8,7 +8,7 @@ website:
       section: Read or create a brand
     - contents:
       - pkg/py/meta.qmd
-      - pkg/py/logo.BrandLogo.qmd
+      - pkg/py/logo.qmd
       - pkg/py/color.BrandColor.qmd
       - pkg/py/typography.BrandTypography.qmd
       section: Brand Components
