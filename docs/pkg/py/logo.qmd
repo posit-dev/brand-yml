@@ -59,7 +59,7 @@ large
 
 ###### Single Logo
 
-```yaml
+```{.yaml filename="_brand.yml"}
 logo: posit.png
 ```
 
@@ -67,7 +67,7 @@ logo: posit.png
 
 ###### Minimal
 
-```yaml
+```{.yaml filename="_brand.yml"}
 logo:
   small: logos/pandas/pandas_mark.svg
   medium: logos/pandas/pandas_secondary.svg
@@ -78,7 +78,7 @@ logo:
 
 ###### Light/Dark Variants
 
-```yaml
+```{.yaml filename="_brand.yml"}
 logo:
   small: logos/pandas/pandas_mark.svg
   medium:
@@ -91,7 +91,7 @@ logo:
 
 ###### Complete
 
-```yaml
+```{.yaml filename="_brand.yml"}
 logo:
   images:
     mark: logos/pandas/pandas_mark.svg

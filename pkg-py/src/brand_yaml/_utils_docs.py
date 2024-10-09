@@ -14,6 +14,7 @@ class ExampleFile(BaseModel):
     path: Path
     name: str
     desc: str | None = None
+    filename: str = "_brand.yml"
 
     @field_validator("path", mode="after")
     @classmethod
@@ -36,7 +37,7 @@ class ExampleFile(BaseModel):
             "\n",
             f"###### {self.name}",
             *description,
-            "```yaml",
+            f'```{{.yaml filename="{self.filename}"}}',
             *[line.rstrip() for line in lines],
             "```\n",
         ]
