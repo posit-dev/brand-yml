@@ -93,7 +93,7 @@ quartodoc:
           summary:
             name: Metadata
           contents: 
-            - meta.BrandMeta
+            - BrandMeta
             - meta.BrandMetaName
             - meta.BrandMetaLink
         - kind: page
@@ -101,13 +101,13 @@ quartodoc:
           summary:
             name: Logos and Images
           contents: 
-            - logo.BrandLogo
+            - BrandLogo
             - BrandLightDark
             - FileLocation
             - FileLocationLocal
             - FileLocationUrl
-        - color.BrandColor
-        - typography.BrandTypography
+        - BrandColor
+        - BrandTypography
 
 interlinks:
   fast: true

@@ -17,5 +17,5 @@ Individual brand components.
 | --- | --- |
 | [Metadata](meta.qmd) |  |
 | [Logos and Images](logo.qmd) |  |
-| [color.BrandColor](#brand_yaml.color.BrandColor) | Brand Colors |
-| [typography.BrandTypography](#brand_yaml.typography.BrandTypography) |  |
+| [BrandColor](#brand_yaml.BrandColor) | Brand Colors |
+| [BrandTypography](#brand_yaml.BrandTypography) |  |

@@ -2,9 +2,9 @@
 
 
 
-# meta.BrandMeta { #brand_yaml.meta.BrandMeta }
+# BrandMeta { #brand_yaml.BrandMeta }
 
-`meta.BrandMeta()`
+`BrandMeta()`
 
 Brand Metadata
 

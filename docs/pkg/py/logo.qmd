@@ -2,9 +2,9 @@
 
 
 
-# logo.BrandLogo { #brand_yaml.logo.BrandLogo }
+# BrandLogo { #brand_yaml.BrandLogo }
 
-`logo.BrandLogo()`
+`BrandLogo()`
 
 Brand Logos
 

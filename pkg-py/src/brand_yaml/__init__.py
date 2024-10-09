@@ -332,6 +332,10 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
 
 __all__ = [
     "Brand",
+    "BrandMeta",
+    "BrandLogo",
+    "BrandColor",
+    "BrandTypography",
     "BrandLightDark",
     "FileLocation",
     "FileLocationLocal",

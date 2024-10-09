@@ -1,6 +1,6 @@
-# color.BrandColor { #brand_yaml.color.BrandColor }
+# BrandColor { #brand_yaml.BrandColor }
 
-`color.BrandColor()`
+`BrandColor()`
 
 Brand Colors
 
