@@ -32,7 +32,7 @@ class ExampleFile(BaseModel):
             f"###### {self.name}",
             "" if not self.desc else f"\n{self.desc}\n",
             "```yaml",
-            *[l.rstrip() for l in lines],
+            *[line.rstrip() for line in lines],
             "```\n",
         ]
 
