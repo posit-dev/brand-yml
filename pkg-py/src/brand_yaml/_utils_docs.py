@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import textwrap
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
@@ -27,10 +28,14 @@ class ExampleFile(BaseModel):
         with self.path.open() as f:
             lines = f.readlines()
 
+        description = (
+            textwrap.dedent(self.desc or "").splitlines() if self.desc else [""]
+        )
+
         return [
             "\n",
             f"###### {self.name}",
-            "" if not self.desc else f"\n{self.desc}\n",
+            *description,
             "```yaml",
             *[line.rstrip() for line in lines],
             "```\n",
