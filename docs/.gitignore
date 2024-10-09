@@ -1,3 +1,4 @@
 /.quarto/
 /_site
 /_inv
+*.quarto_ipynb
