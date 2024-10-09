@@ -132,17 +132,15 @@ background with light foreground colors (white text on a black page).
 
 `FileLocation()`
 
-A local or online file location
+The base class for a file location, either a local or an online file.
 
 # FileLocationLocal { #brand_yaml.FileLocationLocal }
 
 `FileLocationLocal()`
 
-A local file location.
-
-When used in a `brand_yaml.Brand` instance, this class carries both the
-relative path to the file, relative to the source `_brand.yml`, and the
-absolute path of the file on disk.
+A local file location. When used in a `brand_yaml.Brand` instance, this
+class carries both the relative path to the file, relative to the source
+`_brand.yml`, and the absolute path of the file on disk.
 
 ## Methods
 
@@ -199,4 +197,4 @@ Validate that the file exists at its absolute path.
 
 `FileLocationUrl()`
 
-An online file location, i.e. a URL.
+A hosted, online file location, i.e. a URL.

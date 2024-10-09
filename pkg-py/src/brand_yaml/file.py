@@ -8,7 +8,7 @@ from pydantic import HttpUrl, RootModel, field_validator
 
 
 class FileLocation(RootModel):
-    """A local or online file location"""
+    """The base class for a file location, either a local or an online file."""
 
     def __str__(self) -> str:
         return str(self.root)
@@ -29,18 +29,16 @@ class FileLocation(RootModel):
 
 
 class FileLocationUrl(FileLocation):
-    """An online file location, i.e. a URL."""
+    """A hosted, online file location, i.e. a URL."""
 
     root: HttpUrl
 
 
 class FileLocationLocal(FileLocation):
     """
-    A local file location.
-
-    When used in a `brand_yaml.Brand` instance, this class carries both the
-    relative path to the file, relative to the source `_brand.yml`, and the
-    absolute path of the file on disk.
+    A local file location. When used in a `brand_yaml.Brand` instance, this
+    class carries both the relative path to the file, relative to the source
+    `_brand.yml`, and the absolute path of the file on disk.
     """
 
     # TODO @docs: Show method docs only once
