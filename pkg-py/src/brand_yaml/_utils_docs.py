@@ -76,14 +76,14 @@ def add_example_yaml(
         doc = func.__doc__.replace("\n", "")
         indent = " " * (len(doc) - len(doc.lstrip()))
         nl_indent = "\n" + indent
+        ex_header = "Examples" + nl_indent + "--------"
+        has_ex_header = ex_header in func.__doc__
 
-        if isinstance(func.__doc__, DocStringWithExample):
-            ex_header = "Examples" + nl_indent + "--------"
+        if has_ex_header or isinstance(func.__doc__, DocStringWithExample):
             before, after = func.__doc__.split(ex_header, 1)
             func.__doc__ = before + ex_header
         else:
-            func.__doc__ += nl_indent + "Examples"
-            func.__doc__ += nl_indent + "--------"
+            func.__doc__ += nl_indent + ex_header
             after = None
 
         # Insert the example under the Examples heading

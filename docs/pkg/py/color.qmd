@@ -12,6 +12,68 @@ The brand's custom color palette and theme. `color.palette` is a list of
 named colors used by the brand and `color.theme` maps brand colors to
 common theme elements (described in [Attributes](#attributes)).
 
+## Examples
+
+::: {.panel-tabset}
+
+
+###### Minimal
+
+In this example, we've picked colors from Posit's brand guidelines and
+mapped them directory to theme colors. This is a minimal approach to
+applying brand colors to theme colors.
+```{.yaml filename="_brand.yml"}
+color:
+  foreground: "#151515"
+  background: "#FFFFFF"
+  primary: "#447099"
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: "#72994E"
+  info: "#419599"
+  warning: "#EE6331"
+  danger: "#9A4665"
+  light: "#FFFFFF"
+  dark: "#404041"
+```
+
+
+
+###### With palette
+
+This example first defines a color palette from Posit's brand guidelines
+and then maps them to theme colors by reference. With this approach,
+not all brand colors need to be used in the theme, but are still
+available via the `brand.color.palette` dictionary. This approach also
+reduces duplication in `brand.color`.
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    white: "#FFFFFF"
+    black: "#151515"
+    blue: "#447099"
+    orange: "#EE6331"
+    green: "#72994E"
+    teal: "#419599"
+    burgundy: "#9A4665"
+
+  foreground: black
+  background: white
+  primary: blue
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: green
+  info: teal
+  warning: orange
+  danger: burgundy
+  light: white
+  dark: "#404041"
+```
+
+:::
+
+
+
 ## Referencing colors in the brand's color palette
 
 Once defined in `color.palette`, you can re-use color definitions in any of
@@ -185,63 +247,3 @@ link
 :   [Optional](`typing.Optional`)\[[str](`str`)\]
 
     The color used for hyperlinks.
-
-## Examples
-
-::: {.panel-tabset}
-
-
-###### Minimal
-
-In this example, we've picked colors from Posit's brand guidelines and
-mapped them directory to theme colors. This is a minimal approach to
-applying brand colors to theme colors.
-```{.yaml filename="_brand.yml"}
-color:
-  foreground: "#151515"
-  background: "#FFFFFF"
-  primary: "#447099"
-  secondary: "#707073"
-  tertiary: "#C2C2C4"
-  success: "#72994E"
-  info: "#419599"
-  warning: "#EE6331"
-  danger: "#9A4665"
-  light: "#FFFFFF"
-  dark: "#404041"
-```
-
-
-
-###### With palette
-
-This example first defines a color palette from Posit's brand guidelines
-and then maps them to theme colors by reference. With this approach,
-not all brand colors need to be used in the theme, but are still
-available via the `brand.color.palette` dictionary. This approach also
-reduces duplication in `brand.color`.
-```{.yaml filename="_brand.yml"}
-color:
-  palette:
-    white: "#FFFFFF"
-    black: "#151515"
-    blue: "#447099"
-    orange: "#EE6331"
-    green: "#72994E"
-    teal: "#419599"
-    burgundy: "#9A4665"
-
-  foreground: black
-  background: white
-  primary: blue
-  secondary: "#707073"
-  tertiary: "#C2C2C4"
-  success: green
-  info: teal
-  warning: orange
-  danger: burgundy
-  light: white
-  dark: "#404041"
-```
-
-:::
