@@ -672,23 +672,27 @@ BrandTypographyFontFamily = Annotated[
     {
         "path": "brand-typography-minimal.yml",
         "name": "Minimal",
+        "exclude": ["meta"],
     },
     {
         "path": "brand-typography-simple.yml",
         "name": "Simple",
+        "exclude": ["meta"],
     },
     {
         "path": "brand-typography-fonts.yml",
         "name": "With Fonts",
+        "exclude": ["meta"],
     },
     {
         "path": "brand-typography-color.yml",
         "name": "With Color",
+        "exclude": ["meta"],
     },
 )
 class BrandTypography(BrandBase):
     """
-    Represents the typography configuration for a brand.
+    Represents the typographic choices of a brand.
 
     This class defines the structure and behavior of typography settings,
     including fonts, base text, headings, monospace text, and links.

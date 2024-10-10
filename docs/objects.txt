@@ -5,6 +5,7 @@
 brand_yaml.Brand.from_yaml py:function 1 pkg/py/Brand.html#brand_yaml.Brand.from_yaml -
 brand_yaml.Brand.from_yaml_str py:function 1 pkg/py/Brand.html#brand_yaml.Brand.from_yaml_str -
 brand_yaml.Brand.model_config py:attribute 1 pkg/py/Brand.html#brand_yaml.Brand.model_config -
+brand_yaml.Brand.model_dump_yaml py:function 1 pkg/py/Brand.html#brand_yaml.Brand.model_dump_yaml -
 brand_yaml.Brand py:class 1 pkg/py/Brand.html#brand_yaml.Brand -
 brand_yaml.read_brand_yaml py:function 1 pkg/py/read_brand_yaml.html#brand_yaml.read_brand_yaml -
 brand_yaml.BrandMeta.model_config py:attribute 1 pkg/py/meta.html#brand_yaml.BrandMeta.model_config -

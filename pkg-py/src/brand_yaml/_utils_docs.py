@@ -8,12 +8,14 @@ from typing import Any, Callable, TypeVar
 from pydantic import BaseModel, field_validator
 
 from ._utils import find_project_file
+from ._utils_yaml import yaml_brand as yaml
 
 
 class ExampleFile(BaseModel):
     path: Path
     name: str
     desc: str | None = None
+    exclude: list[str] | None = None
     filename: str = "_brand.yml"
 
     @field_validator("path", mode="after")
@@ -26,8 +28,17 @@ class ExampleFile(BaseModel):
         return path
 
     def str_tabset_lines(self):
-        with self.path.open() as f:
-            lines = f.readlines()
+        if self.exclude is None:
+            with self.path.open() as f:
+                lines = f.readlines()
+        else:
+            with self.path.open("r") as f:
+                data = {
+                    k: v
+                    for k, v in yaml.load(f).items()
+                    if k not in self.exclude
+                }
+            lines = str(yaml.dump(data)).splitlines()
 
         description = (
             textwrap.dedent(self.desc or "").splitlines() if self.desc else [""]
@@ -51,7 +62,7 @@ class DocStringWithExample(str): ...
 
 
 def add_example_yaml(
-    *args: ExampleFile | dict[str, str | Path],
+    *args: ExampleFile | dict[str, str | Path | list[str]],
 ) -> Callable[[F], F]:
     arg_models = [
         ExampleFile.model_validate(arg) if isinstance(arg, dict) else arg

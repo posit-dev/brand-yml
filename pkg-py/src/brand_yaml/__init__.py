@@ -163,7 +163,7 @@ class Brand(BrandBase):
         ```{python}
         from brand_yaml import Brand
 
-        brand = Brand.from_yaml(\"\"\"
+        brand = Brand.from_yaml_str(\"\"\"
         meta:
           name: Brand YAML
         color:

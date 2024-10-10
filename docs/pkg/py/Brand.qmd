@@ -21,6 +21,7 @@ via this class.
 | --- | --- |
 | [from_yaml](#brand_yaml.Brand.from_yaml) | Read a brand YAML file |
 | [from_yaml_str](#brand_yaml.Brand.from_yaml_str) | Create a Brand instance from a YAML string |
+| [model_dump_yaml](#brand_yaml.Brand.model_dump_yaml) | Serialize the Brand object to a YAML file on disk or to a string. |
 
 ### from_yaml { #brand_yaml.Brand.from_yaml }
 
@@ -111,3 +112,50 @@ brand.meta
 ```{python}
 brand.color.primary
 ```
+
+### model_dump_yaml { #brand_yaml.Brand.model_dump_yaml }
+
+`Brand.model_dump_yaml(stream=None, *, transform=None)`
+
+Serialize the Brand object to a YAML file on disk or to a string.
+
+#### Examples
+
+```{python}
+from brand_yaml import Brand
+
+brand = Brand.from_yaml_str("""
+meta:
+  name: Brand YAML
+color:
+  palette:
+    orange: "#ff9a02"
+  primary: orange
+typography:
+  headings: Raleway
+""")
+```
+
+::: python-code-preview
+```{python}
+print(brand.model_dump_yaml())
+```
+:::
+
+#### Parameters
+
+<code><span class="parameter-name">stream</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Any](`typing.Any`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
+
+:   Passed to `stream` parameter of
+    [`ruamel.yaml.YAML.dump`](`ruamel.yaml.YAML.dump`).
+
+<code><span class="parameter-name">transform</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Any](`typing.Any`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
+
+:   Passed to `transform` parameter of
+    [`ruamel.yaml.YAML.dump`](`ruamel.yaml.YAML.dump`).
+
+#### Returns
+
+| Type                | Description                                                                                                                                                                                                                                                                                                                                                                                                            |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Any](`typing.Any`) | A string with the YAML representation of the `brand` if `stream` is `None`. Otherwise, the YAML representation is written to `stream`, typically a file.  Note that the output YAML may not be 100% identical to the input `_brand.yml`. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors. |

@@ -6,7 +6,7 @@
 
 `BrandTypography()`
 
-Represents the typography configuration for a brand.
+Represents the typographic choices of a brand.
 
 This class defines the structure and behavior of typography settings,
 including fonts, base text, headings, monospace text, and links.
@@ -19,8 +19,6 @@ including fonts, base text, headings, monospace text, and links.
 ###### Minimal
 
 ```{.yaml filename="_brand.yml"}
-meta:
-  name: examples/brand-typography-simple.yml
 typography:
   fonts:
     - family: Open Sans
@@ -35,8 +33,6 @@ typography:
 ###### Simple
 
 ```{.yaml filename="_brand.yml"}
-meta:
-  name: examples/brand-typography-simple.yml
 color:
   primary: blue
 typography:
@@ -58,10 +54,8 @@ typography:
 ###### With Fonts
 
 ```{.yaml filename="_brand.yml"}
-meta:
-  name: examples/brand-typography-fonts.yml
 color:
-  primary: "#f24242"
+  primary: '#f24242'
 typography:
   fonts:
     # Local files
@@ -113,17 +107,14 @@ typography:
 ###### With Color
 
 ```{.yaml filename="_brand.yml"}
-meta:
-  name: examples/brand-typography-color.yml
-
 color:
   palette:
-    red: "#FF6F61"
-  primary: "#87CEEB"
-  secondary: "#50C878"
+    red: '#FF6F61'
+  primary: '#87CEEB'
+  secondary: '#50C878'
   danger: red
-  foreground: "#1b1818"
-  background: "#f7f4f4"
+  foreground: '#1b1818'
+  background: '#f7f4f4'
 
 typography:
   base:
