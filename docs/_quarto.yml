@@ -112,7 +112,16 @@ quartodoc:
             name: Color Palette and Theme
           contents:
             - BrandColor
-        - BrandTypography
+        - kind: page
+          path: typography
+          summary:
+            name: Typography
+          contents:
+            - BrandTypography
+            - typography.BrandTypographyFontFamily
+            - typography.BrandTypographyFontFiles
+            - typography.BrandTypographyFontGoogle
+            - typography.BrandTypographyFontBunny
 
 interlinks:
   fast: true

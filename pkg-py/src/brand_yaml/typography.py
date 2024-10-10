@@ -1,3 +1,15 @@
+"""
+Typography module for brand configuration and management.
+
+This module provides classes and utilities for defining and managing typographic
+choices in brand guidelines.
+
+1. Font definitions (local files, Google Fonts, and Bunny Fonts)
+2. Typography options (family, weight, size, line height, color, etc.)
+3. Specific typography settings for base text, headings, monospace, and links
+4. CSS generation for font includes and typography styles
+"""
+
 from __future__ import annotations
 
 import itertools
@@ -31,6 +43,7 @@ from pydantic import (
     model_validator,
 )
 
+from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import FileLocationLocalOrUrl
 
@@ -645,20 +658,77 @@ class BrandTypographyLink(
 
 # Brand Typography -------------------------------------------------------------
 
+BrandTypographyFontFamily = Annotated[
+    Union[
+        BrandTypographyFontFiles,
+        BrandTypographyFontGoogle,
+        BrandTypographyFontBunny,
+    ],
+    Discriminator("source"),
+]
 
+
+@add_example_yaml(
+    {
+        "path": "brand-typography-minimal.yml",
+        "name": "Minimal",
+    },
+    {
+        "path": "brand-typography-simple.yml",
+        "name": "Simple",
+    },
+    {
+        "path": "brand-typography-fonts.yml",
+        "name": "With Fonts",
+    },
+    {
+        "path": "brand-typography-color.yml",
+        "name": "With Color",
+    },
+)
 class BrandTypography(BrandBase):
+    """
+    Represents the typography configuration for a brand.
+
+    This class defines the structure and behavior of typography settings,
+    including fonts, base text, headings, monospace text, and links.
+
+    Examples
+    --------
+
+    Attributes
+    ----------
+    fonts
+        A list of font family definitions. Each definition in the list describes
+        a font family that is available to the brand. Fonts may be stored in
+        files (either adjacent to `_brand.yml` or hosted online) or may be
+        provided by [Google Fonts](https://fonts.google.com/) or [Font
+        Bunny](https://fonts.bunny.net/) (a GDPR-compliant Google Fonts
+        alternative).
+
+    base
+        The type used as the default text, primarily in the document body.
+
+    headings
+        The type used for headings. Note that these settings cover all heading
+        levels (`h1`, `h2`, etc.).
+
+    monospace
+        The type used for code blocks and other monospaced text.
+
+    monospace_inline
+        The type used for inline code; inherits properties from `monospace`.
+
+    monospace_block
+        The type use for code blocks; inherits properties from `monospace`.
+
+    link
+        Type settings used for hyperlinks.
+    """
+
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    fonts: list[
-        Annotated[
-            Union[
-                BrandTypographyFontFiles,
-                BrandTypographyFontGoogle,
-                BrandTypographyFontBunny,
-            ],
-            Discriminator("source"),
-        ]
-    ] = Field(default_factory=list)
+    fonts: list[BrandTypographyFontFamily] = Field(default_factory=list)
     base: BrandTypographyBase | None = None
     headings: BrandTypographyHeadings | None = None
     monospace: BrandTypographyMonospace | None = None
@@ -672,12 +742,18 @@ class BrandTypography(BrandBase):
 
     @model_validator(mode="before")
     @classmethod
-    def simple_google_fonts(cls, data: Any):
+    def _default_fonts_provider(cls, data: Any):
+        """
+        Use Google Fonts as the default font provider.
+
+        This method processes the input data to automatically add Google Fonts
+        entries for font families specified in typography settings but not
+        explicitly defined in the fonts list.
+        """
         if not isinstance(data, dict):  # cover: for type checker
             return data
 
         defined_families = set()
-        file_families = set()
 
         if (
             "fonts" in data
@@ -686,8 +762,6 @@ class BrandTypography(BrandBase):
         ):
             for font in data["fonts"]:
                 defined_families.add(font["family"])
-                if font["source"] == "file":
-                    file_families.add(font["family"])
         else:
             data["fonts"] = []
 
@@ -724,12 +798,13 @@ class BrandTypography(BrandBase):
         return data
 
     @model_validator(mode="after")
-    def forward_monospace_values(self):
+    def _forward_monospace_values(self):
         """
         Forward values from `monospace` to inline and block variants.
 
-        `monospace-inline` and `monospace-block` both inherit `family`, `style`,
-        `weight` and `size` from `monospace`.
+        This method ensures that `monospace-inline` and `monospace-block`
+        inherit `family`, `style`, `weight`, and `size` from `monospace` if not
+        explicitly set.
         """
         if self.monospace is None:
             return self
@@ -764,6 +839,17 @@ class BrandTypography(BrandBase):
         return self
 
     def css_include_fonts(self) -> str:
+        """
+        Generates CSS include statements for the defined fonts.
+
+        This method creates CSS `@import` or `@font-face` rules for all fonts
+        defined in the typography configuration.
+
+        Returns
+        -------
+        :
+            A string containing CSS include statements for all defined fonts.
+        """
         # TODO: Download or move files into a project-relative location
 
         if len(self.fonts) == 0:

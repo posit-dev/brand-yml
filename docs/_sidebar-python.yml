@@ -10,7 +10,7 @@ website:
       - pkg/py/meta.qmd
       - pkg/py/logo.qmd
       - pkg/py/color.qmd
-      - pkg/py/BrandTypography.qmd
+      - pkg/py/typography.qmd
       section: Brand Components
     id: pkg/py
   - id: dummy-sidebar
