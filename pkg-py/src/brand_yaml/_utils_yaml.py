@@ -37,3 +37,4 @@ class BrandYaml(YAML):
 
 
 yaml_brand = BrandYaml()
+yaml_brand.indent(mapping=2, sequence=4, offset=2)
