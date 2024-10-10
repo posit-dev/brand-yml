@@ -18,11 +18,28 @@ including fonts, base text, headings, monospace text, and links.
 
 ###### Minimal
 
+This minimal example chooses only the font family for the base text,
+headings and monospace. These fonts will be sourced, by default, from
+[Google Fonts](https://fonts.google.com).
+```{.yaml filename="_brand.yml"}
+typography:
+  base: Open Sans
+  headings: Roboto Slab
+  monospace: Fira Code
+```
+
+
+
+###### Minimal with System Font
+
+By default, fonts are sourced from Google Fonts, but you can also
+provide font sources in `fonts`. Here we're using a system font for
+"Open Sans" and Google Fonts for the others.
 ```{.yaml filename="_brand.yml"}
 typography:
   fonts:
     - family: Open Sans
-      source: file
+      source: system
   base: Open Sans
   headings: Roboto Slab
   monospace: Fira Code
@@ -32,6 +49,11 @@ typography:
 
 ###### Simple
 
+In addition to setting the font family for key elements, you can choose
+other typographic properties. This example sets the line height and font
+size for base text, uses the primary accent color for headings and
+reduces the font size for monospace code, in addition to choosing the
+font family for each.
 ```{.yaml filename="_brand.yml"}
 color:
   primary: blue
@@ -53,6 +75,18 @@ typography:
 
 ###### With Fonts
 
+Font files may be sourced in a number of different ways.
+
+1. Local or hosted (online) files
+2. From [Google Fonts](https://fonts.google.com)
+3. Or from [Bunny Fonts](https://fonts.bunny.net/) (a GDPR-compliant)
+   alternative to Google Fonts.
+
+Each font family should be declared in a list item provided to
+`typography.fonts`. Local font files can be stored adjacent to the
+`_brand.yml` file, and each file for a given family needs to be declared
+in the `files` key. Typically these font files cover a specific font
+weight and style.
 ```{.yaml filename="_brand.yml"}
 color:
   primary: '#f24242'
@@ -106,6 +140,9 @@ typography:
 
 ###### With Color
 
+Colors in the typographic elements---`color` or `background-color`---can
+use the names of colors in `color.palette` or the theme color names in
+`color`.
 ```{.yaml filename="_brand.yml"}
 color:
   palette:
