@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, Literal, overload
 
@@ -10,16 +11,14 @@ from pydantic import (
     field_validator,
     model_validator,
 )
-from ruamel.yaml import YAML
 
 from ._utils import find_project_brand_yaml, recurse_dicts_and_models
+from ._utils_yaml import yaml_brand as yaml
 from .color import BrandColor
 from .file import FileLocationLocal
 from .logo import BrandLogo
 from .meta import BrandMeta
 from .typography import BrandTypography
-
-yaml = YAML()
 
 
 class Brand(BaseModel):
@@ -125,6 +124,59 @@ class Brand(BaseModel):
             data["path"] = Path(path).absolute()
 
         return cls.model_validate(data)
+
+    def model_dump_yaml(
+        self,
+        stream: Any = None,
+        *,
+        transform: Any = None,
+    ) -> Any:
+        """
+        Serialize the Brand object to a YAML file on disk or to a string.
+
+        Examples
+        --------
+
+        ```{python}
+        from brand_yaml import Brand
+
+        brand = Brand.from_yaml(\"\"\"
+        meta:
+          name: Brand YAML
+        color:
+          palette:
+            orange: "#ff9a02"
+          primary: orange
+        typography:
+          headings: Raleway
+        \"\"\")
+        ```
+
+        ::: python-code-preview
+        ```{python}
+        print(brand.model_dump_yaml())
+        ```
+        :::
+
+        Parameters
+        ----------
+        stream
+            Passed to `stream` parameter of
+            [`ruamel.yaml.YAML.dump`](`ruamel.yaml.YAML.dump`).
+
+        transform
+            Passed to `transform` parameter of
+            [`ruamel.yaml.YAML.dump`](`ruamel.yaml.YAML.dump`).
+
+        Returns
+        -------
+        :
+            A string with the YAML representation of the `brand` if `stream` is
+            `None`. Otherwise, the YAML representation is written to `stream`,
+            typically a file.
+        """
+
+        return yaml.dump(self, stream=stream, transform=transform)
 
     @model_validator(mode="after")
     def resolve_typography_colors(self):
