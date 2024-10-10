@@ -174,6 +174,11 @@ class Brand(BaseModel):
             A string with the YAML representation of the `brand` if `stream` is
             `None`. Otherwise, the YAML representation is written to `stream`,
             typically a file.
+
+            Note that the output YAML may not be 100% identical to the input
+            `_brand.yml`. The output will contain the fully validated Brand
+            instance where default or computed values may be included as well as
+            any values resolved during validation, such as colors.
         """
 
         return yaml.dump(self, stream=stream, transform=transform)
