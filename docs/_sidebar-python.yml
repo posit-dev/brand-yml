@@ -9,7 +9,7 @@ website:
     - contents:
       - pkg/py/meta.qmd
       - pkg/py/logo.qmd
-      - pkg/py/BrandColor.qmd
+      - pkg/py/color.qmd
       - pkg/py/BrandTypography.qmd
       section: Brand Components
     id: pkg/py

@@ -106,7 +106,12 @@ quartodoc:
             - FileLocation
             - FileLocationLocal
             - FileLocationUrl
-        - BrandColor
+        - kind: page
+          path: color
+          summary:
+            name: Color Palette and Theme
+          contents:
+            - BrandColor
         - BrandTypography
 
 interlinks:
