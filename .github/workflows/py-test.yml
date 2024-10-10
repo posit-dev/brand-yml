@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths: 
-      - 'pkg-py/*'
+      - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/py-test.yml'
   pull_request:
     paths: 
-      - 'pkg-py/*'
+      - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'
       - '.github/workflows/py-test.yml'
@@ -22,6 +22,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version:
           - "3.9"

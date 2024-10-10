@@ -1,0 +1,29 @@
+# serializer version: 1
+# name: test_brand_model_dump_yaml
+  '''
+  meta:
+    name:
+      full: Brand YAML
+  color:
+    palette:
+      orange: '#ff9a02'
+    primary: '#ff9a02'
+  typography:
+    fonts:
+    - family: Raleway
+      weight:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      - 600
+      - 700
+      - 800
+      - 900
+      url: https://fonts.googleapis.com/
+    headings:
+      family: Raleway
+  
+  '''
+# ---
