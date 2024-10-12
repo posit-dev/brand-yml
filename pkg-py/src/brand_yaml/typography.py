@@ -279,25 +279,90 @@ class BrandTypographyFontFileWeight(RootModel):
         return validate_font_weight(value, allow_auto=True)
 
 
-FontSourceType = Union[Literal["file"], Literal["google"], Literal["bunny"]]
+FontSourceType = Union[
+    Literal["file"], Literal["google"], Literal["bunny"], Literal["system"]
+]
 
 
 class BrandTypographyFontSource(BaseModel, ABC):
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
     source: FontSourceType = Field(frozen=True)
+    """
+    The source of the font family, one of `"system"`, `"file"`, `"google"`, or
+    `"bunny"`.
+    """
+
     family: str = Field(frozen=True)
+    """
+    The font family name.
+
+    Use this name in the `family` field of the other typographic properties,
+    such as `base`, `headings`, `monospace`, etc.
+    """
 
     @abstractmethod
-    def css_include(self) -> str:
+    def to_css(self) -> str:
+        """Create the CSS declarations needed to use the font family."""
         pass
 
 
+class BrandTypographyFontSystem(BrandTypographyFontSource):
+    """
+    A system font family.
+
+    This class is used to signal that a font should be retrieved from the
+    system. This assumes that the font is installed on the system and will be
+    resolved automatically; [`brand_yaml.Brand`](`brand_yaml.Brand`) won't do
+    anything to embed the font or include it in any CSS.
+    """
+
+    source: Literal["system"] = Field("system", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
+
+    def to_css(self) -> str:
+        return ""
+
+
 class BrandTypographyFontFiles(BrandTypographyFontSource):
+    """
+    A font family defined by a collection of font files.
+
+    This class represents a font family that is specified using individual font
+    files, either from local files or files hosted online. A font family is
+    generally composed of multiple font files for different weights and styles
+    within the same family. Currently, TrueType (`.ttf`), OpenType (`.otf`), and
+    WOFF (`.woff` or `.woff2`) formats are supported.
+
+    Examples
+    --------
+
+    ```yaml
+    typography:
+      fonts:
+        # Local font files
+        - family: Open Sans
+          files:
+            - path: fonts/open-sans/OpenSans-Bold.ttf
+              style: bold
+            - path: fonts/open-sans/OpenSans-Italic.ttf
+              style: italic
+
+        # Online files
+        - family: Closed Sans
+          files:
+            - path: https://example.com/Closed-Sans-Bold.woff2
+              weight: bold
+            - path: https://example.com/Closed-Sans-Italic.woff2
+              style: italic
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["file"] = Field("file", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     files: list[BrandTypographyFontFilesPath] = Field(default_factory=list)
 
-    def css_include(self) -> str:
+    def to_css(self) -> str:
         if len(self.files) == 0:
             return ""
 
@@ -461,7 +526,11 @@ def google_font_weight_discriminator(value: Any) -> str:
 
 
 class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
     family: str
+    # Documented in parent class
+
     weight: Annotated[
         Union[
             Annotated[BrandTypographyGoogleFontsWeightRange, Tag("range")],
@@ -473,15 +542,56 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
             return_type=Union[str, int, list[int | str]],
         ),
     ] = Field(default=list(font_weight_round_int), validate_default=True)
-    style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
-    display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
-    version: PositiveInt = 2
-    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
+    """
+    The desired front weights to be imported for the font family.
 
-    def css_include(self) -> str:
+    These are the font weights that will be imported from the Google Fonts-
+    compatible API. This can be an array of font weights as numbers, e.g. 
+    `[300, 400, 700]`, or as named weights, e.g. `["light", "normal", "bold"]`.
+    For variable fonts with variable font weight, you can import a range of
+    weights using a string in the format `{start}..{end}`, e.g. `300..700`.
+    """
+
+    style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
+    """
+    The font style(s) (italic or normal) to be imported for the font family.
+
+    This attribute can be set to a single style or a list of styles. Valid
+    styles are "normal" and "italic". Defaults to `None`, which indicates that
+    both normal and italic font styles should be imported.
+    """
+
+    display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
+    """
+    Specifies how a font face is displayed based on whether and when it is
+    downloaded and ready to use.
+
+    This attribute is passed directly to the Google Fonts API and affects how
+    the browser handles the font loading process.
+
+    Options:
+    - "auto": The browser default behavior, which is usually equivalent to "block".
+    - "block": Gives the font face a short block period and infinite swap period.
+    - "swap": Gives the font face an extremely small block period and infinite swap period.
+    - "fallback": Gives the font face an extremely small block period and short swap period.
+    - "optional": Gives the font face an extremely small block period and no swap period.
+
+    For more details on these options, refer to the CSS `font-display` property
+    documentation and [the Google Fonts API
+    documentation](https://developers.google.com/fonts/docs/getting_started#use_font-display).
+    """
+
+    version: PositiveInt = 2
+    """Google Fonts API version. (Primarily for internal use.)"""
+
+    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
+    """URL of the Google Fonts-compatible API. (Primarily for internal use.)"""
+
+    def to_css(self) -> str:
         return f"@import url('{self.to_import_url()}');"
 
     def to_import_url(self) -> str:
+        """Returns the URL for the font family to be used in a CSS `@import` statement."""
         if self.version == 1:
             return self._import_url_v1()
         return self._import_url_v2()
@@ -544,12 +654,61 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
 
 
 class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
+    """
+    A font family provided by Google Fonts.
+
+
+    This class represents a font family that is sourced from Google Fonts. It
+    allows you to specify the font family name, weight range, and style.
+
+    Examples
+    --------
+
+    In this example, the Inter font is imported with all font weights and both
+    normal and italic styles (these are the defaults). Additionally, the Roboto
+    Slab font is sourced from Google Fonts with three specific font weights --
+    400, 600, 800 -- and only the normal style.
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Inter
+          source: google
+        - family: Roboto Slab
+          source: google
+          weight: [400, 600, 800]
+          style: normal
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["google"] = Field("google", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
 
 
 class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
+    """
+    A font family provided by Bunny Fonts.
+
+    This class represents a font family that is sourced from Bunny Fonts. It
+    allows you to specify the font family name, weight range, and style.
+
+    Examples
+    --------
+
+    In this example, the Fira Code font is sourced from Bunny Fonts. By default
+    all available weights and styles will be used.
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+          # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+          # style: [normal, italic]
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
@@ -660,12 +819,25 @@ class BrandTypographyLink(
 
 BrandTypographyFontFamily = Annotated[
     Union[
+        BrandTypographyFontSystem,
         BrandTypographyFontFiles,
         BrandTypographyFontGoogle,
         BrandTypographyFontBunny,
     ],
     Discriminator("source"),
 ]
+"""
+A font family resource declaration.
+
+A font family can be 3 different types of resources:
+
+1. A font provided by [Google Fonts](https://fonts.google.com) --
+   [`brand_yaml.typography.BrandTypographyFontGoogle`](`brand_yaml.typography.BrandTypographyFontGoogle`)
+1. A font provided by [Bunny Fonts](https://fonts.bunny.net/) --
+   [`brand_yaml.typography.BrandTypographyFontBunny`](`brand_yaml.typography.BrandTypographyFontBunny`)
+1. A collection of font files, stored locally or online --
+   [`brand_yaml.typography.BrandTypographyFontFiles`](`brand_yaml.typography.BrandTypographyFontFiles`)
+"""
 
 
 @add_example_yaml(
@@ -900,6 +1072,6 @@ class BrandTypography(BrandBase):
         if len(self.fonts) == 0:
             return ""
 
-        includes = [font.css_include() for font in self.fonts]
+        includes = [font.to_css() for font in self.fonts]
 
         return "\n".join([i for i in includes if i])

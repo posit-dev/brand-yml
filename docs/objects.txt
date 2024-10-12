@@ -60,10 +60,10 @@ brand_yaml.BrandTypography.model_config py:attribute 1 pkg/py/typography.html#br
 brand_yaml.typography.BrandTypography.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.BrandTypography.model_config brand_yaml.BrandTypography.model_config
 brand_yaml.BrandTypography py:class 1 pkg/py/typography.html#brand_yaml.BrandTypography -
 brand_yaml.typography.BrandTypography py:class 1 pkg/py/typography.html#brand_yaml.BrandTypography brand_yaml.BrandTypography
-brand_yaml.typography.BrandTypographyFontFamily py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontFamily -
 brand_yaml.typography.BrandTypographyFontFiles.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontFiles.model_config -
 brand_yaml.typography.BrandTypographyFontFiles py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontFiles -
 brand_yaml.typography.BrandTypographyFontGoogle.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontGoogle.model_config -
 brand_yaml.typography.BrandTypographyFontGoogle py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontGoogle -
 brand_yaml.typography.BrandTypographyFontBunny.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontBunny.model_config -
 brand_yaml.typography.BrandTypographyFontBunny py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontBunny -
+brand_yaml.typography py:module 1 pkg/py/typography.html#brand_yaml.typography -

@@ -1,5 +1,7 @@
 project:
   type: website
+  preview: 
+    port: 4243
 
 website:
   title: "Unified Branding"
@@ -118,10 +120,12 @@ quartodoc:
             name: Typography
           contents:
             - BrandTypography
-            - typography.BrandTypographyFontFamily
-            - typography.BrandTypographyFontFiles
-            - typography.BrandTypographyFontGoogle
-            - typography.BrandTypographyFontBunny
+            # - typography.BrandTypographyFontFamily
+            - name: typography
+              members:
+                - BrandTypographyFontFiles
+                - BrandTypographyFontGoogle
+                - BrandTypographyFontBunny
 
 interlinks:
   fast: true
@@ -133,4 +137,3 @@ interlinks:
 
 editor:
   render-on-save: true
-
