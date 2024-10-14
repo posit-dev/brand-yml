@@ -43,7 +43,7 @@ from pydantic import (
     model_validator,
 )
 
-from ._utils_docs import add_example_yaml
+from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
 from .file import FileLocationLocalOrUrl
 
@@ -567,6 +567,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     Google Fonts, allowing for easy integration with brand-specific typographic
     styles.
     """
+
     model_config = ConfigDict(use_attribute_docstrings=True)
 
     family: str
@@ -764,41 +765,82 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 # Typography Options -----------------------------------------------------------
 
 
+class BrandTypographyOptionsFamily(BaseDocAttributeModel):
+    family: str | None = None
+    """
+    The font family to be used for this typographic element. Note that the font
+    family name should match a resource in `typography.fonts`.
+    """
+
+
+class BrandTypographyOptionsSize(BaseDocAttributeModel):
+    size: str | None = None
+    """
+    The font size to be used for this typographic element. Should be a
+    [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
+    """
+
+
+class BrandTypographyOptionsColor(BaseDocAttributeModel):
+    color: str | None = None
+    """
+    The color to be used for this typographic element. Can be any CSS-compatible
+    color definition, but in general hexidecimal (`"#abc123") or `rgb()`
+    (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    """
+
+
 class BrandTypographyOptionsBackgroundColor(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(
+        populate_by_name=True,
+        use_attribute_docstrings=True,
+    )
 
     background_color: str | None = Field(None, alias="background-color")
+    """
+    The background color to be used for this typographic element. Can be any
+    CSS-compatible color definition, but in general hexidecimal (`"#abc123") or
+    `rgb()` (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    """
 
 
-class BrandTypographyOptionsColor(BaseModel):
-    color: str | None = None
-
-
-class BrandTypographyOptionsFamily(BaseModel):
-    family: str | None = None
-
-
-class BrandTypographyOptionsLineHeight(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-
-    line_height: float | None = Field(None, alias="line-height")
-
-
-class BrandTypographyOptionsSize(BaseModel):
-    size: str | None = None
-
-
-class BrandTypographyOptionsStyle(BaseModel):
+class BrandTypographyOptionsStyle(BaseDocAttributeModel):
     style: SingleOrList[BrandTypographyFontStyleType] | None = None
+    """
+    The font style for this typographic element, i.e. whether the font should be
+    styled in a `"normal"` or `"italic"` style.
+    """
 
 
-class BrandTypographyOptionsWeight(BaseModel):
+class BrandTypographyOptionsWeight(BaseDocAttributeModel):
     weight: BrandTypographyFontWeightSimpleType | None = None
+    """
+    The font weight (or boldness) of this typographic element. Any CSS-
+    compatible font weight is allowed. The value could be a string such as
+    `"thin"`, `"normal"`, `"bold"`, `"extra-bold"` or an integer between 1 and
+    999. Font weights are most often integer values divisible by 100, e.g.
+    100 (thin), 400 (normal), 700 (bold), or 800 (extra bold).
+    """
 
     @field_validator("weight", mode="before")
     @classmethod
-    def validate_weight(cls, value: Any) -> BrandTypographyFontWeightSimpleType:
+    def _validate_weight(
+        cls, value: Any
+    ) -> BrandTypographyFontWeightSimpleType:
         return validate_font_weight(value, allow_auto=False)
+
+
+class BrandTypographyOptionsLineHeight(BaseDocAttributeModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    line_height: float | None = Field(None, alias="line-height")
+    """
+    The line height of this typographic element. Line height refers to the
+    vertical space between lines of text, which significantly impacts
+    readability, aesthetics, and overall design. It often expressed as a
+    multiple of the font size (e.g., 1.5 times the font size) or in fixed units
+    (such as pixels or points).
+    """
 
 
 class BrandTypographyBase(
@@ -809,6 +851,25 @@ class BrandTypographyBase(
     BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
+    """
+    Typographic settings for base (or body) text.
+
+    Attributes
+    ----------
+    family
+        The font family to be used. Note that the font family name should match
+        a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the text.
+    size
+        The font size of the text. Should be a CSS length unit (e.g., 14px).
+    line_height
+        The line height of the text. Line height refers to the vertical space
+        between lines of text.
+    color
+        The color of the text. Can be any CSS-compatible color definition.
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -820,6 +881,39 @@ class BrandTypographyHeadings(
     BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
+    """
+    Typographic settings for headings and titles.
+
+    Attributes
+    ----------
+    family
+        The font family used for headings. Note that this should match a resource
+        in `typography.fonts`.
+    weight
+        The font weight (or boldness) of the text.
+    style
+        The font style for the heading, i.e., whether it should be styled in a
+        `"normal"` or `"italic"` style.
+    line_height
+        The line height of the heading. Line height refers to the vertical space
+        between lines of text.
+    color
+        The color of the text.
+
+    Examples
+    --------
+    This example sets up typography settings for headings using the Inter font
+    at a weight of 600 and with a line height that is 1.2 times the font size.
+
+    ```yml
+    typography:
+      headings:
+        family: Inter
+        weight: 600
+        line_height: 1.2
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 

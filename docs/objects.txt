@@ -83,4 +83,8 @@ brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_config py:attr
 brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_dump py:function 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_dump -
 pydantic.main.BaseModel.model_dump py:function 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_dump brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_dump
 brand_yaml.typography.BrandTypographyGoogleFontsWeightRange py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyGoogleFontsWeightRange -
+brand_yaml.typography.BrandTypographyBase.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyBase.model_config -
+brand_yaml.typography.BrandTypographyBase py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyBase -
+brand_yaml.typography.BrandTypographyHeadings.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyHeadings.model_config -
+brand_yaml.typography.BrandTypographyHeadings py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyHeadings -
 brand_yaml.typography py:module 1 pkg/py/typography.html#brand_yaml.typography -

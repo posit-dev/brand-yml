@@ -5,10 +5,14 @@ import textwrap
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, ConfigDict, field_validator
 
 from ._utils import find_project_file
 from ._utils_yaml import yaml_brand as yaml
+
+
+class BaseDocAttributeModel(BaseModel):
+    model_config = ConfigDict(use_attribute_docstrings=True)
 
 
 class ExampleFile(BaseModel):

@@ -265,6 +265,8 @@ choices in brand guidelines.
 | [BrandTypographyFontBunny](#brand_yaml.typography.BrandTypographyFontBunny) | A font family provided by Bunny Fonts. |
 | [BrandTypographyGoogleFontsApi](#brand_yaml.typography.BrandTypographyGoogleFontsApi) | A font source that utilizes the Google Fonts (or a compatible) API. |
 | [BrandTypographyGoogleFontsWeightRange](#brand_yaml.typography.BrandTypographyGoogleFontsWeightRange) | Represents a range of font weights for Google Fonts. |
+| [BrandTypographyBase](#brand_yaml.typography.BrandTypographyBase) | Typographic settings for base (or body) text. |
+| [BrandTypographyHeadings](#brand_yaml.typography.BrandTypographyHeadings) | Typographic settings for headings and titles. |
 
 ### BrandTypographyFontSource { #brand_yaml.typography.BrandTypographyFontSource }
 
@@ -481,3 +483,77 @@ Args:
 
 Returns:
     A dictionary representation of the model.
+
+### BrandTypographyBase { #brand_yaml.typography.BrandTypographyBase }
+
+`typography.BrandTypographyBase()`
+
+Typographic settings for base (or body) text.
+
+#### Attributes
+
+family
+
+:   The font family to be used. Note that the font family name should match
+    a resource in `typography.fonts`.
+
+weight
+
+:   The font weight (boldness) of the text.
+
+size
+
+:   The font size of the text. Should be a CSS length unit (e.g., 14px).
+
+line_height
+
+:   The line height of the text. Line height refers to the vertical space
+    between lines of text.
+
+color
+
+:   The color of the text. Can be any CSS-compatible color definition.
+
+### BrandTypographyHeadings { #brand_yaml.typography.BrandTypographyHeadings }
+
+`typography.BrandTypographyHeadings()`
+
+Typographic settings for headings and titles.
+
+#### Attributes
+
+family
+
+:   The font family used for headings. Note that this should match a resource
+    in `typography.fonts`.
+
+weight
+
+:   The font weight (or boldness) of the text.
+
+style
+
+:   The font style for the heading, i.e., whether it should be styled in a
+    `"normal"` or `"italic"` style.
+
+line_height
+
+:   The line height of the heading. Line height refers to the vertical space
+    between lines of text.
+
+color
+
+:   The color of the text.
+
+#### Examples
+
+This example sets up typography settings for headings using the Inter font
+at a weight of 600 and with a line height that is 1.2 times the font size.
+
+```yml
+typography:
+  headings:
+    family: Inter
+    weight: 600
+    line_height: 1.2
+```

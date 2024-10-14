@@ -1,17 +1,17 @@
 project:
   type: website
-  preview: 
+  preview:
     port: 4243
 
 website:
   title: "Unified Branding"
-  
+
   bread-crumbs: true
-  
+
   repo-url: https://github.com/posit-dev/brand-yml/
   repo-actions: [issue, source]
 
-  announcement: 
+  announcement:
     content: |
       This is a work in progress and documentation may be out of date.
       Please drop by [`#brand-yaml`](https://positpbc.slack.com/archives/C07KVQBUCCF)
@@ -65,7 +65,7 @@ metadata-files:
 
 quartodoc:
   package: brand_yaml
-  renderer: 
+  renderer:
     style: _renderer.py
   dir: pkg/py
   sidebar: _sidebar-python.yml
@@ -94,7 +94,7 @@ quartodoc:
           path: meta
           summary:
             name: Metadata
-          contents: 
+          contents:
             - BrandMeta
             - meta.BrandMetaName
             - meta.BrandMetaLink
@@ -102,7 +102,7 @@ quartodoc:
           path: logo
           summary:
             name: Logos and Images
-          contents: 
+          contents:
             - BrandLogo
             - BrandLightDark
             - FileLocation
@@ -129,6 +129,8 @@ quartodoc:
                 - BrandTypographyFontBunny
                 - BrandTypographyGoogleFontsApi
                 - BrandTypographyGoogleFontsWeightRange
+                - BrandTypographyBase
+                - BrandTypographyHeadings
 
 interlinks:
   fast: true
