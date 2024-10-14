@@ -123,9 +123,12 @@ quartodoc:
             # - typography.BrandTypographyFontFamily
             - name: typography
               members:
+                - BrandTypographyFontSource
                 - BrandTypographyFontFiles
                 - BrandTypographyFontGoogle
                 - BrandTypographyFontBunny
+                - BrandTypographyGoogleFontsApi
+                - BrandTypographyGoogleFontsWeightRange
 
 interlinks:
   fast: true

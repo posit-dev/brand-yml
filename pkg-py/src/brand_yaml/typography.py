@@ -433,6 +433,33 @@ class BrandTypographyFontFilesPath(BaseModel):
 
 
 class BrandTypographyGoogleFontsWeightRange(RootModel):
+    """
+    Represents a range of font weights for Google Fonts.
+
+    This class is used to specify a continuous range of font weights to be
+    imported from Google Fonts for variable fonts that support a range of font
+    weights. The weight range is represented as a list of two integers, where
+    the first integer is the start of the range and the second is the end.
+
+    Examples
+    --------
+    - `300..700`: Represents a range from light (300) to bold (700)
+    - `100..900`: Represents the full range of weights from thin to black
+
+    Note
+    ----
+
+    When serialized, this class will convert the range to a string format
+    (e.g., "300..700") for compatibility with the Google Fonts API.
+
+    Attributes
+    ----------
+
+    root
+        A list containing two integers representing the start and end of the
+        weight range.
+    """
+
     model_config = ConfigDict(json_schema_mode_override="serialization")
 
     root: list[BrandTypographyFontWeightInt]
