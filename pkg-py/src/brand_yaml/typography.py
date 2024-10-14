@@ -285,6 +285,13 @@ FontSourceType = Union[
 
 
 class BrandTypographyFontSource(BaseModel, ABC):
+    """
+    A base class representing a font source.
+
+    This class serves as a template for various font sources, encapsulating
+    common properties and behaviors.
+    """
+
     model_config = ConfigDict(use_attribute_docstrings=True)
 
     source: FontSourceType = Field(frozen=True)
