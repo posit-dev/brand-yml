@@ -553,6 +553,13 @@ def google_font_weight_discriminator(value: Any) -> str:
 
 
 class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
+    """
+    A font source that utilizes the Google Fonts (or a compatible) API.
+
+    This class provides a way to fetch and manage typography assets from
+    Google Fonts, allowing for easy integration with brand-specific typographic
+    styles.
+    """
     model_config = ConfigDict(use_attribute_docstrings=True)
 
     family: str
@@ -573,7 +580,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     The desired front weights to be imported for the font family.
 
     These are the font weights that will be imported from the Google Fonts-
-    compatible API. This can be an array of font weights as numbers, e.g. 
+    compatible API. This can be an array of font weights as numbers, e.g.
     `[300, 400, 700]`, or as named weights, e.g. `["light", "normal", "bold"]`.
     For variable fonts with variable font weight, you can import a range of
     weights using a string in the format `{start}..{end}`, e.g. `300..700`.
@@ -688,6 +695,10 @@ class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
     This class represents a font family that is sourced from Google Fonts. It
     allows you to specify the font family name, weight range, and style.
 
+    Subclass of
+    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    the generic Google Fonts API font source.
+
     Examples
     --------
 
@@ -696,15 +707,11 @@ class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
     Slab font is sourced from Google Fonts with three specific font weights --
     400, 600, 800 -- and only the normal style.
 
-    ```yaml
-    typography:
+    ```yaml typography:
       fonts:
-        - family: Inter
-          source: google
-        - family: Roboto Slab
-          source: google
-          weight: [400, 600, 800]
-          style: normal
+        - family: Inter source: google
+        - family: Roboto Slab source: google weight: [400, 600, 800] style:
+          normal
     ```
     """
 
@@ -719,6 +726,10 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 
     This class represents a font family that is sourced from Bunny Fonts. It
     allows you to specify the font family name, weight range, and style.
+
+    Subclass of
+    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    the generic Google Fonts API font source.
 
     Examples
     --------
