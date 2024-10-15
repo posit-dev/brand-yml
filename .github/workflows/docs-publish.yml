@@ -7,7 +7,7 @@ name: Render and Publish
 
 
 jobs:
-  build-deploy:
+  docs-publish:
     runs-on: ubuntu-latest
     
     steps:
