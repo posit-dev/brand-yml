@@ -16,23 +16,22 @@ test = [
     "pytest>=8",
     "syrupy>=4",
 ]
-doc = [
+docs = [
     "griffe>=1",
     "quartodoc>=0.7",
-]
-
-[tool.uv]
-dev-dependencies = [
-    # Actual dev deps
-    "coverage>=7",
-    "jsonschema>=4",
-    "ruff>=0.6.5",
-    "tox-uv>=1",
-    # Dev work with Quarto + Positron
+    # Quarto requires...
     "ipykernel",
     "nbclient",
     "nbformat",
     "pyyaml",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "coverage>=7",
+    "jsonschema>=4",
+    "ruff>=0.6.5",
+    "tox-uv>=1",
 ]
 
 [build-system]
