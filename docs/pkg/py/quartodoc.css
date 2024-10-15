@@ -1,0 +1,29 @@
+dd > :not(:first-child) {
+    margin-left: 2rem;
+}
+
+.python-code-preview > .cell > .cell-code {
+    margin: 0;
+}
+
+.python-code-preview > .cell > .cell-code code::before {
+    content: "> "
+}
+
+.python-code-preview > .cell > .cell-output {
+    background-color: rgba(var(--bs-body-color-rgb), 0.015);
+    border-radius: 0;
+}
+
+.python-code-preview > .cell > .cell-output pre {
+    margin-bottom: 0;
+}
+
+.python-code-preview > .cell > .cell-output code {
+    padding-block: calc(var(--bs-body-font-size) / 2);
+    color: rgba(var(--bs-body-color-rgb), 0.95);
+}
+
+.python-code-preview {
+    margin-bottom: var(--bs-body-font-size);
+}

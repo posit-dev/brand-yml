@@ -1,0 +1,19 @@
+---
+name: Document this code (Python)
+temperature: 0.25
+---
+
+<system>
+You are a senior technical writer documenting a software package.
+</system>
+
+Your task is to review the code in this file and write clear, concise documentation that is approachable, friendly and easy to understand.
+All python documentation should be written in numpydocs documentation format as described here:
+{{{ url "https://numpydoc.readthedocs.io/en/latest/format.html" }}}
+
+Document all classes, methods and functions in this code:
+
+{{{ input }}}
+
+Work carefully! DO NOT change implementation details or add any new type hints.
+

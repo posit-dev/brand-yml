@@ -1,0 +1,251 @@
+# Color Palette and Theme
+
+
+
+# BrandColor { #brand_yaml.BrandColor }
+
+```python
+BrandColor()
+```
+
+Brand Colors
+
+The brand's custom color palette and theme. `color.palette` is a list of
+named colors used by the brand and `color.theme` maps brand colors to
+common theme elements (described in [Attributes](#attributes)).
+
+## Examples {.doc-section .doc-section-examples}
+
+::: {.panel-tabset}
+
+
+###### Minimal
+
+In this example, we've picked colors from Posit's brand guidelines and
+mapped them directory to theme colors. This is a minimal approach to
+applying brand colors to theme colors.
+```{.yaml filename="_brand.yml"}
+color:
+  foreground: "#151515"
+  background: "#FFFFFF"
+  primary: "#447099"
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: "#72994E"
+  info: "#419599"
+  warning: "#EE6331"
+  danger: "#9A4665"
+  light: "#FFFFFF"
+  dark: "#404041"
+```
+
+
+
+###### With palette
+
+This example first defines a color palette from Posit's brand guidelines
+and then maps them to theme colors by reference. With this approach,
+not all brand colors need to be used in the theme, but are still
+available via the `brand.color.palette` dictionary. This approach also
+reduces duplication in `brand.color`.
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    white: "#FFFFFF"
+    black: "#151515"
+    blue: "#447099"
+    orange: "#EE6331"
+    green: "#72994E"
+    teal: "#419599"
+    burgundy: "#9A4665"
+
+  foreground: black
+  background: white
+  primary: blue
+  secondary: "#707073"
+  tertiary: "#C2C2C4"
+  success: green
+  info: teal
+  warning: orange
+  danger: burgundy
+  light: white
+  dark: "#404041"
+```
+
+:::
+
+
+
+## Referencing colors in the brand's color palette
+
+Once defined in `color.palette`, you can re-use color definitions in any of
+the color fields. For example:
+
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    purple: "#6339E0"
+  primary: purple
+```
+
+Once imported via `brand_yaml.Brand.from_yaml()`, you can access the named
+color palette via `brand.color.palette["purple"]` and the `primary` field
+will be ready for use.
+
+```{python}
+#| echo: false
+from brand_yaml import Brand
+brand = Brand.from_yaml_str('''
+color:
+  palette:
+    purple: "#6339E0"
+  primary: purple
+''')
+```
+
+::: python-code-preview
+```{python}
+brand.color.palette["purple"]
+```
+```{python}
+brand.color.primary
+```
+:::
+
+This same principle of reuse applies to the `color` and `background-color`
+fields of `brand_yaml.typography.BrandTypography`, where you can refer to
+any of the colors in `color.palette` or the theme colors directly.
+
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    purple: "#6339E0"
+  primary: purple
+typography:
+  headings:
+    color: primary
+  link:
+    color: purple
+```
+
+With this Brand YAML, both headings and links will ultimately be styled
+with the brand's `purple` color.
+
+```{python}
+#| echo: false
+from brand_yaml import Brand
+brand = Brand.from_yaml_str('''
+color:
+  palette:
+    purple: "#6339E0"
+  primary: purple
+typography:
+  headings:
+    color: primary
+  link:
+    color: purple
+''')
+```
+
+::: python-code-preview
+```{python}
+brand.typography.headings.color
+```
+```{python}
+brand.typography.link.color
+```
+:::
+
+## Attributes {.doc-section .doc-section-attributes}
+
+palette
+
+:   [dict](`dict`)\[[str](`str`), [str](`str`)\] \| None
+
+    A dictionary of brand colors where each key is a color name and the
+    value is a color string (hex colors are recommended but no specific
+    format is required at this time). These values can be referred to, by
+    name, in the other theme properties
+
+foreground
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The foreground color, used for text.
+
+background
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The background color, used for the page or main background.
+
+primary
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The primary accent color, i.e. the main theme color. Typically used for
+    hyperlinks, active states, primary action buttons, etc.
+
+secondary
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The secondary accent color. Typically used for lighter text or disabled
+    states.
+
+tertiary
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The tertiary accent color. Typically an even lighter color, used for
+    hover states, accents, and wells.
+
+success
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The color used for positive or successful actions and information.
+
+info
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The color used for neutral or informational actions and information.
+
+warning
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The color used for warning or cautionary actions and information.
+
+danger
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The color used for errors, dangerous actions, or negative information.
+
+light
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    A bright color, used as a high-contrast foreground color on dark
+    elements or low-contrast background color on light elements.
+
+dark
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    A dark color, used as a high-contrast foreground color on light elements
+    or high-contrast background color on light elements.
+
+emphasis
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    A color used to emphasize or highlight text or elements.
+
+link
+
+:   [Optional](`typing.Optional`)\[[str](`str`)\]
+
+    The color used for hyperlinks.

@@ -1,3 +1,15 @@
+"""
+Typography module for brand configuration and management.
+
+This module provides classes and utilities for defining and managing typographic
+choices in brand guidelines.
+
+1. Font definitions (local files, Google Fonts, and Bunny Fonts)
+2. Typography options (family, weight, size, line height, color, etc.)
+3. Specific typography settings for base text, headings, monospace, and links
+4. CSS generation for font includes and typography styles
+"""
+
 from __future__ import annotations
 
 import itertools
@@ -31,8 +43,9 @@ from pydantic import (
     model_validator,
 )
 
+from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
-from .file import FileLocationLocalOrUrl
+from .file import FileLocationLocalOrUrlType
 
 # Types ------------------------------------------------------------------------
 
@@ -266,25 +279,97 @@ class BrandTypographyFontFileWeight(RootModel):
         return validate_font_weight(value, allow_auto=True)
 
 
-FontSourceType = Union[Literal["file"], Literal["google"], Literal["bunny"]]
+FontSourceType = Union[
+    Literal["file"], Literal["google"], Literal["bunny"], Literal["system"]
+]
 
 
 class BrandTypographyFontSource(BaseModel, ABC):
+    """
+    A base class representing a font source.
+
+    This class serves as a template for various font sources, encapsulating
+    common properties and behaviors.
+    """
+
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
     source: FontSourceType = Field(frozen=True)
+    """
+    The source of the font family, one of `"system"`, `"file"`, `"google"`, or
+    `"bunny"`.
+    """
+
     family: str = Field(frozen=True)
+    """
+    The font family name.
+
+    Use this name in the `family` field of the other typographic properties,
+    such as `base`, `headings`, `monospace`, etc.
+    """
 
     @abstractmethod
-    def css_include(self) -> str:
+    def to_css(self) -> str:
+        """Create the CSS declarations needed to use the font family."""
         pass
 
 
+class BrandTypographyFontSystem(BrandTypographyFontSource):
+    """
+    A system font family.
+
+    This class is used to signal that a font should be retrieved from the
+    system. This assumes that the font is installed on the system and will be
+    resolved automatically; [`brand_yaml.Brand`](`brand_yaml.Brand`) won't do
+    anything to embed the font or include it in any CSS.
+    """
+
+    source: Literal["system"] = Field("system", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
+
+    def to_css(self) -> str:
+        return ""
+
+
 class BrandTypographyFontFiles(BrandTypographyFontSource):
+    """
+    A font family defined by a collection of font files.
+
+    This class represents a font family that is specified using individual font
+    files, either from local files or files hosted online. A font family is
+    generally composed of multiple font files for different weights and styles
+    within the same family. Currently, TrueType (`.ttf`), OpenType (`.otf`), and
+    WOFF (`.woff` or `.woff2`) formats are supported.
+
+    Examples
+    --------
+
+    ```yaml
+    typography:
+      fonts:
+        # Local font files
+        - family: Open Sans
+          files:
+            - path: fonts/open-sans/OpenSans-Bold.ttf
+              style: bold
+            - path: fonts/open-sans/OpenSans-Italic.ttf
+              style: italic
+
+        # Online files
+        - family: Closed Sans
+          files:
+            - path: https://example.com/Closed-Sans-Bold.woff2
+              weight: bold
+            - path: https://example.com/Closed-Sans-Italic.woff2
+              style: italic
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["file"] = Field("file", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     files: list[BrandTypographyFontFilesPath] = Field(default_factory=list)
 
-    def css_include(self) -> str:
+    def to_css(self) -> str:
         if len(self.files) == 0:
             return ""
 
@@ -304,7 +389,7 @@ class BrandTypographyFontFiles(BrandTypographyFontSource):
 class BrandTypographyFontFilesPath(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    path: FileLocationLocalOrUrl
+    path: FileLocationLocalOrUrlType
     weight: BrandTypographyFontFileWeight = Field(
         default_factory=lambda: BrandTypographyFontFileWeight(root="auto"),
         validate_default=True,
@@ -325,8 +410,8 @@ class BrandTypographyFontFilesPath(BaseModel):
     @field_validator("path", mode="after")
     @classmethod
     def validate_path(
-        cls, value: FileLocationLocalOrUrl
-    ) -> FileLocationLocalOrUrl:
+        cls, value: FileLocationLocalOrUrlType
+    ) -> FileLocationLocalOrUrlType:
         ext = Path(str(value.root)).suffix
         if not ext:  # cover: for type checker
             raise BrandUnsupportedFontFileFormat(value.root)
@@ -355,6 +440,33 @@ class BrandTypographyFontFilesPath(BaseModel):
 
 
 class BrandTypographyGoogleFontsWeightRange(RootModel):
+    """
+    Represents a range of font weights for Google Fonts.
+
+    This class is used to specify a continuous range of font weights to be
+    imported from Google Fonts for variable fonts that support a range of font
+    weights. The weight range is represented as a list of two integers, where
+    the first integer is the start of the range and the second is the end.
+
+    Examples
+    --------
+    - `300..700`: Represents a range from light (300) to bold (700)
+    - `100..900`: Represents the full range of weights from thin to black
+
+    Note
+    ----
+
+    When serialized, this class will convert the range to a string format
+    (e.g., "300..700") for compatibility with the Google Fonts API.
+
+    Attributes
+    ----------
+
+    root
+        A list containing two integers representing the start and end of the
+        weight range.
+    """
+
     model_config = ConfigDict(json_schema_mode_override="serialization")
 
     root: list[BrandTypographyFontWeightInt]
@@ -448,7 +560,19 @@ def google_font_weight_discriminator(value: Any) -> str:
 
 
 class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
+    """
+    A font source that utilizes the Google Fonts (or a compatible) API.
+
+    This class provides a way to fetch and manage typography assets from
+    Google Fonts, allowing for easy integration with brand-specific typographic
+    styles.
+    """
+
+    model_config = ConfigDict(use_attribute_docstrings=True)
+
     family: str
+    # Documented in parent class
+
     weight: Annotated[
         Union[
             Annotated[BrandTypographyGoogleFontsWeightRange, Tag("range")],
@@ -457,18 +581,61 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
         Discriminator(google_font_weight_discriminator),
         PlainSerializer(
             lambda x: x.to_serialized(),
-            return_type=Union[str, int, list[int | str]],
+            return_type=Union[str, int, list[Union[int, str]]],
         ),
     ] = Field(default=list(font_weight_round_int), validate_default=True)
-    style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
-    display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
-    version: PositiveInt = 2
-    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
+    """
+    The desired front weights to be imported for the font family.
 
-    def css_include(self) -> str:
+    These are the font weights that will be imported from the Google Fonts-
+    compatible API. This can be an array of font weights as numbers, e.g.
+    `[300, 400, 700]`, or as named weights, e.g. `["light", "normal", "bold"]`.
+    For variable fonts with variable font weight, you can import a range of
+    weights using a string in the format `{start}..{end}`, e.g. `300..700`.
+    """
+
+    style: SingleOrList[BrandTypographyFontStyleType] = Field(
+        ["normal", "italic"]
+    )
+    """
+    The font style(s) (italic or normal) to be imported for the font family.
+
+    This attribute can be set to a single style or a list of styles. Valid
+    styles are "normal" and "italic". Defaults to `None`, which indicates that
+    both normal and italic font styles should be imported.
+    """
+
+    display: Literal["auto", "block", "swap", "fallback", "optional"] = "auto"
+    """
+    Specifies how a font face is displayed based on whether and when it is
+    downloaded and ready to use.
+
+    This attribute is passed directly to the Google Fonts API and affects how
+    the browser handles the font loading process.
+
+    Options:
+    - "auto": The browser default behavior, which is usually equivalent to "block".
+    - "block": Gives the font face a short block period and infinite swap period.
+    - "swap": Gives the font face an extremely small block period and infinite swap period.
+    - "fallback": Gives the font face an extremely small block period and short swap period.
+    - "optional": Gives the font face an extremely small block period and no swap period.
+
+    For more details on these options, refer to the CSS `font-display` property
+    documentation and [the Google Fonts API
+    documentation](https://developers.google.com/fonts/docs/getting_started#use_font-display).
+    """
+
+    version: PositiveInt = 2
+    """Google Fonts API version. (Primarily for internal use.)"""
+
+    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
+    """URL of the Google Fonts-compatible API. (Primarily for internal use.)"""
+
+    def to_css(self) -> str:
         return f"@import url('{self.to_import_url()}');"
 
     def to_import_url(self) -> str:
+        """Returns the URL for the font family to be used in a CSS `@import` statement."""
         if self.version == 1:
             return self._import_url_v1()
         return self._import_url_v2()
@@ -531,12 +698,65 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
 
 
 class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
+    """
+    A font family provided by Google Fonts.
+
+
+    This class represents a font family that is sourced from Google Fonts. It
+    allows you to specify the font family name, weight range, and style.
+
+    Subclass of
+    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    the generic Google Fonts API font source.
+
+    Examples
+    --------
+
+    In this example, the Inter font is imported with all font weights and both
+    normal and italic styles (these are the defaults). Additionally, the Roboto
+    Slab font is sourced from Google Fonts with three specific font weights --
+    400, 600, 800 -- and only the normal style.
+
+    ```yaml typography:
+      fonts:
+        - family: Inter source: google
+        - family: Roboto Slab source: google weight: [400, 600, 800] style:
+          normal
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["google"] = Field("google", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
 
 
 class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
+    """
+    A font family provided by Bunny Fonts.
+
+    This class represents a font family that is sourced from Bunny Fonts. It
+    allows you to specify the font family name, weight range, and style.
+
+    Subclass of
+    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    the generic Google Fonts API font source.
+
+    Examples
+    --------
+
+    In this example, the Fira Code font is sourced from Bunny Fonts. By default
+    all available weights and styles will be used.
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+          # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+          # style: [normal, italic]
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
@@ -547,41 +767,82 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 # Typography Options -----------------------------------------------------------
 
 
+class BrandTypographyOptionsFamily(BaseDocAttributeModel):
+    family: str | None = None
+    """
+    The font family to be used for this typographic element. Note that the font
+    family name should match a resource in `typography.fonts`.
+    """
+
+
+class BrandTypographyOptionsSize(BaseDocAttributeModel):
+    size: str | None = None
+    """
+    The font size to be used for this typographic element. Should be a
+    [CSS length unit](https://developer.mozilla.org/en-US/docs/Web/CSS/length).
+    """
+
+
+class BrandTypographyOptionsColor(BaseDocAttributeModel):
+    color: str | None = None
+    """
+    The color to be used for this typographic element. Can be any CSS-compatible
+    color definition, but in general hexidecimal (`"#abc123") or `rgb()`
+    (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    """
+
+
 class BrandTypographyOptionsBackgroundColor(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(
+        populate_by_name=True,
+        use_attribute_docstrings=True,
+    )
 
     background_color: str | None = Field(None, alias="background-color")
+    """
+    The background color to be used for this typographic element. Can be any
+    CSS-compatible color definition, but in general hexidecimal (`"#abc123") or
+    `rgb()` (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    """
 
 
-class BrandTypographyOptionsColor(BaseModel):
-    color: str | None = None
-
-
-class BrandTypographyOptionsFamily(BaseModel):
-    family: str | None = None
-
-
-class BrandTypographyOptionsLineHeight(BaseModel):
-    model_config = ConfigDict(populate_by_name=True)
-
-    line_height: float | None = Field(None, alias="line-height")
-
-
-class BrandTypographyOptionsSize(BaseModel):
-    size: str | None = None
-
-
-class BrandTypographyOptionsStyle(BaseModel):
+class BrandTypographyOptionsStyle(BaseDocAttributeModel):
     style: SingleOrList[BrandTypographyFontStyleType] | None = None
+    """
+    The font style for this typographic element, i.e. whether the font should be
+    styled in a `"normal"` or `"italic"` style.
+    """
 
 
-class BrandTypographyOptionsWeight(BaseModel):
+class BrandTypographyOptionsWeight(BaseDocAttributeModel):
     weight: BrandTypographyFontWeightSimpleType | None = None
+    """
+    The font weight (or boldness) of this typographic element. Any CSS-
+    compatible font weight is allowed. The value could be a string such as
+    `"thin"`, `"normal"`, `"bold"`, `"extra-bold"` or an integer between 1 and
+    999. Font weights are most often integer values divisible by 100, e.g.
+    100 (thin), 400 (normal), 700 (bold), or 800 (extra bold).
+    """
 
     @field_validator("weight", mode="before")
     @classmethod
-    def validate_weight(cls, value: Any) -> BrandTypographyFontWeightSimpleType:
+    def _validate_weight(
+        cls, value: Any
+    ) -> BrandTypographyFontWeightSimpleType:
         return validate_font_weight(value, allow_auto=False)
+
+
+class BrandTypographyOptionsLineHeight(BaseDocAttributeModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    line_height: float | None = Field(None, alias="line-height")
+    """
+    The line height of this typographic element. Line height refers to the
+    vertical space between lines of text, which significantly impacts
+    readability, aesthetics, and overall design. It often expressed as a
+    multiple of the font size (e.g., 1.5 times the font size) or in fixed units
+    (such as pixels or points).
+    """
 
 
 class BrandTypographyBase(
@@ -592,6 +853,25 @@ class BrandTypographyBase(
     BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
+    """
+    Typographic settings for base (or body) text.
+
+    Attributes
+    ----------
+    family
+        The font family to be used. Note that the font family name should match
+        a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the text.
+    size
+        The font size of the text. Should be a CSS length unit (e.g., 14px).
+    line_height
+        The line height of the text. Line height refers to the vertical space
+        between lines of text.
+    color
+        The color of the text. Can be any CSS-compatible color definition.
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -603,6 +883,39 @@ class BrandTypographyHeadings(
     BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
 ):
+    """
+    Typographic settings for headings and titles.
+
+    Attributes
+    ----------
+    family
+        The font family used for headings. Note that this should match a resource
+        in `typography.fonts`.
+    weight
+        The font weight (or boldness) of the text.
+    style
+        The font style for the heading, i.e., whether it should be styled in a
+        `"normal"` or `"italic"` style.
+    line_height
+        The line height of the heading. Line height refers to the vertical space
+        between lines of text.
+    color
+        The color of the text.
+
+    Examples
+    --------
+    This example sets up typography settings for headings using the Inter font
+    at a weight of 600 and with a line height that is 1.2 times the font size.
+
+    ```yml
+    typography:
+      headings:
+        family: Inter
+        weight: 600
+        line_height: 1.2
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -612,6 +925,71 @@ class BrandTypographyMonospace(
     BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
 ):
+    """
+    Typographic settings for monospace text.
+
+    This class defines general typography options for monospace text, typically
+    used for code blocks and other programming-related content. These choices
+    can be further refined for inline and block monospace text using
+    [`brand_yaml.typography.BrandTypographyMonospaceInline`](`brand_yaml.typography.BrandTypographyMonospaceInline`)
+    and
+    [`brand_yaml.typography.BrandTypographyMonospaceBlock`](`brand_yaml.typography.BrandTypographyMonospaceBlock`)
+    respectively.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for monospace text. Note that the font family
+        name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the monospace text. Can be a numeric value
+        between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+
+    Examples
+    --------
+    This example sets up typography settings for monospace text using the
+    Fira Code font at a slightly smaller size than the base text:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+    ```
+
+    You can also specify additional properties like weight:
+
+    ```yaml
+    typography:
+      monospace:
+        family: Fira Code
+        size: 0.9em
+        weight: 400
+    ```
+
+    For more complex setups, you can define different styles for inline and
+    block monospace text:
+
+    ```yaml
+    typography:
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-inline:
+        color: "#7d12ba" # purple
+        background-color: "#f8f9fa" # light gray
+      monospace-block:
+        color: foreground
+        background-color: background
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -620,6 +998,70 @@ class BrandTypographyMonospaceInline(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for inline monospace text.
+
+    This class defines typography options for inline monospace text, typically
+    used for code snippets or technical terms within regular text. It inherits
+    properties from
+    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    with additional options for foreground and background colors.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for inline monospace text. Note that the font
+        family name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the inline monospace text. Can be a
+        numeric value between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the inline monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+    color
+        The color of the inline monospace text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the inline monospace text. Can be any
+        CSS-compatible color definition or a reference to a color defined in the
+        brand's color palette.
+
+    Examples
+    --------
+    This example sets up typography settings for inline monospace text using the
+    Fira Code font at a slightly smaller size than the base text, with custom
+    colors:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-inline:
+        color: "#7d12ba"  # purple
+        background-color: "#f8f9fa"  # light gray
+    ```
+
+    You can also use color names defined in your brand's color palette:
+
+    ```yaml
+    color:
+      palette:
+        red-light: "#fff1f0"
+      primary: "#FF6F61"
+      foreground: "#1b1818"
+      background: "#f7f4f4"
+    typography:
+      monospace-inline:
+        color: red
+        background-color: red-light
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -629,6 +1071,59 @@ class BrandTypographyMonospaceBlock(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for block monospace text.
+
+    This class defines typography options for block monospace text, typically
+    used for code blocks or other larger sections of monospaced content. It
+    inherits properties from
+    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    and adds options for line height, foreground color, and background color.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for block monospace text. Note that the font
+        family name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the block monospace text. Can be a
+        numeric value between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the block monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+    line_height
+        The line height of the block monospace text. Line height refers to the
+        vertical space between lines of text.
+    color
+        The color of the block monospace text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the block monospace text. Can be any
+        CSS-compatible color definition or a reference to a color defined in the
+        brand's color palette.
+
+    Examples
+    --------
+    This example sets up typography settings for block monospace text using the
+    Fira Code font at a slightly smaller size than the base text, with custom
+    colors:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-block:
+        color: foreground
+        background-color: background
+        line-height: 1.4
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -638,6 +1133,56 @@ class BrandTypographyLink(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for hyperlinks.
+
+    This class defines typography options for hyperlinks, allowing customization
+    of font weight, colors, and text decoration.
+
+    Attributes
+    ----------
+    weight
+        The font weight (boldness) of the hyperlink text. Can be a numeric value
+        between 100 and 900, or a string like "normal" or "bold".
+    color
+        The color of the hyperlink text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the hyperlink text. Can be any CSS-compatible
+        color definition or a reference to a color defined in the brand's color
+        palette.
+    decoration
+        The text decoration for the hyperlink. Common values include
+        "underline", "none", or "underline".
+
+    Examples
+    --------
+    This example sets up typography settings for hyperlinks with a custom color
+    and text decoration:
+
+    ```yaml
+    typography:
+      link:
+        weight: 600
+        color: "#FF6F61"
+        decoration: underline
+    ```
+
+    You can also use color names defined in your brand's color palette:
+
+    ```yaml
+    color:
+      palette:
+        red: "#FF6F61"
+    typography:
+      link:
+        weight: 600
+        color: red
+        decoration: underline
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     decoration: str | None = None
@@ -645,20 +1190,135 @@ class BrandTypographyLink(
 
 # Brand Typography -------------------------------------------------------------
 
+BrandTypographyFontFamily = Annotated[
+    Union[
+        BrandTypographyFontSystem,
+        BrandTypographyFontFiles,
+        BrandTypographyFontGoogle,
+        BrandTypographyFontBunny,
+    ],
+    Discriminator("source"),
+]
+"""
+A font family resource declaration.
 
+A font family can be one of three different types of resources:
+
+1. A font provided by [Google Fonts](https://fonts.google.com) --
+   [`brand_yaml.typography.BrandTypographyFontGoogle`](`brand_yaml.typography.BrandTypographyFontGoogle`)
+1. A font provided by [Bunny Fonts](https://fonts.bunny.net/) --
+   [`brand_yaml.typography.BrandTypographyFontBunny`](`brand_yaml.typography.BrandTypographyFontBunny`)
+1. A collection of font files, stored locally or online --
+   [`brand_yaml.typography.BrandTypographyFontFiles`](`brand_yaml.typography.BrandTypographyFontFiles`)
+"""
+
+
+@add_example_yaml(
+    {
+        "path": "brand-typography-minimal.yml",
+        "name": "Minimal",
+        "exclude": ["meta"],
+        "desc": """
+        This minimal example chooses only the font family for the base text,
+        headings and monospace. These fonts will be sourced, by default, from
+        [Google Fonts](https://fonts.google.com).
+        """,
+    },
+    {
+        "path": "brand-typography-minimal-system.yml",
+        "name": "Minimal with System Font",
+        "exclude": ["meta"],
+        "desc": """
+        By default, fonts are sourced from Google Fonts, but you can also
+        provide font sources in `fonts`. Here we're using a system font for
+        "Open Sans" and Google Fonts for the others.
+        """,
+    },
+    {
+        "path": "brand-typography-simple.yml",
+        "name": "Simple",
+        "exclude": ["meta"],
+        "desc": """
+        In addition to setting the font family for key elements, you can choose
+        other typographic properties. This example sets the line height and font
+        size for base text, uses the primary accent color for headings and
+        reduces the font size for monospace code, in addition to choosing the
+        font family for each.
+        """,
+    },
+    {
+        "path": "brand-typography-fonts.yml",
+        "name": "With Fonts",
+        "exclude": ["meta"],
+        "desc": """
+        Font files may be sourced in a number of different ways.
+
+        1. Local or hosted (online) files
+        2. From [Google Fonts](https://fonts.google.com)
+        3. Or from [Bunny Fonts](https://fonts.bunny.net/) (a GDPR-compliant)
+           alternative to Google Fonts.
+
+        Each font family should be declared in a list item provided to
+        `typography.fonts`. Local font files can be stored adjacent to the
+        `_brand.yml` file, and each file for a given family needs to be declared
+        in the `files` key. Typically these font files cover a specific font
+        weight and style.
+        """,
+    },
+    {
+        "path": "brand-typography-color.yml",
+        "name": "With Color",
+        "exclude": ["meta"],
+        "desc": """
+        Colors in the typographic elements---`color` or `background-color`---can
+        use the names of colors in `color.palette` or the theme color names in
+        `color`.
+        """,
+    },
+)
 class BrandTypography(BrandBase):
+    """
+    Represents the typographic choices of a brand.
+
+    This class defines the structure and behavior of typography settings,
+    including fonts, base text, headings, monospace text, and links.
+
+    Examples
+    --------
+
+    Attributes
+    ----------
+    fonts
+        A list of font family definitions. Each definition in the list describes
+        a font family that is available to the brand. Fonts may be stored in
+        files (either adjacent to `_brand.yml` or hosted online) or may be
+        provided by [Google Fonts](https://fonts.google.com/) or [Font
+        Bunny](https://fonts.bunny.net/) (a GDPR-compliant Google Fonts
+        alternative).
+
+    base
+        The type used as the default text, primarily in the document body.
+
+    headings
+        The type used for headings. Note that these settings cover all heading
+        levels (`h1`, `h2`, etc.).
+
+    monospace
+        The type used for code blocks and other monospaced text.
+
+    monospace_inline
+        The type used for inline code; inherits properties from `monospace`.
+
+    monospace_block
+        The type use for code blocks; inherits properties from `monospace`.
+
+    link
+        Type settings used for hyperlinks.
+    """
+
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
 
-    fonts: list[
-        Annotated[
-            Union[
-                BrandTypographyFontFiles,
-                BrandTypographyFontGoogle,
-                BrandTypographyFontBunny,
-            ],
-            Discriminator("source"),
-        ]
-    ] = Field(default_factory=list)
+    fonts: list[BrandTypographyFontFamily] = Field(default_factory=list)
     base: BrandTypographyBase | None = None
     headings: BrandTypographyHeadings | None = None
     monospace: BrandTypographyMonospace | None = None
@@ -672,12 +1332,18 @@ class BrandTypography(BrandBase):
 
     @model_validator(mode="before")
     @classmethod
-    def simple_google_fonts(cls, data: Any):
+    def _default_fonts_provider(cls, data: Any):
+        """
+        Use Google Fonts as the default font provider.
+
+        This method processes the input data to automatically add Google Fonts
+        entries for font families specified in typography settings but not
+        explicitly defined in the fonts list.
+        """
         if not isinstance(data, dict):  # cover: for type checker
             return data
 
         defined_families = set()
-        file_families = set()
 
         if (
             "fonts" in data
@@ -686,8 +1352,6 @@ class BrandTypography(BrandBase):
         ):
             for font in data["fonts"]:
                 defined_families.add(font["family"])
-                if font["source"] == "file":
-                    file_families.add(font["family"])
         else:
             data["fonts"] = []
 
@@ -724,12 +1388,13 @@ class BrandTypography(BrandBase):
         return data
 
     @model_validator(mode="after")
-    def forward_monospace_values(self):
+    def _forward_monospace_values(self):
         """
         Forward values from `monospace` to inline and block variants.
 
-        `monospace-inline` and `monospace-block` both inherit `family`, `style`,
-        `weight` and `size` from `monospace`.
+        This method ensures that `monospace-inline` and `monospace-block`
+        inherit `family`, `style`, `weight`, and `size` from `monospace` if not
+        explicitly set.
         """
         if self.monospace is None:
             return self
@@ -764,11 +1429,22 @@ class BrandTypography(BrandBase):
         return self
 
     def css_include_fonts(self) -> str:
+        """
+        Generates CSS include statements for the defined fonts.
+
+        This method creates CSS `@import` or `@font-face` rules for all fonts
+        defined in the typography configuration.
+
+        Returns
+        -------
+        :
+            A string containing CSS include statements for all defined fonts.
+        """
         # TODO: Download or move files into a project-relative location
 
         if len(self.fonts) == 0:
             return ""
 
-        includes = [font.css_include() for font in self.fonts]
+        includes = [font.to_css() for font in self.fonts]
 
         return "\n".join([i for i in includes if i])

@@ -20,10 +20,26 @@ T = TypeVar("T")
 
 
 class BrandLightDark(BaseModel, Generic[T]):
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    """
+    A Light/Dark Variant
+
+    Holds variants for light and dark settings. Generally speaking **light**
+    settings have white or light backgrounds and dark foreground colors
+    (black text on a white page) and **dark** settings use black or dark
+    background with light foreground colors (white text on a black page).
+    """
+
+    model_config = ConfigDict(
+        extra="forbid",
+        str_strip_whitespace=True,
+        use_attribute_docstrings=True,
+    )
 
     light: T | None = None
+    """Value in light mode."""
+
     dark: T | None = None
+    """Value in dark mode."""
 
 
 def is_dict_or_basemodel(value: Any) -> TypeGuard[Union[dict, BaseModel]]:

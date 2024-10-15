@@ -5,30 +5,34 @@ description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "ruamel-yaml>=0.18.6",
-    "pydantic>=2.8.2",
+    "ruamel-yaml>=0.18.0",
+    "pydantic>=2",
     "eval-type-backport>=0.2.0",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pyright>=1.1.379",
-    "pytest>=8.3.2",
-    "syrupy>=4.7.1",
+    "pyright>=1.1.251",
+    "pytest>=8",
+    "syrupy>=4",
+]
+doc = [
+    "griffe>=1",
+    "quartodoc>=0.7",
 ]
 
 [tool.uv]
 dev-dependencies = [
     # Actual dev deps
-    "coverage>=7.6.1",
-    "jsonschema>=4.23.0",
+    "coverage>=7",
+    "jsonschema>=4",
     "ruff>=0.6.5",
-    "tox-uv>=1.11.4",
+    "tox-uv>=1",
     # Dev work with Quarto + Positron
-    "ipykernel>=6.29.5",
-    "nbclient>=0.10.0",
-    "nbformat>=5.10.4",
-    "pyyaml>=6.0.2",
+    "ipykernel",
+    "nbclient",
+    "nbformat",
+    "pyyaml",
 ]
 
 [build-system]
@@ -112,6 +116,7 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
+    "_dev",
 ]
 
 line-length = 80

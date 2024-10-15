@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": {
-      "full": "examples/brand-typography-simple.yml"
+      "full": "examples/brand-typography-system.yml"
     }
   },
   "typography": {
@@ -11,7 +11,7 @@
     "fonts": [
       {
         "family": "Open Sans",
-        "source": "google"
+        "source": "system"
       },
       {
         "family": "Roboto Slab",

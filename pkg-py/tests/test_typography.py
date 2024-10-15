@@ -610,8 +610,29 @@ def test_brand_typography_ex_minimal(snapshot_json):
 
     assert isinstance(brand.typography.fonts, list)
     assert len(brand.typography.fonts) == 3
-    assert brand.typography.fonts[0].source == "file"
-    assert brand.typography.fonts[0].files == []
+    assert isinstance(brand.typography.fonts[0], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[0].family == "Open Sans"
+
+    assert isinstance(brand.typography.fonts[1], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[1].family == "Roboto Slab"
+
+    assert isinstance(brand.typography.fonts[2], BrandTypographyFontGoogle)
+    assert brand.typography.fonts[2].family == "Fira Code"
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_ex_minimal_system(snapshot_json):
+    brand = read_brand_yaml(
+        path_examples("brand-typography-minimal-system.yml")
+    )
+
+    assert isinstance(brand.typography, BrandTypography)
+
+    assert isinstance(brand.typography.fonts, list)
+    assert len(brand.typography.fonts) == 3
+    assert brand.typography.fonts[0].source == "system"
+    assert brand.typography.fonts[0].family == "Open Sans"
 
     assert isinstance(brand.typography.fonts[1], BrandTypographyFontGoogle)
     assert brand.typography.fonts[1].family == "Roboto Slab"

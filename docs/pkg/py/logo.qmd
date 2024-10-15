@@ -1,0 +1,249 @@
+# Logos and Images
+
+
+
+# BrandLogo { #brand_yaml.BrandLogo }
+
+```python
+BrandLogo()
+```
+
+Brand Logos
+
+`logo` stores a single brand logo or a set of logos at three different size
+points and possibly in different color schemes. Store all logo or image
+assets in `images` with meaningful names. Logos can be specified at three
+different sizes -- `small`, `medium`, and `large` -- and each can be either
+a single logo file or a light/dark variant (`brand_yaml.BrandLightDark`).
+
+## Attributes {.doc-section .doc-section-attributes}
+
+images
+
+:   [dict](`dict`)\[[str](`str`), [FileLocationLocalOrUrlType](`brand_yaml.file.FileLocationLocalOrUrlType`)\] \| None
+
+    A dictionary containing any number of logos or brand images. You can
+    refer to these images by their key name in `small`, `medium` or `large`.
+    Local file paths should be relative to the `_brand.yml` source file.
+    Remote files are also permitted; please use a full URL to the image.
+
+    ```yaml
+    logo:
+      images:
+        white: pandas_white.svg
+        white_online: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg"
+      small: white
+    ```
+
+small
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A small logo, typically used as an favicon or mobile app icon.
+
+medium
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A medium-sized logo, typically used in the header of a website.
+
+large
+
+:   [BrandLogoFileType](`brand_yaml.logo.BrandLogoFileType`) \| None
+
+    A large logo, typically used in a larger format such as a title slide
+    or in marketing materials.
+
+## Examples {.doc-section .doc-section-examples}
+
+::: {.panel-tabset}
+
+
+###### Single Logo
+
+```{.yaml filename="_brand.yml"}
+logo: posit.png
+```
+
+
+
+###### Minimal
+
+```{.yaml filename="_brand.yml"}
+logo:
+  small: logos/pandas/pandas_mark.svg
+  medium: logos/pandas/pandas_secondary.svg
+  large: logos/pandas/pandas.svg
+```
+
+
+
+###### Light/Dark Variants
+
+```{.yaml filename="_brand.yml"}
+logo:
+  small: logos/pandas/pandas_mark.svg
+  medium:
+    light: logos/pandas/pandas_secondary.svg
+    dark: logos/pandas/pandas_secondary_white.svg
+  large: logos/pandas/pandas.svg
+```
+
+
+
+###### Complete
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    mark: logos/pandas/pandas_mark.svg
+    mark-white: logos/pandas/pandas_mark_white.svg
+    secondary: logos/pandas/pandas_secondary.svg
+    secondary-white: logos/pandas/pandas_secondary_white.svg
+    pandas: logos/pandas/pandas.svg
+    pandas-white: logos/pandas/pandas_white.svg
+  small: mark
+  medium:
+    light: logos/pandas/pandas_secondary.svg
+    dark: secondary-white
+  large: pandas
+```
+
+:::
+
+# BrandLightDark { #brand_yaml.BrandLightDark }
+
+```python
+BrandLightDark()
+```
+
+A Light/Dark Variant
+
+Holds variants for light and dark settings. Generally speaking **light**
+settings have white or light backgrounds and dark foreground colors
+(black text on a white page) and **dark** settings use black or dark
+background with light foreground colors (white text on a black page).
+
+## Attributes
+
+| Name | Description |
+| --- | --- |
+| [dark](#brand_yaml._defs.BrandLightDark.dark) | Value in dark mode. |
+| [light](#brand_yaml._defs.BrandLightDark.light) | Value in light mode. |
+
+
+# FileLocation { #brand_yaml.FileLocation }
+
+```python
+FileLocation()
+```
+
+The base class for a file location, either a local or an online file.
+
+Local files are handled by
+[`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)
+and are always considered relative to the source `_brand.yml` file.
+
+Online files are handled by
+[`brand_yaml.file.FileLocationUrl`](`brand_yaml.file.FileLocationUrl`)
+and are a URL starting with `https://` or `http://`. Absolute paths for
+local or network files are supported via `FileLocationUrl` when using the
+`file://` prefix.
+
+# FileLocationLocal { #brand_yaml.FileLocationLocal }
+
+```python
+FileLocationLocal()
+```
+
+A local file location.
+
+When used in a `brand_yaml.Brand` instance, this class carries both the
+relative path to the file, relative to the source `_brand.yml`, and the
+absolute path of the file on disk.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [absolute](#brand_yaml.FileLocationLocal.absolute) | Absolute path of the file location, relative to the root directory. |
+| [exists](#brand_yaml.FileLocationLocal.exists) | Check that the file exists at its absolute path. |
+| [relative](#brand_yaml.FileLocationLocal.relative) | Relative path of the file location. |
+| [set_root_dir](#brand_yaml.FileLocationLocal.set_root_dir) | Update the root directory of this file location. |
+| [validate_exists](#brand_yaml.FileLocationLocal.validate_exists) | Validate that the file exists at its absolute path. |
+
+### absolute { #brand_yaml.FileLocationLocal.absolute }
+
+```python
+FileLocationLocal.absolute()
+```
+
+Absolute path of the file location, relative to the root directory.
+
+Returns the absolute path to the file, relative to the root directory,
+which is most typically the directory containing the `_brand.yml` file.
+
+### exists { #brand_yaml.FileLocationLocal.exists }
+
+```python
+FileLocationLocal.exists()
+```
+
+Check that the file exists at its absolute path.
+
+### relative { #brand_yaml.FileLocationLocal.relative }
+
+```python
+FileLocationLocal.relative()
+```
+
+Relative path of the file location.
+
+Returns the relative path to the file as it would appear in the source
+`_brand.yml` file.
+
+### set_root_dir { #brand_yaml.FileLocationLocal.set_root_dir }
+
+```python
+FileLocationLocal.set_root_dir(root_dir)
+```
+
+Update the root directory of this file location.
+
+In general, the root directory is the parent directory containing the
+source `brand.yml` file. If you relocate the file, this method can be
+used to update the new local file location.
+
+### validate_exists { #brand_yaml.FileLocationLocal.validate_exists }
+
+```python
+FileLocationLocal.validate_exists()
+```
+
+Validate that the file exists at its absolute path.
+
+#### Raises {.doc-section .doc-section-raises}
+
+| Name   | Type                                     | Description                                                                            |
+|--------|------------------------------------------|----------------------------------------------------------------------------------------|
+|        | [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if the file does not exist at its absolute path location. |
+
+# FileLocationUrl { #brand_yaml.FileLocationUrl }
+
+```python
+FileLocationUrl()
+```
+
+A hosted, online file location, i.e. a URL.
+
+A URL to a single file, typically an online file path starting with
+`http://` or `https://`. This class can also be used for the absolute path
+of local or networked files, which should start with `file://` (otherwise
+local files are handled by
+[`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)).
+
+# file.FileLocationLocalOrUrlType { #brand_yaml.file.FileLocationLocalOrUrlType }
+
+`file.FileLocationLocalOrUrlType`
+
+A type representing a file location that may be a local path or URL.
