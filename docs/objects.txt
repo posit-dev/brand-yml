@@ -60,6 +60,7 @@ brand_yaml.BrandTypography.model_config py:attribute 1 pkg/py/typography.html#br
 brand_yaml.typography.BrandTypography.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.BrandTypography.model_config brand_yaml.BrandTypography.model_config
 brand_yaml.BrandTypography py:class 1 pkg/py/typography.html#brand_yaml.BrandTypography -
 brand_yaml.typography.BrandTypography py:class 1 pkg/py/typography.html#brand_yaml.BrandTypography brand_yaml.BrandTypography
+brand_yaml.typography.BrandTypographyFontFamily py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontFamily -
 brand_yaml.typography.BrandTypographyFontSource.family py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontSource.family -
 brand_yaml.typography.BrandTypographyFontSource.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontSource.model_config -
 brand_yaml.typography.BrandTypographyFontSource.source py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyFontSource.source -
@@ -87,4 +88,12 @@ brand_yaml.typography.BrandTypographyBase.model_config py:attribute 1 pkg/py/typ
 brand_yaml.typography.BrandTypographyBase py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyBase -
 brand_yaml.typography.BrandTypographyHeadings.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyHeadings.model_config -
 brand_yaml.typography.BrandTypographyHeadings py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyHeadings -
+brand_yaml.typography.BrandTypographyMonospace.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospace.model_config -
+brand_yaml.typography.BrandTypographyMonospace py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospace -
+brand_yaml.typography.BrandTypographyMonospaceInline.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospaceInline.model_config -
+brand_yaml.typography.BrandTypographyMonospaceInline py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospaceInline -
+brand_yaml.typography.BrandTypographyMonospaceBlock.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospaceBlock.model_config -
+brand_yaml.typography.BrandTypographyMonospaceBlock py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyMonospaceBlock -
+brand_yaml.typography.BrandTypographyLink.model_config py:attribute 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyLink.model_config -
+brand_yaml.typography.BrandTypographyLink py:class 1 pkg/py/typography.html#brand_yaml.typography.BrandTypographyLink -
 brand_yaml.typography py:module 1 pkg/py/typography.html#brand_yaml.typography -

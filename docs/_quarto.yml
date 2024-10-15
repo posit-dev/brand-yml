@@ -123,6 +123,7 @@ quartodoc:
             # - typography.BrandTypographyFontFamily
             - name: typography
               members:
+                - BrandTypographyFontFamily
                 - BrandTypographyFontSource
                 - BrandTypographyFontFiles
                 - BrandTypographyFontGoogle
@@ -131,6 +132,10 @@ quartodoc:
                 - BrandTypographyGoogleFontsWeightRange
                 - BrandTypographyBase
                 - BrandTypographyHeadings
+                - BrandTypographyMonospace
+                - BrandTypographyMonospaceInline
+                - BrandTypographyMonospaceBlock
+                - BrandTypographyLink
 
 interlinks:
   fast: true

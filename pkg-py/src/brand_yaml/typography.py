@@ -923,6 +923,71 @@ class BrandTypographyMonospace(
     BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
 ):
+    """
+    Typographic settings for monospace text.
+
+    This class defines general typography options for monospace text, typically
+    used for code blocks and other programming-related content. These choices
+    can be further refined for inline and block monospace text using
+    [`brand_yaml.typography.BrandTypographyMonospaceInline`](`brand_yaml.typography.BrandTypographyMonospaceInline`)
+    and
+    [`brand_yaml.typography.BrandTypographyMonospaceBlock`](`brand_yaml.typography.BrandTypographyMonospaceBlock`)
+    respectively.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for monospace text. Note that the font family
+        name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the monospace text. Can be a numeric value
+        between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+
+    Examples
+    --------
+    This example sets up typography settings for monospace text using the
+    Fira Code font at a slightly smaller size than the base text:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+    ```
+
+    You can also specify additional properties like weight:
+
+    ```yaml
+    typography:
+      monospace:
+        family: Fira Code
+        size: 0.9em
+        weight: 400
+    ```
+
+    For more complex setups, you can define different styles for inline and
+    block monospace text:
+
+    ```yaml
+    typography:
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-inline:
+        color: "#7d12ba" # purple
+        background-color: "#f8f9fa" # light gray
+      monospace-block:
+        color: foreground
+        background-color: background
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -931,6 +996,70 @@ class BrandTypographyMonospaceInline(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for inline monospace text.
+
+    This class defines typography options for inline monospace text, typically
+    used for code snippets or technical terms within regular text. It inherits
+    properties from
+    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    with additional options for foreground and background colors.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for inline monospace text. Note that the font
+        family name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the inline monospace text. Can be a
+        numeric value between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the inline monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+    color
+        The color of the inline monospace text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the inline monospace text. Can be any
+        CSS-compatible color definition or a reference to a color defined in the
+        brand's color palette.
+
+    Examples
+    --------
+    This example sets up typography settings for inline monospace text using the
+    Fira Code font at a slightly smaller size than the base text, with custom
+    colors:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-inline:
+        color: "#7d12ba"  # purple
+        background-color: "#f8f9fa"  # light gray
+    ```
+
+    You can also use color names defined in your brand's color palette:
+
+    ```yaml
+    color:
+      palette:
+        red-light: "#fff1f0"
+      primary: "#FF6F61"
+      foreground: "#1b1818"
+      background: "#f7f4f4"
+    typography:
+      monospace-inline:
+        color: red
+        background-color: red-light
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -940,6 +1069,59 @@ class BrandTypographyMonospaceBlock(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for block monospace text.
+
+    This class defines typography options for block monospace text, typically
+    used for code blocks or other larger sections of monospaced content. It
+    inherits properties from
+    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    and adds options for line height, foreground color, and background color.
+
+    Attributes
+    ----------
+    family
+        The font family to be used for block monospace text. Note that the font
+        family name should match a resource in `typography.fonts`.
+    weight
+        The font weight (boldness) of the block monospace text. Can be a
+        numeric value between 100 and 900, or a string like "normal" or "bold".
+    size
+        The font size of the block monospace text. Should be a CSS length unit
+        (e.g., "0.9em", "14px").
+    line_height
+        The line height of the block monospace text. Line height refers to the
+        vertical space between lines of text.
+    color
+        The color of the block monospace text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the block monospace text. Can be any
+        CSS-compatible color definition or a reference to a color defined in the
+        brand's color palette.
+
+    Examples
+    --------
+    This example sets up typography settings for block monospace text using the
+    Fira Code font at a slightly smaller size than the base text, with custom
+    colors:
+
+    ```yaml
+    typography:
+      fonts:
+        - family: Fira Code
+          source: bunny
+      monospace:
+        family: Fira Code
+        size: 0.9em
+      monospace-block:
+        color: foreground
+        background-color: background
+        line-height: 1.4
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -949,6 +1131,56 @@ class BrandTypographyLink(
     BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
 ):
+    """
+    Typographic settings for hyperlinks.
+
+    This class defines typography options for hyperlinks, allowing customization
+    of font weight, colors, and text decoration.
+
+    Attributes
+    ----------
+    weight
+        The font weight (boldness) of the hyperlink text. Can be a numeric value
+        between 100 and 900, or a string like "normal" or "bold".
+    color
+        The color of the hyperlink text. Can be any CSS-compatible color
+        definition or a reference to a color defined in the brand's color
+        palette.
+    background_color
+        The background color of the hyperlink text. Can be any CSS-compatible
+        color definition or a reference to a color defined in the brand's color
+        palette.
+    decoration
+        The text decoration for the hyperlink. Common values include
+        "underline", "none", or "underline".
+
+    Examples
+    --------
+    This example sets up typography settings for hyperlinks with a custom color
+    and text decoration:
+
+    ```yaml
+    typography:
+      link:
+        weight: 600
+        color: "#FF6F61"
+        decoration: underline
+    ```
+
+    You can also use color names defined in your brand's color palette:
+
+    ```yaml
+    color:
+      palette:
+        red: "#FF6F61"
+    typography:
+      link:
+        weight: 600
+        color: red
+        decoration: underline
+    ```
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     decoration: str | None = None
@@ -968,7 +1200,7 @@ BrandTypographyFontFamily = Annotated[
 """
 A font family resource declaration.
 
-A font family can be 3 different types of resources:
+A font family can be one of three different types of resources:
 
 1. A font provided by [Google Fonts](https://fonts.google.com) --
    [`brand_yaml.typography.BrandTypographyFontGoogle`](`brand_yaml.typography.BrandTypographyFontGoogle`)
