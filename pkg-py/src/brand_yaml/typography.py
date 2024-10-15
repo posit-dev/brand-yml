@@ -581,7 +581,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
         Discriminator(google_font_weight_discriminator),
         PlainSerializer(
             lambda x: x.to_serialized(),
-            return_type=Union[str, int, list[int | str]],
+            return_type=Union[str, int, list[Union[int, str]]],
         ),
     ] = Field(default=list(font_weight_round_int), validate_default=True)
     """
