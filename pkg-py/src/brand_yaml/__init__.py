@@ -45,11 +45,11 @@ class Brand(BrandBase):
         validate_assignment=True,
     )
 
-    meta: BrandMeta | None = Field(None)
-    logo: str | BrandLogo | None = Field(None)
-    color: BrandColor | None = Field(None)
-    typography: BrandTypography | None = Field(None)
-    defaults: dict[str, Any] | None = Field(None)
+    meta: BrandMeta | None = None
+    logo: str | BrandLogo | None = None
+    color: BrandColor | None = None
+    typography: BrandTypography | None = None
+    defaults: dict[str, Any] | None = None
     path: Path | None = Field(None, exclude=True, repr=False)
 
     @classmethod
