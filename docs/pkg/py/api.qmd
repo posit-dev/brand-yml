@@ -6,8 +6,8 @@ Read a `_brand.yml` file or create an instance of a Brand.
 
 | | |
 | --- | --- |
-| [Brand](#brand_yaml.Brand) | A brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company's marketing department. `brand_yaml.Brand` organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations. |
-| [read_brand_yaml](#brand_yaml.read_brand_yaml) | Read a brand YAML file |
+| [Brand](#brand_yaml.Brand) | Brand guidelines in a class. |
+| [read_brand_yaml](#brand_yaml.read_brand_yaml) | Read a Brand YAML file. |
 
 ## Brand Components
 

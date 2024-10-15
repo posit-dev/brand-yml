@@ -20,12 +20,14 @@ from pydantic import (
 from ._defs import BrandLightDark, defs_replace_recursively
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
-from .file import FileLocation, FileLocationLocalOrUrl
+from .file import FileLocation, FileLocationLocalOrUrlType
 
 BrandLogoFileType = Annotated[
     Union[
-        Annotated[FileLocationLocalOrUrl, Tag("file")],
-        Annotated[BrandLightDark[FileLocationLocalOrUrl], Tag("light-dark")],
+        Annotated[FileLocationLocalOrUrlType, Tag("file")],
+        Annotated[
+            BrandLightDark[FileLocationLocalOrUrlType], Tag("light-dark")
+        ],
     ],
     Discriminator(
         lambda x: "light-dark"
@@ -85,7 +87,7 @@ class BrandLogo(BrandBase):
 
     model_config = ConfigDict(extra="forbid")
 
-    images: dict[str, FileLocationLocalOrUrl] | None = None
+    images: dict[str, FileLocationLocalOrUrlType] | None = None
     small: BrandLogoFileType | None = None
     medium: BrandLogoFileType | None = None
     large: BrandLogoFileType | None = None

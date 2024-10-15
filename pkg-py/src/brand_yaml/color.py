@@ -106,7 +106,7 @@ class BrandColor(BrandBase):
         color: purple
     ```
 
-    With this brand YAML, both headings and links will ultimately be styled
+    With this Brand YAML, both headings and links will ultimately be styled
     with the brand's `purple` color.
 
     ```{python}

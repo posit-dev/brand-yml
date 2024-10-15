@@ -108,6 +108,7 @@ quartodoc:
             - FileLocation
             - FileLocationLocal
             - FileLocationUrl
+            - file.FileLocationLocalOrUrlType
         - kind: page
           path: color
           summary:

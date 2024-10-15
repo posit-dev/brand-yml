@@ -45,7 +45,7 @@ from pydantic import (
 
 from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
-from .file import FileLocationLocalOrUrl
+from .file import FileLocationLocalOrUrlType
 
 # Types ------------------------------------------------------------------------
 
@@ -389,7 +389,7 @@ class BrandTypographyFontFiles(BrandTypographyFontSource):
 class BrandTypographyFontFilesPath(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    path: FileLocationLocalOrUrl
+    path: FileLocationLocalOrUrlType
     weight: BrandTypographyFontFileWeight = Field(
         default_factory=lambda: BrandTypographyFontFileWeight(root="auto"),
         validate_default=True,
@@ -410,8 +410,8 @@ class BrandTypographyFontFilesPath(BaseModel):
     @field_validator("path", mode="after")
     @classmethod
     def validate_path(
-        cls, value: FileLocationLocalOrUrl
-    ) -> FileLocationLocalOrUrl:
+        cls, value: FileLocationLocalOrUrlType
+    ) -> FileLocationLocalOrUrlType:
         ext = Path(str(value.root)).suffix
         if not ext:  # cover: for type checker
             raise BrandUnsupportedFontFileFormat(value.root)

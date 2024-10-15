@@ -18,7 +18,7 @@ a single logo file or a light/dark variant (`brand_yaml.BrandLightDark`).
 
 images
 
-:   [dict](`dict`)\[[str](`str`), [FileLocationLocalOrUrl](`brand_yaml.file.FileLocationLocalOrUrl`)\] \| None
+:   [dict](`dict`)\[[str](`str`), [FileLocationLocalOrUrlType](`brand_yaml.file.FileLocationLocalOrUrlType`)\] \| None
 
     A dictionary containing any number of logos or brand images. You can
     refer to these images by their key name in `small`, `medium` or `large`.
@@ -134,27 +134,41 @@ background with light foreground colors (white text on a black page).
 
 The base class for a file location, either a local or an online file.
 
+Local files are handled by
+[`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)
+and are always considered relative to the source `_brand.yml` file.
+
+Online files are handled by
+[`brand_yaml.file.FileLocationUrl`](`brand_yaml.file.FileLocationUrl`)
+and are a URL starting with `https://` or `http://`. Absolute paths for
+local or network files are supported via `FileLocationUrl` when using the
+`file://` prefix.
+
 # FileLocationLocal { #brand_yaml.FileLocationLocal }
 
 `FileLocationLocal()`
 
-A local file location. When used in a `brand_yaml.Brand` instance, this
-class carries both the relative path to the file, relative to the source
-`_brand.yml`, and the absolute path of the file on disk.
+A local file location.
+
+When used in a `brand_yaml.Brand` instance, this class carries both the
+relative path to the file, relative to the source `_brand.yml`, and the
+absolute path of the file on disk.
 
 ## Methods
 
 | Name | Description |
 | --- | --- |
-| [absolute](#brand_yaml.FileLocationLocal.absolute) | Returns the absolute path to the file, relative to the root directory, which is most typically the directory containing the `_brand.yml` file. |
+| [absolute](#brand_yaml.FileLocationLocal.absolute) | Absolute path of the file location, relative to the root directory. |
 | [exists](#brand_yaml.FileLocationLocal.exists) | Check that the file exists at its absolute path. |
-| [relative](#brand_yaml.FileLocationLocal.relative) | Returns the relative path to the file as it would appear in the source `_brand.yml` file. |
-| [set_root_dir](#brand_yaml.FileLocationLocal.set_root_dir) | Update the root directory of this file location. In general, the root directory is the parent directory containing the source `brand.yml` file. If you relocate the file, this method can be used to update the new local file location. |
+| [relative](#brand_yaml.FileLocationLocal.relative) | Relative path of the file location. |
+| [set_root_dir](#brand_yaml.FileLocationLocal.set_root_dir) | Update the root directory of this file location. |
 | [validate_exists](#brand_yaml.FileLocationLocal.validate_exists) | Validate that the file exists at its absolute path. |
 
 ### absolute { #brand_yaml.FileLocationLocal.absolute }
 
 `FileLocationLocal.absolute()`
+
+Absolute path of the file location, relative to the root directory.
 
 Returns the absolute path to the file, relative to the root directory,
 which is most typically the directory containing the `_brand.yml` file.
@@ -169,6 +183,8 @@ Check that the file exists at its absolute path.
 
 `FileLocationLocal.relative()`
 
+Relative path of the file location.
+
 Returns the relative path to the file as it would appear in the source
 `_brand.yml` file.
 
@@ -176,10 +192,11 @@ Returns the relative path to the file as it would appear in the source
 
 `FileLocationLocal.set_root_dir(root_dir)`
 
-Update the root directory of this file location. In general, the root
-directory is the parent directory containing the source `brand.yml`
-file. If you relocate the file, this method can be used to update the
-new local file location.
+Update the root directory of this file location.
+
+In general, the root directory is the parent directory containing the
+source `brand.yml` file. If you relocate the file, this method can be
+used to update the new local file location.
 
 ### validate_exists { #brand_yaml.FileLocationLocal.validate_exists }
 
@@ -198,3 +215,15 @@ Validate that the file exists at its absolute path.
 `FileLocationUrl()`
 
 A hosted, online file location, i.e. a URL.
+
+A URL to a single file, typically an online file path starting with
+`http://` or `https://`. This class can also be used for the absolute path
+of local or networked files, which should start with `file://` (otherwise
+local files are handled by
+[`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)).
+
+# file.FileLocationLocalOrUrlType { #brand_yaml.file.FileLocationLocalOrUrlType }
+
+`file.FileLocationLocalOrUrlType`
+
+A type representing a file location that may be a local path or URL.

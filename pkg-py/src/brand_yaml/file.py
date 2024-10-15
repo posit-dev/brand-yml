@@ -8,7 +8,19 @@ from pydantic import HttpUrl, RootModel, field_validator
 
 
 class FileLocation(RootModel):
-    """The base class for a file location, either a local or an online file."""
+    """
+    The base class for a file location, either a local or an online file.
+
+    Local files are handled by
+    [`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)
+    and are always considered relative to the source `_brand.yml` file.
+
+    Online files are handled by
+    [`brand_yaml.file.FileLocationUrl`](`brand_yaml.file.FileLocationUrl`)
+    and are a URL starting with `https://` or `http://`. Absolute paths for
+    local or network files are supported via `FileLocationUrl` when using the
+    `file://` prefix.
+    """
 
     def __str__(self) -> str:
         return str(self.root)
@@ -29,16 +41,26 @@ class FileLocation(RootModel):
 
 
 class FileLocationUrl(FileLocation):
-    """A hosted, online file location, i.e. a URL."""
+    """
+    A hosted, online file location, i.e. a URL.
+
+    A URL to a single file, typically an online file path starting with
+    `http://` or `https://`. This class can also be used for the absolute path
+    of local or networked files, which should start with `file://` (otherwise
+    local files are handled by
+    [`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)).
+    """
 
     root: HttpUrl
 
 
 class FileLocationLocal(FileLocation):
     """
-    A local file location. When used in a `brand_yaml.Brand` instance, this
-    class carries both the relative path to the file, relative to the source
-    `_brand.yml`, and the absolute path of the file on disk.
+    A local file location.
+
+    When used in a `brand_yaml.Brand` instance, this class carries both the
+    relative path to the file, relative to the source `_brand.yml`, and the
+    absolute path of the file on disk.
     """
 
     # TODO @docs: Show method docs only once
@@ -71,15 +93,18 @@ class FileLocationLocal(FileLocation):
 
     def set_root_dir(self, root_dir: Path) -> None:
         """
-        Update the root directory of this file location. In general, the root
-        directory is the parent directory containing the source `brand.yml`
-        file. If you relocate the file, this method can be used to update the
-        new local file location.
+        Update the root directory of this file location.
+
+        In general, the root directory is the parent directory containing the
+        source `brand.yml` file. If you relocate the file, this method can be
+        used to update the new local file location.
         """
         self._root_dir = root_dir
 
     def absolute(self) -> Path:
         """
+        Absolute path of the file location, relative to the root directory.
+
         Returns the absolute path to the file, relative to the root directory,
         which is most typically the directory containing the `_brand.yml` file.
         """
@@ -94,6 +119,8 @@ class FileLocationLocal(FileLocation):
 
     def relative(self) -> Path:
         """
+        Relative path of the file location.
+
         Returns the relative path to the file as it would appear in the source
         `_brand.yml` file.
         """
@@ -123,4 +150,5 @@ class FileLocationLocal(FileLocation):
             )
 
 
-FileLocationLocalOrUrl = Union[FileLocationUrl, FileLocationLocal]
+FileLocationLocalOrUrlType = Union[FileLocationUrl, FileLocationLocal]
+"""A type representing a file location that may be a local path or URL."""

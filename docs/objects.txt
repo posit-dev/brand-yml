@@ -50,6 +50,7 @@ brand_yaml.FileLocationLocal py:class 1 pkg/py/logo.html#brand_yaml.FileLocation
 brand_yaml.file.FileLocationLocal py:class 1 pkg/py/logo.html#brand_yaml.FileLocationLocal brand_yaml.FileLocationLocal
 brand_yaml.FileLocationUrl py:class 1 pkg/py/logo.html#brand_yaml.FileLocationUrl -
 brand_yaml.file.FileLocationUrl py:class 1 pkg/py/logo.html#brand_yaml.FileLocationUrl brand_yaml.FileLocationUrl
+brand_yaml.file.FileLocationLocalOrUrlType py:attribute 1 pkg/py/logo.html#brand_yaml.file.FileLocationLocalOrUrlType -
 brand_yaml.BrandColor.model_config py:attribute 1 pkg/py/color.html#brand_yaml.BrandColor.model_config -
 brand_yaml.color.BrandColor.model_config py:attribute 1 pkg/py/color.html#brand_yaml.BrandColor.model_config brand_yaml.BrandColor.model_config
 brand_yaml.BrandColor py:class 1 pkg/py/color.html#brand_yaml.BrandColor -

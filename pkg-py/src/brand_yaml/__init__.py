@@ -24,6 +24,8 @@ from .typography import BrandTypography
 
 class Brand(BrandBase):
     """
+    Brand guidelines in a class.
+
     A brand instance encapsulates the color, typography and logo preferences for
     a given brand, typically found in brand guidelines created by a company's
     marketing department. `brand_yaml.Brand` organizes this information in a
@@ -53,15 +55,15 @@ class Brand(BrandBase):
     @classmethod
     def from_yaml(cls, path: str | Path):
         """
-        Read a brand YAML file
+        Read a Brand YAML file.
 
-        Reads a brand YAML file or finds and reads a `_brand.yml` file and returns
+        Reads a Brand YAML file or finds and reads a `_brand.yml` file and returns
         a validated :class:`Brand` object.
 
         Parameters
         ----------
         path
-            The path to the brand YAML file or a directory where `_brand.yml` is
+            The path to the Brand YAML file or a directory where `_brand.yml` is
             expected to be found. Typically, you can pass `__file__` from the
             calling script to find `_brand.yml` in the current directory or any of
             its parent directories.
@@ -70,14 +72,14 @@ class Brand(BrandBase):
         -------
         :
             A validated `brand_yaml.Brand` object with all fields populated
-            according to the brand YAML file.
+            according to the Brand YAML file.
 
         Raises
         ------
         FileNotFoundError
             Raises a `FileNotFoundError` if no brand configuration file is found
             within the given path. Raises `ValueError` or other validation errors
-            from [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML
+            from [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML
             file is invalid.
 
         Examples
@@ -95,12 +97,12 @@ class Brand(BrandBase):
     @classmethod
     def from_yaml_str(cls, text: str, path: str | Path | None = None):
         """
-        Create a Brand instance from a YAML string
+        Create a Brand instance from a string of YAML.
 
         Parameters
         ----------
         text
-            The text of the brand YAML file.
+            The text of the Brand YAML file.
         path
             The optional path on disk for supporting files like logos and fonts.
 
@@ -108,13 +110,13 @@ class Brand(BrandBase):
         -------
         :
             A validated `brand_yaml.Brand` object with all fields populated
-            according to the brand YAML text.
+            according to the Brand YAML text.
 
         Raises
         ------
         ValueError
             Raises `ValueError` or other validation errors from
-            [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file
+            [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML file
             is invalid.
 
         Examples
@@ -155,7 +157,10 @@ class Brand(BrandBase):
         transform: Any = None,
     ) -> Any:
         """
-        Serialize the Brand object to a YAML file on disk or to a string.
+        Serialize the Brand object to YAML.
+
+        Write the [`brand_yaml.Brand`](`brand_yaml.Brand`) instance to a string
+        or to a file on disk.
 
         Examples
         --------
@@ -209,6 +214,8 @@ class Brand(BrandBase):
     @model_validator(mode="after")
     def _resolve_typography_colors(self):
         """
+        Resolve colors in `typography` using `color`.
+
         Resolves colors used in `brand.typography` in the `color` or
         `background-color` fields of any typography properties. These values are
         replaced when the brand instance is validated so that values are ready
@@ -260,8 +267,9 @@ class Brand(BrandBase):
     @classmethod
     def _validate_path_is_absolute(cls, value: Path | None) -> Path | None:
         """
-        Ensures that the value of the `path` field is specified absolutely. Will
-        also expand user directories and resolve any symlinks.
+        Ensures that the value of the `path` field is specified absolutely.
+
+        Will also expand user directories and resolve any symlinks.
         """
         if value is None:
             return None
@@ -278,6 +286,8 @@ class Brand(BrandBase):
     @model_validator(mode="after")
     def _set_root_path(self):
         """
+        Update the root path of local file locations.
+
         Updates any fields in `brand_yaml.Brand` that are known local file
         locations, i.e. fields that are validated into
         `brand_yaml.file.FileLocationLocal` instances, to record the root
@@ -309,9 +319,9 @@ def read_brand_yaml(path: str | Path, as_data: Literal[True]) -> dict: ...
 
 def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     """
-    Read a brand YAML file
+    Read a Brand YAML file.
 
-    Reads a brand YAML file or finds and reads a project-specific `_brand.yml`
+    Reads a Brand YAML file or finds and reads a project-specific `_brand.yml`
     file and returns a validated `~brand_yaml.Brand` instance.
 
     To find a project-specific `_brand.yaml` file, pass the project directory or
@@ -319,13 +329,13 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     `brand_yaml.read_brand_yaml` will look in that directory or any parent
     directory for a `_brand.yml`, `brand/_brand.yml` or `_brand/_brand.yml`
     file. Note that it starts the search in the directory passed in and moves
-    upward to find the brand YAML file; it does not search into subdirectories
+    upward to find the Brand YAML file; it does not search into subdirectories
     of the current directory.
 
     Parameters
     ----------
     path
-        The path to the brand YAML file or a directory where `_brand.yml` is
+        The path to the Brand YAML file or a directory where `_brand.yml` is
         expected to be found. Typically, you can pass `__file__` from the
         calling script to find `_brand.yml` in the current directory or any of
         its parent directories.
@@ -338,7 +348,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     -------
     :
         A validated :class:`brand_yaml.Brand` object with all fields populated according to
-        the brand YAML file (`as_data=False`, default) or the raw brand data
+        the Brand YAML file (`as_data=False`, default) or the raw brand data
         as a dictionary (`as_data=True`).
 
     Raises
@@ -348,7 +358,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
         within the given path.
     ValueError
         `ValueError` or other validation errors are raised from
-        [pydantic](https://docs.pydantic.dev/latest/) if the brand YAML file is
+        [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML file is
         invalid.
 
     Examples
@@ -375,7 +385,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
 
     if not isinstance(brand_data, dict):
         raise ValueError(
-            f"Invalid brand YAML file {str(path)!r}. Must be a dictionary."
+            f"Invalid Brand YAML file {str(path)!r}. Must be a dictionary."
         )
 
     brand_data["path"] = path
