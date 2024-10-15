@@ -594,7 +594,9 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     weights using a string in the format `{start}..{end}`, e.g. `300..700`.
     """
 
-    style: SingleOrList[BrandTypographyFontStyleType] = ["normal", "italic"]
+    style: SingleOrList[BrandTypographyFontStyleType] = Field(
+        ["normal", "italic"]
+    )
     """
     The font style(s) (italic or normal) to be imported for the font family.
 
