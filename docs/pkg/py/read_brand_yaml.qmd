@@ -1,6 +1,8 @@
 # read_brand_yaml { #brand_yaml.read_brand_yaml }
 
-`read_brand_yaml(path, as_data=False)`
+```python
+read_brand_yaml(path, as_data=False)
+```
 
 Read a Brand YAML file.
 
@@ -15,7 +17,7 @@ file. Note that it starts the search in the directory passed in and moves
 upward to find the Brand YAML file; it does not search into subdirectories
 of the current directory.
 
-## Parameters
+## Parameters {.doc-section .doc-section-parameters}
 
 <code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`) \| [Path](`pathlib.Path`)</span></code>
 
@@ -29,20 +31,20 @@ of the current directory.
 :   When `True`, returns the raw brand data as a dictionary parsed from the
     YAML file. When `False`, returns a validated :class:`Brand` object.
 
-## Returns
+## Returns {.doc-section .doc-section-returns}
 
-| Type                                          | Description                                                                                                                                                                                |
-|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Brand](`brand_yaml.Brand`) \| [dict](`dict`) | A validated :class:`brand_yaml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
+| Name   | Type                                          | Description                                                                                                                                                                                |
+|--------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [Brand](`brand_yaml.Brand`) \| [dict](`dict`) | A validated :class:`brand_yaml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
 
-## Raises
+## Raises {.doc-section .doc-section-raises}
 
-| Type                                     | Description                                                                                                                              |
-|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if no brand configuration file is found within the given path.                                              |
-| [ValueError](`ValueError`)               | `ValueError` or other validation errors are raised from [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML file is invalid. |
+| Name   | Type                                     | Description                                                                                                                              |
+|--------|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if no brand configuration file is found within the given path.                                              |
+|        | [ValueError](`ValueError`)               | `ValueError` or other validation errors are raised from [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML file is invalid. |
 
-## Examples
+## Examples {.doc-section .doc-section-examples}
 
 ```python
 from brand_yaml import read_brand_yaml

@@ -4,14 +4,16 @@
 
 # BrandMeta { #brand_yaml.BrandMeta }
 
-`BrandMeta()`
+```python
+BrandMeta()
+```
 
 Brand Metadata
 
 Brand metadata is stored in `meta`, providing place to describe the company
 or project, the brand guidelines, additional links, and more.
 
-## Attributes
+## Attributes {.doc-section .doc-section-attributes}
 
 name
 
@@ -57,7 +59,7 @@ link
         home: https://www.very-big-corp.com/
     ```
 
-## Examples
+## Examples {.doc-section .doc-section-examples}
 
 ::: {.panel-tabset}
 
@@ -92,7 +94,9 @@ meta:
 
 # meta.BrandMetaName { #brand_yaml.meta.BrandMetaName }
 
-`meta.BrandMetaName()`
+```python
+meta.BrandMetaName()
+```
 
 
 
@@ -105,7 +109,9 @@ meta:
 
 # meta.BrandMetaLink { #brand_yaml.meta.BrandMetaLink }
 
-`meta.BrandMetaLink()`
+```python
+meta.BrandMetaLink()
+```
 
 Brand Metadata Links
 

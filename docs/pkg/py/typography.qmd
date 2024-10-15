@@ -4,14 +4,16 @@
 
 # BrandTypography { #brand_yaml.BrandTypography }
 
-`BrandTypography()`
+```python
+BrandTypography()
+```
 
 Represents the typographic choices of a brand.
 
 This class defines the structure and behavior of typography settings,
 including fonts, base text, headings, monospace text, and links.
 
-## Examples
+## Examples {.doc-section .doc-section-examples}
 
 ::: {.panel-tabset}
 
@@ -170,7 +172,7 @@ typography:
 
 :::
 
-## Attributes
+## Attributes {.doc-section .doc-section-attributes}
 
 fonts
 
@@ -228,18 +230,20 @@ link
 
 ### css_include_fonts { #brand_yaml.BrandTypography.css_include_fonts }
 
-`BrandTypography.css_include_fonts()`
+```python
+BrandTypography.css_include_fonts()
+```
 
 Generates CSS include statements for the defined fonts.
 
 This method creates CSS `@import` or `@font-face` rules for all fonts
 defined in the typography configuration.
 
-#### Returns
+#### Returns {.doc-section .doc-section-returns}
 
-| Type         | Description                                                       |
-|--------------|-------------------------------------------------------------------|
-| [str](`str`) | A string containing CSS include statements for all defined fonts. |
+| Name   | Type         | Description                                                       |
+|--------|--------------|-------------------------------------------------------------------|
+|        | [str](`str`) | A string containing CSS include statements for all defined fonts. |
 
 # typography { #brand_yaml.typography }
 
@@ -280,7 +284,9 @@ choices in brand guidelines.
 
 ### BrandTypographyFontSource { #brand_yaml.typography.BrandTypographyFontSource }
 
-`typography.BrandTypographyFontSource()`
+```python
+typography.BrandTypographyFontSource()
+```
 
 A base class representing a font source.
 
@@ -302,13 +308,17 @@ common properties and behaviors.
 
 ##### to_css { #brand_yaml.typography.BrandTypographyFontSource.to_css }
 
-`typography.BrandTypographyFontSource.to_css()`
+```python
+typography.BrandTypographyFontSource.to_css()
+```
 
 Create the CSS declarations needed to use the font family.
 
 ### BrandTypographyFontFiles { #brand_yaml.typography.BrandTypographyFontFiles }
 
-`typography.BrandTypographyFontFiles()`
+```python
+typography.BrandTypographyFontFiles()
+```
 
 A font family defined by a collection of font files.
 
@@ -318,7 +328,7 @@ generally composed of multiple font files for different weights and styles
 within the same family. Currently, TrueType (`.ttf`), OpenType (`.otf`), and
 WOFF (`.woff` or `.woff2`) formats are supported.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 ```yaml
 typography:
@@ -343,7 +353,9 @@ typography:
 
 ### BrandTypographyFontGoogle { #brand_yaml.typography.BrandTypographyFontGoogle }
 
-`typography.BrandTypographyFontGoogle()`
+```python
+typography.BrandTypographyFontGoogle()
+```
 
 A font family provided by Google Fonts.
 
@@ -355,7 +367,7 @@ Subclass of
 [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
 the generic Google Fonts API font source.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 In this example, the Inter font is imported with all font weights and both
 normal and italic styles (these are the defaults). Additionally, the Roboto
@@ -372,7 +384,9 @@ Slab font is sourced from Google Fonts with three specific font weights --
 
 ### BrandTypographyFontBunny { #brand_yaml.typography.BrandTypographyFontBunny }
 
-`typography.BrandTypographyFontBunny()`
+```python
+typography.BrandTypographyFontBunny()
+```
 
 A font family provided by Bunny Fonts.
 
@@ -383,7 +397,7 @@ Subclass of
 [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
 the generic Google Fonts API font source.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 In this example, the Fira Code font is sourced from Bunny Fonts. By default
 all available weights and styles will be used.
@@ -400,7 +414,9 @@ typography:
 
 ### BrandTypographyGoogleFontsApi { #brand_yaml.typography.BrandTypographyGoogleFontsApi }
 
-`typography.BrandTypographyGoogleFontsApi()`
+```python
+typography.BrandTypographyGoogleFontsApi()
+```
 
 A font source that utilizes the Google Fonts (or a compatible) API.
 
@@ -426,13 +442,17 @@ styles.
 
 ##### to_import_url { #brand_yaml.typography.BrandTypographyGoogleFontsApi.to_import_url }
 
-`typography.BrandTypographyGoogleFontsApi.to_import_url()`
+```python
+typography.BrandTypographyGoogleFontsApi.to_import_url()
+```
 
 Returns the URL for the font family to be used in a CSS `@import` statement.
 
 ### BrandTypographyGoogleFontsWeightRange { #brand_yaml.typography.BrandTypographyGoogleFontsWeightRange }
 
-`typography.BrandTypographyGoogleFontsWeightRange()`
+```python
+typography.BrandTypographyGoogleFontsWeightRange()
+```
 
 Represents a range of font weights for Google Fonts.
 
@@ -441,18 +461,18 @@ imported from Google Fonts for variable fonts that support a range of font
 weights. The weight range is represented as a list of two integers, where
 the first integer is the start of the range and the second is the end.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 - `300..700`: Represents a range from light (300) to bold (700)
 - `100..900`: Represents the full range of weights from thin to black
 
-#### Note
+#### Note {.doc-section .doc-section-note}
 
 
 When serialized, this class will convert the range to a string format
 (e.g., "300..700") for compatibility with the Google Fonts API.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 root
 
@@ -469,7 +489,21 @@ root
 
 ##### model_dump { #brand_yaml.typography.BrandTypographyGoogleFontsWeightRange.model_dump }
 
-`typography.BrandTypographyGoogleFontsWeightRange.model_dump(mode='python', include=None, exclude=None, context=None, by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, round_trip=False, warnings=True, serialize_as_any=False)`
+```python
+typography.BrandTypographyGoogleFontsWeightRange.model_dump(
+    mode='python'
+    include=None
+    exclude=None
+    context=None
+    by_alias=False
+    exclude_unset=False
+    exclude_defaults=False
+    exclude_none=False
+    round_trip=False
+    warnings=True
+    serialize_as_any=False
+)
+```
 
 Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump
 
@@ -496,11 +530,13 @@ Returns:
 
 ### BrandTypographyBase { #brand_yaml.typography.BrandTypographyBase }
 
-`typography.BrandTypographyBase()`
+```python
+typography.BrandTypographyBase()
+```
 
 Typographic settings for base (or body) text.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 family
 
@@ -526,11 +562,13 @@ color
 
 ### BrandTypographyHeadings { #brand_yaml.typography.BrandTypographyHeadings }
 
-`typography.BrandTypographyHeadings()`
+```python
+typography.BrandTypographyHeadings()
+```
 
 Typographic settings for headings and titles.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 family
 
@@ -555,7 +593,7 @@ color
 
 :   The color of the text.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 This example sets up typography settings for headings using the Inter font
 at a weight of 600 and with a line height that is 1.2 times the font size.
@@ -570,7 +608,9 @@ typography:
 
 ### BrandTypographyMonospace { #brand_yaml.typography.BrandTypographyMonospace }
 
-`typography.BrandTypographyMonospace()`
+```python
+typography.BrandTypographyMonospace()
+```
 
 Typographic settings for monospace text.
 
@@ -582,7 +622,7 @@ and
 [`brand_yaml.typography.BrandTypographyMonospaceBlock`](`brand_yaml.typography.BrandTypographyMonospaceBlock`)
 respectively.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 family
 
@@ -599,7 +639,7 @@ size
 :   The font size of the monospace text. Should be a CSS length unit
     (e.g., "0.9em", "14px").
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 This example sets up typography settings for monospace text using the
 Fira Code font at a slightly smaller size than the base text:
@@ -642,7 +682,9 @@ typography:
 
 ### BrandTypographyMonospaceInline { #brand_yaml.typography.BrandTypographyMonospaceInline }
 
-`typography.BrandTypographyMonospaceInline()`
+```python
+typography.BrandTypographyMonospaceInline()
+```
 
 Typographic settings for inline monospace text.
 
@@ -652,7 +694,7 @@ properties from
 [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
 with additional options for foreground and background colors.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 family
 
@@ -681,7 +723,7 @@ background_color
     CSS-compatible color definition or a reference to a color defined in the
     brand's color palette.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 This example sets up typography settings for inline monospace text using the
 Fira Code font at a slightly smaller size than the base text, with custom
@@ -717,7 +759,9 @@ typography:
 
 ### BrandTypographyMonospaceBlock { #brand_yaml.typography.BrandTypographyMonospaceBlock }
 
-`typography.BrandTypographyMonospaceBlock()`
+```python
+typography.BrandTypographyMonospaceBlock()
+```
 
 Typographic settings for block monospace text.
 
@@ -727,7 +771,7 @@ inherits properties from
 [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
 and adds options for line height, foreground color, and background color.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 family
 
@@ -761,7 +805,7 @@ background_color
     CSS-compatible color definition or a reference to a color defined in the
     brand's color palette.
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 This example sets up typography settings for block monospace text using the
 Fira Code font at a slightly smaller size than the base text, with custom
@@ -783,14 +827,16 @@ typography:
 
 ### BrandTypographyLink { #brand_yaml.typography.BrandTypographyLink }
 
-`typography.BrandTypographyLink()`
+```python
+typography.BrandTypographyLink()
+```
 
 Typographic settings for hyperlinks.
 
 This class defines typography options for hyperlinks, allowing customization
 of font weight, colors, and text decoration.
 
-#### Attributes
+#### Attributes {.doc-section .doc-section-attributes}
 
 weight
 
@@ -816,7 +862,7 @@ decoration
     The text decoration for the hyperlink. Common values include
     "underline", "none", or "underline".
 
-#### Examples
+#### Examples {.doc-section .doc-section-examples}
 
 This example sets up typography settings for hyperlinks with a custom color
 and text decoration:

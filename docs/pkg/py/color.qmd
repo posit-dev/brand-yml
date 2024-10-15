@@ -4,7 +4,9 @@
 
 # BrandColor { #brand_yaml.BrandColor }
 
-`BrandColor()`
+```python
+BrandColor()
+```
 
 Brand Colors
 
@@ -12,7 +14,7 @@ The brand's custom color palette and theme. `color.palette` is a list of
 named colors used by the brand and `color.theme` maps brand colors to
 common theme elements (described in [Attributes](#attributes)).
 
-## Examples
+## Examples {.doc-section .doc-section-examples}
 
 ::: {.panel-tabset}
 
@@ -154,7 +156,7 @@ brand.typography.link.color
 ```
 :::
 
-## Attributes
+## Attributes {.doc-section .doc-section-attributes}
 
 palette
 

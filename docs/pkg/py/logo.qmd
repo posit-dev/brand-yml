@@ -4,7 +4,9 @@
 
 # BrandLogo { #brand_yaml.BrandLogo }
 
-`BrandLogo()`
+```python
+BrandLogo()
+```
 
 Brand Logos
 
@@ -14,7 +16,7 @@ assets in `images` with meaningful names. Logos can be specified at three
 different sizes -- `small`, `medium`, and `large` -- and each can be either
 a single logo file or a light/dark variant (`brand_yaml.BrandLightDark`).
 
-## Attributes
+## Attributes {.doc-section .doc-section-attributes}
 
 images
 
@@ -52,7 +54,7 @@ large
     A large logo, typically used in a larger format such as a title slide
     or in marketing materials.
 
-## Examples
+## Examples {.doc-section .doc-section-examples}
 
 ::: {.panel-tabset}
 
@@ -111,7 +113,9 @@ logo:
 
 # BrandLightDark { #brand_yaml.BrandLightDark }
 
-`BrandLightDark()`
+```python
+BrandLightDark()
+```
 
 A Light/Dark Variant
 
@@ -130,7 +134,9 @@ background with light foreground colors (white text on a black page).
 
 # FileLocation { #brand_yaml.FileLocation }
 
-`FileLocation()`
+```python
+FileLocation()
+```
 
 The base class for a file location, either a local or an online file.
 
@@ -146,7 +152,9 @@ local or network files are supported via `FileLocationUrl` when using the
 
 # FileLocationLocal { #brand_yaml.FileLocationLocal }
 
-`FileLocationLocal()`
+```python
+FileLocationLocal()
+```
 
 A local file location.
 
@@ -166,7 +174,9 @@ absolute path of the file on disk.
 
 ### absolute { #brand_yaml.FileLocationLocal.absolute }
 
-`FileLocationLocal.absolute()`
+```python
+FileLocationLocal.absolute()
+```
 
 Absolute path of the file location, relative to the root directory.
 
@@ -175,13 +185,17 @@ which is most typically the directory containing the `_brand.yml` file.
 
 ### exists { #brand_yaml.FileLocationLocal.exists }
 
-`FileLocationLocal.exists()`
+```python
+FileLocationLocal.exists()
+```
 
 Check that the file exists at its absolute path.
 
 ### relative { #brand_yaml.FileLocationLocal.relative }
 
-`FileLocationLocal.relative()`
+```python
+FileLocationLocal.relative()
+```
 
 Relative path of the file location.
 
@@ -190,7 +204,9 @@ Returns the relative path to the file as it would appear in the source
 
 ### set_root_dir { #brand_yaml.FileLocationLocal.set_root_dir }
 
-`FileLocationLocal.set_root_dir(root_dir)`
+```python
+FileLocationLocal.set_root_dir(root_dir)
+```
 
 Update the root directory of this file location.
 
@@ -200,19 +216,23 @@ used to update the new local file location.
 
 ### validate_exists { #brand_yaml.FileLocationLocal.validate_exists }
 
-`FileLocationLocal.validate_exists()`
+```python
+FileLocationLocal.validate_exists()
+```
 
 Validate that the file exists at its absolute path.
 
-#### Raises
+#### Raises {.doc-section .doc-section-raises}
 
-| Type                                     | Description                                                                            |
-|------------------------------------------|----------------------------------------------------------------------------------------|
-| [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if the file does not exist at its absolute path location. |
+| Name   | Type                                     | Description                                                                            |
+|--------|------------------------------------------|----------------------------------------------------------------------------------------|
+|        | [FileNotFoundError](`FileNotFoundError`) | Raises a `FileNotFoundError` if the file does not exist at its absolute path location. |
 
 # FileLocationUrl { #brand_yaml.FileLocationUrl }
 
-`FileLocationUrl()`
+```python
+FileLocationUrl()
+```
 
 A hosted, online file location, i.e. a URL.
 
