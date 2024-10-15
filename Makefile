@@ -1,5 +1,5 @@
-# Use qvm to manage quarto
-QUARTO_VERSION ?= v1.6.22
+# Use qvm to manage quarto, also update quarto.path in .vscode/settings.json
+QUARTO_VERSION ?= v1.6.25
 QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
