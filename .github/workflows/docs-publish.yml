@@ -14,14 +14,19 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v4
         
-    - name: Set up Quarto
+    - name: 🔵 Set up Quarto
       uses: quarto-dev/quarto-actions/setup@v2
       with:
         version: 1.6.21
     
-    # From https://github.com/actions/setup-python
-    # - name: Setup Python
-    #   uses: actions/setup-python@v3
+    - name: 🚀 Install uv
+      uses: astral-sh/setup-uv@v2
+
+    - name: 🐍 Set up Python 3.13
+      run: uv python install 3.13
+
+    - name: 📦 Install the project
+      run: uv sync --python 3.13 --no-dev --extra doc
 
     # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
     # - name: Setup R
