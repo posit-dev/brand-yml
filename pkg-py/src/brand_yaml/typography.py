@@ -13,6 +13,7 @@ choices in brand guidelines.
 from __future__ import annotations
 
 import itertools
+import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from re import split as re_split
@@ -1380,7 +1381,10 @@ class BrandTypography(BrandBase):
             data["fonts"].append(
                 {
                     "family": data[field]["family"],
-                    "source": "google",
+                    "source": os.environ.get(
+                        "BRAND_YAML_DEFAULT_FONT_SOURCE",
+                        "google",
+                    ),
                 }
             )
             defined_families.add(data[field]["family"])
