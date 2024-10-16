@@ -1,10 +1,18 @@
 {
   "logo": {
-    "large": "logos/pandas/pandas.svg",
-    "medium": {
-      "dark": "logos/pandas/pandas_secondary_white.svg",
-      "light": "logos/pandas/pandas_secondary.svg"
+    "large": {
+      "path": "logos/pandas/pandas.svg"
     },
-    "small": "logos/pandas/pandas_mark.svg"
+    "medium": {
+      "dark": {
+        "path": "logos/pandas/pandas_secondary_white.svg"
+      },
+      "light": {
+        "path": "logos/pandas/pandas_secondary.svg"
+      }
+    },
+    "small": {
+      "path": "logos/pandas/pandas_mark.svg"
+    }
   }
 }

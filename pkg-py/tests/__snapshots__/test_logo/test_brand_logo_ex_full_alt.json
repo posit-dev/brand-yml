@@ -2,6 +2,7 @@
   "logo": {
     "images": {
       "mark": {
+        "alt": "pandas logo with blue bars and yellow and pink dots",
         "path": "logos/pandas/pandas_mark.svg"
       },
       "mark-white": {
@@ -17,21 +18,26 @@
         "path": "logos/pandas/pandas_secondary.svg"
       },
       "secondary-white": {
+        "alt": "pandas logo with bars and dots over the word \"pandas\"",
         "path": "logos/pandas/pandas_secondary_white.svg"
       }
     },
     "large": {
+      "alt": "pandas bars and dots to the right of the word \"pandas\"",
       "path": "logos/pandas/pandas.svg"
     },
     "medium": {
       "dark": {
+        "alt": "pandas logo with bars and dots over the word \"pandas\"",
         "path": "logos/pandas/pandas_secondary_white.svg"
       },
       "light": {
+        "alt": "pandas logo with bars and dots over the word \"pandas\"",
         "path": "logos/pandas/pandas_secondary.svg"
       }
     },
     "small": {
+      "alt": "pandas logo with blue bars and yellow and pink dots",
       "path": "logos/pandas/pandas_mark.svg"
     }
   }

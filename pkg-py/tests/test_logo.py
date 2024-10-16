@@ -3,10 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from brand_yaml import read_brand_yaml
+from brand_yaml import Brand, read_brand_yaml
 from brand_yaml._defs import BrandLightDark
 from brand_yaml.file import FileLocation, FileLocationLocal
-from brand_yaml.logo import BrandLogo
+from brand_yaml.logo import BrandLogo, BrandLogoResource
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -19,7 +19,9 @@ def snapshot_json(snapshot):
 def test_brand_logo_single():
     brand = read_brand_yaml(path_examples("brand-logo-single.yml"))
 
-    assert brand.logo == "posit.png"
+    assert isinstance(brand.logo, BrandLogoResource)
+    assert isinstance(brand.logo.path, FileLocationLocal)
+    assert str(brand.logo.path) == "posit.png"
 
 
 def test_brand_logo_errors():
@@ -42,14 +44,17 @@ def test_brand_logo_ex_simple(snapshot_json):
 
     assert isinstance(brand.logo, BrandLogo)
 
-    assert isinstance(brand.logo.small, FileLocation)
-    assert str(brand.logo.small) == "logos/pandas/pandas_mark.svg"
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert isinstance(brand.logo.small.path, FileLocation)
+    assert str(brand.logo.small.path) == "logos/pandas/pandas_mark.svg"
 
-    assert isinstance(brand.logo.medium, FileLocation)
-    assert str(brand.logo.medium) == "logos/pandas/pandas_secondary.svg"
+    assert isinstance(brand.logo.medium, BrandLogoResource)
+    assert isinstance(brand.logo.medium.path, FileLocation)
+    assert str(brand.logo.medium.path) == "logos/pandas/pandas_secondary.svg"
 
-    assert isinstance(brand.logo.large, FileLocation)
-    assert str(brand.logo.large) == "logos/pandas/pandas.svg"
+    assert isinstance(brand.logo.large, BrandLogoResource)
+    assert isinstance(brand.logo.large.path, FileLocation)
+    assert str(brand.logo.large.path) == "logos/pandas/pandas.svg"
 
     assert snapshot_json == pydantic_data_from_json(brand)
 
@@ -58,19 +63,26 @@ def test_brand_logo_ex_light_dark(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-logo-light-dark.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
-    assert isinstance(brand.logo.small, FileLocationLocal)
-    assert str(brand.logo.small) == "logos/pandas/pandas_mark.svg"
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert isinstance(brand.logo.small.path, FileLocationLocal)
+    assert str(brand.logo.small.path) == "logos/pandas/pandas_mark.svg"
 
     assert isinstance(brand.logo.medium, BrandLightDark)
-    assert isinstance(brand.logo.medium.light, FileLocationLocal)
-    assert str(brand.logo.medium.light) == "logos/pandas/pandas_secondary.svg"
-    assert isinstance(brand.logo.medium.dark, FileLocationLocal)
+    assert isinstance(brand.logo.medium.light, BrandLogoResource)
+    assert isinstance(brand.logo.medium.light.path, FileLocationLocal)
     assert (
-        str(brand.logo.medium.dark) == "logos/pandas/pandas_secondary_white.svg"
+        str(brand.logo.medium.light.path) == "logos/pandas/pandas_secondary.svg"
+    )
+    assert isinstance(brand.logo.medium.dark, BrandLogoResource)
+    assert isinstance(brand.logo.medium.dark.path, FileLocationLocal)
+    assert (
+        str(brand.logo.medium.dark.path)
+        == "logos/pandas/pandas_secondary_white.svg"
     )
 
-    assert isinstance(brand.logo.large, FileLocationLocal)
-    assert str(brand.logo.large) == "logos/pandas/pandas.svg"
+    assert isinstance(brand.logo.large, BrandLogoResource)
+    assert isinstance(brand.logo.large.path, FileLocationLocal)
+    assert str(brand.logo.large.path) == "logos/pandas/pandas.svg"
 
     assert snapshot_json == pydantic_data_from_json(brand)
 
@@ -80,17 +92,21 @@ def test_brand_logo_ex_full(snapshot_json):
 
     assert isinstance(brand.logo, BrandLogo)
     assert isinstance(brand.logo.images, dict)
-    assert isinstance(brand.logo.small, FileLocationLocal)
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert isinstance(brand.logo.small.path, FileLocationLocal)
     assert brand.logo.small == brand.logo.images["mark"]
 
     assert isinstance(brand.logo.medium, BrandLightDark)
-    assert isinstance(brand.logo.medium.light, FileLocationLocal)
-    assert brand.logo.medium.light.root == Path(
+    assert isinstance(brand.logo.medium.light, BrandLogoResource)
+    assert isinstance(brand.logo.medium.light.path, FileLocationLocal)
+    assert brand.logo.medium.light.path.root == Path(
         "logos/pandas/pandas_secondary.svg"
     )
+    assert isinstance(brand.logo.medium.dark, BrandLogoResource)
     assert brand.logo.medium.dark == brand.logo.images["secondary-white"]
 
-    assert isinstance(brand.logo.large, FileLocationLocal)
+    assert isinstance(brand.logo.large, BrandLogoResource)
+    assert isinstance(brand.logo.large.path, FileLocationLocal)
     assert brand.logo.large == brand.logo.images["pandas"]
 
     ## THIS IS NOT CURRENTLY SUPPORTED
@@ -102,5 +118,73 @@ def test_brand_logo_ex_full(snapshot_json):
     # brand.model_rebuild()
     # assert isinstance(brand.logo.small, FileLocation)
     # assert brand.logo.small == brand.logo.images["mark-white"]
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_logo_resource_images_simple():
+    brand = Brand.from_yaml_str("""
+    logo:
+      images:
+        logo: brand-yaml.png
+      small: logo
+    """)
+
+    # logo.images.* are promoted to BrandLogoResource
+    assert isinstance(brand.logo, BrandLogo)
+    assert isinstance(brand.logo.images, dict)
+    assert "logo" in brand.logo.images
+    assert isinstance(brand.logo.images["logo"], BrandLogoResource)
+    assert isinstance(brand.logo.images["logo"].path, FileLocationLocal)
+    assert brand.logo.images["logo"].alt is None
+    assert str(brand.logo.images["logo"].path.relative()) == "brand-yaml.png"
+
+    # and are used directly by logo.*
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert brand.logo.small == brand.logo.images["logo"]
+
+
+def test_brand_logo_resource_images_with_alt():
+    brand = Brand.from_yaml_str("""
+    logo:
+      images:
+        logo: 
+          path: brand-yaml.png
+          alt: "Brand YAML Logo"
+      small: logo
+    """)
+
+    assert isinstance(brand.logo, BrandLogo)
+    assert isinstance(brand.logo.images, dict)
+    assert "logo" in brand.logo.images
+    assert isinstance(brand.logo.images["logo"], BrandLogoResource)
+    assert isinstance(brand.logo.images["logo"].path, FileLocationLocal)
+    assert isinstance(brand.logo.images["logo"].alt, str)
+    assert str(brand.logo.images["logo"].path.relative()) == "brand-yaml.png"
+
+    # and are used directly by logo.*
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert brand.logo.small == brand.logo.images["logo"]
+    assert brand.logo.small.alt == "Brand YAML Logo"
+
+
+def test_brand_logo_resource_direct_with_alt():
+    brand = Brand.from_yaml_str("""
+    logo:
+      small:
+        path: brand-yaml.png
+        alt: "Brand YAML Logo"
+    """)
+
+    assert isinstance(brand.logo, BrandLogo)
+
+    # and are used directly by logo.*
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert str(brand.logo.small.path) == "brand-yaml.png"
+    assert brand.logo.small.alt == "Brand YAML Logo"
+
+
+def test_brand_logo_ex_full_alt(snapshot_json):
+    brand = read_brand_yaml(path_examples("brand-logo-full-alt.yml"))
 
     assert snapshot_json == pydantic_data_from_json(brand)

@@ -1,7 +1,13 @@
 {
   "logo": {
-    "large": "logos/pandas/pandas.svg",
-    "medium": "logos/pandas/pandas_secondary.svg",
-    "small": "logos/pandas/pandas_mark.svg"
+    "large": {
+      "path": "logos/pandas/pandas.svg"
+    },
+    "medium": {
+      "path": "logos/pandas/pandas_secondary.svg"
+    },
+    "small": {
+      "path": "logos/pandas/pandas_mark.svg"
+    }
   }
 }

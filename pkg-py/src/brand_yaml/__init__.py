@@ -17,7 +17,7 @@ from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
-from .logo import BrandLogo
+from .logo import BrandLogo, BrandLogoResource
 from .meta import BrandMeta
 from .typography import BrandTypography
 
@@ -45,8 +45,9 @@ class Brand(BrandBase):
         validate_assignment=True,
     )
 
+    # TODO @docs: Document Brand attributes
     meta: BrandMeta | None = None
-    logo: str | BrandLogo | None = None
+    logo: BrandLogo | BrandLogoResource | None = None
     color: BrandColor | None = None
     typography: BrandTypography | None = None
     defaults: dict[str, Any] | None = None
@@ -306,6 +307,17 @@ class Brand(BrandBase):
 
         return self
 
+    @field_validator("logo", mode="before")
+    @classmethod
+    def _promote_logo_scalar_to_resource(cls, value: Any):
+        """
+        Take a single path value passed to `brand.logo` and promote it into a
+        [`brand_yaml.BrandLogoResource`](`brand_yaml.BrandLogoResource`).
+        """
+        if isinstance(value, (str, Path, FileLocation)):
+            return {"path": value}
+        return value
+
 
 @overload
 def read_brand_yaml(
@@ -403,6 +415,7 @@ __all__ = [
     "BrandColor",
     "BrandTypography",
     "BrandLightDark",
+    "BrandLogoResource",
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",
