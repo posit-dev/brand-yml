@@ -148,7 +148,7 @@ def test_brand_logo_resource_images_with_alt():
     brand = Brand.from_yaml_str("""
     logo:
       images:
-        logo: 
+        logo:
           path: brand-yaml.png
           alt: "Brand YAML Logo"
       small: logo
