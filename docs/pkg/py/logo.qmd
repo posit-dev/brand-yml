@@ -11,16 +11,21 @@ BrandLogo()
 Brand Logos
 
 `logo` stores a single brand logo or a set of logos at three different size
-points and possibly in different color schemes. Store all logo or image
-assets in `images` with meaningful names. Logos can be specified at three
-different sizes -- `small`, `medium`, and `large` -- and each can be either
-a single logo file or a light/dark variant (`brand_yaml.BrandLightDark`).
+points and possibly in different color schemes. Store all of your brand's
+logo or image assets in `images` with meaningful names. Logos can be mapped
+to three preset sizes -- `small`, `medium`, and `large` -- and each can be
+either a single logo file or a light/dark variant
+(`brand_yaml.BrandLightDark`).
+
+To attach alternative text to an image, provide the image as a dictionary
+including `path` (the image location) and `alt` (the short, alternative
+text describing the image).
 
 ## Attributes {.doc-section .doc-section-attributes}
 
 images
 
-:   [dict](`dict`)\[[str](`str`), [FileLocationLocalOrUrlType](`brand_yaml.file.FileLocationLocalOrUrlType`)\] \| None
+:   [dict](`dict`)\[[str](`str`), [BrandLogoResource](`brand_yaml.logo.BrandLogoResource`)\] \| None
 
     A dictionary containing any number of logos or brand images. You can
     refer to these images by their key name in `small`, `medium` or `large`.
@@ -107,6 +112,34 @@ logo:
     light: logos/pandas/pandas_secondary.svg
     dark: secondary-white
   large: pandas
+```
+
+
+
+###### Complete with Alt Text
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    mark:
+      path: logos/pandas/pandas_mark.svg
+      alt: pandas logo with blue bars and yellow and pink dots
+    mark-white: logos/pandas/pandas_mark_white.svg
+    secondary: logos/pandas/pandas_secondary.svg
+    secondary-white:
+      path: logos/pandas/pandas_secondary_white.svg
+      alt: pandas logo with bars and dots over the word "pandas"
+    pandas: logos/pandas/pandas.svg
+    pandas-white: logos/pandas/pandas_white.svg
+  small: mark
+  medium:
+    light:
+      path: logos/pandas/pandas_secondary.svg
+      alt: pandas logo with bars and dots over the word "pandas"
+    dark: secondary-white
+  large:
+    path: logos/pandas/pandas.svg
+    alt: pandas bars and dots to the right of the word "pandas"
 ```
 
 :::

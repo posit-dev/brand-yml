@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from brand_yaml import Brand, read_brand_yaml
 from brand_yaml.file import FileLocationLocal
-from brand_yaml.logo import BrandLogo
+from brand_yaml.logo import BrandLogo, BrandLogoResource
 from brand_yaml.typography import BrandTypography, BrandTypographyFontFiles
 
 path_fixtures = Path(__file__).parent / "fixtures"
@@ -51,7 +51,8 @@ def test_brand_yml_paths():
     brand = read_brand_yaml(path)
 
     assert isinstance(brand.logo, BrandLogo)
-    assert isinstance(brand.logo.small, FileLocationLocal)
+    assert isinstance(brand.logo.small, BrandLogoResource)
+    assert isinstance(brand.logo.small.path, FileLocationLocal)
 
     assert isinstance(brand.typography, BrandTypography)
     assert isinstance(brand.typography.fonts, list)
@@ -61,8 +62,8 @@ def test_brand_yml_paths():
     )
 
     # Paths are all relative
-    assert brand.logo.small.root == Path("does-not-exist.png")
-    assert brand.logo.small.root == brand.logo.small.relative()
+    assert brand.logo.small.path.root == Path("does-not-exist.png")
+    assert brand.logo.small.path.root == brand.logo.small.path.relative()
 
     assert brand.typography.fonts[0].files[0].path.root == Path("Invisible.ttf")
     assert (
@@ -72,7 +73,8 @@ def test_brand_yml_paths():
 
     # Paths can be accessed absolutely
     assert (
-        brand.logo.small.absolute() == (path / "does-not-exist.png").absolute()
+        brand.logo.small.path.absolute()
+        == (path / "does-not-exist.png").absolute()
     )
     assert (
         brand.typography.fonts[0].files[0].path.absolute()
@@ -80,15 +82,15 @@ def test_brand_yml_paths():
     )
 
     # These files don't exist, which can be verified
-    assert not brand.logo.small.exists()
+    assert not brand.logo.small.path.exists()
     assert not brand.typography.fonts[0].files[0].path.exists()
 
     # Updating brand.path updates the paths in the brand -----------------------
     brand.path = path_fixtures / "_brand.yml"
 
     # Paths are still all relative
-    assert brand.logo.small.root == Path("does-not-exist.png")
-    assert brand.logo.small.root == brand.logo.small.relative()
+    assert brand.logo.small.path.root == Path("does-not-exist.png")
+    assert brand.logo.small.path.root == brand.logo.small.path.relative()
 
     assert brand.typography.fonts[0].files[0].path.root == Path("Invisible.ttf")
     assert (
@@ -98,7 +100,7 @@ def test_brand_yml_paths():
 
     # Absolute paths have now been updated
     assert (
-        brand.logo.small.absolute()
+        brand.logo.small.path.absolute()
         == (path_fixtures / "does-not-exist.png").absolute()
     )
     assert (

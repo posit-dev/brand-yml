@@ -156,8 +156,6 @@ color:
   background: '#f7f4f4'
 
 typography:
-  base:
-    color: foreground
   headings:
     color: primary
   monospace-inline:
