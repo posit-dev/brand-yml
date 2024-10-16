@@ -179,12 +179,6 @@ class BrandColor(BrandBase):
     dark
         A dark color, used as a high-contrast foreground color on light elements
         or high-contrast background color on light elements.
-
-    emphasis
-        A color used to emphasize or highlight text or elements.
-
-    link
-        The color used for hyperlinks.
     """
 
     model_config = ConfigDict(
@@ -207,8 +201,6 @@ class BrandColor(BrandBase):
     danger: Optional[str] = None
     light: Optional[str] = None
     dark: Optional[str] = None
-    emphasis: Optional[str] = None
-    link: Optional[str] = None
 
     @field_validator("palette")
     @classmethod
