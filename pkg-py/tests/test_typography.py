@@ -137,7 +137,6 @@ def test_brand_typography_fields_base():
         "weight",
         "size",
         "line_height",
-        "color",
     }
 
 
@@ -601,8 +600,7 @@ def test_brand_typography_ex_color(snapshot_json):
     color = brand.color
     assert color.palette is not None
 
-    assert isinstance(t.base, BrandTypographyBase)
-    assert t.base.color == color.foreground
+    assert t.base is None  # base color is set via color.foreground
 
     assert isinstance(t.headings, BrandTypographyHeadings)
     assert t.headings.color == color.primary

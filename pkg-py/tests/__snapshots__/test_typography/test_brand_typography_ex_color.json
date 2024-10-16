@@ -15,9 +15,6 @@
     }
   },
   "typography": {
-    "base": {
-      "color": "#1b1818"
-    },
     "fonts": [],
     "headings": {
       "color": "#87CEEB"

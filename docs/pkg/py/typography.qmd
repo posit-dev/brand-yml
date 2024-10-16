@@ -556,10 +556,6 @@ line_height
 :   The line height of the text. Line height refers to the vertical space
     between lines of text.
 
-color
-
-:   The color of the text. Can be any CSS-compatible color definition.
-
 ### BrandTypographyHeadings { #brand_yaml.typography.BrandTypographyHeadings }
 
 ```python

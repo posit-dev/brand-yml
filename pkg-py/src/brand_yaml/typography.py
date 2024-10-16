@@ -852,7 +852,6 @@ class BrandTypographyBase(
     BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
     BrandTypographyOptionsLineHeight,
-    BrandTypographyOptionsColor,
 ):
     """
     Typographic settings for base (or body) text.
@@ -869,8 +868,6 @@ class BrandTypographyBase(
     line_height
         The line height of the text. Line height refers to the vertical space
         between lines of text.
-    color
-        The color of the text. Can be any CSS-compatible color definition.
     """
 
     model_config = ConfigDict(extra="forbid")
