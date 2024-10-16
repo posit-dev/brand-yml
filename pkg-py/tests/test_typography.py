@@ -26,7 +26,7 @@ from brand_yaml.typography import (
     validate_font_weight,
 )
 from syrupy.extensions.json import JSONSnapshotExtension
-from utils import path_examples, pydantic_data_from_json
+from utils import path_examples, pydantic_data_from_json, set_env_var
 
 
 @pytest.fixture
@@ -488,8 +488,26 @@ def test_brand_typography_font_bunny_import_url():
     )
 
 
-def test_brand_typography_ex_simple(snapshot_json):
+def test_brand_typography_ex_simple_system(snapshot_json):
     brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+
+    assert isinstance(brand.typography.fonts, list)
+    assert len(brand.typography.fonts) == 3
+    assert [f.family for f in brand.typography.fonts] == [
+        "Open Sans",
+        "Roboto Slab",
+        "Fira Code",
+    ]
+    assert [f.source for f in brand.typography.fonts] == ["system"] * 3
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_ex_simple_google(snapshot_json):
+    with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
+        brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -604,7 +622,8 @@ def test_brand_typography_ex_color(snapshot_json):
 
 
 def test_brand_typography_ex_minimal(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-typography-minimal.yml"))
+    with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
+        brand = read_brand_yaml(path_examples("brand-typography-minimal.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -622,10 +641,11 @@ def test_brand_typography_ex_minimal(snapshot_json):
     assert snapshot_json == pydantic_data_from_json(brand)
 
 
-def test_brand_typography_ex_minimal_system(snapshot_json):
-    brand = read_brand_yaml(
-        path_examples("brand-typography-minimal-system.yml")
-    )
+def test_brand_typography_ex_minimal_mixed_source(snapshot_json):
+    with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
+        brand = read_brand_yaml(
+            path_examples("brand-typography-minimal-system.yml")
+        )
 
     assert isinstance(brand.typography, BrandTypography)
 
