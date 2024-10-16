@@ -7,12 +7,14 @@ on:
       - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'
+      - 'examples/**/*'
       - '.github/workflows/py-test.yml'
   pull_request:
     paths: 
       - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'
+      - 'examples/**/*'
       - '.github/workflows/py-test.yml'
 
 permissions:
