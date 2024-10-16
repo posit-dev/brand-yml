@@ -1,4 +1,6 @@
-# Use qvm to manage quarto, also update quarto.path in .vscode/settings.json
+# Use qvm to manage quarto, also update:
+# * `quarto.path` in .vscode/settings.json
+# * quarto version in .github/workflows/docs-publish.yml
 QUARTO_VERSION ?= v1.6.25
 QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
 

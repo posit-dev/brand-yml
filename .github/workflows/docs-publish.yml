@@ -25,7 +25,7 @@ jobs:
     - name: 🐍 Set up Python 3.13
       run: uv python install 3.13
 
-    - name: 📦 Install the project
+    - name: 📦 Install brand_yaml and dependencies
       run: uv sync --python 3.13 --no-dev --extra docs
 
     # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
@@ -37,6 +37,10 @@ jobs:
         source .venv/bin/activate
         echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+
+    - name: 🏭 Build quartodoc inventory
+      run: uv run quartodoc interlinks
+      working-directory: docs
 
     - name: 🚢 Publish to Internal Posit Connect (and render)
       uses: quarto-dev/quarto-actions/publish@v2
