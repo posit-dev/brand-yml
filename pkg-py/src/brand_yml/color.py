@@ -66,13 +66,13 @@ class BrandColor(BrandBase):
       primary: purple
     ```
 
-    Once imported via `brand_yaml.Brand.from_yaml()`, you can access the named
+    Once imported via `brand_yml.Brand.from_yaml()`, you can access the named
     color palette via `brand.color.palette["purple"]` and the `primary` field
     will be ready for use.
 
     ```{python}
     #| echo: false
-    from brand_yaml import Brand
+    from brand_yml import Brand
     brand = Brand.from_yaml_str('''
     color:
       palette:
@@ -91,7 +91,7 @@ class BrandColor(BrandBase):
     :::
 
     This same principle of reuse applies to the `color` and `background-color`
-    fields of `brand_yaml.typography.BrandTypography`, where you can refer to
+    fields of `brand_yml.typography.BrandTypography`, where you can refer to
     any of the colors in `color.palette` or the theme colors directly.
 
     ```{.yaml filename="_brand.yml"}
@@ -111,7 +111,7 @@ class BrandColor(BrandBase):
 
     ```{python}
     #| echo: false
-    from brand_yaml import Brand
+    from brand_yml import Brand
     brand = Brand.from_yaml_str('''
     color:
       palette:

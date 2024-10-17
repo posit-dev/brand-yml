@@ -97,7 +97,7 @@ class BrandLogo(BrandBase):
     logo or image assets in `images` with meaningful names. Logos can be mapped
     to three preset sizes -- `small`, `medium`, and `large` -- and each can be
     either a single logo file or a light/dark variant
-    (`brand_yaml.BrandLightDark`).
+    (`brand_yml.BrandLightDark`).
 
     To attach alternative text to an image, provide the image as a dictionary
     including `path` (the image location) and `alt` (the short, alternative

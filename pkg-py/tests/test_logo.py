@@ -3,10 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from brand_yaml import Brand, read_brand_yaml
-from brand_yaml._defs import BrandLightDark
-from brand_yaml.file import FileLocation, FileLocationLocal
-from brand_yaml.logo import BrandLogo, BrandLogoResource
+from brand_yml import Brand, read_brand_yml
+from brand_yml._defs import BrandLightDark
+from brand_yml.file import FileLocation, FileLocationLocal
+from brand_yml.logo import BrandLogo, BrandLogoResource
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -17,7 +17,7 @@ def snapshot_json(snapshot):
 
 
 def test_brand_logo_single():
-    brand = read_brand_yaml(path_examples("brand-logo-single.yml"))
+    brand = read_brand_yml(path_examples("brand-logo-single.yml"))
 
     assert isinstance(brand.logo, BrandLogoResource)
     assert isinstance(brand.logo.path, FileLocationLocal)
@@ -40,7 +40,7 @@ def test_brand_logo_images_accept_paths():
 
 
 def test_brand_logo_ex_simple(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-logo-simple.yml"))
+    brand = read_brand_yml(path_examples("brand-logo-simple.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
 
@@ -60,7 +60,7 @@ def test_brand_logo_ex_simple(snapshot_json):
 
 
 def test_brand_logo_ex_light_dark(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-logo-light-dark.yml"))
+    brand = read_brand_yml(path_examples("brand-logo-light-dark.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
     assert isinstance(brand.logo.small, BrandLogoResource)
@@ -88,7 +88,7 @@ def test_brand_logo_ex_light_dark(snapshot_json):
 
 
 def test_brand_logo_ex_full(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-logo-full.yml"))
+    brand = read_brand_yml(path_examples("brand-logo-full.yml"))
 
     assert isinstance(brand.logo, BrandLogo)
     assert isinstance(brand.logo.images, dict)
@@ -185,6 +185,6 @@ def test_brand_logo_resource_direct_with_alt():
 
 
 def test_brand_logo_ex_full_alt(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-logo-full-alt.yml"))
+    brand = read_brand_yml(path_examples("brand-logo-full-alt.yml"))
 
     assert snapshot_json == pydantic_data_from_json(brand)

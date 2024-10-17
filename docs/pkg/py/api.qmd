@@ -1,4 +1,4 @@
-# brand_yaml Python Package Reference {.doc .doc-index}
+# brand_yml Python Package Reference {.doc .doc-index}
 
 ## Read or create a brand
 
@@ -6,8 +6,8 @@ Read a `_brand.yml` file or create an instance of a Brand.
 
 | | |
 | --- | --- |
-| [Brand](#brand_yaml.Brand) | Brand guidelines in a class. |
-| [read_brand_yaml](#brand_yaml.read_brand_yaml) | Read a Brand YAML file. |
+| [Brand](#brand_yml.Brand) | Brand guidelines in a class. |
+| [read_brand_yml](#brand_yml.read_brand_yml) | Read a Brand YAML file. |
 
 ## Brand Components
 

@@ -64,12 +64,12 @@ metadata-files:
   # - _sidebar-r.yml
 
 quartodoc:
-  package: brand_yaml
+  package: brand_yml
   renderer:
     style: _renderer.py
   dir: pkg/py
   sidebar: _sidebar-python.yml
-  title: brand_yaml Python Package Reference
+  title: brand_yml Python Package Reference
   out_index: api.qmd
   dynamic: true
   render_interlinks: true
@@ -79,7 +79,7 @@ quartodoc:
       desc: Read a `_brand.yml` file or create an instance of a Brand.
       contents:
         - Brand
-        - read_brand_yaml
+        - read_brand_yml
     - title: Brand Components
       desc: Individual brand components.
       options:
@@ -121,7 +121,6 @@ quartodoc:
             name: Typography
           contents:
             - BrandTypography
-            # - typography.BrandTypographyFontFamily
             - name: typography
               members:
                 - BrandTypographyFontFamily

@@ -49,7 +49,7 @@ class BrandMeta(BrandBase):
         homepage, social media accounts, etc. Like `name`, this can be a single
         value or a dictionary with additional keys. If a single value is
         provided, it is promoted to the `home` key of
-        `brand_yaml.meta.BrandMetaLink`.
+        `brand_yml.meta.BrandMetaLink`.
 
         These two constructions are equivalent:
 

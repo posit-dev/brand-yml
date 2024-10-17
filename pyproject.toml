@@ -1,5 +1,6 @@
 [project]
-name = "brand-yaml"
+name = "brand_yml"
+namespace-packages=["brand"]
 version = "0.0.1"
 description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
@@ -42,7 +43,7 @@ build-backend = "hatchling.build"
 skip-excluded-dirs = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["pkg-py/src/brand_yaml"]
+packages = ["pkg-py/src/brand_yml"]
 
 [tool.pyright]
 include = ["pkg-py"]
@@ -50,13 +51,13 @@ exclude = ["pkg-py/_dev", "pkg-py/.venv"]
 
 [tool.coverage.paths]
 source = [
-  "pkg-py/src/brand_yaml",
+  "pkg-py/src/brand_yml",
 ]
 
 [tool.coverage.run]
 branch = true
 source = [
-  "pkg-py/src/brand_yaml",
+  "pkg-py/src/brand_yml",
 ]
 
 [tool.coverage.report]

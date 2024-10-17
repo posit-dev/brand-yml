@@ -321,7 +321,7 @@ class BrandTypographyFontSystem(BrandTypographyFontSource):
 
     This class is used to signal that a font should be retrieved from the
     system. This assumes that the font is installed on the system and will be
-    resolved automatically; [`brand_yaml.Brand`](`brand_yaml.Brand`) won't do
+    resolved automatically; [`brand_yml.Brand`](`brand_yml.Brand`) won't do
     anything to embed the font or include it in any CSS.
     """
 
@@ -707,7 +707,7 @@ class BrandTypographyFontGoogle(BrandTypographyGoogleFontsApi):
     allows you to specify the font family name, weight range, and style.
 
     Subclass of
-    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    [`brand_yml.typography.BrandTypographyGoogleFontsApi`](`brand_yml.typography.BrandTypographyGoogleFontsApi`),
     the generic Google Fonts API font source.
 
     Examples
@@ -739,7 +739,7 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
     allows you to specify the font family name, weight range, and style.
 
     Subclass of
-    [`brand_yaml.typography.BrandTypographyGoogleFontsApi`](`brand_yaml.typography.BrandTypographyGoogleFontsApi`),
+    [`brand_yml.typography.BrandTypographyGoogleFontsApi`](`brand_yml.typography.BrandTypographyGoogleFontsApi`),
     the generic Google Fonts API font source.
 
     Examples
@@ -929,9 +929,9 @@ class BrandTypographyMonospace(
     This class defines general typography options for monospace text, typically
     used for code blocks and other programming-related content. These choices
     can be further refined for inline and block monospace text using
-    [`brand_yaml.typography.BrandTypographyMonospaceInline`](`brand_yaml.typography.BrandTypographyMonospaceInline`)
+    [`brand_yml.typography.BrandTypographyMonospaceInline`](`brand_yml.typography.BrandTypographyMonospaceInline`)
     and
-    [`brand_yaml.typography.BrandTypographyMonospaceBlock`](`brand_yaml.typography.BrandTypographyMonospaceBlock`)
+    [`brand_yml.typography.BrandTypographyMonospaceBlock`](`brand_yml.typography.BrandTypographyMonospaceBlock`)
     respectively.
 
     Attributes
@@ -1002,7 +1002,7 @@ class BrandTypographyMonospaceInline(
     This class defines typography options for inline monospace text, typically
     used for code snippets or technical terms within regular text. It inherits
     properties from
-    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    [`brand_yml.typography.BrandTypographyMonospace`](`brand_yml.typography.BrandTypographyMonospace`)
     with additional options for foreground and background colors.
 
     Attributes
@@ -1075,7 +1075,7 @@ class BrandTypographyMonospaceBlock(
     This class defines typography options for block monospace text, typically
     used for code blocks or other larger sections of monospaced content. It
     inherits properties from
-    [`brand_yaml.typography.BrandTypographyMonospace`](`brand_yaml.typography.BrandTypographyMonospace`)
+    [`brand_yml.typography.BrandTypographyMonospace`](`brand_yml.typography.BrandTypographyMonospace`)
     and adds options for line height, foreground color, and background color.
 
     Attributes
@@ -1203,11 +1203,11 @@ A font family resource declaration.
 A font family can be one of three different types of resources:
 
 1. A font provided by [Google Fonts](https://fonts.google.com) --
-   [`brand_yaml.typography.BrandTypographyFontGoogle`](`brand_yaml.typography.BrandTypographyFontGoogle`)
+   [`brand_yml.typography.BrandTypographyFontGoogle`](`brand_yml.typography.BrandTypographyFontGoogle`)
 1. A font provided by [Bunny Fonts](https://fonts.bunny.net/) --
-   [`brand_yaml.typography.BrandTypographyFontBunny`](`brand_yaml.typography.BrandTypographyFontBunny`)
+   [`brand_yml.typography.BrandTypographyFontBunny`](`brand_yml.typography.BrandTypographyFontBunny`)
 1. A collection of font files, stored locally or online --
-   [`brand_yaml.typography.BrandTypographyFontFiles`](`brand_yaml.typography.BrandTypographyFontFiles`)
+   [`brand_yml.typography.BrandTypographyFontFiles`](`brand_yml.typography.BrandTypographyFontFiles`)
 """
 
 

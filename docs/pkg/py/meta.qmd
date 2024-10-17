@@ -2,7 +2,7 @@
 
 
 
-# BrandMeta { #brand_yaml.BrandMeta }
+# BrandMeta { #brand_yml.BrandMeta }
 
 ```python
 BrandMeta()
@@ -17,7 +17,7 @@ or project, the brand guidelines, additional links, and more.
 
 name
 
-:   [BrandMetaName](`brand_yaml.meta.BrandMetaName`) \| None
+:   [BrandMetaName](`brand_yml.meta.BrandMetaName`) \| None
 
     The name of the brand. In the YAML, this may be a dictionary with the
     `full` and `short` forms of the brand name.
@@ -38,13 +38,13 @@ name
 
 link
 
-:   [BrandMetaLink](`brand_yaml.meta.BrandMetaLink`) \| None
+:   [BrandMetaLink](`brand_yml.meta.BrandMetaLink`) \| None
 
     Links to additional resources related to the brand, such as its
     homepage, social media accounts, etc. Like `name`, this can be a single
     value or a dictionary with additional keys. If a single value is
     provided, it is promoted to the `home` key of
-    `brand_yaml.meta.BrandMetaLink`.
+    `brand_yml.meta.BrandMetaLink`.
 
     These two constructions are equivalent:
 
@@ -92,7 +92,7 @@ meta:
 
 :::
 
-# meta.BrandMetaName { #brand_yaml.meta.BrandMetaName }
+# meta.BrandMetaName { #brand_yml.meta.BrandMetaName }
 
 ```python
 meta.BrandMetaName()
@@ -104,10 +104,10 @@ meta.BrandMetaName()
 
 | Name | Description |
 | --- | --- |
-| [full](#brand_yaml.meta.BrandMetaName.full) | Full name of the company or brand. |
-| [short](#brand_yaml.meta.BrandMetaName.short) | Short name of the company or brand, for use in space-constrained settings. |
+| [full](#brand_yml.meta.BrandMetaName.full) | Full name of the company or brand. |
+| [short](#brand_yml.meta.BrandMetaName.short) | Short name of the company or brand, for use in space-constrained settings. |
 
-# meta.BrandMetaLink { #brand_yaml.meta.BrandMetaLink }
+# meta.BrandMetaLink { #brand_yml.meta.BrandMetaLink }
 
 ```python
 meta.BrandMetaLink()
@@ -123,9 +123,9 @@ but only the attributes listed below are validated.
 
 | Name | Description |
 | --- | --- |
-| [facebook](#brand_yaml.meta.BrandMetaLink.facebook) | Facebook link for the brand or company. |
-| [github](#brand_yaml.meta.BrandMetaLink.github) | GitHub link for the brand or company. |
-| [home](#brand_yaml.meta.BrandMetaLink.home) | Home website link for the brand or company. |
-| [linkedin](#brand_yaml.meta.BrandMetaLink.linkedin) | LinkedIn link for the brand or company. |
-| [mastodon](#brand_yaml.meta.BrandMetaLink.mastodon) | Mastodon link for the brand or company. |
-| [twitter](#brand_yaml.meta.BrandMetaLink.twitter) | Twitter link for the brand or company. |
+| [facebook](#brand_yml.meta.BrandMetaLink.facebook) | Facebook link for the brand or company. |
+| [github](#brand_yml.meta.BrandMetaLink.github) | GitHub link for the brand or company. |
+| [home](#brand_yml.meta.BrandMetaLink.home) | Home website link for the brand or company. |
+| [linkedin](#brand_yml.meta.BrandMetaLink.linkedin) | LinkedIn link for the brand or company. |
+| [mastodon](#brand_yml.meta.BrandMetaLink.mastodon) | Mastodon link for the brand or company. |
+| [twitter](#brand_yml.meta.BrandMetaLink.twitter) | Twitter link for the brand or company. |

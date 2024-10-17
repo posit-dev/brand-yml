@@ -4,7 +4,7 @@ website:
     - pkg/py/index.qmd
     - contents:
       - pkg/py/Brand.qmd
-      - pkg/py/read_brand_yaml.qmd
+      - pkg/py/read_brand_yml.qmd
       section: Read or create a brand
     - contents:
       - pkg/py/meta.qmd

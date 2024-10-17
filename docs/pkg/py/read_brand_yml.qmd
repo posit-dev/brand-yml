@@ -1,17 +1,17 @@
-# read_brand_yaml { #brand_yaml.read_brand_yaml }
+# read_brand_yml { #brand_yml.read_brand_yml }
 
 ```python
-read_brand_yaml(path, as_data=False)
+read_brand_yml(path, as_data=False)
 ```
 
 Read a Brand YAML file.
 
 Reads a Brand YAML file or finds and reads a project-specific `_brand.yml`
-file and returns a validated `~brand_yaml.Brand` instance.
+file and returns a validated `~brand_yml.Brand` instance.
 
 To find a project-specific `_brand.yaml` file, pass the project directory or
 `__file__` (the path of the current Python script).
-`brand_yaml.read_brand_yaml` will look in that directory or any parent
+`brand_yml.read_brand_yml` will look in that directory or any parent
 directory for a `_brand.yml`, `brand/_brand.yml` or `_brand/_brand.yml`
 file. Note that it starts the search in the directory passed in and moves
 upward to find the Brand YAML file; it does not search into subdirectories
@@ -33,9 +33,9 @@ of the current directory.
 
 ## Returns {.doc-section .doc-section-returns}
 
-| Name   | Type                                          | Description                                                                                                                                                                                |
-|--------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|        | [Brand](`brand_yaml.Brand`) \| [dict](`dict`) | A validated :class:`brand_yaml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
+| Name   | Type                                         | Description                                                                                                                                                                               |
+|--------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [Brand](`brand_yml.Brand`) \| [dict](`dict`) | A validated :class:`brand_yml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
 
 ## Raises {.doc-section .doc-section-raises}
 
@@ -47,8 +47,8 @@ of the current directory.
 ## Examples {.doc-section .doc-section-examples}
 
 ```python
-from brand_yaml import read_brand_yaml
+from brand_yml import read_brand_yml
 
-brand = read_brand_yaml(__file__)
-brand = read_brand_yaml("path/to/_brand.yml")
+brand = read_brand_yml(__file__)
+brand = read_brand_yml("path/to/_brand.yml")
 ```

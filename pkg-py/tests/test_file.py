@@ -4,7 +4,7 @@ import copy
 from pathlib import Path
 
 import pytest
-from brand_yaml.file import FileLocation, FileLocationLocal, FileLocationUrl
+from brand_yml.file import FileLocation, FileLocationLocal, FileLocationUrl
 
 
 def test_file_requires_extension():
