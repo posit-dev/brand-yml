@@ -1,6 +1,5 @@
 [project]
 name = "brand_yml"
-namespace-packages=["brand"]
 version = "0.0.1"
 description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
@@ -31,6 +30,7 @@ docs = [
 dev-dependencies = [
     "coverage>=7",
     "jsonschema>=4",
+    "pre-commit-uv>=4.1.3",
     "ruff>=0.6.5",
     "tox-uv>=1",
 ]
@@ -80,7 +80,7 @@ wheel_build_env = .pkg
 commands = pytest
 
 [testenv:type]
-deps = 
+deps =
   pyright
   pytest
   syrupy
