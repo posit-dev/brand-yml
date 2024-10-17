@@ -1,4 +1,4 @@
-# Brand { #brand_yaml.Brand }
+# Brand { #brand_yml.Brand }
 
 ```python
 Brand()
@@ -8,14 +8,14 @@ Brand guidelines in a class.
 
 A brand instance encapsulates the color, typography and logo preferences for
 a given brand, typically found in brand guidelines created by a company's
-marketing department. `brand_yaml.Brand` organizes this information in a
+marketing department. `brand_yml.Brand` organizes this information in a
 common, fully-specified class instance that makes it easy to re-use for
 theming any artifact from websites to data visualizations.
 
 Unified brand information following the Brand YAML specification. Read brand
 metadata from a YAML file, typically named `_brand.yml`, with
-`brand_yaml.Brand.from_yaml` or from a YAML string with
-`brand_yaml.Brand.from_yaml_str`. Or create a full brand instance directly
+`brand_yml.Brand.from_yaml` or from a YAML string with
+`brand_yml.Brand.from_yaml_str`. Or create a full brand instance directly
 via this class.
 
 
@@ -23,11 +23,11 @@ via this class.
 
 | Name | Description |
 | --- | --- |
-| [from_yaml](#brand_yaml.Brand.from_yaml) | Read a Brand YAML file. |
-| [from_yaml_str](#brand_yaml.Brand.from_yaml_str) | Create a Brand instance from a string of YAML. |
-| [model_dump_yaml](#brand_yaml.Brand.model_dump_yaml) | Serialize the Brand object to YAML. |
+| [from_yaml](#brand_yml.Brand.from_yaml) | Read a Brand YAML file. |
+| [from_yaml_str](#brand_yml.Brand.from_yaml_str) | Create a Brand instance from a string of YAML. |
+| [model_dump_yaml](#brand_yml.Brand.model_dump_yaml) | Serialize the Brand object to YAML. |
 
-### from_yaml { #brand_yaml.Brand.from_yaml }
+### from_yaml { #brand_yml.Brand.from_yaml }
 
 ```python
 Brand.from_yaml(path)
@@ -49,9 +49,9 @@ a validated :class:`Brand` object.
 
 #### Returns {.doc-section .doc-section-returns}
 
-| Name   | Type   | Description                                                                                       |
-|--------|--------|---------------------------------------------------------------------------------------------------|
-|        |        | A validated `brand_yaml.Brand` object with all fields populated according to the Brand YAML file. |
+| Name   | Type   | Description                                                                                      |
+|--------|--------|--------------------------------------------------------------------------------------------------|
+|        |        | A validated `brand_yml.Brand` object with all fields populated according to the Brand YAML file. |
 
 #### Raises {.doc-section .doc-section-raises}
 
@@ -62,13 +62,13 @@ a validated :class:`Brand` object.
 #### Examples {.doc-section .doc-section-examples}
 
 ```python
-from brand_yaml import Brand
+from brand_yml import Brand
 
 brand = Brand.from_yaml(__file__)
 brand = Brand.from_yaml("path/to/_brand.yml")
 ```
 
-### from_yaml_str { #brand_yaml.Brand.from_yaml_str }
+### from_yaml_str { #brand_yml.Brand.from_yaml_str }
 
 ```python
 Brand.from_yaml_str(text, path=None)
@@ -88,9 +88,9 @@ Create a Brand instance from a string of YAML.
 
 #### Returns {.doc-section .doc-section-returns}
 
-| Name   | Type   | Description                                                                                       |
-|--------|--------|---------------------------------------------------------------------------------------------------|
-|        |        | A validated `brand_yaml.Brand` object with all fields populated according to the Brand YAML text. |
+| Name   | Type   | Description                                                                                      |
+|--------|--------|--------------------------------------------------------------------------------------------------|
+|        |        | A validated `brand_yml.Brand` object with all fields populated according to the Brand YAML text. |
 
 #### Raises {.doc-section .doc-section-raises}
 
@@ -101,7 +101,7 @@ Create a Brand instance from a string of YAML.
 #### Examples {.doc-section .doc-section-examples}
 
 ```{python}
-from brand_yaml import Brand
+from brand_yml import Brand
 
 brand = Brand.from_yaml_str("""
 meta:
@@ -121,7 +121,7 @@ brand.meta
 brand.color.primary
 ```
 
-### model_dump_yaml { #brand_yaml.Brand.model_dump_yaml }
+### model_dump_yaml { #brand_yml.Brand.model_dump_yaml }
 
 ```python
 Brand.model_dump_yaml(stream=None, *, transform=None)
@@ -129,13 +129,13 @@ Brand.model_dump_yaml(stream=None, *, transform=None)
 
 Serialize the Brand object to YAML.
 
-Write the [`brand_yaml.Brand`](`brand_yaml.Brand`) instance to a string
+Write the [`brand_yml.Brand`](`brand_yml.Brand`) instance to a string
 or to a file on disk.
 
 #### Examples {.doc-section .doc-section-examples}
 
 ```{python}
-from brand_yaml import Brand
+from brand_yml import Brand
 
 brand = Brand.from_yaml_str("""
 meta:
