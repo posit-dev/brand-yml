@@ -121,7 +121,6 @@ quartodoc:
             name: Typography
           contents:
             - BrandTypography
-            # - typography.BrandTypographyFontFamily
             - name: typography
               members:
                 - BrandTypographyFontFamily
