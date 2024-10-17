@@ -13,7 +13,7 @@ uv pip install brand_yaml
 ### From GitHub
 
 ```bash
-uv pip install "git+https://github.com/posit-dev/brand-yaml#subdirectory=pkg-py"
+uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
 ```
 
 ## Example
