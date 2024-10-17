@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from brand_yaml import read_brand_yaml
-from brand_yaml.meta import BrandMeta, BrandMetaLink, BrandMetaName
+from brand_yml import read_brand_yml
+from brand_yml.meta import BrandMeta, BrandMetaLink, BrandMetaName
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -63,7 +63,7 @@ def test_brand_meta_bad_url():
 
 
 def test_brand_meta_ex_full(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-meta-full.yml"))
+    brand = read_brand_yml(path_examples("brand-meta-full.yml"))
 
     assert brand.meta is not None
     assert brand.meta.name is not None
@@ -90,7 +90,7 @@ def test_brand_meta_ex_full(snapshot_json):
 
 
 def test_brand_meta_ex_small(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-meta-small.yml"))
+    brand = read_brand_yml(path_examples("brand-meta-small.yml"))
 
     assert brand.meta is not None
     assert isinstance(brand.meta.name, BrandMetaName)

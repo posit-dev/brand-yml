@@ -12,11 +12,11 @@ class FileLocation(RootModel):
     The base class for a file location, either a local or an online file.
 
     Local files are handled by
-    [`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)
+    [`brand_yml.file.FileLocationLocal`](`brand_yml.file.FileLocationLocal`)
     and are always considered relative to the source `_brand.yml` file.
 
     Online files are handled by
-    [`brand_yaml.file.FileLocationUrl`](`brand_yaml.file.FileLocationUrl`)
+    [`brand_yml.file.FileLocationUrl`](`brand_yml.file.FileLocationUrl`)
     and are a URL starting with `https://` or `http://`. Absolute paths for
     local or network files are supported via `FileLocationUrl` when using the
     `file://` prefix.
@@ -48,7 +48,7 @@ class FileLocationUrl(FileLocation):
     `http://` or `https://`. This class can also be used for the absolute path
     of local or networked files, which should start with `file://` (otherwise
     local files are handled by
-    [`brand_yaml.file.FileLocationLocal`](`brand_yaml.file.FileLocationLocal`)).
+    [`brand_yml.file.FileLocationLocal`](`brand_yml.file.FileLocationLocal`)).
     """
 
     root: HttpUrl
@@ -58,7 +58,7 @@ class FileLocationLocal(FileLocation):
     """
     A local file location.
 
-    When used in a `brand_yaml.Brand` instance, this class carries both the
+    When used in a `brand_yml.Brand` instance, this class carries both the
     relative path to the file, relative to the source `_brand.yml`, and the
     absolute path of the file on disk.
     """
@@ -96,7 +96,7 @@ class FileLocationLocal(FileLocation):
         Update the root directory of this file location.
 
         In general, the root directory is the parent directory containing the
-        source `brand.yml` file. If you relocate the file, this method can be
+        source `brand_yml` file. If you relocate the file, this method can be
         used to update the new local file location.
         """
         self._root_dir = root_dir

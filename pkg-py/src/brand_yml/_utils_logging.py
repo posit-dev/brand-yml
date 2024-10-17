@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger("brand_yaml")
+logger = logging.getLogger("brand_yml")
 if len(logger.handlers) == 0:
     logger.addHandler(logging.NullHandler())
 

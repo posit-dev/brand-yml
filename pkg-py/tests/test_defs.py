@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from brand_yaml._defs import (
+from brand_yml._defs import (
     CircularReferenceError,
     check_circular_references,
     defs_get,

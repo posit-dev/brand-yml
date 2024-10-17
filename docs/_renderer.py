@@ -23,7 +23,7 @@ from quartodoc.renderers.md_renderer import sanitize
 
 
 class Renderer(MdRenderer):
-    style = "brand_yaml"
+    style = "brand.yml"
 
     @dispatch
     def render(self, el: DocstringSectionAttributes):

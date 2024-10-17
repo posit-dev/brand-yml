@@ -4,10 +4,10 @@ from pathlib import Path
 from urllib.parse import unquote
 
 import pytest
-from brand_yaml import Brand, read_brand_yaml
-from brand_yaml.color import BrandColor
-from brand_yaml.file import FileLocationLocal
-from brand_yaml.typography import (
+from brand_yml import Brand, read_brand_yml
+from brand_yml.color import BrandColor
+from brand_yml.file import FileLocationLocal
+from brand_yml.typography import (
     BrandTypography,
     BrandTypographyBase,
     BrandTypographyFontBunny,
@@ -488,7 +488,7 @@ def test_brand_typography_font_bunny_import_url():
 
 
 def test_brand_typography_ex_simple_system(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
+    brand = read_brand_yml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -506,7 +506,7 @@ def test_brand_typography_ex_simple_system(snapshot_json):
 
 def test_brand_typography_ex_simple_google(snapshot_json):
     with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
-        brand = read_brand_yaml(path_examples("brand-typography-simple.yml"))
+        brand = read_brand_yml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -540,7 +540,7 @@ def test_brand_typography_ex_simple_google(snapshot_json):
 
 
 def test_brand_typography_ex_fonts(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
+    brand = read_brand_yml(path_examples("brand-typography-fonts.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
     assert len(brand.typography.fonts) == 4
@@ -591,7 +591,7 @@ def test_brand_typography_ex_fonts(snapshot_json):
 
 
 def test_brand_typography_ex_color(snapshot_json):
-    brand = read_brand_yaml(path_examples("brand-typography-color.yml"))
+    brand = read_brand_yml(path_examples("brand-typography-color.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
     assert isinstance(brand.color, BrandColor)
@@ -621,7 +621,7 @@ def test_brand_typography_ex_color(snapshot_json):
 
 def test_brand_typography_ex_minimal(snapshot_json):
     with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
-        brand = read_brand_yaml(path_examples("brand-typography-minimal.yml"))
+        brand = read_brand_yml(path_examples("brand-typography-minimal.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -641,7 +641,7 @@ def test_brand_typography_ex_minimal(snapshot_json):
 
 def test_brand_typography_ex_minimal_mixed_source(snapshot_json):
     with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "google"):
-        brand = read_brand_yaml(
+        brand = read_brand_yml(
             path_examples("brand-typography-minimal-system.yml")
         )
 
@@ -662,7 +662,7 @@ def test_brand_typography_ex_minimal_mixed_source(snapshot_json):
 
 
 def test_brand_typography_css_fonts(snapshot):
-    brand = read_brand_yaml(path_examples("brand-typography-fonts.yml"))
+    brand = read_brand_yml(path_examples("brand-typography-fonts.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
     assert snapshot == brand.typography.css_include_fonts()
@@ -727,17 +727,17 @@ def test_brand_typography_undefined_colors():
     fixtures = Path(__file__).parent / "fixtures" / "typography-undefined-color"
 
     with pytest.raises(ValueError, match="typography.base.color"):
-        read_brand_yaml(fixtures / "undefined-base-color.yml")
+        read_brand_yml(fixtures / "undefined-base-color.yml")
 
     with pytest.raises(
         ValueError, match="typography.monospace.background-color"
     ):
-        read_brand_yaml(fixtures / "undefined-monospace-background-color.yml")
+        read_brand_yml(fixtures / "undefined-monospace-background-color.yml")
 
     with pytest.raises(ValueError, match="typography.headings.color"):
-        read_brand_yaml(fixtures / "undefined-headings-color.yml")
+        read_brand_yml(fixtures / "undefined-headings-color.yml")
 
-    brand = read_brand_yaml(fixtures / "undefined-palette-headings-color.yml")
+    brand = read_brand_yml(fixtures / "undefined-palette-headings-color.yml")
     assert isinstance(brand.typography, BrandTypography)
     assert isinstance(brand.typography.headings, BrandTypographyHeadings)
     assert brand.typography.headings.color == "orange"

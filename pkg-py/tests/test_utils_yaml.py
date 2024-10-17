@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from brand_yaml import Brand
+from brand_yml import Brand
 
 
 def test_brand_model_dump_yaml(snapshot):

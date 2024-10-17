@@ -29,7 +29,7 @@ def find_project_file(
     )
 
 
-def find_project_brand_yaml(dir_: Path) -> Path:
+def find_project_brand_yml(dir_: Path) -> Path:
     return find_project_file("_brand.yml", dir_, ("brand", "_brand"))
 
 

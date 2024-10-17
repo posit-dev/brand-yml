@@ -12,7 +12,7 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark
-from ._utils import find_project_brand_yaml, recurse_dicts_and_models
+from ._utils import find_project_brand_yml, recurse_dicts_and_models
 from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
@@ -28,14 +28,14 @@ class Brand(BrandBase):
 
     A brand instance encapsulates the color, typography and logo preferences for
     a given brand, typically found in brand guidelines created by a company's
-    marketing department. `brand_yaml.Brand` organizes this information in a
+    marketing department. `brand_yml.Brand` organizes this information in a
     common, fully-specified class instance that makes it easy to re-use for
     theming any artifact from websites to data visualizations.
 
     Unified brand information following the Brand YAML specification. Read brand
     metadata from a YAML file, typically named `_brand.yml`, with
-    `brand_yaml.Brand.from_yaml` or from a YAML string with
-    `brand_yaml.Brand.from_yaml_str`. Or create a full brand instance directly
+    `brand_yml.Brand.from_yaml` or from a YAML string with
+    `brand_yml.Brand.from_yaml_str`. Or create a full brand instance directly
     via this class.
     """
 
@@ -72,7 +72,7 @@ class Brand(BrandBase):
         Returns
         -------
         :
-            A validated `brand_yaml.Brand` object with all fields populated
+            A validated `brand_yml.Brand` object with all fields populated
             according to the Brand YAML file.
 
         Raises
@@ -87,13 +87,13 @@ class Brand(BrandBase):
         --------
 
         ```python
-        from brand_yaml import Brand
+        from brand_yml import Brand
 
         brand = Brand.from_yaml(__file__)
         brand = Brand.from_yaml("path/to/_brand.yml")
         ```
         """
-        return cls.model_validate(read_brand_yaml(path, as_data=True))
+        return cls.model_validate(read_brand_yml(path, as_data=True))
 
     @classmethod
     def from_yaml_str(cls, text: str, path: str | Path | None = None):
@@ -110,7 +110,7 @@ class Brand(BrandBase):
         Returns
         -------
         :
-            A validated `brand_yaml.Brand` object with all fields populated
+            A validated `brand_yml.Brand` object with all fields populated
             according to the Brand YAML text.
 
         Raises
@@ -124,7 +124,7 @@ class Brand(BrandBase):
         --------
 
         ```{python}
-        from brand_yaml import Brand
+        from brand_yml import Brand
 
         brand = Brand.from_yaml_str(\"\"\"
         meta:
@@ -160,14 +160,14 @@ class Brand(BrandBase):
         """
         Serialize the Brand object to YAML.
 
-        Write the [`brand_yaml.Brand`](`brand_yaml.Brand`) instance to a string
+        Write the [`brand_yml.Brand`](`brand_yml.Brand`) instance to a string
         or to a file on disk.
 
         Examples
         --------
 
         ```{python}
-        from brand_yaml import Brand
+        from brand_yml import Brand
 
         brand = Brand.from_yaml_str(\"\"\"
         meta:
@@ -289,13 +289,13 @@ class Brand(BrandBase):
         """
         Update the root path of local file locations.
 
-        Updates any fields in `brand_yaml.Brand` that are known local file
+        Updates any fields in `brand_yml.Brand` that are known local file
         locations, i.e. fields that are validated into
-        `brand_yaml.file.FileLocationLocal` instances, to record the root
+        `brand_yml.file.FileLocationLocal` instances, to record the root
         directory. These file paths should be specified (and serialized) as
         relative paths in `_brand.yml`, but any brand consumer will need to be
         able to resolve the file locations to their absolute paths via
-        `brand_yaml.file.FileLocationLocal.absolute()`.
+        `brand_yml.file.FileLocationLocal.absolute()`.
         """
         path = self.path
         if path is not None:
@@ -312,7 +312,7 @@ class Brand(BrandBase):
     def _promote_logo_scalar_to_resource(cls, value: Any):
         """
         Take a single path value passed to `brand.logo` and promote it into a
-        [`brand_yaml.BrandLogoResource`](`brand_yaml.BrandLogoResource`).
+        [`brand_yml.BrandLogoResource`](`brand_yml.BrandLogoResource`).
         """
         if isinstance(value, (str, Path, FileLocation)):
             return {"path": value}
@@ -320,25 +320,25 @@ class Brand(BrandBase):
 
 
 @overload
-def read_brand_yaml(
+def read_brand_yml(
     path: str | Path, as_data: Literal[False] = False
 ) -> Brand: ...
 
 
 @overload
-def read_brand_yaml(path: str | Path, as_data: Literal[True]) -> dict: ...
+def read_brand_yml(path: str | Path, as_data: Literal[True]) -> dict: ...
 
 
-def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
+def read_brand_yml(path: str | Path, as_data: bool = False) -> Brand | dict:
     """
     Read a Brand YAML file.
 
     Reads a Brand YAML file or finds and reads a project-specific `_brand.yml`
-    file and returns a validated `~brand_yaml.Brand` instance.
+    file and returns a validated `~brand_yml.Brand` instance.
 
     To find a project-specific `_brand.yaml` file, pass the project directory or
     `__file__` (the path of the current Python script).
-    `brand_yaml.read_brand_yaml` will look in that directory or any parent
+    `brand_yml.read_brand_yml` will look in that directory or any parent
     directory for a `_brand.yml`, `brand/_brand.yml` or `_brand/_brand.yml`
     file. Note that it starts the search in the directory passed in and moves
     upward to find the Brand YAML file; it does not search into subdirectories
@@ -359,7 +359,7 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     Returns
     -------
     :
-        A validated :class:`brand_yaml.Brand` object with all fields populated according to
+        A validated :class:`brand_yml.Brand` object with all fields populated according to
         the Brand YAML file (`as_data=False`, default) or the raw brand data
         as a dictionary (`as_data=True`).
 
@@ -377,20 +377,20 @@ def read_brand_yaml(path: str | Path, as_data: bool = False) -> Brand | dict:
     --------
 
     ```python
-    from brand_yaml import read_brand_yaml
+    from brand_yml import read_brand_yml
 
-    brand = read_brand_yaml(__file__)
-    brand = read_brand_yaml("path/to/_brand.yml")
+    brand = read_brand_yml(__file__)
+    brand = read_brand_yml("path/to/_brand.yml")
     ```
     """
 
     path = Path(path).absolute()
 
     if path.is_dir():
-        path = find_project_brand_yaml(path)
+        path = find_project_brand_yml(path)
     elif path.suffix == ".py":
         # allows users to simply pass `__file__`
-        path = find_project_brand_yaml(path.parent)
+        path = find_project_brand_yml(path.parent)
 
     with open(path, "r") as f:
         brand_data = yaml.load(f)
@@ -419,5 +419,5 @@ __all__ = [
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",
-    "read_brand_yaml",
+    "read_brand_yml",
 ]

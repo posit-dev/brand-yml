@@ -6,7 +6,7 @@ format: gfm
 ---
 
 ```{python}
-from brand_yaml import Brand
+from brand_yml import Brand
 
 brand = Brand(
     meta = {"name": "Posit PBC", "link": "https://posit.co"}
