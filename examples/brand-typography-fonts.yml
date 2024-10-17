@@ -4,7 +4,7 @@ color:
   primary: "#f24242"
 typography:
   fonts:
-    # Local files 
+    # Local files
     - family: Open Sans
       source: file
       files:
@@ -27,7 +27,7 @@ typography:
       weight: 600..900
       style: normal
       display: block
-    
+
     - family: Fira Code
       source: bunny
       # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]

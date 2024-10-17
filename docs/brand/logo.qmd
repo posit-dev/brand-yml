@@ -26,7 +26,7 @@ logo:
 ```{.yaml filename="brand.yml (light/dark)"}
 logo:
   small: posit-icon.png
-  medium: 
+  medium:
     light: posit.png
     dark: posit-reverse.png
   large: posit.svg

@@ -22,9 +22,14 @@ docs:  ## [docs] Build the documentation
 docs-preview:  ## [docs] Preview the documentation
 	${QVM_QUARTO_PATH} preview docs
 
+.PHONY: pre-commit-all
+pre-commit-all:
+	uv run pre-commit run --files $$(git ls-files | grep -E "[.]([qR]?md|py|R|ya?ml|[jt]s|toml)$$")
+
 .PHONY: py-setup
 py-setup:  ## [py] Setup python environment
 	uv sync --all-extras
+	uv run pre-commit install
 
 .PHONY: py-check
 py-check:  py-check-tests py-check-format py-check-types ## [py] Run python checks

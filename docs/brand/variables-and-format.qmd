@@ -23,7 +23,7 @@ Example from [Quarto HTML documentation](https://quarto.org/docs/output-formats/
 ---
 title: "My Document"
 format:
-  html: 
+  html:
     theme: cosmo
     fontsize: 1.1em
     linestretch: 1.7
@@ -36,8 +36,8 @@ Example from [Quarto slides with beamer documentation](https://quarto.org/docs/p
 
 ```{.markdown}
 ---
-format: 
-  beamer: 
+format:
+  beamer:
     aspectratio: 32
     navigation: horizontal
     theme: AnnArbor
@@ -48,10 +48,10 @@ format:
 ## Example
 
 ```{.yaml filename="brand.yml"}
-format: 
+format:
   html:
     theme: cosmo
-  beamer: 
+  beamer:
     aspectratio: 32
     navigation: horizontal
     theme: AnnArbor

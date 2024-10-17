@@ -3,14 +3,14 @@ name: Test - Python
 on:
   push:
     branches: [main]
-    paths: 
+    paths:
       - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'
       - 'examples/**/*'
       - '.github/workflows/py-test.yml'
   pull_request:
-    paths: 
+    paths:
       - 'pkg-py/**/*'
       - 'pyproject.toml'
       - 'uv.lock'

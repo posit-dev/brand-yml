@@ -9,16 +9,16 @@ name: Render and Publish
 jobs:
   docs-publish:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
-        
+
     - name: 🔵 Set up Quarto
       uses: quarto-dev/quarto-actions/setup@v2
       with:
         version: 1.6.25
-    
+
     - name: 🚀 Install uv
       uses: astral-sh/setup-uv@v2
 
@@ -48,4 +48,4 @@ jobs:
         target: connect
         path: docs
         CONNECT_SERVER: ${{ secrets.CONNECT_SERVER }}
-        CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }} 
+        CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }}

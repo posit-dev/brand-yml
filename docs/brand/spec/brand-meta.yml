@@ -10,10 +10,10 @@
           - string
           - object:
               properties:
-                full: 
+                full:
                   string:
                     description: The full, official or legal name of the company or brand.
-                short: 
+                short:
                   string:
                     description: The short, informal, or common name of the company or brand.
       link:
@@ -25,7 +25,7 @@
           - string
           - object:
               properties:
-                home: 
+                home:
                   string:
                     description: The brand's home page or website.
                 mastodon:

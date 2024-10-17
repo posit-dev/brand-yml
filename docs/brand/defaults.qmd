@@ -1,13 +1,13 @@
 ---
 title: Defaults
 pagetitle: "defaults | brand.yml"
-aliases: 
+aliases:
   - /brand/template.html
 ---
 
 ## About
 
-Individual formats and outputs can expose format-specific variables or options that are relevant to branding. 
+Individual formats and outputs can expose format-specific variables or options that are relevant to branding.
 These options are tied to a specific output format or context, so they can't be included in the core brand specification.
 But they are still relevant to the brand and need a place within `brand.yml`.
 
@@ -69,7 +69,7 @@ Example from [Quarto HTML documentation](https://quarto.org/docs/output-formats/
 ---
 title: "My Document"
 format:
-  html: 
+  html:
     theme: cosmo
     fontsize: 1.1em
     linestretch: 1.7
@@ -82,8 +82,8 @@ Example from [Quarto slides with beamer documentation](https://quarto.org/docs/p
 
 ```{.markdown}
 ---
-format: 
-  beamer: 
+format:
+  beamer:
     aspectratio: 32
     navigation: horizontal
     theme: AnnArbor

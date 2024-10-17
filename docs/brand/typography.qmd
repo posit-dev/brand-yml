@@ -178,7 +178,7 @@ font_google(
     - `NULL`, the default weight for the `family`.
     - A character string defining an [axis range](https://developers.google.com/fonts/docs/css2#axis_ranges)
     - A numeric vector of desired font weight(s).
-    
+
 
 `ital`
 :    One of the following:
@@ -187,7 +187,7 @@ font_google(
     - `0`, meaning `font-style: normal`
     - `1`, meaning `font-style: italic`
     - `c(0, 1)`, meaning both `normal` and `italic`
-    
+
 
 `display`
 :    A character vector for the `font-display` `@font-face` property.
@@ -212,10 +212,10 @@ template:
 template:
   bslib:
     base_font:
-      google: 
+      google:
         family: Open Sans
         wght: [300, 400, 500]
-    code_font: 
+    code_font:
       google: Source Code Pro
     sans_font: Open Sans
     heading_font: Open Sans
@@ -266,7 +266,7 @@ $presentation-heading-color: #383d3d !default;
 Typst [only supports `mainfont`](https://quarto.org/docs/output-formats/typst.html#fonts-support)
 
 ```{.yaml}
-format: 
+format:
   typst:
     mainfont: "Agbalumo"
     font-paths: myfonts
@@ -281,7 +281,7 @@ Uses `mainfont`, `sansfont` and `monofont`, which, for `xelatex` (the default La
 ```{.yaml filename="brand.yml (simple)"}
 font:
   base: "Open Sans"
-  headings: 
+  headings:
     google: "Roboto Slab"
   monospace:
     google: "Fira Code"
@@ -290,14 +290,14 @@ font:
 ```{.yaml filename="brand.yml (full)"}
 font:
   base: "Open Sans"
-  headings: 
-    google: 
+  headings:
+    google:
       family: "Roboto Slab"
       weight: [600, 800]
       style: normal
       display: block
   monospace:
-    google: 
+    google:
       family: "Fira Code"
       weight: 300
   galada:
@@ -315,7 +315,7 @@ Alternatively, the `font` property could be limited to just defining the fonts t
 ```{.yaml filename="brand.yml (separate font and typography)"}
 font:
   - google: "Fira Code"
-  - google: 
+  - google:
       family: "Roboto Slab"
       weight: [600, 800]
       style: normal
@@ -328,11 +328,11 @@ font:
       - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf
 
 typography:
-  base: 
+  base:
     family: "Open Sans"
-  headings: 
+  headings:
     family: "Roboto Slab"
-  monospace: 
+  monospace:
     family: "Fira Code"
 ```
 
@@ -342,7 +342,7 @@ Another approach would be to nest `fonts` under `typography`:
 typography:
   fonts:
     - google: "Fira Code"
-    - google: 
+    - google:
         family: "Roboto Slab"
         weight: [600, 800]
         style: normal
@@ -353,14 +353,14 @@ typography:
       files:
         - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf
         - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf
-  base: 
+  base:
     family: "Open Sans"
     weight: 400
     line-height: 1.5
-  headings: 
+  headings:
     family: "Roboto Slab"
     color: "--primary"
-  monospace: 
+  monospace:
     family: "Fira Code"
 ```
 
@@ -370,34 +370,34 @@ typography:
     - google: "Fira Code"
     - google: "Roboto Slab"
     - google: "Open Sans"
-  base: 
+  base:
     family: "Open Sans"
     weight: 400
     line-height: 1.5
-  headings: 
+  headings:
     family: "Roboto Slab"
     color: "--primary"
-  monospace: 
+  monospace:
     family: "Fira Code"
 ```
 
 ```{.yaml filename="brand.yml (nested font and typography)"}
 typography:
-  base: 
-    family: 
+  base:
+    family:
       google: "Open Sans"
     location: google
     weight: 400
     line-height: 1.5
-  headings: 
-    family: 
+  headings:
+    family:
       google: "Roboto Slab"
     location:
       - fonts/Roboto Slab Regular.ttf
       - fonts/Roboto Slab Bold.ttf
     color: "--brand-primary"
-  monospace: 
-    family: 
+  monospace:
+    family:
       google: "Fira Code"
   h2:
     family: Open Sans
@@ -412,7 +412,7 @@ This makes `font-` properties more consistent, e.g. `font.family`, `font.weight`
 ```{.yaml filename="brand.yml (font in typography)"}
 typography:
   base:
-    font: 
+    font:
       family: "Open Sans"
       weight: 400
     line-height: 1.5

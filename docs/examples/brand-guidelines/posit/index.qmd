@@ -22,10 +22,10 @@ image: posit-brand-name.png
 
 **Primary**
 
-* Posit Blue  #447099 
+* Posit Blue  #447099
 * Posit Orange  #EE6331
 * Posit Gray  #404041
-* Pure White  #FFFFFF 
+* Pure White  #FFFFFF
 
 **Secondary**
 
@@ -36,7 +36,7 @@ image: posit-brand-name.png
 ## Typography
 
 > Please use [Open Sans](https://fonts.google.com/specimen/Open+Sans "https://fonts.google.com/specimen/Open+Sans"), and see the [brand guidelines](https://drive.google.com/file/d/1uc_A8b4eCTyC37fCTBtAQYWJL0IejVpM/view?usp=share_link "https://drive.google.com/file/d/1uc_A8b4eCTyC37fCTBtAQYWJL0IejVpM/view?usp=share_link") for helpful guidance on font style usage.
-> 
+>
 > If you are limited to web-safe fonts, please use Arial. For monospace font use [Source Code Pro](https://fonts.google.com/specimen/Source+Code+Pro "https://fonts.google.com/specimen/Source+Code+Pro").
 
 ## Logo

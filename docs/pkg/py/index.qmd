@@ -34,7 +34,7 @@ brand = Brand.from_yaml_str(
       warning: "#EE6331"
       danger: "#9A4665"
     typography:
-      base: 
+      base:
         family: Open Sans
         weight: 300
     """
@@ -52,4 +52,3 @@ brand.color.primary
 ```{python}
 brand.typography.base.model_dump()
 ```
-

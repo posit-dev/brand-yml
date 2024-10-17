@@ -6,7 +6,7 @@ pagetitle: "meta | brand.yml"
 ## About
 
 `meta` provides a place to store metadata about the Company described in `brand.yml`.
-We should anticipate a few key pieces of information, 
+We should anticipate a few key pieces of information,
 but authors might want to include data we haven't accounted for.
 
 ## Example

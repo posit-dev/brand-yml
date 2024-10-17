@@ -27,7 +27,7 @@ These colors can be used by name for the semantic theme colors under `color`.
 ### Color Theme
 
 While brand guidelines might provide [a set of unique colors](color.qmd), the goal of `color` is to provide color values for a key set of semantic theme fields.
-These fields follow Bootstrap conventions closely but are universal and are easily mapped to any themable output format. 
+These fields follow Bootstrap conventions closely but are universal and are easily mapped to any themable output format.
 
 #### Inspiration
 

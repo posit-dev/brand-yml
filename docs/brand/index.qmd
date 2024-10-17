@@ -13,7 +13,7 @@ brand-theme: >
 brand-fonts: >
   Named font definitions for Google, remote or bundled fonts.
 brand-typography: >
-  Font family, weight, style, color, and line height for key elements, 
+  Font family, weight, style, color, and line height for key elements,
   e.g. base, headings and monospace text.
 brand-defaults: >
   Additional context-specific settings beyond the basic brand colors and typography.
@@ -34,7 +34,7 @@ logo:     # <2>
   small:   # <2>
   large:   # <2>
 
-color:             
+color:
   with:         # <3>
     sizzling-red: "#FF3855" # <3>
   primary: sizzling-red   # <4>

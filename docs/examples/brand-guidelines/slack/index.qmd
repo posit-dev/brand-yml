@@ -54,7 +54,7 @@ image: slack.png
 ## Typography
 
 > Our brand fonts are Larsseit and Slack Circular. The following tables outline how best to use them.
-> 
+>
 > * Use Larsseit for headlines. ...
 > * Use Slack Circular for most other text, including paragraphs. ...
 > * Use Inter for Google Slides presentations

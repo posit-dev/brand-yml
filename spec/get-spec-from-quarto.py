@@ -1,6 +1,7 @@
+from pathlib import Path
+
 import requests
 from ruamel.yaml import YAML
-from pathlib import Path
 
 yaml = YAML()
 
@@ -10,7 +11,9 @@ def gh_quarto_cli_raw_url(branch="main"):
 
 
 def read_yaml_from_quarto(branch="main"):
-    url = gh_quarto_cli_raw_url(branch) + "/src/resources/schema/definitions.yml"
+    url = (
+        gh_quarto_cli_raw_url(branch) + "/src/resources/schema/definitions.yml"
+    )
     return yaml.load(requests.get(url).content)
 
 
@@ -29,7 +32,9 @@ def find_all_refs_recursively(obj: dict[str, object]):
 
 
 def filter_spec_brand(spec: list[dict[str, object]]):
-    brand = [item for item in spec if "id" in item and item["id"].startswith("brand")]
+    brand = [
+        item for item in spec if "id" in item and item["id"].startswith("brand")
+    ]
 
     # Make sure we've gotten all the references in the set of brand definitions
     refs = find_all_refs_recursively(brand)

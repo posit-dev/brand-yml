@@ -121,7 +121,7 @@
                   default: [normal, italic]
                 display:
                   description: >
-                    The font display method, determines how a font face is font face is shown 
+                    The font display method, determines how a font face is font face is shown
                     depending on its download status and readiness for use.
                   enum: [auto, block, swap, fallback, optional]
                   default: swap

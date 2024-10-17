@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.7.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix, --select=I]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+        args: ["--markdown-linebreak-ext=*md"]
+        files: "[.]([qR]?md|py|R|ya?ml)$"
+        exclude: "__snapshots__|_snaps"
+
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.21
+    hooks:
+      - id: validate-pyproject
