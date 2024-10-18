@@ -19,10 +19,8 @@ website:
         href: brand/index.qmd
       - text: "Inspiration"
         href: inspiration/index.qmd
-      - text: Packages
-        menu:
-          - text: Python
-            href: pkg/py/index.qmd
+      - text: Python
+        href: pkg/py/index.qmd
 
   sidebar:
     - id: brand-yml
