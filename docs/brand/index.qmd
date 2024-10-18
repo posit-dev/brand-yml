@@ -6,19 +6,19 @@ brand-meta: >
   Key identity information, name of the company, links to brand guidelines, etc.
 brand-logo: >
   Files or links to the brand's logo at various sizes.
-brand-palette: >
+brand-color-palette: >
   Named colors in the brand's color palette.
-brand-theme: >
+brand-color: >
   Semantic colors, e.g. `primary`, `secondary`, `success`, `warning`, etc.
-brand-fonts: >
-  Named font definitions for Google, remote or bundled fonts.
+brand-typography-fonts: >
+  Font definitions for Google, remote or bundled fonts.
 brand-typography: >
   Font family, weight, style, color, and line height for key elements,
   e.g. base, headings and monospace text.
 brand-defaults: >
   Additional context-specific settings beyond the basic brand colors and typography.
-  These could be options that are folded into existing Quarto yaml fields
-  like `format` or `website`, or they could be new fields for other contexts like `shiny`.
+  These could be options, for example, that are used by Boostrap in Quarto or Shiny.
+  They could also be folded into existing Quarto yaml fields like `format` or `website`, or they could be new fields for other contexts like `shiny`.
 ---
 
 
@@ -26,36 +26,59 @@ brand-defaults: >
 
 ```{.yaml filename="brand.yml"}
 meta:             # <1>
-  # company stuff # <1>
+  name: brand.yml # <1>
+  links: # <1>
+    home: https://posit-dev.github.io/brand-yml # <1>
+    github: https://github.com/posit-dev/brand-yml # <1>
 
-logo:     # <2>
-  with:   # <2>
-    # named logo files... # <2>
-  small:   # <2>
-  large:   # <2>
+logo: # <2>
+  images: # <2>
+    icon-color: logos/icon/brand-yml-icon-color.png # <2>
+    wide-color: logos/wide/brand-yml-wide-color.png # <2>
+    tall-color: logos/wide/brand-yml-tall-color.png # <2>
+  small: icon-color  # <2>
+  medium: wide-color # <2>
+  large: tall-color  # <2>
 
 color:
-  with:         # <3>
-    sizzling-red: "#FF3855" # <3>
-  primary: sizzling-red   # <4>
-  secondary: "#..."       # <4>
+  palette: # <3>
+    orange: "#FF6F20" # <3>
+    pink: "#FF3D7F"   # <3>
+    green: "#28A745"  # <3>
+    yellow: "#FFC107" # <3>
+  primary: orange # <4>
+  success: green  # <4>
+  warning: yellow # <4>
+  danger: pink    # <4>
 
 typography:
-  with: #<5>
-    # Font definitions # <5>
+  fonts: # <5>
+    - family: Open Sans # <5>
+      source: google # <5>
+    - family: IBM Plex Mono # <5>
+      source: google # <5>
+    - family: Rubik # <5>
+      source: google # <5>
   base: # <6>
+    family: Open Sans # <6>
+    line-height: 1.6 # <6>
   headings: # <6>
+    family: Rubik # <6>
+    weight: normal # <6>
+  link: # <6>
+    color: purple # <6>
   monospace: # <6>
+    family: IBM Plex Mono # <6>
+    size: 1em # <6>
 
 defaults: # <7>
+  bootstrap: # <7>
+    # bootstrap variable definitions # <7>
   quarto: # <7>
     format: # <7>
       # basic format-specific settings  # <7>
       html: # <7>
-      pdf:  # <7>
       revealjs: # <7>
-    website: # <7>
-      # website specific settings # <7>
   shiny: # <7>
     # shiny specific settings # <7>
 ```
@@ -64,11 +87,11 @@ defaults: # <7>
 
 1. [logo](logo.qmd): {{< meta brand-logo >}}
 
-1. [color.with](color.qmd#color): {{< meta brand-palette >}}
+1. [color.palette](color.qmd#color): {{< meta brand-color-palette >}}
 
-1. [color](color.qmd#theme): {{< meta brand-theme >}}
+1. [color](color.qmd#theme): {{< meta brand-color >}}
 
-1. [typography.with](typography.qmd#fonts): {{< meta brand-fonts >}}
+1. [typography.fonts](typography.qmd#fonts): {{< meta brand-typography-fonts >}}
 
 1. [typography](typography.qmd#typography): {{< meta brand-typography >}}
 
@@ -83,33 +106,11 @@ defaults: # <7>
 :    {{< meta brand-logo >}}
 
 [color](color.qmd#theme)
-:    {{< meta brand-theme >}}
-
-[color.with](color.qmd#color) (alias: palette)
-:    {{< meta brand-palette >}}
+:    {{< meta brand-color >}} [color.palette](color.qmd#color): {{< meta brand-color-palette >}}
 
 [typography](typography.qmd#typography)
-:    {{< meta brand-typography >}}
+:    {{< meta brand-typography >}} [typography.fonts](typography.qmd#fonts): {{< meta brand-typography-fonts >}}
 
-[typography.with](typography.qmd#fonts) (alias: fonts)
-:    {{< meta brand-fonts >}}
 
 [defaults](defaults.qmd)
 :    {{< meta brand-defaults >}}
-
-## YAML schema
-
-```{.yaml filename="spec/brand.yml"}
-{{< include spec/brand.yml >}}
-```
-
-::: {.callout collapse="true"}
-### Additional brand schema definitions
-
-Each of the brand fields have their own schema definition on their section pages.
-Below are additional schema definitions that may appear used throughout the `brand.yml` spec.
-
-```{.yaml}
-{{< include spec/brand_definitions.yml >}}
-```
-:::
