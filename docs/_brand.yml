@@ -1,0 +1,105 @@
+meta:
+  name:
+    full: Posit Software, PBC
+    short: Posit
+  link:
+    home: https://posit.co
+    guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ
+    mastodon: https://fosstodon.org/@Posit
+    linkedin: https://www.linkedin.com/company/posit-software/
+    twitter: https://twitter.com/posit_pbc
+
+logo:
+  images:
+    # Icons ----
+    icon-color: logos/icon/brand-yml-icon-color.png
+    icon-black: logos/icon/brand-yml-icon-black.png
+    icon-white: logos/icon/brand-yml-icon-white.png
+    icon-color-svg: logos/icon/brand-yml-icon-color.svg
+    icon-black-svg: logos/icon/brand-yml-icon-black.svg
+    icon-white-svg: logos/icon/brand-yml-icon-white.svg
+    # Wide (medium) ----
+    wide-color: logos/wide/brand-yml-wide-color.png
+    wide-black: logos/wide/brand-yml-wide-black.png
+    wide-white: logos/wide/brand-yml-wide-white.png
+    wide-color-svg: logos/wide-brand-yml-wide-color.svg
+    wide-black-svg: logos/wide/brand-yml-wide-black.svg
+    wide-white-svg: logos/wide/brand-yml-wide-white.svg
+    # Tall (large) ----
+    tall-color: logos/wide/brand-yml-tall-color.png
+    tall-black: logos/wide/brand-yml-tall-black.png
+    tall-white: logos/wide/brand-yml-tall-white.png
+    tall-color-svg: logos/tall-brand-yml-tall-color.svg
+    tall-black-svg: logos/wide/brand-yml-tall-black.svg
+    tall-white-svg: logos/wide/brand-yml-tall-white.svg
+
+
+  small: icon-color
+  medium: wide-color
+  large: tall-color
+
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+    purple: "#A500B5"
+    pink: "#FF3D7F"
+    green: "#28A745"
+    blue: "#007BFF"
+    yellow: "#FFC107"
+    red: "#DC3545"
+    gray-light: "#f0f0f0"
+    gray: "#454955"
+    gray-dark: "#343A40"
+    # TODO: remove when quarto supports defaults.bootsrap
+    navbar-bg: black
+    enable-rounded: "false"
+  foreground: black
+  background: white
+  primary: orange
+  secondary: gray-dark
+  tertiary: gray
+  success: green
+  info: blue
+  warning: yellow
+  danger: pink
+  light: gray-light
+  dark: gray-dark
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+      weight: [200, 400, 600, 800]
+    - family: IBM Plex Mono
+      source: google
+    - family: Rubik
+      source: google
+      weight: [200, 400, 600, 700, 900]
+
+  base:
+    family: "Open Sans"
+    line-height: 1.6
+    weight: 200
+  headings:
+    family: Rubik
+    weight: 200
+  link:
+    color: red
+  monospace:
+    family: IBM Plex Mono
+    size: 1em
+  monospace-inline:
+    family: IBM Plex Mono
+    color: purple
+    background-color: gray-light
+  monospace-block:
+    family: IBM Plex Mono
+    line-height: 1.2
+    background-color: gray-light
+
+# defaults:
+#   bootstrap:
+#     enable-rounded: false
+#     navbar-bg: $brand-black

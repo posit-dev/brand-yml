@@ -1,0 +1,11 @@
+/*-- scss:rules --*/
+// quarto adjustments ----
+.code-with-filename .code-with-filename-file {
+  background-color: $gray;
+  pre {
+    color: $body-bg;
+    font-family: $font-family-base;
+    font-size: 0.9rem;
+    padding-block: 0.25rem;
+  }
+}

@@ -1,7 +1,0 @@
----
-title: Dow Chemical
-link: https://brand.dow.com/en-us/brand-guidelines.html
-image: dow.png
----
-
-[{{< meta title >}} Brand Guidelines]({{< meta link >}})

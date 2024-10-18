@@ -5,6 +5,8 @@ aliases:
   - /brand/template.html
 ---
 
+{{< partial _needs-to-be-updated.qmd >}}
+
 ## About
 
 Individual formats and outputs can expose format-specific variables or options that are relevant to branding.
