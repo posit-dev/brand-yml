@@ -1,7 +1,10 @@
 on:
   push:
     branches:
-    - main
+      - main
+    paths:
+      - "docs/**/*"
+      - .github/workflows/docs-publish.yml
   workflow_dispatch:
 
 name: Render and Publish
