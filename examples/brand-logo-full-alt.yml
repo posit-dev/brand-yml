@@ -1,0 +1,21 @@
+logo:
+  images:
+    mark:
+      path: logos/pandas/pandas_mark.svg
+      alt: pandas logo with blue bars and yellow and pink dots
+    mark-white: logos/pandas/pandas_mark_white.svg
+    secondary: logos/pandas/pandas_secondary.svg
+    secondary-white:
+      path: logos/pandas/pandas_secondary_white.svg
+      alt: pandas logo with bars and dots over the word "pandas"
+    pandas: logos/pandas/pandas.svg
+    pandas-white: logos/pandas/pandas_white.svg
+  small: mark
+  medium:
+    light:
+      path: logos/pandas/pandas_secondary.svg
+      alt: pandas logo with bars and dots over the word "pandas"
+    dark: secondary-white
+  large:
+    path: logos/pandas/pandas.svg
+    alt: pandas bars and dots to the right of the word "pandas"

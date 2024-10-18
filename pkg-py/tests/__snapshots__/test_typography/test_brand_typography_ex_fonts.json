@@ -1,0 +1,74 @@
+{
+  "color": {
+    "primary": "#f24242"
+  },
+  "meta": {
+    "name": {
+      "full": "examples/brand-typography-fonts.yml"
+    }
+  },
+  "typography": {
+    "base": {
+      "family": "Open Sans",
+      "line-height": 1.25,
+      "size": "1rem"
+    },
+    "fonts": [
+      {
+        "family": "Open Sans",
+        "files": [
+          {
+            "path": "fonts/open-sans/OpenSans-Variable.ttf"
+          },
+          {
+            "path": "fonts/open-sans/OpenSans-Variable-Italic.ttf",
+            "style": "italic"
+          }
+        ],
+        "source": "file"
+      },
+      {
+        "family": "Closed Sans",
+        "files": [
+          {
+            "path": "https://example.com/Closed-Sans-Bold.woff2",
+            "weight": "bold"
+          },
+          {
+            "path": "https://example.com/Closed-Sans-Italic.woff2",
+            "style": "italic"
+          }
+        ],
+        "source": "file"
+      },
+      {
+        "display": "block",
+        "family": "Roboto Slab",
+        "source": "google",
+        "style": "normal",
+        "weight": "600..900"
+      },
+      {
+        "family": "Fira Code",
+        "source": "bunny"
+      }
+    ],
+    "headings": {
+      "color": "#f24242",
+      "family": "Roboto Slab",
+      "weight": 600
+    },
+    "monospace": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-block": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    },
+    "monospace-inline": {
+      "family": "Fira Code",
+      "size": "0.9em"
+    }
+  }
+}

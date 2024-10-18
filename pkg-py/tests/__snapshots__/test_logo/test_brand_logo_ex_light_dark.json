@@ -1,0 +1,18 @@
+{
+  "logo": {
+    "large": {
+      "path": "logos/pandas/pandas.svg"
+    },
+    "medium": {
+      "dark": {
+        "path": "logos/pandas/pandas_secondary_white.svg"
+      },
+      "light": {
+        "path": "logos/pandas/pandas_secondary.svg"
+      }
+    },
+    "small": {
+      "path": "logos/pandas/pandas_mark.svg"
+    }
+  }
+}

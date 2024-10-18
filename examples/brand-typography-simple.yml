@@ -1,0 +1,16 @@
+meta:
+  name: examples/brand-typography-simple.yml
+color:
+  primary: blue
+typography:
+  base:
+    family: Open Sans
+    line-height: 1.25
+    size: 1rem
+  headings:
+    family: Roboto Slab
+    color: primary
+    weight: semi-bold
+  monospace:
+    family: Fira Code
+    size: 0.9em

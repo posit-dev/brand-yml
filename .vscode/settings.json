@@ -1,0 +1,11 @@
+{
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+        },
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "quarto.path": "~/.local/share/qvm/versions/v1.6.26/bin/quarto"
+}

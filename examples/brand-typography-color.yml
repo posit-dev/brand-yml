@@ -1,0 +1,23 @@
+meta:
+  name: examples/brand-typography-color.yml
+
+color:
+  palette:
+    red: "#FF6F61"
+  primary: "#87CEEB"
+  secondary: "#50C878"
+  danger: red
+  foreground: "#1b1818"
+  background: "#f7f4f4"
+
+typography:
+  headings:
+    color: primary
+  monospace-inline:
+    color: background
+    background-color: red
+  monospace-block:
+    color: foreground
+    background-color: background
+  link:
+    color: danger

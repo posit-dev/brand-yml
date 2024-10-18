@@ -1,0 +1,16 @@
+---
+title: "Brand YAML"
+subtitle: "Unified Branding for Humans"
+
+format: gfm
+---
+
+```{python}
+from brand_yml import Brand
+
+brand = Brand(
+    meta = {"name": "Posit PBC", "link": "https://posit.co"}
+)
+
+brand.meta
+```
