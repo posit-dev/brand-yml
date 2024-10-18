@@ -2,6 +2,7 @@ on:
   push:
     branches:
     - main
+  workflow_dispatch:
 
 name: Render and Publish
 
@@ -42,10 +43,8 @@ jobs:
       run: uv run quartodoc interlinks
       working-directory: docs
 
-    - name: 🚢 Publish to Internal Posit Connect (and render)
+    - name: 🚢 Publish to GitHub Pages (and render)
       uses: quarto-dev/quarto-actions/publish@v2
       with:
-        target: connect
+        target: gh-pages
         path: docs
-        CONNECT_SERVER: ${{ secrets.CONNECT_SERVER }}
-        CONNECT_API_KEY: ${{ secrets.CONNECT_API_KEY }}
