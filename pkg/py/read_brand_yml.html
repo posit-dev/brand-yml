@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.6.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-419b241722dc45763910cc5a6fa847f4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ae07094d025b8cadd4ee9ec69f407df4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2dc0763ba61a314555914e14278f01ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-73dfb8e3ec93f5d1bfa6db51e46077c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,11 +268,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="parameters" class="level2 doc-section doc-section-parameters">
 <h2 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h2>
 <dl>
-<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>str</code> | <code>Path</code></span></code></dt>
+<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
 <dd>
 <p>The path to the Brand YAML file or a directory where <code>_brand.yml</code> is expected to be found. Typically, you can pass <code>__file__</code> from the calling script to find <code>_brand.yml</code> in the current directory or any of its parent directories.</p>
 </dd>
-<dt><code><span class="parameter-name">as_data</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>bool</code></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">False</span></code></dt>
+<dt><code><span class="parameter-name">as_data</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">False</span></code></dt>
 <dd>
 <p>When <code>True</code>, returns the raw brand data as a dictionary parsed from the YAML file. When <code>False</code>, returns a validated :class:<code>Brand</code> object.</p>
 </dd>
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td></td>
-<td><a href="../../pkg/py/Brand.html#brand_yml.Brand">Brand</a> | <code>dict</code></td>
+<td><a href="../../pkg/py/Brand.html#brand_yml.Brand">Brand</a> | <a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></td>
 <td>A validated :class:<code>brand_yml.Brand</code> object with all fields populated according to the Brand YAML file (<code>as_data=False</code>, default) or the raw brand data as a dictionary (<code>as_data=True</code>).</td>
 </tr>
 </tbody>
@@ -310,12 +310,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td></td>
-<td><code>FileNotFoundError</code></td>
+<td><a href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError">FileNotFoundError</a></td>
 <td>Raises a <code>FileNotFoundError</code> if no brand configuration file is found within the given path.</td>
 </tr>
 <tr class="even">
 <td></td>
-<td><code>ValueError</code></td>
+<td><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></td>
 <td><code>ValueError</code> or other validation errors are raised from <a href="https://docs.pydantic.dev/latest/">pydantic</a> if the Brand YAML file is invalid.</td>
 </tr>
 </tbody>

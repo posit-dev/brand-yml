@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.6.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-419b241722dc45763910cc5a6fa847f4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ae07094d025b8cadd4ee9ec69f407df4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2dc0763ba61a314555914e14278f01ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-73dfb8e3ec93f5d1bfa6db51e46077c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -350,13 +350,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once imported via <code>brand_yml.Brand.from_yaml()</code>, you can access the named color palette via <code>brand.color.palette["purple"]</code> and the <code>primary</code> field will be ready for use.</p>
 <div class="python-code-preview">
-<div id="533b7b19" class="cell" data-execution_count="2">
+<div id="719a1f64" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>brand.color.palette[<span class="st">"purple"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="dfc4ff89" class="cell" data-execution_count="3">
+<div id="1777cdca" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#6339E0'</code></pre>
@@ -380,13 +380,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>With this Brand YAML, both headings and links will ultimately be styled with the brand’s <code>purple</code> color.</p>
 <div class="python-code-preview">
-<div id="871e87bf" class="cell" data-execution_count="5">
+<div id="bdf839ea" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>brand.typography.headings.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="2aaf3b5d" class="cell" data-execution_count="6">
+<div id="0699164e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>brand.typography.link.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>'#6339E0'</code></pre>
@@ -399,62 +399,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>palette</dt>
 <dd>
-<p><code>dict</code>[<code>str</code>, <code>str</code>] | None</p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</p>
 <p>A dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended but no specific format is required at this time). These values can be referred to, by name, in the other theme properties</p>
 </dd>
 <dt>foreground</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The foreground color, used for text.</p>
 </dd>
 <dt>background</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The background color, used for the page or main background.</p>
 </dd>
 <dt>primary</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The primary accent color, i.e.&nbsp;the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.</p>
 </dd>
 <dt>secondary</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The secondary accent color. Typically used for lighter text or disabled states.</p>
 </dd>
 <dt>tertiary</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.</p>
 </dd>
 <dt>success</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The color used for positive or successful actions and information.</p>
 </dd>
 <dt>info</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The color used for neutral or informational actions and information.</p>
 </dd>
 <dt>warning</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The color used for warning or cautionary actions and information.</p>
 </dd>
 <dt>danger</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>The color used for errors, dangerous actions, or negative information.</p>
 </dd>
 <dt>light</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>A bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.</p>
 </dd>
 <dt>dark</dt>
 <dd>
-<p><code>Optional</code>[<code>str</code>]</p>
+<p><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</p>
 <p>A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.</p>
 </dd>
 </dl>

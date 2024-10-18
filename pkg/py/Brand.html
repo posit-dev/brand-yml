@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.6.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-419b241722dc45763910cc5a6fa847f4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ae07094d025b8cadd4ee9ec69f407df4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2dc0763ba61a314555914e14278f01ff.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-73dfb8e3ec93f5d1bfa6db51e46077c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -310,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>str</code> | <code>Path</code></span></code></dt>
+<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
 <dd>
 <p>The path to the Brand YAML file or a directory where <code>_brand.yml</code> is expected to be found. Typically, you can pass <code>__file__</code> from the calling script to find <code>_brand.yml</code> in the current directory or any of its parent directories.</p>
 </dd>
@@ -353,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td></td>
-<td><code>FileNotFoundError</code></td>
+<td><a href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError">FileNotFoundError</a></td>
 <td>Raises a <code>FileNotFoundError</code> if no brand configuration file is found within the given path. Raises <code>ValueError</code> or other validation errors from <a href="https://docs.pydantic.dev/latest/">pydantic</a> if the Brand YAML file is invalid.</td>
 </tr>
 </tbody>
@@ -374,11 +374,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">text</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>str</code></span></code></dt>
+<dt><code><span class="parameter-name">text</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span></code></dt>
 <dd>
 <p>The text of the Brand YAML file.</p>
 </dd>
-<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>str</code> | <code>Path</code> | None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
+<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a> | None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
 <dd>
 <p>The optional path on disk for supporting files like logos and fonts.</p>
 </dd>
@@ -421,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td></td>
-<td><code>ValueError</code></td>
+<td><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></td>
 <td>Raises <code>ValueError</code> or other validation errors from <a href="https://docs.pydantic.dev/latest/">pydantic</a> if the Brand YAML file is invalid.</td>
 </tr>
 </tbody>
@@ -429,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-1">Examples</h4>
-<div id="a4334591" class="cell" data-execution_count="1">
+<div id="2bac2dfb" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -441,13 +441,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">  base: Open Sans</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7cb9e809" class="cell" data-execution_count="2">
+<div id="7f5bfa5b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>brand.meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>BrandMeta(name=BrandMetaName(full='Brand YAML'))</code></pre>
 </div>
 </div>
-<div id="6652d2c2" class="cell" data-execution_count="3">
+<div id="8764a7a2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#ff0202'</code></pre>
@@ -462,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Write the <a href="../../pkg/py/Brand.html#brand_yml.Brand"><code>brand_yml.Brand</code></a> instance to a string or to a file on disk.</p>
 <section id="examples-2" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-2">Examples</h4>
-<div id="5b778a1f" class="cell" data-execution_count="4">
+<div id="27ebef94" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -477,7 +477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="python-code-preview">
-<div id="3825b761" class="cell" data-execution_count="5">
+<div id="a975483f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(brand.model_dump_yaml())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>meta:
@@ -500,11 +500,11 @@ typography:
 <section id="parameters-2" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">stream</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>Any</code></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
+<dt><code><span class="parameter-name">stream</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
 <dd>
 <p>Passed to <code>stream</code> parameter of <code>ruamel.yaml.YAML.dump</code>.</p>
 </dd>
-<dt><code><span class="parameter-name">transform</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>Any</code></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
+<dt><code><span class="parameter-name">transform</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
 <dd>
 <p>Passed to <code>transform</code> parameter of <code>ruamel.yaml.YAML.dump</code>.</p>
 </dd>
@@ -513,11 +513,6 @@ typography:
 <section id="returns-2" class="level4 doc-section doc-section-returns">
 <h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-2">Returns</h4>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 1%">
-<col style="width: 4%">
-<col style="width: 93%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -528,7 +523,7 @@ typography:
 <tbody>
 <tr class="odd">
 <td></td>
-<td><code>Any</code></td>
+<td><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></td>
 <td>A string with the YAML representation of the <code>brand</code> if <code>stream</code> is <code>None</code>. Otherwise, the YAML representation is written to <code>stream</code>, typically a file. Note that the output YAML may not be 100% identical to the input <code>_brand.yml</code>. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors.</td>
 </tr>
 </tbody>
