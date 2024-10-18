@@ -3,6 +3,8 @@ title: Metadata
 pagetitle: "meta | brand.yml"
 ---
 
+{{< partial _needs-to-be-updated.qmd >}}
+
 ## About
 
 `meta` provides a place to store metadata about the Company described in `brand.yml`.

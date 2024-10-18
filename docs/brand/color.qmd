@@ -3,6 +3,8 @@ title: Color
 pagetitle: "color | brand.yml"
 ---
 
+{{< partial _needs-to-be-updated.qmd >}}
+
 ## About
 
 ```{.yaml}

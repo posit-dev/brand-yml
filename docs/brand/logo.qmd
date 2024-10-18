@@ -3,6 +3,8 @@ title: Logo
 pagetitle: "logo | brand.yml"
 ---
 
+{{< partial _needs-to-be-updated.qmd >}}
+
 ## About
 
 Provide a logo and an icon for the company.
