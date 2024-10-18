@@ -4,20 +4,12 @@ project:
     port: 4243
 
 website:
-  title: "Unified Branding"
+  title: "brand.yml"
 
   bread-crumbs: true
 
   repo-url: https://github.com/posit-dev/brand-yml/
   repo-actions: [issue, source]
-
-  announcement:
-    content: |
-      This is a work in progress and documentation may be out of date.
-      Please drop by [`#brand-yaml`](https://positpbc.slack.com/archives/C07KVQBUCCF)
-      with questions or feedback.
-    type: warning
-    dismissable: false
 
   navbar:
     left:
