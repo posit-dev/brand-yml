@@ -71,10 +71,12 @@ typography:
   fonts:
     - family: Open Sans
       source: google
+      weight: [200, 400, 600, 800]
     - family: IBM Plex Mono
       source: google
     - family: Rubik
       source: google
+      weight: [200, 400, 600, 700, 900]
 
   base:
     family: "Open Sans"

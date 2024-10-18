@@ -1,7 +1,0 @@
----
-title: BASF
-link: https://brandportal.basf.com/global/en.html
-image: basf.png
----
-
-[{{< meta title >}} Brand Guidelines]({{< meta link >}})

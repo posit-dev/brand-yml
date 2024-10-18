@@ -1,5 +1,5 @@
 ---
-title: "Examples"
+title: "Inspiration"
 
 listing:
   - id: brand-guidelines
@@ -10,10 +10,6 @@ listing:
   - id: design-systems
     template: ../_partials/listing/design-systems.ejs
     contents:
-    - company: Buzfeed
-      name: Solid
-      link: https://solid.buzzfeed.com/
-      image: https://component.gallery/static/06498cc6aeff0f16d771613a6b0d9909/abdd9/20190316T173212_httpssolid.buzzfeed.com..webp
     - company: gov.uk
       name: ~
       link: https://design-system.service.gov.uk/
@@ -43,6 +39,11 @@ listing:
       link: https://stackoverflow.design/
       image: https://component.gallery/static/a39d64e663f2468d2a005509d8195727/abdd9/20190316T173203_httpsstackoverflow.design..webp
 ---
+
+::: lead
+These brand guidelines and design systems served as an inspiration to the design of **brand.yml**.
+In the future, we'll translate these guidelines into `_brand.yml` example files.
+:::
 
 ## Company Brand Guidelines
 

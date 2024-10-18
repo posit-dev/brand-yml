@@ -13,12 +13,12 @@ website:
 
   navbar:
     left:
-      - text: Overview
+      - text: About
         href: index.qmd
-      - text: brand.yml
+      - text: Structure
         href: brand/index.qmd
-      - text: "Examples"
-        href: examples/index.qmd
+      - text: "Inspiration"
+        href: inspiration/index.qmd
       - text: Packages
         menu:
           - text: Python
@@ -26,11 +26,10 @@ website:
 
   sidebar:
     - id: brand-yml
+      style: docked
       contents:
-        - text: Design Goals
+        - text: About
           href: index.qmd
-        - brand/open-questions.qmd
-        - text: "----"
         - text: Structure
           href: brand/index.qmd
         - section: Brand Elements
@@ -40,9 +39,9 @@ website:
           - brand/color.qmd
           - brand/typography.qmd
           - brand/defaults.qmd
-    - id: examples-brands
+    - id: inspiration-brands
       title: Example Brand Guidelines
-      contents: "examples/brand-guidelines/*/index.qmd"
+      contents: "inspiration/brand-guidelines/*/index.qmd"
 
 format:
   html:
@@ -139,3 +138,6 @@ interlinks:
 
 editor:
   render-on-save: true
+  markdown:
+    canonical: true
+    wrap: sentence
