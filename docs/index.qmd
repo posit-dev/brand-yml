@@ -103,7 +103,7 @@ If you're a Python developer or are interested in using `_brand.yml` to adapt a 
 
 ## User stories
 
-Katrina Keener and Sofia Torres are data scientists at **Genewise Therapeutics**, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.
+Jordan Ellis and Sofia Torres are data scientists at **Genewise Therapeutics**, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.
 
 ::: {.callout-note collapse="false"}
 ### Jordan Ellis
