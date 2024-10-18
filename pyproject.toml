@@ -20,6 +20,13 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 
+[project.urls]
+Homepage = "https://posit-dev.github.io/brand-yml/"
+Documentation = "https://posit-dev.github.io/brand-yml/pkg/py/"
+Repository = "https://github.com/posit-dev/brand-yml"
+Issues = "https://github.com/posit-dev/brand-yml/issues/"
+# TODO: add a Changelog
+
 [project.optional-dependencies]
 test = [
     "pyright>=1.1.251",
