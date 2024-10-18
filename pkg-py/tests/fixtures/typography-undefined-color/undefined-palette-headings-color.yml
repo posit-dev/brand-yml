@@ -1,8 +1,0 @@
-color:
-  palette:
-    red: "#FF0000"
-  foreground: black
-  background: white
-typography:
-  headings:
-    color: orange # not an error!

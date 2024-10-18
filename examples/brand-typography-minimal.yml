@@ -1,6 +1,0 @@
-meta:
-  name: examples/brand-typography-simple.yml
-typography:
-  base: Open Sans
-  headings: Roboto Slab
-  monospace: Fira Code
