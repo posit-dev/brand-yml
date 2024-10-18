@@ -46,7 +46,7 @@ website:
 
 format:
   html:
-    theme: [bootstrap, "posit-theme.scss"]
+    theme: [brand, "brand-yml-theme.scss"]
     toc: true
 
 lightbox: auto
