@@ -31,9 +31,11 @@ def find_all_refs_recursively(obj: dict[str, object]):
     return refs
 
 
-def filter_spec_brand(spec: list[dict[str, object]]):
+def filter_schema_brand(schema: list[dict[str, object]]):
     brand = [
-        item for item in spec if "id" in item and item["id"].startswith("brand")
+        item
+        for item in schema
+        if "id" in item and item["id"].startswith("brand")
     ]
 
     # Make sure we've gotten all the references in the set of brand definitions
@@ -41,25 +43,25 @@ def filter_spec_brand(spec: list[dict[str, object]]):
     extras = refs - {item["id"] for item in brand}
     if len(extras) > 0:
         print(f"Including extra definitions: {', '.join(extras)}")
-        brand.extend([item for item in spec if item["id"] in extras])
+        brand.extend([item for item in schema if item["id"] in extras])
 
     brand.sort(key=lambda item: item["id"])
     return brand
 
 
-def write_brand_spec(brand: list[dict[str, object]]):
-    path = Path(__file__).parent / "brand.spec.yml"
+def write_brand_schema(brand: list[dict[str, object]]):
+    path = Path(__file__).parent / "brand.schema.yml"
     with path.open("w") as f:
         yaml.dump(brand, f)
 
 
-def read_brand_spec():
-    path = Path(__file__).parent / "brand.spec.yml"
+def read_brand_schema():
+    path = Path(__file__).parent / "brand.schema.yml"
     with path.open("r") as f:
         return yaml.load(f)
 
 
 if __name__ == "__main__":
-    spec = read_yaml_from_quarto()
-    brand = filter_spec_brand(spec)
-    write_brand_spec(brand)
+    schema = read_yaml_from_quarto()
+    brand = filter_schema_brand(schema)
+    write_brand_schema(brand)
