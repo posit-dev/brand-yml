@@ -9,6 +9,8 @@ from pathlib import Path
 import jsonschema
 from jsonschema import Draft202012Validator
 
+# NEEDS TO BE DONE LOCALLY, UPDATE PATH TO MATCH YOUR LOCAL SETUP
+# From Quarto revision 71945532e1fc1a5cf113117f6d5ff5bee3991797
 quarto_local_path = Path("~/work/quarto-dev/quarto-cli")
 schema_path = quarto_local_path.expanduser().joinpath("src/resources/schema/json-schemas.json")
 
@@ -51,7 +53,7 @@ from pathlib import Path
 with Path(".").joinpath("brand.schema.json").open("w") as f:
     f.write(json.dumps(schema, indent=2))
 
-print(json.dumps(schema, indent=2))
+# print(json.dumps(schema, indent=2))
 ```
 
 </details>

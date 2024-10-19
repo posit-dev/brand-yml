@@ -18,14 +18,11 @@
   object:
     closed: true
     properties:
-      with:
+      palette:
         description: >
           The brand's custom color palette. Any number of colors can be defined,
           each color having a custom name.
         object:
-          closed: false
-          # We don't know the exact properties yet, but we do know they'll all be strings.
-          # I'm not sure how to express that in the spec.
           additionalProperties:
             schema:
               ref: brand-color-value
@@ -86,11 +83,6 @@
           or high-contrast background color on light elements.
         schema:
           ref: brand-color-value
-      emphasis:
-        description: >
-          A color used to emphasize or highlight text or elements.
-        schema:
-          ref: brand-color-value
       link:
         description: >
           The color used for hyperlinks. If not defined, the `primary` color is used.
@@ -104,8 +96,44 @@
   description: Font files and definitions for the brand.
   anyOf:
   - ref: brand-font-google
+  - ref: brand-font-bunny
   - ref: brand-font-file
-  - ref: brand-font-family
+  - ref: brand-font-system
+
+- id: brand-font-bunny
+  description: A font definition from fonts.bunny.net.
+  object:
+    super:
+      resolveRef: brand-font-common
+    closed: true
+    properties:
+      source:
+        enum: [bunny]
+- id: brand-font-common
+  schema:
+    object:
+      closed: true
+      properties:
+        family:
+          description: The font family name, which must match the name of the font
+            on the foundry website.
+          schema: string
+        weight:
+          description: The font weights to include.
+          maybeArrayOf:
+            ref: brand-font-weight
+          default: [400, 700]
+        style:
+          description: The font styles to include.
+          maybeArrayOf:
+            ref: brand-font-style
+          default: [normal, italic]
+        display:
+          description: >
+            The font display method, determines how a font face is font face is shown
+            depending on its download status and readiness for use.
+          enum: [auto, block, swap, fallback, optional]
+          default: swap
 
 - id: brand-font-family
   description: >
@@ -119,79 +147,77 @@
   object:
     closed: true
     properties:
+      source:
+        enum: [file]
       family:
         description: The font family name.
         schema: string
       files:
-        maybeArrayOf:
-          anyOf: [path, string]
+        arrayOf:
+          anyOf:
+          - path
+          - schema:
+              object:
+                properties:
+                  path:
+                    schema: path
+                    description: >
+                      The path to the font file. This can be a local path or a URL.
+                  weight:
+                    ref: brand-font-weight
+                  style:
+                    ref: brand-font-style
+                required: [path]
+                    # We might want to eventually support these but not on 1.0
+                    #
+                    # display:
+                    #   description: >
+                    #     The font display method, determines how a font face is font face is shown
+                    #     depending on its download status and readiness for use.
+                    #   enum: [auto, block, swap, fallback, optional]
+                    #   default: swap
+                    # unicode-range:
+                    #   description: >
+                    #     The range of unicode characters included in the font. Examples:
+                    #     - `U+0025-00FF` includes all characters from `U+0025` to `U+00FF`.
+                    #     - `U+0131,U+0152-0153` includes the characters `U+0131`, `U+0152`, and `U+0153`.
+                    #   schema:
+                    #     string:
+                    #       pattern: '^U\+[0-9A-F]{4}(?:-[0-9A-F]{4})?(?:,U\+[0-9A-F]{4}(?:-[0-9A-F]{4})?)*$'
         description: >
           The font files to include. These can be local or online.
           Local file paths should be relative to the `brand.yml` file.
           Online paths should be complete URLs.
-      weight:
-        description: The font weights to include.
-        maybeArrayOf:
-          ref: brand-font-weight
-        default: [400, 700]
-      style:
-        description: The font styles to include.
-        maybeArrayOf:
-          ref: brand-font-style
-        default: [normal, italic]
-      display:
-        description: >
-          The font display method, determines how a font face is font face is shown  depending
-          on its download status and readiness for use.
-        enum: [auto, block, swap, fallback, optional]
-        default: swap
-    required: [files]
+    required: [files, family, source]
 - id: brand-font-google
-  description: A Google Font definition.
+  description: A font definition from Google Fonts.
   object:
+    super:
+      resolveRef: brand-font-common
     closed: true
     properties:
-      google:
-        anyOf:
-        - string
-        - object:
-            closed: true
-            properties:
-              family:
-                description: The font family name, which must match the name of the
-                  font on Google Fonts.
-                schema: string
-              weight:
-                description: The font weights to include.
-                maybeArrayOf:
-                  ref: brand-font-weight
-                default: [400, 700]
-              style:
-                description: The font styles to include.
-                maybeArrayOf:
-                  ref: brand-font-style
-                default: [normal, italic]
-              display:
-                description: >
-                  The font display method, determines how a font face is font face
-                  is shown  depending on its download status and readiness for use.
-                enum: [auto, block, swap, fallback, optional]
-                default: swap
-    required: [google]
+      source:
+        enum: [google]
 - id: brand-font-style
   description: A font style.
-  enum: [normal, italic]
+  enum: [normal, italic, oblique]
   default: normal
 
+- id: brand-font-system
+  description: A system font definition.
+  object:
+    super:
+      resolveRef: brand-font-common
+    closed: true
+    properties:
+      source:
+        enum: [system]
 - id: brand-font-weight
   description: A font weight.
-  enum: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+  enum: [100, 200, 300, 400, 500, 600, 700, 800, 900, thin, extra-light, ultra-light,
+    light, normal, regular, medium, semi-bold, demi-bold, bold, extra-bold, ultra-bold,
+    black]
   default: 400
-
-- id: brand-font-with
-  description: Font files and definitions for the brand.
-  object:
-    closed: false
 
 - id: brand-logo
   description: >
@@ -199,12 +225,11 @@
   object:
     closed: true
     properties:
-      with:
+      images:
         schema:
           object:
             additionalProperties:
-              schema:
-                ref: brand-string-light-dark
+              schema: {ref: brand-logo-resource}
       small:
         description: >
           A link or path to the brand's small-sized logo or icon, or a link or path
@@ -223,6 +248,21 @@
           to both the light and dark versions.
         schema:
           ref: brand-string-light-dark
+
+- id: brand-logo-explicit-resource
+  object:
+    closed: true
+    properties:
+      path: path
+      alt:
+        schema: string
+        description: >
+          Alternative text for the logo, used for accessibility.
+    required: [path]
+- id: brand-logo-resource
+  anyOf:
+  - string
+  - ref: brand-logo-explicit-resource
 
 - id: brand-maybe-named-color
   description: >
@@ -290,7 +330,7 @@
     A named brand color, taken either from `color.theme` or `color.palette` (in that
     order).
   enum: [foreground, background, primary, secondary, tertiary, success, info, warning,
-    danger, light, dark, emphasis, link]
+    danger, light, dark, link]
 - id: brand-string-light-dark
   anyOf:
   - string
@@ -311,86 +351,131 @@
   object:
     closed: true
     properties:
-      with:
+      fonts:
         description: Font files and definitions for the brand.
-        ref: brand-font-with
+        arrayOf:
+          ref: brand-font
       base:
         description: >
           The base font settings for the brand. These are used as the default for
           all text.
-        ref: brand-typography-options
+        ref: brand-typography-options-base
       headings:
         description: >
-          The font settings for headings.
-        ref: brand-typography-options-no-size
+          Settings for headings
+        ref: brand-typography-options-headings
       monospace:
         description: >
-          The font settings for monospace text. Color in this context refers to inline
-          code.
-        ref: brand-typography-options
-      emphasis:
-        description: The text properties used for emphasized (or emboldened) text.
-        object:
-          closed: true
-          properties:
-            weight:
-              ref: brand-font-weight
-            color:
-              ref: brand-maybe-named-color
-            background-color:
-              ref: brand-maybe-named-color
+          Settings for monospace text
+        ref: brand-typography-options-monospace
+      monospace-inline:
+        description: Settings for inline code
+        ref: brand-typography-options-monospace-inline
+      monospace-block:
+        description: Settings for code blocks
+        ref: brand-typography-options-monospace-block
       link:
-        description: The text properties used for hyperlinks.
-        object:
-          closed: true
-          properties:
-            weight:
-              ref: brand-font-weight
-            decoration: string
-            color:
-              schema:
-                ref: brand-maybe-named-color
-              default: primary
-            background-color:
-              ref: brand-maybe-named-color
+        description: Settings for links
+        ref: brand-typography-options-link
 
-- id: brand-typography-options
+- id: brand-typography-options-base
   description: Typographic options.
-  object:
-    closed: true
-    properties:
-      family: string
-      size: string
-      line-height: string
-      weight:
-        ref: brand-font-weight
-      style:
-        ref: brand-font-style
-      color:
-        ref: brand-maybe-named-color
-      background-color:
-        ref: brand-maybe-named-color
-      files:
-        maybeArrayOf:
-          anyOf: [path, string]
-        description: >
-          Resolved local paths.
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        family: string
+        size: string
+        weight:
+          ref: brand-font-weight
+        color:
+          ref: brand-maybe-named-color
+        line-height:
+          ref: line-height-number-string
 
-- id: brand-typography-options-no-size
+- id: brand-typography-options-headings
   description: Typographic options without a font size.
-  object:
-    closed: true
-    properties:
-      family: string
-      line-height: string
-      weight:
-        ref: brand-font-weight
-      style:
-        ref: brand-font-style
-      color:
-        ref: brand-maybe-named-color
-      background-color:
-        ref: brand-maybe-named-color
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        family: string
+        weight:
+          ref: brand-font-weight
+        style:
+          ref: brand-font-style
+        color:
+          ref: brand-maybe-named-color
+        line-height:
+          ref: line-height-number-string
 
-# what's the way to make it open with all values brand-font?
-# i'm doing some casting instead
+- id: brand-typography-options-link
+  description: Typographic options for inline monospace elements.
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        weight:
+          ref: brand-font-weight
+        color:
+          ref: brand-maybe-named-color
+        background-color:
+          ref: brand-maybe-named-color
+        decoration: string
+
+- id: brand-typography-options-monospace
+  description: Typographic options for monospace elements.
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        family: string
+        size: string
+        weight:
+          ref: brand-font-weight
+        color:
+          ref: brand-maybe-named-color
+        background-color:
+          ref: brand-maybe-named-color
+
+- id: brand-typography-options-monospace-block
+  description: Typographic options for block monospace elements.
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        family: string
+        size: string
+        weight:
+          ref: brand-font-weight
+        color:
+          ref: brand-maybe-named-color
+        background-color:
+          ref: brand-maybe-named-color
+        line-height:
+          ref: line-height-number-string
+
+- id: brand-typography-options-monospace-inline
+  description: Typographic options for inline monospace elements.
+  anyOf:
+  - string
+  - object:
+      closed: true
+      properties:
+        family: string
+        size: string
+        weight:
+          ref: brand-font-weight
+        color:
+          ref: brand-maybe-named-color
+        background-color:
+          ref: brand-maybe-named-color
+
+- id: line-height-number-string
+  description: Line height
+  anyOf: [number, string]
