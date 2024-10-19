@@ -1,5 +1,5 @@
 ---
-title: "Brand YAML"
+title: "brand.yml Python Package"
 subtitle: "Unified Branding for Humans"
 
 format: gfm

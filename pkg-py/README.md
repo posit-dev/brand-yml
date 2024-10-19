@@ -1,4 +1,4 @@
-# Brand YAML
+# brand.yml Python Package
 
 
 ``` python
