@@ -14,3 +14,17 @@ brand = Brand(
 
 brand.meta
 ```
+
+## Installation
+
+### From PyPI
+
+```bash
+uv pip install brand_yml
+```
+
+### From GitHub
+
+```bash
+uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
+```

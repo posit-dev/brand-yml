@@ -7,7 +7,7 @@ title: Brand YAML Python Package
 ### From PyPI
 
 ```bash
-uv pip install brand_yaml
+uv pip install brand_yml
 ```
 
 ### From GitHub
