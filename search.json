@@ -819,7 +819,7 @@
     "href": "pkg/py/index.html",
     "title": "Brand YAML Python Package",
     "section": "",
-    "text": "uv pip install brand_yaml\n\n\n\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
+    "text": "uv pip install brand_yml\n\n\n\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
     "crumbs": [
       "About",
       "Brand YAML Python Package"
@@ -830,7 +830,7 @@
     "href": "pkg/py/index.html#installation",
     "title": "Brand YAML Python Package",
     "section": "",
-    "text": "uv pip install brand_yaml\n\n\n\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
+    "text": "uv pip install brand_yml\n\n\n\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
     "crumbs": [
       "About",
       "Brand YAML Python Package"
