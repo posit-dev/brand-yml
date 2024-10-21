@@ -41,4 +41,8 @@ Docs are published automatically by GitHub Actions to https://posit-dev.github.i
 ### Releases
 
 This project uses [hatch-vcs](https://github.com/ofek/hatch-vcs) for versioning.
-Version tags for the Python project use `py/v{major}.{minor}.{patch}{extra}`.
+Version tags for the Python project use `py/v{major}.{minor}.{patch}[-{extra}]`.
+
+Releases are automatically built and published to [PyPI](https://pypi.org/) by the
+[py-release.yml](https://github.com/posit-dev/brand-yml/blob/main/.github/workflows/py-release.yml)
+GitHub Action when a new release is created.
