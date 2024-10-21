@@ -68,17 +68,17 @@ class DocStringWithExample(str): ...
 def add_example_yaml(
     *args: ExampleFile | dict[str, str | Path | list[str]],
 ) -> Callable[[F], F]:
-    arg_models = [
-        ExampleFile.model_validate(arg) if isinstance(arg, dict) else arg
-        for arg in args
-    ]
-
     def _(func: F) -> F:
         if os.getenv("IN_QUARTODOC") != "true":
             return func
 
         if len(args) < 1:
             return func
+
+        arg_models = [
+            ExampleFile.model_validate(arg) if isinstance(arg, dict) else arg
+            for arg in args
+        ]
 
         examples = ["::: {.panel-tabset}"]
         for arg in arg_models:
