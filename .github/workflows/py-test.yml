@@ -1,4 +1,4 @@
-name: Test - Python
+name: Python- Release
 
 on:
   push:
@@ -21,7 +21,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  py-test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
