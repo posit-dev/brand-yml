@@ -1,5 +1,6 @@
 __pycache__
 .coverage
+.env
 
 /.luarc.json
 pkg-py/src/brand_yml/__version.py
