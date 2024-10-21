@@ -19,7 +19,7 @@ uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
 ## Example
 
 ```{python}
-from brand_yaml import Brand
+from brand_yml import Brand
 
 brand = Brand.from_yaml_str(
     # Typically, this file is stored in `_brand.yml`
