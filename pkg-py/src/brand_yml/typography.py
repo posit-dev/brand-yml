@@ -799,7 +799,7 @@ class BrandTypographyOptionsBackgroundColor(BaseModel):
         use_attribute_docstrings=True,
     )
 
-    background_color: str | None = Field(None, alias="background-color")
+    background_color: str | None = Field(None, alias=str("background-color"))
     """
     The background color to be used for this typographic element. Can be any
     CSS-compatible color definition, but in general hexidecimal (`"#abc123") or
@@ -836,7 +836,7 @@ class BrandTypographyOptionsWeight(BaseDocAttributeModel):
 class BrandTypographyOptionsLineHeight(BaseDocAttributeModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    line_height: float | None = Field(None, alias="line-height")
+    line_height: float | None = Field(None, alias=str("line-height"))
     """
     The line height of this typographic element. Line height refers to the
     vertical space between lines of text, which significantly impacts
@@ -1321,10 +1321,10 @@ class BrandTypography(BrandBase):
     headings: BrandTypographyHeadings | None = None
     monospace: BrandTypographyMonospace | None = None
     monospace_inline: BrandTypographyMonospaceInline | None = Field(
-        None, alias="monospace-inline"
+        None, alias=str("monospace-inline")
     )
     monospace_block: BrandTypographyMonospaceBlock | None = Field(
-        None, alias="monospace-block"
+        None, alias=str("monospace-block")
     )
     link: BrandTypographyLink | None = None
 
