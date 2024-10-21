@@ -841,7 +841,7 @@
     "href": "pkg/py/index.html#example",
     "title": "Brand YAML Python Package",
     "section": "Example",
-    "text": "Example\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\n    \"\"\"\n    meta:\n      name: Posit Software, PBC\n      link: https://posit.co\n    color:\n      primary: \"#447099\"\n      secondary: \"#707073\"\n      success: \"#72994E\"\n      info: \"#419599\"\n      warning: \"#EE6331\"\n      danger: \"#9A4665\"\n    typography:\n      base:\n        family: Open Sans\n        weight: 300\n    \"\"\"\n)\n\n\nbrand.meta.name\n\nBrandMetaName(full='Posit Software, PBC')\n\n\n\nbrand.color.primary\n\n'#447099'\n\n\n\nbrand.typography.base.model_dump()\n\n{'line_height': None, 'size': None, 'weight': 300, 'family': 'Open Sans'}",
+    "text": "Example\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\n    # Typically, this file is stored in `_brand.yml`\n    # and read with `Brand.from_yaml()`.\n    \"\"\"\n    meta:\n      name: Posit Software, PBC\n      link: https://posit.co\n    color:\n      palette:\n        pblue: \"#447099\"\n        green: \"#72994E\"\n        teal: \"#419599\"\n        orange: \"#EE6331\"\n        purple: \"#9A4665\"\n        gray: \"#707073\"\n      primary: blue\n      secondary: gray\n      success: green\n      info: teal\n      warning: orange\n      danger: purple\n    typography:\n      base:\n        family: Open Sans\n        weight: 300\n    \"\"\"\n)\n\n\nbrand.meta.name\n\nBrandMetaName(full='Posit Software, PBC')\n\n\n\nbrand.color.primary\n\n'blue'\n\n\n\nbrand.typography.base.model_dump()\n\n{'family': 'Open Sans', 'weight': 300, 'size': None, 'line_height': None}",
     "crumbs": [
       "About",
       "Brand YAML Python Package"
