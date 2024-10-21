@@ -2,6 +2,10 @@ project:
   type: website
   preview:
     port: 4243
+  resources:
+    # TODO: remove when logo is supported by brand meta
+    - "logos/**/*.png"
+    - "logos/**/*.svg"
 
 website:
   title: "brand.yml"

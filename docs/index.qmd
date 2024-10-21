@@ -1,6 +1,8 @@
 ---
-title: "brand.yml"
+pagetitle: "brand.yml"
 ---
+
+![](logos/tall/brand-yml-tall-color.svg){style="max-height: 250px; margin-inline: auto; display: block;"}
 
 ## Unified branding with a simple YAML file
 
