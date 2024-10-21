@@ -50,6 +50,9 @@ jobs:
       - name: 📦 Install the project
         run: uv sync --python ${{ matrix.python-version }} --no-dev --extra test
 
+      - name: 📜 Show uv.lock
+        run: cat uv.lock
+
       - name: 🧪 Check tests
         run: make py-check-tests
 

@@ -54,6 +54,7 @@ dev-dependencies = [
     "ruff>=0.6.5",
     "tox-uv>=1",
 ]
+upgrade-package = ["brand_yml"]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
