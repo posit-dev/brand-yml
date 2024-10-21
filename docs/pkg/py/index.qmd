@@ -2,15 +2,19 @@
 title: Brand YAML Python Package
 ---
 
+<img alt="PyPI - Version" src="https://img.shields.io/pypi/v/brand_yml?logo=python&logoColor=white&color=orange">
+<img src="https://github.com/posit-dev/brand-yml/actions/workflows/py-test.yml/badge.svg?branch=main" alt="Python Tests">
+<a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
+
 ## Installation
 
-### From PyPI
+### From [PyPI](https://pypi.org/project/brand-yml/)
 
 ```bash
 uv pip install brand_yml
 ```
 
-### From GitHub
+### From [GitHub](https://github.com/posit-dev/brand-yml)
 
 ```bash
 uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
