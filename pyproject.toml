@@ -19,6 +19,9 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
 ]
+authors = [
+  {name = "Garrick Aden-Buie", email = "garrick@posit.co"}
+]
 
 [project.urls]
 Homepage = "https://posit-dev.github.io/brand-yml/"
