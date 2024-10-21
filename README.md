@@ -6,8 +6,9 @@ Unified branding with a single YAML file
 
 <p align="center">
 <!-- badges start -->
-<img alt="PyPI - Version" src="https://img.shields.io/pypi/v/brand_yml?logo=python&logoColor=white&color=orange">
-<img src="https://github.com/posit-dev/brand-yml/actions/workflows/py-test.yml/badge.svg?branch=main" alt="Python Tests">
+<a href="https://pypi.org/project/brand-yml/"><img alt="PyPI" src="https://img.shields.io/pypi/v/brand_yml?logo=python&logoColor=white&color=orange"></a>
+<a href="https://github.com/posit-dev/brand-yml"><img src="https://github.com/posit-dev/brand-yml/actions/workflows/py-test.yml/badge.svg?branch=main" alt="Python Tests"></a>
+<a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
 <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
 <!-- badges end -->
 </p>
