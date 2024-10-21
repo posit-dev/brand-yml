@@ -28,7 +28,7 @@ Homepage = "https://posit-dev.github.io/brand-yml/"
 Documentation = "https://posit-dev.github.io/brand-yml/pkg/py/"
 Repository = "https://github.com/posit-dev/brand-yml"
 Issues = "https://github.com/posit-dev/brand-yml/issues/"
-Changelog = "https://github.com/posit-dev/brand-yml/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/posit-dev/brand-yml/blob/main/pkg-py/CHANGELOG.md"
 
 [project.optional-dependencies]
 test = [
