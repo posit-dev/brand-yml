@@ -326,10 +326,14 @@ def read_brand_yml(
 
 
 @overload
-def read_brand_yml(path: str | Path, as_data: Literal[True]) -> dict: ...
+def read_brand_yml(
+    path: str | Path, as_data: Literal[True]
+) -> dict[str, Any]: ...
 
 
-def read_brand_yml(path: str | Path, as_data: bool = False) -> Brand | dict:
+def read_brand_yml(
+    path: str | Path, as_data: bool = False
+) -> Brand | dict[str, Any]:
     """
     Read a Brand YAML file.
 
