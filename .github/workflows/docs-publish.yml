@@ -9,6 +9,9 @@ on:
 
 name: Render and Publish
 
+env:
+  UV_VERSION: "0.4.x"
+  PYTHON_VERSION: 3.13
 
 jobs:
   docs-publish:
@@ -24,13 +27,15 @@ jobs:
         version: 1.6.26
 
     - name: 🚀 Install uv
-      uses: astral-sh/setup-uv@v2
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: ${{ env.UV_VERSION }}
 
-    - name: 🐍 Set up Python 3.13
-      run: uv python install 3.13
+    - name: 🐍 Set up Python ${{ env.PYTHON_VERSION }}
+      run: uv python install ${{ env.PYTHON_VERSION }}
 
-    - name: 📦 Install brand_yaml and dependencies
-      run: uv sync --python 3.13 --no-dev --extra docs
+    - name: 📦 Install brand_yml and dependencies
+      run: uv sync --python ${{ env.PYTHON_VERSION }} --no-dev --extra docs
 
     # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
     # - name: Setup R
