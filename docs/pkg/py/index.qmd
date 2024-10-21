@@ -19,20 +19,27 @@ uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
 ## Example
 
 ```{python}
-from brand_yml import Brand
-
 brand = Brand.from_yaml_str(
+    # Typically, this file is stored in `_brand.yml`
+    # and read with `Brand.from_yaml()`.
     """
     meta:
       name: Posit Software, PBC
       link: https://posit.co
     color:
-      primary: "#447099"
-      secondary: "#707073"
-      success: "#72994E"
-      info: "#419599"
-      warning: "#EE6331"
-      danger: "#9A4665"
+      palette:
+        pblue: "#447099"
+        green: "#72994E"
+        teal: "#419599"
+        orange: "#EE6331"
+        purple: "#9A4665"
+        gray: "#707073"
+      primary: blue
+      secondary: gray
+      success: green
+      info: teal
+      warning: orange
+      danger: purple
     typography:
       base:
         family: Open Sans
