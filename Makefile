@@ -100,6 +100,12 @@ py-docs-clean:   ## [py] Clean python docs
 	find docs/pkg/py -name '*.qmd' ! -name 'index.qmd' -delete
 	find docs/pkg/py -name '*.quarto_ipynb' -delete
 
+.PHONY: py-build
+py-build:   ## [py] Build python package
+	@echo "🧳 Building python package"
+	@[ -d dist ] && rm -r dist || true
+	uv build
+
 .PHONY: help
 help:  ## Show help messages for make targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; { \
