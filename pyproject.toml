@@ -1,6 +1,5 @@
 [project]
 name = "brand_yml"
-version = "0.0.1"
 description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
 requires-python = ">=3.9"
@@ -22,6 +21,7 @@ classifiers = [
 authors = [
   {name = "Garrick Aden-Buie", email = "garrick@posit.co"}
 ]
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://posit-dev.github.io/brand-yml/"
@@ -56,7 +56,7 @@ dev-dependencies = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
@@ -64,6 +64,13 @@ skip-excluded-dirs = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["pkg-py/src/brand_yml"]
+
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = "^py/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "pkg-py/src/brand_yml/__version.py"
 
 [tool.pyright]
 include = ["pkg-py"]

@@ -2,3 +2,4 @@ __pycache__
 .coverage
 
 /.luarc.json
+pkg-py/src/brand_yml/__version.py
