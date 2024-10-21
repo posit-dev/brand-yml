@@ -10,7 +10,7 @@ pagetitle: "logo | brand.yml"
 Provide a logo and an icon for the company.
 
 Brand guidelines may include many logo files; not all will be used for `small`, `medium` or `large`.
-The `with` field (may be aliased as `files`) can be used to provide a list of logo files with convenient names that may be re-used in the `logo` field.
+The `images` field can be used to provide a list of logo image files with convenient names that may be re-used in the `logo` field.
 
 ## Example
 
@@ -36,7 +36,7 @@ logo:
 
 ```{.yaml filename="brand.yml (with files)"}
 logo:
-  with:
+  images:
     primary: posit-full-color.png
     primary-svg: posit-full-color.svg
     reverse: posit-full-color-reverse.png

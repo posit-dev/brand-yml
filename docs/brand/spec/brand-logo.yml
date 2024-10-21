@@ -6,7 +6,7 @@
     - object:
         closed: true
         properties:
-          with:
+          images:
             schema:
               object:
                 additionalProperties:
