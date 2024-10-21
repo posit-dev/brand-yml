@@ -39,6 +39,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-73dfb8e3ec93f5d1bfa6db51e46077c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -200,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#unified-branding-with-a-simple-yaml-file" id="toc-unified-branding-with-a-simple-yaml-file" class="nav-link active" data-scroll-target="#unified-branding-with-a-simple-yaml-file">Unified branding with a simple YAML file</a></li>
+  <li><a href="#introducing-brand.yml" id="toc-introducing-brand.yml" class="nav-link active" data-scroll-target="#introducing-brand.yml">Introducing brand.yml</a></li>
   <li><a href="#brand.yml-support" id="toc-brand.yml-support" class="nav-link" data-scroll-target="#brand.yml-support">brand.yml support</a></li>
   <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
   <li><a href="#user-stories" id="toc-user-stories" class="nav-link" data-scroll-target="#user-stories">User stories</a></li>
@@ -211,30 +214,20 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">brand.yml</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<div class="text-center">
+<p><a href="logos/tall/brand-yml-tall-color.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="logos/tall/brand-yml-tall-color.svg" class="img-fluid" style="max-height: 250px; margin-inline: auto; display: block;"></a></p>
 <section id="unified-branding-with-a-simple-yaml-file" class="level2">
 <h2 class="anchored" data-anchor-id="unified-branding-with-a-simple-yaml-file">Unified branding with a simple YAML file</h2>
+</section>
+</div>
 <div class="lead">
 <p>Create reports, apps, dashboards, plots and more that match your company’s brand guidelines with a single <code>_brand.yml</code> file.</p>
 </div>
+<section id="introducing-brand.yml" class="level2">
+<h2 class="anchored" data-anchor-id="introducing-brand.yml">Introducing brand.yml</h2>
 <p><strong>brand.yml</strong> is a simple, portable YAML file that codifies your company’s brand guidelines into a format that can be used by Quarto, Python and R tooling to create branded outputs. Our goal is to support unified, branded theming for all of Posit’s open source tools—from web applications to printed reports to dashboards and presentations—with a consistent look and feel.</p>
 <p>With a single <code>_brand.yml</code> file you can collect brand logos, colors, fonts and typographic choices, typically found in your company’s brand guidelines. This <code>_brand.yml</code> can be used Quarto and Shiny for Python<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to instantly basic themes that match the brand guidelines.</p>
 <!-- TODO: Links to Quarto and Shiny for Python brand support docs -->
@@ -824,8 +817,40 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
+</body></html>
