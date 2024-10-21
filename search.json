@@ -624,7 +624,7 @@
     "href": "brand/logo.html#about",
     "title": "Logo",
     "section": "About",
-    "text": "About\nProvide a logo and an icon for the company.\nBrand guidelines may include many logo files; not all will be used for small, medium or large. The with field (may be aliased as files) can be used to provide a list of logo files with convenient names that may be re-used in the logo field.",
+    "text": "About\nProvide a logo and an icon for the company.\nBrand guidelines may include many logo files; not all will be used for small, medium or large. The images field can be used to provide a list of logo image files with convenient names that may be re-used in the logo field.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -636,7 +636,7 @@
     "href": "brand/logo.html#example",
     "title": "Logo",
     "section": "Example",
-    "text": "Example\n\n\nbrand.yml (simple)\n\nlogo: posit.png\n\n\n\nbrand.yml (full)\n\nlogo:\n  small: posit-icon.png\n  medium: posit.png\n  large: posit.svg\n\n\n\nbrand.yml (light/dark)\n\nlogo:\n  small: posit-icon.png\n  medium:\n    light: posit.png\n    dark: posit-reverse.png\n  large: posit.svg\n\n\n\nbrand.yml (with files)\n\nlogo:\n  with:\n    primary: posit-full-color.png\n    primary-svg: posit-full-color.svg\n    reverse: posit-full-color-reverse.png\n    black: posit-black.png\n    white: posit-white.png\n    icon: posit-favicon.png\n  small: icon\n  medium: primary\n  large: primrary-svg",
+    "text": "Example\n\n\nbrand.yml (simple)\n\nlogo: posit.png\n\n\n\nbrand.yml (full)\n\nlogo:\n  small: posit-icon.png\n  medium: posit.png\n  large: posit.svg\n\n\n\nbrand.yml (light/dark)\n\nlogo:\n  small: posit-icon.png\n  medium:\n    light: posit.png\n    dark: posit-reverse.png\n  large: posit.svg\n\n\n\nbrand.yml (with files)\n\nlogo:\n  images:\n    primary: posit-full-color.png\n    primary-svg: posit-full-color.svg\n    reverse: posit-full-color-reverse.png\n    black: posit-black.png\n    white: posit-white.png\n    icon: posit-favicon.png\n  small: icon\n  medium: primary\n  large: primrary-svg",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -648,7 +648,7 @@
     "href": "brand/logo.html#spec",
     "title": "Logo",
     "section": "Spec",
-    "text": "Spec\n- id: brand-logo\n  description: &gt;\n    Provide definitions and defaults for brand's logo in various formats and sizes.\n  anyOf:\n    - string\n    - object:\n        closed: true\n        properties:\n          with:\n            schema:\n              object:\n                additionalProperties:\n                  schema:\n                    ref: brand-string-light-dark\n          small:\n            description: &gt;\n              A link or path to the brand's small-sized logo or icon, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          medium:\n            description: &gt;\n              A link or path to the brand's medium-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          large:\n            description: &gt;\n              A link or path to the brand's large- or full-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark",
+    "text": "Spec\n- id: brand-logo\n  description: &gt;\n    Provide definitions and defaults for brand's logo in various formats and sizes.\n  anyOf:\n    - string\n    - object:\n        closed: true\n        properties:\n          images:\n            schema:\n              object:\n                additionalProperties:\n                  schema:\n                    ref: brand-string-light-dark\n          small:\n            description: &gt;\n              A link or path to the brand's small-sized logo or icon, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          medium:\n            description: &gt;\n              A link or path to the brand's medium-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          large:\n            description: &gt;\n              A link or path to the brand's large- or full-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark",
     "crumbs": [
       "About",
       "Brand Elements",
