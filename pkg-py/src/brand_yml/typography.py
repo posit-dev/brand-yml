@@ -848,10 +848,10 @@ class BrandTypographyOptionsLineHeight(BaseDocAttributeModel):
 
 class BrandTypographyBase(
     BrandBase,
-    BrandTypographyOptionsFamily,
-    BrandTypographyOptionsWeight,
-    BrandTypographyOptionsSize,
     BrandTypographyOptionsLineHeight,
+    BrandTypographyOptionsSize,
+    BrandTypographyOptionsWeight,
+    BrandTypographyOptionsFamily,
 ):
     """
     Typographic settings for base (or body) text.
@@ -875,11 +875,11 @@ class BrandTypographyBase(
 
 class BrandTypographyHeadings(
     BrandBase,
-    BrandTypographyOptionsFamily,
-    BrandTypographyOptionsWeight,
-    BrandTypographyOptionsStyle,
-    BrandTypographyOptionsLineHeight,
     BrandTypographyOptionsColor,
+    BrandTypographyOptionsLineHeight,
+    BrandTypographyOptionsStyle,
+    BrandTypographyOptionsWeight,
+    BrandTypographyOptionsFamily,
 ):
     """
     Typographic settings for headings and titles.
@@ -919,9 +919,9 @@ class BrandTypographyHeadings(
 
 class BrandTypographyMonospace(
     BrandBase,
-    BrandTypographyOptionsFamily,
-    BrandTypographyOptionsWeight,
     BrandTypographyOptionsSize,
+    BrandTypographyOptionsWeight,
+    BrandTypographyOptionsFamily,
 ):
     """
     Typographic settings for monospace text.
@@ -992,9 +992,9 @@ class BrandTypographyMonospace(
 
 
 class BrandTypographyMonospaceInline(
-    BrandTypographyMonospace,
-    BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
+    BrandTypographyOptionsColor,
+    BrandTypographyMonospace,
 ):
     """
     Typographic settings for inline monospace text.
@@ -1064,10 +1064,10 @@ class BrandTypographyMonospaceInline(
 
 
 class BrandTypographyMonospaceBlock(
-    BrandTypographyMonospace,
     BrandTypographyOptionsLineHeight,
-    BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
+    BrandTypographyOptionsColor,
+    BrandTypographyMonospace,
 ):
     """
     Typographic settings for block monospace text.
@@ -1127,9 +1127,9 @@ class BrandTypographyMonospaceBlock(
 
 class BrandTypographyLink(
     BrandBase,
-    BrandTypographyOptionsWeight,
-    BrandTypographyOptionsColor,
     BrandTypographyOptionsBackgroundColor,
+    BrandTypographyOptionsColor,
+    BrandTypographyOptionsWeight,
 ):
     """
     Typographic settings for hyperlinks.
