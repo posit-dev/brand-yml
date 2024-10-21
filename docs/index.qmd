@@ -2,13 +2,17 @@
 pagetitle: "brand.yml"
 ---
 
+::: text-center
 ![](logos/tall/brand-yml-tall-color.svg){style="max-height: 250px; margin-inline: auto; display: block;"}
 
 ## Unified branding with a simple YAML file
+:::
 
 ::: lead
 Create reports, apps, dashboards, plots and more that match your company's brand guidelines with a single `_brand.yml` file.
 :::
+
+## Introducing brand.yml
 
 **brand.yml** is a simple, portable YAML file that codifies your company's brand guidelines into a format that can be used by Quarto, Python and R tooling to create branded outputs.
 Our goal is to support unified, branded theming for all of Posit's open source tools---from web applications to printed reports to dashboards and presentations---with a consistent look and feel.
