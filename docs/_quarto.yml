@@ -25,6 +25,15 @@ website:
         href: inspiration/index.qmd
       - text: Python
         href: pkg/py/index.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source code
+            href:  https://github.com/posit-dev/brand-yml
+          - text: Ask a question
+            href:  https://github.com/posit-dev/brand-yml/discussions
+          - text: Report a bug
+            href:  https://github.com/posit-dev/brand-yml/issues/new
 
   sidebar:
     - id: brand-yml
