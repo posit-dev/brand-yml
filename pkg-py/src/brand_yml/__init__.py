@@ -142,11 +142,9 @@ class Brand(BrandBase):
         """
         path = Path(path).absolute()
 
-        if path.is_dir():
-            path = find_project_brand_yml(path)
-        elif path.suffix == ".py":
+        if path.is_dir() or path.suffix == ".py":
             # allows users to simply pass `__file__`
-            path = find_project_brand_yml(path.parent)
+            path = find_project_brand_yml(path)
 
         with open(path, "r") as f:
             brand_data = yaml.load(f)
