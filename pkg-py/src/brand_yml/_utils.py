@@ -144,10 +144,10 @@ def maybe_default_font_source(value: str | None):
     """
     Safely update the default font source if one is provided.
 
-    The default follows the `BRAND_YAML_DEFAULT_FONT_SOURCE` envvar, which will
+    The default follows the `BRAND_YML_DEFAULT_FONT_SOURCE` envvar, which will
     be masked within this context if `value` is not `None`.
     """
-    key = "BRAND_YAML_DEFAULT_FONT_SOURCE"
+    key = "BRAND_YML_DEFAULT_FONT_SOURCE"
     if value is not None:
         with set_env_var(key, value):
             yield

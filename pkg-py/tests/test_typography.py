@@ -646,13 +646,13 @@ def test_brand_typography_ex_minimal(snapshot_json):
 
 
 def test_brand_typography_ex_minimal_mixed_source(snapshot_json):
-    with set_env_var("BRAND_YAML_DEFAULT_FONT_SOURCE", "system"):
+    with set_env_var("BRAND_YML_DEFAULT_FONT_SOURCE", "system"):
         brand = Brand.from_yaml(
             path_examples("brand-typography-minimal-system.yml"),
             default_font_source="google",
         )
         # envvar is restored after reading brand yaml
-        assert os.environ.get("BRAND_YAML_DEFAULT_FONT_SOURCE") == "system"
+        assert os.environ.get("BRAND_YML_DEFAULT_FONT_SOURCE") == "system"
 
     assert isinstance(brand.typography, BrandTypography)
 

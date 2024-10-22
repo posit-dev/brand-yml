@@ -1381,7 +1381,7 @@ class BrandTypography(BrandBase):
                 {
                     "family": data[field]["family"],
                     "source": os.environ.get(
-                        "BRAND_YAML_DEFAULT_FONT_SOURCE",
+                        "BRAND_YML_DEFAULT_FONT_SOURCE",
                         "system",
                     ),
                 }
