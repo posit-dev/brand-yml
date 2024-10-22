@@ -12,18 +12,14 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark
-from ._utils import (
-    find_project_brand_yml,
-    maybe_default_font_source,
-    recurse_dicts_and_models,
-)
+from ._utils import find_project_brand_yml, recurse_dicts_and_models
 from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
 from .logo import BrandLogo, BrandLogoResource
 from .meta import BrandMeta
-from .typography import BrandTypography, FontSourceDefaultsType
+from .typography import BrandTypography
 
 
 class Brand(BrandBase):
@@ -77,11 +73,7 @@ class Brand(BrandBase):
     path: Path | None = Field(None, exclude=True, repr=False)
 
     @classmethod
-    def from_yaml(
-        cls,
-        path: str | Path,
-        default_font_source: FontSourceDefaultsType | None = None,
-    ):
+    def from_yaml(cls, path: str | Path):
         """
         Read a Brand YAML file.
 
@@ -104,15 +96,6 @@ class Brand(BrandBase):
             expected to be found. Typically, you can pass `__file__` from the
             calling script to find `_brand.yml` in the current directory or any of
             its parent directories.
-
-        default_font_source
-            The default font source for font families that are used in
-            `typography` but don't have an accompanying font source in
-            `typography.fonts`. The default is to assume that the font is found
-            locally on the system, i.e. `default_font_source="system"`. To
-            source fonts from [Google Fonts](https://fonts.google.com) or
-            [Bunny Fonts](https://fonts.bunny.net), use `"google"` or `"bunny"`
-            respectively.
 
         Returns
         -------
@@ -156,10 +139,7 @@ class Brand(BrandBase):
 
         brand_data["path"] = path
 
-        with maybe_default_font_source(default_font_source):
-            brand = cls.model_validate(brand_data)
-
-        return brand
+        return cls.model_validate(brand_data)
 
     @classmethod
     def from_yaml_str(cls, text: str, path: str | Path | None = None):

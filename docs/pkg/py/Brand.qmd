@@ -72,7 +72,7 @@ path
 ### from_yaml { #brand_yml.Brand.from_yaml }
 
 ```python
-Brand.from_yaml(path, default_font_source=None)
+Brand.from_yaml(path)
 ```
 
 Read a Brand YAML file.
@@ -97,16 +97,6 @@ directory.
     expected to be found. Typically, you can pass `__file__` from the
     calling script to find `_brand.yml` in the current directory or any of
     its parent directories.
-
-<code><span class="parameter-name">default_font_source</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[FontSourceDefaultsType](`brand_yml.typography.FontSourceDefaultsType`) \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
-
-:   The default font source for font families that are used in
-    `typography` but don't have an accompanying font source in
-    `typography.fonts`. The default is to assume that the font is found
-    locally on the system, i.e. `default_font_source="system"`. To
-    source fonts from [Google Fonts](https://fonts.google.com) or
-    [Bunny Fonts](https://fonts.bunny.net), use `"google"` or `"bunny"`
-    respectively.
 
 #### Returns {.doc-section .doc-section-returns}
 

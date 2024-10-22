@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from urllib.parse import unquote
 
 import pytest
 from brand_yml import Brand
-from brand_yml._utils import set_env_var
+from brand_yml._utils import maybe_default_font_source
 from brand_yml.color import BrandColor
 from brand_yml.file import FileLocationLocal
 from brand_yml.typography import (
@@ -507,10 +506,8 @@ def test_brand_typography_ex_simple_system(snapshot_json):
 
 
 def test_brand_typography_ex_simple_google(snapshot_json):
-    brand = Brand.from_yaml(
-        path_examples("brand-typography-simple.yml"),
-        default_font_source="google",
-    )
+    with maybe_default_font_source("google"):
+        brand = Brand.from_yaml(path_examples("brand-typography-simple.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -624,10 +621,8 @@ def test_brand_typography_ex_color(snapshot_json):
 
 
 def test_brand_typography_ex_minimal(snapshot_json):
-    brand = Brand.from_yaml(
-        path_examples("brand-typography-minimal.yml"),
-        default_font_source="google",
-    )
+    with maybe_default_font_source("google"):
+        brand = Brand.from_yaml(path_examples("brand-typography-minimal.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -646,13 +641,10 @@ def test_brand_typography_ex_minimal(snapshot_json):
 
 
 def test_brand_typography_ex_minimal_mixed_source(snapshot_json):
-    with set_env_var("BRAND_YML_DEFAULT_FONT_SOURCE", "system"):
+    with maybe_default_font_source("google"):
         brand = Brand.from_yaml(
             path_examples("brand-typography-minimal-system.yml"),
-            default_font_source="google",
         )
-        # envvar is restored after reading brand yaml
-        assert os.environ.get("BRAND_YML_DEFAULT_FONT_SOURCE") == "system"
 
     assert isinstance(brand.typography, BrandTypography)
 
@@ -715,7 +707,7 @@ def test_brand_typography_css_fonts_local(snapshot):
     assert snapshot == brand.typography.css_include_fonts()
 
 
-def test_brand_typography_google_fonts_weight_range(snapshot):
+def test_brand_typography_google_fonts_weight_range():
     fw = BrandTypographyGoogleFontsWeightRange.model_validate("600..800")
     assert fw.root == [600, 800]
     assert str(fw) == "600..800"
