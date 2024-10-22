@@ -4,13 +4,10 @@ website:
     - pkg/py/index.qmd
     - contents:
       - pkg/py/Brand.qmd
-      - pkg/py/read_brand_yml.qmd
-      section: Read or create a brand
-    - contents:
       - pkg/py/meta.qmd
       - pkg/py/logo.qmd
       - pkg/py/color.qmd
       - pkg/py/typography.qmd
-      section: Brand Components
+      section: Reference
     id: pkg/py
   - id: dummy-sidebar

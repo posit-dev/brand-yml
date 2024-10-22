@@ -284,6 +284,8 @@ FontSourceType = Union[
     Literal["file"], Literal["google"], Literal["bunny"], Literal["system"]
 ]
 
+FontSourceDefaultsType = Literal["file", "google", "bunny"]
+
 
 class BrandTypographyFontSource(BaseModel, ABC):
     """

@@ -1,20 +1,12 @@
 # brand_yml Python Package Reference {.doc .doc-index}
 
-## Read or create a brand
+## Reference
 
 Read a `_brand.yml` file or create an instance of a Brand.
 
 | | |
 | --- | --- |
 | [Brand](#brand_yml.Brand) | Brand guidelines in a class. |
-| [read_brand_yml](#brand_yml.read_brand_yml) | Read a Brand YAML file. |
-
-## Brand Components
-
-Individual brand components.
-
-| | |
-| --- | --- |
 | [Metadata](meta.qmd) |  |
 | [Logos and Images](logo.qmd) |  |
 | [Color Palette and Theme](color.qmd) |  |

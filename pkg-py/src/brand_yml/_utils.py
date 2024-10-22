@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
@@ -88,3 +90,32 @@ def recurse_dicts_and_models(
     elif isinstance(item, list):
         for value in item:
             apply(value)
+
+
+@contextmanager
+def set_env_var(key: str, value: str):
+    original_value = os.environ.get(key)
+    os.environ[key] = value
+    try:
+        yield
+    finally:
+        if original_value is not None:
+            os.environ[key] = original_value
+        else:
+            del os.environ[key]
+
+
+@contextmanager
+def maybe_default_font_source(value: str | None):
+    """
+    Safely update the default font source if one is provided.
+
+    The default follows the `BRAND_YAML_DEFAULT_FONT_SOURCE` envvar, which will
+    be masked within this context if `value` is not `None`.
+    """
+    key = "BRAND_YAML_DEFAULT_FONT_SOURCE"
+    if value is not None:
+        with set_env_var(key, value):
+            yield
+    else:
+        yield

@@ -17,7 +17,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
-        exclude: "(json|svg)$"
+        exclude: "(json|svg|docs/pkg/py/[^/]+[.]qmd)$"
       - id: requirements-txt-fixer
       - id: trailing-whitespace
         args: ["--markdown-linebreak-ext=*md"]

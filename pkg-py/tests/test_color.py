@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from brand_yml import read_brand_yml
+from brand_yml import Brand
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -12,7 +12,7 @@ def snapshot_json(snapshot):
 
 
 def test_brand_color_ex_direct_posit(snapshot_json):
-    brand = read_brand_yml(path_examples("brand-color-direct-posit.yml"))
+    brand = Brand.from_yaml(path_examples("brand-color-direct-posit.yml"))
 
     assert brand.color is not None
     assert brand.color.foreground == "#151515"
@@ -31,7 +31,7 @@ def test_brand_color_ex_direct_posit(snapshot_json):
 
 
 def test_brand_color_ex_palette_posit(snapshot_json):
-    brand = read_brand_yml(path_examples("brand-color-palette-posit.yml"))
+    brand = Brand.from_yaml(path_examples("brand-color-palette-posit.yml"))
 
     # Same final values as above, but re-uses color definitions from `with`
     assert brand.color is not None
@@ -62,7 +62,7 @@ def test_brand_color_ex_palette_posit(snapshot_json):
 
 
 def test_brand_color_ex_palette_internal(snapshot_json):
-    brand = read_brand_yml(path_examples("brand-color-palette-internal.yml"))
+    brand = Brand.from_yaml(path_examples("brand-color-palette-internal.yml"))
 
     # Named theme colors are reused in BrandColor
     assert brand.color is not None
