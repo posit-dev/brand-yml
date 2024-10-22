@@ -263,7 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#methods" id="toc-methods" class="nav-link active" data-scroll-target="#methods">Methods</a>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link active" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
   <li><a href="#brand_yml.Brand.from_yaml" id="toc-brand_yml.Brand.from_yaml" class="nav-link" data-scroll-target="#brand_yml.Brand.from_yaml">from_yaml</a></li>
   <li><a href="#brand_yml.Brand.from_yaml_str" id="toc-brand_yml.Brand.from_yaml_str" class="nav-link" data-scroll-target="#brand_yml.Brand.from_yaml_str">from_yaml_str</a></li>
@@ -298,6 +299,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Brand guidelines in a class.</p>
 <p>A brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. <code>brand_yml.Brand</code> organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.</p>
 <p>Unified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named <code>_brand.yml</code>, with <code>brand_yml.Brand.from_yaml</code> or from a YAML string with <code>brand_yml.Brand.from_yaml_str</code>. Or create a full brand instance directly via this class.</p>
+<section id="attributes" class="level2 doc-section doc-section-attributes">
+<h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
+<dl>
+<dt>meta</dt>
+<dd>
+<p><a href="../../pkg/py/meta.html#brand_yml.BrandMeta">BrandMeta</a> | None</p>
+<p>Key identity information, name of the company, links to brand guidelines, etc.</p>
+</dd>
+<dt>logo</dt>
+<dd>
+<p><a href="../../pkg/py/logo.html#brand_yml.BrandLogo">BrandLogo</a> | <a href="../../pkg/py/logo.html#brand_yml.BrandLogoResource">BrandLogoResource</a> | None</p>
+<p>Files or links to the brand’s logo at various sizes.</p>
+</dd>
+<dt>color</dt>
+<dd>
+<p><a href="../../pkg/py/color.html#brand_yml.BrandColor">BrandColor</a> | None</p>
+<p>Named colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).</p>
+</dd>
+<dt>typography</dt>
+<dd>
+<p><a href="../../pkg/py/typography.html#brand_yml.BrandTypography">BrandTypography</a> | None</p>
+<p>Font definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).</p>
+</dd>
+<dt>defaults</dt>
+<dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</p>
+<p>Additional context-specific settings beyond the basic brand colors and typography.</p>
+</dd>
+<dt>path</dt>
+<dd>
+<p><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a> | None</p>
+<p>The file path of the brand configuration. This attribute is excluded from serialization and representation.</p>
+</dd>
+</dl>
+</section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <table class="caption-top table">
@@ -449,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-1">Examples</h4>
-<div id="64f4db31" class="cell" data-execution_count="1">
+<div id="695981d7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -461,13 +497,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">  base: Open Sans</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="db36d618" class="cell" data-execution_count="2">
+<div id="b7c22001" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>brand.meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>BrandMeta(name=BrandMetaName(full='Brand YAML'))</code></pre>
 </div>
 </div>
-<div id="ca001941" class="cell" data-execution_count="3">
+<div id="fbccc37e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#ff0202'</code></pre>
@@ -482,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Write the <a href="../../pkg/py/Brand.html#brand_yml.Brand"><code>brand_yml.Brand</code></a> instance to a string or to a file on disk.</p>
 <section id="examples-2" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-2">Examples</h4>
-<div id="b4c0df85" class="cell" data-execution_count="4">
+<div id="54b5b42c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -497,7 +533,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="python-code-preview">
-<div id="9790b8e7" class="cell" data-execution_count="5">
+<div id="3a333864" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(brand.model_dump_yaml())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>meta:

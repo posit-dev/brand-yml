@@ -88,6 +88,18 @@
     "href": "pkg/py/logo.html#attributes-1",
     "title": "Logos and Images",
     "section": "Attributes",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nalt\nAlterative text for the image, used for accessibility.\n\n\npath\nThe path to the logo resource. This can be a local file or a URL.",
+    "crumbs": [
+      "About",
+      "Brand Components",
+      "Logos and Images"
+    ]
+  },
+  {
+    "objectID": "pkg/py/logo.html#attributes-2",
+    "href": "pkg/py/logo.html#attributes-2",
+    "title": "Logos and Images",
+    "section": "Attributes",
     "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\ndark\nValue in dark mode.\n\n\nlight\nValue in light mode.",
     "crumbs": [
       "About",
@@ -134,6 +146,18 @@
     "title": "Brand",
     "section": "",
     "text": "Brand()\nBrand guidelines in a class.\nA brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. brand_yml.Brand organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.\nUnified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named _brand.yml, with brand_yml.Brand.from_yaml or from a YAML string with brand_yml.Brand.from_yaml_str. Or create a full brand instance directly via this class.",
+    "crumbs": [
+      "About",
+      "Read or create a brand",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html#attributes",
+    "href": "pkg/py/Brand.html#attributes",
+    "title": "Brand",
+    "section": "Attributes",
+    "text": "Attributes\n\nmeta\n\nBrandMeta | None\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nBrandLogo | BrandLogoResource | None\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nBrandColor | None\nNamed colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).\n\ntypography\n\nBrandTypography | None\nFont definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).\n\ndefaults\n\ndict[str, Any] | None\nAdditional context-specific settings beyond the basic brand colors and typography.\n\npath\n\nPath | None\nThe file path of the brand configuration. This attribute is excluded from serialization and representation.",
     "crumbs": [
       "About",
       "Read or create a brand",
@@ -831,7 +855,7 @@
     "href": "pkg/py/read_brand_yml.html",
     "title": "read_brand_yml",
     "section": "",
-    "text": "read_brand_yml(path, as_data=False)\nRead a Brand YAML file.\nReads a Brand YAML file or finds and reads a project-specific _brand.yml file and returns a validated ~brand_yml.Brand instance.\nTo find a project-specific _brand.yaml file, pass the project directory or __file__ (the path of the current Python script). brand_yml.read_brand_yml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file. Note that it starts the search in the directory passed in and moves upward to find the Brand YAML file; it does not search into subdirectories of the current directory.\n\n\n\npath: str | Path\n\nThe path to the Brand YAML file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\nas_data: bool = False\n\nWhen True, returns the raw brand data as a dictionary parsed from the YAML file. When False, returns a validated :class:Brand object.\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nBrand | dict\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nValueError or other validation errors are raised from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\n\nfrom brand_yml import read_brand_yml\n\nbrand = read_brand_yml(__file__)\nbrand = read_brand_yml(\"path/to/_brand.yml\")",
+    "text": "read_brand_yml(path, as_data=False)\nRead a Brand YAML file.\nReads a Brand YAML file or finds and reads a project-specific _brand.yml file and returns a validated ~brand_yml.Brand instance.\nTo find a project-specific _brand.yaml file, pass the project directory or __file__ (the path of the current Python script). brand_yml.read_brand_yml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file. Note that it starts the search in the directory passed in and moves upward to find the Brand YAML file; it does not search into subdirectories of the current directory.\n\n\n\npath: str | Path\n\nThe path to the Brand YAML file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\nas_data: bool = False\n\nWhen True, returns the raw brand data as a dictionary parsed from the YAML file. When False, returns a validated :class:Brand object.\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nBrand | dict[str, Any]\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nValueError or other validation errors are raised from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\n\nfrom brand_yml import read_brand_yml\n\nbrand = read_brand_yml(__file__)\nbrand = read_brand_yml(\"path/to/_brand.yml\")",
     "crumbs": [
       "About",
       "Read or create a brand",
@@ -855,7 +879,7 @@
     "href": "pkg/py/read_brand_yml.html#returns",
     "title": "read_brand_yml",
     "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\n\nBrand | dict\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nBrand | dict[str, Any]\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).",
     "crumbs": [
       "About",
       "Read or create a brand",
