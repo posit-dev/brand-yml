@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Literal, overload
+from typing import Any
 
 from pydantic import (
     BaseModel,
@@ -78,12 +78,21 @@ class Brand(BrandBase):
         Read a Brand YAML file.
 
         Reads a Brand YAML file or finds and reads a `_brand.yml` file and returns
-        a validated :class:`Brand` object.
+        a validated :class:`Brand` instance.
+
+        To find a project-specific `_brand.yaml` file, pass `path` the project
+        directory or `__file__` (the path of the current Python script).
+        [`brand_yml.Brand.from_yaml`](`brand_yml.Brand.from_yaml`) will look in
+        that directory or any parent directory for a `_brand.yml`,
+        `brand/_brand.yml` or `_brand/_brand.yml` file. Note that it starts the
+        search in the directory passed in and moves upward to find the
+        `_brand.yml` file; it does not search into subdirectories of the current
+        directory.
 
         Parameters
         ----------
         path
-            The path to the Brand YAML file or a directory where `_brand.yml` is
+            The path to the brand.yml file or a directory where `_brand.yml` is
             expected to be found. Typically, you can pass `__file__` from the
             calling script to find `_brand.yml` in the current directory or any of
             its parent directories.
@@ -91,16 +100,18 @@ class Brand(BrandBase):
         Returns
         -------
         :
-            A validated `brand_yml.Brand` object with all fields populated
-            according to the Brand YAML file.
+            A validated `Brand` object with all fields populated according to
+            the brand.yml file.
 
         Raises
         ------
         FileNotFoundError
             Raises a `FileNotFoundError` if no brand configuration file is found
-            within the given path. Raises `ValueError` or other validation errors
-            from [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML
-            file is invalid.
+            within the given path.
+        ValueError
+            Raises `ValueError` or other validation errors from
+            [pydantic](https://docs.pydantic.dev/latest/) if the brand.yml file
+            is invalid.
 
         Examples
         --------
@@ -112,7 +123,23 @@ class Brand(BrandBase):
         brand = Brand.from_yaml("path/to/_brand.yml")
         ```
         """
-        return cls.model_validate(read_brand_yml(path, as_data=True))
+        path = Path(path).absolute()
+
+        if path.is_dir() or path.suffix == ".py":
+            # allows users to simply pass `__file__`
+            path = find_project_brand_yml(path)
+
+        with open(path, "r") as f:
+            brand_data = yaml.load(f)
+
+        if not isinstance(brand_data, dict):
+            raise ValueError(
+                f"Invalid Brand YAML file {str(path)!r}. Must be a dictionary."
+            )
+
+        brand_data["path"] = path
+
+        return cls.model_validate(brand_data)
 
     @classmethod
     def from_yaml_str(cls, text: str, path: str | Path | None = None):
@@ -338,99 +365,6 @@ class Brand(BrandBase):
         return value
 
 
-@overload
-def read_brand_yml(
-    path: str | Path, as_data: Literal[False] = False
-) -> Brand: ...
-
-
-@overload
-def read_brand_yml(
-    path: str | Path, as_data: Literal[True]
-) -> dict[str, Any]: ...
-
-
-def read_brand_yml(
-    path: str | Path, as_data: bool = False
-) -> Brand | dict[str, Any]:
-    """
-    Read a Brand YAML file.
-
-    Reads a Brand YAML file or finds and reads a project-specific `_brand.yml`
-    file and returns a validated `~brand_yml.Brand` instance.
-
-    To find a project-specific `_brand.yaml` file, pass the project directory or
-    `__file__` (the path of the current Python script).
-    `brand_yml.read_brand_yml` will look in that directory or any parent
-    directory for a `_brand.yml`, `brand/_brand.yml` or `_brand/_brand.yml`
-    file. Note that it starts the search in the directory passed in and moves
-    upward to find the Brand YAML file; it does not search into subdirectories
-    of the current directory.
-
-    Parameters
-    ----------
-    path
-        The path to the Brand YAML file or a directory where `_brand.yml` is
-        expected to be found. Typically, you can pass `__file__` from the
-        calling script to find `_brand.yml` in the current directory or any of
-        its parent directories.
-
-    as_data
-        When `True`, returns the raw brand data as a dictionary parsed from the
-        YAML file. When `False`, returns a validated :class:`Brand` object.
-
-    Returns
-    -------
-    :
-        A validated :class:`brand_yml.Brand` object with all fields populated according to
-        the Brand YAML file (`as_data=False`, default) or the raw brand data
-        as a dictionary (`as_data=True`).
-
-    Raises
-    ------
-    FileNotFoundError
-        Raises a `FileNotFoundError` if no brand configuration file is found
-        within the given path.
-    ValueError
-        `ValueError` or other validation errors are raised from
-        [pydantic](https://docs.pydantic.dev/latest/) if the Brand YAML file is
-        invalid.
-
-    Examples
-    --------
-
-    ```python
-    from brand_yml import read_brand_yml
-
-    brand = read_brand_yml(__file__)
-    brand = read_brand_yml("path/to/_brand.yml")
-    ```
-    """
-
-    path = Path(path).absolute()
-
-    if path.is_dir():
-        path = find_project_brand_yml(path)
-    elif path.suffix == ".py":
-        # allows users to simply pass `__file__`
-        path = find_project_brand_yml(path.parent)
-
-    with open(path, "r") as f:
-        brand_data = yaml.load(f)
-
-    if not isinstance(brand_data, dict):
-        raise ValueError(
-            f"Invalid Brand YAML file {str(path)!r}. Must be a dictionary."
-        )
-
-    brand_data["path"] = path
-
-    if as_data:
-        return brand_data
-
-    return Brand.model_validate(brand_data)
-
-
 __all__ = [
     "Brand",
     "BrandMeta",
@@ -442,5 +376,5 @@ __all__ = [
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",
-    "read_brand_yml",
+    "find_project_brand_yml",
 ]

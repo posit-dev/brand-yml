@@ -284,6 +284,8 @@ FontSourceType = Union[
     Literal["file"], Literal["google"], Literal["bunny"], Literal["system"]
 ]
 
+FontSourceDefaultsType = Literal["file", "google", "bunny"]
+
 
 class BrandTypographyFontSource(BaseModel, ABC):
     """
@@ -1379,7 +1381,7 @@ class BrandTypography(BrandBase):
                 {
                     "family": data[field]["family"],
                     "source": os.environ.get(
-                        "BRAND_YAML_DEFAULT_FONT_SOURCE",
+                        "BRAND_YML_DEFAULT_FONT_SOURCE",
                         "system",
                     ),
                 }

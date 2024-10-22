@@ -78,13 +78,8 @@ quartodoc:
   render_interlinks: true
   rewrite_all_pages: true
   sections:
-    - title: Read or create a brand
+    - title: Reference
       desc: Read a `_brand.yml` file or create an instance of a Brand.
-      contents:
-        - Brand
-        - read_brand_yml
-    - title: Brand Components
-      desc: Individual brand components.
       options:
         signature_name: relative
         include_imports: false
@@ -93,6 +88,7 @@ quartodoc:
         include_classes: true
         include_functions: true
       contents:
+        - Brand
         - kind: page
           path: meta
           summary:
@@ -140,6 +136,12 @@ quartodoc:
                 - BrandTypographyMonospaceInline
                 - BrandTypographyMonospaceBlock
                 - BrandTypographyLink
+        - kind: page
+          path: utilities
+          summary:
+            name: Utilities
+          contents:
+            - find_project_brand_yml
 
 interlinks:
   fast: true

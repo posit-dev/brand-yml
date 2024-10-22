@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
@@ -29,8 +31,42 @@ def find_project_file(
     )
 
 
-def find_project_brand_yml(dir_: Path) -> Path:
-    return find_project_file("_brand.yml", dir_, ("brand", "_brand"))
+def find_project_brand_yml(path: Path | str) -> Path:
+    """
+    Find a project's `_brand.yml` file
+
+    Finds the first `_brand.yml` file in or adjacent to `path` and its parents.
+    If `path` is a file, `find_project_brand_yml()` starts looking in the path's
+    parent directory. In each directory, `find_project_brand_yml()` looks for
+    any of the following files in the given order:
+
+    * `_brand.yml`
+    * `brand/_brand.yml`
+    * `_brand/_brand.yml`
+
+    Parameters
+    ----------
+    path
+        A path to a file or directory where the search for the project's
+        `_brand.yml` file should be located.
+
+    Returns
+    -------
+    :
+        The path of the found `_brand.yml`.
+
+    Raises
+    ------
+    FileNotFoundError
+        If no `_brand.yml` is found in any of the directories above `path`.
+    """
+    path = Path(path)
+    path = path.resolve()
+
+    if path.is_file():
+        path = path.parent
+
+    return find_project_file("_brand.yml", path, ("brand", "_brand"))
 
 
 PredicateFuncType = Callable[[Any], bool]
@@ -88,3 +124,32 @@ def recurse_dicts_and_models(
     elif isinstance(item, list):
         for value in item:
             apply(value)
+
+
+@contextmanager
+def set_env_var(key: str, value: str):
+    original_value = os.environ.get(key)
+    os.environ[key] = value
+    try:
+        yield
+    finally:
+        if original_value is not None:
+            os.environ[key] = original_value
+        else:
+            del os.environ[key]
+
+
+@contextmanager
+def maybe_default_font_source(value: str | None):
+    """
+    Safely update the default font source if one is provided.
+
+    The default follows the `BRAND_YML_DEFAULT_FONT_SOURCE` envvar, which will
+    be masked within this context if `value` is not `None`.
+    """
+    key = "BRAND_YML_DEFAULT_FONT_SOURCE"
+    if value is not None:
+        with set_env_var(key, value):
+            yield
+    else:
+        yield
