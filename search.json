@@ -67,7 +67,7 @@
     "text": "Attributes\n\nimages\n\ndict[str, BrandLogoResource] | None\nA dictionary containing any number of logos or brand images. You can refer to these images by their key name in small, medium or large. Local file paths should be relative to the _brand.yml source file. Remote files are also permitted; please use a full URL to the image.\nlogo:\n  images:\n    white: pandas_white.svg\n    white_online: \"https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg\"\n  small: white\n\nsmall\n\nBrandLogoFileType | None\nA small logo, typically used as an favicon or mobile app icon.\n\nmedium\n\nBrandLogoFileType | None\nA medium-sized logo, typically used in the header of a website.\n\nlarge\n\nBrandLogoFileType | None\nA large logo, typically used in a larger format such as a title slide or in marketing materials.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Logos and Images"
     ]
   },
@@ -79,7 +79,7 @@
     "text": "Examples\n\nSingle LogoMinimalLight/Dark VariantsCompleteComplete with Alt Text\n\n\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium: logos/pandas/pandas_secondary.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: logos/pandas/pandas_secondary_white.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark: logos/pandas/pandas_mark.svg\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white: logos/pandas/pandas_secondary_white.svg\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: secondary-white\n  large: pandas\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark:\n      path: logos/pandas/pandas_mark.svg\n      alt: pandas logo with blue bars and yellow and pink dots\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white:\n      path: logos/pandas/pandas_secondary_white.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light:\n      path: logos/pandas/pandas_secondary.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    dark: secondary-white\n  large:\n    path: logos/pandas/pandas.svg\n    alt: pandas bars and dots to the right of the word \"pandas\"",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Logos and Images"
     ]
   },
@@ -91,7 +91,7 @@
     "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nalt\nAlterative text for the image, used for accessibility.\n\n\npath\nThe path to the logo resource. This can be a local file or a URL.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Logos and Images"
     ]
   },
@@ -103,7 +103,7 @@
     "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\ndark\nValue in dark mode.\n\n\nlight\nValue in light mode.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Logos and Images"
     ]
   },
@@ -115,125 +115,114 @@
     "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nabsolute\nAbsolute path of the file location, relative to the root directory.\n\n\nexists\nCheck that the file exists at its absolute path.\n\n\nrelative\nRelative path of the file location.\n\n\nset_root_dir\nUpdate the root directory of this file location.\n\n\nvalidate_exists\nValidate that the file exists at its absolute path.\n\n\n\n\nabsolute\nFileLocationLocal.absolute()\nAbsolute path of the file location, relative to the root directory.\nReturns the absolute path to the file, relative to the root directory, which is most typically the directory containing the _brand.yml file.\n\n\nexists\nFileLocationLocal.exists()\nCheck that the file exists at its absolute path.\n\n\nrelative\nFileLocationLocal.relative()\nRelative path of the file location.\nReturns the relative path to the file as it would appear in the source _brand.yml file.\n\n\nset_root_dir\nFileLocationLocal.set_root_dir(root_dir)\nUpdate the root directory of this file location.\nIn general, the root directory is the parent directory containing the source brand_yml file. If you relocate the file, this method can be used to update the new local file location.\n\n\nvalidate_exists\nFileLocationLocal.validate_exists()\nValidate that the file exists at its absolute path.\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if the file does not exist at its absolute path location.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Logos and Images"
     ]
   },
   {
-    "objectID": "pkg/py/api.html",
-    "href": "pkg/py/api.html",
-    "title": "brand_yml Python Package Reference",
+    "objectID": "pkg/py/index.html#installation",
+    "href": "pkg/py/index.html#installation",
+    "title": "Brand YAML Python Package",
+    "section": "Installation",
+    "text": "Installation\n\nFrom PyPI\nuv pip install brand_yml\n\n\nFrom GitHub\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
+    "crumbs": [
+      "About",
+      "Brand YAML Python Package"
+    ]
+  },
+  {
+    "objectID": "pkg/py/index.html#example",
+    "href": "pkg/py/index.html#example",
+    "title": "Brand YAML Python Package",
+    "section": "Example",
+    "text": "Example\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\n    # Typically, this file is stored in `_brand.yml`\n    # and read with `Brand.from_yaml()`.\n    \"\"\"\n    meta:\n      name: Posit Software, PBC\n      link: https://posit.co\n    color:\n      palette:\n        pblue: \"#447099\"\n        green: \"#72994E\"\n        teal: \"#419599\"\n        orange: \"#EE6331\"\n        purple: \"#9A4665\"\n        gray: \"#707073\"\n      primary: blue\n      secondary: gray\n      success: green\n      info: teal\n      warning: orange\n      danger: purple\n    typography:\n      base:\n        family: Open Sans\n        weight: 300\n    \"\"\"\n)\n\n\nbrand.meta.name\n\nBrandMetaName(full='Posit Software, PBC')\n\n\n\nbrand.color.primary\n\n'blue'\n\n\n\nbrand.typography.base.model_dump()\n\n{'family': 'Open Sans', 'weight': 300, 'size': None, 'line_height': None}",
+    "crumbs": [
+      "About",
+      "Brand YAML Python Package"
+    ]
+  },
+  {
+    "objectID": "pkg/py/color.html",
+    "href": "pkg/py/color.html",
+    "title": "Color Palette and Theme",
     "section": "",
-    "text": "Read a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nread_brand_yml\nRead a Brand YAML file.\n\n\n\n\n\n\nIndividual brand components.\n\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography"
+    "text": "BrandColor()\nBrand Colors\nThe brand’s custom color palette and theme. color.palette is a list of named colors used by the brand and color.theme maps brand colors to common theme elements (described in Attributes).\n\n\n\nMinimalWith palette\n\n\nIn this example, we’ve picked colors from Posit’s brand guidelines and mapped them directory to theme colors. This is a minimal approach to applying brand colors to theme colors.\n\n\n_brand.yml\n\ncolor:\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"\n\n\n\nThis example first defines a color palette from Posit’s brand guidelines and then maps them to theme colors by reference. With this approach, not all brand colors need to be used in the theme, but are still available via the brand.color.palette dictionary. This approach also reduces duplication in brand.color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: \"#404041\"\n\n\n\n\n\n\n\nOnce defined in color.palette, you can re-use color definitions in any of the color fields. For example:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\n\nOnce imported via brand_yml.Brand.from_yaml(), you can access the named color palette via brand.color.palette[\"purple\"] and the primary field will be ready for use.\n\n\nbrand.color.palette[\"purple\"]\n\n'#6339E0'\n\n\n\nbrand.color.primary\n\n'#6339E0'\n\n\n\nThis same principle of reuse applies to the color and background-color fields of brand_yml.typography.BrandTypography, where you can refer to any of the colors in color.palette or the theme colors directly.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\ntypography:\n  headings:\n    color: primary\n  link:\n    color: purple\n\nWith this Brand YAML, both headings and links will ultimately be styled with the brand’s purple color.\n\n\nbrand.typography.headings.color\n\n'#6339E0'\n\n\n\nbrand.typography.link.color\n\n'#6339E0'\n\n\n\n\n\n\n\npalette\n\ndict[str, str] | None\nA dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended but no specific format is required at this time). These values can be referred to, by name, in the other theme properties\n\nforeground\n\nOptional[str]\nThe foreground color, used for text.\n\nbackground\n\nOptional[str]\nThe background color, used for the page or main background.\n\nprimary\n\nOptional[str]\nThe primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.\n\nsecondary\n\nOptional[str]\nThe secondary accent color. Typically used for lighter text or disabled states.\n\ntertiary\n\nOptional[str]\nThe tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.\n\nsuccess\n\nOptional[str]\nThe color used for positive or successful actions and information.\n\ninfo\n\nOptional[str]\nThe color used for neutral or informational actions and information.\n\nwarning\n\nOptional[str]\nThe color used for warning or cautionary actions and information.\n\ndanger\n\nOptional[str]\nThe color used for errors, dangerous actions, or negative information.\n\nlight\n\nOptional[str]\nA bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.\n\ndark\n\nOptional[str]\nA dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Color Palette and Theme"
+    ]
   },
   {
-    "objectID": "pkg/py/api.html#read-or-create-a-brand",
-    "href": "pkg/py/api.html#read-or-create-a-brand",
-    "title": "brand_yml Python Package Reference",
+    "objectID": "pkg/py/color.html#examples",
+    "href": "pkg/py/color.html#examples",
+    "title": "Color Palette and Theme",
     "section": "",
-    "text": "Read a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nread_brand_yml\nRead a Brand YAML file."
+    "text": "MinimalWith palette\n\n\nIn this example, we’ve picked colors from Posit’s brand guidelines and mapped them directory to theme colors. This is a minimal approach to applying brand colors to theme colors.\n\n\n_brand.yml\n\ncolor:\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"\n\n\n\nThis example first defines a color palette from Posit’s brand guidelines and then maps them to theme colors by reference. With this approach, not all brand colors need to be used in the theme, but are still available via the brand.color.palette dictionary. This approach also reduces duplication in brand.color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: \"#404041\"",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Color Palette and Theme"
+    ]
   },
   {
-    "objectID": "pkg/py/api.html#brand-components",
-    "href": "pkg/py/api.html#brand-components",
-    "title": "brand_yml Python Package Reference",
+    "objectID": "pkg/py/color.html#referencing-colors-in-the-brands-color-palette",
+    "href": "pkg/py/color.html#referencing-colors-in-the-brands-color-palette",
+    "title": "Color Palette and Theme",
     "section": "",
-    "text": "Individual brand components.\n\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography"
+    "text": "Once defined in color.palette, you can re-use color definitions in any of the color fields. For example:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\n\nOnce imported via brand_yml.Brand.from_yaml(), you can access the named color palette via brand.color.palette[\"purple\"] and the primary field will be ready for use.\n\n\nbrand.color.palette[\"purple\"]\n\n'#6339E0'\n\n\n\nbrand.color.primary\n\n'#6339E0'\n\n\n\nThis same principle of reuse applies to the color and background-color fields of brand_yml.typography.BrandTypography, where you can refer to any of the colors in color.palette or the theme colors directly.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\ntypography:\n  headings:\n    color: primary\n  link:\n    color: purple\n\nWith this Brand YAML, both headings and links will ultimately be styled with the brand’s purple color.\n\n\nbrand.typography.headings.color\n\n'#6339E0'\n\n\n\nbrand.typography.link.color\n\n'#6339E0'",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Color Palette and Theme"
+    ]
   },
   {
-    "objectID": "pkg/py/Brand.html",
-    "href": "pkg/py/Brand.html",
-    "title": "Brand",
+    "objectID": "pkg/py/color.html#attributes",
+    "href": "pkg/py/color.html#attributes",
+    "title": "Color Palette and Theme",
     "section": "",
-    "text": "Brand()\nBrand guidelines in a class.\nA brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. brand_yml.Brand organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.\nUnified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named _brand.yml, with brand_yml.Brand.from_yaml or from a YAML string with brand_yml.Brand.from_yaml_str. Or create a full brand instance directly via this class.",
+    "text": "palette\n\ndict[str, str] | None\nA dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended but no specific format is required at this time). These values can be referred to, by name, in the other theme properties\n\nforeground\n\nOptional[str]\nThe foreground color, used for text.\n\nbackground\n\nOptional[str]\nThe background color, used for the page or main background.\n\nprimary\n\nOptional[str]\nThe primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.\n\nsecondary\n\nOptional[str]\nThe secondary accent color. Typically used for lighter text or disabled states.\n\ntertiary\n\nOptional[str]\nThe tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.\n\nsuccess\n\nOptional[str]\nThe color used for positive or successful actions and information.\n\ninfo\n\nOptional[str]\nThe color used for neutral or informational actions and information.\n\nwarning\n\nOptional[str]\nThe color used for warning or cautionary actions and information.\n\ndanger\n\nOptional[str]\nThe color used for errors, dangerous actions, or negative information.\n\nlight\n\nOptional[str]\nA bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.\n\ndark\n\nOptional[str]\nA dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
     "crumbs": [
       "About",
-      "Read or create a brand",
-      "Brand"
+      "Reference",
+      "Color Palette and Theme"
     ]
   },
   {
-    "objectID": "pkg/py/Brand.html#attributes",
-    "href": "pkg/py/Brand.html#attributes",
-    "title": "Brand",
-    "section": "Attributes",
-    "text": "Attributes\n\nmeta\n\nBrandMeta | None\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nBrandLogo | BrandLogoResource | None\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nBrandColor | None\nNamed colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).\n\ntypography\n\nBrandTypography | None\nFont definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).\n\ndefaults\n\ndict[str, Any] | None\nAdditional context-specific settings beyond the basic brand colors and typography.\n\npath\n\nPath | None\nThe file path of the brand configuration. This attribute is excluded from serialization and representation.",
+    "objectID": "pkg/py/utilities.html#parameters",
+    "href": "pkg/py/utilities.html#parameters",
+    "title": "Utilities",
+    "section": "Parameters",
+    "text": "Parameters\n\npath: Path | str\n\nA path to a file or directory where the search for the project’s _brand.yml file should be located.",
     "crumbs": [
       "About",
-      "Read or create a brand",
-      "Brand"
+      "Reference",
+      "Utilities"
     ]
   },
   {
-    "objectID": "pkg/py/Brand.html#methods",
-    "href": "pkg/py/Brand.html#methods",
-    "title": "Brand",
-    "section": "Methods",
-    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nfrom_yaml\nRead a Brand YAML file.\n\n\nfrom_yaml_str\nCreate a Brand instance from a string of YAML.\n\n\nmodel_dump_yaml\nSerialize the Brand object to YAML.\n\n\n\n\nfrom_yaml\nBrand.from_yaml(path)\nRead a Brand YAML file.\nReads a Brand YAML file or finds and reads a _brand.yml file and returns a validated :class:Brand object.\n\nParameters\n\npath: str | Path\n\nThe path to the Brand YAML file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated brand_yml.Brand object with all fields populated according to the Brand YAML file.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path. Raises ValueError or other validation errors from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\nExamples\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml(__file__)\nbrand = Brand.from_yaml(\"path/to/_brand.yml\")\n\n\n\nfrom_yaml_str\nBrand.from_yaml_str(text, path=None)\nCreate a Brand instance from a string of YAML.\n\nParameters\n\ntext: str\n\nThe text of the Brand YAML file.\n\npath: str | Path | None = None\n\nThe optional path on disk for supporting files like logos and fonts.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated brand_yml.Brand object with all fields populated according to the Brand YAML text.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  primary: \"#ff0202\"\ntypography:\n  base: Open Sans\n\"\"\")\n\n\nbrand.meta\n\nBrandMeta(name=BrandMetaName(full='Brand YAML'))\n\n\n\nbrand.color.primary\n\n'#ff0202'\n\n\n\n\n\nmodel_dump_yaml\nBrand.model_dump_yaml(stream=None, *, transform=None)\nSerialize the Brand object to YAML.\nWrite the brand_yml.Brand instance to a string or to a file on disk.\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  palette:\n    orange: \"#ff9a02\"\n  primary: orange\ntypography:\n  headings: Raleway\n\"\"\")\n\n\n\nprint(brand.model_dump_yaml())\n\nmeta:\n  name:\n    full: Brand YAML\ncolor:\n  palette:\n    orange: '#ff9a02'\n  primary: '#ff9a02'\ntypography:\n  fonts:\n    - family: Raleway\n  headings:\n    family: Raleway\n\n\n\n\n\n\nParameters\n\nstream: Any = None\n\nPassed to stream parameter of ruamel.yaml.YAML.dump.\n\ntransform: Any = None\n\nPassed to transform parameter of ruamel.yaml.YAML.dump.\n\n\n\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nA string with the YAML representation of the brand if stream is None. Otherwise, the YAML representation is written to stream, typically a file. Note that the output YAML may not be 100% identical to the input _brand.yml. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors.",
+    "objectID": "pkg/py/utilities.html#returns",
+    "href": "pkg/py/utilities.html#returns",
+    "title": "Utilities",
+    "section": "Returns",
+    "text": "Returns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nPath\nThe path of the found _brand.yml.",
     "crumbs": [
       "About",
-      "Read or create a brand",
-      "Brand"
+      "Reference",
+      "Utilities"
     ]
   },
   {
-    "objectID": "pkg/py/typography.html#examples",
-    "href": "pkg/py/typography.html#examples",
-    "title": "Typography",
-    "section": "Examples",
-    "text": "Examples\n\nMinimalMinimal with System FontSimpleWith FontsWith Color\n\n\nThis minimal example chooses only the font family for the base text, headings and monospace. These fonts will be sourced, by default, from Google Fonts.\n\n\n_brand.yml\n\ntypography:\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\n\n\nBy default, fonts are sourced from Google Fonts, but you can also provide font sources in fonts. Here we’re using a system font for “Open Sans” and Google Fonts for the others.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Open Sans\n      source: system\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\n\n\nIn addition to setting the font family for key elements, you can choose other typographic properties. This example sets the line height and font size for base text, uses the primary accent color for headings and reduces the font size for monospace code, in addition to choosing the font family for each.\n\n\n_brand.yml\n\ncolor:\n  primary: blue\ntypography:\n  base:\n    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: semi-bold\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n\nFont files may be sourced in a number of different ways.\n\nLocal or hosted (online) files\nFrom Google Fonts\nOr from Bunny Fonts (a GDPR-compliant) alternative to Google Fonts.\n\nEach font family should be declared in a list item provided to typography.fonts. Local font files can be stored adjacent to the _brand.yml file, and each file for a given family needs to be declared in the files key. Typically these font files cover a specific font weight and style.\n\n\n_brand.yml\n\ncolor:\n  primary: '#f24242'\ntypography:\n  fonts:\n    # Local files\n    - family: Open Sans\n      source: file\n      files:\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n\n    # Online files\n    - family: Closed Sans\n      source: file\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\n\n    # Online Font Foundries\n    - family: Roboto Slab\n      source: google\n      weight: 600..900\n      style: normal\n      display: block\n\n    - family: Fira Code\n      source: bunny\n      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]\n      # style: [normal, italic]\n\n  base:\n    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: 600\n\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n\nColors in the typographic elements—color or background-color—can use the names of colors in color.palette or the theme color names in color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    red: '#FF6F61'\n  primary: '#87CEEB'\n  secondary: '#50C878'\n  danger: red\n  foreground: '#1b1818'\n  background: '#f7f4f4'\n\ntypography:\n  headings:\n    color: primary\n  monospace-inline:\n    color: background\n    background-color: red\n  monospace-block:\n    color: foreground\n    background-color: background\n  link:\n    color: danger",
+    "objectID": "pkg/py/utilities.html#raises",
+    "href": "pkg/py/utilities.html#raises",
+    "title": "Utilities",
+    "section": "Raises",
+    "text": "Raises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nIf no _brand.yml is found in any of the directories above path.",
     "crumbs": [
       "About",
-      "Brand Components",
-      "Typography"
-    ]
-  },
-  {
-    "objectID": "pkg/py/typography.html#attributes",
-    "href": "pkg/py/typography.html#attributes",
-    "title": "Typography",
-    "section": "Attributes",
-    "text": "Attributes\n\nfonts\n\nlist[BrandTypographyFontFamily]\nA list of font family definitions. Each definition in the list describes a font family that is available to the brand. Fonts may be stored in files (either adjacent to _brand.yml or hosted online) or may be provided by Google Fonts or Font Bunny (a GDPR-compliant Google Fonts alternative).\n\nbase\n\nBrandTypographyBase | None\nThe type used as the default text, primarily in the document body.\n\nheadings\n\nBrandTypographyHeadings | None\nThe type used for headings. Note that these settings cover all heading levels (h1, h2, etc.).\n\nmonospace\n\nBrandTypographyMonospace | None\nThe type used for code blocks and other monospaced text.\n\nmonospace_inline\n\nBrandTypographyMonospaceInline | None\nThe type used for inline code; inherits properties from monospace.\n\nmonospace_block\n\nBrandTypographyMonospaceBlock | None\nThe type use for code blocks; inherits properties from monospace.\n\nlink\n\nBrandTypographyLink | None\nType settings used for hyperlinks.",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Typography"
-    ]
-  },
-  {
-    "objectID": "pkg/py/typography.html#methods",
-    "href": "pkg/py/typography.html#methods",
-    "title": "Typography",
-    "section": "Methods",
-    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\ncss_include_fonts\nGenerates CSS include statements for the defined fonts.\n\n\n\n\ncss_include_fonts\nBrandTypography.css_include_fonts()\nGenerates CSS include statements for the defined fonts.\nThis method creates CSS @import or @font-face rules for all fonts defined in the typography configuration.\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nstr\nA string containing CSS include statements for all defined fonts.",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Typography"
-    ]
-  },
-  {
-    "objectID": "pkg/py/typography.html#attributes-1",
-    "href": "pkg/py/typography.html#attributes-1",
-    "title": "Typography",
-    "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nBrandTypographyFontFamily\nRuntime representation of an annotated type.",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Typography"
-    ]
-  },
-  {
-    "objectID": "pkg/py/typography.html#classes",
-    "href": "pkg/py/typography.html#classes",
-    "title": "Typography",
-    "section": "Classes",
-    "text": "Classes\n\n\n\nName\nDescription\n\n\n\n\nBrandTypographyFontSource\nA base class representing a font source.\n\n\nBrandTypographyFontFiles\nA font family defined by a collection of font files.\n\n\nBrandTypographyFontGoogle\nA font family provided by Google Fonts.\n\n\nBrandTypographyFontBunny\nA font family provided by Bunny Fonts.\n\n\nBrandTypographyGoogleFontsApi\nA font source that utilizes the Google Fonts (or a compatible) API.\n\n\nBrandTypographyGoogleFontsWeightRange\nRepresents a range of font weights for Google Fonts.\n\n\nBrandTypographyBase\nTypographic settings for base (or body) text.\n\n\nBrandTypographyHeadings\nTypographic settings for headings and titles.\n\n\nBrandTypographyMonospace\nTypographic settings for monospace text.\n\n\nBrandTypographyMonospaceInline\nTypographic settings for inline monospace text.\n\n\nBrandTypographyMonospaceBlock\nTypographic settings for block monospace text.\n\n\nBrandTypographyLink\nTypographic settings for hyperlinks.\n\n\n\n\nBrandTypographyFontSource\ntypography.BrandTypographyFontSource()\nA base class representing a font source.\nThis class serves as a template for various font sources, encapsulating common properties and behaviors.\n\nAttributes\n\n\n\nName\nDescription\n\n\n\n\nfamily\nThe font family name.\n\n\nsource\nThe source of the font family, one of \"system\", \"file\", \"google\", or \"bunny\".\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_css\nCreate the CSS declarations needed to use the font family.\n\n\n\n\nto_css\ntypography.BrandTypographyFontSource.to_css()\nCreate the CSS declarations needed to use the font family.\n\n\n\n\nBrandTypographyFontFiles\ntypography.BrandTypographyFontFiles()\nA font family defined by a collection of font files.\nThis class represents a font family that is specified using individual font files, either from local files or files hosted online. A font family is generally composed of multiple font files for different weights and styles within the same family. Currently, TrueType (.ttf), OpenType (.otf), and WOFF (.woff or .woff2) formats are supported.\n\nExamples\ntypography:\n  fonts:\n    # Local font files\n    - family: Open Sans\n      files:\n        - path: fonts/open-sans/OpenSans-Bold.ttf\n          style: bold\n        - path: fonts/open-sans/OpenSans-Italic.ttf\n          style: italic\n\n    # Online files\n    - family: Closed Sans\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\n\n\n\nBrandTypographyFontGoogle\ntypography.BrandTypographyFontGoogle()\nA font family provided by Google Fonts.\nThis class represents a font family that is sourced from Google Fonts. It allows you to specify the font family name, weight range, and style.\nSubclass of brand_yml.typography.BrandTypographyGoogleFontsApi, the generic Google Fonts API font source.\n\nExamples\nIn this example, the Inter font is imported with all font weights and both normal and italic styles (these are the defaults). Additionally, the Roboto Slab font is sourced from Google Fonts with three specific font weights – 400, 600, 800 – and only the normal style.\nyaml typography:   fonts:     - family: Inter source: google     - family: Roboto Slab source: google weight: [400, 600, 800] style:       normal\n\n\n\nBrandTypographyFontBunny\ntypography.BrandTypographyFontBunny()\nA font family provided by Bunny Fonts.\nThis class represents a font family that is sourced from Bunny Fonts. It allows you to specify the font family name, weight range, and style.\nSubclass of brand_yml.typography.BrandTypographyGoogleFontsApi, the generic Google Fonts API font source.\n\nExamples\nIn this example, the Fira Code font is sourced from Bunny Fonts. By default all available weights and styles will be used.\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]\n      # style: [normal, italic]\n\n\n\nBrandTypographyGoogleFontsApi\ntypography.BrandTypographyGoogleFontsApi()\nA font source that utilizes the Google Fonts (or a compatible) API.\nThis class provides a way to fetch and manage typography assets from Google Fonts, allowing for easy integration with brand-specific typographic styles.\n\nAttributes\n\n\n\nName\nDescription\n\n\n\n\ndisplay\nSpecifies how a font face is displayed based on whether and when it is downloaded and ready to use.\n\n\nstyle\nThe font style(s) (italic or normal) to be imported for the font family.\n\n\nurl\nURL of the Google Fonts-compatible API. (Primarily for internal use.)\n\n\nversion\nGoogle Fonts API version. (Primarily for internal use.)\n\n\nweight\nThe desired front weights to be imported for the font family.\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_import_url\nReturns the URL for the font family to be used in a CSS @import statement.\n\n\n\n\nto_import_url\ntypography.BrandTypographyGoogleFontsApi.to_import_url()\nReturns the URL for the font family to be used in a CSS @import statement.\n\n\n\n\nBrandTypographyGoogleFontsWeightRange\ntypography.BrandTypographyGoogleFontsWeightRange()\nRepresents a range of font weights for Google Fonts.\nThis class is used to specify a continuous range of font weights to be imported from Google Fonts for variable fonts that support a range of font weights. The weight range is represented as a list of two integers, where the first integer is the start of the range and the second is the end.\n\nExamples\n\n300..700: Represents a range from light (300) to bold (700)\n100..900: Represents the full range of weights from thin to black\n\n\n\nNote\nWhen serialized, this class will convert the range to a string format (e.g., “300..700”) for compatibility with the Google Fonts API.\n\n\nAttributes\n\nroot\n\nlist[BrandTypographyFontWeightInt]\nA list containing two integers representing the start and end of the weight range.\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nmodel_dump\nUsage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump\n\n\n\n\nmodel_dump\ntypography.BrandTypographyGoogleFontsWeightRange.model_dump(\n    mode='python'\n    include=None\n    exclude=None\n    context=None\n    by_alias=False\n    exclude_unset=False\n    exclude_defaults=False\n    exclude_none=False\n    round_trip=False\n    warnings=True\n    serialize_as_any=False\n)\nUsage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump\nGenerate a dictionary representation of the model, optionally specifying which fields to include or exclude.\nArgs: mode: The mode in which to_python should run. If mode is ‘json’, the output will only contain JSON serializable types. If mode is ‘python’, the output may contain non-JSON-serializable Python objects. include: A set of fields to include in the output. exclude: A set of fields to exclude from the output. context: Additional context to pass to the serializer. by_alias: Whether to use the field’s alias in the dictionary key if defined. exclude_unset: Whether to exclude fields that have not been explicitly set. exclude_defaults: Whether to exclude fields that are set to their default value. exclude_none: Whether to exclude fields that have a value of None. round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T]. warnings: How to handle serialization errors. False/“none” ignores them, True/“warn” logs errors, “error” raises a [PydanticSerializationError][pydantic_core.PydanticSerializationError]. serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.\nReturns: A dictionary representation of the model.\n\n\n\n\nBrandTypographyBase\ntypography.BrandTypographyBase()\nTypographic settings for base (or body) text.\n\nAttributes\n\nfamily\n\nThe font family to be used. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the text.\n\nsize\n\nThe font size of the text. Should be a CSS length unit (e.g., 14px).\n\nline_height\n\nThe line height of the text. Line height refers to the vertical space between lines of text.\n\n\n\n\n\nBrandTypographyHeadings\ntypography.BrandTypographyHeadings()\nTypographic settings for headings and titles.\n\nAttributes\n\nfamily\n\nThe font family used for headings. Note that this should match a resource in typography.fonts.\n\nweight\n\nThe font weight (or boldness) of the text.\n\nstyle\n\nThe font style for the heading, i.e., whether it should be styled in a \"normal\" or \"italic\" style.\n\nline_height\n\nThe line height of the heading. Line height refers to the vertical space between lines of text.\n\ncolor\n\nThe color of the text.\n\n\n\n\nExamples\nThis example sets up typography settings for headings using the Inter font at a weight of 600 and with a line height that is 1.2 times the font size.\ntypography:\n  headings:\n    family: Inter\n    weight: 600\n    line_height: 1.2\n\n\n\nBrandTypographyMonospace\ntypography.BrandTypographyMonospace()\nTypographic settings for monospace text.\nThis class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using brand_yml.typography.BrandTypographyMonospaceInline and brand_yml.typography.BrandTypographyMonospaceBlock respectively.\n\nAttributes\n\nfamily\n\nThe font family to be used for monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\n\n\n\nExamples\nThis example sets up typography settings for monospace text using the Fira Code font at a slightly smaller size than the base text:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\nYou can also specify additional properties like weight:\ntypography:\n  monospace:\n    family: Fira Code\n    size: 0.9em\n    weight: 400\nFor more complex setups, you can define different styles for inline and block monospace text:\ntypography:\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-inline:\n    color: \"#7d12ba\" # purple\n    background-color: \"#f8f9fa\" # light gray\n  monospace-block:\n    color: foreground\n    background-color: background\n\n\n\nBrandTypographyMonospaceInline\ntypography.BrandTypographyMonospaceInline()\nTypographic settings for inline monospace text.\nThis class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from brand_yml.typography.BrandTypographyMonospace with additional options for foreground and background colors.\n\nAttributes\n\nfamily\n\nThe font family to be used for inline monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the inline monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the inline monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\ncolor\n\nThe color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\n\n\n\nExamples\nThis example sets up typography settings for inline monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-inline:\n    color: \"#7d12ba\"  # purple\n    background-color: \"#f8f9fa\"  # light gray\nYou can also use color names defined in your brand’s color palette:\ncolor:\n  palette:\n    red-light: \"#fff1f0\"\n  primary: \"#FF6F61\"\n  foreground: \"#1b1818\"\n  background: \"#f7f4f4\"\ntypography:\n  monospace-inline:\n    color: red\n    background-color: red-light\n\n\n\nBrandTypographyMonospaceBlock\ntypography.BrandTypographyMonospaceBlock()\nTypographic settings for block monospace text.\nThis class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from brand_yml.typography.BrandTypographyMonospace and adds options for line height, foreground color, and background color.\n\nAttributes\n\nfamily\n\nThe font family to be used for block monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the block monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the block monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\nline_height\n\nThe line height of the block monospace text. Line height refers to the vertical space between lines of text.\n\ncolor\n\nThe color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\n\n\n\nExamples\nThis example sets up typography settings for block monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-block:\n    color: foreground\n    background-color: background\n    line-height: 1.4\n\n\n\nBrandTypographyLink\ntypography.BrandTypographyLink()\nTypographic settings for hyperlinks.\nThis class defines typography options for hyperlinks, allowing customization of font weight, colors, and text decoration.\n\nAttributes\n\nweight\n\nThe font weight (boldness) of the hyperlink text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\ncolor\n\nThe color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\ndecoration\n\nstr | None\nThe text decoration for the hyperlink. Common values include “underline”, “none”, or “underline”.\n\n\n\n\nExamples\nThis example sets up typography settings for hyperlinks with a custom color and text decoration:\ntypography:\n  link:\n    weight: 600\n    color: \"#FF6F61\"\n    decoration: underline\nYou can also use color names defined in your brand’s color palette:\ncolor:\n  palette:\n    red: \"#FF6F61\"\ntypography:\n  link:\n    weight: 600\n    color: red\n    decoration: underline",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Typography"
+      "Reference",
+      "Utilities"
     ]
   },
   {
@@ -781,134 +770,114 @@
     "text": "Design Systems\n\n\n\n    \n     \n    \n    \n      \n        gov.uk\n      \n      \n    \n\n\n    \n     \n    \n    \n      \n        Deque\n      \n      \n      Cauldron\n      \n    \n\n\n    \n     \n    \n    \n      \n        US Web Design\n      \n      \n    \n\n\n    \n     \n    \n    \n      \n        Thumbtack\n      \n      \n      Thumbprint\n      \n    \n\n\n    \n     \n    \n    \n      \n        City of Helsinki\n      \n      \n      Helsinki Design System\n      \n    \n\n\n    \n     \n    \n    \n      \n        GitHub\n      \n      \n      Primer\n      \n    \n\n\n    \n     \n    \n    \n      \n        Stack Overflow\n      \n      \n      Stacks\n      \n    \n\n\n\nNo matching items"
   },
   {
-    "objectID": "pkg/py/color.html",
-    "href": "pkg/py/color.html",
-    "title": "Color Palette and Theme",
+    "objectID": "pkg/py/typography.html#examples",
+    "href": "pkg/py/typography.html#examples",
+    "title": "Typography",
+    "section": "Examples",
+    "text": "Examples\n\nMinimalMinimal with System FontSimpleWith FontsWith Color\n\n\nThis minimal example chooses only the font family for the base text, headings and monospace. These fonts will be sourced, by default, from Google Fonts.\n\n\n_brand.yml\n\ntypography:\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\n\n\nBy default, fonts are sourced from Google Fonts, but you can also provide font sources in fonts. Here we’re using a system font for “Open Sans” and Google Fonts for the others.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Open Sans\n      source: system\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\n\n\nIn addition to setting the font family for key elements, you can choose other typographic properties. This example sets the line height and font size for base text, uses the primary accent color for headings and reduces the font size for monospace code, in addition to choosing the font family for each.\n\n\n_brand.yml\n\ncolor:\n  primary: blue\ntypography:\n  base:\n    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: semi-bold\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n\nFont files may be sourced in a number of different ways.\n\nLocal or hosted (online) files\nFrom Google Fonts\nOr from Bunny Fonts (a GDPR-compliant) alternative to Google Fonts.\n\nEach font family should be declared in a list item provided to typography.fonts. Local font files can be stored adjacent to the _brand.yml file, and each file for a given family needs to be declared in the files key. Typically these font files cover a specific font weight and style.\n\n\n_brand.yml\n\ncolor:\n  primary: '#f24242'\ntypography:\n  fonts:\n    # Local files\n    - family: Open Sans\n      source: file\n      files:\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n\n    # Online files\n    - family: Closed Sans\n      source: file\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\n\n    # Online Font Foundries\n    - family: Roboto Slab\n      source: google\n      weight: 600..900\n      style: normal\n      display: block\n\n    - family: Fira Code\n      source: bunny\n      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]\n      # style: [normal, italic]\n\n  base:\n    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: 600\n\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n\nColors in the typographic elements—color or background-color—can use the names of colors in color.palette or the theme color names in color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    red: '#FF6F61'\n  primary: '#87CEEB'\n  secondary: '#50C878'\n  danger: red\n  foreground: '#1b1818'\n  background: '#f7f4f4'\n\ntypography:\n  headings:\n    color: primary\n  monospace-inline:\n    color: background\n    background-color: red\n  monospace-block:\n    color: foreground\n    background-color: background\n  link:\n    color: danger",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Typography"
+    ]
+  },
+  {
+    "objectID": "pkg/py/typography.html#attributes",
+    "href": "pkg/py/typography.html#attributes",
+    "title": "Typography",
+    "section": "Attributes",
+    "text": "Attributes\n\nfonts\n\nlist[BrandTypographyFontFamily]\nA list of font family definitions. Each definition in the list describes a font family that is available to the brand. Fonts may be stored in files (either adjacent to _brand.yml or hosted online) or may be provided by Google Fonts or Font Bunny (a GDPR-compliant Google Fonts alternative).\n\nbase\n\nBrandTypographyBase | None\nThe type used as the default text, primarily in the document body.\n\nheadings\n\nBrandTypographyHeadings | None\nThe type used for headings. Note that these settings cover all heading levels (h1, h2, etc.).\n\nmonospace\n\nBrandTypographyMonospace | None\nThe type used for code blocks and other monospaced text.\n\nmonospace_inline\n\nBrandTypographyMonospaceInline | None\nThe type used for inline code; inherits properties from monospace.\n\nmonospace_block\n\nBrandTypographyMonospaceBlock | None\nThe type use for code blocks; inherits properties from monospace.\n\nlink\n\nBrandTypographyLink | None\nType settings used for hyperlinks.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Typography"
+    ]
+  },
+  {
+    "objectID": "pkg/py/typography.html#methods",
+    "href": "pkg/py/typography.html#methods",
+    "title": "Typography",
+    "section": "Methods",
+    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\ncss_include_fonts\nGenerates CSS include statements for the defined fonts.\n\n\n\n\ncss_include_fonts\nBrandTypography.css_include_fonts()\nGenerates CSS include statements for the defined fonts.\nThis method creates CSS @import or @font-face rules for all fonts defined in the typography configuration.\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nstr\nA string containing CSS include statements for all defined fonts.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Typography"
+    ]
+  },
+  {
+    "objectID": "pkg/py/typography.html#attributes-1",
+    "href": "pkg/py/typography.html#attributes-1",
+    "title": "Typography",
+    "section": "Attributes",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nBrandTypographyFontFamily\nRuntime representation of an annotated type.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Typography"
+    ]
+  },
+  {
+    "objectID": "pkg/py/typography.html#classes",
+    "href": "pkg/py/typography.html#classes",
+    "title": "Typography",
+    "section": "Classes",
+    "text": "Classes\n\n\n\nName\nDescription\n\n\n\n\nBrandTypographyFontSource\nA base class representing a font source.\n\n\nBrandTypographyFontFiles\nA font family defined by a collection of font files.\n\n\nBrandTypographyFontGoogle\nA font family provided by Google Fonts.\n\n\nBrandTypographyFontBunny\nA font family provided by Bunny Fonts.\n\n\nBrandTypographyGoogleFontsApi\nA font source that utilizes the Google Fonts (or a compatible) API.\n\n\nBrandTypographyGoogleFontsWeightRange\nRepresents a range of font weights for Google Fonts.\n\n\nBrandTypographyBase\nTypographic settings for base (or body) text.\n\n\nBrandTypographyHeadings\nTypographic settings for headings and titles.\n\n\nBrandTypographyMonospace\nTypographic settings for monospace text.\n\n\nBrandTypographyMonospaceInline\nTypographic settings for inline monospace text.\n\n\nBrandTypographyMonospaceBlock\nTypographic settings for block monospace text.\n\n\nBrandTypographyLink\nTypographic settings for hyperlinks.\n\n\n\n\nBrandTypographyFontSource\ntypography.BrandTypographyFontSource()\nA base class representing a font source.\nThis class serves as a template for various font sources, encapsulating common properties and behaviors.\n\nAttributes\n\n\n\nName\nDescription\n\n\n\n\nfamily\nThe font family name.\n\n\nsource\nThe source of the font family, one of \"system\", \"file\", \"google\", or \"bunny\".\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_css\nCreate the CSS declarations needed to use the font family.\n\n\n\n\nto_css\ntypography.BrandTypographyFontSource.to_css()\nCreate the CSS declarations needed to use the font family.\n\n\n\n\nBrandTypographyFontFiles\ntypography.BrandTypographyFontFiles()\nA font family defined by a collection of font files.\nThis class represents a font family that is specified using individual font files, either from local files or files hosted online. A font family is generally composed of multiple font files for different weights and styles within the same family. Currently, TrueType (.ttf), OpenType (.otf), and WOFF (.woff or .woff2) formats are supported.\n\nExamples\ntypography:\n  fonts:\n    # Local font files\n    - family: Open Sans\n      files:\n        - path: fonts/open-sans/OpenSans-Bold.ttf\n          style: bold\n        - path: fonts/open-sans/OpenSans-Italic.ttf\n          style: italic\n\n    # Online files\n    - family: Closed Sans\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\n\n\n\nBrandTypographyFontGoogle\ntypography.BrandTypographyFontGoogle()\nA font family provided by Google Fonts.\nThis class represents a font family that is sourced from Google Fonts. It allows you to specify the font family name, weight range, and style.\nSubclass of brand_yml.typography.BrandTypographyGoogleFontsApi, the generic Google Fonts API font source.\n\nExamples\nIn this example, the Inter font is imported with all font weights and both normal and italic styles (these are the defaults). Additionally, the Roboto Slab font is sourced from Google Fonts with three specific font weights – 400, 600, 800 – and only the normal style.\nyaml typography:   fonts:     - family: Inter source: google     - family: Roboto Slab source: google weight: [400, 600, 800] style:       normal\n\n\n\nBrandTypographyFontBunny\ntypography.BrandTypographyFontBunny()\nA font family provided by Bunny Fonts.\nThis class represents a font family that is sourced from Bunny Fonts. It allows you to specify the font family name, weight range, and style.\nSubclass of brand_yml.typography.BrandTypographyGoogleFontsApi, the generic Google Fonts API font source.\n\nExamples\nIn this example, the Fira Code font is sourced from Bunny Fonts. By default all available weights and styles will be used.\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]\n      # style: [normal, italic]\n\n\n\nBrandTypographyGoogleFontsApi\ntypography.BrandTypographyGoogleFontsApi()\nA font source that utilizes the Google Fonts (or a compatible) API.\nThis class provides a way to fetch and manage typography assets from Google Fonts, allowing for easy integration with brand-specific typographic styles.\n\nAttributes\n\n\n\nName\nDescription\n\n\n\n\ndisplay\nSpecifies how a font face is displayed based on whether and when it is downloaded and ready to use.\n\n\nstyle\nThe font style(s) (italic or normal) to be imported for the font family.\n\n\nurl\nURL of the Google Fonts-compatible API. (Primarily for internal use.)\n\n\nversion\nGoogle Fonts API version. (Primarily for internal use.)\n\n\nweight\nThe desired front weights to be imported for the font family.\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_import_url\nReturns the URL for the font family to be used in a CSS @import statement.\n\n\n\n\nto_import_url\ntypography.BrandTypographyGoogleFontsApi.to_import_url()\nReturns the URL for the font family to be used in a CSS @import statement.\n\n\n\n\nBrandTypographyGoogleFontsWeightRange\ntypography.BrandTypographyGoogleFontsWeightRange()\nRepresents a range of font weights for Google Fonts.\nThis class is used to specify a continuous range of font weights to be imported from Google Fonts for variable fonts that support a range of font weights. The weight range is represented as a list of two integers, where the first integer is the start of the range and the second is the end.\n\nExamples\n\n300..700: Represents a range from light (300) to bold (700)\n100..900: Represents the full range of weights from thin to black\n\n\n\nNote\nWhen serialized, this class will convert the range to a string format (e.g., “300..700”) for compatibility with the Google Fonts API.\n\n\nAttributes\n\nroot\n\nlist[BrandTypographyFontWeightInt]\nA list containing two integers representing the start and end of the weight range.\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nmodel_dump\nUsage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump\n\n\n\n\nmodel_dump\ntypography.BrandTypographyGoogleFontsWeightRange.model_dump(\n    mode='python'\n    include=None\n    exclude=None\n    context=None\n    by_alias=False\n    exclude_unset=False\n    exclude_defaults=False\n    exclude_none=False\n    round_trip=False\n    warnings=True\n    serialize_as_any=False\n)\nUsage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump\nGenerate a dictionary representation of the model, optionally specifying which fields to include or exclude.\nArgs: mode: The mode in which to_python should run. If mode is ‘json’, the output will only contain JSON serializable types. If mode is ‘python’, the output may contain non-JSON-serializable Python objects. include: A set of fields to include in the output. exclude: A set of fields to exclude from the output. context: Additional context to pass to the serializer. by_alias: Whether to use the field’s alias in the dictionary key if defined. exclude_unset: Whether to exclude fields that have not been explicitly set. exclude_defaults: Whether to exclude fields that are set to their default value. exclude_none: Whether to exclude fields that have a value of None. round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T]. warnings: How to handle serialization errors. False/“none” ignores them, True/“warn” logs errors, “error” raises a [PydanticSerializationError][pydantic_core.PydanticSerializationError]. serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.\nReturns: A dictionary representation of the model.\n\n\n\n\nBrandTypographyBase\ntypography.BrandTypographyBase()\nTypographic settings for base (or body) text.\n\nAttributes\n\nfamily\n\nThe font family to be used. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the text.\n\nsize\n\nThe font size of the text. Should be a CSS length unit (e.g., 14px).\n\nline_height\n\nThe line height of the text. Line height refers to the vertical space between lines of text.\n\n\n\n\n\nBrandTypographyHeadings\ntypography.BrandTypographyHeadings()\nTypographic settings for headings and titles.\n\nAttributes\n\nfamily\n\nThe font family used for headings. Note that this should match a resource in typography.fonts.\n\nweight\n\nThe font weight (or boldness) of the text.\n\nstyle\n\nThe font style for the heading, i.e., whether it should be styled in a \"normal\" or \"italic\" style.\n\nline_height\n\nThe line height of the heading. Line height refers to the vertical space between lines of text.\n\ncolor\n\nThe color of the text.\n\n\n\n\nExamples\nThis example sets up typography settings for headings using the Inter font at a weight of 600 and with a line height that is 1.2 times the font size.\ntypography:\n  headings:\n    family: Inter\n    weight: 600\n    line_height: 1.2\n\n\n\nBrandTypographyMonospace\ntypography.BrandTypographyMonospace()\nTypographic settings for monospace text.\nThis class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using brand_yml.typography.BrandTypographyMonospaceInline and brand_yml.typography.BrandTypographyMonospaceBlock respectively.\n\nAttributes\n\nfamily\n\nThe font family to be used for monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\n\n\n\nExamples\nThis example sets up typography settings for monospace text using the Fira Code font at a slightly smaller size than the base text:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\nYou can also specify additional properties like weight:\ntypography:\n  monospace:\n    family: Fira Code\n    size: 0.9em\n    weight: 400\nFor more complex setups, you can define different styles for inline and block monospace text:\ntypography:\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-inline:\n    color: \"#7d12ba\" # purple\n    background-color: \"#f8f9fa\" # light gray\n  monospace-block:\n    color: foreground\n    background-color: background\n\n\n\nBrandTypographyMonospaceInline\ntypography.BrandTypographyMonospaceInline()\nTypographic settings for inline monospace text.\nThis class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from brand_yml.typography.BrandTypographyMonospace with additional options for foreground and background colors.\n\nAttributes\n\nfamily\n\nThe font family to be used for inline monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the inline monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the inline monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\ncolor\n\nThe color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\n\n\n\nExamples\nThis example sets up typography settings for inline monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-inline:\n    color: \"#7d12ba\"  # purple\n    background-color: \"#f8f9fa\"  # light gray\nYou can also use color names defined in your brand’s color palette:\ncolor:\n  palette:\n    red-light: \"#fff1f0\"\n  primary: \"#FF6F61\"\n  foreground: \"#1b1818\"\n  background: \"#f7f4f4\"\ntypography:\n  monospace-inline:\n    color: red\n    background-color: red-light\n\n\n\nBrandTypographyMonospaceBlock\ntypography.BrandTypographyMonospaceBlock()\nTypographic settings for block monospace text.\nThis class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from brand_yml.typography.BrandTypographyMonospace and adds options for line height, foreground color, and background color.\n\nAttributes\n\nfamily\n\nThe font family to be used for block monospace text. Note that the font family name should match a resource in typography.fonts.\n\nweight\n\nThe font weight (boldness) of the block monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\nsize\n\nThe font size of the block monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).\n\nline_height\n\nThe line height of the block monospace text. Line height refers to the vertical space between lines of text.\n\ncolor\n\nThe color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\n\n\n\nExamples\nThis example sets up typography settings for block monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:\ntypography:\n  fonts:\n    - family: Fira Code\n      source: bunny\n  monospace:\n    family: Fira Code\n    size: 0.9em\n  monospace-block:\n    color: foreground\n    background-color: background\n    line-height: 1.4\n\n\n\nBrandTypographyLink\ntypography.BrandTypographyLink()\nTypographic settings for hyperlinks.\nThis class defines typography options for hyperlinks, allowing customization of font weight, colors, and text decoration.\n\nAttributes\n\nweight\n\nThe font weight (boldness) of the hyperlink text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\n\ncolor\n\nThe color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\nbackground_color\n\nThe background color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\n\ndecoration\n\nstr | None\nThe text decoration for the hyperlink. Common values include “underline”, “none”, or “underline”.\n\n\n\n\nExamples\nThis example sets up typography settings for hyperlinks with a custom color and text decoration:\ntypography:\n  link:\n    weight: 600\n    color: \"#FF6F61\"\n    decoration: underline\nYou can also use color names defined in your brand’s color palette:\ncolor:\n  palette:\n    red: \"#FF6F61\"\ntypography:\n  link:\n    weight: 600\n    color: red\n    decoration: underline",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Typography"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html",
+    "href": "pkg/py/Brand.html",
+    "title": "Brand",
     "section": "",
-    "text": "BrandColor()\nBrand Colors\nThe brand’s custom color palette and theme. color.palette is a list of named colors used by the brand and color.theme maps brand colors to common theme elements (described in Attributes).\n\n\n\nMinimalWith palette\n\n\nIn this example, we’ve picked colors from Posit’s brand guidelines and mapped them directory to theme colors. This is a minimal approach to applying brand colors to theme colors.\n\n\n_brand.yml\n\ncolor:\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"\n\n\n\nThis example first defines a color palette from Posit’s brand guidelines and then maps them to theme colors by reference. With this approach, not all brand colors need to be used in the theme, but are still available via the brand.color.palette dictionary. This approach also reduces duplication in brand.color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: \"#404041\"\n\n\n\n\n\n\n\nOnce defined in color.palette, you can re-use color definitions in any of the color fields. For example:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\n\nOnce imported via brand_yml.Brand.from_yaml(), you can access the named color palette via brand.color.palette[\"purple\"] and the primary field will be ready for use.\n\n\nbrand.color.palette[\"purple\"]\n\n'#6339E0'\n\n\n\nbrand.color.primary\n\n'#6339E0'\n\n\n\nThis same principle of reuse applies to the color and background-color fields of brand_yml.typography.BrandTypography, where you can refer to any of the colors in color.palette or the theme colors directly.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\ntypography:\n  headings:\n    color: primary\n  link:\n    color: purple\n\nWith this Brand YAML, both headings and links will ultimately be styled with the brand’s purple color.\n\n\nbrand.typography.headings.color\n\n'#6339E0'\n\n\n\nbrand.typography.link.color\n\n'#6339E0'\n\n\n\n\n\n\n\npalette\n\ndict[str, str] | None\nA dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended but no specific format is required at this time). These values can be referred to, by name, in the other theme properties\n\nforeground\n\nOptional[str]\nThe foreground color, used for text.\n\nbackground\n\nOptional[str]\nThe background color, used for the page or main background.\n\nprimary\n\nOptional[str]\nThe primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.\n\nsecondary\n\nOptional[str]\nThe secondary accent color. Typically used for lighter text or disabled states.\n\ntertiary\n\nOptional[str]\nThe tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.\n\nsuccess\n\nOptional[str]\nThe color used for positive or successful actions and information.\n\ninfo\n\nOptional[str]\nThe color used for neutral or informational actions and information.\n\nwarning\n\nOptional[str]\nThe color used for warning or cautionary actions and information.\n\ndanger\n\nOptional[str]\nThe color used for errors, dangerous actions, or negative information.\n\nlight\n\nOptional[str]\nA bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.\n\ndark\n\nOptional[str]\nA dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
+    "text": "Brand()\nBrand guidelines in a class.\nA brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. brand_yml.Brand organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.\nUnified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named _brand.yml, with brand_yml.Brand.from_yaml or from a YAML string with brand_yml.Brand.from_yaml_str. Or create a full brand instance directly via this class.",
     "crumbs": [
       "About",
-      "Brand Components",
-      "Color Palette and Theme"
+      "Reference",
+      "Brand"
     ]
   },
   {
-    "objectID": "pkg/py/color.html#examples",
-    "href": "pkg/py/color.html#examples",
-    "title": "Color Palette and Theme",
+    "objectID": "pkg/py/Brand.html#attributes",
+    "href": "pkg/py/Brand.html#attributes",
+    "title": "Brand",
+    "section": "Attributes",
+    "text": "Attributes\n\nmeta\n\nBrandMeta | None\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nBrandLogo | BrandLogoResource | None\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nBrandColor | None\nNamed colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).\n\ntypography\n\nBrandTypography | None\nFont definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).\n\ndefaults\n\ndict[str, Any] | None\nAdditional context-specific settings beyond the basic brand colors and typography.\n\npath\n\nPath | None\nThe file path of the brand configuration. This attribute is excluded from serialization and representation.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html#methods",
+    "href": "pkg/py/Brand.html#methods",
+    "title": "Brand",
+    "section": "Methods",
+    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nfrom_yaml\nRead a Brand YAML file.\n\n\nfrom_yaml_str\nCreate a Brand instance from a string of YAML.\n\n\nmodel_dump_yaml\nSerialize the Brand object to YAML.\n\n\n\n\nfrom_yaml\nBrand.from_yaml(path)\nRead a Brand YAML file.\nReads a Brand YAML file or finds and reads a _brand.yml file and returns a validated :class:Brand instance.\nTo find a project-specific _brand.yaml file, pass path the project directory or __file__ (the path of the current Python script). brand_yml.Brand.from_yaml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file. Note that it starts the search in the directory passed in and moves upward to find the _brand.yml file; it does not search into subdirectories of the current directory.\n\nParameters\n\npath: str | Path\n\nThe path to the brand.yml file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated Brand object with all fields populated according to the brand.yml file.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the brand.yml file is invalid.\n\n\n\n\n\nExamples\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml(__file__)\nbrand = Brand.from_yaml(\"path/to/_brand.yml\")\n\n\n\nfrom_yaml_str\nBrand.from_yaml_str(text, path=None)\nCreate a Brand instance from a string of YAML.\n\nParameters\n\ntext: str\n\nThe text of the Brand YAML file.\n\npath: str | Path | None = None\n\nThe optional path on disk for supporting files like logos and fonts.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated brand_yml.Brand object with all fields populated according to the Brand YAML text.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  primary: \"#ff0202\"\ntypography:\n  base: Open Sans\n\"\"\")\n\n\nbrand.meta\n\nBrandMeta(name=BrandMetaName(full='Brand YAML'))\n\n\n\nbrand.color.primary\n\n'#ff0202'\n\n\n\n\n\nmodel_dump_yaml\nBrand.model_dump_yaml(stream=None, *, transform=None)\nSerialize the Brand object to YAML.\nWrite the brand_yml.Brand instance to a string or to a file on disk.\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  palette:\n    orange: \"#ff9a02\"\n  primary: orange\ntypography:\n  headings: Raleway\n\"\"\")\n\n\n\nprint(brand.model_dump_yaml())\n\nmeta:\n  name:\n    full: Brand YAML\ncolor:\n  palette:\n    orange: '#ff9a02'\n  primary: '#ff9a02'\ntypography:\n  fonts:\n    - family: Raleway\n  headings:\n    family: Raleway\n\n\n\n\n\n\nParameters\n\nstream: Any = None\n\nPassed to stream parameter of ruamel.yaml.YAML.dump.\n\ntransform: Any = None\n\nPassed to transform parameter of ruamel.yaml.YAML.dump.\n\n\n\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nA string with the YAML representation of the brand if stream is None. Otherwise, the YAML representation is written to stream, typically a file. Note that the output YAML may not be 100% identical to the input _brand.yml. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "pkg/py/api.html",
+    "href": "pkg/py/api.html",
+    "title": "brand_yml Python Package Reference",
     "section": "",
-    "text": "MinimalWith palette\n\n\nIn this example, we’ve picked colors from Posit’s brand guidelines and mapped them directory to theme colors. This is a minimal approach to applying brand colors to theme colors.\n\n\n_brand.yml\n\ncolor:\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"\n\n\n\nThis example first defines a color palette from Posit’s brand guidelines and then maps them to theme colors by reference. With this approach, not all brand colors need to be used in the theme, but are still available via the brand.color.palette dictionary. This approach also reduces duplication in brand.color.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: \"#404041\"",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Color Palette and Theme"
-    ]
+    "text": "Read a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography\n\n\n\nUtilities"
   },
   {
-    "objectID": "pkg/py/color.html#referencing-colors-in-the-brands-color-palette",
-    "href": "pkg/py/color.html#referencing-colors-in-the-brands-color-palette",
-    "title": "Color Palette and Theme",
+    "objectID": "pkg/py/api.html#reference",
+    "href": "pkg/py/api.html#reference",
+    "title": "brand_yml Python Package Reference",
     "section": "",
-    "text": "Once defined in color.palette, you can re-use color definitions in any of the color fields. For example:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\n\nOnce imported via brand_yml.Brand.from_yaml(), you can access the named color palette via brand.color.palette[\"purple\"] and the primary field will be ready for use.\n\n\nbrand.color.palette[\"purple\"]\n\n'#6339E0'\n\n\n\nbrand.color.primary\n\n'#6339E0'\n\n\n\nThis same principle of reuse applies to the color and background-color fields of brand_yml.typography.BrandTypography, where you can refer to any of the colors in color.palette or the theme colors directly.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    purple: \"#6339E0\"\n  primary: purple\ntypography:\n  headings:\n    color: primary\n  link:\n    color: purple\n\nWith this Brand YAML, both headings and links will ultimately be styled with the brand’s purple color.\n\n\nbrand.typography.headings.color\n\n'#6339E0'\n\n\n\nbrand.typography.link.color\n\n'#6339E0'",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Color Palette and Theme"
-    ]
-  },
-  {
-    "objectID": "pkg/py/color.html#attributes",
-    "href": "pkg/py/color.html#attributes",
-    "title": "Color Palette and Theme",
-    "section": "",
-    "text": "palette\n\ndict[str, str] | None\nA dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended but no specific format is required at this time). These values can be referred to, by name, in the other theme properties\n\nforeground\n\nOptional[str]\nThe foreground color, used for text.\n\nbackground\n\nOptional[str]\nThe background color, used for the page or main background.\n\nprimary\n\nOptional[str]\nThe primary accent color, i.e. the main theme color. Typically used for hyperlinks, active states, primary action buttons, etc.\n\nsecondary\n\nOptional[str]\nThe secondary accent color. Typically used for lighter text or disabled states.\n\ntertiary\n\nOptional[str]\nThe tertiary accent color. Typically an even lighter color, used for hover states, accents, and wells.\n\nsuccess\n\nOptional[str]\nThe color used for positive or successful actions and information.\n\ninfo\n\nOptional[str]\nThe color used for neutral or informational actions and information.\n\nwarning\n\nOptional[str]\nThe color used for warning or cautionary actions and information.\n\ndanger\n\nOptional[str]\nThe color used for errors, dangerous actions, or negative information.\n\nlight\n\nOptional[str]\nA bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.\n\ndark\n\nOptional[str]\nA dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
-    "crumbs": [
-      "About",
-      "Brand Components",
-      "Color Palette and Theme"
-    ]
-  },
-  {
-    "objectID": "pkg/py/index.html#installation",
-    "href": "pkg/py/index.html#installation",
-    "title": "Brand YAML Python Package",
-    "section": "Installation",
-    "text": "Installation\n\nFrom PyPI\nuv pip install brand_yml\n\n\nFrom GitHub\nuv pip install \"git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py\"",
-    "crumbs": [
-      "About",
-      "Brand YAML Python Package"
-    ]
-  },
-  {
-    "objectID": "pkg/py/index.html#example",
-    "href": "pkg/py/index.html#example",
-    "title": "Brand YAML Python Package",
-    "section": "Example",
-    "text": "Example\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\n    # Typically, this file is stored in `_brand.yml`\n    # and read with `Brand.from_yaml()`.\n    \"\"\"\n    meta:\n      name: Posit Software, PBC\n      link: https://posit.co\n    color:\n      palette:\n        pblue: \"#447099\"\n        green: \"#72994E\"\n        teal: \"#419599\"\n        orange: \"#EE6331\"\n        purple: \"#9A4665\"\n        gray: \"#707073\"\n      primary: blue\n      secondary: gray\n      success: green\n      info: teal\n      warning: orange\n      danger: purple\n    typography:\n      base:\n        family: Open Sans\n        weight: 300\n    \"\"\"\n)\n\n\nbrand.meta.name\n\nBrandMetaName(full='Posit Software, PBC')\n\n\n\nbrand.color.primary\n\n'blue'\n\n\n\nbrand.typography.base.model_dump()\n\n{'family': 'Open Sans', 'weight': 300, 'size': None, 'line_height': None}",
-    "crumbs": [
-      "About",
-      "Brand YAML Python Package"
-    ]
-  },
-  {
-    "objectID": "pkg/py/read_brand_yml.html",
-    "href": "pkg/py/read_brand_yml.html",
-    "title": "read_brand_yml",
-    "section": "",
-    "text": "read_brand_yml(path, as_data=False)\nRead a Brand YAML file.\nReads a Brand YAML file or finds and reads a project-specific _brand.yml file and returns a validated ~brand_yml.Brand instance.\nTo find a project-specific _brand.yaml file, pass the project directory or __file__ (the path of the current Python script). brand_yml.read_brand_yml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file. Note that it starts the search in the directory passed in and moves upward to find the Brand YAML file; it does not search into subdirectories of the current directory.\n\n\n\npath: str | Path\n\nThe path to the Brand YAML file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\nas_data: bool = False\n\nWhen True, returns the raw brand data as a dictionary parsed from the YAML file. When False, returns a validated :class:Brand object.\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nBrand | dict[str, Any]\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nValueError or other validation errors are raised from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\n\nfrom brand_yml import read_brand_yml\n\nbrand = read_brand_yml(__file__)\nbrand = read_brand_yml(\"path/to/_brand.yml\")",
-    "crumbs": [
-      "About",
-      "Read or create a brand",
-      "read_brand_yml"
-    ]
-  },
-  {
-    "objectID": "pkg/py/read_brand_yml.html#parameters",
-    "href": "pkg/py/read_brand_yml.html#parameters",
-    "title": "read_brand_yml",
-    "section": "",
-    "text": "path: str | Path\n\nThe path to the Brand YAML file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml in the current directory or any of its parent directories.\n\nas_data: bool = False\n\nWhen True, returns the raw brand data as a dictionary parsed from the YAML file. When False, returns a validated :class:Brand object.",
-    "crumbs": [
-      "About",
-      "Read or create a brand",
-      "read_brand_yml"
-    ]
-  },
-  {
-    "objectID": "pkg/py/read_brand_yml.html#returns",
-    "href": "pkg/py/read_brand_yml.html#returns",
-    "title": "read_brand_yml",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\n\nBrand | dict[str, Any]\nA validated :class:brand_yml.Brand object with all fields populated according to the Brand YAML file (as_data=False, default) or the raw brand data as a dictionary (as_data=True).",
-    "crumbs": [
-      "About",
-      "Read or create a brand",
-      "read_brand_yml"
-    ]
-  },
-  {
-    "objectID": "pkg/py/read_brand_yml.html#raises",
-    "href": "pkg/py/read_brand_yml.html#raises",
-    "title": "read_brand_yml",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nValueError or other validation errors are raised from pydantic if the Brand YAML file is invalid.",
-    "crumbs": [
-      "About",
-      "Read or create a brand",
-      "read_brand_yml"
-    ]
-  },
-  {
-    "objectID": "pkg/py/read_brand_yml.html#examples",
-    "href": "pkg/py/read_brand_yml.html#examples",
-    "title": "read_brand_yml",
-    "section": "",
-    "text": "from brand_yml import read_brand_yml\n\nbrand = read_brand_yml(__file__)\nbrand = read_brand_yml(\"path/to/_brand.yml\")",
-    "crumbs": [
-      "About",
-      "Read or create a brand",
-      "read_brand_yml"
-    ]
+    "text": "Read a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography\n\n\n\nUtilities"
   },
   {
     "objectID": "pkg/py/meta.html#attributes",
@@ -918,7 +887,7 @@
     "text": "Attributes\n\nname\n\nBrandMetaName | None\nThe name of the brand. In the YAML, this may be a dictionary with the full and short forms of the brand name.\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBCA\nor a single value as shorthand for meta.name.full.\nmeta:\n  name: Very Big Corporation of America\n\nlink\n\nBrandMetaLink | None\nLinks to additional resources related to the brand, such as its homepage, social media accounts, etc. Like name, this can be a single value or a dictionary with additional keys. If a single value is provided, it is promoted to the home key of brand_yml.meta.BrandMetaLink.\nThese two constructions are equivalent:\nmeta:\n  link: https://www.very-big-corp.com/\nmeta:\n  link:\n    home: https://www.very-big-corp.com/",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Metadata"
     ]
   },
@@ -930,7 +899,7 @@
     "text": "Examples\n\nMinimalFull\n\n\n\n\n_brand.yml\n\nmeta:\n  name: Very Big Corp. of America\n  link: https://very-big-corp.com\n\n\n\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBC\n  link:\n    home: https://very-big-corp.com\n    mastodon: https://mastodon.social/@VeryBigCorpOfficial\n    github: https://github.com/Very-Big-Corp\n    linkedin: https://linkedin.com/company/very-big-corp\n    twitter: https://twitter.com/VeryBigCorp\n    facebook: https://facebook.com/Very-Big-Corp",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Metadata"
     ]
   },
@@ -942,7 +911,7 @@
     "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nfull\nFull name of the company or brand.\n\n\nshort\nShort name of the company or brand, for use in space-constrained settings.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Metadata"
     ]
   },
@@ -954,7 +923,7 @@
     "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nfacebook\nFacebook link for the brand or company.\n\n\ngithub\nGitHub link for the brand or company.\n\n\nhome\nHome website link for the brand or company.\n\n\nlinkedin\nLinkedIn link for the brand or company.\n\n\nmastodon\nMastodon link for the brand or company.\n\n\ntwitter\nTwitter link for the brand or company.",
     "crumbs": [
       "About",
-      "Brand Components",
+      "Reference",
       "Metadata"
     ]
   }

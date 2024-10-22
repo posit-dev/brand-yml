@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pkg/py/meta.html">Brand Components</a></li><li class="breadcrumb-item"><a href="../../pkg/py/typography.html">Typography</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pkg/py/Brand.html">Reference</a></li><li class="breadcrumb-item"><a href="../../pkg/py/typography.html">Typography</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -198,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Read or create a brand</span></a>
+ <span class="menu-text">Reference</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -210,23 +210,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Brand</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../pkg/py/read_brand_yml.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">read_brand_yml</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Brand Components</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../pkg/py/meta.html" class="sidebar-item-text sidebar-link">
@@ -249,6 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../pkg/py/typography.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Typography</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pkg/py/utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Utilities</span></a>
   </div>
 </li>
       </ul>
@@ -459,37 +448,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>fonts</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyFontFamily">BrandTypographyFontFamily</a>]</p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<code>BrandTypographyFontFamily</code>]</p>
 <p>A list of font family definitions. Each definition in the list describes a font family that is available to the brand. Fonts may be stored in files (either adjacent to <code>_brand.yml</code> or hosted online) or may be provided by <a href="https://fonts.google.com/">Google Fonts</a> or <a href="https://fonts.bunny.net/">Font Bunny</a> (a GDPR-compliant Google Fonts alternative).</p>
 </dd>
 <dt>base</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyBase">BrandTypographyBase</a> | None</p>
+<p><code>BrandTypographyBase</code> | None</p>
 <p>The type used as the default text, primarily in the document body.</p>
 </dd>
 <dt>headings</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyHeadings">BrandTypographyHeadings</a> | None</p>
+<p><code>BrandTypographyHeadings</code> | None</p>
 <p>The type used for headings. Note that these settings cover all heading levels (<code>h1</code>, <code>h2</code>, etc.).</p>
 </dd>
 <dt>monospace</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace">BrandTypographyMonospace</a> | None</p>
+<p><code>BrandTypographyMonospace</code> | None</p>
 <p>The type used for code blocks and other monospaced text.</p>
 </dd>
 <dt>monospace_inline</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceInline">BrandTypographyMonospaceInline</a> | None</p>
+<p><code>BrandTypographyMonospaceInline</code> | None</p>
 <p>The type used for inline code; inherits properties from <code>monospace</code>.</p>
 </dd>
 <dt>monospace_block</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceBlock">BrandTypographyMonospaceBlock</a> | None</p>
+<p><code>BrandTypographyMonospaceBlock</code> | None</p>
 <p>The type use for code blocks; inherits properties from <code>monospace</code>.</p>
 </dd>
 <dt>link</dt>
 <dd>
-<p><a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyLink">BrandTypographyLink</a> | None</p>
+<p><code>BrandTypographyLink</code> | None</p>
 <p>Type settings used for hyperlinks.</p>
 </dd>
 </dl>
@@ -705,7 +694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontGoogle()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font family provided by Google Fonts.</p>
 <p>This class represents a font family that is sourced from Google Fonts. It allows you to specify the font family name, weight range, and style.</p>
-<p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
+<p>Subclass of <code>brand_yml.typography.BrandTypographyGoogleFontsApi</code>, the generic Google Fonts API font source.</p>
 <section id="examples-2" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-2">Examples</h4>
 <p>In this example, the Inter font is imported with all font weights and both normal and italic styles (these are the defaults). Additionally, the Roboto Slab font is sourced from Google Fonts with three specific font weights – 400, 600, 800 – and only the normal style.</p>
@@ -717,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontBunny()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font family provided by Bunny Fonts.</p>
 <p>This class represents a font family that is sourced from Bunny Fonts. It allows you to specify the font family name, weight range, and style.</p>
-<p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
+<p>Subclass of <code>brand_yml.typography.BrandTypographyGoogleFontsApi</code>, the generic Google Fonts API font source.</p>
 <section id="examples-3" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-3">Examples</h4>
 <p>In this example, the Fira Code font is sourced from Bunny Fonts. By default all available weights and styles will be used.</p>
@@ -923,7 +912,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospace">BrandTypographyMonospace</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospace()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for monospace text.</p>
-<p>This class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceInline"><code>brand_yml.typography.BrandTypographyMonospaceInline</code></a> and <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceBlock"><code>brand_yml.typography.BrandTypographyMonospaceBlock</code></a> respectively.</p>
+<p>This class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using <code>brand_yml.typography.BrandTypographyMonospaceInline</code> and <code>brand_yml.typography.BrandTypographyMonospaceBlock</code> respectively.</p>
 <section id="attributes-7" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-7">Attributes</h4>
 <dl>
@@ -974,7 +963,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceInline">BrandTypographyMonospaceInline</h3>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceInline()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for inline monospace text.</p>
-<p>This class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> with additional options for foreground and background colors.</p>
+<p>This class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from <code>brand_yml.typography.BrandTypographyMonospace</code> with additional options for foreground and background colors.</p>
 <section id="attributes-8" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-8">Attributes</h4>
 <dl>
@@ -1030,7 +1019,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceBlock">BrandTypographyMonospaceBlock</h3>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceBlock()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for block monospace text.</p>
-<p>This class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> and adds options for line height, foreground color, and background color.</p>
+<p>This class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from <code>brand_yml.typography.BrandTypographyMonospace</code> and adds options for line height, foreground color, and background color.</p>
 <section id="attributes-9" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-9">Attributes</h4>
 <dl>
