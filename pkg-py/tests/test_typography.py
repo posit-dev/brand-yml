@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import tempfile
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -742,3 +743,18 @@ def test_brand_typography_undefined_colors():
     assert isinstance(brand.typography, BrandTypography)
     assert isinstance(brand.typography.headings, BrandTypographyHeadings)
     assert brand.typography.headings.color == "orange"
+
+
+def test_brand_typography_write_font_css():
+    brand = Brand.from_yaml(path_examples("brand-typography-fonts.yml"))
+
+    assert isinstance(brand.typography, BrandTypography)
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        res = brand.typography.css_write_font_css(tmpdir)
+        assert res is not None
+        assert res == Path(tmpdir).resolve()
+
+        assert (res / "fonts.css").exists()
+        assert (res / "fonts/open-sans/OpenSans-Variable.ttf").exists()
+        assert (res / "fonts/open-sans/OpenSans-Variable-Italic.ttf").exists()

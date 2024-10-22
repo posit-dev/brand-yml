@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import itertools
 import os
+import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
 from re import split as re_split
@@ -46,7 +47,7 @@ from pydantic import (
 
 from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
-from .file import FileLocationLocalOrUrlType
+from .file import FileLocationLocal, FileLocationLocalOrUrlType
 
 # Types ------------------------------------------------------------------------
 
@@ -1451,3 +1452,55 @@ class BrandTypography(BrandBase):
         includes = [font.to_css() for font in self.fonts]
 
         return "\n".join([i for i in includes if i])
+
+    def css_write_font_css(
+        self,
+        path_dir: str | Path,
+        file_css: str = "fonts.css",
+    ) -> Path | None:
+        """
+        Writes `fonts.css` into a directory, with copies of local fonts.
+
+        Writes a `fonts.css` file (or `file_css`) into `path_dir` and copies any
+        local fonts into the directory as well.
+
+        Parameters
+        ----------
+        path_dir
+            Path to the directory with the CSS file and copies of the local
+            fonts should be written. If it does not exist it will be created.
+
+        file_css
+            The name of the CSS file with the font `@import` and `@font-face`
+            rules should be written.
+
+        Returns
+        -------
+        :
+            Returns the path to the directory where the files were written, i.e.
+            `path_dir`.
+        """
+        if len(self.fonts) == 0:
+            return
+
+        path_dir = Path(path_dir).expanduser().resolve()
+
+        if not path_dir.is_dir():
+            raise NotADirectoryError(f"{path_dir} is not a directory")
+
+        path_dir.mkdir(parents=True, exist_ok=True)
+
+        # Write fonts.css from typography.css_include_fonts()
+        font_css = path_dir / file_css
+        font_css.write_text(self.css_include_fonts())
+
+        # Copy local files from typography.fonts into the temp dir
+        for font in self.fonts:
+            if isinstance(font, BrandTypographyFontFiles):
+                for file in font.files:
+                    if isinstance(file.path, FileLocationLocal):
+                        dest_path = path_dir / file.path.relative()
+                        dest_path.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copyfile(file.path.absolute(), dest_path)
+
+        return path_dir
