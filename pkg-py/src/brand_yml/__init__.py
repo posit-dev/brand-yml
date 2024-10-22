@@ -60,7 +60,7 @@ class Brand(BrandBase):
     """
 
     model_config = ConfigDict(
-        extra="ignore",
+        extra="forbid",
         revalidate_instances="always",
         validate_assignment=True,
     )
