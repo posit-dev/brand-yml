@@ -6,6 +6,7 @@ project:
     # TODO: remove when logo is supported by brand meta
     - "logos/**/*.png"
     - "logos/**/*.svg"
+    - objects.txt
 
 website:
   title: "brand.yml"
