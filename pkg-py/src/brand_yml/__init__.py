@@ -37,6 +37,26 @@ class Brand(BrandBase):
     `brand_yml.Brand.from_yaml` or from a YAML string with
     `brand_yml.Brand.from_yaml_str`. Or create a full brand instance directly
     via this class.
+
+    Attributes
+    ----------
+    meta
+        Key identity information, name of the company, links to brand
+        guidelines, etc.
+    logo
+        Files or links to the brand's logo at various sizes.
+    color
+        Named colors in the brand's color palette and semantic colors (e.g.,
+        primary, secondary, success, warning).
+    typography
+        Font definitions, font family, weight, style, color, and line height for
+        key elements (e.g., base, headings, and monospace text).
+    defaults
+        Additional context-specific settings beyond the basic brand colors and
+        typography.
+    path
+        The file path of the brand configuration. This attribute is excluded
+        from serialization and representation.
     """
 
     model_config = ConfigDict(
@@ -45,7 +65,6 @@ class Brand(BrandBase):
         validate_assignment=True,
     )
 
-    # TODO @docs: Document Brand attributes
     meta: BrandMeta | None = None
     logo: BrandLogo | BrandLogoResource | None = None
     color: BrandColor | None = None

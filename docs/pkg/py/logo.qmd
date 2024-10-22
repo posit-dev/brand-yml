@@ -144,6 +144,21 @@ logo:
 
 :::
 
+# BrandLogoResource { #brand_yml.BrandLogoResource }
+
+```python
+BrandLogoResource()
+```
+
+A logo resource, a file with optional alternative text
+
+## Attributes
+
+| Name | Description |
+| --- | --- |
+| [alt](#brand_yml.logo.BrandLogoResource.alt) | Alterative text for the image, used for accessibility. |
+| [path](#brand_yml.logo.BrandLogoResource.path) | The path to the logo resource. This can be a local file or a URL. |
+
 # BrandLightDark { #brand_yml.BrandLightDark }
 
 ```python

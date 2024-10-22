@@ -28,6 +28,12 @@ brand_yml.BrandLogo.model_config py:attribute 1 pkg/py/logo.html#brand_yml.Brand
 brand_yml.logo.BrandLogo.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLogo.model_config brand_yml.BrandLogo.model_config
 brand_yml.BrandLogo py:class 1 pkg/py/logo.html#brand_yml.BrandLogo -
 brand_yml.logo.BrandLogo py:class 1 pkg/py/logo.html#brand_yml.BrandLogo brand_yml.BrandLogo
+brand_yml.logo.BrandLogoResource.alt py:attribute 1 pkg/py/logo.html#brand_yml.logo.BrandLogoResource.alt -
+brand_yml.BrandLogoResource.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLogoResource.model_config -
+brand_yml.logo.BrandLogoResource.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLogoResource.model_config brand_yml.BrandLogoResource.model_config
+brand_yml.logo.BrandLogoResource.path py:attribute 1 pkg/py/logo.html#brand_yml.logo.BrandLogoResource.path -
+brand_yml.BrandLogoResource py:class 1 pkg/py/logo.html#brand_yml.BrandLogoResource -
+brand_yml.logo.BrandLogoResource py:class 1 pkg/py/logo.html#brand_yml.BrandLogoResource brand_yml.BrandLogoResource
 brand_yml._defs.BrandLightDark.dark py:attribute 1 pkg/py/logo.html#brand_yml._defs.BrandLightDark.dark -
 brand_yml._defs.BrandLightDark.light py:attribute 1 pkg/py/logo.html#brand_yml._defs.BrandLightDark.light -
 brand_yml.BrandLightDark.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLightDark.model_config -

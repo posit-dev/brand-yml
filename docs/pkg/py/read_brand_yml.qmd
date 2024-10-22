@@ -33,9 +33,9 @@ of the current directory.
 
 ## Returns {.doc-section .doc-section-returns}
 
-| Name   | Type                                         | Description                                                                                                                                                                               |
-|--------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|        | [Brand](`brand_yml.Brand`) \| [dict](`dict`) | A validated :class:`brand_yml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
+| Name   | Type                                                                              | Description                                                                                                                                                                               |
+|--------|-----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [Brand](`brand_yml.Brand`) \| [dict](`dict`)\[[str](`str`), [Any](`typing.Any`)\] | A validated :class:`brand_yml.Brand` object with all fields populated according to the Brand YAML file (`as_data=False`, default) or the raw brand data as a dictionary (`as_data=True`). |
 
 ## Raises {.doc-section .doc-section-raises}
 

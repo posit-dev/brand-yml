@@ -18,6 +18,48 @@ metadata from a YAML file, typically named `_brand.yml`, with
 `brand_yml.Brand.from_yaml_str`. Or create a full brand instance directly
 via this class.
 
+## Attributes {.doc-section .doc-section-attributes}
+
+meta
+
+:   [BrandMeta](`brand_yml.meta.BrandMeta`) \| None
+
+    Key identity information, name of the company, links to brand
+    guidelines, etc.
+
+logo
+
+:   [BrandLogo](`brand_yml.logo.BrandLogo`) \| [BrandLogoResource](`brand_yml.logo.BrandLogoResource`) \| None
+
+    Files or links to the brand's logo at various sizes.
+
+color
+
+:   [BrandColor](`brand_yml.color.BrandColor`) \| None
+
+    Named colors in the brand's color palette and semantic colors (e.g.,
+    primary, secondary, success, warning).
+
+typography
+
+:   [BrandTypography](`brand_yml.typography.BrandTypography`) \| None
+
+    Font definitions, font family, weight, style, color, and line height for
+    key elements (e.g., base, headings, and monospace text).
+
+defaults
+
+:   [dict](`dict`)\[[str](`str`), [Any](`typing.Any`)\] \| None
+
+    Additional context-specific settings beyond the basic brand colors and
+    typography.
+
+path
+
+:   [Path](`pathlib.Path`) \| None
+
+    The file path of the brand configuration. This attribute is excluded
+    from serialization and representation.
 
 ## Methods
 
