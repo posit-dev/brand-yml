@@ -398,4 +398,5 @@ __all__ = [
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",
+    "find_project_brand_yml",
 ]

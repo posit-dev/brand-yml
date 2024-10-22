@@ -136,6 +136,12 @@ quartodoc:
                 - BrandTypographyMonospaceInline
                 - BrandTypographyMonospaceBlock
                 - BrandTypographyLink
+        - kind: page
+          path: utilities
+          summary:
+            name: Utilities
+          contents:
+            - find_project_brand_yml
 
 interlinks:
   fast: true

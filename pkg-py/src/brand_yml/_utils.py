@@ -31,8 +31,42 @@ def find_project_file(
     )
 
 
-def find_project_brand_yml(dir_: Path) -> Path:
-    return find_project_file("_brand.yml", dir_, ("brand", "_brand"))
+def find_project_brand_yml(path: Path | str) -> Path:
+    """
+    Find a project's `_brand.yml` file
+
+    Finds the first `_brand.yml` file in or adjacent to `path` and its parents.
+    If `path` is a file, `find_project_brand_yml()` starts looking in the path's
+    parent directory. In each directory, `find_project_brand_yml()` looks for
+    any of the following files in the given order:
+
+    * `_brand.yml`
+    * `brand/_brand.yml`
+    * `_brand/_brand.yml`
+
+    Parameters
+    ----------
+    path
+        A path to a file or directory where the search for the project's
+        `_brand.yml` file should be located.
+
+    Returns
+    -------
+    :
+        The path of the found `_brand.yml`.
+
+    Raises
+    ------
+    FileNotFoundError
+        If no `_brand.yml` is found in any of the directories above `path`.
+    """
+    path = Path(path)
+    path = path.resolve()
+
+    if path.is_file():
+        path = path.parent
+
+    return find_project_file("_brand.yml", path, ("brand", "_brand"))
 
 
 PredicateFuncType = Callable[[Any], bool]

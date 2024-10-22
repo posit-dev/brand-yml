@@ -8,6 +8,7 @@ website:
       - pkg/py/logo.qmd
       - pkg/py/color.qmd
       - pkg/py/typography.qmd
+      - pkg/py/utilities.qmd
       section: Reference
     id: pkg/py
   - id: dummy-sidebar

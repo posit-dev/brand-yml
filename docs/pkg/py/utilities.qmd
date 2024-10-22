@@ -1,0 +1,39 @@
+# Utilities
+
+
+
+# find_project_brand_yml { #brand_yml.find_project_brand_yml }
+
+```python
+find_project_brand_yml(path)
+```
+
+Find a project's `_brand.yml` file
+
+Finds the first `_brand.yml` file in or adjacent to `path` and its parents.
+If `path` is a file, `find_project_brand_yml()` starts looking in the path's
+parent directory. In each directory, `find_project_brand_yml()` looks for
+any of the following files in the given order:
+
+* `_brand.yml`
+* `brand/_brand.yml`
+* `_brand/_brand.yml`
+
+## Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Path](`pathlib.Path`) \| [str](`str`)</span></code>
+
+:   A path to a file or directory where the search for the project's
+    `_brand.yml` file should be located.
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                   | Description                         |
+|--------|------------------------|-------------------------------------|
+|        | [Path](`pathlib.Path`) | The path of the found `_brand.yml`. |
+
+## Raises {.doc-section .doc-section-raises}
+
+| Name   | Type                                     | Description                                                         |
+|--------|------------------------------------------|---------------------------------------------------------------------|
+|        | [FileNotFoundError](`FileNotFoundError`) | If no `_brand.yml` is found in any of the directories above `path`. |
