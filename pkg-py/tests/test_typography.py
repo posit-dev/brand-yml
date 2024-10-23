@@ -27,6 +27,7 @@ from brand_yml.typography import (
     BrandUnsupportedFontFileFormat,
     validate_font_weight,
 )
+from htmltools import HTMLDependency
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -218,7 +219,7 @@ def test_brand_typography_font_local_no_files():
     assert isinstance(bf.fonts[0], BrandTypographyFontFiles)
     assert isinstance(bf.base, BrandTypographyBase)
     assert bf.base.family == "Arial"
-    assert bf.css_include_fonts() == ""
+    assert bf.fonts_css_include() == ""
 
 
 @pytest.mark.parametrize("font_file", ["arial", "arial.pdf"])
@@ -667,7 +668,7 @@ def test_brand_typography_css_fonts(snapshot):
     brand = Brand.from_yaml(path_examples("brand-typography-fonts.yml"))
 
     assert isinstance(brand.typography, BrandTypography)
-    assert snapshot == brand.typography.css_include_fonts()
+    assert snapshot == brand.typography.fonts_css_include()
 
 
 def test_brand_typography_css_fonts_local(snapshot):
@@ -705,7 +706,7 @@ def test_brand_typography_css_fonts_local(snapshot):
     """)
 
     assert isinstance(brand.typography, BrandTypography)
-    assert snapshot == brand.typography.css_include_fonts()
+    assert snapshot == brand.typography.fonts_css_include()
 
 
 def test_brand_typography_google_fonts_weight_range():
@@ -751,10 +752,28 @@ def test_brand_typography_write_font_css():
     assert isinstance(brand.typography, BrandTypography)
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        res = brand.typography.css_write_font_css(tmpdir)
+        res = brand.typography.fonts_write_css(tmpdir)
         assert res is not None
         assert res == Path(tmpdir).resolve()
 
         assert (res / "fonts.css").exists()
         assert (res / "fonts/open-sans/OpenSans-Variable.ttf").exists()
         assert (res / "fonts/open-sans/OpenSans-Variable-Italic.ttf").exists()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        dep = brand.typography.fonts_html_dependency(tmpdir)
+        assert dep is not None
+        assert isinstance(dep, HTMLDependency)
+
+        assert dep.source is not None
+        assert "subdir" in dep.source
+        subdir = dep.source["subdir"]
+        assert subdir == str(Path(tmpdir).resolve())
+
+        pdep = Path(subdir)
+        assert (pdep / "fonts.css").exists()
+        assert (pdep / "fonts/open-sans/OpenSans-Variable.ttf").exists()
+        assert (pdep / "fonts/open-sans/OpenSans-Variable-Italic.ttf").exists()
+
+        with (pdep / "fonts.css").open() as f:
+            assert f.read() == brand.typography.fonts_css_include()

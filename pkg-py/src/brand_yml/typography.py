@@ -30,6 +30,7 @@ from typing import (
 )
 from urllib.parse import urlencode, urljoin
 
+from htmltools import HTMLDependency
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -1432,7 +1433,7 @@ class BrandTypography(BrandBase):
         use_fallback("monospace_block")
         return self
 
-    def css_include_fonts(self) -> str:
+    def fonts_css_include(self) -> str:
         """
         Generates CSS include statements for the defined fonts.
 
@@ -1453,7 +1454,7 @@ class BrandTypography(BrandBase):
 
         return "\n".join([i for i in includes if i])
 
-    def css_write_font_css(
+    def fonts_write_css(
         self,
         path_dir: str | Path,
         file_css: str = "fonts.css",
@@ -1490,11 +1491,10 @@ class BrandTypography(BrandBase):
 
         path_dir.mkdir(parents=True, exist_ok=True)
 
-        # Write fonts.css from typography.css_include_fonts()
         font_css = path_dir / file_css
-        font_css.write_text(self.css_include_fonts())
+        font_css.write_text(self.fonts_css_include())
 
-        # Copy local files from typography.fonts into the temp dir
+        # Copy local files from typography.fonts into the output directory
         for font in self.fonts:
             if isinstance(font, BrandTypographyFontFiles):
                 for file in font.files:
@@ -1504,3 +1504,49 @@ class BrandTypography(BrandBase):
                         shutil.copyfile(file.path.absolute(), dest_path)
 
         return path_dir
+
+    def fonts_html_dependency(
+        self,
+        path_dir: str | Path,
+        name: str = "brand-fonts",
+        version: str = "0.0.1",
+    ) -> HTMLDependency | None:
+        """
+        Generate an HTMLDependency for the font CSS and font files.
+
+        This method creates an [HTMLDependency
+        object](https://shiny.posit.co/py/api/core/Htmltools.html#htmltools.HTMLDependency)
+        for the font CSS file and supporting font files written by the
+        [`.fonts_html_dependency()`](`brand_yml.BrandTypography.fonts_html_dependency`)
+        method. It's useful for integrating the font styles into web or
+        [Shiny](https://shiny.posit.co/py) applications that use
+        [htmltools](https://pypi.org/project/htmltools/).
+
+        Parameters
+        ----------
+        path_dir
+            The directory path where the CSS file will be written.
+        name
+            The name of the dependency. Defaults to "brand-fonts".
+        version
+            The version of the dependency. Defaults to "0.0.1".
+
+        Returns
+        -------
+        :
+            An [`htmltools.HTMLDependency`](`htmltools.HTMLDependency`) object
+            if `typography` includes font file definitions or `None` if no font
+            CSS is needed.
+
+        """
+        subdir = self.fonts_write_css(path_dir, "fonts.css")
+        if subdir is None:
+            return
+
+        return HTMLDependency(
+            name=name,
+            version=version,
+            source={"subdir": str(subdir)},
+            stylesheet={"href": "fonts.css"},
+            all_files=True,
+        )
