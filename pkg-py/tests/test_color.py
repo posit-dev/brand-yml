@@ -85,7 +85,7 @@ def test_brand_color_ex_palette_internal(snapshot_json):
     assert snapshot_json == pydantic_data_from_json(brand)
 
 
-def test_brandto_dict():
+def test_brand_to_dict():
     brand = Brand.from_yaml_str(
         """
         color:
