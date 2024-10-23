@@ -75,27 +75,27 @@ class Brand(BrandBase):
     @classmethod
     def from_yaml(cls, path: str | Path):
         """
-        Read a Brand YAML file.
+        Create a Brand instance from a Brand YAML file.
 
-        Reads a Brand YAML file or finds and reads a `_brand.yml` file and returns
-        a validated :class:`Brand` instance.
+        Reads a Brand YAML file or finds and reads a `_brand.yml` file and
+        returns a validated :class:`Brand` instance.
 
-        To find a project-specific `_brand.yaml` file, pass `path` the project
+        To find a project-specific `_brand.yml` file, pass `path` the project
         directory or `__file__` (the path of the current Python script).
         [`brand_yml.Brand.from_yaml`](`brand_yml.Brand.from_yaml`) will look in
         that directory or any parent directory for a `_brand.yml`,
-        `brand/_brand.yml` or `_brand/_brand.yml` file. Note that it starts the
-        search in the directory passed in and moves upward to find the
-        `_brand.yml` file; it does not search into subdirectories of the current
-        directory.
+        `brand/_brand.yml` or `_brand/_brand.yml` file (or the same variants
+        with a `.yaml` extension). Note that it starts the search in the
+        directory passed in and moves upward to find the `_brand.yml` file; it
+        does not search into subdirectories of the current directory.
 
         Parameters
         ----------
         path
             The path to the brand.yml file or a directory where `_brand.yml` is
             expected to be found. Typically, you can pass `__file__` from the
-            calling script to find `_brand.yml` in the current directory or any of
-            its parent directories.
+            calling script to find `_brand.yml` or `_brand.yaml` in the current
+            directory or any of its parent directories.
 
         Returns
         -------

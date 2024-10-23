@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 
 def find_project_file(
-    filename: str,
+    filename: tuple[str, ...] | str,
     dir_: Path,
     subdir: tuple[str, ...] = (),
 ) -> Path:
@@ -17,12 +17,17 @@ def find_project_file(
     i = 0
     max_parents = 20
 
+    if isinstance(filename, str):
+        filename = tuple([filename])
+
     while dir_ != dir_.parent and i < max_parents:
-        if (dir_ / filename).exists():
-            return dir_ / filename
+        for fname in filename:
+            if (dir_ / fname).exists():
+                return dir_ / fname
         for sub in subdir:
-            if (dir_ / sub / filename).exists():
-                return dir_ / sub / filename
+            for fname in filename:
+                if (dir_ / sub / fname).exists():
+                    return dir_ / sub / fname
         dir_ = dir_.parent
         i += 1
 
@@ -41,8 +46,11 @@ def find_project_brand_yml(path: Path | str) -> Path:
     any of the following files in the given order:
 
     * `_brand.yml`
+    * `_brand.yaml`
     * `brand/_brand.yml`
+    * `brand/_brand.yaml`
     * `_brand/_brand.yml`
+    * `_brand/_brand.yaml`
 
     Parameters
     ----------
@@ -66,7 +74,11 @@ def find_project_brand_yml(path: Path | str) -> Path:
     if path.is_file():
         path = path.parent
 
-    return find_project_file("_brand.yml", path, ("brand", "_brand"))
+    return find_project_file(
+        filename=("_brand.yml", "_brand.yaml"),
+        dir_=path,
+        subdir=("brand", "_brand"),
+    )
 
 
 PredicateFuncType = Callable[[Any], bool]

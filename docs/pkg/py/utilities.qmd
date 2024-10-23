@@ -16,8 +16,11 @@ parent directory. In each directory, `find_project_brand_yml()` looks for
 any of the following files in the given order:
 
 * `_brand.yml`
+* `_brand.yaml`
 * `brand/_brand.yml`
+* `brand/_brand.yaml`
 * `_brand/_brand.yml`
+* `_brand/_brand.yaml`
 
 ## Parameters {.doc-section .doc-section-parameters}
 
