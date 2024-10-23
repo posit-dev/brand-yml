@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import itertools
 import os
+import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
 from re import split as re_split
@@ -29,6 +30,7 @@ from typing import (
 )
 from urllib.parse import urlencode, urljoin
 
+from htmltools import HTMLDependency
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -46,7 +48,7 @@ from pydantic import (
 
 from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
-from .file import FileLocationLocalOrUrlType
+from .file import FileLocationLocal, FileLocationLocalOrUrlType
 
 # Types ------------------------------------------------------------------------
 
@@ -1431,7 +1433,7 @@ class BrandTypography(BrandBase):
         use_fallback("monospace_block")
         return self
 
-    def css_include_fonts(self) -> str:
+    def fonts_css_include(self) -> str:
         """
         Generates CSS include statements for the defined fonts.
 
@@ -1451,3 +1453,100 @@ class BrandTypography(BrandBase):
         includes = [font.to_css() for font in self.fonts]
 
         return "\n".join([i for i in includes if i])
+
+    def fonts_write_css(
+        self,
+        path_dir: str | Path,
+        file_css: str = "fonts.css",
+    ) -> Path | None:
+        """
+        Writes `fonts.css` into a directory, with copies of local fonts.
+
+        Writes a `fonts.css` file (or `file_css`) into `path_dir` and copies any
+        local fonts into the directory as well.
+
+        Parameters
+        ----------
+        path_dir
+            Path to the directory with the CSS file and copies of the local
+            fonts should be written. If it does not exist it will be created.
+
+        file_css
+            The name of the CSS file with the font `@import` and `@font-face`
+            rules should be written.
+
+        Returns
+        -------
+        :
+            Returns the path to the directory where the files were written, i.e.
+            `path_dir`.
+        """
+        if len(self.fonts) == 0:
+            return
+
+        path_dir = Path(path_dir).expanduser().resolve()
+
+        if not path_dir.is_dir():
+            raise NotADirectoryError(f"{path_dir} is not a directory")
+
+        path_dir.mkdir(parents=True, exist_ok=True)
+
+        font_css = path_dir / file_css
+        font_css.write_text(self.fonts_css_include())
+
+        # Copy local files from typography.fonts into the output directory
+        for font in self.fonts:
+            if isinstance(font, BrandTypographyFontFiles):
+                for file in font.files:
+                    if isinstance(file.path, FileLocationLocal):
+                        dest_path = path_dir / file.path.relative()
+                        dest_path.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copyfile(file.path.absolute(), dest_path)
+
+        return path_dir
+
+    def fonts_html_dependency(
+        self,
+        path_dir: str | Path,
+        name: str = "brand-fonts",
+        version: str = "0.0.1",
+    ) -> HTMLDependency | None:
+        """
+        Generate an HTMLDependency for the font CSS and font files.
+
+        This method creates an [HTMLDependency
+        object](https://shiny.posit.co/py/api/core/Htmltools.html#htmltools.HTMLDependency)
+        for the font CSS file and supporting font files written by the
+        [`.fonts_html_dependency()`](`brand_yml.BrandTypography.fonts_html_dependency`)
+        method. It's useful for integrating the font styles into web or
+        [Shiny](https://shiny.posit.co/py) applications that use
+        [htmltools](https://pypi.org/project/htmltools/).
+
+        Parameters
+        ----------
+        path_dir
+            The directory path where the CSS file will be written.
+        name
+            The name of the dependency. Defaults to "brand-fonts".
+        version
+            The version of the dependency. Defaults to "0.0.1".
+
+        Returns
+        -------
+        :
+            An [`htmltools.HTMLDependency`](`htmltools.HTMLDependency`) object
+            if `typography` includes font file definitions or `None` if no font
+            CSS is needed.
+
+        """
+        subdir = self.fonts_write_css(path_dir, "fonts.css")
+        if subdir is None:
+            return
+
+        return HTMLDependency(
+            name=name,
+            version=version,
+            source={"subdir": str(subdir)},
+            stylesheet={"href": "fonts.css"},
+            all_files=True,
+        )

@@ -224,12 +224,14 @@ link
 
 | Name | Description |
 | --- | --- |
-| [css_include_fonts](#brand_yml.BrandTypography.css_include_fonts) | Generates CSS include statements for the defined fonts. |
+| [fonts_css_include](#brand_yml.BrandTypography.fonts_css_include) | Generates CSS include statements for the defined fonts. |
+| [fonts_html_dependency](#brand_yml.BrandTypography.fonts_html_dependency) | Generate an HTMLDependency for the font CSS and font files. |
+| [fonts_write_css](#brand_yml.BrandTypography.fonts_write_css) | Writes `fonts.css` into a directory, with copies of local fonts. |
 
-### css_include_fonts { #brand_yml.BrandTypography.css_include_fonts }
+### fonts_css_include { #brand_yml.BrandTypography.fonts_css_include }
 
 ```python
-BrandTypography.css_include_fonts()
+BrandTypography.fonts_css_include()
 ```
 
 Generates CSS include statements for the defined fonts.
@@ -242,6 +244,75 @@ defined in the typography configuration.
 | Name   | Type         | Description                                                       |
 |--------|--------------|-------------------------------------------------------------------|
 |        | [str](`str`) | A string containing CSS include statements for all defined fonts. |
+
+### fonts_html_dependency { #brand_yml.BrandTypography.fonts_html_dependency }
+
+```python
+BrandTypography.fonts_html_dependency(
+    path_dir
+    name='brand-fonts'
+    version='0.0.1'
+)
+```
+
+Generate an HTMLDependency for the font CSS and font files.
+
+This method creates an [HTMLDependency
+object](https://shiny.posit.co/py/api/core/Htmltools.html#htmltools.HTMLDependency)
+for the font CSS file and supporting font files written by the
+[`.fonts_html_dependency()`](`brand_yml.BrandTypography.fonts_html_dependency`)
+method. It's useful for integrating the font styles into web or
+[Shiny](https://shiny.posit.co/py) applications that use
+[htmltools](https://pypi.org/project/htmltools/).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`) \| [Path](`pathlib.Path`)</span></code>
+
+:   The directory path where the CSS file will be written.
+
+<code><span class="parameter-name">name</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'brand-fonts'</span></code>
+
+:   The name of the dependency. Defaults to "brand-fonts".
+
+<code><span class="parameter-name">version</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'0.0.1'</span></code>
+
+:   The version of the dependency. Defaults to "0.0.1".
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                                 | Description                                                                                                                                           |
+|--------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [HTMLDependency](`htmltools.HTMLDependency`) \| None | An [`htmltools.HTMLDependency`](`htmltools.HTMLDependency`) object if `typography` includes font file definitions or `None` if no font CSS is needed. |
+
+### fonts_write_css { #brand_yml.BrandTypography.fonts_write_css }
+
+```python
+BrandTypography.fonts_write_css(path_dir, file_css='fonts.css')
+```
+
+Writes `fonts.css` into a directory, with copies of local fonts.
+
+Writes a `fonts.css` file (or `file_css`) into `path_dir` and copies any
+local fonts into the directory as well.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`) \| [Path](`pathlib.Path`)</span></code>
+
+:   Path to the directory with the CSS file and copies of the local
+    fonts should be written. If it does not exist it will be created.
+
+<code><span class="parameter-name">file_css</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'fonts.css'</span></code>
+
+:   The name of the CSS file with the font `@import` and `@font-face`
+    rules should be written.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                           | Description                                                                      |
+|--------|--------------------------------|----------------------------------------------------------------------------------|
+|        | [Path](`pathlib.Path`) \| None | Returns the path to the directory where the files were written, i.e. `path_dir`. |
 
 # typography { #brand_yml.typography }
 
