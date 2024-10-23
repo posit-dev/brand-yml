@@ -257,6 +257,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#referencing-colors-in-the-brands-color-palette" id="toc-referencing-colors-in-the-brands-color-palette" class="nav-link" data-scroll-target="#referencing-colors-in-the-brands-color-palette">Referencing colors in the brand’s color palette</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#brand_yml.BrandColor.to_dict" id="toc-brand_yml.BrandColor.to_dict" class="nav-link" data-scroll-target="#brand_yml.BrandColor.to_dict">to_dict</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/blob/main/pkg/py/color.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
@@ -359,13 +363,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once imported via <code>brand_yml.Brand.from_yaml()</code>, you can access the named color palette via <code>brand.color.palette["purple"]</code> and the <code>primary</code> field will be ready for use.</p>
 <div class="python-code-preview">
-<div id="862c7a54" class="cell" data-execution_count="2">
+<div id="e3c0540b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>brand.color.palette[<span class="st">"purple"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="b5c9a8b7" class="cell" data-execution_count="3">
+<div id="6ed4974a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#6339E0'</code></pre>
@@ -389,13 +393,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>With this Brand YAML, both headings and links will ultimately be styled with the brand’s <code>purple</code> color.</p>
 <div class="python-code-preview">
-<div id="73d3b9d9" class="cell" data-execution_count="5">
+<div id="fa4ba5ee" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>brand.typography.headings.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="093183c8" class="cell" data-execution_count="6">
+<div id="49191836" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>brand.typography.link.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>'#6339E0'</code></pre>
@@ -467,8 +471,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.</p>
 </dd>
 </dl>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#brand_yml.BrandColor.to_dict">to_dict</a></td>
+<td>Returns a flat dictionary of color definitions.</td>
+</tr>
+</tbody>
+</table>
+<section id="brand_yml.BrandColor.to_dict" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.BrandColor.to_dict">to_dict</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>BrandColor.to_dict(include<span class="op">=</span><span class="st">'all'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Returns a flat dictionary of color definitions.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<dl>
+<dt><code><span class="parameter-name">include</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>['all', 'theme', 'palette']</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘all’</span></code></dt>
+<dd>
+<p>Which colors to include: all brand colors (<code>"all"</code>), the brand’s theme colors (<code>"theme"</code>) or the brand’s color palette (<code>"palette"</code>).</p>
+</dd>
+</dl>
+</section>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</td>
+<td>A flat dictionary of color definitions. Which colors are returned depends on the value of <code>include</code>: * <code>"all"</code> returns a flat dictionary of colors with theme colors overlaid on <code>color.palette</code>. * <code>"theme"</code> returns a dictionary of only the theme colors, excluding <code>color.palette</code>. * <code>"palette"</code> returns a dictionary of only the palette colors</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 </section>
 </section>
 
