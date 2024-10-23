@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from brand_yml import Brand
+from brand_yml import Brand, BrandColor
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -83,3 +83,55 @@ def test_brand_color_ex_palette_internal(snapshot_json):
     }
 
     assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_to_dict():
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          palette:
+            red: "#f00"
+            green: "#0f0"
+            blue: "#00f"
+            azul: blue
+            tertiary: "#f0f"
+          primary: red
+          secondary: green
+          tertiary: blue
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+    assert brand.color.to_dict(include="theme") == {
+        "primary": "#f00",
+        "secondary": "#0f0",
+        "tertiary": "#00f",
+    }
+
+    assert brand.color.to_dict(include="theme") == {
+        "primary": "#f00",
+        "secondary": "#0f0",
+        "tertiary": "#00f",
+    }
+
+    assert brand.color.palette is not None
+    # color palette values are resolved on model validation (may change)
+    assert brand.color.palette["azul"] == "#00f"
+
+    assert brand.color.to_dict(include="palette") == {
+        "red": "#f00",
+        "green": "#0f0",
+        "blue": "#00f",
+        "azul": "#00f",
+        "tertiary": "#f0f",
+    }
+
+    assert brand.color.to_dict(include="all") == {
+        "red": "#f00",
+        "green": "#0f0",
+        "blue": "#00f",
+        "azul": "#00f",
+        "primary": "#f00",
+        "secondary": "#0f0",
+        "tertiary": "#00f",  # brand.color.tertiary wins!
+    }
