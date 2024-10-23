@@ -8,7 +8,7 @@ palette and mappings to common theme colors.
 from __future__ import annotations
 
 from copy import deepcopy
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import (
     ConfigDict,
@@ -220,44 +220,47 @@ class BrandColor(BrandBase):
 
         return value
 
-    def _color_defs(self, resolved: bool = False) -> dict[str, str]:
+    def _color_defs(
+        self,
+        include: Literal["all", "theme", "palette"] = "all",
+    ) -> dict[str, str]:
         """
-        Returns a flat dictionary of color definitions with `color.*` overlaid
-        over `color.palette`.
+        Returns a flat dictionary of color definitions.
 
         Parameters
         ----------
-        resolved
-            Whether or not the all resolvable values in the color definitions
-            should be resolved. Currently, once the model is initialized,
-            top-level values, e.g. `color.primary`, are already resolved but
-            `color.palette` values retain internal references.
+        include
+            Which colors to include: all brand colors (`"all"`), the brand's
+            theme colors (`"theme"`) or the brand's color palette (`"palette"`).
 
         Returns
         -------
         :
-            A flat dictionary of color definitions.
-        """
-        defs = deepcopy(self.palette) if self.palette is not None else {}
-        defs.update(
-            {
-                k: v
-                for k, v in self.model_dump().items()
-                if k != "palette" and v is not None
-            }
-        )
+            A flat dictionary of color definitions. Which colors are returned
+            depends on the value of `include`:
 
-        if resolved:
-            defs_replace_recursively(defs, defs)
-            return defs
-        else:
-            return defs
+            * `"all"` returns a flat dictionary of colors with theme colors overlaid
+              on `color.palette`.
+            * `"theme"` returns a dictionary of only the theme colors, excluding
+              `color.palette`.
+            * `"palette"` returns a dictionary of only the palette colors
+        """
+        defs: dict[str, str] = {}
+        defs_theme: dict[str, str] = {}
+
+        if include in ("all", "palette"):
+            defs = deepcopy(self.palette) if self.palette is not None else {}
+        if include in ("all", "theme"):
+            defs_theme = self.model_dump(exclude={"palette"}, exclude_none=True)
+
+        defs.update(defs_theme)
+        return defs
 
     @model_validator(mode="after")
     def resolve_palette_values(self):
         defs_replace_recursively(
             self,
-            defs=self._color_defs(resolved=False),
+            defs=self._color_defs(),
             name="color",
             exclude="palette",
         )
