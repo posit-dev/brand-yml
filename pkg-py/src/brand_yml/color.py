@@ -220,7 +220,7 @@ class BrandColor(BrandBase):
 
         return value
 
-    def _color_defs(
+    def to_dict(
         self,
         include: Literal["all", "theme", "palette"] = "all",
     ) -> dict[str, str]:
@@ -260,7 +260,7 @@ class BrandColor(BrandBase):
     def resolve_palette_values(self):
         defs_replace_recursively(
             self,
-            defs=self._color_defs(),
+            defs=self.to_dict(),
             name="color",
             exclude="palette",
         )

@@ -237,3 +237,30 @@ dark
 
     A dark color, used as a high-contrast foreground color on light elements
     or high-contrast background color on light elements.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [to_dict](#brand_yml.BrandColor.to_dict) | Returns a flat dictionary of color definitions. |
+
+### to_dict { #brand_yml.BrandColor.to_dict }
+
+```python
+BrandColor.to_dict(include='all')
+```
+
+Returns a flat dictionary of color definitions.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">include</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'all\', \'theme\', \'palette\'\]</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'all'</span></code>
+
+:   Which colors to include: all brand colors (`"all"`), the brand's
+    theme colors (`"theme"`) or the brand's color palette (`"palette"`).
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                         | Description                                                                                                                                                                                                                                                                                                                                                |
+|--------|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [dict](`dict`)\[[str](`str`), [str](`str`)\] | A flat dictionary of color definitions. Which colors are returned depends on the value of `include`:  * `"all"` returns a flat dictionary of colors with theme colors overlaid   on `color.palette`. * `"theme"` returns a dictionary of only the theme colors, excluding   `color.palette`. * `"palette"` returns a dictionary of only the palette colors |

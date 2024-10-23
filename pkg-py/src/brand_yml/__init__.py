@@ -271,7 +271,7 @@ class Brand(BrandBase):
         if self.typography is None:
             return self
 
-        color_defs = self.color._color_defs() if self.color else {}
+        color_defs = self.color.to_dict() if self.color else {}
         color_names = [
             k for k in BrandColor.model_fields.keys() if k != "palette"
         ]
