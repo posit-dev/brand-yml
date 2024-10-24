@@ -1450,7 +1450,9 @@ class BrandTypography(BrandBase):
         if len(self.fonts) == 0:
             return ""
 
-        includes = [font.to_css() for font in self.fonts]
+        fonts = sorted([*self.fonts], key=lambda x: x.source == "file")
+
+        includes = [font.to_css() for font in fonts]
 
         return "\n".join([i for i in includes if i])
 

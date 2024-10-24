@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import tempfile
 from pathlib import Path
 from urllib.parse import unquote
@@ -706,7 +707,12 @@ def test_brand_typography_css_fonts_local(snapshot):
     """)
 
     assert isinstance(brand.typography, BrandTypography)
-    assert snapshot == brand.typography.fonts_css_include()
+    fonts_css = brand.typography.fonts_css_include()
+    at_rules = re.findall(r"@(import|font-face)", fonts_css)
+
+    # The google @import rule must come before @font-face rules
+    assert at_rules == ["import", "font-face"]
+    assert snapshot == fonts_css
 
 
 def test_brand_typography_google_fonts_weight_range():
