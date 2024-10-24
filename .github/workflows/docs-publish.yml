@@ -49,9 +49,8 @@ jobs:
         echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
 
-    - name: 🏭 Build quartodoc inventory
-      run: uv run quartodoc interlinks
-      working-directory: docs
+    - name: 🏭 Update Python docs
+      run: make py-docs
 
     - name: 🚢 Publish to GitHub Pages (and render)
       uses: quarto-dev/quarto-actions/publish@v2
