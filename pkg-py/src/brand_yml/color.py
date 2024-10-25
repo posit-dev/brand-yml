@@ -217,9 +217,12 @@ class BrandColor(BrandBase):
 
         for key in value.keys():
             if not rgx_valid_sass_name.match(key):
+                suggestion = re.sub(r"^\d+", "_", key)
+                suggestion = re.sub(r"[^a-zA-Z0-9_-]+", "-", suggestion)
                 raise ValueError(
                     "Palette color names should be valid Sass or CSS variable names. "
-                    f"Invalid name: {key!r}."
+                    f"Invalid name: {key!r}. "
+                    f"Consider using {suggestion!r} instead."
                 )
 
         return value
