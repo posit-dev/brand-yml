@@ -13,17 +13,20 @@ But they are still relevant to the brand and need a place within brand.yml.
 
 ## Structure
 
+::: callout-warning
 This section of brand.yml is not as well-sepecified as the other sections, by design.
 As brand.yml adoption grows, new tools will need to be able to store options specific to the tool.
 This part of the brand.yml spec may change as we learn more about the needs of different tools.
+:::
 
 Currently, both Quarto and Shiny support a `bootstrap` section under `defaults` that can be used to set default values for Bootstrap Sass variables.
 
 ```{.yaml filename="brand.yml"}
 defaults:
   bootstrap:
-    enable-rounded: false
-    link-decoration: none
+    defaults:
+      enable-rounded: false
+      link-decoration: none
 ```
 
 In [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html), an additional `shiny.theme` section is used to set default values for Shiny-specific theme settings.
