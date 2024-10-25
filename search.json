@@ -352,7 +352,7 @@
     "href": "brand/meta.html",
     "title": "Metadata",
     "section": "",
-    "text": "Warning\n\n\n\nThis section still reflects the brand.yml spec during design. It will be updated shortly to reflect the current brand.yml specification.",
+    "text": "The meta section in a _brand.yml provides a place to store metadata about the company or project described in the file. This information may be used by tools that support brand.yml to add social media icons, links, footers, etc. It can also be used as a place to store additional context about the company or brand that you’d like to store in a common place.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -363,8 +363,8 @@
     "objectID": "brand/meta.html#about",
     "href": "brand/meta.html#about",
     "title": "Metadata",
-    "section": "About",
-    "text": "About\nmeta provides a place to store metadata about the Company described in brand.yml. We should anticipate a few key pieces of information, but authors might want to include data we haven’t accounted for.",
+    "section": "",
+    "text": "The meta section in a _brand.yml provides a place to store metadata about the company or project described in the file. This information may be used by tools that support brand.yml to add social media icons, links, footers, etc. It can also be used as a place to store additional context about the company or brand that you’d like to store in a common place.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -372,11 +372,11 @@
     ]
   },
   {
-    "objectID": "brand/meta.html#example",
-    "href": "brand/meta.html#example",
+    "objectID": "brand/meta.html#structure",
+    "href": "brand/meta.html#structure",
     "title": "Metadata",
-    "section": "Example",
-    "text": "Example\n\n\nbrand.yml\n\nmeta:\n  name: Posit\n  link: https://posit.co\n\n\n\nbrand.yml\n\nmeta:\n  name:\n    full: Posit Software, PBC\n    short: Posit\n  link:\n    home: https://posit.co\n    guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ\n    mastodon: https://fosstodon.org/@Posit\n    linkedin: https://www.linkedin.com/company/posit-software/\n    twitter: https://twitter.com/posit_pbc",
+    "section": "Structure",
+    "text": "Structure\nThe meta section primarily consists of two main components:\n\nname: The name of the company or brand\nlink: URLs to the brand’s online presence\n\nBoth name and link are optional fields, and you can add additional fields as needed for your specific use case.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -384,11 +384,23 @@
     ]
   },
   {
-    "objectID": "brand/meta.html#spec",
-    "href": "brand/meta.html#spec",
+    "objectID": "brand/meta.html#examples",
+    "href": "brand/meta.html#examples",
     "title": "Metadata",
-    "section": "Spec",
-    "text": "Spec\n- id: brand-meta\n  description: &gt;\n    Metadata for a brand, including the brand name and important links.\n  object:\n    closed: false\n    properties:\n      name:\n        description: The brand name.\n        anyOf:\n          - string\n          - object:\n              properties:\n                full:\n                  string:\n                    description: The full, official or legal name of the company or brand.\n                short:\n                  string:\n                    description: The short, informal, or common name of the company or brand.\n      link:\n        description: &gt;\n          Important links for the brand, including social media links.\n          If a single string, it is the brand's home page or website.\n          Additional fields are allowed for internal use.\n        anyOf:\n          - string\n          - object:\n              properties:\n                home:\n                  string:\n                    description: The brand's home page or website.\n                mastodon:\n                  string:\n                    description: The brand's Mastodon URL.\n                github:\n                  string:\n                    description: The brand's GitHub URL.\n                linkedin:\n                  string:\n                    description: The brand's LinkedIn URL.\n                twitter:\n                  string:\n                    description: The brand's Twitter URL.\n                facebook:\n                  string:\n                    description: The brand's Facebook URL.",
+    "section": "Examples",
+    "text": "Examples\nHere are some examples of how you might use the meta section in your brand.yml file:\n\nMinimal Example\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n  link: https://www.acmecorp.com\n\n\n\nComprehensive Example\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n  link:\n    home: https://www.acmecorp.com\n    docs: https://docs.acmecorp.com\n    github: https://github.com/acmecorp\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n    facebook: https://www.facebook.com/acmecorp\n  description: |\n    Acme Corporation is a leading provider of innovative solutions for cartoon\n    characters worldwide.\n  founded: 1952",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "brand/meta.html#attributes",
+    "href": "brand/meta.html#attributes",
+    "title": "Metadata",
+    "section": "Attributes",
+    "text": "Attributes\n\nName\nThe name field can be specified in two ways:\n\nAs a simple string, representing the full name of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n\nAs an object with full and short properties:\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n\nThis format is useful when you need to distinguish between a full company name and a shorter version depending on context.\n\n\n\nLink\nThe link field can also be specified in two ways:\n\nAs a simple string, representing the main website of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  link: https://www.acmecorp.com\n\nAs an object with multiple properties representing different online presences:\n\n\n_brand.yml\n\nmeta:\n  link:\n    home: https://www.acmecorp.com\n    github: https://github.com/acmecorp\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n\nThis format allows you to record links to the homepage and related social media accounts used by your brand. Note that links should be full URLs, including the https:// prefix.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -429,6 +441,17 @@
     ]
   },
   {
+    "objectID": "brand/index.html#specification",
+    "href": "brand/index.html#specification",
+    "title": "brand.yml Structure",
+    "section": "Specification",
+    "text": "Specification\nWe’ve created a schema for the structure of the brand.yml file in two flavors:\n\nbrand.yml schema as YAML, a YAML variant of JSON Schema used by Quarto to validate the structure _brand.yml files or brand in Quarto metadata.\nbrand.yml schema as JSON, a JSON Schema containing the definitions used in the YAML schema.",
+    "crumbs": [
+      "About",
+      "Structure"
+    ]
+  },
+  {
     "objectID": "brand/defaults.html",
     "href": "brand/defaults.html",
     "title": "Defaults",
@@ -445,7 +468,7 @@
     "href": "brand/defaults.html#about",
     "title": "Defaults",
     "section": "About",
-    "text": "About\nIndividual formats and outputs can expose format-specific variables or options that are relevant to branding. These options are tied to a specific output format or context, so they can’t be included in the core brand specification. But they are still relevant to the brand and need a place within brand.yml.\nFor example, Quarto slides expose a set of Sass variables while HTML documents and Shiny apps use Sass variables set by Bootstrap.\nOn the other hand, some theme-relevant settings are actually format options, or are built on top of a base of format options. For example, when creating a branded Beamer presentation, its often easier to start with a known theme or colortheme. Or similarly, it might be easier in Bootstrap to start with a Bootswatch theme.\nA source of inspiration for this section is pkgdown’s approach to template packaging, where a source template provides the initial values for _pkgdown.yml settings that can be overridden in local instances. In this regard, the template section provides a template for the initial values of format- or output-specific settings. An alternative name for this section could be settings.",
+    "text": "About\nIndividual formats and outputs can expose format-specific variables or options that are relevant to branding. These options are tied to a specific output format or context, so they can’t be included in the core brand specification. But they are still relevant to the brand and need a place within brand.yml.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -453,35 +476,11 @@
     ]
   },
   {
-    "objectID": "brand/defaults.html#example",
-    "href": "brand/defaults.html#example",
+    "objectID": "brand/defaults.html#structure",
+    "href": "brand/defaults.html#structure",
     "title": "Defaults",
-    "section": "Example",
-    "text": "Example\n\n\nbrand.yml\n\ndefaults:\n  quarto:\n    format:\n      html:\n        toc: true\n        toc-location: left\n      beamer:\n        navigation: horizontal\n        theme: AnnArbor\n        colortheme: lily\n    website:\n      body-footer: Copyright 2022-2024 Posit Software, PBC\n  bootstrap:\n    defaults:\n      enable-rounded: false\n      link-decoration: none",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Defaults"
-    ]
-  },
-  {
-    "objectID": "brand/defaults.html#spec",
-    "href": "brand/defaults.html#spec",
-    "title": "Defaults",
-    "section": "Spec",
-    "text": "Spec\n- id: brand-defaults\n  description: &gt;\n    Additional format or output-specific options, used as a template\n    for these settings in those contexts.\n  object:\n    properties:\n      quarto:\n        object:\n          properties:\n            format:\n              description: Quarto format options.\n              schema: object\n            website:\n              description: Quarto `website` options.\n              schema: object\n            book:\n              description: Quarto `book` options.\n              schema: object\n      bootstrap:\n        description: Bootstrap theme settings, similar to `bslib::bs_theme()`.\n        object:\n          closed: true\n          properties:\n            uses: string\n            functions: string\n            defaults:\n              description: Sass variables.\n              schema: object\n              namingConvention: kebab-case\n            mixins: string\n            rules: string\n      shiny:\n        description: Settings specific to Shiny applications.\n        schema: object",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Defaults"
-    ]
-  },
-  {
-    "objectID": "brand/defaults.html#sources",
-    "href": "brand/defaults.html#sources",
-    "title": "Defaults",
-    "section": "Sources",
-    "text": "Sources\n\nBootstrap\nSome of the most basic non-color concepts found in\n\nhttps://getbootstrap.com/docs/5.3/customize/options/\nhttps://getbootstrap.com/docs/5.3/customize/css-variables/\n\nIf we have a deafults.bootstrap field, it would support the named sections used by theme Sass files in Quarto.\n\nHTML basic options\nExample from Quarto HTML documentation:\n---\ntitle: \"My Document\"\nformat:\n  html:\n    theme: cosmo\n    fontsize: 1.1em\n    linestretch: 1.7\n---\n\n\nBeamer options\nExample from Quarto slides with beamer documentation\n---\nformat:\n  beamer:\n    aspectratio: 32\n    navigation: horizontal\n    theme: AnnArbor\n    colortheme: lily\n---",
+    "section": "Structure",
+    "text": "Structure\nThis section of brand.yml is not as well-sepecified as the other sections, by design. As brand.yml adoption grows, new tools will need to be able to store options specific to the tool. This part of the brand.yml spec may change as we learn more about the needs of different tools.\nCurrently, both Quarto and Shiny support a bootstrap section under defaults that can be used to set default values for Bootstrap Sass variables.\n\n\nbrand.yml\n\ndefaults:\n  bootstrap:\n    enable-rounded: false\n    link-decoration: none\n\nIn Shiny for Python, an additional shiny.theme section is used to set default values for Shiny-specific theme settings.\n\n\nbrand.yml\n\ncolor:\n  palette:\n    pink: \"#E83E8C\"\ndefaults:\n  shiny:\n    theme:\n      preset: shiny\n      defaults:\n        bslib-dashboard-design: false\n      rules: |\n        .navbar-brand { color: $brand-pink }\n\nNote that in these sections, you can make use of brand features, like the addition of $brand-{color} Sass variables.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -491,73 +490,61 @@
   {
     "objectID": "brand/typography.html",
     "href": "brand/typography.html",
-    "title": "Typograqphy",
+    "title": "Typography",
     "section": "",
-    "text": "Warning\n\n\n\nThis section still reflects the brand.yml spec during design. It will be updated shortly to reflect the current brand.yml specification.",
+    "text": "Typography is a crucial element of any brand’s visual identity. The typography section in _brand.yml allows you to define the fonts, sizes, weights, and other typographic properties.",
     "crumbs": [
       "About",
       "Brand Elements",
-      "Typograqphy"
+      "Typography"
     ]
   },
   {
     "objectID": "brand/typography.html#about",
     "href": "brand/typography.html#about",
-    "title": "Typograqphy",
-    "section": "About",
-    "text": "About\n\nFonts\nThe goal of the with property (may be aliased as font or fonts) is to specify font files that should be included in the brand theme. The primary goal is to provide brand.yml consumers to find and download the fonts used by the brand. brand.yml authors only need to include fonts that are not installed on the system. In general, we support three font sources:\n\nGoogle Fonts\nDirect URLs\nFonts bundled with the brand.yml\n\nbrand.yml tooling will be able to provision fonts from Google and remote fonts to a local directory. Where these fonts are stored might be different depending on the output format.\nFor bundled fonts, we should consider re-using Quarto extension or custom format infrastructure to make it possible to bundle and share brand.yml assets. See Open Questions for more details.\n\n\nTypography\nDetermining which fonts are used for key elements is a separate step. This ensures that the typography settings are independent of the font source, and it makes it easier for us to handle the font-downloading tasks by focusing only on the typography.fonts property.\nThe typography property is used to specify the fonts and some basic typographic settings for key content types:\n\nbase\n\nThe type used as the default text, primarily in the document body.\n\nheadings\n\nThe type used for headings. Note that these settings cover all heading levels (h1, h2, etc.).\n\nmonospace\n\nThe type used for code blocks and other monospaced text.\n\n\nIn the future we can consider adding more types, such as h1, h2, etc., or blockquote, links, etc.",
+    "title": "Typography",
+    "section": "",
+    "text": "Typography is a crucial element of any brand’s visual identity. The typography section in _brand.yml allows you to define the fonts, sizes, weights, and other typographic properties.",
     "crumbs": [
       "About",
       "Brand Elements",
-      "Typograqphy"
+      "Typography"
     ]
   },
   {
-    "objectID": "brand/typography.html#example",
-    "href": "brand/typography.html#example",
-    "title": "Typograqphy",
-    "section": "Example",
-    "text": "Example\n\n\nbrand.yml\n\ntypography:\n  with:\n    open-sans:\n      google: \"Open Sans\"\n    fira-code:\n      google: \"Fira Code\"\n    roboto-slab:\n      google:\n        family: \"Roboto Slab\"\n        weight: 600\n        style: normal\n        display: block\n\n  base:\n    family: open-sans\n    line-height: 1.25\n    size: 1rem\n  headings:\n    family: robot-slab\n    color: primary\n    weight: 600\n  monospace:\n    family: fira-code\n    size: 0.9em",
+    "objectID": "brand/typography.html#structure",
+    "href": "brand/typography.html#structure",
+    "title": "Typography",
+    "section": "Structure",
+    "text": "Structure\nYou can approach translating brand guidelines into a _brand.yml file in two steps:\n\nFirst, specify the fonts used by your brand, using local or online font sources.\n\nfonts: This top-level attribute is where you list font family definitions.\n\nSecond, define the fonts and styles used by different typographic elements (base text, headings, monospace text, etc.). The remaining attributes of typography comprise these settings:\n\nbase: Font and appearance settings for the base (body) text.\nheadings: Font and appearance settings for heading text.\nmonospace: Font and appearance settings for monospaced text.\nmonospace_inline: Font and appearance settings for inline monospaced text.\nmonospace_block: Font and appearance settings for block (multi-line) monospaced text.\nlink: Font and appearance settings for hyperlink text.",
     "crumbs": [
       "About",
       "Brand Elements",
-      "Typograqphy"
+      "Typography"
     ]
   },
   {
-    "objectID": "brand/typography.html#spec",
-    "href": "brand/typography.html#spec",
-    "title": "Typograqphy",
-    "section": "Spec",
-    "text": "Spec\n- id: brand-typography\n  description: Typography definitions for the brand.\n  object:\n    closed: true\n    properties:\n      with:\n        description: Font files and definitions for the brand.\n        ref: brand-font\n      base:\n        description: &gt;\n          The base font settings for the brand. These are used as the default for all text.\n        ref: brand-typography-options\n      headings:\n        description: &gt;\n          The font settings for headings.\n        ref: brand-typography-options-no-size\n      monospace:\n        description: &gt;\n          The font settings for monospace text. Color in this context refers to inline code.\n        ref: brand-typography-options\n      emphasis:\n        description: The text properties used for emphasized (or emboldened) text.\n        object:\n          closed: true\n          properties:\n            weight:\n              ref: brand-font-weight\n            color:\n              ref: brand-maybe-named-color\n            background-color:\n              ref: brand-maybe-named-color\n      link:\n        description: The text properties used for hyperlinks.\n        object:\n          closed: true\n          properties:\n            weight:\n              ref: brand-font-weight\n            decoration: string\n            color:\n              schema:\n                ref: brand-maybe-named-color\n              default: primary\n            background-color:\n              ref: brand-maybe-named-color\n\n- id: brand-typography-options\n  description: Typographic options.\n  object:\n    closed: true\n    properties:\n      family: string\n      size: string\n      line-height: string\n      weight:\n        ref: brand-font-weight\n      style:\n        ref: brand-font-style\n      color:\n        ref: brand-maybe-named-color\n      background-color:\n        ref: brand-maybe-named-color\n\n- id: brand-typography-options-no-size\n  description: Typographic options without a font size.\n  object:\n    closed: true\n    properties:\n      family: string\n      line-height: string\n      weight:\n        ref: brand-font-weight\n      style:\n        ref: brand-font-style\n      color:\n        ref: brand-maybe-named-color\n      background-color:\n        ref: brand-maybe-named-color\n\n- id: brand-font\n  description: Font files and definitions for the brand.\n  arrayOf:\n    anyOf:\n      - ref: brand-font-google\n      - ref: brand-font-file\n      - ref: brand-font-family\n\n- id: brand-font-weight\n  description: A font weight.\n  enum: [100, 200, 300, 400, 500, 600, 700, 800, 900]\n  default: 400\n\n- id: brand-font-style\n  description: A font style.\n  enum: [normal, italic]\n  default: normal\n\n- id: brand-font-google\n  description: A Google Font definition.\n  object:\n    closed: true\n    properties:\n      google:\n        anyOf:\n          - string\n          - object:\n              closed: true\n              properties:\n                family:\n                  description: The font family name, which must match the name of the font on Google Fonts.\n                  schema: string\n                weight:\n                  description: The font weights to include.\n                  maybeArrayOf:\n                    ref: brand-font-weight\n                  default: [400, 700]\n                style:\n                  description: The font style to include.\n                  maybeArrayOf:\n                    ref: brand-font-style\n                  default: [normal, italic]\n                display:\n                  description: &gt;\n                    The font display method, determines how a font face is font face is shown\n                    depending on its download status and readiness for use.\n                  enum: [auto, block, swap, fallback, optional]\n                  default: swap\n\n- id: brand-font-file\n  description: A method for providing font files directly, either locally or from an online location.\n  object:\n    closed: true\n    properties:\n      family:\n        description: The font family name.\n        schema: string\n      files:\n        maybeArrayOf:\n          anyOf: [path, string]\n        description: &gt;\n          The font files to include. These can be local or online.\n          Local file paths should be relative to the `brand.yml` file.\n          Online paths should be complete URLs.\n\n- id: brand-font-family\n  description: &gt;\n    A locally-installed font family name. When used, the end-user is responsible\n    for ensuring that the font is installed on their system.\n  schema: string",
+    "objectID": "brand/typography.html#examples",
+    "href": "brand/typography.html#examples",
+    "title": "Typography",
+    "section": "Examples",
+    "text": "Examples\n\nMinimal Example\nAt its most minimal, you can defines only the font families for base text, headings, and monospace text.\n\n\n_brand.yml\n\ntypography:\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\nThis saves a bit of typing and is equivalent to the following.\n\n\n_brand.yml\n\ntypography:\n  base:\n    family: Open Sans\n  headings:\n    family: Roboto Slab\n  monospace:\n    family: Fira Code\n\nCurrently, Quarto and Shiny assume that a font family mentioned in the typography section is available on the user’s system. To use fonts from Google Fonts or Bunny Fonts (a GDPR-compliant Google Fonts replacement), define the font sources in fonts.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Open Sans\n      source: google\n    - family: Roboto Slab\n      source: google\n    - family: Fira Code\n      source: google\n  base: Open Sans\n  headings: Roboto Slab\n  monospace: Fira Code\n\n\n\nSimple Example with Additional Properties\nTypography encompasses more than just the font selection. This example also sets typographic properties such as line height, font size, and color:\n\n\n_brand.yml\n\ncolor:\n  primary: blue\ntypography:\n  base:\n    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: semi-bold\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n\nComprehensive Example with Font Definitions\nThis example demonstrates how to define fonts from various sources and apply them to different text elements:\n\n\n_brand.yml\n\ncolor:\n  primary: \"#f24242\"\ntypography:\n  fonts:\n1    # Local files\n    - family: Open Sans\n      source: file\n      files:\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n2    # Online files\n    - family: Closed Sans\n      source: file\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\n3    # Google Fonts\n    - family: Roboto Slab\n      source: google\n      weight: [600, 900]\n      style: normal\n      display: block\n4    # Bunny Fonts\n    - family: Fira Code\n      source: bunny\n\n  base:\n5    family: Open Sans\n    line-height: 1.25\n    size: 1rem\n  headings:\n    family: Roboto Slab\n    color: primary\n    weight: 600\n  monospace:\n    family: Fira Code\n    size: 0.9em\n\n\n1\n\nLocal fonts use source: file and typically come as a set of files, each with a weight and style. List each font file under files with a path attribute, optionally specifying the weight and style associated with the font file.\n\n2\n\nOnline font files might be hosted somewhere by the company or brand. These also use source: file (see local fonts above), but the path attribute is a URL.\n\n3\n\nGoogle Fonts define an entire family of fonts. Here weight and style select the weights and styles that should be included in the fonts downloaded from Google Fonts.\n\n4\n\nBunny Fonts follow the same format as Google Fonts but use a GDPR-compliant host.\n\n5\n\nFonts are referenced by family name in the other attributes of typography. Note that not all fonts need to be used, but they’ll be made available by Quarto or Shiny.\n\n\n\n\nExample with Color Definitions\nColors defined in the color section can be referenced by name in the color and background-color attributes of the typography settings. Note that this applies to both theme colors and colors in the brand’s color palette.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    red: \"#FF6F61\"\n  primary: \"#87CEEB\"\n  secondary: \"#50C878\"\n  danger: red\n  foreground: \"#1b1818\"\n  background: \"#f7f4f4\"\n\ntypography:\n  headings:\n    color: primary\n  monospace-inline:\n    color: background\n    background-color: red\n  monospace-block:\n    color: foreground\n    background-color: background\n  link:\n    color: danger",
     "crumbs": [
       "About",
       "Brand Elements",
-      "Typograqphy"
+      "Typography"
     ]
   },
   {
-    "objectID": "brand/typography.html#font-customization-in-r-and-quarto",
-    "href": "brand/typography.html#font-customization-in-r-and-quarto",
-    "title": "Typograqphy",
-    "section": "Font Customization in R and Quarto",
-    "text": "Font Customization in R and Quarto\n\nBootstrap\n\nBootstrap typography docs\nFont-related variables in scss/_variables.scss\n\n$font-family-sans-serif:  system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", \"Noto Sans\", \"Liberation Sans\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\" !default;\n$font-family-monospace:   SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace !default;\n// --\n$font-family-base:        var(--#{$prefix}font-sans-serif) !default;\n$font-family-code:        var(--#{$prefix}font-monospace) !default;\n\n// $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins\n// $font-size-base affects the font size of the body text\n$font-size-root:          null !default;\n$font-size-base:          1rem !default; // Assumes the browser default, typically `16px`\n// --\n$headings-font-family:    null !default;\n$headings-font-style:     null !default;\n$headings-font-weight:    500 !default;\n$headings-line-height:    1.2 !default;\n$headings-color:          inherit !default;\n// --\n$display-font-family:     null !default;\n$display-font-style:      null !default;\n$display-font-weight:     300 !default;\n$display-line-height:     $headings-line-height !default;\n// --\n$input-btn-font-family:   null !default;\n$input-btn-font-size:     $font-size-base !default;\n$input-btn-line-height:   $line-height-base !default;\n// --\n$btn-font-family:         $input-btn-font-family !default;\n$btn-font-size:           $input-btn-font-size !default;\n$btn-line-height:         $input-btn-line-height !default;\n// --\n$input-font-family:       $input-btn-font-family !default;\n$input-font-size:         $input-btn-font-size !default;\n$input-font-weight:       $font-weight-base !default;\n$input-line-height:       $input-btn-line-height !default;\n\n\nbslib\n\n---\noutput:\n  html_document:\n    theme:\n      base_font:\n        google: \"Inter\"\n      code_font:\n        google: \"Fira Code\"\n      heading_font:\n        google: \"Roboto Slab\"\n---\n\nR Markdown document example (source)\n\n\nbs_theme(\n  base_font = font_google(\"Inter\"),\n  code_font = font_google(\"Fira Code\"),\n  heading_font = font_google(\"Roboto Slab\")\n)\n\nfont_google(\n  family,\n  local = TRUE,\n  cache = sass_file_cache(sass_cache_context_dir()),\n  wght = NULL,\n  ital = NULL,\n  display = c(\"swap\", \"auto\", \"block\", \"fallback\", \"optional\")\n)\n\nfont_google() is exported from sass\n\n\n\n\nDetails\n\n\nfamily\n\nA character string with a single font family name.\n\nlocal\n\nWhether or not download and bundle local (woff2) font files.\n\ncache\n\nA sass_file_cache() object (or, more generally, a file caching class with $get_file() and $set_file() methods). Set this argument to FALSE or NULL to disable caching.\n\nwght\n\nOne of the following:\n\nNULL, the default weight for the family.\nA character string defining an axis range\nA numeric vector of desired font weight(s).\n\n\nital\n\nOne of the following:\n\nNULL, the default font-style for the family.\n0, meaning font-style: normal\n1, meaning font-style: italic\nc(0, 1), meaning both normal and italic\n\n\ndisplay\n\nA character vector for the font-display @font-face property.\n\n\n\n\n\npkgdown\n\ntemplate:\n  bootstrap: 5\n  bslib:\n    base_font: {google: \"Roboto\"}\n    heading_font: {google: \"Roboto Slab\"}\n    code_font: {google: \"JetBrains Mono\"}\n\nBasic pkgdown example (source)\n\n\n\ntemplate:\n  bslib:\n    base_font:\n      google:\n        family: Open Sans\n        wght: [300, 400, 500]\n    code_font:\n      google: Source Code Pro\n    sans_font: Open Sans\n    heading_font: Open Sans\n    headings-font-weight: 300\n\nComplicated font example (source)\n\n\n\n\nQuarto\n\nHTML\nProvides mainfont and monofont in Basic Options. These are used by src/resources/foramts/html/pandoc/styles.html. Note that a corresponding setting for headings is not included.\n\n@import 'https://fonts.googleapis.com/css?family=Lato';\n\nh1, h2, h3, h4, p {\n  font-family: 'Lato', Arial, sans-serif;\n}\n\nQuarto in-the-wild example (nhsr-quarto)\n\n\n\n\nPresentations\nSimilar to HTML documents, it appears that Boostrap Sass variables have been replicated for revealjs, with some Sass variables of their own:\n\n$font-family-sans-serif\n$font-family-monospace\n$presentation-heading-font\n\n// fonts\n$font-family-sans-serif: \"Palatino Linotype\", \"Book Antiqua\", Palatino,\n  FreeSerif, serif !default;\n\n$presentation-heading-font: \"Palatino Linotype\", \"Book Antiqua\", Palatino,\n  FreeSerif, serif !default;\n$presentation-heading-color: #383d3d !default;\n\n\nTypst\nTypst only supports mainfont\nformat:\n  typst:\n    mainfont: \"Agbalumo\"\n    font-paths: myfonts\n\n\nPDF\nUses mainfont, sansfont and monofont, which, for xelatex (the default LaTeX engine), need to be installed on the system. (Source)",
+    "objectID": "brand/typography.html#attributes",
+    "href": "brand/typography.html#attributes",
+    "title": "Typography",
+    "section": "Attributes",
+    "text": "Attributes\n\nfonts\nThe fonts attribute is a list of font family definitions. Each definition describes a font family that is available to the brand. Fonts may be stored in files (either adjacent to _brand.yml or hosted online) or may be provided by Google Fonts or Bunny Fonts.\nLocal fonts are specified using source: file and typically consist of multiple files, each representing a different weight and style. To use local fonts, list each file under the files section, providing a path attribute and optionally specifying the weight and style for each file.\nFor fonts hosted online by a company or brand, you can use the same source: file approach as local fonts, but instead of a local file path, you’ll use a URL in the path attribute.\ntypography:\n  fonts:\n    # Local files\n    - family: Open Sans\n      source: file\n      files:\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n    # Online files\n    - family: Closed Sans\n      source: file\n      files:\n        - path: https://example.com/Closed-Sans-Bold.woff2\n          weight: bold\n        - path: https://example.com/Closed-Sans-Italic.woff2\n          style: italic\nGoogle Fonts offer entire font families and use a different syntax. With Google Fonts, you can specify which weights and styles should be included in the downloaded font package using the weight and style attributes. Bunny Fonts provide a GDPR-compliant alternative to Google Fonts and follow the same format for implementation.\ntypography:\n  fonts:\n    # Google Fonts\n    - family: Roboto Slab\n      source: google\n1      weight: [600, 900]\n2      style: normal\n    # Bunny Fonts\n    - family: Fira Code\n      source: bunny\n\n1\n\nThe weight attribute specifies the font weights to include in the downloaded font package. In this example, weights 600 and 900 are included. Leaving this empty includes weights from 100 to 900. Variable font weights can be written as a string 600..900.\n\n2\n\nThe style attribute specifies the font styles to include in the downloaded font package. In this example, only the normal style is included. Leaving this empty includes both normal and italic styles as [normal, italic].\n\n\nIn other typography-related attributes, fonts are referenced by their family name. It’s worth noting that while you can define multiple fonts, not all of them need to be actively used in your project. However, Quarto or Shiny will make all defined fonts available for potential use.\n\n\nTypography Attributes\nThe following attributes are used to define the typographic properties of different text elements.\n\n\n\n\n\n\n\n\nAttribute\nDescription\nSupported Fields\n\n\n\n\nbase\nDefault text, primarily used in the document body.\n\nfamily\nsize\nline_height\nweight\n\n\n\nheadings\nAll heading levels (h1, h2, etc.).\n\nfamily\nweight\nstyle\nline_height\ncolor\n\n\n\nmonospace\nGeneral monospaced text, typically used in code blocks and other programming-related content.\n\nfamily\nsize\nweight\n\n\n\nmonospace_inline\nInline monospaced text, usually used for code snippets within regular text. Inherits from monospace.\n\nfamily\nsize\nweight\ncolor\nbackground_color\n\n\n\nmonospace_block\nBlock (multi-line) monospaced text, typically used for code blocks. Inherits from monospace.\n\nfamily\nsize\nweight\nline_height\ncolor\nbackground_color\n\n\n\nlink\nHyperlinks.\n\nweight\ncolor\nbackground_color\ndecoration\n\n\n\n\nThe supported fields are generally described as follows:\n\nfamily: The font family to be used for a typographic element. This should match a font resource declared in typography.fonts.\nsize: The font size for a typographic element. Should be specified using a CSS length unit (e.g., “14px”, “1em”, “0.9rem”).\nweight: The font weight (or boldness) of the text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.\nstyle: The font style for the text, typically either “normal” or “italic”.\nline_height: The line height of the text, which refers to the vertical space between lines. Often expressed as a multiple of the font size or in fixed units.\ncolor: The color of the text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\nbackground_color: The background color for the text element. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.\ndecoration: The text decoration, typically used for links. Common values include “underline”, “none”, or “overline”.",
     "crumbs": [
       "About",
       "Brand Elements",
-      "Typograqphy"
-    ]
-  },
-  {
-    "objectID": "brand/typography.html#appendix---variations",
-    "href": "brand/typography.html#appendix---variations",
-    "title": "Typograqphy",
-    "section": "Appendix - Variations",
-    "text": "Appendix - Variations\n\n\nbrand.yml (simple)\n\nfont:\n  base: \"Open Sans\"\n  headings:\n    google: \"Roboto Slab\"\n  monospace:\n    google: \"Fira Code\"\n\n\n\nbrand.yml (full)\n\nfont:\n  base: \"Open Sans\"\n  headings:\n    google:\n      family: \"Roboto Slab\"\n      weight: [600, 800]\n      style: normal\n      display: block\n  monospace:\n    google:\n      family: \"Fira Code\"\n      weight: 300\n  galada:\n    family: \"Galada\"\n    files: \"fonts/Galada-Regular.ttf\"\n  oswald:\n    family: \"Oswald\"\n    files:\n      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf\n      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf\n\nAlternatively, the font property could be limited to just defining the fonts that should be installed on the system.\n\n\nbrand.yml (separate font and typography)\n\nfont:\n  - google: \"Fira Code\"\n  - google:\n      family: \"Roboto Slab\"\n      weight: [600, 800]\n      style: normal\n      display: block\n  - family: \"Galada\"\n    files: \"fonts/Galada-Regular.ttf\"\n  - family: \"Oswald\"\n    files:\n      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf\n      - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf\n\ntypography:\n  base:\n    family: \"Open Sans\"\n  headings:\n    family: \"Roboto Slab\"\n  monospace:\n    family: \"Fira Code\"\n\nAnother approach would be to nest fonts under typography:\n\n\nbrand.yml (nested font and typography)\n\ntypography:\n  fonts:\n    - google: \"Fira Code\"\n    - google:\n        family: \"Roboto Slab\"\n        weight: [600, 800]\n        style: normal\n        display: block\n    - family: \"Galada\"\n      files: \"fonts/Galada-Regular.ttf\"\n    - family: \"Oswald\"\n      files:\n        - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/700/Oswald-Bold.ttf\n        - https://github.com/vernnobile/OswaldFont/raw/master/3.0/Roman/400/Oswald-Regular.ttf\n  base:\n    family: \"Open Sans\"\n    weight: 400\n    line-height: 1.5\n  headings:\n    family: \"Roboto Slab\"\n    color: \"--primary\"\n  monospace:\n    family: \"Fira Code\"\n\n\n\nbrand.yml (nested font and typography)\n\ntypography:\n  fonts:\n    - google: \"Fira Code\"\n    - google: \"Roboto Slab\"\n    - google: \"Open Sans\"\n  base:\n    family: \"Open Sans\"\n    weight: 400\n    line-height: 1.5\n  headings:\n    family: \"Roboto Slab\"\n    color: \"--primary\"\n  monospace:\n    family: \"Fira Code\"\n\n\n\nbrand.yml (nested font and typography)\n\ntypography:\n  base:\n    family:\n      google: \"Open Sans\"\n    location: google\n    weight: 400\n    line-height: 1.5\n  headings:\n    family:\n      google: \"Roboto Slab\"\n    location:\n      - fonts/Roboto Slab Regular.ttf\n      - fonts/Roboto Slab Bold.ttf\n    color: \"--brand-primary\"\n  monospace:\n    family:\n      google: \"Fira Code\"\n  h2:\n    family: Open Sans\n    weight: 300\n    color: black\n\nOr font could be a property of any typography element. This makes font- properties more consistent, e.g. font.family, font.weight, etc., but it also makes typography items more complex (which properties are nested under font and which aren’t?).\n\n\nbrand.yml (font in typography)\n\ntypography:\n  base:\n    font:\n      family: \"Open Sans\"\n      weight: 400\n    line-height: 1.5\n  headings:\n    font:\n      google:\n        family: \"Roboto Slab\"\n        weight: [600, 800]\n        style: normal\n        display: block\n    color: \"--primary\"\n  monospace:\n    font:\n      google: \"Fira Code\"",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Typograqphy"
+      "Typography"
     ]
   },
   {
@@ -565,7 +552,7 @@
     "href": "brand/color.html",
     "title": "Color",
     "section": "",
-    "text": "Warning\n\n\n\nThis section still reflects the brand.yml spec during design. It will be updated shortly to reflect the current brand.yml specification.",
+    "text": "The color section in _brand.yml is used to define the brand’s color palette and theme colors. This section allows you to codify your brand’s palette with minimal overhead and map these colors to semantic theme fields.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -576,8 +563,8 @@
     "objectID": "brand/color.html#about",
     "href": "brand/color.html#about",
     "title": "Color",
-    "section": "About",
-    "text": "About\ncolor:\n  with:\n    # user-provided named colors\n  # semantic theme colors\n  primary: ...\n  secondary ...\n\nPalette (with)\nBrand guidelines often include color palette definitions, ranging from one or two colors to entire palettes. Often, these colors are given names with specific meaning to the brand.\nThe color.with section gives brand.yml authors a chance to codify their brand’s palette with minimal overhead. These colors can be used by name for the semantic theme colors under color.\nwith may be aliased as palette.\n\n\nColor Theme\nWhile brand guidelines might provide a set of unique colors, the goal of color is to provide color values for a key set of semantic theme fields. These fields follow Bootstrap conventions closely but are universal and are easily mapped to any themable output format.\n\nInspiration\nDirectly themable\n\nBootstrap theme colors\nQuarto HTML basic theme options\nQuarto revealjs Sass variables\n\nIndirectly themable\n\nOffice templates\n\nQuarto Word documents\nQuarto PowerPoint slides\nGenerally users would provide a reference-doc.\n\nQuarto PDF outputs\nQuarto Typst custom formats",
+    "section": "",
+    "text": "The color section in _brand.yml is used to define the brand’s color palette and theme colors. This section allows you to codify your brand’s palette with minimal overhead and map these colors to semantic theme fields.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -585,11 +572,11 @@
     ]
   },
   {
-    "objectID": "brand/color.html#example",
-    "href": "brand/color.html#example",
+    "objectID": "brand/color.html#structure",
+    "href": "brand/color.html#structure",
     "title": "Color",
-    "section": "Example",
-    "text": "Example\n\nHome Depot\n\n\nbrand_home-depot.yml\n\ncolor:\n  with:\n    orange: \"#F96302\"\n    white: \"#FFFFFF\"\n    black: \"#000000\"\n    warm-gray-dark: \"#747474\"\n    warm-gray-light: \"#f5f5f5\"\n    warm-gray-medium: \"#c4c4c4\"\n  primary: \"#F96302\"\n  secondary: \"#747474\"\n  tertiary: \"#C4C4C4\"\n  light: \"#F5F5F5\"\n  dark: \"#747474\"\n\n\n\nAlternate syntax\n\n\n\nbrand_home-depot.yml\n\ncolor:\n  with:\n    orange: \"#F96302\"\n    white: \"#FFFFFF\"\n    black: \"#000000\"\n    warm-gray-dark: \"#747474\"\n    warm-gray-light: \"#f5f5f5\"\n    warm-gray-medium: \"#c4c4c4\"\n  primary: orange\n  secondary: warm-gray-dark\n  tertiary: warm-gray-medium\n  light: warm-gray-light\n  dark: warm-gray-dark\n\n\nSee Home Depot brand guidelines.\n\n\nPosit\n\n\nbrand.yml (Posit)\n\ncolor:\n  with:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"\n\n\n\nAlternate syntax\n\n\n\nbrand.yml (Posit)\n\ncolor:\n  with:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n  foreground: \"#151515\"\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: gray\n\n\nSee Posit brand guidelines.",
+    "section": "Structure",
+    "text": "Structure\nThe color section in _brand.yml consists of two main parts.\n\npalette: A set of named colors specific to the brand.\nTheme colors: Semantic color assignments for various UI elements.\n\nYou can approach creating a _brand.yml from your brand guidelines in two steps:\n\nFirst, define the available brand colors in color.palette.\nThen, map the brand colors to theme colors in the color section.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -597,11 +584,11 @@
     ]
   },
   {
-    "objectID": "brand/color.html#spec",
-    "href": "brand/color.html#spec",
+    "objectID": "brand/color.html#examples",
+    "href": "brand/color.html#examples",
     "title": "Color",
-    "section": "Spec",
-    "text": "Spec\n- id: brand-color-value\n  schema: string\n\n- id: brand-color\n  description: &gt;\n    The brand's custom color palette and theme.\n  object:\n    closed: true\n    properties:\n      with:\n        description: &gt;\n          The brand's custom color palette. Any number of colors can be defined,\n          each color having a custom name.\n        object:\n          closed: false\n          # We don't know the exact properties yet, but we do know they'll all be strings.\n          # I'm not sure how to express that in the spec.\n          additionalProperties:\n            schema:\n              ref: brand-color-value\n      foreground:\n        description: The foreground color, used for text.\n        schema:\n          ref: brand-color-value\n        default: black\n      background:\n        description: The background color, used for the page background.\n        schema:\n          ref: brand-color-value\n        default: white\n      primary:\n        description: &gt;\n          The primary accent color, i.e. the main theme color. Typically used for\n          hyperlinks, active states, primary action buttons, etc.\n        schema:\n          ref: brand-color-value\n      secondary:\n        description: &gt;\n          The secondary accent color. Typically used for lighter text or disabled states.\n        schema:\n          ref: brand-color-value\n      tertiary:\n        description: &gt;\n          The tertiary accent color. Typically an even lighter color, used for hover states,\n          accents, and wells.\n        schema:\n          ref: brand-color-value\n      success:\n        description: The color used for positive or successful actions and information.\n        schema:\n          ref: brand-color-value\n      info:\n        description: The color used for neutral or informational actions and information.\n        schema:\n          ref: brand-color-value\n      warning:\n        description: The color used for warning or cautionary actions and information.\n        schema:\n          ref: brand-color-value\n      danger:\n        description: The color used for errors, dangerous actions, or negative information.\n        schema:\n          ref: brand-color-value\n      light:\n        description: &gt;\n          A bright color, used as a high-contrast foreground color on dark elements\n          or low-contrast background color on light elements.\n        schema:\n          ref: brand-color-value\n      dark:\n        description: &gt;\n          A dark color, used as a high-contrast foreground color on light elements\n          or high-contrast background color on light elements.\n        schema:\n          ref: brand-color-value\n      emphasis:\n        description: &gt;\n          A color used to emphasize or highlight text or elements.\n        schema:\n          ref: brand-color-value\n      link:\n        description: &gt;\n          The color used for hyperlinks. If not defined, the `primary` color is used.\n        schema:\n          ref: brand-color-value\n\n- id: brand-maybe-named-color\n  description: &gt;\n    A color, which may be a named brand color.\n  anyOf:\n    - ref: brand-named-theme-color\n    - schema: string\n\n- id: brand-named-theme-color\n  description: &gt;\n    A named brand color, taken either from `color.theme` or `color.palette` (in that order).\n  enum:\n    [\n      foreground,\n      background,\n      primary,\n      secondary,\n      tertiary,\n      success,\n      info,\n      warning,\n      danger,\n      light,\n      dark,\n      emphasis,\n      link,\n    ]",
+    "section": "Examples",
+    "text": "Examples\n\nExample with Palette\nThis example first defines the brand’s color palette and then maps the brand’s colors to theme elements by reference:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: green\n  info: teal\n  warning: orange\n  danger: burgundy\n  light: white\n  dark: \"#404041\"\n\nNotice that we can refer to blue and green directly. brand.yml will automatically automatically replace these values with the corresponding value from color.palette, color.palette.blue and color.palette.green respectively.\n\n\nMinimal Example\nOf course, you can also skip creating a brand color palette and pick theme colors directly.\n\n\n_brand.yml\n\ncolor:\n  foreground: \"#151515\"\n  background: \"#FFFFFF\"\n  primary: \"#447099\"\n  secondary: \"#707073\"\n  tertiary: \"#C2C2C4\"\n  success: \"#72994E\"\n  info: \"#419599\"\n  warning: \"#EE6331\"\n  danger: \"#9A4665\"\n  light: \"#FFFFFF\"\n  dark: \"#404041\"",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -609,11 +596,11 @@
     ]
   },
   {
-    "objectID": "brand/color.html#additional-color-features",
-    "href": "brand/color.html#additional-color-features",
+    "objectID": "brand/color.html#attributes",
+    "href": "brand/color.html#attributes",
     "title": "Color",
-    "section": "Additional color features",
-    "text": "Additional color features\n\nAutomatic color definitions\nFor specific outputs formats, we will automatically make the brand color palette available. In HTML/Bootstrap settings, for instance, this would mean creating $brand-{name} (Sass) and --brand-{name} (CSS) variables for each color in color.palette. We could similarly define the brand colors in LaTeX and Typst formats.\nFor example, using the following color palette definition\n\n\nbrand.yml (Posit)\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n\nwould result in the following Sass for Bootstrap.\n\n\nbrand.scss\n\n// Brand colors ---------\n$brand-blue: #447099;\n$brand-orange: #EE6331;\n$brand-gray: #404041;\n$brand-white: #FFFFFF;\n$brand-teal: #419599;\n$brand-green: #72994E;\n$brand-burgundy: #9A4665;\n\n:root {\n  --brand-blue: #{$brand-blue};\n  --brand-orange: #{$brand-orange};\n  --brand-gray: #{$brand-gray};\n  --brand-white: #{$brand-white};\n  --brand-teal: #{$brand-teal};\n  --brand-green: #{$brand-green};\n  --brand-burgundy: #{$brand-burgundy};\n}\n\nIn Boostrap, the color.theme variables are already Sass variables, e.g. color.theme.primary maps to the $primary Sass variable or the --bs-primary CSS variable. That said, for consistency we could also map the color.theme definitions to Sass/CSS variables, e.g. $brand-primary and --brand-primary.\n\n\nShades and tints\nWe can imagine extending the spec to help create shades and tints of the brand colors. Users could provide any of mid, light or dark as an anchor point (but best results if only mid or light + dark or all three).\nInitially, we’ll only support mid because this fits Bootstrap conventions to create a range of shades (darker variants) and tints (lighter variants), numbered from 900 (dark) to 100 (light). By default, Bootstrap uses the midpoint to seed the range, e.g. setting $blue-500 changes the range of blue values.\nNote: Bootstrap uses a fixed set of colors for this type of palette – e.g. blue, indigo, red, etc. – because their values pass through Sass variables. For colors in this named list, we’d use mid to set the $*-500 variable. For other colors, we’d directly set CSS variables, replicating Bootstrap’s color logic.\n\nExample: Posit Blue\n\n\nbrand_posit.yml\n\ncolor:\n  with:\n    blue:\n      mid: \"#447099\"\n\n\n  See the Pen \n  Sass lighten() and darken() vs mix() using black and white by Garrick Aden-Buie (@gadenbuie)\n  on CodePen.\n\n\n\n\nExample: Home Depot Warm Gray\n\n\nbrand_home-depot.yml\n\ncolor:\n  with:\n    warm_gray:\n      light: \"#f5f5f5\"\n      mid: \"#c4c4c4\"\n      dark: \"#747474\"\n\n\n  See the Pen \n  Sass lighten() and darken() vs mix() using black and white by Garrick Aden-Buie (@gadenbuie)\n  on CodePen.\n\n\n(This is just a quick example, not the final algorithm.)",
+    "section": "Attributes",
+    "text": "Attributes\n\npalette\nThe palette attribute is a dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended).\n\n\n_brand.yml\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n\nThese named colors can be referenced in other parts of the color section and in any color or background-color attributes in the typography section of the _brand.yml file.\n\n\nTheme Colors\nThe remaining attributes in color are used to map brand colors to semantic theme colors. These theme colors can then be used in web apps and reports by tools that support brand.yml to maintain a consistent color scheme across the brand.\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nforeground\nThe main text color. Typically will be close to black and must have high contrast with the background color.\n\n\nbackground\nThe main background color. Tyically will be close to white and must have high contrast with the foreground color.\n\n\nprimary\nThe primary accent color, used for hyperlinks, active states, and primary action buttons.\n\n\nsecondary\nThe secondary accent color, often used for lighter text or disabled states.\n\n\ntertiary\nThe tertiary accent color, used for hover states, accents, and wells.\n\n\nsuccess\nThe color used for positive or successful actions and information.\n\n\ninfo\nThe color used for neutral or informational actions and information.\n\n\nwarning\nThe color used for warning or cautionary actions and information.\n\n\ndanger\nThe color used for errors, dangerous actions, or negative information.\n\n\nlight\nA bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements.\n\n\ndark\nA dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -621,11 +608,11 @@
     ]
   },
   {
-    "objectID": "brand/color.html#additional-theme-features",
-    "href": "brand/color.html#additional-theme-features",
+    "objectID": "brand/color.html#additional-features",
+    "href": "brand/color.html#additional-features",
     "title": "Color",
-    "section": "Additional theme features",
-    "text": "Additional theme features\n\nRe-using fields\nThe above is simple, but it’s easy to imagine that brand.yml authors might want to re-use colors in color.with in the theme colors. In reusing fields in open questions I outlined a possible custom syntax. Here’s an example using the shortcode-style {{&lt; brand color palette ____ &gt;}} syntax:\n\n\nbrand.yml (reusing colors)\n\ncolor:\n  with:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n  theme:\n    foreground: \"#151515\"\n    background: \"{{&lt; brand color palette white &gt;}}\"\n    primary: \"{{&lt; brand color palette blue &gt;}}\"\n    secondary: \"#707073\"\n    tertiary: \"#C2C2C4\"\n    success: \"{{&lt; brand color palette green &gt;}}\"\n    info: \"{{&lt; brand color palette teal &gt;}}\"\n    warning: \"{{&lt; brand color palette orange &gt;}}\"\n    danger: \"{{&lt; brand color palette burgundy &gt;}}\"\n    light: \"{{&lt; brand color palette white &gt;}}\"\n    dark: \"{{&lt; brand color palette gray &gt;}}\"\n\nAlternatively, assuming that all the colors in color.palette become top-level Sass variables (maybe an only okay idea), we could use Sass-alike custom syntax, with a brand- prefix to avoid global namespace conflicts.\n\n\nbrand.yml (reusing colors)\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n  theme:\n    foreground: \"#151515\"\n    background: \"$brand-white\"\n    primary: \"$brand-blue\"\n    secondary: \"#707073\"\n    tertiary: \"#C2C2C4\"\n    success: \"$brand-green\"\n    info: \"$brand-teal\"\n    warning: \"$brand-orange\"\n    danger: \"$brand-burgundy\"\n    light: \"$brand-white\"\n    dark: \"$brand-gray\"\n\nOr, possibly just as good, we could use CSS variable declarations.\n\n\nbrand.yml (reusing colors)\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    gray: \"#404041\"\n    white: \"#FFFFFF\"\n    teal: \"#419599\"\n    green: \"#72994E\"\n    burgundy: \"#9A4665\"\n  theme:\n    foreground: \"#151515\"\n    background: --brand-white\n    primary: \"--brand-blue\"\n    secondary: \"#707073\"\n    tertiary: \"#C2C2C4\"\n    success: \"--brand-green\"\n    info: \"--brand-teal\"\n    warning: \"--brand-orange\"\n    danger: \"--brand-burgundy\"\n    light: \"--brand-white\"\n    dark: \"--brand-gray\"\n\nFinally, without a custom re-usable field implementation, expert YAML users could use native YAML anchor and alias features.\n\n\nbrand.yml (native yaml)\n\ncolor:\n  palette:\n    blue: &blue \"#447099\"\n    orange: &orange \"#EE6331\"\n    gray: &gray \"#404041\"\n    white: &white \"#FFFFFF\"\n    teal: &teal \"#419599\"\n    green: &green \"#72994E\"\n    burgundy: &burgundy \"#9A4665\"\n  theme:\n    foreground: \"#151515\"\n    background: *white\n    primary: *blue\n    secondary: \"#707073\"\n    tertiary: \"#C2C2C4\"\n    success: *green\n    info: *teal\n    warning: *orange\n    danger: *burgundy\n    light: *white\n    dark: *gray",
+    "section": "Additional Features",
+    "text": "Additional Features\n\nAutomatic Color Definitions\nFor specific output formats, the brand color palette will be automatically made available. For example, in HTML/Bootstrap settings, this would create $brand-{name} (Sass) and --brand-{name} (CSS) variables for each color in the palette.\n\n\nReferencing Palette Colors\nColors defined in the palette can be referenced by name in other parts of the color section:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    blue: \"#447099\"\n  primary: blue\n\nThis approach allows for easy reuse of colors and maintains consistency throughout the brand definition.\n\n\nUsing Brand Colors in Typography\nColors defined in the color section can also be used by reference in any color and background-color attributes in the typography section:\n\n\n_brand.yml\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    burgundy: \"#9A4665\"\n  primary: blue\n\ntypography:\n  headings:\n    color: primary\n  link:\n    color: burgundy",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -637,7 +624,7 @@
     "href": "brand/logo.html",
     "title": "Logo",
     "section": "",
-    "text": "Warning\n\n\n\nThis section still reflects the brand.yml spec during design. It will be updated shortly to reflect the current brand.yml specification.",
+    "text": "The logo section in your _brand.yml file allows you to define and organize the logos and brand images for your project. This flexible system supports various logo sizes, light/dark variants, and the ability to store multiple image resources for different use cases.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -648,8 +635,8 @@
     "objectID": "brand/logo.html#about",
     "href": "brand/logo.html#about",
     "title": "Logo",
-    "section": "About",
-    "text": "About\nProvide a logo and an icon for the company.\nBrand guidelines may include many logo files; not all will be used for small, medium or large. The images field can be used to provide a list of logo image files with convenient names that may be re-used in the logo field.",
+    "section": "",
+    "text": "The logo section in your _brand.yml file allows you to define and organize the logos and brand images for your project. This flexible system supports various logo sizes, light/dark variants, and the ability to store multiple image resources for different use cases.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -657,11 +644,11 @@
     ]
   },
   {
-    "objectID": "brand/logo.html#example",
-    "href": "brand/logo.html#example",
+    "objectID": "brand/logo.html#structure",
+    "href": "brand/logo.html#structure",
     "title": "Logo",
-    "section": "Example",
-    "text": "Example\n\n\nbrand.yml (simple)\n\nlogo: posit.png\n\n\n\nbrand.yml (full)\n\nlogo:\n  small: posit-icon.png\n  medium: posit.png\n  large: posit.svg\n\n\n\nbrand.yml (light/dark)\n\nlogo:\n  small: posit-icon.png\n  medium:\n    light: posit.png\n    dark: posit-reverse.png\n  large: posit.svg\n\n\n\nbrand.yml (with files)\n\nlogo:\n  images:\n    primary: posit-full-color.png\n    primary-svg: posit-full-color.svg\n    reverse: posit-full-color-reverse.png\n    black: posit-black.png\n    white: posit-white.png\n    icon: posit-favicon.png\n  small: icon\n  medium: primary\n  large: primrary-svg",
+    "section": "Structure",
+    "text": "Structure\nThe logo field in your _brand.yml file can be structured in several ways, from a simple single-logo setup to a more complex configuration with multiple sizes and variants:\n\nimages: A dictionary of named logo resources\nsmall: Logo for small display contexts (e.g., favicons)\nmedium: Logo for medium display contexts (e.g., website headers)\nlarge: Logo for large display contexts (e.g., title slides, marketing materials)\n\nLogos can be stored locally, adjacent to your _brand.yml file, or hosted online. Local file paths should be relative to the location of your _brand.yml file (I’ll use logos/ as the directory in the examples below). Online images should use full URLs starting with http:// or https://.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -669,11 +656,23 @@
     ]
   },
   {
-    "objectID": "brand/logo.html#spec",
-    "href": "brand/logo.html#spec",
+    "objectID": "brand/logo.html#examples",
+    "href": "brand/logo.html#examples",
     "title": "Logo",
-    "section": "Spec",
-    "text": "Spec\n- id: brand-logo\n  description: &gt;\n    Provide definitions and defaults for brand's logo in various formats and sizes.\n  anyOf:\n    - string\n    - object:\n        closed: true\n        properties:\n          images:\n            schema:\n              object:\n                additionalProperties:\n                  schema:\n                    ref: brand-string-light-dark\n          small:\n            description: &gt;\n              A link or path to the brand's small-sized logo or icon, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          medium:\n            description: &gt;\n              A link or path to the brand's medium-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark\n          large:\n            description: &gt;\n              A link or path to the brand's large- or full-sized logo, or a link or path\n              to both the light and dark versions.\n            schema:\n              ref: brand-string-light-dark",
+    "section": "Examples",
+    "text": "Examples\n\nSimple Single Logo\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\nBasic Multi-size Configuration\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium: logos/header-logo.png\n  large: logos/full-logo.svg\n\n\n\nLight/Dark Variants\nYou cn specify different logos for light and dark backgrounds by using giving the small, medium, and large attributes an object with light and dark properties. light means for use on light background (or in a light color mode), and dark means for use on dark background (or in a dark color mode).\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n  large: logos/full-logo.svg\n\n\n\nComprehensive Configuration with Named Resources\nIf you define multiple logo resources in the images dictionary, you can reference them by name in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/icon.png\n    header: logos/header-logo.png\n    header-white: logos/header-logo-white.png\n    full: logos/full-logo.svg\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full\n\n\n\nConfiguration with Alternative Text\nLogo images can have associated alternative text for accessibility purposes. This can be specified as an alt property in the image object as the alt text is directly associated with each image. The University of South Carolina provides a great resource on writing effective alt text for logos in their Digital Accessibility Toolbox.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon:\n      path: logos/icon.png\n      alt: \"Company icon with abstract shapes\"\n    header:\n      path: logos/header-logo.png\n      alt: \"Company name with logo\"\n    header-white:\n      path: logos/header-logo-white.png\n      alt: \"Company name with logo in white\"\n    full:\n      path: logos/full-logo.svg\n      alt: \"Full company logo with tagline\"\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Logo"
+    ]
+  },
+  {
+    "objectID": "brand/logo.html#attributes",
+    "href": "brand/logo.html#attributes",
+    "title": "Logo",
+    "section": "Attributes",
+    "text": "Attributes\n\nimages\nThe images attribute is a dictionary that allows you to store multiple logo resources with meaningful names. These named resources can then be referenced in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: logos/primary-logo.png\n    icon: logos/favicon.png\n    white: logos/white-logo.png\n\nEach image can be specified as a simple string path or as an object with path and alt properties:\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary:\n      path: logos/primary-logo.png\n      alt: \"Company logo with name and icon\"\n\n\n\nsmall\nThe small attribute defines the logo used for small display contexts, such as favicons or mobile app icons.\n\n\n_brand.yml\n\nlogo:\n  small: logos/favicon.png\n\nor\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/favicon.png\n  small: icon\n\n\n\nmedium\nThe medium attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars. It supports the same format options as the small attribute, with the additional ability to specify light and dark variants.\n\n\n_brand.yml\n\nlogo:\n  medium: logos/header-logo.png\n\nor\n\n\n_brand.yml\n\nlogo:\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n\n\n\nlarge\nThe large attribute defines the logo for large display contexts, such as title slides or marketing materials. It follows the same format options as small and medium.\n\n\n_brand.yml\n\nlogo:\n  large: logos/full-logo.svg\n\nor\n\n\n_brand.yml\n\nlogo:\n  images:\n    full: logos/full-logo.svg\n  large: full",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -909,6 +908,18 @@
     "title": "Metadata",
     "section": "Attributes",
     "text": "Attributes\n\nname\n\nBrandMetaName | None\nThe name of the brand. In the YAML, this may be a dictionary with the full and short forms of the brand name.\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBCA\nor a single value as shorthand for meta.name.full.\nmeta:\n  name: Very Big Corporation of America\n\nlink\n\nBrandMetaLink | None\nLinks to additional resources related to the brand, such as its homepage, social media accounts, etc. Like name, this can be a single value or a dictionary with additional keys. If a single value is provided, it is promoted to the home key of brand_yml.meta.BrandMetaLink.\nThese two constructions are equivalent:\nmeta:\n  link: https://www.very-big-corp.com/\nmeta:\n  link:\n    home: https://www.very-big-corp.com/",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#notes",
+    "href": "pkg/py/meta.html#notes",
+    "title": "Metadata",
+    "section": "Notes",
+    "text": "Notes\nAdditional fields are allowed, so you may store any additional metadata you want to attach to the brand here. Tools that use brand_yml may not know about these fields, however.",
     "crumbs": [
       "About",
       "Reference",

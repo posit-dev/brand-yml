@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../brand/typography.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Typograqphy</span></a>
+ <span class="menu-text">Typography</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -255,6 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#outline" id="toc-outline" class="nav-link active" data-scroll-target="#outline">Outline</a></li>
   <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#specification" id="toc-specification" class="nav-link" data-scroll-target="#specification">Specification</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/blob/main/brand/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
@@ -398,6 +399,14 @@ Font family, weight, style, color, and line height for key elements, e.g.&nbsp;b
 <p>Additional context-specific settings beyond the basic brand colors and typography. These could be options, for example, that are used by Boostrap in Quarto or Shiny. They could also be folded into existing Quarto yaml fields like <code>format</code> or <code>website</code>, or they could be new fields for other contexts like <code>shiny</code>.</p>
 </dd>
 </dl>
+</section>
+<section id="specification" class="level2">
+<h2 class="anchored" data-anchor-id="specification">Specification</h2>
+<p>We’ve created a schema for the structure of the brand.yml file in two flavors:</p>
+<ol type="1">
+<li><a href="../schema/brand.schema.yml">brand.yml schema as YAML</a>, a YAML variant of <a href="https://json-schema.org/">JSON Schema</a> used by <a href="https://quarto.org/">Quarto</a> to validate the structure <code>_brand.yml</code> files or <code>brand</code> in Quarto metadata.</li>
+<li><a href="../schema/brand.schema.json">brand.yml schema as JSON</a>, a <a href="https://json-schema.org/">JSON Schema</a> containing the definitions used in the YAML schema.</li>
+</ol>
 
 
 </section>
