@@ -1,5 +1,0 @@
-
-::: {.callout-warning title="{{< meta title >}}"}
-This section still reflects the **brand.yml** spec during design.
-It will be updated shortly to reflect the current brand.yml specification.
-:::
