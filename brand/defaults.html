@@ -285,7 +285,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="structure" class="level2">
 <h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>This section of brand.yml is not as well-sepecified as the other sections, by design. As brand.yml adoption grows, new tools will need to be able to store options specific to the tool. This part of the brand.yml spec may change as we learn more about the needs of different tools.</p>
+</div>
+</div>
 <p>Currently, both Quarto and Shiny support a <code>bootstrap</code> section under <code>defaults</code> that can be used to set default values for Bootstrap Sass variables.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -293,8 +305,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode" id="cb1" data-filename="brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">defaults</span><span class="kw">:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">enable-rounded</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">link-decoration</span><span class="kw">:</span><span class="at"> none</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">defaults</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">enable-rounded</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">link-decoration</span><span class="kw">:</span><span class="at"> none</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In <a href="https://shiny.posit.co/py/api/core/ui.Theme.html">Shiny for Python</a>, an additional <code>shiny.theme</code> section is used to set default values for Shiny-specific theme settings.</p>
 <div class="code-with-filename">
