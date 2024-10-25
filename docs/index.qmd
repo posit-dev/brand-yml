@@ -26,8 +26,8 @@ This `_brand.yml` can be used Quarto and Shiny for Python[^1] to instantly basic
 
 ## brand.yml support
 
-**brand.yml** is currently [supported]{.implemented} in [Quarto](https://quarto.org/) websites, presentations, dashboards, and Typst documents, as well as via the [`brand_yml` Python package](pkg/py/).
-Support for themed branding is [in progress]{.in-progress} for [Shiny for Python](https://shiny.posit.co/py/).
+**brand.yml** is currently [supported]{.implemented} in [Shiny for Python](https://shiny.posit.co/py/) and [Quarto](https://quarto.org/) websites, presentations, dashboards, and Typst documents, as well as via the [`brand_yml` Python package](pkg/py/).
+<!-- Support for themed branding is [in progress]{.in-progress} for . -->
 
 ```{mermaid}
 ---
@@ -62,7 +62,7 @@ flowchart LR
     classDef implemented fill:#8CE3A0,stroke:#0A2911,color:#0A2911;
     class quarto-websites,quarto-presentations,quarto-dashboards,quarto-typst,py-brand_yml implemented;
     classDef in-progress fill:#B3D7FF,stroke:#00254D,color:#00254D;
-    class py-shiny in-progress;
+    class py-shiny implemented;
     classDef highlighted fill:#FFE8DB,stroke:#612200,color:#612200;
     class by highlighted;
 
