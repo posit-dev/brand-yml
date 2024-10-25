@@ -3,53 +3,176 @@ title: Logo
 pagetitle: "logo | brand.yml"
 ---
 
-{{< partial _needs-to-be-updated.qmd >}}
-
 ## About
 
-Provide a logo and an icon for the company.
+The `logo` section in your `_brand.yml` file allows you to define and organize the logos and brand images for your project. This flexible system supports various logo sizes, light/dark variants, and the ability to store multiple image resources for different use cases.
 
-Brand guidelines may include many logo files; not all will be used for `small`, `medium` or `large`.
-The `images` field can be used to provide a list of logo image files with convenient names that may be re-used in the `logo` field.
+## Structure
 
-## Example
+The `logo` field in your `_brand.yml` file can be structured in several ways, from a simple single-logo setup to a more complex configuration with multiple sizes and variants:
 
-```{.yaml filename="brand.yml (simple)"}
+- [images](#images): A dictionary of named logo resources
+- [small](#small): Logo for small display contexts (e.g., favicons)
+- [medium](#medium): Logo for medium display contexts (e.g., website headers)
+- [large](#large): Logo for large display contexts (e.g., title slides, marketing materials)
+
+Logos can be stored locally, adjacent to your `_brand.yml` file, or hosted online.
+Local file paths should be relative to the location of your `_brand.yml` file
+(I'll use `logos/` as the directory in the examples below).
+Online images should use full URLs starting with `http://` or `https://`.
+
+## Examples
+
+### Simple Single Logo
+
+```{.yaml filename="_brand.yml"}
 logo: posit.png
 ```
 
-```{.yaml filename="brand.yml (full)"}
+### Basic Multi-size Configuration
+
+```{.yaml filename="_brand.yml"}
 logo:
-  small: posit-icon.png
-  medium: posit.png
-  large: posit.svg
+  small: logos/icon.png
+  medium: logos/header-logo.png
+  large: logos/full-logo.svg
 ```
 
-```{.yaml filename="brand.yml (light/dark)"}
+### Light/Dark Variants
+
+You cn specify different logos for light and dark backgrounds by using giving the `small`, `medium`, and `large` attributes an object with `light` and `dark` properties.
+**light** means for use on light background (or in a light color mode), and **dark** means for use on dark background (or in a dark color mode).
+
+```{.yaml filename="_brand.yml"}
 logo:
-  small: posit-icon.png
+  small: logos/icon.png
   medium:
-    light: posit.png
-    dark: posit-reverse.png
-  large: posit.svg
+    light: logos/header-logo.png
+    dark: logos/header-logo-white.png
+  large: logos/full-logo.svg
 ```
 
-```{.yaml filename="brand.yml (with files)"}
+### Comprehensive Configuration with Named Resources
+
+If you define multiple logo resources in the `images` dictionary, you can reference them by name in the `small`, `medium`, and `large` attributes.
+
+```{.yaml filename="_brand.yml"}
 logo:
   images:
-    primary: posit-full-color.png
-    primary-svg: posit-full-color.svg
-    reverse: posit-full-color-reverse.png
-    black: posit-black.png
-    white: posit-white.png
-    icon: posit-favicon.png
+    icon: logos/icon.png
+    header: logos/header-logo.png
+    header-white: logos/header-logo-white.png
+    full: logos/full-logo.svg
   small: icon
-  medium: primary
-  large: primrary-svg
+  medium:
+    light: header
+    dark: header-white
+  large: full
 ```
 
-## Spec
+### Configuration with Alternative Text
 
-```{.yaml}
-{{< include spec/brand-logo.yml >}}
+Logo images can have associated alternative text for accessibility purposes.
+This can be specified as an `alt` property in the image object as the alt text is directly associated with each image.
+The University of South Carolina provides a great resource on [writing effective alt text for logos](https://sc.edu/about/offices_and_divisions/digital-accessibility/toolbox/best_practices/alternative_text/logo-alt-text/index.php) in their [Digital Accessibility Toolbox](https://sc.edu/about/offices_and_divisions/digital-accessibility/index.php).
+
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    icon:
+      path: logos/icon.png
+      alt: "Company icon with abstract shapes"
+    header:
+      path: logos/header-logo.png
+      alt: "Company name with logo"
+    header-white:
+      path: logos/header-logo-white.png
+      alt: "Company name with logo in white"
+    full:
+      path: logos/full-logo.svg
+      alt: "Full company logo with tagline"
+  small: icon
+  medium:
+    light: header
+    dark: header-white
+  large: full
+```
+
+## Attributes
+
+### images {#images}
+
+The `images` attribute is a dictionary that allows you to store multiple logo resources with meaningful names. These named resources can then be referenced in the `small`, `medium`, and `large` attributes.
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    primary: logos/primary-logo.png
+    icon: logos/favicon.png
+    white: logos/white-logo.png
+```
+
+Each image can be specified as a simple string path or as an object with `path` and `alt` properties:
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    primary:
+      path: logos/primary-logo.png
+      alt: "Company logo with name and icon"
+```
+
+### small {#small}
+
+The `small` attribute defines the logo used for small display contexts, such as favicons or mobile app icons.
+
+```{.yaml filename="_brand.yml"}
+logo:
+  small: logos/favicon.png
+```
+
+or
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    icon: logos/favicon.png
+  small: icon
+```
+
+### medium {#medium}
+
+The `medium` attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars. It supports the same format options as the `small` attribute, with the additional ability to specify light and dark variants.
+
+```{.yaml filename="_brand.yml"}
+logo:
+  medium: logos/header-logo.png
+```
+
+or
+
+```{.yaml filename="_brand.yml"}
+logo:
+  medium:
+    light: logos/header-logo.png
+    dark: logos/header-logo-white.png
+```
+
+### large {#large}
+
+The `large` attribute defines the logo for large display contexts, such as title slides or marketing materials. It follows the same format options as `small` and `medium`.
+
+```{.yaml filename="_brand.yml"}
+logo:
+  large: logos/full-logo.svg
+```
+
+or
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    full: logos/full-logo.svg
+  large: full
 ```
