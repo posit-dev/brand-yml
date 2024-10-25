@@ -1,0 +1,600 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "BrandMeta": {
+      "object": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "object": {
+                  "properties": {
+                    "full": {
+                      "type": "string"
+                    },
+                    "short": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "link": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "object": {
+                  "properties": {
+                    "home": {
+                      "type": "string"
+                    },
+                    "mastodon": {
+                      "type": "string"
+                    },
+                    "github": {
+                      "type": "string"
+                    },
+                    "linkedin": {
+                      "type": "string"
+                    },
+                    "twitter": {
+                      "type": "string"
+                    },
+                    "facebook": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "BrandStringLightDark": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "light": {
+                "type": "string"
+              },
+              "dark": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandLogoExplicitResource": {
+      "object": {
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "alt": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "BrandLogoResource": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/BrandLogoExplicitResource"
+        }
+      ]
+    },
+    "BrandLogo": {
+      "object": {
+        "properties": {
+          "images": {
+            "object": {
+              "properties": {}
+            }
+          },
+          "small": {
+            "$ref": "#/$defs/BrandStringLightDark"
+          },
+          "medium": {
+            "$ref": "#/$defs/BrandStringLightDark"
+          },
+          "large": {
+            "$ref": "#/$defs/BrandStringLightDark"
+          }
+        }
+      }
+    },
+    "BrandNamedLogo": {
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "BrandColorValue": {
+      "type": "string"
+    },
+    "BrandColor": {
+      "object": {
+        "properties": {
+          "palette": {
+            "object": {
+              "properties": {}
+            }
+          },
+          "foreground": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "background": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "primary": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "secondary": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "tertiary": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "success": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "info": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "warning": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "danger": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "light": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "dark": {
+            "$ref": "#/$defs/BrandColorValue"
+          },
+          "link": {
+            "$ref": "#/$defs/BrandColorValue"
+          }
+        }
+      }
+    },
+    "BrandMaybeNamedColor": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BrandNamedThemeColor"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "BrandNamedThemeColor": {
+      "enum": [
+        "foreground",
+        "background",
+        "primary",
+        "secondary",
+        "tertiary",
+        "success",
+        "info",
+        "warning",
+        "danger",
+        "light",
+        "dark",
+        "link"
+      ]
+    },
+    "BrandTypography": {
+      "object": {
+        "properties": {
+          "fonts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/BrandFont"
+            }
+          },
+          "base": {
+            "$ref": "#/$defs/BrandTypographyOptionsBase"
+          },
+          "headings": {
+            "$ref": "#/$defs/BrandTypographyOptionsHeadings"
+          },
+          "monospace": {
+            "$ref": "#/$defs/BrandTypographyOptionsMonospace"
+          },
+          "monospace-inline": {
+            "$ref": "#/$defs/BrandTypographyOptionsMonospaceInline"
+          },
+          "monospace-block": {
+            "$ref": "#/$defs/BrandTypographyOptionsMonospaceBlock"
+          },
+          "link": {
+            "$ref": "#/$defs/BrandTypographyOptionsLink"
+          }
+        }
+      }
+    },
+    "BrandTypographyOptionsBase": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "line-height": {
+                "$ref": "#/$defs/LineHeightNumberString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandTypographyOptionsHeadings": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "style": {
+                "$ref": "#/$defs/BrandFontStyle"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "line-height": {
+                "$ref": "#/$defs/LineHeightNumberString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandTypographyOptionsMonospace": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "background-color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandTypographyOptionsMonospaceInline": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "background-color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandTypographyOptionsMonospaceBlock": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "background-color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "line-height": {
+                "$ref": "#/$defs/LineHeightNumberString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandTypographyOptionsLink": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "object": {
+            "properties": {
+              "weight": {
+                "$ref": "#/$defs/BrandFontWeight"
+              },
+              "color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "background-color": {
+                "$ref": "#/$defs/BrandMaybeNamedColor"
+              },
+              "decoration": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BrandNamedFont": {
+      "enum": [
+        "base",
+        "headings",
+        "monospace"
+      ]
+    },
+    "BrandFont": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BrandFontGoogle"
+        },
+        {
+          "$ref": "#/$defs/BrandFontBunny"
+        },
+        {
+          "$ref": "#/$defs/BrandFontFile"
+        },
+        {
+          "$ref": "#/$defs/BrandFontSystem"
+        }
+      ]
+    },
+    "BrandFontWeight": {
+      "enum": [
+        100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        900,
+        "thin",
+        "extra-light",
+        "ultra-light",
+        "light",
+        "normal",
+        "regular",
+        "medium",
+        "semi-bold",
+        "demi-bold",
+        "bold",
+        "extra-bold",
+        "ultra-bold",
+        "black"
+      ]
+    },
+    "BrandFontStyle": {
+      "enum": [
+        "normal",
+        "italic",
+        "oblique"
+      ]
+    },
+    "BrandFontCommon": {
+      "object": {
+        "properties": {
+          "family": {
+            "type": "string"
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/BrandFontWeight"
+                }
+              },
+              {
+                "$ref": "#/$defs/BrandFontWeight"
+              }
+            ]
+          },
+          "style": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/BrandFontStyle"
+                }
+              },
+              {
+                "$ref": "#/$defs/BrandFontStyle"
+              }
+            ]
+          },
+          "display": {
+            "enum": [
+              "auto",
+              "block",
+              "swap",
+              "fallback",
+              "optional"
+            ]
+          }
+        }
+      }
+    },
+    "BrandFontSystem": {
+      "object": {
+        "properties": {
+          "source": {
+            "enum": [
+              "system"
+            ]
+          }
+        }
+      }
+    },
+    "BrandFontGoogle": {
+      "object": {
+        "properties": {
+          "source": {
+            "enum": [
+              "google"
+            ]
+          }
+        }
+      }
+    },
+    "BrandFontBunny": {
+      "object": {
+        "properties": {
+          "source": {
+            "enum": [
+              "bunny"
+            ]
+          }
+        }
+      }
+    },
+    "BrandFontFile": {
+      "object": {
+        "properties": {
+          "source": {
+            "enum": [
+              "file"
+            ]
+          },
+          "family": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "object": {
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "weight": {
+                        "$ref": "#/$defs/BrandFontWeight"
+                      },
+                      "style": {
+                        "$ref": "#/$defs/BrandFontStyle"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "BrandFontFamily": {
+      "type": "string"
+    },
+    "Brand": {
+      "object": {
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/BrandMeta"
+          },
+          "logo": {
+            "$ref": "#/$defs/BrandLogo"
+          },
+          "color": {
+            "$ref": "#/$defs/BrandColor"
+          },
+          "typography": {
+            "$ref": "#/$defs/BrandTypography"
+          },
+          "defaults": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "$ref": "#/$defs/Brand"
+}
