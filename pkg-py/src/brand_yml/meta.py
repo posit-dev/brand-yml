@@ -63,6 +63,12 @@ class BrandMeta(BrandBase):
           link:
             home: https://www.very-big-corp.com/
         ```
+
+    Notes
+    -----
+    Additional fields are allowed, so you may store any additional metadata you
+    want to attach to the brand here. Tools that use `brand_yml` may not know
+    about these fields, however.
     """
 
     model_config = ConfigDict(

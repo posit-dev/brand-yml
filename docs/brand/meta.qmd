@@ -3,37 +3,98 @@ title: Metadata
 pagetitle: "meta | brand.yml"
 ---
 
-{{< partial _needs-to-be-updated.qmd >}}
-
 ## About
 
-`meta` provides a place to store metadata about the Company described in `brand.yml`.
-We should anticipate a few key pieces of information,
-but authors might want to include data we haven't accounted for.
+The `meta` section in a `_brand.yml` provides a place to store metadata about the company or project described in the file.
+This information may be used by tools that support brand.yml to add social media icons, links, footers, etc.
+It can also be used as a place to store additional context about the company or brand that you'd like to store in a common place.
 
-## Example
+## Structure
 
-```{.yaml filename="brand.yml"}
+The `meta` section primarily consists of two main components:
+
+1.  [name](#name): The name of the company or brand
+2.  [link](#link): URLs to the brand's online presence
+
+Both `name` and `link` are optional fields, and you can add additional fields as needed for your specific use case.
+
+## Examples
+
+Here are some examples of how you might use the `meta` section in your `brand.yml` file:
+
+### Minimal Example
+
+``` {.yaml filename="_brand.yml"}
 meta:
-  name: Posit
-  link: https://posit.co
+  name: Acme Corporation
+  link: https://www.acmecorp.com
 ```
 
-```{.yaml filename="brand.yml"}
+### Comprehensive Example
+
+``` {.yaml filename="_brand.yml"}
 meta:
   name:
-    full: Posit Software, PBC
-    short: Posit
+    full: Acme Corporation International
+    short: Acme
   link:
-    home: https://posit.co
-    guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ
-    mastodon: https://fosstodon.org/@Posit
-    linkedin: https://www.linkedin.com/company/posit-software/
-    twitter: https://twitter.com/posit_pbc
+    home: https://www.acmecorp.com
+    docs: https://docs.acmecorp.com
+    github: https://github.com/acmecorp
+    twitter: https://twitter.com/acmecorp
+    linkedin: https://www.linkedin.com/company/acmecorp
+    facebook: https://www.facebook.com/acmecorp
+  description: |
+    Acme Corporation is a leading provider of innovative solutions for cartoon
+    characters worldwide.
+  founded: 1952
 ```
 
-## Spec
+## Attributes
 
-```{.yaml}
-{{< include spec/brand-meta.yml >}}
-```
+### Name {#name}
+
+The `name` field can be specified in two ways:
+
+1.  As a simple string, representing the full name of the company or brand:
+
+    ``` {.yaml filename="_brand.yml"}
+    meta:
+      name: Acme Corporation
+    ```
+
+2.  As an object with `full` and `short` properties:
+
+    ``` {.yaml filename="_brand.yml"}
+    meta:
+      name:
+        full: Acme Corporation International
+        short: Acme
+    ```
+
+    This format is useful when you need to distinguish between a full company name and a shorter version depending on context.
+
+### Link {#link}
+
+The `link` field can also be specified in two ways:
+
+1.  As a simple string, representing the main website of the company or brand:
+
+    ``` {.yaml filename="_brand.yml"}
+    meta:
+      link: https://www.acmecorp.com
+    ```
+
+2.  As an object with multiple properties representing different online presences:
+
+    ``` {.yaml filename="_brand.yml"}
+    meta:
+      link:
+        home: https://www.acmecorp.com
+        github: https://github.com/acmecorp
+        twitter: https://twitter.com/acmecorp
+        linkedin: https://www.linkedin.com/company/acmecorp
+    ```
+
+    This format allows you to record links to the homepage and related social media accounts used by your brand.
+    Note that links should be full URLs, including the `https://` prefix.
