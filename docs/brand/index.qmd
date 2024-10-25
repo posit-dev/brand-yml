@@ -114,3 +114,13 @@ defaults: # <7>
 
 [defaults](defaults.qmd)
 :    {{< meta brand-defaults >}}
+
+## Specification
+
+We've created a schema for the structure of the brand.yml file in two flavors:
+
+1. [brand.yml schema as YAML](../schema/brand.schema.yml), a YAML variant of [JSON Schema][json-schema] used by [Quarto][quarto] to validate the structure `_brand.yml` files or `brand` in Quarto metadata.
+2. [brand.yml schema as JSON](../schema/brand.schema.json), a [JSON Schema][json-schema] containing the definitions used in the YAML schema.
+
+[json-schema]: https://json-schema.org/
+[quarto]: https://quarto.org/
