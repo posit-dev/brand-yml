@@ -146,10 +146,13 @@ class BrandColor(BrandBase):
         name, in the other theme properties
 
     foreground
-        The foreground color, used for text.
+        The foreground color, used for text. For best results, this color should
+        be close to black and should have a high contrast with `background`.
 
     background
-        The background color, used for the page or main background.
+        The background color, used for the page or main background. For best
+        results, this color should be close to white and should have a high
+        contrast with `foreground`.
 
     primary
         The primary accent color, i.e. the main theme color. Typically used for

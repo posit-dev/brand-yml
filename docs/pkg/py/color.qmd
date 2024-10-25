@@ -171,13 +171,16 @@ foreground
 
 :   [Optional](`typing.Optional`)\[[str](`str`)\]
 
-    The foreground color, used for text.
+    The foreground color, used for text. For best results, this color should
+    be close to black and should have a high contrast with `background`.
 
 background
 
 :   [Optional](`typing.Optional`)\[[str](`str`)\]
 
-    The background color, used for the page or main background.
+    The background color, used for the page or main background. For best
+    results, this color should be close to white and should have a high
+    contrast with `foreground`.
 
 primary
 
