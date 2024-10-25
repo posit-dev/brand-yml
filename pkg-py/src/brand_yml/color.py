@@ -7,6 +7,7 @@ palette and mappings to common theme colors.
 
 from __future__ import annotations
 
+import re
 from copy import deepcopy
 from typing import Literal, Optional
 
@@ -19,6 +20,8 @@ from pydantic import (
 from ._defs import check_circular_references, defs_replace_recursively
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
+
+rgx_valid_sass_name = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_-]*$")
 
 
 @add_example_yaml(
@@ -201,6 +204,22 @@ class BrandColor(BrandBase):
     danger: Optional[str] = None
     light: Optional[str] = None
     dark: Optional[str] = None
+
+    @field_validator("palette")
+    @classmethod
+    def _enforce_palette_sass_var_names(cls, value: dict[str, str] | None):
+        """Enforce palette color names that are valid Sass/CSS variables."""
+        if value is None:
+            return
+
+        for key in value.keys():
+            if not rgx_valid_sass_name.match(key):
+                raise ValueError(
+                    "Palette color names should be valid Sass or CSS variable names. "
+                    f"Invalid name: {key!r}."
+                )
+
+        return value
 
     @field_validator("palette")
     @classmethod

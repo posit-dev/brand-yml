@@ -135,3 +135,24 @@ def test_brand_to_dict():
         "secondary": "#0f0",
         "tertiary": "#00f",  # brand.color.tertiary wins!
     }
+
+
+def test_brand_color_palette_names_valid_sass_vars():
+    with pytest.raises(ValueError):
+        Brand.from_yaml_str(
+            """
+            color:
+              palette:
+                "my pink": "#f0f"
+            """
+        )
+
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          palette:
+            my_pink: "#f0f"
+        """
+    )
+    assert isinstance(brand.color, BrandColor)
+    assert brand.color.palette == {"my_pink": "#f0f"}
