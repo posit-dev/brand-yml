@@ -81,5 +81,5 @@ uv pip install brand_yml
 ### From GitHub
 
 ``` bash
-uv pip install "git+https://github.com/posit-dev/brand-yml#subdirectory=pkg-py"
+uv pip install "git+https://github.com/posit-dev/brand-yml"
 ```
