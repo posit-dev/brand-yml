@@ -605,6 +605,34 @@ typography.BrandTypographyBase()
 
 Typographic settings for base (or body) text.
 
+#### Notes {.doc-section .doc-section-notes}
+
+
+In some cases, you may wish to convert the base font size to an appropriate
+unit, such as [`rem`](https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem)
+(i.e. a font size relative to the root element's font size). Use
+`typography_base_size_unit` in
+[pydantic's serialization context](https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context)
+to request the units for the base font size. (Note that currently only
+`"rem"` is supported.)
+
+```{python}
+from brand_yml import Brand
+
+brand = Brand.from_yaml_str(
+    f"""
+    typography:
+      base:
+        size: 18px
+    """
+)
+
+brand.typography.model_dump(
+  exclude_none = True,
+  context={"typography_base_size_unit": "rem"}
+)
+```
+
 #### Attributes {.doc-section .doc-section-attributes}
 
 family

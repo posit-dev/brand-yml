@@ -783,3 +783,51 @@ def test_brand_typography_write_font_css():
 
         with (pdep / "fonts.css").open() as f:
             assert f.read() == brand.typography.fonts_css_include()
+
+
+@pytest.mark.parametrize(
+    "original, rem",
+    [
+        ("18px", "1.125rem"),
+        ("50%", "0.5rem"),
+        ("1.5em", "1.5rem"),
+    ],
+)
+def test_brand_typography_base_font_size_as_rem(original, rem):
+    brand = Brand.from_yaml_str(
+        f"""
+        typography:
+          base:
+            size: {original}
+        """
+    )
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert isinstance(brand.typography.base, BrandTypographyBase)
+
+    data = brand.typography.model_dump(
+        exclude={"fonts"},
+        exclude_none=True,
+        context={"typography_base_size_unit": "rem"},
+    )
+    assert data == {"base": {"size": rem}}
+
+
+def test_brand_typography_base_font_size_as_rem_error():
+    brand = Brand.from_yaml_str(
+        """
+        typography:
+          base:
+            size: 4vw
+        """
+    )
+
+    assert isinstance(brand.typography, BrandTypography)
+    assert isinstance(brand.typography.base, BrandTypographyBase)
+
+    with pytest.raises(ValueError, match="vw units"):
+        brand.typography.model_dump(
+            exclude={"fonts"},
+            exclude_none=True,
+            context={"typography_base_size_unit": "rem"},
+        )

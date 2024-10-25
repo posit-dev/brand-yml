@@ -40,12 +40,15 @@ from pydantic import (
     PlainSerializer,
     PositiveInt,
     RootModel,
+    SerializationInfo,
     Tag,
+    field_serializer,
     field_validator,
     model_serializer,
     model_validator,
 )
 
+from ._utils import maybe_convert_font_size_to_rem
 from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
 from .file import FileLocationLocal, FileLocationLocalOrUrlType
@@ -860,6 +863,34 @@ class BrandTypographyBase(
     """
     Typographic settings for base (or body) text.
 
+    Notes
+    -----
+
+    In some cases, you may wish to convert the base font size to an appropriate
+    unit, such as [`rem`](https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem)
+    (i.e. a font size relative to the root element's font size). Use
+    `typography_base_size_unit` in
+    [pydantic's serialization context](https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context)
+    to request the units for the base font size. (Note that currently only
+    `"rem"` is supported.)
+
+    ```{python}
+    from brand_yml import Brand
+
+    brand = Brand.from_yaml_str(
+        f\"\"\"
+        typography:
+          base:
+            size: 18px
+        \"\"\"
+    )
+
+    brand.typography.model_dump(
+      exclude_none = True,
+      context={"typography_base_size_unit": "rem"}
+    )
+    ```
+
     Attributes
     ----------
     family
@@ -875,6 +906,25 @@ class BrandTypographyBase(
     """
 
     model_config = ConfigDict(extra="forbid")
+
+    @field_serializer("size")
+    def as_rem(self, v: str | None, info: SerializationInfo):
+        if v is None or not info.context:
+            return v
+
+        convert_to: str = info.context.get("typography_base_size_unit", "")
+        if convert_to:
+            if convert_to == "rem":
+                v = maybe_convert_font_size_to_rem(v)
+            else:
+                raise ValueError(
+                    "brand_yml doesn't support converting `typography.base.size` "
+                    f"into {convert_to} units. Please open an issue to request "
+                    "adding support for this conversion: "
+                    "https://github.com/posit-dev/brand-yml."
+                )
+
+        return v
 
 
 class BrandTypographyHeadings(

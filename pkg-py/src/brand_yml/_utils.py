@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import os
+import re
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
 from pydantic import BaseModel
+
+rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)([a-zA-Z%]*)$")
 
 
 def find_project_file(
@@ -165,3 +168,53 @@ def maybe_default_font_source(value: str | None):
             yield
     else:
         yield
+
+
+def maybe_convert_font_size_to_rem(x: str) -> str:
+    """
+    Convert a font size to rem
+
+    Some frameworks, like Bootstrap expect base font size to be in `rem`. This
+    function converts `em`, `%`, `px`, `pt` to `rem`:
+
+    1. `em` is directly replace with `rem`.
+    2. `1%` is `0.01rem`, e.g. `90%` becomes `0.9rem`.
+    3. `16px` is `1rem`, e.g. `18px` becomes `1.125rem`.
+    4. `12pt` is `1rem`.
+    5. `0.1666in` is `1rem`.
+    6. `4.234cm` is `1rem`.
+    7. `42.3mm` is `1rem`.
+    """
+    x_og = f"{x}"
+
+    value, unit = split_css_value_and_unit(x)
+
+    if unit == "rem":
+        return x
+
+    if unit == "em":
+        return f"{value}rem"
+
+    scale = {
+        "%": 100,
+        "px": 16,
+        "pt": 12,
+        "in": 96 / 16,  # 96 px/inch
+        "cm": 96 / 16 * 2.54,  # inch -> cm
+        "mm": 16 / 96 * 25.4,  # cm -> mm
+    }
+
+    if unit in scale:
+        return f"{float(value) / scale[unit]}rem"
+
+    raise ValueError(
+        f"Could not convert font size {x_og!r} from {unit} units to a relative unit."
+    )
+
+
+def split_css_value_and_unit(x: str) -> tuple[str, str]:
+    match = rgx_css_value_unit.match(x)
+    if not match:
+        raise ValueError(f"Invalid CSS value format: {x}")
+    value, unit = match.groups()
+    return value, unit
