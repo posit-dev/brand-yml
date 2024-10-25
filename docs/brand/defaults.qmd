@@ -11,84 +11,37 @@ aliases:
 
 Individual formats and outputs can expose format-specific variables or options that are relevant to branding.
 These options are tied to a specific output format or context, so they can't be included in the core brand specification.
-But they are still relevant to the brand and need a place within `brand.yml`.
+But they are still relevant to the brand and need a place within brand.yml.
 
-For example, [Quarto slides expose a set of Sass variables](https://quarto.org/docs/presentations/revealjs/themes.html#sass-variables) while HTML documents and Shiny apps [use Sass variables set by Bootstrap](https://rstudio.github.io/bslib/articles/bs5-variables/index.html).
+## Structure
 
-On the other hand, some theme-relevant settings are actually format options, or are built on top of a base of format options.
-For example, when creating a branded Beamer presentation, its often easier to start with a known `theme` or `colortheme`.
-Or similarly, it might be easier in Bootstrap to start with a [Bootswatch theme](https://bootswatch.com/).
+This section of brand.yml is not as well-sepecified as the other sections, by design.
+As brand.yml adoption grows, new tools will need to be able to store options specific to the tool.
+This part of the brand.yml spec may change as we learn more about the needs of different tools.
 
-A source of inspiration for this section is [pkgdown's approach to template packaging](https://pkgdown.r-lib.org/articles/customise.html#template-packages), where a source template provides the initial values for `_pkgdown.yml` settings that can be overridden in local instances.
-In this regard, the `template` section provides a template for the initial values of format- or output-specific settings.
-An alternative name for this section could be `settings`.
-
-
-## Example
+Currently, both Quarto and Shiny support a `bootstrap` section under `defaults` that can be used to set default values for Bootstrap Sass variables.
 
 ```{.yaml filename="brand.yml"}
 defaults:
-  quarto:
-    format:
-      html:
-        toc: true
-        toc-location: left
-      beamer:
-        navigation: horizontal
-        theme: AnnArbor
-        colortheme: lily
-    website:
-      body-footer: Copyright 2022-2024 Posit Software, PBC
   bootstrap:
-    defaults:
-      enable-rounded: false
-      link-decoration: none
+    enable-rounded: false
+    link-decoration: none
 ```
 
-## Spec
+In [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html), an additional `shiny.theme` section is used to set default values for Shiny-specific theme settings.
 
-```{.yaml}
-{{< include spec/brand-defaults.yml >}}
+```{.yaml filename="brand.yml"}
+color:
+  palette:
+    pink: "#E83E8C"
+defaults:
+  shiny:
+    theme:
+      preset: shiny
+      defaults:
+        bslib-dashboard-design: false
+      rules: |
+        .navbar-brand { color: $brand-pink }
 ```
 
-## Sources
-
-### Bootstrap
-
-Some of the most basic non-color concepts found in
-
-* <https://getbootstrap.com/docs/5.3/customize/options/>
-* <https://getbootstrap.com/docs/5.3/customize/css-variables/>
-
-If we have a `deafults.bootstrap` field, it would support the named sections used by [theme Sass files in Quarto](https://quarto.org/docs/output-formats/html-themes-more.html).
-
-
-#### HTML basic options
-
-Example from [Quarto HTML documentation](https://quarto.org/docs/output-formats/html-themes.html#basic-options):
-
-```{.markdown}
----
-title: "My Document"
-format:
-  html:
-    theme: cosmo
-    fontsize: 1.1em
-    linestretch: 1.7
----
-```
-
-#### Beamer options
-
-Example from [Quarto slides with beamer documentation](https://quarto.org/docs/presentations/beamer.html#beamer-options)
-
-```{.markdown}
----
-format:
-  beamer:
-    aspectratio: 32
-    navigation: horizontal
-    theme: AnnArbor
-    colortheme: lily
----
-```
+Note that in these sections, you can make use of brand features, like the addition of [`$brand-{color}` Sass variables](color.qmd#automatic-color-definitions).
