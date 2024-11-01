@@ -23,8 +23,8 @@ You can approach translating brand guidelines into a `_brand.yml` file in two st
     -   base: Font and appearance settings for the base (body) text.
     -   headings: Font and appearance settings for heading text.
     -   monospace: Font and appearance settings for monospaced text.
-    -   monospace_inline: Font and appearance settings for inline monospaced text.
-    -   monospace_block: Font and appearance settings for block (multi-line) monospaced text.
+    -   monospace-inline: Font and appearance settings for inline monospaced text.
+    -   monospace-block: Font and appearance settings for block (multi-line) monospaced text.
     -   link: Font and appearance settings for hyperlink text.
 
 ## Examples
@@ -238,35 +238,35 @@ The following attributes are used to define the typographic properties of differ
 +====================+========================================================================================================+========================+
 | `base`             | Default text, primarily used in the document body.                                                     | -   `family`           |
 |                    |                                                                                                        | -   `size`             |
-|                    |                                                                                                        | -   `line_height`      |
+|                    |                                                                                                        | -   `line-height`      |
 |                    |                                                                                                        | -   `weight`           |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
 | `headings`         | All heading levels (h1, h2, etc.).                                                                     | -   `family`           |
 |                    |                                                                                                        | -   `weight`           |
 |                    |                                                                                                        | -   `style`            |
-|                    |                                                                                                        | -   `line_height`      |
+|                    |                                                                                                        | -   `line-height`      |
 |                    |                                                                                                        | -   `color`            |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
 | `monospace`        | General monospaced text, typically used in code blocks and other programming-related content.          | -   `family`           |
 |                    |                                                                                                        | -   `size`             |
 |                    |                                                                                                        | -   `weight`           |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
-| `monospace_inline` | Inline monospaced text, usually used for code snippets within regular text. Inherits from `monospace`. | -   `family`           |
+| `monospace-inline` | Inline monospaced text, usually used for code snippets within regular text. Inherits from `monospace`. | -   `family`           |
 |                    |                                                                                                        | -   `size`             |
 |                    |                                                                                                        | -   `weight`           |
 |                    |                                                                                                        | -   `color`            |
-|                    |                                                                                                        | -   `background_color` |
+|                    |                                                                                                        | -   `background-color` |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
-| `monospace_block`  | Block (multi-line) monospaced text, typically used for code blocks. Inherits from `monospace`.         | -   `family`           |
+| `monospace-block`  | Block (multi-line) monospaced text, typically used for code blocks. Inherits from `monospace`.         | -   `family`           |
 |                    |                                                                                                        | -   `size`             |
 |                    |                                                                                                        | -   `weight`           |
-|                    |                                                                                                        | -   `line_height`      |
+|                    |                                                                                                        | -   `line-height`      |
 |                    |                                                                                                        | -   `color`            |
-|                    |                                                                                                        | -   `background_color` |
+|                    |                                                                                                        | -   `background-color` |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
 | `link`             | Hyperlinks.                                                                                            | -   `weight`           |
 |                    |                                                                                                        | -   `color`            |
-|                    |                                                                                                        | -   `background_color` |
+|                    |                                                                                                        | -   `background-color` |
 |                    |                                                                                                        | -   `decoration`       |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
 
@@ -280,10 +280,10 @@ The supported fields are generally described as follows:
 
 - `style`: The font style for the text, typically either "normal" or "italic".
 
-- `line_height`: The line height of the text, which refers to the vertical space between lines. Often expressed as a multiple of the font size or in fixed units.
+- `line-height`: The line height of the text, which refers to the vertical space between lines. Often expressed as a multiple of the font size or in fixed units.
 
 - `color`: The color of the text. Can be any CSS-compatible color definition or a reference to a color defined in the brand's color palette.
 
-- `background_color`: The background color for the text element. Can be any CSS-compatible color definition or a reference to a color defined in the brand's color palette.
+- `background-color`: The background color for the text element. Can be any CSS-compatible color definition or a reference to a color defined in the brand's color palette.
 
 - `decoration`: The text decoration, typically used for links. Common values include "underline", "none", or "overline".
