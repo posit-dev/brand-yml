@@ -4,6 +4,8 @@ title: Brand YAML Python Package
 links:
   pypi: https://pypi.org/project/brand-yml/
   github: https://github.com/posit-dev/brand-yml
+
+repo-actions: true
 ---
 
 ```{=html}
