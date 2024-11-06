@@ -6,3 +6,5 @@ filters:
 format:
   html:
     css: quartodoc.css
+
+repo-actions: false
