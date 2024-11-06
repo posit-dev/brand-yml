@@ -19,6 +19,7 @@ website:
 
   repo-url: https://github.com/posit-dev/brand-yml/
   repo-actions: [issue, source]
+  repo-subdir: docs
 
   navbar:
     left:
