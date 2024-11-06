@@ -18,7 +18,8 @@ website:
   bread-crumbs: true
 
   repo-url: https://github.com/posit-dev/brand-yml/
-  repo-actions: [issue, source]
+  repo-actions: [issue, edit]
+  repo-subdir: docs
 
   navbar:
     left:
