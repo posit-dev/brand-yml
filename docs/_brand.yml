@@ -84,6 +84,7 @@ typography:
     weight: 400
   link:
     color: red
+    decoration: underline
   monospace:
     family: IBM Plex Mono
     size: 1em
