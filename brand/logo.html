@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-baf0c19d459a7935f9b2fcbb395a326a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d4a2992147fcaa933e7bf5d002341f1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f42a11967520dde444beddc6475b8f68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#medium">medium</a>: Logo for medium display contexts (e.g., website headers)</li>
 <li><a href="#large">large</a>: Logo for large display contexts (e.g., title slides, marketing materials)</li>
 </ul>
-<p>Logos can be stored locally, adjacent to your <code>_brand.yml</code> file, or hosted online. Local file paths should be relative to the location of your <code>_brand.yml</code> file (I’ll use <code>logos/</code> as the directory in the examples below). Online images should use full URLs starting with <code>http://</code> or <code>https://</code>.</p>
+<p>Logos can be stored locally—adjacent to your <code>_brand.yml</code> file—or hosted online. Local file paths should be relative to the location of your <code>_brand.yml</code> file (I’ll use <code>logos/</code> as the directory in the examples below). Online images should use full URLs starting with <code>http://</code> or <code>https://</code>.</p>
 </section>
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
@@ -335,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="lightdark-variants" class="level3">
 <h3 class="anchored" data-anchor-id="lightdark-variants">Light/Dark Variants</h3>
-<p>You cn specify different logos for light and dark backgrounds by using giving the <code>small</code>, <code>medium</code>, and <code>large</code> attributes an object with <code>light</code> and <code>dark</code> properties. <strong>light</strong> means for use on light background (or in a light color mode), and <strong>dark</strong> means for use on dark background (or in a dark color mode).</p>
+<p>You can specify different logos for light and dark backgrounds by giving the <code>small</code>, <code>medium</code>, and <code>large</code> attributes a nested mapping with <code>light</code> and <code>dark</code> child elements. “<strong>light</strong>” means for use on light background (or in a light color mode), and “<strong>dark</strong>” means for use on dark background (or in a dark color mode).</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="comprehensive-configuration-with-named-resources" class="level3">
 <h3 class="anchored" data-anchor-id="comprehensive-configuration-with-named-resources">Comprehensive Configuration with Named Resources</h3>
-<p>If you define multiple logo resources in the <code>images</code> dictionary, you can reference them by name in the <code>small</code>, <code>medium</code>, and <code>large</code> attributes.</p>
+<p>Use <code>images</code> as a nested mapping to define multiple logo resources with meaningful names. Then, you can directly reference these resources by name in the <code>small</code>, <code>medium</code>, and <code>large</code> attributes.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <section id="images" class="level3">
 <h3 class="anchored" data-anchor-id="images">images</h3>
-<p>The <code>images</code> attribute is a dictionary that allows you to store multiple logo resources with meaningful names. These named resources can then be referenced in the <code>small</code>, <code>medium</code>, and <code>large</code> attributes.</p>
+<p>The <code>images</code> attribute is a mapping that allows you to define multiple logo resources with meaningful names. These named resources can then be referenced in the <code>small</code>, <code>medium</code>, and <code>large</code> attributes.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -427,6 +427,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="small" class="level3">
 <h3 class="anchored" data-anchor-id="small">small</h3>
 <p>The <code>small</code> attribute defines the logo used for small display contexts, such as favicons or mobile app icons.</p>
+<p><code>small</code>, <code>medium</code> and <code>large</code> can each be a simple string path to the image or a reference to a named resource defined in the <code>images</code> attribute (shown in the second example).</p>
+<div class="grid" style="--bs-columns:2">
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -434,7 +437,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb8" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">small</span><span class="kw">:</span><span class="at"> logos/favicon.png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>or</p>
+</div>
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -444,10 +448,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> logos/favicon.png</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">small</span><span class="kw">:</span><span class="at"> icon</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
 </section>
 <section id="medium" class="level3">
 <h3 class="anchored" data-anchor-id="medium">medium</h3>
-<p>The <code>medium</code> attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars. It supports the same format options as the <code>small</code> attribute, with the additional ability to specify light and dark variants.</p>
+<p>The <code>medium</code> attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars.</p>
+<p><code>small</code>, <code>medium</code> and <code>large</code> can also be nested mappings with <code>light</code> and <code>dark</code> child elements to specify different logos for light and dark backgrounds (show in the second example).</p>
+<div class="grid" style="--bs-columns:2">
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -455,7 +464,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb10" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">medium</span><span class="kw">:</span><span class="at"> logos/header-logo.png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>or</p>
+</div>
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -465,10 +475,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> logos/header-logo.png</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> logos/header-logo-white.png</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
 </section>
 <section id="large" class="level3">
 <h3 class="anchored" data-anchor-id="large">large</h3>
-<p>The <code>large</code> attribute defines the logo for large display contexts, such as title slides or marketing materials. It follows the same format options as <code>small</code> and <code>medium</code>.</p>
+<p>The <code>large</code> attribute defines the logo for large display contexts, such as title slides or marketing materials.</p>
+<p>It has the same properties as <code>small</code> and <code>medium</code>. Note that <code>light</code> and <code>dark</code> variants can also refer to named <code>images</code> resources (show in the second example).</p>
+<div class="grid" style="--bs-columns:2">
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -476,7 +491,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb12" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">large</span><span class="kw">:</span><span class="at"> logos/full-logo.svg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>or</p>
+</div>
+<div class="g-col-2 g-col-lg-1">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -484,7 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb13" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">full</span><span class="kw">:</span><span class="at"> logos/full-logo.svg</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">large</span><span class="kw">:</span><span class="at"> full</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">full-white</span><span class="kw">:</span><span class="at"> logos/full-logo-white.svg</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">large</span><span class="kw">:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> full</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> full-white</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </div>
 
 

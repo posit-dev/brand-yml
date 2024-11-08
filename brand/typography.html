@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-baf0c19d459a7935f9b2fcbb395a326a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d4a2992147fcaa933e7bf5d002341f1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f42a11967520dde444beddc6475b8f68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -306,12 +306,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li><p>Second, define the <strong>fonts and styles</strong> used by different typographic elements (base text, headings, monospace text, etc.). The <a href="#typography-attributes">remaining attributes of <code>typography</code></a> comprise these settings:</p>
 <ul>
-<li>base: Font and appearance settings for the base (body) text.</li>
-<li>headings: Font and appearance settings for heading text.</li>
-<li>monospace: Font and appearance settings for monospaced text.</li>
-<li>monospace-inline: Font and appearance settings for inline monospaced text.</li>
-<li>monospace-block: Font and appearance settings for block (multi-line) monospaced text.</li>
-<li>link: Font and appearance settings for hyperlink text.</li>
+<li><p><code>base</code><br>
+Font and appearance settings for the base (body) text.</p></li>
+<li><p><code>headings</code><br>
+Font and appearance settings for heading text.</p></li>
+<li><p><code>monospace</code><br>
+Font and appearance settings for monospaced text.</p></li>
+<li><p><code>monospace-inline</code><br>
+Font and appearance settings for inline monospaced text.</p></li>
+<li><p><code>monospace-block</code><br>
+Font and appearance settings for block (multi-line) monospaced text.</p></li>
+<li><p><code>link</code><br>
+Font and appearance settings for hyperlink text.</p></li>
 </ul></li>
 </ol>
 </section>
@@ -319,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <section id="minimal-example" class="level3">
 <h3 class="anchored" data-anchor-id="minimal-example">Minimal Example</h3>
-<p>At its most minimal, you can defines only the font families for base text, headings, and monospace text.</p>
+<p>At its most minimal<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, you can directly set the font families for base text, headings, and monospace text.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
@@ -508,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> bold</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">path</span><span class="kw">:</span><span class="at"> https://example.com/Closed-Sans-Italic.woff2</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">style</span><span class="kw">:</span><span class="at"> italic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Google Fonts offer entire font families and use a different syntax. With Google Fonts, you can specify which weights and styles should be included in the downloaded font package using the <code>weight</code> and <code>style</code> attributes. Bunny Fonts provide a GDPR-compliant alternative to Google Fonts and follow the same format for implementation.</p>
+<p>Google Fonts offers entire font families at once, and uses a slightly different syntax. With Google Fonts, you can specify which weights and styles should be included in the downloaded font package using the <code>weight</code> and <code>style</code> attributes. Bunny Fonts provide a GDPR-compliant alternative to Google Fonts and follow the same format for implementation.</p>
 <div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Google Fonts</span></span>
@@ -536,9 +542,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The following attributes are used to define the typographic properties of different text elements.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 69%">
-<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 50%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -629,7 +635,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>All parts of brand.yml are optional, so you could even more minimally set only one of <code>base</code>, <code>headings</code> or <code>monospace</code>. And the absolute minimum, of course, would be to exclude the <code>typography</code> section entirely.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
