@@ -15,6 +15,7 @@ brand_yml.meta.BrandMetaName.full py:attribute 1 pkg/py/meta.html#brand_yml.meta
 brand_yml.meta.BrandMetaName.model_config py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaName.model_config -
 brand_yml.meta.BrandMetaName.short py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaName.short -
 brand_yml.meta.BrandMetaName py:class 1 pkg/py/meta.html#brand_yml.meta.BrandMetaName -
+brand_yml.meta.BrandMetaLink.bluesky py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaLink.bluesky -
 brand_yml.meta.BrandMetaLink.facebook py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaLink.facebook -
 brand_yml.meta.BrandMetaLink.github py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaLink.github -
 brand_yml.meta.BrandMetaLink.home py:attribute 1 pkg/py/meta.html#brand_yml.meta.BrandMetaLink.home -

@@ -378,7 +378,7 @@
     "href": "brand/meta.html#examples",
     "title": "Metadata",
     "section": "Examples",
-    "text": "Examples\nHere are some examples of how you might use the meta section in your brand.yml file:\n\nMinimal Example\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n  link: https://www.acmecorp.com\n\n\n\nComprehensive Example\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n  link:\n    home: https://www.acmecorp.com\n    docs: https://docs.acmecorp.com\n    github: https://github.com/acmecorp\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n    facebook: https://www.facebook.com/acmecorp\n  description: |\n    Acme Corporation is a leading provider of innovative solutions for cartoon\n    characters worldwide.\n  founded: 1952",
+    "text": "Examples\nHere are some examples of how you might use the meta section in your brand.yml file:\n\nMinimal Example\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n  link: https://www.acmecorp.com\n\n\n\nComprehensive Example\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n  link:\n    home: https://www.acmecorp.com\n    docs: https://docs.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n    facebook: https://www.facebook.com/acmecorp\n  description: |\n    Acme Corporation is a leading provider of innovative solutions for cartoon\n    characters worldwide.\n  founded: 1952",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -390,7 +390,7 @@
     "href": "brand/meta.html#attributes",
     "title": "Metadata",
     "section": "Attributes",
-    "text": "Attributes\n\nName\nThe name field can be specified in two ways:\n\nAs a simple string, representing the full name of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n\nAs an object with full and short properties:\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n\nThis format is useful when you need to distinguish between a full company name and a shorter version depending on context.\n\n\n\nLink\nThe link field can also be specified in two ways:\n\nAs a simple string, representing the main website of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  link: https://www.acmecorp.com\n\nAs an object with multiple properties representing different online presences:\n\n\n_brand.yml\n\nmeta:\n  link:\n    home: https://www.acmecorp.com\n    github: https://github.com/acmecorp\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n\nThis format allows you to record links to the homepage and related social media accounts used by your brand. Note that links should be full URLs, including the https:// prefix.",
+    "text": "Attributes\n\nName\nThe name field can be specified in two ways:\n\nAs a simple string, representing the full name of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n\nAs an object with full and short properties:\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n\nThis format is useful when you need to distinguish between a full company name and a shorter version depending on context.\n\n\n\nLink\nThe link field can also be specified in two ways:\n\nAs a simple string, representing the main website of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  link: https://www.acmecorp.com\n\nAs an object with multiple properties representing different online presences:\n\n\n_brand.yml\n\nmeta:\n  link:\n    home: https://www.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    linkedin: https://www.linkedin.com/company/acmecorp\n\nThis format allows you to record links to the homepage and related social media accounts used by your brand. Note that links should be full URLs, including the https:// prefix.",
     "crumbs": [
       "About",
       "Brand Elements",
@@ -957,7 +957,7 @@
     "href": "pkg/py/meta.html#attributes-2",
     "title": "Metadata",
     "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nfacebook\nFacebook link for the brand or company.\n\n\ngithub\nGitHub link for the brand or company.\n\n\nhome\nHome website link for the brand or company.\n\n\nlinkedin\nLinkedIn link for the brand or company.\n\n\nmastodon\nMastodon link for the brand or company.\n\n\ntwitter\nTwitter link for the brand or company.",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nbluesky\nBluesky link for the brand or company.\n\n\nfacebook\nFacebook link for the brand or company.\n\n\ngithub\nGitHub link for the brand or company.\n\n\nhome\nHome website link for the brand or company.\n\n\nlinkedin\nLinkedIn link for the brand or company.\n\n\nmastodon\nMastodon link for the brand or company.\n\n\ntwitter\nTwitter link for the brand or company.",
     "crumbs": [
       "About",
       "Reference",
