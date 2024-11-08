@@ -52,9 +52,6 @@ color:
     gray-light: "#f0f0f0"
     gray: "#454955"
     gray-dark: "#343A40"
-    # TODO: remove when quarto supports defaults.bootsrap
-    navbar-bg: black
-    enable-rounded: "false"
   foreground: black
   background: white
   primary: orange
@@ -76,7 +73,7 @@ typography:
       source: google
     - family: Rubik
       source: google
-      weight: [200, 400, 600, 700, 900]
+      weight: [400, 600, 700, 900]
 
   base:
     family: "Open Sans"
@@ -84,7 +81,7 @@ typography:
     weight: 200
   headings:
     family: Rubik
-    weight: 200
+    weight: 400
   link:
     color: red
   monospace:
@@ -99,7 +96,7 @@ typography:
     line-height: 1.2
     background-color: gray-light
 
-# defaults:
-#   bootstrap:
-#     enable-rounded: false
-#     navbar-bg: $brand-black
+defaults:
+  bootstrap:
+    enable-rounded: false
+    navbar-bg: $brand-black

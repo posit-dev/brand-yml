@@ -18,17 +18,62 @@ Create reports, apps, dashboards, plots and more that match your company's brand
 Our goal is to support unified, branded theming for all of Posit's open source tools---from web applications to printed reports to dashboards and presentations---with a consistent look and feel.
 
 With a single `_brand.yml` file you can collect brand logos, colors, fonts and typographic choices, typically found in your company's brand guidelines.
-This `_brand.yml` can be used Quarto and Shiny for Python[^1] to instantly basic themes that match the brand guidelines.
+This `_brand.yml` can be used Quarto and [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand)[^1] to instantly basic themes that match the brand guidelines.
 
 [^1]: Support for Shiny for R is expected to arrive in the very near future.
 
-<!-- TODO: Links to Quarto and Shiny for Python brand support docs -->
+<!-- TODO: Quarto brand docs link -->
 
-## brand.yml support
+
+```{.yaml filename="_brand.yml"}
+meta:
+  name: brand.yml
+  link: https://posit-dev.github.io/brand-yml
+
+logo: logos/icon/brand-yml-icon-color.svg
+
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+    pink: "#FF3D7F"
+  foreground: black
+  background: white
+  primary: orange
+  danger: pink
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+    - family: Rubik
+      source: google
+    - family: IBM Plex Mono
+      source: google
+
+  base: Open Sans
+  headings:
+    family: Rubik
+    weight: 400
+  monospace: IBM Plex Mono
+```
+
+## Learn more
+
+Jump to [Structure](brand/index.qmd) to learn about the brand.yml syntax and how to write a `_brand.yml` file.
+
+You can explore some [inspiring examples of brand guidelines](inspiration/index.qmd) found in the wild.
+
+If you're a Python developer or are interested in using `_brand.yml` to adapt a Python package to use brand.yml for theming, check out the [brand_yml Python package documentation](pkg/py/index.qmd) to get started.
+
+
+## Support
 
 **brand.yml** is currently [supported]{.implemented} in [Shiny for Python](https://shiny.posit.co/py/) and [Quarto](https://quarto.org/) websites, presentations, dashboards, and Typst documents, as well as via the [`brand_yml` Python package](pkg/py/).
 <!-- Support for themed branding is [in progress]{.in-progress} for . -->
 
+::: {style="--mermaid-max-height: 800px"}
 ```{mermaid}
 ---
 config:
@@ -78,8 +123,12 @@ flowchart LR
     click py-shiny href "https://shiny.posit.co/py/"
     click py-brand_yml href "pkg/py/"
 ```
+:::
 
 <style>
+.mermaid-js {
+  max-height: var(--mermaid-max-height);
+}
 .mermaid-js .nodeLabel {
   color: var(--bs-black) !important;
   font-weight: 500;
@@ -99,20 +148,15 @@ flowchart LR
 }
 </style>
 
-## Learn more
 
-Jump to [Structure](brand/index.qmd) to learn about the brand.yml syntax and how to write a `_brand.yml` file.
+## Design
 
-You can explore some [inspiring examples of brand guidelines](inspiration/index.qmd) found in the wild.
-
-If you're a Python developer or are interested in using `_brand.yml` to adapt a Python package to use brand.yml for theming, check out the [brand_yml Python package documentation](pkg/py/index.qmd) to get started.
-
-## User stories
+### User stories
 
 Jordan Ellis and Sofia Torres are data scientists at **Genewise Therapeutics**, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.
 
 ::: {.callout-note collapse="false"}
-### Jordan Ellis
+#### Jordan Ellis
 
 **Jordan Ellis** is a data scientist with a strong academic background in bioinformatics, in particular biology, genetics and statistical analysis.
 They frequently collaborate with bioligists and chemists to analyze data and present results in a clear an digestible format.
@@ -125,7 +169,7 @@ Once, they tried to learn CSS but found it too complex and intimidating to learn
 :::
 
 ::: {.callout-note collapse="false"}
-### Sofia Torres
+#### Sofia Torres
 
 **Sofia Torres** leads a team of data scientists, including Jordan, at Genewise.
 She's noticed that Jordan isn't the only person on their small team who could benefit from branded reporting.
@@ -164,7 +208,7 @@ Users like Jordan and Sofia will interact with **brand.yml** in three primary wa
     Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their `brand.yml` repository.
     She also realizes that everyone else would likely also want to use her settings for `slide-number` and `title-slide-attributes`, so she updates the `brand.yml` with these new values for the `revealjs` format.
 
-## Design considerations
+### Guiding principles
 
 **brand.yml** was designed with the following considerations in mind:
 
