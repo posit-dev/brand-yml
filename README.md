@@ -32,6 +32,9 @@ This `_brand.yml` can be used Quarto and Shiny for Python[^1] to instantly basic
 
 - [Quarto](https://quarto.org) - An open-source scientific and technical publishing system. Automatically uses `_brand.yml` in the v1.6 release.
 
+- [Shiny](https://shiny.posit.co) - An open-source framework for effortless web applications for data scientists. [Shiny for Python](https://shiny.posit.co/py) supports [branded theming via brand.yml](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand). Support in Shiny for R will arrive soon.
+
+
 ## Contributing
 
 **Questions?** Feel free to ask questions in [our discussions forum](https://github.com/posit-dev/brand-yml/discussions)! For questions about using brand.yml in Quarto, please head over to [Quarto's discussions](https://github.com/quarto-dev/quarto-cli/discussions).
