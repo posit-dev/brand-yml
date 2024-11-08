@@ -163,6 +163,11 @@ class BrandMetaLink(BrandBase):
         examples=["https://linkedin.com/company/very-big-corp"],
     )
     """LinkedIn link for the brand or company."""
+    bluesky: HttpUrl | None = Field(
+        None,
+        examples=["https://bsky.app/profile/VeryBigCorp.bsky.social"],
+    )
+    """Bluesky link for the brand or company."""
     twitter: HttpUrl | None = Field(
         None,
         examples=["https://twitter.com/VeryBigCorp"],

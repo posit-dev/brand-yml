@@ -41,6 +41,7 @@ meta:
     home: https://www.acmecorp.com
     docs: https://docs.acmecorp.com
     github: https://github.com/acmecorp
+    bluesky: https://bsky.app/profile/acmecorp.bsky.social
     twitter: https://twitter.com/acmecorp
     linkedin: https://www.linkedin.com/company/acmecorp
     facebook: https://www.facebook.com/acmecorp
@@ -92,7 +93,7 @@ The `link` field can also be specified in two ways:
       link:
         home: https://www.acmecorp.com
         github: https://github.com/acmecorp
-        twitter: https://twitter.com/acmecorp
+        bluesky: https://bsky.app/profile/acmecorp.bsky.social
         linkedin: https://www.linkedin.com/company/acmecorp
     ```
 
