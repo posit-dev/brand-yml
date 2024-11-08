@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -38,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-baf0c19d459a7935f9b2fcbb395a326a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a4bcdb1ef2a3f7edbda14980d2f3b025.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4dcf549d87747c3ee6f61534c8e15e75.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -224,10 +258,13 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#introducing-brand.yml" id="toc-introducing-brand.yml" class="nav-link active" data-scroll-target="#introducing-brand.yml">Introducing brand.yml</a></li>
-  <li><a href="#brand.yml-support" id="toc-brand.yml-support" class="nav-link" data-scroll-target="#brand.yml-support">brand.yml support</a></li>
   <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
+  <li><a href="#support" id="toc-support" class="nav-link" data-scroll-target="#support">Support</a></li>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
+  <ul class="collapse">
   <li><a href="#user-stories" id="toc-user-stories" class="nav-link" data-scroll-target="#user-stories">User stories</a></li>
-  <li><a href="#design-considerations" id="toc-design-considerations" class="nav-link" data-scroll-target="#design-considerations">Design considerations</a></li>
+  <li><a href="#guiding-principles" id="toc-guiding-principles" class="nav-link" data-scroll-target="#guiding-principles">Guiding principles</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -249,12 +286,55 @@ ul.task-list li input[type="checkbox"] {
 <section id="introducing-brand.yml" class="level2">
 <h2 class="anchored" data-anchor-id="introducing-brand.yml">Introducing brand.yml</h2>
 <p><strong>brand.yml</strong> is a simple, portable YAML file that codifies your company’s brand guidelines into a format that can be used by Quarto, Python and R tooling to create branded outputs. Our goal is to support unified, branded theming for all of Posit’s open source tools—from web applications to printed reports to dashboards and presentations—with a consistent look and feel.</p>
-<p>With a single <code>_brand.yml</code> file you can collect brand logos, colors, fonts and typographic choices, typically found in your company’s brand guidelines. This <code>_brand.yml</code> can be used Quarto and Shiny for Python<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to instantly basic themes that match the brand guidelines.</p>
-<!-- TODO: Links to Quarto and Shiny for Python brand support docs -->
+<p>With a single <code>_brand.yml</code> file you can collect brand logos, colors, fonts and typographic choices, typically found in your company’s brand guidelines. This <code>_brand.yml</code> can be used Quarto and <a href="https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand">Shiny for Python</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to instantly basic themes that match the brand guidelines.</p>
+<!-- TODO: Quarto brand docs link -->
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> brand.yml</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span><span class="at"> https://posit-dev.github.io/brand-yml</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span><span class="at"> logos/icon/brand-yml-icon-color.svg</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">black</span><span class="kw">:</span><span class="at"> </span><span class="st">"#1A1A1A"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">white</span><span class="kw">:</span><span class="at"> </span><span class="st">"#F9F9F9"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FF6F20"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pink</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FF3D7F"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">foreground</span><span class="kw">:</span><span class="at"> black</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">background</span><span class="kw">:</span><span class="at"> white</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> orange</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">danger</span><span class="kw">:</span><span class="at"> pink</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Rubik</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> IBM Plex Mono</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Rubik</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> IBM Plex Mono</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="brand.yml-support" class="level2">
-<h2 class="anchored" data-anchor-id="brand.yml-support">brand.yml support</h2>
+<section id="learn-more" class="level2">
+<h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>
+<p>Jump to <a href="./brand/index.html">Structure</a> to learn about the brand.yml syntax and how to write a <code>_brand.yml</code> file.</p>
+<p>You can explore some <a href="./inspiration/index.html">inspiring examples of brand guidelines</a> found in the wild.</p>
+<p>If you’re a Python developer or are interested in using <code>_brand.yml</code> to adapt a Python package to use brand.yml for theming, check out the <a href="./pkg/py/index.html">brand_yml Python package documentation</a> to get started.</p>
+</section>
+<section id="support" class="level2">
+<h2 class="anchored" data-anchor-id="support">Support</h2>
 <p><strong>brand.yml</strong> is currently <span class="implemented">supported</span> in <a href="https://shiny.posit.co/py/">Shiny for Python</a> and <a href="https://quarto.org/">Quarto</a> websites, presentations, dashboards, and Typst documents, as well as via the <a href="pkg/py/"><code>brand_yml</code> Python package</a>. <!-- Support for themed branding is [in progress]{.in-progress} for . --></p>
+<div style="--mermaid-max-height: 800px">
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -313,7 +393,11 @@ flowchart LR
 </div>
 </div>
 </div>
+</div>
 <style>
+.mermaid-js {
+  max-height: var(--mermaid-max-height);
+}
 .mermaid-js .nodeLabel {
   color: var(--bs-black) !important;
   font-weight: 500;
@@ -333,14 +417,10 @@ flowchart LR
 }
 </style>
 </section>
-<section id="learn-more" class="level2">
-<h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>
-<p>Jump to <a href="./brand/index.html">Structure</a> to learn about the brand.yml syntax and how to write a <code>_brand.yml</code> file.</p>
-<p>You can explore some <a href="./inspiration/index.html">inspiring examples of brand guidelines</a> found in the wild.</p>
-<p>If you’re a Python developer or are interested in using <code>_brand.yml</code> to adapt a Python package to use brand.yml for theming, check out the <a href="./pkg/py/index.html">brand_yml Python package documentation</a> to get started.</p>
-</section>
-<section id="user-stories" class="level2">
-<h2 class="anchored" data-anchor-id="user-stories">User stories</h2>
+<section id="design" class="level2">
+<h2 class="anchored" data-anchor-id="design">Design</h2>
+<section id="user-stories" class="level3">
+<h3 class="anchored" data-anchor-id="user-stories">User stories</h3>
 <p>Jordan Ellis and Sofia Torres are data scientists at <strong>Genewise Therapeutics</strong>, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
@@ -389,8 +469,8 @@ Sofia Torres
 <p>Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their <code>brand.yml</code> repository. She also realizes that everyone else would likely also want to use her settings for <code>slide-number</code> and <code>title-slide-attributes</code>, so she updates the <code>brand.yml</code> with these new values for the <code>revealjs</code> format.</p></li>
 </ol>
 </section>
-<section id="design-considerations" class="level2">
-<h2 class="anchored" data-anchor-id="design-considerations">Design considerations</h2>
+<section id="guiding-principles" class="level3">
+<h3 class="anchored" data-anchor-id="guiding-principles">Guiding principles</h3>
 <p><strong>brand.yml</strong> was designed with the following considerations in mind:</p>
 <ol type="1">
 <li><p>It needs to be easy to translate brand guidelines into the structured format of a <code>_brand.yml</code> file.</p></li>
@@ -407,6 +487,7 @@ Sofia Torres
 </ol>
 
 
+</section>
 </section>
 
 
