@@ -16,7 +16,7 @@ The `logo` field in your `_brand.yml` file can be structured in several ways, fr
 - [medium](#medium): Logo for medium display contexts (e.g., website headers)
 - [large](#large): Logo for large display contexts (e.g., title slides, marketing materials)
 
-Logos can be stored locally, adjacent to your `_brand.yml` file, or hosted online.
+Logos can be stored locally---adjacent to your `_brand.yml` file---or hosted online.
 Local file paths should be relative to the location of your `_brand.yml` file
 (I'll use `logos/` as the directory in the examples below).
 Online images should use full URLs starting with `http://` or `https://`.
@@ -40,8 +40,8 @@ logo:
 
 ### Light/Dark Variants
 
-You cn specify different logos for light and dark backgrounds by using giving the `small`, `medium`, and `large` attributes an object with `light` and `dark` properties.
-**light** means for use on light background (or in a light color mode), and **dark** means for use on dark background (or in a dark color mode).
+You can specify different logos for light and dark backgrounds by giving the `small`, `medium`, and `large` attributes a nested mapping with `light` and `dark` child elements.
+"**light**" means for use on light background (or in a light color mode), and "**dark**" means for use on dark background (or in a dark color mode).
 
 ```{.yaml filename="_brand.yml"}
 logo:
@@ -54,7 +54,8 @@ logo:
 
 ### Comprehensive Configuration with Named Resources
 
-If you define multiple logo resources in the `images` dictionary, you can reference them by name in the `small`, `medium`, and `large` attributes.
+Use `images` as a nested mapping to define multiple logo resources with meaningful names.
+Then, you can directly reference these resources by name in the `small`, `medium`, and `large` attributes.
 
 ```{.yaml filename="_brand.yml"}
 logo:
@@ -103,7 +104,7 @@ logo:
 
 ### images {#images}
 
-The `images` attribute is a dictionary that allows you to store multiple logo resources with meaningful names. These named resources can then be referenced in the `small`, `medium`, and `large` attributes.
+The `images` attribute is a mapping that allows you to define multiple logo resources with meaningful names. These named resources can then be referenced in the `small`, `medium`, and `large` attributes.
 
 ```{.yaml filename="_brand.yml"}
 logo:
@@ -127,52 +128,74 @@ logo:
 
 The `small` attribute defines the logo used for small display contexts, such as favicons or mobile app icons.
 
+`small`, `medium` and `large` can each be a simple string path to the image or a reference to a named resource defined in the `images` attribute (shown in the second example).
+
+:::{.grid style="--bs-columns:2"}
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   small: logos/favicon.png
 ```
+:::
 
-or
-
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   images:
     icon: logos/favicon.png
   small: icon
 ```
+:::
+:::
 
 ### medium {#medium}
 
-The `medium` attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars. It supports the same format options as the `small` attribute, with the additional ability to specify light and dark variants.
+The `medium` attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars.
 
+`small`, `medium` and `large` can also be nested mappings with `light` and `dark` child elements to specify different logos for light and dark backgrounds (show in the second example).
+
+::: {.grid style="--bs-columns:2"}
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   medium: logos/header-logo.png
 ```
+:::
 
-or
-
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   medium:
     light: logos/header-logo.png
     dark: logos/header-logo-white.png
 ```
+:::
+:::
 
 ### large {#large}
 
-The `large` attribute defines the logo for large display contexts, such as title slides or marketing materials. It follows the same format options as `small` and `medium`.
+The `large` attribute defines the logo for large display contexts, such as title slides or marketing materials.
 
+It has the same properties as `small` and `medium`.
+Note that `light` and `dark` variants can also refer to named `images` resources (show in the second example).
+
+::: {.grid style="--bs-columns:2"}
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   large: logos/full-logo.svg
 ```
+:::
 
-or
-
+::: {.g-col-2 .g-col-lg-1}
 ```{.yaml filename="_brand.yml"}
 logo:
   images:
     full: logos/full-logo.svg
-  large: full
+    full-white: logos/full-logo-white.svg
+  large:
+    light: full
+    dark: full-white
 ```
+:::
+:::
