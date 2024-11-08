@@ -68,7 +68,7 @@ typography:
   fonts:
     - family: Open Sans
       source: google
-      weight: [200, 400, 600, 800]
+      weight: [normal, bold]
     - family: IBM Plex Mono
       source: google
     - family: Rubik
@@ -78,7 +78,6 @@ typography:
   base:
     family: "Open Sans"
     line-height: 1.6
-    weight: 200
   headings:
     family: Rubik
     weight: 400
