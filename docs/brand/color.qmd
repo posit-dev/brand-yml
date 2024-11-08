@@ -5,8 +5,7 @@ pagetitle: "color | brand.yml"
 
 ## About
 
-The `color` section in `_brand.yml` is used to define the brand's color palette and theme colors.
-This section allows you to codify your brand's palette with minimal overhead and map these colors to semantic theme fields.
+The `color` section in `_brand.yml` is used to define the brand's color palette and theme colors, allowing you to codify your brand's palette with minimal overhead and to map these colors to semantic theme fields.
 
 ## Structure
 
@@ -51,7 +50,7 @@ color:
 ```
 
 Notice that we can refer to `blue` and `green` directly.
-brand.yml will automatically automatically replace these values with the corresponding value from `color.palette`, `color.palette.blue` and `color.palette.green` respectively.
+brand.yml will automatically replace these named values with the corresponding value from `color.palette`, `color.palette.blue` and `color.palette.green` respectively.
 
 ### Minimal Example
 
@@ -76,7 +75,7 @@ color:
 
 ### palette {#palette}
 
-The `palette` attribute is a dictionary of brand colors where each key is a color name and the value is a color string (hex colors are recommended).
+The `palette` attribute is a nested mapping of color names to color string values (hex colors are recommended).
 
 ```{.yaml filename="_brand.yml"}
 color:
@@ -88,9 +87,28 @@ color:
 
 These named colors can be referenced in other parts of the `color` section and in any `color` or `background-color` attributes in the [typography](typography.qmd) section of [the `_brand.yml` file](index.qmd).
 
+Some brands have creative names for colors, such as [lava, mint, and mustard](https://brand.mixpanel.com/7d777d80-7d99-4c2a-9730-2a960e190bf8/1ae88802-a827-40a5-96a3-547abacf70b7), and you're welcome to use these names in your `palette`.
+However, many tools --- of which [Bootstrap](https://getbootstrap.com/docs/5.0/customize/color/) is one --- use common color names, like red, green, yellow, etc.
+
+If your brand includes create color names, we recommend you create aliases within `palette` to map your brand's color names to common color names:
+
+```{.yaml filename="_brand.yml"}
+meta:
+  name Mixpanel
+  link: https://brand.mixpanel.com
+color:
+  palette:
+    lava: "#FF7557"
+    mint: "#80E1D9"
+    mustard: "#F8BC3B"
+    red: lava
+    green: mint
+    yellow: mustard
+```
+
 ### Theme Colors {#theme-colors}
 
-The remaining attributes in `color` are used to map brand colors to semantic theme colors.
+Other than `palette`, the remaining attributes in `color` are used to map brand colors to semantic theme colors.
 These theme colors can then be used in web apps and reports by tools that support brand.yml to maintain a consistent color scheme across the brand.
 
 | Name | Description |
