@@ -20,18 +20,31 @@ You can approach translating brand guidelines into a `_brand.yml` file in two st
 2.  Second, define the **fonts and styles** used by different typographic elements (base text, headings, monospace text, etc.).
     The [remaining attributes of `typography`](#typography-attributes) comprise these settings:
 
-    -   base: Font and appearance settings for the base (body) text.
-    -   headings: Font and appearance settings for heading text.
-    -   monospace: Font and appearance settings for monospaced text.
-    -   monospace-inline: Font and appearance settings for inline monospaced text.
-    -   monospace-block: Font and appearance settings for block (multi-line) monospaced text.
-    -   link: Font and appearance settings for hyperlink text.
+    * `base` \
+      Font and appearance settings for the base (body) text.
+
+    * `headings` \
+      Font and appearance settings for heading text.
+
+    * `monospace` \
+      Font and appearance settings for monospaced text.
+
+    * `monospace-inline` \
+      Font and appearance settings for inline monospaced text.
+
+    * `monospace-block` \
+      Font and appearance settings for block (multi-line) monospaced text.
+
+    * `link` \
+      Font and appearance settings for hyperlink text.
 
 ## Examples
 
 ### Minimal Example
 
-At its most minimal, you can defines only the font families for base text, headings, and monospace text.
+At its most minimal[^more-minimal], you can directly set the font families for base text, headings, and monospace text.
+
+[^more-minimal]: All parts of brand.yml are optional, so you could even more minimally set only one of `base`, `headings` or `monospace`. And the absolute minimum, of course, would be to exclude the `typography` section entirely.
 
 ``` {.yaml filename="_brand.yml"}
 typography:
@@ -205,7 +218,7 @@ typography:
           style: italic
 ```
 
-Google Fonts offer entire font families and use a different syntax.
+Google Fonts offers entire font families at once, and uses a slightly different syntax.
 With Google Fonts, you can specify which weights and styles should be included in the downloaded font package using the `weight` and `style` attributes.
 Bunny Fonts provide a GDPR-compliant alternative to Google Fonts and follow the same format for implementation.
 
@@ -269,6 +282,8 @@ The following attributes are used to define the typographic properties of differ
 |                    |                                                                                                        | -   `background-color` |
 |                    |                                                                                                        | -   `decoration`       |
 +--------------------+--------------------------------------------------------------------------------------------------------+------------------------+
+
+: {tbl-colwidths="[20,50,30]"}
 
 The supported fields are generally described as follows:
 
