@@ -5,38 +5,72 @@ image: posit-brand-name.png
 
 Posit Brand Guidelines
 
+```{.yaml filename="_brand.yml"}
+meta:
+  name:
+    short: Posit
+    full: Posit Software, PBC
+  link:
+    home: https://posit.co
+    github: https://github.com/posit-dev
+    bluesky: https://bsky.app/profile/posit.co
+    mastodon: https://fosstodon.org/@Posit
+```
+
 ## Highlights
 
-![Posit Name Guidance](posit-brand-name.png){group="posit"}
+![Posit Color Guidance](posit-brand-colors.png){group="posit" alt="A brand style guide showing Posit's color palette, featuring primary colors (Posit Blue, Gray, Orange, and White) displayed as large blocks, with secondary colors (Teal, Green, and Burgundy) shown as a row of smaller blocks below."}
 
-![Posit Typography Guidance](posit-brand-typography.png){group="posit"}
+![Additional Primary Posit Tints](posit-brand-colors-primary.png){group="posit" alt="Color reference chart showing variations of blue and gray tints with their corresponding RGB, CMYK, and HEX values."}
 
-![Posit Color Guidance](posit-brand-colors.png){group="posit"}
+![Additional Secondary Posit Tints](posit-brand-colors-secondary.png){group="posit" alt="Color reference chart showing variations of teal, green, burgundy, and orange with their RGB, CMYK, and HEX values."}
 
-![Additional Primary Posit Tints](posit-brand-colors-primary.png){group="posit"}
-
-![Additional Secondary Posit Tints](posit-brand-colors-secondary.png){group="posit"}
+![Posit Typography Guidance](posit-brand-typography.png){group="posit" alt="Posit's brand style guide slide showing typography hierarchy using Open Sans font family, with examples of headline, sub-headline, and body text on a dark background."}
 
 ## Colors
 
-**Primary**
+Here are Posit's primary brand colors, excluding the many shades and tints.
 
-* Posit Blue  #447099
-* Posit Orange  #EE6331
-* Posit Gray  #404041
-* Pure White  #FFFFFF
-
-**Secondary**
-
-* Posit Teal   #419599
-* Posit Green  #72994E
-* Posit Burgundy  #9A4665
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    blue: "#447099"
+    orange: "#ee6331"
+    teal: "#419599"
+    green: "#729943"
+    burgundy: "#9a4665"
+    purple: burgundy
+    gray: "#404041"
+    black: "#151515"
+    white: "#FFFFFF"
+  foreground: black
+  background: white
+  primary: blue
+  secondary: gray
+  info: teal
+  success: green
+  warning: orange
+  danger: burgundy
+```
 
 ## Typography
 
 > Please use [Open Sans](https://fonts.google.com/specimen/Open+Sans "https://fonts.google.com/specimen/Open+Sans"), and see the brand guidelines for helpful guidance on font style usage.
 >
 > If you are limited to web-safe fonts, please use Arial. For monospace font use [Source Code Pro](https://fonts.google.com/specimen/Source+Code+Pro "https://fonts.google.com/specimen/Source+Code+Pro").
+
+```{.yaml filename="_brand.yml"}
+typography:
+  fonts:
+    - family: Open Sans
+      source: bunny
+    - family: Source Code Pro
+      source: bunny
+  base: Open Sans
+  headings:
+    weight: light
+  monospace: Source Code Pro
+```
 
 ## Logo
 
@@ -45,3 +79,24 @@ Posit Brand Guidelines
 | Icon | ![](posit-logo.svg){height="30px"} |
 | Full | ![](posit-logo-fullcolor.svg) |
 | Reverse | ![](posit-logo-reverse.svg){.bg-dark .p-1} |
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    icon:
+      path: posit-logo.svg
+      alt: Posit icon.
+    full:
+      path: posit-logo-fullcolor.svg
+      alt: Posit logo.
+    full-reverse:
+      path: posit-logo-reverse.svg
+      alt: Posit logo.
+  small: icon
+  medium:
+    light: full
+    dark: full-reverse
+  large:
+    light: full
+    dark: full-reverse
+```
