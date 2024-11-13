@@ -129,10 +129,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../brand/index.html"> 
-<span class="menu-text">Structure</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-structure" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Structure</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-structure">    
+        <li>
+    <a class="dropdown-item" href="../../brand/index.html">
+ <span class="dropdown-text">Overview</span></a>
   </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Brand Elements</li>
+        <li>
+    <a class="dropdown-item" href="../../brand/meta.html">
+ <span class="dropdown-text">Metadata</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../brand/logo.html">
+ <span class="dropdown-text">Logo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../brand/color.html">
+ <span class="dropdown-text">Color</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../brand/typography.html">
+ <span class="dropdown-text">Typography</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../brand/defaults.html">
+ <span class="dropdown-text">Defaults</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../inspiration/index.html"> 
 <span class="menu-text">Inspiration</span></a>
@@ -549,9 +578,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="brand_yml.BrandTypography.fonts_html_dependency" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.BrandTypography.fonts_html_dependency">fonts_html_dependency</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_html_dependency(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    path_dir</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'brand-fonts'</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">'0.0.1'</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    path_dir,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'brand-fonts'</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">'0.0.1'</span>,</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Generate an HTMLDependency for the font CSS and font files.</p>
 <p>This method creates an <a href="https://shiny.posit.co/py/api/core/Htmltools.html#htmltools.HTMLDependency">HTMLDependency object</a> for the font CSS file and supporting font files written by the <a href="../../pkg/py/typography.html#brand_yml.BrandTypography.fonts_html_dependency"><code>.fonts_html_dependency()</code></a> method. It’s useful for integrating the font styles into web or <a href="https://shiny.posit.co/py">Shiny</a> applications that use <a href="https://pypi.org/project/htmltools/">htmltools</a>.</p>
@@ -935,17 +964,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump" class="level5">
 <h5 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump">model_dump</h5>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange.model_dump(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    mode<span class="op">=</span><span class="st">'python'</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    include<span class="op">=</span><span class="va">None</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    exclude<span class="op">=</span><span class="va">None</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    context<span class="op">=</span><span class="va">None</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    by_alias<span class="op">=</span><span class="va">False</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    exclude_unset<span class="op">=</span><span class="va">False</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    exclude_defaults<span class="op">=</span><span class="va">False</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    exclude_none<span class="op">=</span><span class="va">False</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    round_trip<span class="op">=</span><span class="va">False</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    warnings<span class="op">=</span><span class="va">True</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    serialize_as_any<span class="op">=</span><span class="va">False</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    mode<span class="op">=</span><span class="st">'python'</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    include<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    exclude<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    context<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    by_alias<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    exclude_unset<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    exclude_defaults<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    exclude_none<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    round_trip<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    warnings<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    serialize_as_any<span class="op">=</span><span class="va">False</span>,</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump</p>
 <p>Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.</p>
@@ -961,7 +990,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
 <p>In some cases, you may wish to convert the base font size to an appropriate unit, such as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem"><code>rem</code></a> (i.e.&nbsp;a font size relative to the root element’s font size). Use <code>typography_base_size_unit</code> in <a href="https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context">pydantic’s serialization context</a> to request the units for the base font size. (Note that currently only <code>"rem"</code> is supported.)</p>
-<div id="67d08e72" class="cell" data-execution_count="1">
+<div id="e069b1e4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>
