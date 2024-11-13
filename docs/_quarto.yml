@@ -26,7 +26,16 @@ website:
       - text: About
         href: index.qmd
       - text: Structure
-        href: brand/index.qmd
+        menu:
+          - text: Overview
+            href: brand/index.qmd
+          - text: "---"
+          - text: "Brand Elements"
+          - brand/meta.qmd
+          - brand/logo.qmd
+          - brand/color.qmd
+          - brand/typography.qmd
+          - brand/defaults.qmd
       - text: "Inspiration"
         href: inspiration/index.qmd
       - text: Python
