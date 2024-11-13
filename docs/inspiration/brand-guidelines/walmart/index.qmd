@@ -2,6 +2,7 @@
 title: Walmart
 link: https://walmartbrandcenter.lingoapp.com/s/de9qpe/?v=13
 image: walmart-palette.jpeg
+order: 5
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})

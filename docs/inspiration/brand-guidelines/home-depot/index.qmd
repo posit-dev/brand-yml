@@ -2,6 +2,7 @@
 title: "Home Depot"
 image: home-depot-foundation.png
 link: https://corporate.homedepot.com/media/2020-thdf-brand-guidelines
+order: 2
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})

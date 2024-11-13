@@ -2,6 +2,7 @@
 title: Slack
 link: https://brand.slackhq.com/
 image: slack.png
+order: 4
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})

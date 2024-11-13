@@ -6,6 +6,7 @@ listing:
     contents: brand-guidelines/*/index.qmd
     type: grid
     fields: [image, title]
+    sort: "order"
 
   - id: design-systems
     template: ../_partials/listing/design-systems.ejs

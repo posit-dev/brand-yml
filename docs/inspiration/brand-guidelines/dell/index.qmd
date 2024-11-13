@@ -2,6 +2,7 @@
 title: "Dell"
 feature: dell_20.png
 link: https://hst.tradedoubler.com/file/3466/programme_information/Dell_Brand_Standards.pdf
+order: 6
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})

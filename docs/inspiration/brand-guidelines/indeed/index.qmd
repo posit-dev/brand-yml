@@ -3,6 +3,7 @@ title: "Indeed"
 image: indeed.png
 link: https://indeed.design/brand/resources
 description: ""
+order: 3
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})

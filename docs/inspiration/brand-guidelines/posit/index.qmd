@@ -1,6 +1,7 @@
 ---
 title: Posit
 image: posit-brand-name.png
+order: 1
 ---
 
 Posit Brand Guidelines
