@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,6 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
 <link href="../../../inspiration/brand-guidelines/slack/index.html" rel="next">
+<link href="../../../inspiration/brand-guidelines/home-depot/index.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -40,9 +75,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../../site_libs/bootstrap/bootstrap-f42a11967520dde444beddc6475b8f68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -189,6 +221,18 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../inspiration/brand-guidelines/posit/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Posit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../inspiration/brand-guidelines/home-depot/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home Depot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../inspiration/brand-guidelines/indeed/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Indeed</span></a>
   </div>
@@ -201,26 +245,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../inspiration/brand-guidelines/dell/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dell</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../inspiration/brand-guidelines/home-depot/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home Depot</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../../inspiration/brand-guidelines/walmart/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Walmart</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../inspiration/brand-guidelines/posit/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Posit</span></a>
+  <a href="../../../inspiration/brand-guidelines/dell/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dell</span></a>
   </div>
 </li>
     </ul>
@@ -233,12 +265,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#logos" id="toc-logos" class="nav-link active" data-scroll-target="#logos">Logos</a>
-  <ul class="collapse">
-  <li><a href="#large" id="toc-large" class="nav-link" data-scroll-target="#large">Large</a></li>
-  <li><a href="#small-icon" id="toc-small-icon" class="nav-link" data-scroll-target="#small-icon">Small (icon)</a></li>
-  </ul></li>
-  <li><a href="#swatches" id="toc-swatches" class="nav-link" data-scroll-target="#swatches">Swatches</a></li>
+  <li><a href="#color" id="toc-color" class="nav-link active" data-scroll-target="#color">Color</a></li>
+  <li><a href="#logos" id="toc-logos" class="nav-link" data-scroll-target="#logos">Logos</a></li>
+  <li><a href="#typography" id="toc-typography" class="nav-link" data-scroll-target="#typography">Typography</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/indeed/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -265,42 +294,135 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><a href="https://indeed.design/brand/resources">Indeed Brand Guidelines</a></p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Indeed</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://indeed.com</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">brand-guidelines</span><span class="kw">:</span><span class="at"> https://indeed.design/brand/resources</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">facebook</span><span class="kw">:</span><span class="at"> https://www.facebook.com/IndeedforBusiness/</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span><span class="at"> https://x.com/indeedbusiness</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">linkedin</span><span class="kw">:</span><span class="at"> https://www.linkedin.com/showcase/indeed-business/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="color" class="level2">
+<h2 class="anchored" data-anchor-id="color">Color</h2>
+<p>The <a href="indeed-swatches.pdf">Indeed color swatches PDF</a> lists a large number of colors. We’ll include the primary and functional palettes mentioned there, as well as key colors from the secondary palette.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Primary Colors</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">white</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FFFFFF"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue</span><span class="kw">:</span><span class="at"> </span><span class="st">"#003A9B"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-ink</span><span class="kw">:</span><span class="at"> </span><span class="st">"#001C40"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-a11y</span><span class="kw">:</span><span class="at"> </span><span class="st">"#6792F0"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    # Secondary Palette</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">earth</span><span class="kw">:</span><span class="at"> </span><span class="st">"#C08A38"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange</span><span class="kw">:</span><span class="at"> </span><span class="st">"#DF7838"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">magenta</span><span class="kw">:</span><span class="at"> </span><span class="st">"#E867A8"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple</span><span class="kw">:</span><span class="at"> </span><span class="st">"#9288EE"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">aqua</span><span class="kw">:</span><span class="at"> </span><span class="st">"#409EC8"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green</span><span class="kw">:</span><span class="at"> </span><span class="st">"#4CA38F"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">    # Functional Colors</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-100</span><span class="kw">:</span><span class="at"> </span><span class="st">"#0D2D5E"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-60</span><span class="kw">:</span><span class="at"> </span><span class="st">"#6792F0"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-80</span><span class="kw">:</span><span class="at"> </span><span class="st">"#2557A7"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">magenta-80</span><span class="kw">:</span><span class="at"> </span><span class="st">"#D700A4"</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">magenta-20</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FCEEF4"</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-80</span><span class="kw">:</span><span class="at"> </span><span class="st">"#1F662C"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-20</span><span class="kw">:</span><span class="at"> </span><span class="st">"#E4F7E6"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-80</span><span class="kw">:</span><span class="at"> </span><span class="st">"#A9252B"</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-20</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FEEEF"</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-100</span><span class="kw">:</span><span class="at"> </span><span class="st">"#2D2D2D"</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-90</span><span class="kw">:</span><span class="at"> </span><span class="st">"#424242"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-80</span><span class="kw">:</span><span class="at"> </span><span class="st">"#595959"</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-70</span><span class="kw">:</span><span class="at"> </span><span class="st">"#767676"</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-60</span><span class="kw">:</span><span class="at"> </span><span class="st">"#949494"</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-50</span><span class="kw">:</span><span class="at"> </span><span class="st">"#B4B2B1"</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-40</span><span class="kw">:</span><span class="at"> </span><span class="st">"#D4D2D0"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-30</span><span class="kw">:</span><span class="at"> </span><span class="st">"#E4E2E0"</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-20</span><span class="kw">:</span><span class="at"> </span><span class="st">"#F3F2F1"</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-10</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FAF9F8"</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">foreground</span><span class="kw">:</span><span class="at"> gray-80</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">background</span><span class="kw">:</span><span class="at"> white</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> blue</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">success</span><span class="kw">:</span><span class="at"> green</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> earth</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="logos" class="level2">
 <h2 class="anchored" data-anchor-id="logos">Logos</h2>
-<section id="large" class="level3">
-<h3 class="anchored" data-anchor-id="large">Large</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="Indeed_Logo_Blue.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Blue Indeed logo"><img src="Indeed_Logo_Blue.svg" class="img-fluid figure-img" alt="Blue Indeed logo"></a></p>
-<figcaption>Blue Indeed logo</figcaption>
-</figure>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Size</th>
+<th>Variant</th>
+<th>Preview</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Small</td>
+<td>Light</td>
+<td><img src="Indeed_2021_Icon_RGB_Blue.svg" class="img-fluid" alt="Blue Indeed icon."></td>
+</tr>
+<tr class="even">
+<td>Small</td>
+<td>Dark</td>
+<td><img src="Indeed_2021_Icon_RGB_White.svg" class="p-1 img-fluid" style="background-color: #001c40" alt="White Indeed icon on a dark blue background."></td>
+</tr>
+<tr class="odd">
+<td>Medium</td>
+<td>Light</td>
+<td><img src="Indeed_Logo_Blue.svg" class="img-fluid" alt="Full Indeed logo in blue text."></td>
+</tr>
+<tr class="even">
+<td>Medium</td>
+<td>Dark</td>
+<td><img src="Indeed_Logo_White.svg" class="p-2 img-fluid" style="background-color: #001c40" alt="Full Indeed logo as white text on a dark blue background."></td>
+</tr>
+</tbody>
+</table>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="Indeed_Logo_White.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="White Indeed logo"><img src="Indeed_Logo_White.svg" class="p-2 img-fluid figure-img" style="background-color: #001c40" alt="White Indeed logo"></a></p>
-<figcaption>White Indeed logo</figcaption>
-</figure>
+<div class="sourceCode" id="cb3" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">small</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> Indeed_2021_Icon_RGB_Blue.svg</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> Indeed_2021_Icon_RGB_White.svg</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">medium</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> Indeed_Logo_Blue.svg</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> Indeed_Logo_White.svg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="small-icon" class="level3">
-<h3 class="anchored" data-anchor-id="small-icon">Small (icon)</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="Indeed_2021_Icon_RGB_Blue.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Blue Indeed icon"><img src="Indeed_2021_Icon_RGB_Blue.svg" class="img-fluid figure-img" alt="Blue Indeed icon"></a></p>
-<figcaption>Blue Indeed icon</figcaption>
-</figure>
+<section id="typography" class="level2">
+<h2 class="anchored" data-anchor-id="typography">Typography</h2>
+<p>Indeed uses a proprietary font called “Indeed Sans” for its brand. <a href="https://fonts.google.com/specimen/Work+Sans">Work Sans</a> is a close match and is available on Google Fonts, so we’re using that here.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="Indeed_2021_Icon_RGB_White.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="White Indeed icon"><img src="Indeed_2021_Icon_RGB_White.svg" class="p-1 img-fluid figure-img" style="background-color: #001c40" alt="White Indeed icon"></a></p>
-<figcaption>White Indeed icon</figcaption>
-</figure>
+<div class="sourceCode" id="cb4" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Work Sans</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span><span class="at"> Work Sans</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> gray-100</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> blue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="swatches" class="level2">
-<h2 class="anchored" data-anchor-id="swatches">Swatches</h2>
-<embed src="indeed-swatches.pdf" type="application/pdf" width="100%" height="600px">
 
 
 </section>
@@ -728,6 +850,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../../inspiration/brand-guidelines/home-depot/index.html" class="pagination-link" aria-label="Home Depot">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home Depot</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../../inspiration/brand-guidelines/slack/index.html" class="pagination-link" aria-label="Slack">
@@ -736,40 +861,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/indeed/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/indeed/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

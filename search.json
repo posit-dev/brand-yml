@@ -692,21 +692,31 @@
     ]
   },
   {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html#logos",
-    "href": "inspiration/brand-guidelines/indeed/index.html#logos",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#color",
+    "href": "inspiration/brand-guidelines/indeed/index.html#color",
     "title": "Indeed",
-    "section": "Logos",
-    "text": "Logos\n\nLarge\n\n\n\nBlue Indeed logo\n\n\n\n\n\nWhite Indeed logo\n\n\n\n\nSmall (icon)\n\n\n\nBlue Indeed icon\n\n\n\n\n\nWhite Indeed icon",
+    "section": "Color",
+    "text": "Color\nThe Indeed color swatches PDF lists a large number of colors. We’ll include the primary and functional palettes mentioned there, as well as key colors from the secondary palette.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    white: \"#FFFFFF\"\n    blue: \"#003A9B\"\n    blue-ink: \"#001C40\"\n    blue-a11y: \"#6792F0\"\n    # Secondary Palette\n    earth: \"#C08A38\"\n    orange: \"#DF7838\"\n    magenta: \"#E867A8\"\n    purple: \"#9288EE\"\n    aqua: \"#409EC8\"\n    green: \"#4CA38F\"\n    # Functional Colors\n    blue-100: \"#0D2D5E\"\n    blue-60: \"#6792F0\"\n    blue-80: \"#2557A7\"\n    magenta-80: \"#D700A4\"\n    magenta-20: \"#FCEEF4\"\n    green-80: \"#1F662C\"\n    green-20: \"#E4F7E6\"\n    red-80: \"#A9252B\"\n    red-20: \"#FEEEF\"\n    gray-100: \"#2D2D2D\"\n    gray-90: \"#424242\"\n    gray-80: \"#595959\"\n    gray-70: \"#767676\"\n    gray-60: \"#949494\"\n    gray-50: \"#B4B2B1\"\n    gray-40: \"#D4D2D0\"\n    gray-30: \"#E4E2E0\"\n    gray-20: \"#F3F2F1\"\n    gray-10: \"#FAF9F8\"\n  foreground: gray-80\n  background: white\n  primary: blue\n  success: green\n  warning: earth",
     "crumbs": [
       "Indeed"
     ]
   },
   {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html#swatches",
-    "href": "inspiration/brand-guidelines/indeed/index.html#swatches",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#logos",
+    "href": "inspiration/brand-guidelines/indeed/index.html#logos",
     "title": "Indeed",
-    "section": "Swatches",
-    "text": "Swatches",
+    "section": "Logos",
+    "text": "Logos\n\n\n\n\n\n\n\n\nSize\nVariant\nPreview\n\n\n\n\nSmall\nLight\n\n\n\nSmall\nDark\n\n\n\nMedium\nLight\n\n\n\nMedium\nDark\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small:\n    light: Indeed_2021_Icon_RGB_Blue.svg\n    dark: Indeed_2021_Icon_RGB_White.svg\n  medium:\n    light: Indeed_Logo_Blue.svg\n    dark: Indeed_Logo_White.svg",
+    "crumbs": [
+      "Indeed"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#typography",
+    "href": "inspiration/brand-guidelines/indeed/index.html#typography",
+    "title": "Indeed",
+    "section": "Typography",
+    "text": "Typography\nIndeed uses a proprietary font called “Indeed Sans” for its brand. Work Sans is a close match and is available on Google Fonts, so we’re using that here.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Work Sans\n      source: google\n  base: Work Sans\n  headings:\n    color: gray-100\n  link:\n    color: blue",
     "crumbs": [
       "Indeed"
     ]
@@ -773,7 +783,7 @@
     "href": "inspiration/index.html#company-brand-guidelines",
     "title": "Inspiration",
     "section": "Company Brand Guidelines",
-    "text": "Company Brand Guidelines\n\n\n\n\n\n\n\n\nDell\n\n\n\n\n\n\n\n\n\n\n\n\n\nHome Depot\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndeed\n\n\n\n\n\n\n\n\n\n\n\n\n\nPosit\n\n\n\n\n\n\n\n\n\n\n\n\n\nSlack\n\n\n\n\n\n\n\n\n\n\n\n\n\nWalmart\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Company Brand Guidelines\n\n\n\n\n\n\n\n\n\n\nPosit\n\n\n\n\n\n\n\n\n\n\n\n\n\nHome Depot\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndeed\n\n\n\n\n\n\n\n\n\n\n\n\n\nSlack\n\n\n\n\n\n\n\n\n\n\n\n\n\nWalmart\n\n\n\n\n\n\n\n\n\n\n\nDell\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "inspiration/index.html#design-systems",
