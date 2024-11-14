@@ -17,7 +17,7 @@ brand-typography: >
   e.g. base, headings and monospace text.
 brand-defaults: >
   Additional context-specific settings beyond the basic brand colors and typography.
-  These could be options, for example, that are used by Boostrap in Quarto or Shiny.
+  These could be options, for example, that are used by Bootstrap in Quarto or Shiny.
   They could also be folded into existing Quarto yaml fields like `format` or `website`, or they could be new fields for other contexts like `shiny`.
 ---
 
