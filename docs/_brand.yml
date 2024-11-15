@@ -98,5 +98,6 @@ typography:
 
 defaults:
   bootstrap:
-    enable-rounded: false
-    navbar-bg: $brand-black
+    defaults:
+      enable-rounded: false
+      navbar-bg: $brand-black

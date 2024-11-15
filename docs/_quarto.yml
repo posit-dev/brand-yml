@@ -83,7 +83,7 @@ website:
 
 format:
   html:
-    theme: [brand, "brand-yml-theme.scss"]
+    theme: [brand]
     toc: true
 
 lightbox: auto
