@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../logos/favicon/android-chrome-512x512.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-listing/list.min.js"></script>
 <script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -40,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-baf0c19d459a7935f9b2fcbb395a326a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f42a11967520dde444beddc6475b8f68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-823cbe9ee98792bf88654f7100ef2561.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-aricles .list');
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -84,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-aricles'] = new List('listing-aricles', options);
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -128,6 +129,12 @@ window.Quarto = {
 };
 </script>
 
+<link rel="alternate" type="application/rss+xml" title="brand.yml" href="index.xml" data-external="1"><meta property="og:title" content="Articles – brand.yml">
+<meta property="og:image" content="https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/feature.webp">
+<meta property="og:site_name" content="brand.yml">
+<meta name="twitter:title" content="Articles – brand.yml">
+<meta name="twitter:image" content="https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/feature.webp">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -230,9 +237,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<p><a href="index.xml"><i class="bi bi-rss-fill"></i> RSS Feed</a></p>
+</div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -255,16 +264,19 @@ window.Quarto = {
 </header>
 
 
-<div id="articles">
 
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
 </div>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-aricles">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1731628800000" data-listing-file-modified-sort="1731698863931" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="478">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1731628800000" data-listing-file-modified-sort="1731700004737" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="478">
 <div class="thumbnail">
 <p><a href="../articles/llm-brand-yml-prompt/index.html" class="no-external"></a></p><a href="../articles/llm-brand-yml-prompt/index.html" class="no-external">
 <p><img loading="lazy" src="../articles/llm-brand-yml-prompt/feature.webp" class="thumbnail-image"></p>
@@ -272,7 +284,7 @@ window.Quarto = {
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="../articles/llm-brand-yml-prompt/index.html" class="no-external">Creating a brand.yml with LLMs</a>
+<a href="../articles/llm-brand-yml-prompt/index.html" class="no-external">Creating a brand.yml with an LLM</a>
 </h3>
 <div class="listing-subtitle">
 <a href="../articles/llm-brand-yml-prompt/index.html" class="no-external"></a>
@@ -718,8 +730,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Proudly supported by <a href="https://posit.co"><img src="https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg" class="img-fluid" alt="Posit" width="65"></a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/articles/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/articles/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+</body></html>

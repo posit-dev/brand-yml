@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>brand.yml</title>
+<link>https://posit-dev.github.io/brand-yml/articles/</link>
+<atom:link href="https://posit-dev.github.io/brand-yml/articles/index.xml" rel="self" type="application/rss+xml"/>
+<description>Unified branding with a simple YAML file</description>
+<image>
+<url>https://posit-dev.github.io/brand-yml/logos/wide/brand-yml-wide-color.png</url>
+<title>brand.yml</title>
+<link>https://posit-dev.github.io/brand-yml/articles/</link>
+</image>
+<generator>quarto-1.6.33</generator>
+<lastBuildDate>Fri, 15 Nov 2024 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Creating a brand.yml with an LLM</title>
+  <dc:creator>Garrick Aden-Buie</dc:creator>
+  <link>https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="teaching-llms-about-brand.yml" class="level2">
+<h2 class="anchored" data-anchor-id="teaching-llms-about-brand.yml">Teaching LLMs about brand.yml</h2>
+<p>Beacuse <strong>brand.yml</strong> is a <em>brand</em><sup>1</sup> new project, large language models like <a href="https://chat.openai.com/chat">OpenAI’s ChatGTP</a>, <a href="https://claude.ai/">Anthropic’s Claude</a> and others haven’t learned the syntax (yet).</p>
+<p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="brand.yml Prompt">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+brand.yml Prompt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Copy the code block below and paste it into a chat interface or use it as a system prompt.</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## About brand.yml</span></span>
+<span id="cb1-2"></span>
+<span id="cb1-3">brand.yml is a structured YAML file to hold brand information for key</span>
+<span id="cb1-4">brand elements. The goal of brand.yml is to capture the essence of the</span>
+<span id="cb1-5">brand's color and typographic choices in a simple format.</span>
+<span id="cb1-6"></span>
+<span id="cb1-7">"brand.yml" is the name of the project defining the YAML specification.</span>
+<span id="cb1-8">A specific instance of a brand's data is stored in a file named</span>
+<span id="cb1-9">"_brand.yml" by convention.</span>
+<span id="cb1-10"></span>
+<span id="cb1-11"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Brand Elements</span></span>
+<span id="cb1-12"></span>
+<span id="cb1-13"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`meta`</span> - Key identity information, name of the company, links to</span>
+<span id="cb1-14">    brand guidelines, etc.</span>
+<span id="cb1-15"></span>
+<span id="cb1-16"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`logo`</span> - Files or links to the brand's logo at various sizes.</span>
+<span id="cb1-17"></span>
+<span id="cb1-18"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`color`</span> Semantic colors, e.g.&nbsp;<span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`primary`</span>, <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`secondary`</span>, <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`success`</span>,</span>
+<span id="cb1-19">    <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`warning`</span>, etc. Named colors in the brand's color palette are stored</span>
+<span id="cb1-20">    in <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`color.palette`</span>.</span>
+<span id="cb1-21"></span>
+<span id="cb1-22"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`typography`</span> - Font family, weight, style, color, and line height</span>
+<span id="cb1-23">    for key elements, e.g.&nbsp;base, headings and monospace text. Available</span>
+<span id="cb1-24">    fonts used by the brand are stored in <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`typography.fonts`</span> and can be</span>
+<span id="cb1-25">    sourced from Google Fonts, Bunny Fonts or local or remote font</span>
+<span id="cb1-26">    files.</span>
+<span id="cb1-27"></span>
+<span id="cb1-28"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`defaults`</span> - Additional context-specific settings beyond the basic</span>
+<span id="cb1-29">    brand colors and typography. These could be options, for example,</span>
+<span id="cb1-30">    that are used by Bootstrap in Quarto or Shiny. They could also be</span>
+<span id="cb1-31">    folded into existing Quarto yaml fields like <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`format`</span> or <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`website`</span>,</span>
+<span id="cb1-32">    or they could be new fields for other contexts like <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`shiny`</span>.</span>
+<span id="cb1-33"></span>
+<span id="cb1-34"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Example file</span></span>
+<span id="cb1-35"></span>
+<span id="cb1-36">The following YAML includes all allowed features of a _brand.yml file.</span>
+<span id="cb1-37">Note that all fields are optional.</span>
+<span id="cb1-38"></span>
+<span id="cb1-39">Only include fields that directly apply to the brand; it's important for</span>
+<span id="cb1-40">the _brand.yml file to be simple and concise rather than overly</span>
+<span id="cb1-41">complex. Many fields have simple and complex values variants; generally</span>
+<span id="cb1-42">speaking many fields accept either a simple string or a mapping.</span>
+<span id="cb1-43">Alternative syntax is indicated in comments in the example below with</span>
+<span id="cb1-44">"ALT". If possible, use the simple string.</span>
+<span id="cb1-45"></span>
+<span id="cb1-46"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">``` {.yaml filename="_brand.yml"}</span></span>
+<span id="cb1-47"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">meta:</span></span>
+<span id="cb1-48"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # name: Acme # ALT: Single string for simple company name</span></span>
+<span id="cb1-49"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  name:</span></span>
+<span id="cb1-50"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    short: Acme # Short company name</span></span>
+<span id="cb1-51"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    full: Acme Corporation International # Full, legal company name</span></span>
+<span id="cb1-52"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  </span></span>
+<span id="cb1-53"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # link: https://acmecorp.com # ALT: single url for the company's home page</span></span>
+<span id="cb1-54"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  link:</span></span>
+<span id="cb1-55"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    home: https://www.acmecorp.com # Company's home apge</span></span>
+<span id="cb1-56"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    bluesky: https://bsky.app/profile/acmecorp.bsky.social # Bluesky social media account link</span></span>
+<span id="cb1-57"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    github: https://github.com/acmecorp # GitHub account link</span></span>
+<span id="cb1-58"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    mastodon: https://mastodon.social/@acmecorp # Mastodon account link</span></span>
+<span id="cb1-59"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    linkedin: https://www.linkedin.com/company/acmecorp # LinkedIn account link</span></span>
+<span id="cb1-60"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    facebook: https://www.facebook.com/acmecorp # Facebook account link</span></span>
+<span id="cb1-61"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    twitter: https://twitter.com/acmecorp # Twitter account link</span></span>
+<span id="cb1-62"></span>
+<span id="cb1-63"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">logo:</span></span>
+<span id="cb1-64"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  images: # Mapping of image names to local files that should be stored next to the _brand.yml file. Users may need to download these files manually.</span></span>
+<span id="cb1-65"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    header: logos/header-logo.png # Each entry maps a name to a local file</span></span>
+<span id="cb1-66"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    header-white: logos/header-logo-white.png</span></span>
+<span id="cb1-67"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    full: # ALT: Images can alternatively be a path with associated alt text for accessibility</span></span>
+<span id="cb1-68"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      path: logos/full-logo.svg</span></span>
+<span id="cb1-69"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      alt: Acme logo.</span></span>
+<span id="cb1-70"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  small: logos/icon.png # A small image, ideally icon-sized. Can be a path to a file or the name of a file in `logo.images`</span></span>
+<span id="cb1-71"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  medium: # A medium sized logo, ideally small enough for a sidebar logo</span></span>
+<span id="cb1-72"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # ALT: Logos is small, medium, and large may have `light` and `dark` variants</span></span>
+<span id="cb1-73"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    light: header # light variant for use on light backgrounds</span></span>
+<span id="cb1-74"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    dark: header-white # dark variant for use on dark backgrounds</span></span>
+<span id="cb1-75"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  large: full # A large logo, e.g. for use in a hero or cover page. ALT: Can refer directly to images in `logo.images`.</span></span>
+<span id="cb1-76"></span>
+<span id="cb1-77"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">color:</span></span>
+<span id="cb1-78"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  palette:</span></span>
+<span id="cb1-79"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # Dictionary of the brand's colors with readable names. </span></span>
+<span id="cb1-80"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # Must be a flat list of names and color values. </span></span>
+<span id="cb1-81"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # Names should be follow Sass variable conventions. Prefer hex color values.</span></span>
+<span id="cb1-82"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # Prefer or create aliases for Bootstrap primary colors: blue, indigo, purple, pink, red, orange, yellow, green, teal, cyan, white, black</span></span>
+<span id="cb1-83"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    white: "#FFFFFF"</span></span>
+<span id="cb1-84"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    black: "#151515"</span></span>
+<span id="cb1-85"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    blue: "#447099"</span></span>
+<span id="cb1-86"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    orange: "#EE6331"</span></span>
+<span id="cb1-87"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    green: "#72994E"</span></span>
+<span id="cb1-88"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    teal: "#419599"</span></span>
+<span id="cb1-89"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    burgundy: "#9A4665"</span></span>
+<span id="cb1-90"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    purple: burgundy # Aliases are allowed by referring to other colors in `color.palette`</span></span>
+<span id="cb1-91"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    fire-red: "#FF0000"</span></span>
+<span id="cb1-92"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    bright-yellow: "#FFFF00"</span></span>
+<span id="cb1-93"></span>
+<span id="cb1-94"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # All theme colors can take direct color values, and all are optional.</span></span>
+<span id="cb1-95"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Only include the colors that are obviously required.</span></span>
+<span id="cb1-96"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Refer to color names from `color.palette` whenever possible.</span></span>
+<span id="cb1-97"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  foreground: "#151515"  # Main text color, should have high contrast with background</span></span>
+<span id="cb1-98"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  background: "#FFFFFF"  # Main background color, should have high contrast with foreground</span></span>
+<span id="cb1-99"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  primary: "#447099"  # Main accent color for links, buttons, etc.</span></span>
+<span id="cb1-100"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  secondary: "#707073"  # Used for lighter text or disabled states. Only include if necessary.</span></span>
+<span id="cb1-101"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  tertiary: "#C2C2C4"  # Even lighter color for hover states, accents, wells. Only include if necessary.</span></span>
+<span id="cb1-102"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  success: "#72994E"  # Color for positive or successful actions/information</span></span>
+<span id="cb1-103"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  info: "#419599"  # Color for neutral or informational actions/information</span></span>
+<span id="cb1-104"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  warning: "#EE6331"  # Color for warning or cautionary actions/information,</span></span>
+<span id="cb1-105"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  danger: "#9A4665"  # Color for errors, dangerous actions, negative information</span></span>
+<span id="cb1-106"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  light: "#FFFFFF"  # Bright color for high-contrast on dark elements</span></span>
+<span id="cb1-107"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  dark: "#404041"  # Dark color for high-contrast on light elements</span></span>
+<span id="cb1-108"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # ALT: All properties in `color` can refer by name to values in `color.palette`, including within `color.palette`.</span></span>
+<span id="cb1-109"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # foreground: black</span></span>
+<span id="cb1-110"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # background: white</span></span>
+<span id="cb1-111"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # primary: blue</span></span>
+<span id="cb1-112"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # success: green</span></span>
+<span id="cb1-113"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # info: teal</span></span>
+<span id="cb1-114"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # ALT: All properties in `color` can refer by name to other properties in `color`.</span></span>
+<span id="cb1-115"></span>
+<span id="cb1-116"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">typography:</span></span>
+<span id="cb1-117"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  fonts:</span></span>
+<span id="cb1-118"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    - family: Open Sans  # Font family name</span></span>
+<span id="cb1-119"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      source: file  # Source of the font (file, google, bunny, or system)</span></span>
+<span id="cb1-120"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      files:  # REQUIRED list of font files for `source: file`, which must have at least one font file. Use placeholder names and comment out the source font section if proprietary fonts are used. (And include a Google Font alternative recommendation.)</span></span>
+<span id="cb1-121"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        - path: fonts/open-sans/OpenSans-Variable.ttf</span></span>
+<span id="cb1-122"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">          # Each file corresponds to a weight and style, both default to "normal".</span></span>
+<span id="cb1-123"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">          weight: 400  # Optional: specify weight for this file</span></span>
+<span id="cb1-124"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">          style: normal  # Optional: specify style for this file</span></span>
+<span id="cb1-125"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf</span></span>
+<span id="cb1-126"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">          style: italic</span></span>
+<span id="cb1-127"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    - family: Roboto Slab</span></span>
+<span id="cb1-128"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      source: google</span></span>
+<span id="cb1-129"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      weight: [600, 900]  # Optional font weights to include (for google and bunny), defaults to all weights</span></span>
+<span id="cb1-130"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      # weight: 600..900 # ALT: fonts with variable weights can have a weight range</span></span>
+<span id="cb1-131"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      # weight: [thin, normal, bold] # ALT: font weights by name are allowed</span></span>
+<span id="cb1-132"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      style: [normal, italic]  # Font styles to include (for google and bunny)</span></span>
+<span id="cb1-133"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      display: block  # Font display property (for google). Optional and should not be included in most cases.</span></span>
+<span id="cb1-134"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    - family: Fira Code</span></span>
+<span id="cb1-135"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      source: bunny # Use Bunny Fonts, a GDPR-compliant alternative to Google Fonts</span></span>
+<span id="cb1-136"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      weight: [400, 500, 600] # Optional, same as for `source: google`</span></span>
+<span id="cb1-137"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      style: [normal, italic] # Optional, same as for `source: google`</span></span>
+<span id="cb1-138"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  </span></span>
+<span id="cb1-139"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # base: Open San # ALT: If a string, sets the base font family</span></span>
+<span id="cb1-140"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  base:</span></span>
+<span id="cb1-141"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    family: Open Sans  # Optional: Font family for body text</span></span>
+<span id="cb1-142"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    weight: 400  # Optional: Font weight for body text</span></span>
+<span id="cb1-143"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    size: 16px  # Optional: Font size for body text, allows any CSS value, rem or px are preferred</span></span>
+<span id="cb1-144"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    line-height: 1.5  # Optional: Line height for body text</span></span>
+<span id="cb1-145"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # DO NOT INCLUDE color HERE. The base font uses `color.foreground` by default.</span></span>
+<span id="cb1-146"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  </span></span>
+<span id="cb1-147"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # headings: Roboto Slab # ALT: If a string, sets the headings font family</span></span>
+<span id="cb1-148"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  headings:</span></span>
+<span id="cb1-149"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    family: Roboto Slab  # Optional: Font family for headings</span></span>
+<span id="cb1-150"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    weight: 600  # Optional: Font weight for headings</span></span>
+<span id="cb1-151"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    style: normal  # Optional: Font style for headings</span></span>
+<span id="cb1-152"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    line-height: 1.2  # Optional: Line height for headings</span></span>
+<span id="cb1-153"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    color: "#333333"  # Optional: Color for headings</span></span>
+<span id="cb1-154"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # color: primary # ALT: Can use named colors from `color` or `color.palette`</span></span>
+<span id="cb1-155"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  </span></span>
+<span id="cb1-156"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # monospace: Fira Code # ALT: If a string, sets the monospace font family</span></span>
+<span id="cb1-157"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  monospace:</span></span>
+<span id="cb1-158"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    family: Fira Code  # Optional: Font family for monospace text</span></span>
+<span id="cb1-159"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    weight: 400  # Optional: Font weight for monospace text</span></span>
+<span id="cb1-160"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    size: 0.9em  # Optional: Font size for monospace text, CSS units allowed but `rem` or `px` preferred</span></span>
+<span id="cb1-161"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  monospace-inline: # Inline monospace text, inherits from monospace</span></span>
+<span id="cb1-162"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    # Properties of monospace can be overwritten here</span></span>
+<span id="cb1-163"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    color: "#7d12ba"  # Color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-164"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    background-color: "#f8f9fa"  # Background color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-165"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  monospace-block:</span></span>
+<span id="cb1-166"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    color: foreground  # Color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-167"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    background-color: background  # Background color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-168"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    line-height: 1.4  # Line height for block monospace text</span></span>
+<span id="cb1-169"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  link:</span></span>
+<span id="cb1-170"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    weight: 600  # Font weight for links</span></span>
+<span id="cb1-171"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    color: "#0066cc"  # Optional color for link, defaults `color.primary`. ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-172"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    background-color: transparent  # Optional background color for links, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-173"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    decoration: underline  # Optional text decoration for links</span></span>
+<span id="cb1-174"></span>
+<span id="cb1-175"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">defaults: # Additional Bootstrap, Shiny, or Quarto rules, all optional and only to be used as a last resort</span></span>
+<span id="cb1-176"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  bootstrap: Additional scss rules for any contexts that use Bootstrap</span></span>
+<span id="cb1-177"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    functions: # string with scss function declarations</span></span>
+<span id="cb1-178"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    defaults: # Mapping of Bootstrap variables to default values</span></span>
+<span id="cb1-179"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    mixins: # string with scss mixins</span></span>
+<span id="cb1-180"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    rules: # string with scss rules</span></span>
+<span id="cb1-181"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  quarto:</span></span>
+<span id="cb1-182"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    format:</span></span>
+<span id="cb1-183"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      # Options specific to output Quarto output formats</span></span>
+<span id="cb1-184"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  shiny:</span></span>
+<span id="cb1-185"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    theme: # Additional scss rules to add to the Shiny branded theme</span></span>
+<span id="cb1-186"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      defaults:</span></span>
+<span id="cb1-187"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        # Named bootstrap variables and their default values</span></span>
+<span id="cb1-188"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        navbar-bg: $brand-orange # Use Sass variables to access brand colors: $brand-{color_name}</span></span>
+<span id="cb1-189"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">      rules:</span></span>
+<span id="cb1-190"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        # A string of additional scss rules</span></span>
+<span id="cb1-191"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span>
+<span id="cb1-192"></span>
+<span id="cb1-193"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Brand best practices</span></span>
+<span id="cb1-194"></span>
+<span id="cb1-195">Be careful and be certain to follow these rules when creating the</span>
+<span id="cb1-196"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`_brand.yml`</span> file:</span>
+<span id="cb1-197"></span>
+<span id="cb1-198"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span>When brands define a range of shades and tints for colors, it's best</span>
+<span id="cb1-199">    to choose the midpoint color as the primary color used in the</span>
+<span id="cb1-200">    <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`color.palette`</span>.</span>
+<span id="cb1-201"></span>
+<span id="cb1-202"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span>For logo and font files, use placeholders in the <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`_brand.yml`</span> with</span>
+<span id="cb1-203">    instructions to download the files and place them next to</span>
+<span id="cb1-204">    <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`_brand.yml`</span>.</span>
+<span id="cb1-205"></span>
+<span id="cb1-206"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span>Suggest substitutes for proprietary fonts by finding the closest</span>
+<span id="cb1-207">    equivalent fonts on Google Fonts.</span>
+<span id="cb1-208"></span>
+<span id="cb1-209"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">-   </span>Prefer hex color syntax for raw color values.</span>
+<span id="cb1-210"></span>
+<span id="cb1-211">Provide the YAML file directly in a markdown block. Include any</span>
+<span id="cb1-212">follow-up instructions in the YAML as inline comments.</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>If you’ve copied the above text into the chat (as opposed to using it as a system prompt), make sure that you follow up with additional instructions, for example:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1">Create a _brand.yml for {company} using the following context from {company}'s' brand guidelines</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;</span></span></code></pre></div>
+</section>
+<section id="some-tips-and-tricks" class="level2">
+<h2 class="anchored" data-anchor-id="some-tips-and-tricks">Some tips and tricks</h2>
+<section id="copy-and-paste-from-brand-guidelines" class="level3">
+<h3 class="anchored" data-anchor-id="copy-and-paste-from-brand-guidelines">Copy and paste from brand guidelines</h3>
+<p>In general, if you can copy and paste entire sections from your brand guidelines, that approach works better than uploading screenshots. If your brand guidelines are designed in PDF and are not plain text, you can take screenshots or try uploading the brand guidelines directly.</p>
+<p>As a last resort, find a webpage or document that serves as a complete demonstration of your brand’s design and include a screenshot. In my experience, ChatGPT and Claude can get fairly close to your brand from a simple screenshot.</p>
+</section>
+<section id="ask-for-alternative-fonts" class="level3">
+<h3 class="anchored" data-anchor-id="ask-for-alternative-fonts">Ask for alternative fonts</h3>
+<p>Many brands use proprietary fonts that aren’t freely available online. When translating typographic choices from brand guidelines, LLMs tend to include placeholder YAML for these font files assuming that you’ll be able to download them.</p>
+<p>It can be helpful to ask a follow-up question to request publicly-available font substitutes using either <a href="https://fonts.google.com">Google Fonts</a> or <a href="https://fonts.bunny.net">Bunny Fonts</a> (a GDPR-compliant alternative to Google Fonts).</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1">Find alternative fonts that match {company}'s fonts using Google Fonts.</span></code></pre></div>
+<p>I’ve been impressed with the ability of LLMs to pick reasonable font substitutes with this simple level of prompting.</p>
+</section>
+<section id="ask-for-bootstrap-color-aliases" class="level3">
+<h3 class="anchored" data-anchor-id="ask-for-bootstrap-color-aliases">Ask for Bootstrap color aliases</h3>
+<p>Both brand guidelines and LLMs tend to use creative language when naming colors, e.g.&nbsp;<code>tea-green</code>, <code>amethyst</code>, <code>raisin</code> and <code>hunter</code> (color names used in <a href="https://www.dell.com/en-us/lp/brand-guidelines-color">Dell’s brand guidelines</a>). On the other hand, many web frameworks like Bootstrap have hooks for <a href="https://getbootstrap.com/docs/5.0/customize/color/">simple, common color names</a> such as <code>blue</code>, <code>green</code>, <code>yellow</code>, <code>purple</code>, etc.</p>
+<p>It can be helpful to ask a follow-up question to make sure that your <code>_brand.yml</code> includes aliases for these color names.</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1">Update <span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">`color.palette`</span> to include aliases for Bootstrap's</span>
+<span id="cb4-2">primary colors drawing from the brand's color palette.</span></code></pre></div>
+</section>
+<section id="try-_brand.yml-in-a-live-example" class="level3">
+<h3 class="anchored" data-anchor-id="try-_brand.yml-in-a-live-example">Try <code>_brand.yml</code> in a live example</h3>
+<p>Once you have the initial <code>_brand.yml</code> file from the LLM, you can try it out in a live Shiny app on <a href="https://shinylive.io/py/examples">shinylive.io</a>. Shinylive apps run directly in your browser and do not require any installation.</p>
+<p>We’ve created an example app using Shiny’s branded theming. Copy the <code>_brand.yml</code> from the LLM and replace the <code>_brand.yml</code> content in the app editor.</p>
+<a class="btn btn-warning shadow-sm fs-4" href="https://shinylive.io/py/editor/#code=NobwRAdghgtgpmAXGA+gIwE5QgEwHQCeMANmADRgDGA9hAC5z1Jjx1SIA6EABN9PJx69uAZwAW1DHUTcAstQBeAS2LEoXYdwBmAV1Uz5y1VG4AxajtxQ6S2hu7ElEANaDNEgdzF06ABxGIAPSBMIoqaniSAOb2vFFKdGI6aDLefgHB8YnJeDQwIWHGsdx0AO4JDBipPv5BgWUVcBi51PmhRmpcXMTUUdRu3EowUFFwAcW+GENQGAQyPX0iBQoAtJPTsytoapTOeL4QUbwAxNwAClPDs9w6InDcgMgE3ABCO87c2DjcpWIJ9wvUYqOGB-HBbN7zXrUJbtFbA0HgqC7faHE7cAAyQ1BNzuj24AHkIHAVjQehhuNske8AUCsQwwT8-pDFss4XS4AzfgwUUduKdMSD6Tj7k9CcTSZJvlz-lD7CJhvpuLD5VBVCslDQIDy0QBlaiUJSqpUcw2DTUiD64bRQABuGtoIns8BwSh0MAGvEcUW883ZYMpu2KOBmrgcfpWjIY9jUGFGMnWVwIXQgEqq9l8qrgPjgHopEO4HDAxwADKWy4XipGcwWi6Y6-WK0JeETaOCdNXCyXi1oe1pG5piHBQhAVgQ4KpqKUZJ3ewAWWd9sCVmYwFYYDnTos9hcAVjg-eELZHUXXjE3xx3C60aBwB94wYwzjWOgwvkH54AbHBSwAONB37gHyfE84DPGsuz3PcAKAtsOyLUtZx3P9oJDFYQLmcCAE4d2w7CAK9bw0PXDDOzgAB2OA9wAJkbYpTmeahqDoEQ6CwXxuFTD5HCgO5HSbPN2xkI9YOKMcJynBwh1bMSelKYp1xwGRShXNcOWKECwOEjSIAmF832rGDfD0wdikoAhsCEuBW22dt1KwDCYPQ5NeC0SQ4BPCxcBkANnHsNAqQ8yxFKlP500uGYHNQozXxMoQ7k1B9IsfIi4CTOKdEoSgxgCPgrOPU8dKEJxXO84hbKEZSMAgJwohkGTJ3sYNDiaJSVIU6MlG9aQQqjIQgJkE8oDSrg6AIXxejYsQ5nsVz6HGfiVmtEFiAwgAtcITB1NR-343gRAsDAsoGxioli3h-LuGR1uMbgtqgNBdSzCkePuWa6C4MAAF8yHAfgEGQFBUxEPAREoEQRHIKhaAYJhkGCLwagyQIsiSNAWnyMo0CWNBGOY1ioF8QJtmoNBAhtHc8AAZipwIRD+QIeLuZjabBpZAeoMlgdB8HkzwG9YJWABGUtuBADiOckGRUxJaGsBYgAKAASGziWF4sAEoAG5nt2QLcBlskZGVsrVdLbXPq4Pn-RNlYqJFsXUyliWMBl+g5boJWVdt0stZ15w9bBR3uGN9tveLc3Lf5r3Kft8XDbjyRXfxhWQ+JGONe1-zdYwTzA+do3o7N7gLa1KObdnWOg+lzVk491OVgrjO-YDg3JeDr3G4j0vrdDndK-zhOXZr93PZtvum6z-2c6C1uqnbsei5Lq2BY-fv4+r2WeLrr3V4ngLp-1oP693rvl69si17bje3a30fQ4vvfs9z2eC5th-T7L0Of0vufr9ru-iTf0flPZ+R8vZAI-j3YkmEf5OzJEnEe9cYHAJbmAm2yCu6RzBE4F0fQhawMHgg2+iscGdWoPglBB887xxIbgMhFDIHqjoXgu2xZRaDzgYnYexDSEsJ9pnfeoCB60NweQ1hjDeHkPTuwquzsiEp0kSsdOvtJ6oOEYo9OEjmHkMbjIgef9EGKMbiowRM8j5GMXlgphoiVjjz0evOR3CFHaNsfw5uVCX7B0UePLRNjd72Kvo4zezi-FuNUR48xLiT7FysYoh+ATf5BJviE+hD8TFPzMeolx78Ynd2sfQoBCTOFD2CXXRRQD0kgMyTQ8pli8mKOQUUwhTiykuOQZUtRNS2l1KsdFfSFCmkGOIX0wcFCOkROESM024dcnLymWHQZST-6K3maw8ZQiaGrLqXM4yacCFDJTvM5RAiMmH0mbspR2z+bzN0Q7fRSzEE3LCaYs5myLmd1mdci5di7kOPgS0pW8zx7rOqW3FZ3yrlgnmf435gT-mlMBRc3eILXlguhZC58MViTxNhYk+FyS67zLSScqpqK57gqxSsHJS8vmUsKbi4p8jCUXIqSSzpaKWUYvmY0hlzSEUUv6e0tlEy3mUowbk3pTgnxq0Wfi5ZvgpVjOFRstFiq1aMIVS4BZvKDmEsVWs5VoLyWaqfOIz5ULFXSJ1Q84ZlrnmnOoaqrVmjzVrEVbcjhfKCWAvdfa0ljrjW+pmTSi1Wqfmet1T6sNfr2WBujcGyVWqYURptYcxVyLDVkqNialY0SQ1uq1TilNcrHmKuJe4lVcanzUsTU+elxauH8pzayitRrs2Koga6nNPKG0lO9SsxVQrW1ZuDt2npeSFIDOtSW4hk61YooDUbOdGLJ2sNlY2-tq6Y0irBVuhNE6OSXLYdOjdyzJ3HOHYu4O56V2Ho9bImdKdJ3GMzVexWz7b1gnDQ+09iDJ3AtfZ499h6fGusncmn9faz2HozZeoD4HP1Uv2amuuk7y3hMrUuw9NaD1gnrZBplStJ0tow2269h7O35snT2gjALgNgiHaRkd9GVjipLlYyQ2BRhTt7YRxWnHmpKrg0fAT3H1WutE8SNdJ6oOIMk2HBdQH5NmvzfJq1vG6Nqe3Zh4OWn93L3k-e+5j666Ge02R-jWBBMfNU1Z7j37jO-uIfJgDwnhEuYxfJiDjnZPObs8SWDTG31ec8-5pDx6NP8vk+hl5wWws4YM2F-DPm+PyZI7FpTSXQtcegchkzSt5OMYyyJsLbHeb83qqUHjtH+WVaE0FoDdXxP5rq9JyL-bWvmeY51-TFXxyySPeu3zKc6sXoa0fUbGK6tGb+U5kb-XJwNy62+6bU2FtVYc7N4bdc6uufG8I3ba3xK5ry3Nnb62TuUJ04rOrearF1aLTVjrF2YsOsay9o7A3ktbb43V9Lb2JsXco-di7NGUt0bq0VgHB3QfjuXtpar4P+UI-nYBo+KOMUI7a095ZWPltAbx71sECP1M48QST-H6OCpHsYQjmbcKztKzp5T4RzOicpUYK4iLZPiEI728V1n1PQP5oR95n7dHRcs5oZL9nCPHtI-7XLqXYKley+p99hn22mfq+V+ShHwO8kI7B+L5H1Oof+oJ2buH-MGCqkRyb-ttviD1YFzQp3DDXXu+xwr5ZXvddGz9+z93pOfeIOD-74O4eg9wDt-TvFjPFbu5fW5t3Mfnc2ase7zbmu+NZ4j4ntPXPGHu7FznujJf88V+j3b+XDvfeF9exbo+7uEs28Lxr+PWuC92-+034R7uDfL3d8bsv-Lh+V8L2Vwqy8zLYHt6P-ts+Ryo5T2CpfHv83r+93XxBW-897-Z+vkPO-iFH-3+ZEcLrN8X6W9z0Pp+b-J-2zQ9fGe8nr+z53vjH-z9z+F1Y9fUvL-OjQA3-EcO7d-G-WvBfZZdfRvWNI2OAjFdfDvRlEAm-XvBA4OFA5Am-EfYA-ldfc3LAxWIg63YneyefAgxXSglfZ-FXWgzHSg7fGA8nZg-PQaAgMOWnSg4-Vg3nXgjgwQtXIaW-IbPjTg2-RTKnUQt-eHSgz-NA03UQ-naHaXBQpg0QoApQmgrQoQvQkQrg6A6g3HSg+AndPXMwzQrg1Ar1Uw0QzAiwo2SQwffmSQ-AnQ+wrg4gpw4Odw8giMaUcQujKsaQ4RKsTOSQHAFqbgKiXwAAD1EA5iUC+GVmoBwC4NTE1nzR8mCP5R8jCJoR8kYVcnXADiaTSIyK2CiDR2ERxiqKyNdSCwqPqMyOdlqKKPSK4LQBqIpCiJiLiMSP2kcFSNaNnmyK+h+kgFgH+jAAJl8H2AIEhhrkYDoGYC0BzhgG4AzESEcAeiGHGikHOGsDEGTAOMkDoCVGsDfCYj2MWJuMuJ4m2OIHemqhgEOMuIgDdF8AIA+AtAgF8C4A2NaFEF+AgF+POKOIAEFfBfAyBuB1xcAmh4SdAlAgTNjQSnACA8BUS8AUBEghw4B0ArMvhITLicYmIWI2J2ZOZkx+QY8qolQ3Jqh0g6hxo6Y6AVhoibQ8AUYchbAiYSTRwSARoxBCTuAABeG4JQPAAAFTFPgDwGBJgGJM+HlhQBQC0BUCJJQHVjpJKAVPuClNxPlMJPlnVj5G4AAFUUxWh4B6ADSlALRHAiQShqBxZ3iZh7hyhEgDT7gWJPgZgvgdQwTfiCT4Bkxwy4A8AoAcAcAUAMA9Axh5Z5YzgTj1TNTtSNT1Z9gvSHTAgawaTJAuZWZCwcz1xYz8S4B4iPZ1Y9TCp5iUBUTJTpTczRgUBoAbR-IMB5ZihcTOyUAMwiRiBezdphBCwABJAEnQS4-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-UX8+gawYqp+zT8IHTzM1QAz6V-V8zlaqjvAUz4FnNq4ZwHAScERw9sdisJcU1lAAAKVuEuKcA4hekGDa5EAgAAHJLiSY7QLARB4TEhNqiPlILRP7GgeA0BfjsAMR0RZA8TnIQbTgBL3jaBVj6rkv7S2BKrVuOrTTbpQywbyQzgCBEhoqNiZimPnB4TbR3PtpBwPhLjgBxAsT9hoQEgWhAgfjGr5ZnqkYPvwSvuOTfufjAhs3tic47RoiLQTA8hJg4AxSJaLP-SnpqAtBrSJyPShLViLQCO9GVAXRUQnBKhhq17vgLyPhYTHAC7KrgZ4axS7hZmketu5piP7h4fOoiQvgfTzKAAqQX80J0mGMyS0L4W4e6FQBIAgYXwYHgEEXAeE4YZwGqLrraniJQJoM72Z7k8cagXwJoC0DyjiCshgGHrH7KYqu3QaaI2nt8DUNLh0PAQ71quc8kG7+AO7wYKlwkzn1GgAA1xIzHbM7MPPViD7x458eNN7FJh6Yb4FtE6hd54CpIyjoBfDgE-fvsnA14I-J9RJsCp+iGwCUAUDT+4Cx-FnoG26RBznBiVBPZe7tDgFKCZ86aRHMrb9KA654Dc6cFmbEqmGG8V4XMl+r5bq2sHD25G6uOgFGC+ESGnm9FppD+xfNOj8H6JHJBEAIBYiHDd8KmVuOHW8Etj7dcOmlAmuz-d6CsF+O5mC0r+Fv-XGr+x4Okd-p6r+9-b8kGcCC8tq7xamnTCLYWhQgOAPQDA1GiT91w0vNALL1Ghw0AA0qlDZ4X9hKzEMMM4HuAb88AstdsPLUVpR9J++Al+shTfowAhGn9AmFv2+AAC3S5FMUuSDN6UALe+4U1hnzf4ch4S64EQEJTphU8KB2AxINYA+DBgcqlNF0D2CaDbdQYBUUQBXzGDH9ZmAAHjYDbB7gvnR6poJe56DiQVJOdmpDAAAA+dQQSVjLmDTWGgjANYOVoaCxApgjbvj3oBqD6gTgiwU4InL+89uafdwYkHsEg1HBpgq0riD4ovQAhngmwYEJ1D7dbgUQoIR1QCF2D1BHgkBkkNaoaDWimQoKrYNyHeUNBOAUwdAxNgvAFaAQ4oRYOKFqCcacAUwaHSIHh11Y7guoaYMqEFD7KRQ0wdHX-KLknSb4IaB0OqGmCLg6RTPnVRCogMCAwwmwfUFSExCFhDgugMUIiH91ZhywmoW0LvYD0WhgQNoRsOCErDnB0MbbgJVS4edDhyQ44WMKgHnMphsZGYfUCqFzDWInQ2ivkJGHogRaM5K4VkOOG1D0i9Q4WtuUoEcx36tAtlnsIOHPD3h8FboS4Mv74hYw5fSvpVT+F5CbhOcO4ZNQeEZEMRhQ+YXCOvKfCYhxQr8inyiD+DYRIwwEdEQaEykw+RJCPjMHNKtCgR7QmkWSNGEjB7gcQxMjwIJFdCsR4w+4dMKFEfCiRaQugDkOlH3RBw1g2ZmfyAq+DViVfZ4GMEuIXBhqnje-t5WIqo8-e+kPbhr3Z5YD5+wwcnu5wH4Ogxe23HYpUAlqK9uAoI8kHULhphD7gBJWZkHwAACiJMetH2iI0AsAHlRzmdyn6L1tAlgPZgjytCuRxItNCsuQyp6TAJosAZXkcEgHjhZmAvbgH6OTEl9oymHLQEc2j4EdzyW1WQRNWBh6j7KnTDADnHJDU1cALpI4OIAsDEAvgaAe4AcVn6rEOQr3Por6VRpWlcenwUQE0EC6SQ16xAJnuYHJBINh+qoFImnxRK4hg+64ETvQN0AphJqZvRgP43f730ESonVEgpG4CECxgXPGHmMFWKzMexpRe4GmM8Z0xDgqg01sqIEqvhOMlvZ4CSViqoloiPzPiLM06bViix4sH8aGPuCQ1uAUQICeODDYWgOxegGGplEEqOBxAk4wLkaFwG-ESYAAKyObo95oszQWHDWF6QMnS4nYgFa1tGH8Uw8vQXjIE6YBltgTpcyoj0HAzBB42xTMNmBxAa8v+4ZDXvv0P4wBj+ytRhomEHgoSJAaEikNz0w5hspeb4o4EH186JNOGxtHhtHwnF0xlovEhiJSXxiAlTWvnFQXWNopURKJspMaOmN8BTRbo-LIMiIBYlyBrRbAdrqL0YmXE3oOIXkR8HYHQgEeqgHDoB3LZz8pJINAABJJtwxqErscKFprE8XiTCUQKNDbFW84eg4ubuvx2EEtQGpAs0asQ-HK1qY+YxEVgJckEA2xQfGQDCTfC-FfJMMS4ixDqka8zeY4mfgH2wH+MtKfxCkI80-Y1N5+E4q8X0XiIqDrSG4hPlGX4lYBWAuvHyZgIJ44DOBytfAVeOIHywU6uk5hlH3Kkg1ZwlEwXt8NBFaipgKYOdn02F4yBzAiYkwCeBSJbAXoXwEQaIAP5KtbgNUH0SCNfrgjqBH9L+qQLzHzEc46wbit8BSK+kMwS0rMCb0pqHjs+tfOmH5NmYCCkQGvCcSuKiAQA9ux0jqhTG4CC8phAg20VT2XJ0x8ZHknwcaO24iD4+4g2MgTEuKDQsougVQGGXdIyDSxiJdqewNAgn8QaYA68b9JRoJ8g+eneUXAGj7wyZilQZ0UyJj7miiZrVKYfABgA9jWB1NckgBIQkpEkJRIeSZ2K+B3AMAVPJ4iYD-6+8COrUxgBL0ZBnQQa64S0Sk20CDh4iSgLQVtQgAWA1+ZvJEHkEgHQzdAWfd-oC1YpxivgkApQFqQZ7FVTe7pb0aa3mI-9Jq5PJoPgyygxS1qS4AuWV0qaftNAWk1ztDGtFNAVg8oNGhewskudCwAXbOSFxWBhdeaMbKLiTWPqxdT6WMrKD2W7l4AByw8DmPLHsZAQUA2Y+WCkXLlkhJ5QIssgtRsB0BBwljEkoTXqork0O5NYwFoLPY59ightKMrBXrLJhoi2PC2YF2nkMV4S1nGcvCV4h0xaA6sXMP6MYBj19gNdIMJh2eJMRBY5pXMKXLU4tkQAjdQsE+IDiFhzwZYcsNvPgrUNYsUC8CPWAbBwLS2YAA6Ugs7ClgyIzwPilO2vLsYVK8crwDxGsCsQ9phpehpDTLKT8oyfMdeY7EbpAwcSvgVipQsJIMKrqqYPAB5RQAugJqv7Q0ovOskkKkGLQOeVPItISkpShYICFAsbo9EWyQMLZhAqoRNVG6WgI4FKRUUIKHUGihBiwqjncV5YoCsAGotzhIKtF1CxBUgApBRBPop8lSokSlIAk8ALpPucWzArj8ZyQ8-CpQH-kwUNaPsQKr8VcULE3x8seIhaSAHiLXyRs98uaUCpakogD3Fxc8ToAgxkgDxSWjnOkbOwJSuipRrYsar1l4KUAeIp-KYhRL4SBAeEqmEKVqctmmCwNmUuvIVKQYWYfEgkEHDPkdQYbEiraHuBzlF6ZjApUUosVBQmqbSk8h0qZiakkQ+SskPLCKVBZplgVDpTYF2Bn0lpktIGI0s5iqK3IkC1pckslACCBl7XOZZqhUFXjJaL8xuhcqJCdLdyHIUYKmBWVNLwFxy9RacoQZPLoy8y1UE5POrFg8AVEHcDMuPLrgI5PAFJe7zflIlmgu9b+Z-2Qp-sAFgVGFS+B4AVgugYAPAIRNSo1dHWcin+dtX96akYxlVTFbhV66aBsVjJQsKYGpV1U75lxFFWAF66NUouCKgMU0BxJol+I586Ug53uWALhAQMFssAB5UqVTgUwp3gzzGAskXqyMLMBSTxhsR0YgQKrmDECAUxKY+w1rq0GUH7DnYgQY4PfVnh8R4KpwPUC+COgIxWSmQBIKjG1WYxsYuMKkgTCJg9BSYX4QWFoDIg7gtAs4WmPTDw50AdV+oJYAaqNUsQTVRbM1WSDwAwAcAAAfkGFOAJSgsY4OiEpjYQVg6ICuJhDOVujnYzorZpwU-KC8NV3q3wGKsaoSqTyJCziO1y2ZVgyqPkJqs2too1wnA5UZhcAoADUUpTKqa0K5Qd56pnVMPUpc6LhfASiJUGgFtjbFvulVVSGoEgn8wQAqYT6Fzm87K1Be466dtOos7yxFwu652PupAAYALYRTPzguqXU7q91KwW9feqhXTsCOi4ngP5nlhqxwKZYQDRrCLlBtp2ZcwsNrKUQRc1WjdWVViqzA4rWyspEYJiAVjGclq562ZseqLmTqi5Z6orrVz7XOw51PjJ9ZTGXWrq3qG69cFuvR4RTOSPRN9XuoAjTtoeTNBuVDGdxpql1UG95kXM-Ug17ZFa9tfhvdotKS56C1RgHTQXod5Fsm-WoWAIgUVJNY7HmjBqCq+0AmXjVTWa2SZ-SFN8dVOmUw03XlZVytMDSDQg1gAc4ffN6CsGHDQgMwWUGDbG1K6mscNRGvDURoI2fKyQpGixuRso1UQ11HJYqpurS5U8X116w9Ty2s2kgHNYICjXxtM0nlBNHVYTWSErXUM3gZVTtR60mW4Au1JS2ZpZo6rWbbNYNegA5toBObFlrmq9jKREFi1gZkI+WCLzU4Ba-O3y6rY5s8WxbIuhULgPMRbJNT5YjZVEg-KnFNB6ykxX6DMWYBbjzxfU4GHQBrLLFThsMF8qGWABRlZVwwPwDXT2JcBMKPxD6J9EapAA">
+<i class="bi bi-lightning-fill"></i>
+Branded Shiny App
+</a>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Pun intended. Sorry, not sorry.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <guid>https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/</guid>
+  <pubDate>Fri, 15 Nov 2024 00:00:00 GMT</pubDate>
+  <media:content url="https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/feature.webp" medium="image" type="image/webp"/>
+</item>
+</channel>
+</rss>
