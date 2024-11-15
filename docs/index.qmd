@@ -67,6 +67,12 @@ You can explore some [inspiring examples of brand guidelines](inspiration/index.
 
 If you're a Python developer or are interested in using `_brand.yml` to adapt a Python package to use brand.yml for theming, check out the [brand_yml Python package documentation](pkg/py/index.qmd) to get started.
 
+::: {.callout-note title="We'd love to hear from you"}
+brand.yml is a new project and we'd love to hear from you to decide how the project will evolve.
+Some fields may change as we learn what works and what doesn't.
+
+Please reach out to us on the [discussion forum](https://github.com/posit-dev/brand-yml/discussions) with any questions, thoughts, or feedback!
+:::
 
 ## Support
 
@@ -155,7 +161,7 @@ flowchart LR
 
 Jordan Ellis and Sofia Torres are data scientists at **Genewise Therapeutics**, a biotech company that uses AI to create tailored treatment plans based on personal genetic makeup and biomarkers.
 
-::: {.callout-note collapse="false"}
+::: {.callout collapse="false"}
 #### Jordan Ellis
 
 **Jordan Ellis** is a data scientist with a strong academic background in bioinformatics, in particular biology, genetics and statistical analysis.
@@ -168,7 +174,7 @@ On the other hand, Jordan doesn't want to spend too much time having to rely on 
 Once, they tried to learn CSS but found it too complex and intimidating to learn in a few hours, so they settled on a Bootswatch theme that's "close enough" to Genewise's brand.
 :::
 
-::: {.callout-note collapse="false"}
+::: {.callout collapse="false"}
 #### Sofia Torres
 
 **Sofia Torres** leads a team of data scientists, including Jordan, at Genewise.
