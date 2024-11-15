@@ -1,0 +1,12 @@
+---
+title: "Articles"
+
+listing:
+  - id: aricles
+    contents: "*/index.qmd"
+    type: default
+    fields: [title, description, author, date, image]
+---
+
+::: {#articles}
+:::
