@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -241,7 +275,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#secondary-palette" id="toc-secondary-palette" class="nav-link" data-scroll-target="#secondary-palette">Secondary palette</a></li>
   </ul></li>
   <li><a href="#typography" id="toc-typography" class="nav-link" data-scroll-target="#typography">Typography</a></li>
-  <li><a href="#shape" id="toc-shape" class="nav-link" data-scroll-target="#shape">Shape</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/slack/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -268,6 +301,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><a href="https://brand.slackhq.com/">Slack Brand Guidelines</a></p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Slack</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://slack.com</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">linkedin</span><span class="kw">:</span><span class="at"> https://www.linkedin.com/company/tiny-spec-inc/</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">facebook</span><span class="kw">:</span><span class="at"> https://facebook.com/slackhq</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">twitter</span><span class="kw">:</span><span class="at"> https://twitter.com/slackhq</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">github</span><span class="kw">:</span><span class="at"> https://github.com/slackhq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="logos" class="level2">
 <h2 class="anchored" data-anchor-id="logos">Logos</h2>
 <table class="caption-top table">
@@ -307,88 +353,79 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td style="text-align: left;">Logo</td>
 <td style="text-align: left;">White</td>
-<td style="text-align: left;"><img src="SLA-Slack-From-Salesforce-Logo-WHITE.svg" class="img-fluid"></td>
+<td style="text-align: left;"><img src="SLA-Slack-From-Salesforce-Logo-WHITE.svg" class="bg-dark img-fluid"></td>
 </tr>
 </tbody>
 </table>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">images</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mark</span><span class="kw">:</span><span class="at"> SLA-Logo-Mark.svg</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mark-black</span><span class="kw">:</span><span class="at"> SLA-Logo-Mark-Black-RGB.svg</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mark-white</span><span class="kw">:</span><span class="at"> SLA-Logo-Mark-Monochrome-White.svg</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logo-black</span><span class="kw">:</span><span class="at"> SLA-Slack-From-Salesforce-Logo-BLACK.svg</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">logo-white</span><span class="kw">:</span><span class="at"> SLA-Slack-From-Salesforce-Logo-WHITE.svg</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">small</span><span class="kw">:</span><span class="at"> mark</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">medium</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> logo-black</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> logo-white</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="colors" class="level2">
 <h2 class="anchored" data-anchor-id="colors">Colors</h2>
 <section id="core-palette" class="level3">
 <h3 class="anchored" data-anchor-id="core-palette">Core palette</h3>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 14%">
-<col style="width: 27%">
-<col style="width: 17%">
-<col style="width: 22%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
 <th style="text-align: left;">Hex</th>
 <th style="text-align: left;">RGB</th>
-<th style="text-align: left;">CMYK</th>
-<th style="text-align: left;">PMS</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Aubergine</td>
-<td style="text-align: left;"><code>#4A154B</code></td>
-<td style="text-align: left;"><code>rgb(74 21 75)</code></td>
-<td style="text-align: left;">73 100 37 38</td>
-<td style="text-align: left;">2623 C</td>
+<td style="text-align: left;"><span><code>#4A154B</code><span style="display: inline-block; color: #4A154B;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(74, 21, 75)</code><span style="display: inline-block; color: rgb(74, 21, 75);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Horchata</td>
-<td style="text-align: left;"><code>#F4EDE4</code></td>
-<td style="text-align: left;"><code>rgb(244 237 228)</code></td>
-<td style="text-align: left;">3 5 9 0</td>
-<td style="text-align: left;">PMS7604 C at 80%</td>
+<td style="text-align: left;"><span><code>#F4EDE4</code><span style="display: inline-block; color: #F4EDE4;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(244, 237, 228)</code><span style="display: inline-block; color: rgb(244, 237, 228);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Black</td>
-<td style="text-align: left;"><code>#1D1C1D</code></td>
-<td style="text-align: left;"><code>rgb(29 28 29)</code></td>
-<td style="text-align: left;">0 0 0 100</td>
-<td style="text-align: left;">Black</td>
+<td style="text-align: left;"><span><code>#1D1C1D</code><span style="display: inline-block; color: #1D1C1D;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(29, 28, 29)</code><span style="display: inline-block; color: rgb(29, 28, 29);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">White</td>
-<td style="text-align: left;"><code>#FFFFFF</code></td>
-<td style="text-align: left;"><code>rgb(255 255 255)</code></td>
-<td style="text-align: left;">0 0 0 0</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;"><span><code>#FFFFFF</code><span style="display: inline-block; color: #FFFFFF;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(255, 255, 255)</code><span style="display: inline-block; color: rgb(255, 255, 255);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Slack blue</td>
-<td style="text-align: left;"><code>#36C5F0</code></td>
-<td style="text-align: left;"><code>rgb(54 197 240)</code></td>
-<td style="text-align: left;">63 0 2 0</td>
-<td style="text-align: left;">298 C</td>
+<td style="text-align: left;"><span><code>#36C5F0</code><span style="display: inline-block; color: #36C5F0;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(54, 197, 240)</code><span style="display: inline-block; color: rgb(54, 197, 240);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Slack green</td>
-<td style="text-align: left;"><code>#2EB67D</code></td>
-<td style="text-align: left;"><code>rgb(46 182 125)</code></td>
-<td style="text-align: left;">74 0 69 0</td>
-<td style="text-align: left;">2250 C</td>
+<td style="text-align: left;"><span><code>#2EB67D</code><span style="display: inline-block; color: #2EB67D;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(46, 182, 125)</code><span style="display: inline-block; color: rgb(46, 182, 125);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Slack yellow</td>
-<td style="text-align: left;"><code>#ECB22E</code></td>
-<td style="text-align: left;"><code>rgb(236 178 46)</code></td>
-<td style="text-align: left;">7 31 95 0</td>
-<td style="text-align: left;">7409 C</td>
+<td style="text-align: left;"><span><code>#ECB22E</code><span style="display: inline-block; color: #ECB22E;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(236, 178, 46)</code><span style="display: inline-block; color: rgb(236, 178, 46);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Slack red</td>
-<td style="text-align: left;"><code>#E01E5A</code></td>
-<td style="text-align: left;"><code>rgb(224 30 90)</code></td>
-<td style="text-align: left;">6 99 51 0</td>
-<td style="text-align: left;">214 C</td>
+<td style="text-align: left;"><span><code>#E01E5A</code><span style="display: inline-block; color: #E01E5A;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(224, 30, 90)</code><span style="display: inline-block; color: rgb(224, 30, 90);">◉</span></span></td>
 </tr>
 </tbody>
 </table>
@@ -396,123 +433,134 @@ ul.task-list li input[type="checkbox"] {
 <section id="secondary-palette" class="level3">
 <h3 class="anchored" data-anchor-id="secondary-palette">Secondary palette</h3>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 14%">
-<col style="width: 21%">
-<col style="width: 24%">
-<col style="width: 22%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Name</th>
 <th style="text-align: left;">Hex</th>
 <th style="text-align: left;">RGB</th>
-<th style="text-align: left;">CMYK</th>
-<th style="text-align: left;">PMS</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Cobalt</td>
-<td style="text-align: left;"><code>#1E328F</code></td>
-<td style="text-align: left;"><code>rgb(30 50 143)</code></td>
-<td style="text-align: left;">100 94 9 1</td>
-<td style="text-align: left;">661 C</td>
+<td style="text-align: left;"><span><code>#1E328F</code><span style="display: inline-block; color: #1E328F;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(30, 50, 143)</code><span style="display: inline-block; color: rgb(30, 50, 143);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Sky</td>
-<td style="text-align: left;"><code>#0E9DD3</code></td>
-<td style="text-align: left;"><code>rgb(14 157 211)</code></td>
-<td style="text-align: left;">76 22 3 0</td>
-<td style="text-align: left;">7689 C</td>
+<td style="text-align: left;"><span><code>#0E9DD3</code><span style="display: inline-block; color: #0E9DD3;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(14, 157, 211)</code><span style="display: inline-block; color: rgb(14, 157, 211);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Teal</td>
-<td style="text-align: left;"><code>#2392A2</code></td>
-<td style="text-align: left;"><code>rgb(35 146 162)</code></td>
-<td style="text-align: left;">80 26 33 1</td>
-<td style="text-align: left;">2221 C</td>
+<td style="text-align: left;"><span><code>#2392A2</code><span style="display: inline-block; color: #2392A2;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(35, 146, 162)</code><span style="display: inline-block; color: rgb(35, 146, 162);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Pool</td>
-<td style="text-align: left;"><code>#78D7DD</code></td>
-<td style="text-align: left;"><code>rgb(120 215 221)</code></td>
-<td style="text-align: left;">48 0 16 0</td>
-<td style="text-align: left;">2225 C</td>
+<td style="text-align: left;"><span><code>#78D7DD</code><span style="display: inline-block; color: #78D7DD;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(120, 215, 221)</code><span style="display: inline-block; color: rgb(120, 215, 221);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Evergreen</td>
-<td style="text-align: left;"><code>#185F34</code></td>
-<td style="text-align: left;"><code>rgb(24 95 52)</code></td>
-<td style="text-align: left;">87 37 95 32</td>
-<td style="text-align: left;">3425 C</td>
+<td style="text-align: left;"><span><code>#185F34</code><span style="display: inline-block; color: #185F34;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(24, 95, 52)</code><span style="display: inline-block; color: rgb(24, 95, 52);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Moss</td>
-<td style="text-align: left;"><code>#729C1A</code></td>
-<td style="text-align: left;"><code>rgb(114 156 26)</code></td>
-<td style="text-align: left;">62 20 100 3</td>
-<td style="text-align: left;">576 C</td>
+<td style="text-align: left;"><span><code>#729C1A</code><span style="display: inline-block; color: #729C1A;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(114, 156, 26)</code><span style="display: inline-block; color: rgb(114, 156, 26);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Sandbar</td>
-<td style="text-align: left;"><code>#FFD57E</code></td>
-<td style="text-align: left;"><code>rgb(255 213 126)</code></td>
-<td style="text-align: left;">0 16 59 0</td>
-<td style="text-align: left;">7403 C</td>
+<td style="text-align: left;"><span><code>#FFD57E</code><span style="display: inline-block; color: #FFD57E;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(255, 213, 126)</code><span style="display: inline-block; color: rgb(255, 213, 126);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Peach</td>
-<td style="text-align: left;"><code>#FED4BE</code></td>
-<td style="text-align: left;"><code>rgb(254 212 190)</code></td>
-<td style="text-align: left;">0 19 22 0</td>
-<td style="text-align: left;">489 C</td>
+<td style="text-align: left;"><span><code>#FED4BE</code><span style="display: inline-block; color: #FED4BE;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(254, 212, 190)</code><span style="display: inline-block; color: rgb(254, 212, 190);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Salmon</td>
-<td style="text-align: left;"><code>#F2606A</code></td>
-<td style="text-align: left;"><code>rgb(242 96 106)</code></td>
-<td style="text-align: left;">0 78 48 0</td>
-<td style="text-align: left;">709 C</td>
+<td style="text-align: left;"><span><code>#F2606A</code><span style="display: inline-block; color: #F2606A;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(242, 96, 106)</code><span style="display: inline-block; color: rgb(242, 96, 106);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Bubblegum</td>
-<td style="text-align: left;"><code>#FFB6BD</code></td>
-<td style="text-align: left;"><code>rgb(225 182 189)</code></td>
-<td style="text-align: left;">0 36 13 0</td>
-<td style="text-align: left;">495 C</td>
+<td style="text-align: left;"><span><code>#FFB6BD</code><span style="display: inline-block; color: #FFB6BD;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(225, 182, 189)</code><span style="display: inline-block; color: rgb(225, 182, 189);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Crimson</td>
-<td style="text-align: left;"><code>#921D21</code></td>
-<td style="text-align: left;"><code>rgb(146 29 33)</code></td>
-<td style="text-align: left;">27 99 95 27</td>
-<td style="text-align: left;">7623 C</td>
+<td style="text-align: left;"><span><code>#921D21</code><span style="display: inline-block; color: #921D21;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(146, 29, 33)</code><span style="display: inline-block; color: rgb(146, 29, 33);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Terracotta</td>
-<td style="text-align: left;"><code>#DE8969</code></td>
-<td style="text-align: left;"><code>rgb(222 137 105)</code></td>
-<td style="text-align: left;">10 54 61 0</td>
-<td style="text-align: left;">2439 C</td>
+<td style="text-align: left;"><span><code>#DE8969</code><span style="display: inline-block; color: #DE8969;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(222, 137, 105)</code><span style="display: inline-block; color: rgb(222, 137, 105);">◉</span></span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Berry</td>
-<td style="text-align: left;"><code>#7C2852</code></td>
-<td style="text-align: left;"><code>rgb(124 40 82)</code></td>
-<td style="text-align: left;">45 94 43 25</td>
-<td style="text-align: left;">7658 C</td>
+<td style="text-align: left;"><span><code>#7C2852</code><span style="display: inline-block; color: #7C2852;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(124, 40, 82)</code><span style="display: inline-block; color: rgb(124, 40, 82);">◉</span></span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Mauve</td>
-<td style="text-align: left;"><code>#C05B8C</code></td>
-<td style="text-align: left;"><code>rgb(192 91 140)</code></td>
-<td style="text-align: left;">24 78 19 0</td>
-<td style="text-align: left;">2060 C</td>
+<td style="text-align: left;"><span><code>#C05B8C</code><span style="display: inline-block; color: #C05B8C;">◉</span></span></td>
+<td style="text-align: left;"><span><code>rgb(192, 91, 140)</code><span style="display: inline-block; color: rgb(192, 91, 140);">◉</span></span></td>
 </tr>
 </tbody>
 </table>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Core palette</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">aubergine</span><span class="kw">:</span><span class="at"> </span><span class="st">'#4A154B'</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">horchata</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F4EDE4'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">black</span><span class="kw">:</span><span class="at"> </span><span class="st">'#1D1C1D'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">white</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFFFFF'</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue</span><span class="kw">:</span><span class="at"> </span><span class="st">'#36C5F0'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green</span><span class="kw">:</span><span class="at"> </span><span class="st">'#2EB67D'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow</span><span class="kw">:</span><span class="at"> </span><span class="st">'#ECB22E'</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E01E5A'</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">    # Secondary palette</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">cobalt</span><span class="kw">:</span><span class="at"> </span><span class="st">'#1E328F'</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">sky</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0E9DD3'</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">teal</span><span class="kw">:</span><span class="at"> </span><span class="st">'#2392A2'</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pool</span><span class="kw">:</span><span class="at"> </span><span class="st">'#78D7DD'</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">evergreen</span><span class="kw">:</span><span class="at"> </span><span class="st">'#185F34'</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">moss</span><span class="kw">:</span><span class="at"> </span><span class="st">'#729C1A'</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">sandbar</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFD57E'</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">peach</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FED4BE'</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">salmon</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F2606A'</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">bubblegum</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFB6BD'</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">crimson</span><span class="kw">:</span><span class="at"> </span><span class="st">'#921D21'</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">terracotta</span><span class="kw">:</span><span class="at"> </span><span class="st">'#DE8969'</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry</span><span class="kw">:</span><span class="at"> </span><span class="st">'#7C2852'</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">mauve</span><span class="kw">:</span><span class="at"> </span><span class="st">'#C05B8C'</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">    # Bootstrap color aliases</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple</span><span class="kw">:</span><span class="at"> aubergine</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pink</span><span class="kw">:</span><span class="at"> bubblegum</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">indigo</span><span class="kw">:</span><span class="at"> </span><span class="st">'#4F2B8C'</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">cyan</span><span class="kw">:</span><span class="at"> sky</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange</span><span class="kw">:</span><span class="at"> terracotta</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">  # Theme colors</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> aubergine</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">background</span><span class="kw">:</span><span class="at"> white</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">foreground</span><span class="kw">:</span><span class="at"> black</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">success</span><span class="kw">:</span><span class="at"> green</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">info</span><span class="kw">:</span><span class="at"> blue</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> yellow</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">danger</span><span class="kw">:</span><span class="at"> red</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="typography" class="level2">
@@ -538,21 +586,39 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Slack typography guidelines for content</figcaption>
 </figure>
 </div>
-</section>
-<section id="shape" class="level2">
-<h2 class="anchored" data-anchor-id="shape">Shape</h2>
-<p>From https://brand.slackhq.com/brand-shapes</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="slack-shape-pill.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slack guidelines for shape"><img src="slack-shape-pill.png" class="img-fluid figure-img" alt="Slack guidelines for shape"></a></p>
-<figcaption>Slack guidelines for shape</figcaption>
-</figure>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="slack-shape-stroke.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Slack guidelines for stroke"><img src="slack-shape-stroke.png" class="img-fluid figure-img" alt="Slack guidelines for stroke"></a></p>
-<figcaption>Slack guidelines for stroke</figcaption>
-</figure>
+<div class="sourceCode" id="cb4" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Figtree as replacement for Slack-Circular (primary font)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Figtree</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">400</span><span class="kw">,</span><span class="at"> </span><span class="dv">500</span><span class="kw">,</span><span class="at"> </span><span class="dv">600</span><span class="kw">,</span><span class="at"> </span><span class="dv">700</span><span class="kw">]</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    # DM Sans as replacement for Larsseit (heading font)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> DM Sans</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">400</span><span class="kw">,</span><span class="at"> </span><span class="dv">500</span><span class="kw">,</span><span class="at"> </span><span class="dv">700</span><span class="kw">]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">    # Monospace font for code</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Roboto Mono</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Figtree</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line-height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.4</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> DM Sans</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">700</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line-height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.25</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Roboto Mono</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
