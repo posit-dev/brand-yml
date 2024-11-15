@@ -472,7 +472,7 @@
     "href": "articles/llm-brand-yml-prompt/index.html",
     "title": "Creating a brand.yml with an LLM",
     "section": "",
-    "text": "Extracting color values, fonts and logos from brand guidelines can be a tedious process. Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!\nBeacuse brand.yml is a brand1 new project, large language models like OpenAI’s ChatGTP, Anthropic’s Claude and others haven’t learned the syntax (yet)."
+    "text": "Extracting color values, fonts and logos from brand guidelines can be a tedious process. Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!\nBeacuse brand.yml is a brand1 new project, large language models like OpenAI’s ChatGPT, Anthropic’s Claude and others haven’t learned the syntax (yet)."
   },
   {
     "objectID": "articles/llm-brand-yml-prompt/index.html#teaching-llms-about-brand.yml",
