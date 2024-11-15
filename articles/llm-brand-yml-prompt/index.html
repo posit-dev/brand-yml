@@ -8,7 +8,7 @@
 
 <meta name="author" content="Garrick Aden-Buie">
 <meta name="dcterms.date" content="2024-11-15">
-<meta name="description" content="Learn how to create a brand.yml file for your Shiny app using large language models (LLMs) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
+<meta name="description" content="Learn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
 
 <title>Creating a brand.yml with an LLM – brand.yml</title>
 <style>
@@ -107,11 +107,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <meta property="og:title" content="Creating a brand.yml with an LLM – brand.yml">
-<meta property="og:description" content="Learn how to create a brand.yml file for your Shiny app using large language models (LLMs) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
+<meta property="og:description" content="Learn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
 <meta property="og:image" content="https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/feature.webp">
 <meta property="og:site_name" content="brand.yml">
 <meta name="twitter:title" content="Creating a brand.yml with an LLM – brand.yml">
-<meta name="twitter:description" content="Learn how to create a brand.yml file for your Shiny app using large language models (LLMs) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
+<meta name="twitter:description" content="Learn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.">
 <meta name="twitter:image" content="https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/feature.webp">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -213,7 +213,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Creating a brand.yml with an LLM</h1>
+                  <div>
+        <div class="description">
+          <p>Learn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.</p>
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Garrick Aden-Buie </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 15, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -233,47 +266,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/articles/llm-brand-yml-prompt/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Creating a brand.yml with an LLM</h1>
-</div>
-
-<div>
-  <div class="description">
-    <p>Learn how to create a brand.yml file for your Shiny app using large language models (LLMs) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM.</p>
-  </div>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Garrick Aden-Buie </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">November 15, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
 
 
-</header>
 
-
+<p>Extracting color values, fonts and logos from brand guidelines can be a tedious process. Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!</p>
+<p>Beacuse <strong>brand.yml</strong> is a <em>brand</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> new project, large language models like <a href="https://chat.openai.com/chat">OpenAI’s ChatGTP</a>, <a href="https://claude.ai/">Anthropic’s Claude</a> and others haven’t learned the syntax (yet).</p>
 <section id="teaching-llms-about-brand.yml" class="level2">
 <h2 class="anchored" data-anchor-id="teaching-llms-about-brand.yml">Teaching LLMs about brand.yml</h2>
-<p>Beacuse <strong>brand.yml</strong> is a <em>brand</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> new project, large language models like <a href="https://chat.openai.com/chat">OpenAI’s ChatGTP</a>, <a href="https://claude.ai/">Anthropic’s Claude</a> and others haven’t learned the syntax (yet).</p>
 <p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="brand.yml Prompt">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
