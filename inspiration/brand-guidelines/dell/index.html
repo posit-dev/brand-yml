@@ -262,8 +262,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#logo" id="toc-logo" class="nav-link active" data-scroll-target="#logo">Logo</a></li>
+  <li><a href="#color" id="toc-color" class="nav-link" data-scroll-target="#color">Color</a></li>
+  <li><a href="#typography" id="toc-typography" class="nav-link" data-scroll-target="#typography">Typography</a></li>
+  <li><a href="#defaults" id="toc-defaults" class="nav-link" data-scroll-target="#defaults">Defaults</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/dell/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -287,70 +296,243 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://hst.tradedoubler.com/file/3466/programme_information/Dell_Brand_Standards.pdf">Dell Brand Guidelines</a></p>
+<p><a href="https://www.dell.com/en-us/lp/brand-identity">Dell Brand Guidelines</a><br>
+<a href="#%20https://www.delldesignsystem.com/">Dell Design System</a></p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">short</span><span class="kw">:</span><span class="at"> Dell</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">full</span><span class="kw">:</span><span class="at"> Dell Technologies</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">home</span><span class="kw">:</span><span class="at"> https://www.dell.com</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">brand</span><span class="kw">:</span><span class="at"> https://www.dell.com/en-us/lp/brand-identity</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">design</span><span class="kw">:</span><span class="at"> https://www.delldesignsystem.com/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="logo" class="level2">
+<h2 class="anchored" data-anchor-id="logo">Logo</h2>
+<p><a href="dell-color.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="dell-color.svg" class="img-fluid" alt="Dell Logo" width="200"></a></p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logo</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">small</span><span class="kw">:</span><span class="at"> dell-color.svg</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">medium</span><span class="kw">:</span><span class="at"> dell-color.svg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="color" class="level2">
+<h2 class="anchored" data-anchor-id="color">Color</h2>
+<p><a href="#%20https://www.delldesignsystem.com/">Dell’s design system</a> translates the brand guidelines into a design system for web products. In this example, we’ll use the color palette directly from the <a href="https://www.delldesignsystem.com/foundations/color/">design system’s color palette</a>.</p>
+<div class="grid gap-2">
+<div class="g-col-sm-6 g-col-12">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="dell_20.png" class="lightbox" data-gallery="dell" title="Dell Principle Color Palette"><img src="dell_20.png" class="img-fluid figure-img" alt="Dell Principle Color Palette"></a></p>
-<figcaption>Dell Principle Color Palette</figcaption>
+<p><a href="dell-color-principle.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Dell’s primary color palette"><img src="dell-color-principle.png" class="img-fluid figure-img" alt="Dell's primary and neutral color palettes, featuring Dell Blue and shades and tins of blue, gray and slate."></a></p>
+<figcaption>Dell’s primary color palette</figcaption>
 </figure>
 </div>
+</div>
+<div class="g-col-sm-6 g-col-12">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="dell_21.png" class="lightbox" data-gallery="dell" title="Dell Supporting Color Palette"><img src="dell_21.png" class="img-fluid figure-img" alt="Dell Supporting Color Palette"></a></p>
-<figcaption>Dell Supporting Color Palette</figcaption>
+<p><a href="dell-color-supporting.png" class="lightbox" data-gallery="color" title="Dell’s secondary color palette"><img src="dell-color-supporting.png" class="img-fluid figure-img" alt="Dell's secondary color palette, featuring shades and tints of yellow, red, and green which corrrespond to warning, error and success message colors respectively."></a></p>
+<figcaption>Dell’s secondary color palette</figcaption>
 </figure>
 </div>
+</div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Primary Blues</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#D9F5FD'</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#94DCF7'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#5CC1EE'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#31A2E3'</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#1282D6'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0672CB'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0063B8'</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#00468B'</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#002A58'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">    # Neutral Grays</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">white</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFFFFF'</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F5F6F7'</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F0F0F0'</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E1E1E1'</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#D2D2D2'</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#B6B6B6'</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#7E7E7E'</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#6E6E6E'</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#636363'</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0E0E0E'</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">    # Neutral Slates</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#EBF1F6'</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#C5D4E3'</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#A4B8CD'</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#839DB4'</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#40586D'</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#293B4D'</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#1D2C3B'</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#141D28'</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">slate-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0A0E14'</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">    # Secondary Colors</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FEEFCB'</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F5CD6F'</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E6AC28'</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#CE8D00'</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#B36F00'</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#A36100'</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#925400'</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#6D3A00'</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#442200'</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFECEE'</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFC3C9'</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FF99A1'</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FE6873'</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E4424D'</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#D0353F'</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#BB2A33'</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#8C161F'</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#590A0F'</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E9F5CE'</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#C0DD78'</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#9BC438'</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#7AA809'</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#5D8C00'</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#4F7D00'</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#436F00'</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#2C5000'</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#193100'</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="co">    # Accent Colors</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#DAF5FD'</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#97DCF4'</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#61C1EB'</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#36A2E0'</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#1885C3'</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0D76B2'</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0468A1'</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#004A77'</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light-blue-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#002D4B'</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FBEBFF'</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#ECC4FF'</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#DB9EFF'</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#C47AF4'</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#A95ADC'</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#994CCC'</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#8A3FBA'</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#66278F'</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#40155C'</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFEBF5'</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFC0DF'</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F69AC6'</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E574AA'</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#CB548D'</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#BA467D'</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#A8396F'</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#7F234F'</span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">berry-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#511230'</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-100</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FFEED2'</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-200</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FEC97A'</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-300</span><span class="kw">:</span><span class="at"> </span><span class="st">'#F8A433'</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-400</span><span class="kw">:</span><span class="at"> </span><span class="st">'#E67F01'</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-500</span><span class="kw">:</span><span class="at"> </span><span class="st">'#C96100'</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-600</span><span class="kw">:</span><span class="at"> </span><span class="st">'#B85200'</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-700</span><span class="kw">:</span><span class="at"> </span><span class="st">'#A64600'</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-800</span><span class="kw">:</span><span class="at"> </span><span class="st">'#7D2E00'</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange-900</span><span class="kw">:</span><span class="at"> </span><span class="st">'#4F1A00'</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="co">    # Bootstrap color aliases</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue</span><span class="kw">:</span><span class="at"> blue-600</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple</span><span class="kw">:</span><span class="at"> berry-700</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pink</span><span class="kw">:</span><span class="at"> berry-400</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red</span><span class="kw">:</span><span class="at"> red-700</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange</span><span class="kw">:</span><span class="at"> orange-600</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow</span><span class="kw">:</span><span class="at"> yellow-300</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green</span><span class="kw">:</span><span class="at"> green-500</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">teal</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0EA0A9'</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">cyan</span><span class="kw">:</span><span class="at"> light-blue-500</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">black</span><span class="kw">:</span><span class="at"> gray-900</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="co">  # Theme colors</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">foreground</span><span class="kw">:</span><span class="at"> black</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">background</span><span class="kw">:</span><span class="at"> white</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> blue-600</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">secondary</span><span class="kw">:</span><span class="at"> gray-400</span></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">success</span><span class="kw">:</span><span class="at"> green-500</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> yellow-300</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">danger</span><span class="kw">:</span><span class="at"> red-700</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">info</span><span class="kw">:</span><span class="at"> </span><span class="st">'#0EA0A9'</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">light</span><span class="kw">:</span><span class="at"> gray-100</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> gray-800</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="typography" class="level2">
+<h2 class="anchored" data-anchor-id="typography">Typography</h2>
+<p><a href="https://www.dell.com/en-us/lp/brand-guidelines-typography">Dell’s brand guidelines</a> recommend using the Roboto typeface for all digital products. The guidelines note that “Roboto Condensed and Roboto Mono aren’t recommended for use (to help us maintain consistency.)”</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="dell_24.png" class="lightbox" data-gallery="dell" title="Dell Typography"><img src="dell_24.png" class="img-fluid figure-img" alt="Dell Typography"></a></p>
-<figcaption>Dell Typography</figcaption>
+<p><a href="dell-typography.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Dell typography guidance"><img src="dell-typography.png" class="img-fluid figure-img" width="400" alt="Dell's typography, featuring Roboto typeface in various weights and styles."></a></p>
+<figcaption>Dell typography guidance</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<p>Regular font weights should be used for body copy, a light font face for large headings (levels 1-3) and a bold font face for small headings (levels 4-6). The <a href="https://www.delldesignsystem.com/foundations/typography/">design system also includes guidance</a> on line height, letter spacing, and font size, but it’s more granular that what’s supported by brand.yml.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="callout-title-container flex-fill">
-<code>brand.yml</code>
+<div class="sourceCode" id="cb4" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Roboto</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Roboto Mono</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> google</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Roboto</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line-height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.5</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> Roboto Mono</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace-block</span><span class="kw">:</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> gray-100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</section>
+<section id="defaults" class="level2">
+<h2 class="anchored" data-anchor-id="defaults">Defaults</h2>
+<p>To achieve varied font weights for headings, we’ll need to use additional CSS rules in Bootstrap contexts.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>_brand.yml</strong></pre>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">blue</span><span class="kw">:</span><span class="at"> </span><span class="st">"#0085c3"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray</span><span class="kw">:</span><span class="at"> </span><span class="st">"#aaaaaa"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">white</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FFFFFF"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">green</span><span class="kw">:</span><span class="at"> </span><span class="st">"#7ab800"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">yellow</span><span class="kw">:</span><span class="at"> </span><span class="st">"#f2af00"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orange</span><span class="kw">:</span><span class="at"> </span><span class="st">"#ff7700"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red</span><span class="kw">:</span><span class="at"> </span><span class="st">"#dc5034"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-dark</span><span class="kw">:</span><span class="at"> </span><span class="st">"#ce1126"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">purple</span><span class="kw">:</span><span class="at"> </span><span class="st">"#6e2585"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">teal</span><span class="kw">:</span><span class="at"> </span><span class="st">"#71c6c1"</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">periwinkle</span><span class="kw">:</span><span class="at"> </span><span class="st">"#5482ab"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">aqua</span><span class="kw">:</span><span class="at"> </span><span class="st">"#009bbb"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-dark</span><span class="kw">:</span><span class="at"> </span><span class="st">"#444444"</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">gray-light</span><span class="kw">:</span><span class="at"> </span><span class="st">"#eeeeee"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">theme</span><span class="kw">:</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> blue</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">secondary</span><span class="kw">:</span><span class="at"> gray</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">light</span><span class="kw">:</span><span class="at"> gray-light</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">dark</span><span class="kw">:</span><span class="at"> gray-dark</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">body</span><span class="kw">:</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Museo Sans for Dell</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> </span><span class="st">"Museo for Dell, Trebuchet"</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">700</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<div class="sourceCode" id="cb5" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">defaults</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">bootstrap</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">    rules</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      .h4, .h5, .h6,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       h4,  h5,  h6 {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        font-weight: 400</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -783,7 +965,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/dell/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/brand-yml/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/posit-dev/brand-yml/edit/main/docs/inspiration/brand-guidelines/dell/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li></ul></div></div></div></footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

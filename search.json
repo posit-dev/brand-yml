@@ -716,7 +716,47 @@
     "href": "inspiration/brand-guidelines/dell/index.html",
     "title": "Dell",
     "section": "",
-    "text": "Dell Brand Guidelines\n\n\n\nDell Principle Color Palette\n\n\n\n\n\nDell Supporting Color Palette\n\n\n\n\n\nDell Typography\n\n\n\n\n\n\n\n\nbrand.yml\n\n\n\n\n\ncolor:\n  palette:\n    blue: \"#0085c3\"\n    gray: \"#aaaaaa\"\n    white: \"#FFFFFF\"\n    green: \"#7ab800\"\n    yellow: \"#f2af00\"\n    orange: \"#ff7700\"\n    red: \"#dc5034\"\n    red-dark: \"#ce1126\"\n    purple: \"#6e2585\"\n    teal: \"#71c6c1\"\n    periwinkle: \"#5482ab\"\n    aqua: \"#009bbb\"\n    gray-dark: \"#444444\"\n    gray-light: \"#eeeeee\"\n  theme:\n    primary: blue\n    secondary: gray\n    light: gray-light\n    dark: gray-dark\n\ntypography:\n  body:\n    family: Museo Sans for Dell\n  headings:\n    family: \"Museo for Dell, Trebuchet\"\n    weight: 700",
+    "text": "Dell Brand Guidelines\nDell Design System",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#logo",
+    "href": "inspiration/brand-guidelines/dell/index.html#logo",
+    "title": "Dell",
+    "section": "Logo",
+    "text": "Logo\n\n\n\n_brand.yml\n\nlogo:\n  small: dell-color.svg\n  medium: dell-color.svg",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#color",
+    "href": "inspiration/brand-guidelines/dell/index.html#color",
+    "title": "Dell",
+    "section": "Color",
+    "text": "Color\nDell’s design system translates the brand guidelines into a design system for web products. In this example, we’ll use the color palette directly from the design system’s color palette.\n\n\n\n\n\nDell’s primary color palette\n\n\n\n\n\n\n\nDell’s secondary color palette\n\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Blues\n    blue-100: '#D9F5FD'\n    blue-200: '#94DCF7'\n    blue-300: '#5CC1EE'\n    blue-400: '#31A2E3'\n    blue-500: '#1282D6'\n    blue-600: '#0672CB'\n    blue-700: '#0063B8'\n    blue-800: '#00468B'\n    blue-900: '#002A58'\n\n    # Neutral Grays\n    white: '#FFFFFF'\n    gray-100: '#F5F6F7'\n    gray-200: '#F0F0F0'\n    gray-300: '#E1E1E1'\n    gray-400: '#D2D2D2'\n    gray-500: '#B6B6B6'\n    gray-600: '#7E7E7E'\n    gray-700: '#6E6E6E'\n    gray-800: '#636363'\n    gray-900: '#0E0E0E'\n\n    # Neutral Slates\n    slate-100: '#EBF1F6'\n    slate-200: '#C5D4E3'\n    slate-300: '#A4B8CD'\n    slate-400: '#839DB4'\n    slate-500: '#40586D'\n    slate-600: '#293B4D'\n    slate-700: '#1D2C3B'\n    slate-800: '#141D28'\n    slate-900: '#0A0E14'\n\n    # Secondary Colors\n    yellow-100: '#FEEFCB'\n    yellow-200: '#F5CD6F'\n    yellow-300: '#E6AC28'\n    yellow-400: '#CE8D00'\n    yellow-500: '#B36F00'\n    yellow-600: '#A36100'\n    yellow-700: '#925400'\n    yellow-800: '#6D3A00'\n    yellow-900: '#442200'\n\n    red-100: '#FFECEE'\n    red-200: '#FFC3C9'\n    red-300: '#FF99A1'\n    red-400: '#FE6873'\n    red-500: '#E4424D'\n    red-600: '#D0353F'\n    red-700: '#BB2A33'\n    red-800: '#8C161F'\n    red-900: '#590A0F'\n\n    green-100: '#E9F5CE'\n    green-200: '#C0DD78'\n    green-300: '#9BC438'\n    green-400: '#7AA809'\n    green-500: '#5D8C00'\n    green-600: '#4F7D00'\n    green-700: '#436F00'\n    green-800: '#2C5000'\n    green-900: '#193100'\n\n    # Accent Colors\n    light-blue-100: '#DAF5FD'\n    light-blue-200: '#97DCF4'\n    light-blue-300: '#61C1EB'\n    light-blue-400: '#36A2E0'\n    light-blue-500: '#1885C3'\n    light-blue-600: '#0D76B2'\n    light-blue-700: '#0468A1'\n    light-blue-800: '#004A77'\n    light-blue-900: '#002D4B'\n\n    purple-100: '#FBEBFF'\n    purple-200: '#ECC4FF'\n    purple-300: '#DB9EFF'\n    purple-400: '#C47AF4'\n    purple-500: '#A95ADC'\n    purple-600: '#994CCC'\n    purple-700: '#8A3FBA'\n    purple-800: '#66278F'\n    purple-900: '#40155C'\n\n    berry-100: '#FFEBF5'\n    berry-200: '#FFC0DF'\n    berry-300: '#F69AC6'\n    berry-400: '#E574AA'\n    berry-500: '#CB548D'\n    berry-600: '#BA467D'\n    berry-700: '#A8396F'\n    berry-800: '#7F234F'\n    berry-900: '#511230'\n\n    orange-100: '#FFEED2'\n    orange-200: '#FEC97A'\n    orange-300: '#F8A433'\n    orange-400: '#E67F01'\n    orange-500: '#C96100'\n    orange-600: '#B85200'\n    orange-700: '#A64600'\n    orange-800: '#7D2E00'\n    orange-900: '#4F1A00'\n\n    # Bootstrap color aliases\n    blue: blue-600\n    purple: berry-700\n    pink: berry-400\n    red: red-700\n    orange: orange-600\n    yellow: yellow-300\n    green: green-500\n    teal: '#0EA0A9'\n    cyan: light-blue-500\n    black: gray-900\n\n  # Theme colors\n  foreground: black\n  background: white\n  primary: blue-600\n  secondary: gray-400\n  success: green-500\n  warning: yellow-300\n  danger: red-700\n  info: '#0EA0A9'\n  light: gray-100\n  dark: gray-800",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#typography",
+    "href": "inspiration/brand-guidelines/dell/index.html#typography",
+    "title": "Dell",
+    "section": "Typography",
+    "text": "Typography\nDell’s brand guidelines recommend using the Roboto typeface for all digital products. The guidelines note that “Roboto Condensed and Roboto Mono aren’t recommended for use (to help us maintain consistency.)”\n\n\n\nDell typography guidance\n\n\nRegular font weights should be used for body copy, a light font face for large headings (levels 1-3) and a bold font face for small headings (levels 4-6). The design system also includes guidance on line height, letter spacing, and font size, but it’s more granular that what’s supported by brand.yml.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Roboto\n      source: google\n    - family: Roboto Mono\n      source: google\n\n  base:\n    family: Roboto\n    line-height: 1.5\n\n  headings:\n    weight: 300\n\n  monospace: Roboto Mono\n\n  monospace-block:\n    background-color: gray-100",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#defaults",
+    "href": "inspiration/brand-guidelines/dell/index.html#defaults",
+    "title": "Dell",
+    "section": "Defaults",
+    "text": "Defaults\nTo achieve varied font weights for headings, we’ll need to use additional CSS rules in Bootstrap contexts.\n\n\n_brand.yml\n\ndefaults:\n  bootstrap:\n    rules: |\n      .h4, .h5, .h6,\n       h4,  h5,  h6 {\n        font-weight: 400\n      }",
     "crumbs": [
       "Dell"
     ]
@@ -732,21 +772,21 @@
     ]
   },
   {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html#colors",
-    "href": "inspiration/brand-guidelines/walmart/index.html#colors",
+    "objectID": "inspiration/brand-guidelines/walmart/index.html#logos",
+    "href": "inspiration/brand-guidelines/walmart/index.html#logos",
     "title": "Walmart",
-    "section": "Colors",
-    "text": "Colors\n\n\n\nWalmart palette\n\n\n\nPrimary color palette\n\nWe are a blue brand with white & yellow. Walmart Blue is the primary color that should be applied across all communications, to uphold brand consistency.\n\nFor .com &/or digital platforms, use digital blue to accommodate readability & legibility needs.\nWhite complements digital blue & is either a background color or a type color.\nSpark Yellow should be used as an accent color. Note: For yellow headlines used online, please refer to the ADA compliance section below.\n\n\n\n\n\nHex\nCMYK\nPMS\nName\n\n\n\n\n#0071DC◉\nCMYK 100, 45, 0, 0\nPMS 285 C\nWalmart Blue\n\n\n#FFFFFF◉\nCMYK 0, 0, 0, 0\nWhite\n\n\n\n#FFC220◉\nCMYK 0, 25, 100, 0\nPMS 1235 C\nSpark Yellow\n\n\n\n\n\nSecondary color palette\n\nOur secondary color palette is an extension of our primary colors & is used as backgrounds & texture for silhouetted product photography. Where primary colors applied to type fail in legibility & compliance, use Ozark Noir.\n\n\n\n\nHex\nCMYK\nName\n\n\n\n\n#F8E6A5◉\nCMYK 3, 7, 42, 0\nYellow Tone\n\n\n#8CD1FC◉\nCMYK 39, 5, 0, 0\nBlue Tone 1\n\n\n#D3EFF8◉\nCMYK 16, 0, 2, 0\nBlue Tone 2\n\n\n#FAFAFA◉\nCMYK 1, 1, 1, 0\nOff White\n\n\n#041E42◉\nCMYK 100, 88, 42, 51\nOzark Noir",
+    "section": "Logos",
+    "text": "Logos\nFull logo documentation\n\n\n\n\n\n\n\nName\nImage\n\n\n\n\nPrimary blue logo\n\n\n\nPrimary white logo\n\n\n\nSpark icon\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: walmart-spark-logo-digital-blue.png\n    primary-white: walmart-spark-logo-digital-alpha.png\n    spark: walmart-spark-digital-alpha.png\n  small: spark\n  medium:\n    light: primary\n    dark: primary-white",
     "crumbs": [
       "Walmart"
     ]
   },
   {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html#logos",
-    "href": "inspiration/brand-guidelines/walmart/index.html#logos",
+    "objectID": "inspiration/brand-guidelines/walmart/index.html#colors",
+    "href": "inspiration/brand-guidelines/walmart/index.html#colors",
     "title": "Walmart",
-    "section": "Logos",
-    "text": "Logos\nFull logo documentation\n\n\n\n\n\n\n\nName\nImage\n\n\n\n\nPrimary blue logo\n\n\n\nPrimary white logo\n\n\n\nSpark icon",
+    "section": "Colors",
+    "text": "Colors\n\n\n\nWalmart palette\n\n\n\nPrimary color palette\n\nWe are a blue brand with white & yellow. Walmart Blue is the primary color that should be applied across all communications, to uphold brand consistency.\n\nFor .com &/or digital platforms, use digital blue to accommodate readability & legibility needs.\nWhite complements digital blue & is either a background color or a type color.\nSpark Yellow should be used as an accent color. Note: For yellow headlines used online, please refer to the ADA compliance section below.\n\n\n\n\n\nHex\nCMYK\nPMS\nName\n\n\n\n\n#0071DC◉\nCMYK 100, 45, 0, 0\nPMS 285 C\nWalmart Blue\n\n\n#FFFFFF◉\nCMYK 0, 0, 0, 0\nWhite\n\n\n\n#FFC220◉\nCMYK 0, 25, 100, 0\nPMS 1235 C\nSpark Yellow\n\n\n\n\n\nSecondary color palette\n\nOur secondary color palette is an extension of our primary colors & is used as backgrounds & texture for silhouetted product photography. Where primary colors applied to type fail in legibility & compliance, use Ozark Noir.\n\n\n\n\nHex\nCMYK\nName\n\n\n\n\n#F8E6A5◉\nCMYK 3, 7, 42, 0\nYellow Tone\n\n\n#8CD1FC◉\nCMYK 39, 5, 0, 0\nBlue Tone 1\n\n\n#D3EFF8◉\nCMYK 16, 0, 2, 0\nBlue Tone 2\n\n\n#FAFAFA◉\nCMYK 1, 1, 1, 0\nOff White\n\n\n#041E42◉\nCMYK 100, 88, 42, 51\nOzark Noir\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    blue: '#0071DC' # Walmart Blue\n    white: '#FFFFFF'\n    yellow: '#FFC220' # Spark Yellow\n\n    # Secondary Colors\n    red: '#DE1C24'\n    yellow-pale: '#F8E6A5'\n    yellow-bright: '#FFF200'\n    blue-light: '#8CD1FC'\n    blue-lighter: '#D3EFF8'\n    off-white: '#FAFAFA'\n    ozark-noir: '#041E42'\n\n  foreground: ozark-noir\n  background: white\n  light: off-white\n  dark: ozark-noir\n  primary: blue\n  secondary: dark\n  warning: yellow\n  danger: red",
     "crumbs": [
       "Walmart"
     ]
@@ -756,7 +796,7 @@
     "href": "inspiration/brand-guidelines/walmart/index.html#font",
     "title": "Walmart",
     "section": "Font",
-    "text": "Font\nWalmart uses a custom font named Bogle.",
+    "text": "Font\nWalmart uses a custom font named Bogle.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Martel Sans # Google Fonts alternative to Bogle\n      source: google\n\n  base: Martel Sans",
     "crumbs": [
       "Walmart"
     ]
