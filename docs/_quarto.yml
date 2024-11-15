@@ -14,6 +14,8 @@ project:
 
 website:
   title: "brand.yml"
+  site-url: https://posit-dev.github.io/brand-yml/
+  description: Unified branding with a simple YAML file
 
   bread-crumbs: true
 

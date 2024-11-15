@@ -1,5 +1,5 @@
 ---
-title: Creating a brand.yml with LLMs
+title: Creating a brand.yml with an LLM
 author: Garrick Aden-Buie
 description: |
   Learn how to create a brand.yml file for your Shiny app using large language
