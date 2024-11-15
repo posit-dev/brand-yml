@@ -2,19 +2,22 @@
 title: Creating a brand.yml with an LLM
 author: Garrick Aden-Buie
 description: |
-  Learn how to create a brand.yml file for your Shiny app using large language
-  models (LLMs) like ChatGPT or Claude. This guide includes a system prompt you
-  can use to teach LLMs about brand.yml and some tips and tricks for getting the
-  highest quality results from an LLM.
+  Learn how to create a brand.yml file using a large language model (LLM) like
+  ChatGPT or Claude. This guide includes a system prompt you can use to teach
+  LLMs about brand.yml and some tips and tricks for getting the highest quality
+  results from an LLM.
 date: 2024-11-15
 image: feature.webp
 ---
 
-## Teaching LLMs about brand.yml
+Extracting color values, fonts and logos from brand guidelines can be a tedious process.
+Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!
 
 Beacuse **brand.yml** is a _brand_[^1] new project, large language models like [OpenAI's ChatGTP](https://chat.openai.com/chat), [Anthropic's Claude](https://claude.ai/) and others haven't learned the syntax (yet).
 
 [^1]: Pun intended. Sorry, not sorry.
+
+## Teaching LLMs about brand.yml
 
 Fortunately, it's relatively easy to teach an LLM everything it needs to know about brand.yml.
 We've created a [simple markdown file explaining brand.yml](brand-yml.prompt.txt) that you can copy and paste into a chat interface or that you can use as [a system prompt](https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts).
