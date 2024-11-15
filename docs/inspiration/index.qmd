@@ -8,42 +8,42 @@ listing:
     fields: [image, title]
     sort: "order"
 
-  - id: design-systems
-    template: ../_partials/listing/design-systems.ejs
-    contents:
-    - company: gov.uk
-      name: ~
-      link: https://design-system.service.gov.uk/
-      image: https://component.gallery/static/003d6d36f1bba02d900d76f73b590760/abdd9/20190316T173024_httpsdesign-system.service.gov.uk..webp
-    - company: Deque
-      name: Cauldron
-      link: https://pattern-library.dequelabs.com/
-      image: https://component.gallery/static/80af684a0232a4ae7fbd98a47d150bcb/abdd9/20190316T173038_httpspattern-library.dequelabs.com..webp
-    - company: US Web Design
-      name: ~
-      link: https://designsystem.digital.gov/
-      image: https://component.gallery/static/8f550664facd6b334a731573f67aa1db/abdd9/20190806T082756_httpsdesignsystem.digital.gov..webp
-    - company: Thumbtack
-      name: Thumbprint
-      link: https://thumbprint.design/
-      image: https://component.gallery/static/8d93e82f56ddc815ee43cc7c7e0c9c8e/abdd9/20190814T201105_httpsthumbprint.design..webp
-    - company: City of Helsinki
-      name: Helsinki Design System
-      link: https://hds.hel.fi/
-      image: https://component.gallery/static/12255c395fd2b35ff801913962170d6b/abdd9/20210529T114841_httpshds_hel_fi..webp
-    - company: GitHub
-      name: Primer
-      link: https://primer.style/design/
-      image: https://component.gallery/static/299320de022e526eff82d57de26f7c91/abdd9/20230812T174925_httpsprimer.style..webp
-    - company: Stack Overflow
-      name: Stacks
-      link: https://stackoverflow.design/
-      image: https://component.gallery/static/a39d64e663f2468d2a005509d8195727/abdd9/20190316T173203_httpsstackoverflow.design..webp
+  # - id: design-systems
+  #   template: ../_partials/listing/design-systems.ejs
+  #   contents:
+  #   - company: gov.uk
+  #     name: ~
+  #     link: https://design-system.service.gov.uk/
+  #     image: https://component.gallery/static/003d6d36f1bba02d900d76f73b590760/abdd9/20190316T173024_httpsdesign-system.service.gov.uk..webp
+  #   - company: Deque
+  #     name: Cauldron
+  #     link: https://pattern-library.dequelabs.com/
+  #     image: https://component.gallery/static/80af684a0232a4ae7fbd98a47d150bcb/abdd9/20190316T173038_httpspattern-library.dequelabs.com..webp
+  #   - company: US Web Design
+  #     name: ~
+  #     link: https://designsystem.digital.gov/
+  #     image: https://component.gallery/static/8f550664facd6b334a731573f67aa1db/abdd9/20190806T082756_httpsdesignsystem.digital.gov..webp
+  #   - company: Thumbtack
+  #     name: Thumbprint
+  #     link: https://thumbprint.design/
+  #     image: https://component.gallery/static/8d93e82f56ddc815ee43cc7c7e0c9c8e/abdd9/20190814T201105_httpsthumbprint.design..webp
+  #   - company: City of Helsinki
+  #     name: Helsinki Design System
+  #     link: https://hds.hel.fi/
+  #     image: https://component.gallery/static/12255c395fd2b35ff801913962170d6b/abdd9/20210529T114841_httpshds_hel_fi..webp
+  #   - company: GitHub
+  #     name: Primer
+  #     link: https://primer.style/design/
+  #     image: https://component.gallery/static/299320de022e526eff82d57de26f7c91/abdd9/20230812T174925_httpsprimer.style..webp
+  #   - company: Stack Overflow
+  #     name: Stacks
+  #     link: https://stackoverflow.design/
+  #     image: https://component.gallery/static/a39d64e663f2468d2a005509d8195727/abdd9/20190316T173203_httpsstackoverflow.design..webp
 ---
 
 ::: lead
 These brand guidelines and design systems served as an inspiration to the design of **brand.yml**.
-In the future, we'll translate these guidelines into `_brand.yml` example files.
+We've translated these guidelines into `_brand.yml` example files.
 :::
 
 ## Company Brand Guidelines
@@ -51,7 +51,9 @@ In the future, we'll translate these guidelines into `_brand.yml` example files.
 ::: {#brand-guidelines}
 :::
 
-## Design Systems
+```{=html}
+<hr class="mt-5">
+```
 
-::: {#design-systems}
-:::
+Would you like to have your brand featured here?
+[Open an issue to let us know](https://github.com/posit-dev/brand-yml/issues).
