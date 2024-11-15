@@ -18,10 +18,19 @@ website:
   description: Unified branding with a simple YAML file
 
   bread-crumbs: true
+  open-graph: true
+  twitter-card: true
+  favicon: logos/favicon/android-chrome-512x512.png
+  image: logos/wide/brand-yml-wide-color.png
 
   repo-url: https://github.com/posit-dev/brand-yml/
   repo-actions: [issue, edit]
   repo-subdir: docs
+
+  page-footer:
+    left: |
+      Proudly supported by
+      [![](https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg){fig-alt="Posit" width=65px}](https://posit.co)
 
   navbar:
     left:
