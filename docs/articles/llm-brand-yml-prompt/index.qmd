@@ -13,7 +13,7 @@ image: feature.webp
 Extracting color values, fonts and logos from brand guidelines can be a tedious process.
 Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!
 
-Beacuse **brand.yml** is a _brand_[^1] new project, large language models like [OpenAI's ChatGPT](https://chat.openai.com/chat), [Anthropic's Claude](https://claude.ai/) and others haven't learned the syntax (yet).
+Because **brand.yml** is a _brand_[^1] new project, large language models like [OpenAI's ChatGPT](https://chat.openai.com/chat), [Anthropic's Claude](https://claude.ai/) and others haven't learned the syntax (yet).
 
 [^1]: Pun intended. Sorry, not sorry.
 
