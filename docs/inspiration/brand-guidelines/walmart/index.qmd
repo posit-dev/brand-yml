@@ -3,9 +3,42 @@ title: Walmart
 link: https://walmartbrandcenter.lingoapp.com/s/de9qpe/?v=13
 image: walmart-palette.jpeg
 order: 5
+engine: jupyter
 ---
 
 [{{< meta title >}} Brand Guidelines]({{< meta link >}})
+
+```{python}
+#| echo: false
+from brand_yml._utils_yaml import yaml_brand as yaml
+from IPython.display import Markdown
+
+with open("_brand-walmart.yml", "r") as f:
+    brand = yaml.load(f)
+
+meta = yaml.dump({"meta": brand["meta"]}).strip()
+logo = yaml.dump({"logo": brand["logo"]}).strip()
+color = yaml.dump({"color": brand["color"]}).strip()
+typography = yaml.dump({"typography": brand["typography"]}).strip()
+```
+
+````{.yaml filename="_brand.yml"}
+`{python} Markdown(meta)`
+````
+
+## Logos
+
+[Full logo documentation](https://walmartbrandcenter.lingoapp.com/s/RWp5vq/?v=13)
+
+| Name | Image |
+|:-----|:-----:|
+| Primary blue logo | ![](walmart-spark-logo-digita-blue.png){height="100px"} |
+| Primary white logo | ![](walmart-spark-logo-digital-alpha.png){height="100px"} |
+| Spark icon | ![](walmart-spark-digital-alpha.png){height="100px"} |
+
+````{.yaml filename="_brand.yml"}
+`{python} Markdown(logo)`
+````
 
 ## Colors
 
@@ -39,16 +72,14 @@ order: 5
 | #FAFAFA | CMYK 1, 1, 1, 0 | Off White |
 | #041E42 | CMYK 100, 88, 42, 51 | Ozark Noir |
 
-## Logos
-
-[Full logo documentation](https://walmartbrandcenter.lingoapp.com/s/RWp5vq/?v=13)
-
-| Name | Image |
-|:-----|:-----:|
-| Primary blue logo | ![](Walmart%20spark%20logo-digital-blue.png){height="100px"} |
-| Primary white logo | ![](Walmart%20spark%20logo-digital-alpha.png){height="100px"} |
-| Spark icon | ![](Walmart%20spark%20digital-alpha.png){height="100px"} |
+````{.yaml filename="_brand.yml"}
+`{python} Markdown(color)`
+````
 
 ## Font
 
 Walmart uses [a custom font named Bogle](https://www.lingoapp.com/101437/s/Typography-and-CTA-PNDyzz/#pwjp7q).
+
+````{.yaml filename="_brand.yml"}
+`{python} Markdown(typography)`
+````
