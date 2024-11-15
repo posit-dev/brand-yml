@@ -1,5 +1,11 @@
 [
   {
+    "listing": "/articles/index.html",
+    "items": [
+      "/articles/llm-brand-yml-prompt/index.html"
+    ]
+  },
+  {
     "listing": "/inspiration/index.html",
     "items": [
       "/inspiration/brand-guidelines/posit/index.html",
