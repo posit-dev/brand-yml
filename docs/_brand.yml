@@ -101,3 +101,40 @@ defaults:
     defaults:
       enable-rounded: false
       navbar-bg: $brand-black
+    rules: |
+      .code-with-filename .code-with-filename-file {
+        background-color: $brand-gray;
+        pre {
+          color: $body-bg;
+          font-family: $font-family-base;
+          font-size: 0.9rem;
+          padding-block: 0.25rem;
+        }
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        --start: 0%;
+        --end: 125%;
+        --angle: -55deg;
+        --start-color: hsla(276, 80%, 22%, 1);
+        --end-color: hsla(31, 94%, 52%, 1);
+        background: var(--start-color);
+        background: linear-gradient(
+          var(--angle),
+          var(--start-color) var(--start),
+          var(--end-color) var(--end)
+        );
+        background: -moz-linear-gradient(
+          var(--angle),
+          var(--start-color) var(--start),
+          var(--end-color) var(--end)
+        );
+        background: -webkit-linear-gradient(
+          var(--angle),
+          var(--start-color) var(--start),
+          var(--end-color) var(--end)
+        );
+        &, h1 {
+          color: white;
+        }
+      }

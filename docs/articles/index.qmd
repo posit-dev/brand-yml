@@ -9,6 +9,8 @@ listing:
   sort: "date desc"
   filter-ui: true
 
+title-block-banner: false
+
 margin-footer: |
   [<i class="bi bi-rss-fill"></i> RSS Feed](index.xml)
 ---
