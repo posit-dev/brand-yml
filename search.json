@@ -14,7 +14,7 @@
     "href": "index.html#learn-more",
     "title": "brand.yml",
     "section": "Learn more",
-    "text": "Learn more\nJump to Structure to learn about the brand.yml syntax and how to write a _brand.yml file.\nYou can explore some inspiring examples of brand guidelines found in the wild.\nIf you’re a Python developer or are interested in using _brand.yml to adapt a Python package to use brand.yml for theming, check out the brand_yml Python package documentation to get started.",
+    "text": "Learn more\nJump to Structure to learn about the brand.yml syntax and how to write a _brand.yml file.\nYou can explore some inspiring examples of brand guidelines found in the wild.\nIf you’re a Python developer or are interested in using _brand.yml to adapt a Python package to use brand.yml for theming, check out the brand_yml Python package documentation to get started.\n\n\n\n\n\n\nWe’d love to hear from you\n\n\n\nbrand.yml is a new project and we’d love to hear from you to decide how the project will evolve. Some fields may change as we learn what works and what doesn’t.\nPlease reach out to us on the discussion forum with any questions, thoughts, or feedback!",
     "crumbs": [
       "About"
     ]
