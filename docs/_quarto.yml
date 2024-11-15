@@ -76,6 +76,12 @@ format:
 
 lightbox: auto
 
+filters:
+  - preview-colour
+
+preview-colour:
+  code: true
+
 metadata-files:
   - _sidebar-python.yml
   # - _sidebar-r.yml
