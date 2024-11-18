@@ -20,7 +20,9 @@ Because **brand.yml** is a _brand_[^1] new project, large language models like [
 ## Teaching LLMs about brand.yml
 
 Fortunately, it's relatively easy to teach an LLM everything it needs to know about brand.yml.
-We've created a [simple markdown file explaining brand.yml](brand-yml.prompt.txt) that you can copy and paste into a chat interface or that you can use as [a system prompt](https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts).
+We've created a [simple markdown file explaining brand.yml](brand-yml.prompt.txt)[^llms-txt] that you can copy and paste into a chat interface or that you can use as [a system prompt](https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts).
+
+[^llms-txt]: This file is also served at <https://posit-dev.github.io/brand-yml/.well-known/llms.txt>.
 
 ::: {.callout-tip title="brand.yml Prompt" collapse="true"}
 Copy the code block below and paste it into a chat interface or use it as a system prompt.
