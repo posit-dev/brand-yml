@@ -30,7 +30,7 @@
 <p>Because <strong>brand.yml</strong> is a <em>brand</em><sup>1</sup> new project, large language models like <a href="https://chat.openai.com/chat">OpenAI’s ChatGPT</a>, <a href="https://claude.ai/">Anthropic’s Claude</a> and others haven’t learned the syntax (yet).</p>
 <section id="teaching-llms-about-brand.yml" class="level2">
 <h2 class="anchored" data-anchor-id="teaching-llms-about-brand.yml">Teaching LLMs about brand.yml</h2>
-<p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
+<p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a><sup>2</sup> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="brand.yml Prompt">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -651,6 +651,7 @@ Branded Shiny App
 
 <ol>
 <li id="fn1"><p>Pun intended. Sorry, not sorry.↩︎</p></li>
+<li id="fn2"><p>This file is also served at <a href="https://posit-dev.github.io/brand-yml/.well-known/llms.txt" class="uri">https://posit-dev.github.io/brand-yml/.well-known/llms.txt</a>.↩︎</p></li>
 </ol>
 </section></div> ]]></description>
   <guid>https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/</guid>
