@@ -8,9 +8,7 @@ project:
     - "logos/**/*.svg"
     - objects.txt
   post-render:
-    - mkdir -p _site/schema
-    - cp ../schema/brand.schema.yml _site/schema
-    - cp ../schema/brand.schema.json _site/schema
+    - bash post-render.sh
 
 website:
   title: "brand.yml"
