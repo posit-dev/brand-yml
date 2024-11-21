@@ -179,10 +179,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../articles/index.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../pkg/py/index.html"> 
-<span class="menu-text">Python</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-packages">    
+        <li>
+    <a class="dropdown-item" href="../../pkg/py/index.html">
+ <span class="dropdown-text">Python</span></a>
   </li>  
+        <li class="dropdown-header">R (Coming soon)</li>
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -970,7 +978,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><a href="#brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump">model_dump</a></td>
-<td>Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump</td>
+<td>Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump</td>
 </tr>
 </tbody>
 </table>
@@ -989,7 +997,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    warnings<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    serialize_as_any<span class="op">=</span><span class="va">False</span>,</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump</p>
+<p>Usage docs: https://docs.pydantic.dev/2.10/concepts/serialization/#modelmodel_dump</p>
 <p>Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.</p>
 <p>Args: mode: The mode in which <code>to_python</code> should run. If mode is ‘json’, the output will only contain JSON serializable types. If mode is ‘python’, the output may contain non-JSON-serializable Python objects. include: A set of fields to include in the output. exclude: A set of fields to exclude from the output. context: Additional context to pass to the serializer. by_alias: Whether to use the field’s alias in the dictionary key if defined. exclude_unset: Whether to exclude fields that have not been explicitly set. exclude_defaults: Whether to exclude fields that are set to their default value. exclude_none: Whether to exclude fields that have a value of <code>None</code>. round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T]. warnings: How to handle serialization errors. False/“none” ignores them, True/“warn” logs errors, “error” raises a [<code>PydanticSerializationError</code>][pydantic_core.PydanticSerializationError]. serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.</p>
 <p>Returns: A dictionary representation of the model.</p>
@@ -1003,7 +1011,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
 <p>In some cases, you may wish to convert the base font size to an appropriate unit, such as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem"><code>rem</code></a> (i.e.&nbsp;a font size relative to the root element’s font size). Use <code>typography_base_size_unit</code> in <a href="https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context">pydantic’s serialization context</a> to request the units for the base font size. (Note that currently only <code>"rem"</code> is supported.)</p>
-<div id="be12671c" class="cell" data-execution_count="1">
+<div id="2f015d8c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>

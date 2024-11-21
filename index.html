@@ -184,10 +184,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./articles/index.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./pkg/py/index.html"> 
-<span class="menu-text">Python</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-packages">    
+        <li>
+    <a class="dropdown-item" href="./pkg/py/index.html">
+ <span class="dropdown-text">Python</span></a>
   </li>  
+        <li class="dropdown-header">R (Coming soon)</li>
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -389,7 +397,12 @@ We’d love to hear from you
 </section>
 <section id="support" class="level2">
 <h2 class="anchored" data-anchor-id="support">Support</h2>
-<p><strong>brand.yml</strong> is currently <span class="implemented">supported</span> in <a href="https://shiny.posit.co/py/">Shiny for Python</a> and <a href="https://quarto.org/">Quarto</a> websites, presentations, dashboards, and Typst documents, as well as via the <a href="pkg/py/"><code>brand_yml</code> Python package</a>. <!-- Support for themed branding is [in progress]{.in-progress} for . --></p>
+<p><strong>brand.yml</strong> is currently <span class="implemented">supported</span> in <a href="https://shiny.posit.co/py/">Shiny for Python</a> and <a href="https://quarto.org/">Quarto</a> websites, presentations, dashboards, and Typst documents, as well as via the <a href="pkg/py/"><code>brand_yml</code> Python package</a>.</p>
+<!-- Support for themed branding is [in progress]{.in-progress} for . -->
+<p>We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below.</p>
+<div class="visually-hidden">
+<p>The diagram shows brand.yml connected to Quarto, R and Python. Quarto is connected to HTML (websites, presentations, dashboards and emails) and PDF (Typst) formats. R is connected to the bslib (Shiny for R and R Markdown) and thematic (ggplot, plot) packages. Python is connected with brand_yml, which connects to Shiny for Python and seaborn and other plotting libraries.</p>
+</div>
 <div style="--mermaid-max-height: 800px">
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">

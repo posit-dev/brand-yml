@@ -179,10 +179,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../articles/index.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../pkg/py/index.html"> 
-<span class="menu-text">Python</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-packages">    
+        <li>
+    <a class="dropdown-item" href="../../pkg/py/index.html">
+ <span class="dropdown-text">Python</span></a>
   </li>  
+        <li class="dropdown-header">R (Coming soon)</li>
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -405,13 +413,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once imported via <code>brand_yml.Brand.from_yaml()</code>, you can access the named color palette via <code>brand.color.palette["purple"]</code> and the <code>primary</code> field will be ready for use.</p>
 <div class="python-code-preview">
-<div id="869344f6" class="cell" data-execution_count="2">
+<div id="49c3c0cd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>brand.color.palette[<span class="st">"purple"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="6407d02c" class="cell" data-execution_count="3">
+<div id="91260e64" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#6339E0'</code></pre>
@@ -435,13 +443,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>With this Brand YAML, both headings and links will ultimately be styled with the brand’s <code>purple</code> color.</p>
 <div class="python-code-preview">
-<div id="e47f7190" class="cell" data-execution_count="5">
+<div id="cbcb7d19" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>brand.typography.headings.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="31ebb6ad" class="cell" data-execution_count="6">
+<div id="063d23e7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>brand.typography.link.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>'#6339E0'</code></pre>

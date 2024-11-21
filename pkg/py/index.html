@@ -179,10 +179,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../articles/index.html"> 
 <span class="menu-text">Articles</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../pkg/py/index.html"> 
-<span class="menu-text">Python</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-packages" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Packages</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-packages">    
+        <li>
+    <a class="dropdown-item" href="../../pkg/py/index.html">
+ <span class="dropdown-text">Python</span></a>
   </li>  
+        <li class="dropdown-header">R (Coming soon)</li>
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -343,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example" class="level2">
 <h2 class="anchored" data-anchor-id="example">Example</h2>
-<div id="325301b7" class="cell" data-execution_count="1">
+<div id="d721e0bd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>
@@ -374,19 +382,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="55a6626e" class="cell" data-execution_count="2">
+<div id="d5a56932" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>brand.meta.name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>BrandMetaName(full='Posit Software, PBC')</code></pre>
 </div>
 </div>
-<div id="f675bdc3" class="cell" data-execution_count="3">
+<div id="79d91be6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'blue'</code></pre>
 </div>
 </div>
-<div id="28fbad8f" class="cell" data-execution_count="4">
+<div id="9eb9394c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>brand.typography.base.model_dump()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>{'family': 'Open Sans', 'weight': 300, 'size': None, 'line_height': None}</code></pre>
