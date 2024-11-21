@@ -48,8 +48,11 @@ website:
       - text: "Inspiration"
         href: inspiration/index.qmd
       - articles/index.qmd
-      - text: Python
-        href: pkg/py/index.qmd
+      - text: Packages
+        menu:
+        - text: Python
+          href: pkg/py/index.qmd
+        - text: R (Coming soon)
     tools:
       - icon: github
         menu:
