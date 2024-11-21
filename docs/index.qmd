@@ -127,7 +127,7 @@ flowchart LR
     classDef highlighted fill:#FFE8DB,stroke:#612200,color:#612200;
     class by highlighted;
 
-    click quarto href "https://quarto.org/"
+    click quarto href "https://prerelease.quarto.org/docs/authoring/brand.html"
     click quarto-typst href "https://quarto.org/docs/output-formats/typst.html" "Typst in Quarto"
     click quarto-presentations href "https://quarto.org/docs/presentations/revealjs/" "Reveal.js in Quarto"
     click quarto-dashboards href "https://quarto.org/docs/dashboards/" "Dashboards in Quarto"
