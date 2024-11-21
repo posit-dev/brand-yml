@@ -77,7 +77,17 @@ Please reach out to us on the [discussion forum](https://github.com/posit-dev/br
 ## Support
 
 **brand.yml** is currently [supported]{.implemented} in [Shiny for Python](https://shiny.posit.co/py/) and [Quarto](https://quarto.org/) websites, presentations, dashboards, and Typst documents, as well as via the [`brand_yml` Python package](pkg/py/).
+
 <!-- Support for themed branding is [in progress]{.in-progress} for . -->
+
+We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below.
+
+::: visually-hidden
+The diagram shows brand.yml connected to Quarto, R and Python.
+Quarto is connected to HTML (websites, presentations, dashboards and emails) and PDF (Typst) formats.
+R is connected to the bslib (Shiny for R and R Markdown) and thematic (ggplot, plot) packages.
+Python is connected with brand_yml, which connects to Shiny for Python and seaborn and other plotting libraries.
+:::
 
 ::: {style="--mermaid-max-height: 800px"}
 ```{mermaid}
