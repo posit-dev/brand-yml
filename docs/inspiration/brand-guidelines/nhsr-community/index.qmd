@@ -1,0 +1,138 @@
+---
+title: NHS-R Community
+image: nhsr-logo.svg
+order: 7
+---
+
+NHS-R Community Guidelines
+
+```{.yaml filename="_brand.yml"}
+meta:
+  name:
+    short: NHSR
+    full: NHS-R Community
+  link:
+    home: https://nhsrcommunity.com/
+    brand-guidelines: https://nhsrway.nhsrcommunity.com/style-guides.html#branding
+```
+
+## Colour 
+
+NHS-R Community uses the NHS England colours for its branding under the OGL v3.0
+licence.
+The colours used by NHS-R Community do not, currently, include any colours from
+any other nation in the UK.
+
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    # Core neutrals (Level 2)
+    white: "#FFFFFF"
+    black: "#231F20"
+    grey-dark: "#425563"
+    grey-mid: "#768692"
+    grey-pale: "#E8EDEE"
+
+    # Blues (Level 1)
+    blue-dark: "#003087"
+    blue: "#005EB8"
+    blue-bright: "#0072CE"
+    blue-light: "#41B6E6"
+    blue-aqua: "#00A9CE"
+
+    # Greens (Level 3)
+    green-dark: "#006747"
+    green: "#009639"
+    green-light: "#78BE20"
+    green-aqua: "#00A499"
+
+    # Purples and Pinks
+    purple: "#330072"
+    pink-dark: "#7C2855"
+    pink: "#AE2573"
+
+    # Reds
+    red-dark: "#8A1538"
+    red: "#DA291C"  # Emergency Services Red
+
+    # Yellows and Orange
+    orange: "#ED8B00"
+    yellow-warm: "#FFB81C"
+    yellow: "#FAE100"
+
+    # Bootstrap color aliases - using closest matches without duplication
+    indigo: blue-dark
+    cyan: blue-aqua
+    teal: green-aqua
+
+  foreground: black
+  background: white
+  primary: blue
+  secondary: grey-dark
+  tertiary: grey-pale
+  success: green
+  danger: red
+  warning: yellow-warm
+  info: blue-light
+  light: grey-pale
+  dark: grey-dark
+```
+
+## Typography
+
+The `_brand.yml` includes commented code for the use of the [official NHS font](https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/), 
+Frutiger, but this is not used in any NHS-R Community products as this requires
+purchasing.
+If this is available to an NHS organisation then the lines of code under `fonts:`
+need to be uncommented and the output tested.
+
+The recommended NHS font to use is Arial and this is the default font used by 
+NHS-R Community.
+
+```{.yaml filename="_brand.yml"}
+typography:
+  fonts:
+    # Note: Frutiger is a licensed NHS England font that requires purchasing
+    # https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/
+    # - family: Frutiger W01
+    #   source: file
+    #   files:
+    #     - path: fonts/FrutigerLTW01-55Roman.ttf
+    #     - path: fonts/FrutigerLTW01-65Bold.ttf
+    #       weight: bold
+
+    - family: Arial
+      source: system
+
+  base:
+    family: "Arial, sans-serif"
+    line-height: 1.5
+
+  headings:
+    family: "Arial, sans-serif"
+    weight: 700
+    line-height: 1.25
+    color: blue
+```
+
+## Logo
+
+It should be noted that the [logo for the NHS in England](https://www.england.nhs.uk/nhsidentity/identity-guidelines/nhs-logo/) 
+is protected by law and is trade marked so can be used by official documents in 
+the work of the NHS.
+In order to use this please just replace the NHS-R Community logo with that of 
+NHS.
+
+The NHS-R Community logo incorporates the R logo available under the 
+Creative Commons Attribution-Share Alike 4.0 International licence and copies of
+[NHS-R Community's logo](https://github.com/nhs-r-community/assets/tree/main/logo) 
+are available under Creative Commons 1.0.
+
+```{.yaml filename="_brand.yml"}
+logo:
+  images:
+    header: nhsr-logo.svg
+  small: nhsr-logo.svg
+  medium: header
+  large: header
+```
