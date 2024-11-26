@@ -10,10 +10,12 @@ logo:
   # Download the NHS-R Community logo and store it next to _brand.yml
   # You'll have to update this section with the correct file names
   images:
-    header: nhsr-logo.svg
-  small: nhsr-logo.svg
-  medium: header
-  large: header
+    nhsr-logo:
+      path: nhsr-logo.svg
+      alt: NHS-R Community logo
+  small: nhsr-logo
+  medium: nhsr-logo
+  large: nhsr-logo
 
 
 color:
