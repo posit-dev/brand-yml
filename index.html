@@ -531,11 +531,11 @@ Sofia Torres
 <ol type="1">
 <li><p><strong>Creating a <code>_brand.yml</code> file</strong>. Jordan has found Genewise’s internal branding guidelines. As they’re reading through these guidelines, they notice that the guidelines recommend a specific set of colors and fonts. They also find copies of their company’s logo, along with several pages of <em>do this not that</em> examples.</p>
 <p>At this stage, Jordan wants to codify the best practices mentioned in the brand guidelines into a simple, human readable format. They’re excited that they only need to do this once, but they do make a note of the link to brand guidelines, just in case.</p>
-<p>While they have the brand guidelines open, they download the logo files and store them next in the same folder as the <code>brand.yml</code> file they’re working on.</p></li>
-<li><p><strong>Using and sharing the <code>brand.yml</code></strong> <strong>file.</strong> When Jordan shared their new report style with their manager, Sofia was thrilled. Immediately, she asked everyone on her team to start using the new branded styles. Thanks to Quarto’s simple interface, everyone on the team could run a single command to bring the brand assets into their projects and documents, including the logos that Jordan downloaded.</p>
+<p>While they have the brand guidelines open, they download the logo files and store them next in the same folder as the <code>_brand.yml</code> file they’re working on.</p></li>
+<li><p><strong>Using and sharing the <code>_brand.yml</code></strong> <strong>file.</strong> When Jordan shared their new report style with their manager, Sofia was thrilled. Immediately, she asked everyone on her team to start using the new branded styles. Thanks to Quarto’s simple interface, everyone on the team could run a single command to bring the brand assets into their projects and documents, including the logos that Jordan downloaded.</p>
 <p>The next time two members of her team sent out reports on the same day, both attachments looked coherent and professional. She’s just as thrilled when she opens up the experiment-tracking Shiny dashboard her team built for a biology group and the Shiny app looks custom-built for Genewise.</p></li>
 <li><p><strong>Updating branding tweaks and format settings.</strong> After a few weeks of using the branded theme for her reports, Sofia needs to present to the C suite. She uses the new brand files to create her presentation, but it’s just a little <em>off</em>. Thankfully she’s able to grab some time with the designer, who gives her a small CSS file that really brings the design home.</p>
-<p>Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their <code>brand.yml</code> repository. She also realizes that everyone else would likely also want to use her settings for <code>slide-number</code> and <code>title-slide-attributes</code>, so she updates the <code>brand.yml</code> with these new values for the <code>revealjs</code> format.</p></li>
+<p>Knowing that the rest of her team would like to use the same slide styles, she saves the CSS file in their <code>brand.yml</code> repository. She also realizes that everyone else would likely also want to use her settings for <code>slide-number</code> and <code>title-slide-attributes</code>, so she updates the <code>_brand.yml</code> with these new values for the <code>revealjs</code> format.</p></li>
 </ol>
 </section>
 <section id="guiding-principles" class="level3">
@@ -547,11 +547,11 @@ Sofia Torres
 <li><p>A YAML file alone isn’t enough. Brands have additional assets, like logos and font files.</p></li>
 <li><p>Users will want to create new documents, projects or apps with the <code>_brand.yml</code> and related assets.</p></li>
 <li><p>Users will want to incorporate the branded theme into existing documents, projects and apps.</p></li>
-<li><p>Using <code>_brand.yml</code> should not impede localized customizations.</p></li>
-<li><p>Because the <code>_brand.yml</code> is by design incomplete for any given output format, it needs to fit into a workflow that makes specific outputs formats shareable and reproducible.</p>
+<li><p>Using brand.yml should not impede localized customizations.</p></li>
+<li><p>Because brand.yml is by design incomplete for any given output format, it needs to fit into a workflow that makes specific outputs formats shareable and reproducible.</p>
 <ol type="1">
-<li>This could mean that <code>_brand.yml</code> tooling is flexible enough to store format-specific options, e.g.&nbsp;to encompass additional assets used in Shiny apps or Quarto websites, or format-specific options for Quarto PDF documents, etc.</li>
-<li>Alternatively, <code>_brand.yml</code> tooling could fit into larger, existing tools for sharing settings and formats, like R packages, Quarto custom formats, or a Shiny <code>html_dependency()</code>.</li>
+<li>This could mean that brand.yml tooling is flexible enough to store format-specific options, e.g.&nbsp;to encompass additional assets used in Shiny apps or Quarto websites, or format-specific options for Quarto PDF documents, etc.</li>
+<li>Alternatively, brand.yml tooling could fit into larger, existing tools for sharing settings and formats, like R packages, Quarto custom formats, or a Shiny <code>html_dependency()</code>.</li>
 </ol></li>
 </ol>
 
