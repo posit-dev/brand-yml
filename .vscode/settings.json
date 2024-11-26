@@ -7,5 +7,5 @@
         },
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
-    "quarto.path": "~/.local/share/qvm/versions/v1.6.35/bin/quarto"
+    "quarto.path": "~/.local/share/qvm/versions/v1.6.37/bin/quarto"
 }
