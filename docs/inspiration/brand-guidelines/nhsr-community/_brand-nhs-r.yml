@@ -6,20 +6,20 @@ meta:
     home: https://nhsrcommunity.com/
     brand-guidelines: https://nhsrway.nhsrcommunity.com/style-guides.html#branding
 
-# Download the NHS-R Community logo and store it next to _brand.yml
-# You'll have to update this section with the correct file names
 logo:
+  # Download the NHS-R Community logo and store it next to _brand.yml
+  # You'll have to update this section with the correct file names
   images:
     header: nhsr-logo.svg
   small: nhsr-logo.svg
   medium: header
   large: header
 
-# NHS-R Community uses the NHS England colour palette
-# https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/ used
-# under the OGL Licence v3.0
 
 color:
+  # NHS-R Community uses the NHS England colour palette
+  # https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/ used
+  # under the OGL Licence v3.0
   palette:
     # Core neutrals (Level 2)
     white: "#FFFFFF"
