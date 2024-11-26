@@ -10,7 +10,7 @@ def gh_quarto_cli_raw_url(branch="main"):
     return f"https://github.com/quarto-dev/quarto-cli/raw/{branch}"
 
 
-def read_yaml_from_quarto(branch="main"):
+def read_yaml_from_quarto(branch="v1.6.37"):
     url = (
         gh_quarto_cli_raw_url(branch) + "/src/resources/schema/definitions.yml"
     )

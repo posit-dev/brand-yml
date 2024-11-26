@@ -8,7 +8,7 @@ import jsonschema
 from jsonschema import Draft202012Validator
 
 # NEEDS TO BE DONE LOCALLY, UPDATE PATH TO MATCH YOUR LOCAL SETUP
-# From Quarto revision 71945532e1fc1a5cf113117f6d5ff5bee3991797
+# From Quarto revision 88819d5b9f092381d5d20a146ac3121dc2435acc (v1.6.37)
 quarto_local_path = Path("~/work/quarto-dev/quarto-cli")
 schema_path = quarto_local_path.expanduser().joinpath("src/resources/schema/json-schemas.json")
 
