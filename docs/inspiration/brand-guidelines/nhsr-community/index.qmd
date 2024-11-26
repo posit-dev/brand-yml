@@ -27,8 +27,10 @@ typography = yaml.dump({"typography": brand["typography"]}).strip()
 
 ## Colour
 
-NHS-R Community uses the NHS England colours for its branding under the OGL v3.0 licence.
+The NHS-R Community uses [the NHS England colours](https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/) for its branding[^colour-licence].
 The colours used by NHS-R Community do not, currently, include any colours from any other nation in the UK.
+
+[^colour-licence]:  Under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
 
 ``` {.yaml filename="_brand.yml"}
 `{python} Markdown(color)`
@@ -36,10 +38,12 @@ The colours used by NHS-R Community do not, currently, include any colours from 
 
 ## Typography
 
-The `_brand.yml` includes commented code for the use of [Frutiger, the official NHS font](https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/), but this is not used in any NHS-R Community products as this requires purchasing.
-If this is available to an NHS organisation then the lines of code under `fonts:` need to be uncommented and the output tested.
+The NHS-R Community `_brand.yml` uses the NHS-recommended font, Arial, which is assumed to be available on the user's system.
+It also includes commented code for the use of [Frutiger, the official NHS font](https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/).
+Frutiger is a proprietary font that requires purchasing, so it is not used in any NHS-R Community products.
 
-The recommended NHS font to use is Arial and this is the default font used by NHS-R Community.
+If Frutiger is available to an NHS organisation, then the lines of code under `fonts:` need to be uncommented and the output tested.
+
 
 ``` {.yaml filename="_brand.yml"}
 `{python} Markdown(typography)`
@@ -47,10 +51,14 @@ The recommended NHS font to use is Arial and this is the default font used by NH
 
 ## Logo
 
+The NHS-R Community `_brand.yml` uses the [NHS-R Community logo](https://nhsrway.nhsrcommunity.com/style-guides.html#logo)[^licence-nhs-r-logo], which incorporates [the R project logo](https://www.r-project.org/logo/)[^licence-r-logo].
+
+[^licence-nhs-r-logo]: Copies of the [NHS-R Community's logo](https://github.com/nhs-r-community/assets/tree/main/logo) are available under Creative Commons 1.0.
+[^licence-r-logo]: The R project logo is available under the Creative Commons Attribution-Share Alike 4.0 International licence.
+
 It should be noted that the [logo for the NHS in England](https://www.england.nhs.uk/nhsidentity/identity-guidelines/nhs-logo/) is protected by law and is trade marked so can be used by official documents in the work of the NHS.
 In order to use this please just replace the NHS-R Community logo with that of NHS.
 
-The NHS-R Community logo incorporates the R logo available under the Creative Commons Attribution-Share Alike 4.0 International licence and copies of [NHS-R Community's logo](https://github.com/nhs-r-community/assets/tree/main/logo) are available under Creative Commons 1.0.
 
 ``` {.yaml filename="_brand.yml"}
 `{python} Markdown(logo)`
