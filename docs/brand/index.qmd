@@ -24,7 +24,7 @@ brand-defaults: >
 
 ## Outline
 
-```{.yaml filename="brand.yml"}
+```{.yaml filename="_brand.yml"}
 meta:             # <1>
   name: brand.yml # <1>
   links: # <1>
@@ -117,7 +117,7 @@ defaults: # <7>
 
 ## Specification
 
-We've created a schema for the structure of the brand.yml file in two flavors:
+We've created a schema for the structure of a brand.yml file in two flavors:
 
 1. [brand.yml schema as YAML](../schema/brand.schema.yml), a YAML variant of [JSON Schema][json-schema] used by [Quarto][quarto] to validate the structure `_brand.yml` files or `brand` in Quarto metadata.
 2. [brand.yml schema as JSON](../schema/brand.schema.json), a [JSON Schema][json-schema] containing the definitions used in the YAML schema.

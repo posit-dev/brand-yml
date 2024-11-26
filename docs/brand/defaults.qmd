@@ -21,7 +21,7 @@ This part of the brand.yml spec may change as we learn more about the needs of d
 
 Currently, both Quarto and Shiny support a `bootstrap` section under `defaults` that can be used to set default values for Bootstrap Sass variables.
 
-```{.yaml filename="brand.yml"}
+```{.yaml filename="_brand.yml"}
 defaults:
   bootstrap:
     defaults:
@@ -31,7 +31,7 @@ defaults:
 
 In [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html), an additional `shiny.theme` section is used to set default values for Shiny-specific theme settings.
 
-```{.yaml filename="brand.yml"}
+```{.yaml filename="_brand.yml"}
 color:
   palette:
     pink: "#E83E8C"

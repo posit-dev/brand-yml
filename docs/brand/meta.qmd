@@ -20,7 +20,7 @@ Both `name` and `link` are optional fields, and you can add additional fields as
 
 ## Examples
 
-Here are some examples of how you might use the `meta` section in your `brand.yml` file:
+Here are some examples of how you might use the `meta` section in your `_brand.yml` file:
 
 ### Minimal Example
 
