@@ -4,3 +4,4 @@ __pycache__
 
 /.luarc.json
 pkg-py/src/brand_yml/__version.py
+.Rproj.user
