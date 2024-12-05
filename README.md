@@ -26,9 +26,9 @@ This `_brand.yml` can be used Quarto and Shiny for Python[^1] to instantly basic
 
 ## Links
 
-- [brand.yml Documentation](https://github.com/posit-dev/brand-yml) - The brand.yml specification, explanation, details, examples and more.
+- [brand.yml Documentation](https://posit-dev.github.io/brand-yml) - The brand.yml specification, explanation, details, examples and more.
 
-- [brand_yml for Python](https://github.com/posit-dev/brand-yml/pkg/py) - Python package for reading and applying the `_brand.yml` file.
+- [brand_yml for Python](https://posit-dev.github.io/brand-yml/pkg/py) - Python package for reading and applying the `_brand.yml` file.
 
 - [Quarto](https://quarto.org) - An open-source scientific and technical publishing system. Automatically uses `_brand.yml` in the v1.6 release.
 
