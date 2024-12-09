@@ -8,7 +8,7 @@ from typing import Any, Callable, Dict, List, Union
 
 from pydantic import BaseModel
 
-rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)\\s*([a-zA-Z%]*)$")
+rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)\s*([a-zA-Z%]*)$")
 
 
 def find_project_file(
