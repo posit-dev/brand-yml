@@ -791,6 +791,9 @@ def test_brand_typography_write_font_css():
         ("18px", "1.125rem"),
         ("50%", "0.5rem"),
         ("1.5em", "1.5rem"),
+        ("1in", "6rem"),
+        ("1.27cm", "3rem"),
+        ("12.7mm", "3rem"),
     ],
 )
 def test_brand_typography_base_font_size_as_rem(original, rem):

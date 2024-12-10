@@ -199,13 +199,15 @@ def maybe_convert_font_size_to_rem(x: str) -> str:
         "%": 100,
         "px": 16,
         "pt": 12,
-        "in": 96 / 16,  # 96 px/inch
-        "cm": 96 / 16 * 2.54,  # inch -> cm
+        "in": 16 / 96,  # 96 px/inch
+        "cm": 16 / 96 * 2.54,  # inch -> cm
         "mm": 16 / 96 * 25.4,  # cm -> mm
     }
 
     if unit in scale:
-        return f"{float(value) / scale[unit]}rem"
+        ret = f"{float(value) / scale[unit]:.4f}rem".replace(".0000", "")
+        ret = re.sub("[.]?0+rem", "rem", ret)
+        return ret
 
     raise ValueError(
         f"Could not convert font size {x_og!r} from {unit} units to a relative unit."
