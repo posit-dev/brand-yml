@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Bug fixes
 
-* Fixed a calculation to correctly convert `in` and `cm` to `rem` units for `brand.typography.base.size`.
+* Fixed a calculation to correctly convert `in` and `cm` to `rem` units for `brand.typography.base.size`. (#60)
 
 ## [0.1.0]
 
