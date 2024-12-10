@@ -26,6 +26,7 @@ from typing import (
     Literal,
     TypeVar,
     Union,
+    cast,
     overload,
 )
 from urllib.parse import urlencode, urljoin
@@ -102,17 +103,7 @@ BrandTypographyFontWeightRoundIntType = Literal[
     100, 200, 300, 400, 500, 600, 700, 800, 900
 ]
 
-font_weight_round_int = (
-    100,
-    200,
-    300,
-    400,
-    500,
-    600,
-    700,
-    800,
-    900,
-)
+font_weight_round_int = (100, 200, 300, 400, 500, 600, 700, 800, 900)
 
 # https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_mapping
 font_weight_map: dict[str, BrandTypographyFontWeightRoundIntType] = {
@@ -591,7 +582,13 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
             lambda x: x.to_serialized(),
             return_type=Union[str, int, list[Union[int, str]]],
         ),
-    ] = Field(default=list(font_weight_round_int), validate_default=True)
+    ] = Field(
+        default=cast(
+            BrandTypographyGoogleFontsWeight,
+            list(font_weight_round_int),
+        ),
+        validate_default=True,
+    )
     """
     The desired front weights to be imported for the font family.
 
@@ -636,7 +633,7 @@ class BrandTypographyGoogleFontsApi(BrandTypographyFontSource):
     version: PositiveInt = 2
     """Google Fonts API version. (Primarily for internal use.)"""
 
-    url: HttpUrl = Field("https://fonts.googleapis.com/", validate_default=True)
+    url: HttpUrl = Field(HttpUrl("https://fonts.googleapis.com/"))
     """URL of the Google Fonts-compatible API. (Primarily for internal use.)"""
 
     def to_css(self) -> str:
@@ -769,7 +766,7 @@ class BrandTypographyFontBunny(BrandTypographyGoogleFontsApi):
 
     source: Literal["bunny"] = Field("bunny", frozen=True)  # type: ignore[reportIncompatibleVariableOverride]
     version: PositiveInt = 1
-    url: HttpUrl = Field("https://fonts.bunny.net/", validate_default=True)
+    url: HttpUrl = Field(HttpUrl("https://fonts.bunny.net/"))
 
 
 # Typography Options -----------------------------------------------------------
