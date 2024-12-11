@@ -18,7 +18,7 @@ Create reports, apps, dashboards, plots and more that match your company's brand
 Our goal is to support unified, branded theming for all of Posit's open source tools---from web applications to printed reports to dashboards and presentations---with a consistent look and feel.
 
 With a single `_brand.yml` file you can collect brand logos, colors, fonts and typographic choices, typically found in your company's brand guidelines.
-This `_brand.yml` can be used Quarto and [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand)[^1] to instantly basic themes that match the brand guidelines.
+This `_brand.yml` can be used by Quarto and [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand)[^1] to quickly create basic themes that match the brand guidelines.
 
 [^1]: Support for Shiny for R is expected to arrive in the very near future.
 
