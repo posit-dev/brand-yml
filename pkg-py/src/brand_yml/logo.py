@@ -18,12 +18,14 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Discriminator,
+    Field,
     Tag,
     field_validator,
     model_validator,
 )
 
 from ._defs import BrandLightDark, defs_replace_recursively
+from ._utils import rand_hex
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import (
@@ -116,6 +118,7 @@ class BrandLogoResource(BrandBase):
 
 
 class BrandLightDarkSelectors(BaseModel):
+    id: str = Field(default_factory=lambda: rand_hex(4))
     light: list[str] = ['[data-bs-theme="light"]', ".quarto-light"]
     dark: list[str] = ['[data-bs-theme="dark"]', ".quarto-dark"]
 
@@ -131,28 +134,39 @@ def light_dark_css(
     selectors: Literal["prefers-color-scheme"]
     | dict[str, str | list[str]]
     | BrandLightDarkSelectors = BrandLightDarkSelectors(),
-) -> str:
+) -> tuple[str, str]:
     if isinstance(selectors, dict):
         selectors = BrandLightDarkSelectors.model_validate(selectors)
 
-    if selectors == "prefers-color-scheme":
-        light_dark_css = """
-        @media not all and (prefers-color-scheme: dark) {
-            [data-when-theme="dark"] {
-                display: none;
-            }
-        }
+    if isinstance(selectors, BrandLightDarkSelectors):
+        key = selectors.id
+    else:
+        key = rand_hex(4)
 
-        @media (prefers-color-scheme: dark) {
-            [data-when-theme="light"] {
+    if selectors == "prefers-color-scheme":
+        light_dark_css = f"""
+        @media not all and (prefers-color-scheme: dark) {{
+            [data-when-theme-id="{key}"][data-when-theme="dark"] {{
                 display: none;
-            }
-        }
+            }}
+        }}
+
+        @media (prefers-color-scheme: dark) {{
+            [data-when-theme-id="{key}"][data-when-theme="light"] {{
+                display: none;
+            }}
+        }}
         """
     else:
         selectors_strs = [
-            *[f'{s} [data-when-theme="dark"]' for s in selectors.light],
-            *[f'{s} [data-when-theme="light"]' for s in selectors.dark],
+            *[
+                f'{s} [data-when-theme-id="{key}"][data-when-theme="dark"]'
+                for s in selectors.light
+            ],
+            *[
+                f'{s} [data-when-theme-id="{key}"][data-when-theme="light"]'
+                for s in selectors.dark
+            ],
         ]
         light_dark_css = f"""
         {', '.join(selectors_strs)} {{
@@ -160,7 +174,7 @@ def light_dark_css(
         }}
         """
 
-    return dedent(light_dark_css)
+    return key, dedent(light_dark_css)
 
 
 class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
@@ -247,11 +261,15 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
         light = None
         dark = None
 
+        key, css_light_dark = light_dark_css(
+            selectors or BrandLightDarkSelectors()
+        )
+
         if self.light:
             light = self.light.to_html(
                 selectors=None,
                 which="",
-                **{"data-when-theme": "light"},
+                **{"data-when-theme-id": key, "data-when-theme": "light"},
                 **kwargs,
             )
 
@@ -259,17 +277,17 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
             dark = self.dark.to_html(
                 selectors=None,
                 which="",
-                **{"data-when-theme": "dark"},
+                **{"data-when-theme-id": key, "data-when-theme": "dark"},
                 **kwargs,
             )
 
         return htmltools.TagList(
-            # For now we just include the CSS directly. This might result in
-            # the same CSS included more than once, but HTMLDependency doesn't
-            # work in Quarto and py-shiny doesn't support "singletons".
-            htmltools.tags.style(
-                light_dark_css(selectors or BrandLightDarkSelectors())
-            ),
+            # We always include the CSS directly because we've tied the choice
+            # of `selectors` to this specific `to_html()` call via an `id`. Note
+            # that this choice is motivated in part by the fact that Quarto
+            # doesn't yet support `htmltools.HTMLDependency()` objects and
+            # py-shiny doesn't support singletons.
+            htmltools.tags.style(css_light_dark),
             light,
             dark,
         )

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import re
+import secrets
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
@@ -9,6 +10,15 @@ from typing import Any, Callable, Dict, List, Union
 from pydantic import BaseModel
 
 rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)\s*([a-zA-Z%]*)$")
+
+
+def rand_hex(size: int) -> str:
+    """
+    Creates a random hexadecimal string of `size` bytes. The length in
+    characters will be `size*2`.
+    """
+    format_str = "{{:0{}x}}".format(size * 2)
+    return format_str.format(secrets.randbits(size * 8))
 
 
 def find_project_file(
