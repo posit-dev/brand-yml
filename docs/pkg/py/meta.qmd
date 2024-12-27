@@ -5,7 +5,7 @@
 # BrandMeta { #brand_yml.BrandMeta }
 
 ```python
-BrandMeta()
+BrandMeta(self, /, **data)
 ```
 
 Brand Metadata
@@ -101,7 +101,7 @@ meta:
 # meta.BrandMetaName { #brand_yml.meta.BrandMetaName }
 
 ```python
-meta.BrandMetaName()
+meta.BrandMetaName(self, /, **data)
 ```
 
 
@@ -116,7 +116,7 @@ meta.BrandMetaName()
 # meta.BrandMetaLink { #brand_yml.meta.BrandMetaLink }
 
 ```python
-meta.BrandMetaLink()
+meta.BrandMetaLink(self, /, **data)
 ```
 
 Brand Metadata Links

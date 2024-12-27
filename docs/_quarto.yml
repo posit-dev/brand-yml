@@ -136,8 +136,9 @@ quartodoc:
             name: Logos and Images
           contents:
             - BrandLogo
+            - logo.BrandLogoFileType
             - BrandLogoResource
-            - BrandLightDark
+            - BrandLogoLightDarkResource
             - FileLocation
             - FileLocationLocal
             - FileLocationUrl

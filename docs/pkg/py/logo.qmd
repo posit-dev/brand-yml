@@ -5,7 +5,7 @@
 # BrandLogo { #brand_yml.BrandLogo }
 
 ```python
-BrandLogo()
+BrandLogo(self, /, **data)
 ```
 
 Brand Logos
@@ -15,7 +15,7 @@ points and possibly in different color schemes. Store all of your brand's
 logo or image assets in `images` with meaningful names. Logos can be mapped
 to three preset sizes -- `small`, `medium`, and `large` -- and each can be
 either a single logo file or a light/dark variant
-(`brand_yml.BrandLightDark`).
+([brand_yml.BrandLightDark](`brand_yml.BrandLightDark`)).
 
 To attach alternative text to an image, provide the image as a dictionary
 including `path` (the image location) and `alt` (the short, alternative
@@ -144,10 +144,72 @@ logo:
 
 :::
 
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [to_html](#brand_yml.BrandLogo.to_html) | Generate an HTML `img` tag or a set of `img` tags |
+
+### to_html { #brand_yml.BrandLogo.to_html }
+
+```python
+BrandLogo.to_html(
+    which,
+    selectors={'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']},
+    **kwargs,
+)
+```
+
+Generate an HTML `img` tag or a set of `img` tags
+
+Creates an HTML `<img>` tag for the brand logo resource named by `which`
+or a set of `<img>` tags if the resource includes light/dark variants.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">which</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'small\', \'medium\', \'large\', \'smallest\', \'largest\'\] \| [str](`str`)</span></code>
+
+:   The image to include by name. In addition to the named sizes---
+    `"small"`, `"medium"` and `"large"`---`which` can be `"smallest"` or
+    `"largest"` for the smallest or largest size available, or `which`
+    can be the name of a named image in the `logo.images` dictionary.
+
+<code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\]</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']}</span></code>
+
+:   CSS selectors used to indicate that light or dark mode is active.
+    Use `selectors="prefers-color-scheme"` for a variant that uses
+    media queries associated with the system color scheme, rather than
+    specific CSS selectors.
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional keyword arguments to be passed to the img tag.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                                                                                                                | Description                                                                                                                                                                                                                                                |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [Union](`typing.Union`)\[[htmltools](`htmltools`).[Tag](`htmltools.Tag`), [htmltools](`htmltools`).[TagList](`htmltools.TagList`)\] | Returns an HTML `<img>` tag for a singular [](`brand_yml.BrandLogoResource`) or two HTML `<img>` tags with additional CSS to selectively hide the light or dark images when in the opposite color scheme for a [](`brand_yml.BrandLogoLightDarkResource`). |
+
+#### See also {.doc-section .doc-section-see-also}
+
+
+- [BrandLogoResource.to_html](`brand_yml.BrandLogoResource.to_html`)
+- [BrandLogoLightDarkResource.to_html](`brand_yml.BrandLogoLightDarkResource.to_html`)
+
+# logo.BrandLogoFileType { #brand_yml.logo.BrandLogoFileType }
+
+`logo.BrandLogoFileType`
+
+A logo image file can be either a local or URL file location with optional
+alternative text ([](`brand_yml.BrandLogoResource`)) or a light-dark variant
+that includes both a light and dark color scheme
+([](`brand_yml.BrandLogoLightDarkResource`)).
+
 # BrandLogoResource { #brand_yml.BrandLogoResource }
 
 ```python
-BrandLogoResource()
+BrandLogoResource(self, /, **data)
 ```
 
 A logo resource, a file with optional alternative text
@@ -159,31 +221,162 @@ A logo resource, a file with optional alternative text
 | [alt](#brand_yml.logo.BrandLogoResource.alt) | Alterative text for the image, used for accessibility. |
 | [path](#brand_yml.logo.BrandLogoResource.path) | The path to the logo resource. This can be a local file or a URL. |
 
-# BrandLightDark { #brand_yml.BrandLightDark }
-
-```python
-BrandLightDark()
-```
-
-A Light/Dark Variant
-
-Holds variants for light and dark settings. Generally speaking **light**
-settings have white or light backgrounds and dark foreground colors
-(black text on a white page) and **dark** settings use black or dark
-background with light foreground colors (white text on a black page).
-
-## Attributes
+## Methods
 
 | Name | Description |
 | --- | --- |
-| [dark](#brand_yml._defs.BrandLightDark.dark) | Value in dark mode. |
-| [light](#brand_yml._defs.BrandLightDark.light) | Value in light mode. |
+| [to_html](#brand_yml.BrandLogoResource.to_html) | Generate an HTML img tag for the logo resource. |
 
+### to_html { #brand_yml.BrandLogoResource.to_html }
+
+```python
+BrandLogoResource.to_html(selectors=None, which='', **kwargs)
+```
+
+Generate an HTML img tag for the logo resource.
+
+This method creates an HTML img tag based on the logo's path and
+alternative text. If the logo is stored locally, it will be converted to
+a data URI. For remote logos, the source URL will be used directly.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\] \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
+
+:   Ignored, included for stable function signature across logo
+    variations.
+
+<code><span class="parameter-name">which</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">''</span></code>
+
+:   Ignored, included for stable function signature across logo
+    variations.
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional keyword arguments to be passed to the img tag.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                            | Description                            |
+|--------|-------------------------------------------------|----------------------------------------|
+|        | [htmltools](`htmltools`).[Tag](`htmltools.Tag`) | An HTML img tag representing the logo. |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```{python}
+from brand_yml import BrandLogoResource
+small = BrandLogoResource(
+    path="../../logos/icon/brand-yml-icon-color.png",
+    alt="brand.yml icon"
+)
+print(small.to_html(class_="my-brand-icon"))
+```
+
+```{python}
+small = BrandLogoResource(
+    path="https://posit-dev.github.io/brand-yml/logos/icon/brand-yml-icon-color.png",
+    alt="brand.yml remote icon"
+)
+small.to_html(width="32px", height="32px")
+```
+
+# BrandLogoLightDarkResource { #brand_yml.BrandLogoLightDarkResource }
+
+```python
+BrandLogoLightDarkResource(self, /, **data)
+```
+
+A pair of light and dark logo resources
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [to_html](#brand_yml.BrandLogoLightDarkResource.to_html) | Generate a set of HTML img tags for the light/dark logo resource. |
+
+### to_html { #brand_yml.BrandLogoLightDarkResource.to_html }
+
+```python
+BrandLogoLightDarkResource.to_html(
+    selectors={'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']},
+    which='',
+    **kwargs,
+)
+```
+
+Generate a set of HTML img tags for the light/dark logo resource.
+
+This method creates a pair of HTML img tags for each of the `light` and
+`dark` logo variants using the logo's path and alternative text. If the
+logo image is stored locally, it will be converted to a data URI. For
+remote logos, the source URL will be used directly.
+
+Additional CSS is included to ensure that the `light` logo is shown when
+a light color scheme is used (dark text on a light background) and the
+`dark` logo is shown when a dark color scheme is used (light text on a
+dark background).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\] \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']}</span></code>
+
+:   CSS selectors used to indicate that light or dark mode is active.
+    Use `selectors="prefers-color-scheme"` for a variant that uses
+    media queries associated with the system color scheme, rather than
+    specific CSS selectors.
+
+<code><span class="parameter-name">which</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">''</span></code>
+
+:   Ignored, included for stable function signature across logo
+    variations.
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional keyword arguments to be passed to the img tag.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                                    | Description                                                                                                               |
+|--------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+|        | [htmltools](`htmltools`).[TagList](`htmltools.TagList`) | Two HTML `<img>` tags with additional CSS to selectively hide the light or dark images when in the opposite color scheme. |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```{python}
+from brand_yml import BrandLogoLightDarkResource
+small = BrandLogoLightDarkResource(
+    light = BrandLogoResource(
+        path="../../logos/icon/brand-yml-icon-black.png",
+        alt="brand.yml remote icon (light)"
+    ),
+    dark = BrandLogoResource(
+        path="../../logos/icon/brand-yml-icon-color.png",
+        alt="brand.yml remote icon (dark)"
+    )
+)
+
+for item in small.to_html():  # `.to_html()` returns an `htmltools.TagList()`
+    print(item)
+```
+
+```{python}
+small = BrandLogoLightDarkResource(
+    light = BrandLogoResource(
+        path="https://posit-dev.github.io/brand-yml/logos/icon/brand-yml-icon-black.png",
+        alt="brand.yml remote icon (light)"
+    ),
+    dark = BrandLogoResource(
+        path="https://posit-dev.github.io/brand-yml/logos/icon/brand-yml-icon-color.png",
+        alt="brand.yml remote icon (dark)"
+    )
+)
+small.to_html(width="32px", height="32px")
+```
 
 # FileLocation { #brand_yml.FileLocation }
 
 ```python
-FileLocation()
+FileLocation(self, /, root=PydanticUndefined, **data)
 ```
 
 The base class for a file location, either a local or an online file.
@@ -201,7 +394,7 @@ local or network files are supported via `FileLocationUrl` when using the
 # FileLocationLocal { #brand_yml.FileLocationLocal }
 
 ```python
-FileLocationLocal()
+FileLocationLocal(self, /, root=PydanticUndefined, **data)
 ```
 
 A local file location.
@@ -279,7 +472,7 @@ Validate that the file exists at its absolute path.
 # FileLocationUrl { #brand_yml.FileLocationUrl }
 
 ```python
-FileLocationUrl()
+FileLocationUrl(self, /, root=PydanticUndefined, **data)
 ```
 
 A hosted, online file location, i.e. a URL.
