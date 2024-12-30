@@ -138,14 +138,3 @@ defaults:
           color: white;
         }
       }
-
-      #quarto-document-content {
-        section.level1:not(:last-of-type) {
-          border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
-          padding-bottom: 2rem;
-        }
-
-        section.level1:not(:last-of-type) > :last-child {
-          margin-bottom: 0;
-        }
-      }
