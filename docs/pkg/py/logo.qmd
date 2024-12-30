@@ -155,6 +155,7 @@ logo:
 ```python
 BrandLogo.to_html(
     which,
+    method='inline',
     selectors={'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']},
     **kwargs,
 )
@@ -174,6 +175,16 @@ or a set of `<img>` tags if the resource includes light/dark variants.
     `"largest"` for the smallest or largest size available, or `which`
     can be the name of a named image in the `logo.images` dictionary.
 
+<code><span class="parameter-name">method</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[LogoToHtmlMethodType](`brand_yml.logo.LogoToHtmlMethodType`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'inline'</span></code>
+
+:   The method to use for embedding the logo in HTML. Options are:
+    - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+      data URI for other formats (default).
+    - `"base64"`: Converts the image to a base64-encoded data URI.
+    - `"relative"`: Uses a relative path to the image file. The relative
+      path used is `_brand/` plus the path to the image file relative to
+      the `_brand.yml` where it is defined.
+
 <code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\]</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']}</span></code>
 
 :   CSS selectors used to indicate that light or dark mode is active.
@@ -183,7 +194,8 @@ or a set of `<img>` tags if the resource includes light/dark variants.
 
 <code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
 
-:   Additional keyword arguments to be passed to the img tag.
+:   Additional keyword arguments to be passed to the img tag (or the
+    container tag if an inline SVG is used).
 
 #### Returns {.doc-section .doc-section-returns}
 
@@ -230,7 +242,7 @@ A logo resource, a file with optional alternative text
 ### to_html { #brand_yml.BrandLogoResource.to_html }
 
 ```python
-BrandLogoResource.to_html(selectors=None, which='', **kwargs)
+BrandLogoResource.to_html(method='inline', selectors=None, which='', **kwargs)
 ```
 
 Generate an HTML img tag for the logo resource.
@@ -240,6 +252,16 @@ alternative text. If the logo is stored locally, it will be converted to
 a data URI. For remote logos, the source URL will be used directly.
 
 #### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">method</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[LogoToHtmlMethodType](`brand_yml.logo.LogoToHtmlMethodType`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'inline'</span></code>
+
+:   The method to use for embedding the logo in HTML. Options are:
+    - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+      data URI for other formats (default).
+    - `"base64"`: Converts the image to a base64-encoded data URI.
+    - `"relative"`: Uses a relative path to the image file. The relative
+      path used is `_brand/` plus the path to the image file relative to
+      the `_brand.yml` where it is defined.
 
 <code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\] \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
 
@@ -253,7 +275,8 @@ a data URI. For remote logos, the source URL will be used directly.
 
 <code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
 
-:   Additional keyword arguments to be passed to the img tag.
+:   Additional keyword arguments to be passed to the img tag (or the
+    container tag if an inline SVG is used).
 
 #### Returns {.doc-section .doc-section-returns}
 
@@ -298,6 +321,7 @@ A pair of light and dark logo resources
 
 ```python
 BrandLogoLightDarkResource.to_html(
+    method='inline',
     selectors={'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']},
     which='',
     **kwargs,
@@ -318,6 +342,16 @@ dark background).
 
 #### Parameters {.doc-section .doc-section-parameters}
 
+<code><span class="parameter-name">method</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[LogoToHtmlMethodType](`brand_yml.logo.LogoToHtmlMethodType`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'inline'</span></code>
+
+:   The method to use for embedding the logo in HTML. Options are:
+    - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+      data URI for other formats (default).
+    - `"base64"`: Converts the image to a base64-encoded data URI.
+    - `"relative"`: Uses a relative path to the image file. The relative
+      path used is `_brand/` plus the path to the image file relative to
+      the `_brand.yml` where it is defined.
+
 <code><span class="parameter-name">selectors</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'prefers-color-scheme\'\] \| [dict](`dict`)\[[str](`str`), [str](`str`) \| [list](`list`)\[[str](`str`)\]\] \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{'light': ['[data-bs-theme="light"]', '.quarto-light'], 'dark': ['[data-bs-theme="dark"]', '.quarto-dark']}</span></code>
 
 :   CSS selectors used to indicate that light or dark mode is active.
@@ -332,7 +366,8 @@ dark background).
 
 <code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[htmltools](`htmltools`).[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
 
-:   Additional keyword arguments to be passed to the img tag.
+:   Additional keyword arguments to be passed to the img tag (or the
+    container tag if an inline SVG is used).
 
 #### Returns {.doc-section .doc-section-returns}
 

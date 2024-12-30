@@ -24,6 +24,7 @@ from pydantic import (
     model_validator,
 )
 
+from .__version import version
 from ._defs import BrandLightDark, defs_replace_recursively
 from ._utils import rand_hex
 from ._utils_docs import add_example_yaml
@@ -33,6 +34,17 @@ from .file import (
     FileLocationLocal,
     FileLocationLocalOrUrlType,
 )
+
+LogoToHtmlMethodType = Literal["inline", "base64", "relative"]
+
+
+def brand_logo_inline_dep() -> htmltools.HTMLDependency:
+    return htmltools.HTMLDependency(
+        name="brand-yml-logo",
+        version=version,
+        source={"package": "brand_yml", "subdir": "assets"},
+        stylesheet={"href": "brand-yml-logo-inline.css"},
+    )
 
 
 class BrandLogoResource(BrandBase):
@@ -59,6 +71,7 @@ class BrandLogoResource(BrandBase):
     def to_html(
         self,
         *,
+        method: LogoToHtmlMethodType = "inline",
         selectors: Literal["prefers-color-scheme"]
         | dict[str, str | list[str]]
         | None = None,
@@ -74,6 +87,14 @@ class BrandLogoResource(BrandBase):
 
         Parameters
         ----------
+        method
+            The method to use for embedding the logo in HTML. Options are:
+            - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+              data URI for other formats (default).
+            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"relative"`: Uses a relative path to the image file. The relative
+              path used is `_brand/` plus the path to the image file relative to
+              the `_brand.yml` where it is defined.
         selectors
             Ignored, included for stable function signature across logo
             variations.
@@ -81,7 +102,8 @@ class BrandLogoResource(BrandBase):
             Ignored, included for stable function signature across logo
             variations.
         **kwargs
-            Additional keyword arguments to be passed to the img tag.
+            Additional keyword arguments to be passed to the img tag (or the
+            container tag if an inline SVG is used).
 
         Returns
         -------
@@ -108,7 +130,32 @@ class BrandLogoResource(BrandBase):
         small.to_html(width="32px", height="32px")
         ```
         """
+        if method == "relative":
+            src = (
+                "_brand" / self.path.relative()
+                if isinstance(self.path, FileLocationLocal)
+                else self.path
+            )
+            return htmltools.img(**kwargs, alt=self.alt, src=str(src))
+
         if isinstance(self.path, FileLocationLocal):
+            is_svg = self.path.absolute().suffix.lower().endswith("svg")
+            if method == "inline" and is_svg:
+                return htmltools.span(
+                    htmltools.HTML(self.path.absolute().read_text()),
+                    {
+                        "class": "brand-yml--logo--inline",
+                        "style": htmltools.css(
+                            height=kwargs.get("height"),  # type: ignore
+                            width=kwargs.get("width"),  # type: ignore
+                            display="inline-block",
+                        ),
+                    },
+                    brand_logo_inline_dep(),
+                    **kwargs,
+                    aria_label=self.alt,
+                )
+
             return htmltools.img(**kwargs, alt=self.alt, src=self.as_data_uri())
 
         return htmltools.img(**kwargs, src=str(self.path), alt=self.alt or "")
@@ -183,6 +230,7 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
     def to_html(
         self,
         *,
+        method: LogoToHtmlMethodType = "inline",
         selectors: Literal["prefers-color-scheme"]
         | dict[str, str | list[str]]
         | None = {
@@ -207,6 +255,14 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
 
         Parameters
         ----------
+        method
+            The method to use for embedding the logo in HTML. Options are:
+            - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+              data URI for other formats (default).
+            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"relative"`: Uses a relative path to the image file. The relative
+              path used is `_brand/` plus the path to the image file relative to
+              the `_brand.yml` where it is defined.
         selectors
             CSS selectors used to indicate that light or dark mode is active.
             Use `selectors="prefers-color-scheme"` for a variant that uses
@@ -216,7 +272,8 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
             Ignored, included for stable function signature across logo
             variations.
         **kwargs
-            Additional keyword arguments to be passed to the img tag.
+            Additional keyword arguments to be passed to the img tag (or the
+            container tag if an inline SVG is used).
 
         Returns
         -------
@@ -269,6 +326,7 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
             light = self.light.to_html(
                 selectors=None,
                 which="",
+                method=method,
                 **{"data-when-theme-id": key, "data-when-theme": "light"},
                 **kwargs,
             )
@@ -277,6 +335,7 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
             dark = self.dark.to_html(
                 selectors=None,
                 which="",
+                method=method,
                 **{"data-when-theme-id": key, "data-when-theme": "dark"},
                 **kwargs,
             )
@@ -389,6 +448,7 @@ class BrandLogo(BrandBase):
         self,
         *,
         which: Literal["small", "medium", "large", "smallest", "largest"] | str,
+        method: LogoToHtmlMethodType = "inline",
         selectors: Literal["prefers-color-scheme"]
         | dict[str, str | list[str]] = {
             "light": ['[data-bs-theme="light"]', ".quarto-light"],
@@ -409,13 +469,22 @@ class BrandLogo(BrandBase):
             `"small"`, `"medium"` and `"large"`---`which` can be `"smallest"` or
             `"largest"` for the smallest or largest size available, or `which`
             can be the name of a named image in the `logo.images` dictionary.
+        method
+            The method to use for embedding the logo in HTML. Options are:
+            - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
+              data URI for other formats (default).
+            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"relative"`: Uses a relative path to the image file. The relative
+              path used is `_brand/` plus the path to the image file relative to
+              the `_brand.yml` where it is defined.
         selectors
             CSS selectors used to indicate that light or dark mode is active.
             Use `selectors="prefers-color-scheme"` for a variant that uses
             media queries associated with the system color scheme, rather than
             specific CSS selectors.
         **kwargs
-            Additional keyword arguments to be passed to the img tag.
+            Additional keyword arguments to be passed to the img tag (or the
+            container tag if an inline SVG is used).
 
         Returns
         -------
@@ -433,16 +502,23 @@ class BrandLogo(BrandBase):
         - [BrandLogoLightDarkResource.to_html](`brand_yml.BrandLogoLightDarkResource.to_html`)
 
         """
+
+        def call_to_html(
+            obj: BrandLogoLightDarkResource | BrandLogoResource,
+        ) -> htmltools.Tag | htmltools.TagList:
+            return obj.to_html(
+                which="",
+                method=method,
+                selectors=selectors,
+                **kwargs,
+            )
+
         if which not in ("small", "medium", "large", "smallest", "largest"):
             if self.images and which in self.images.keys():
-                return self.images[which].to_html(
-                    selectors=selectors,
-                    which="",
-                    **kwargs,
-                )
+                return call_to_html(self.images[which])
             else:
                 raise ValueError(
-                    f"{which} is not an image in `logo.images` "
+                    f'"{which}" is not an image in `logo.images` '
                     "nor is it a known size: "
                     "small, medium, large, smallest, or largest."
                 )
@@ -466,17 +542,17 @@ class BrandLogo(BrandBase):
         if which == "small":
             if not self.small:
                 raise ValueError("This brand does not include a small logo.")
-            return self.small.to_html(selectors=selectors, which="", **kwargs)
+            return call_to_html(self.small)
 
         if which == "medium":
             if not self.medium:
                 raise ValueError("This brand does not include a medium logo.")
-            return self.medium.to_html(selectors=selectors, which="", **kwargs)
+            return call_to_html(self.medium)
 
         if which == "large":
             if not self.large:
                 raise ValueError("This brand does not include a large logo.")
-            return self.large.to_html(selectors=selectors, which="", **kwargs)
+            return call_to_html(self.large)
 
         raise ValueError("No predefined sizes are included for `brand.logo`.")
 
