@@ -151,4 +151,8 @@ class FileLocationLocal(FileLocation):
 
 
 FileLocationLocalOrUrlType = Union[FileLocationUrl, FileLocationLocal]
-"""A type representing a file location that may be a local path or URL."""
+"""
+A type representing a file location that may be a local path
+([`FileLocationLocal`](`brand_yml.FileLocationLocal`)) or a URL
+([`FileLocationUrl`](`brand_yml.FileLocationUrl`)).
+"""

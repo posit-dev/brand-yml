@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from textwrap import dedent
-from typing import Annotated, Any, Literal, Union
+from typing import Annotated, Any, Literal, NotRequired, TypedDict, Union
 
 import htmltools
 from datauri import DataURI
@@ -35,7 +35,73 @@ from .file import (
     FileLocationLocalOrUrlType,
 )
 
-LogoToHtmlMethodType = Literal["inline", "base64", "relative"]
+ToHtmlArgWhichType = (
+    Literal["small", "medium", "large", "smallest", "largest"] | str
+)
+"""
+Which image to include as HTML by name.
+
+In addition to the named sizes---`"small"`, `"medium"` and `"large"`---`which`
+can be `"smallest"` or `"largest"` for the smallest or largest size available,
+or `which` can be the name of a named image in the `logo.images` dictionary.
+"""
+
+ToHtmlArgMethodType = Literal["inline", "embed", "base64", "relative"]
+"""
+Method to determine how logo images are converted to HTML
+
+Options include:
+
+- `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded data URI for
+  other formats (default).
+- `"embed"` or `"base64"`: Converts the image to a base64-encoded data URI.
+- `"relative"`: Uses a relative path to the image file. The relative path used
+  is `_brand/` plus the path to the image file relative to the `_brand.yml`
+  where it is defined.
+"""
+
+
+class BrandLightDarkSelectorsDict(TypedDict):
+    id: NotRequired[str]
+    light: NotRequired[str | list[str]]
+    dark: NotRequired[str | list[str]]
+
+
+class BrandLightDarkSelectors(BaseModel):
+    id: str = Field(default_factory=lambda: rand_hex(4))
+    light: list[str] = ['[data-bs-theme="light"]', ".quarto-light"]
+    dark: list[str] = ['[data-bs-theme="dark"]', ".quarto-dark"]
+
+    @field_validator("light", "dark")
+    @classmethod
+    def _validate_light_dark(cls, value: Any):
+        if not isinstance(value, list):
+            return [value]
+        return value
+
+
+ToHtmlArgSelectorsType = (
+    Literal["prefers-color-scheme"] | BrandLightDarkSelectorsDict | None
+)
+"""
+CSS selectors used to indicate that light or dark mode is active.
+
+Use `selectors="prefers-color-scheme"` for a variant that uses media queries
+associated with the system color scheme, rather than specific CSS selectors.
+Alternatively, provide a dictionary with any of `id`, `light` or `dark` items:
+
+`id`
+:    The identifier for the light/dark pair. If not included, a random ID is
+     generated.
+
+`light`
+:    The selector or list of selectors that indicate light mode is active.
+     Default: `['[data-bs-theme="light"]', ".quarto-light"]`.
+
+`dark`
+:    The selectors or list of selectors that indicate dark mode is active.
+     Default: `['[data-bs-theme="dark"]', ".quarto-dark"]`.
+"""
 
 
 def brand_logo_inline_dep() -> htmltools.HTMLDependency:
@@ -71,10 +137,8 @@ class BrandLogoResource(BrandBase):
     def to_html(
         self,
         *,
-        method: LogoToHtmlMethodType = "inline",
-        selectors: Literal["prefers-color-scheme"]
-        | dict[str, str | list[str]]
-        | None = None,
+        method: ToHtmlArgMethodType = "inline",
+        selectors: ToHtmlArgSelectorsType = None,
         which: str = "",
         **kwargs: htmltools.TagAttrValue,
     ) -> htmltools.Tag:
@@ -89,9 +153,11 @@ class BrandLogoResource(BrandBase):
         ----------
         method
             The method to use for embedding the logo in HTML. Options are:
+
             - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
               data URI for other formats (default).
-            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"embed"` or `"base64"`: Converts the image to a base64-encoded
+              data URI.
             - `"relative"`: Uses a relative path to the image file. The relative
               path used is `_brand/` plus the path to the image file relative to
               the `_brand.yml` where it is defined.
@@ -164,24 +230,13 @@ class BrandLogoResource(BrandBase):
         return htmltools.TagList(self.to_html())
 
 
-class BrandLightDarkSelectors(BaseModel):
-    id: str = Field(default_factory=lambda: rand_hex(4))
-    light: list[str] = ['[data-bs-theme="light"]', ".quarto-light"]
-    dark: list[str] = ['[data-bs-theme="dark"]', ".quarto-dark"]
-
-    @field_validator("light", "dark")
-    @classmethod
-    def _validate_light_dark(cls, value: Any):
-        if not isinstance(value, list):
-            return [value]
-        return value
-
-
 def light_dark_css(
-    selectors: Literal["prefers-color-scheme"]
-    | dict[str, str | list[str]]
+    selectors: ToHtmlArgSelectorsType
     | BrandLightDarkSelectors = BrandLightDarkSelectors(),
 ) -> tuple[str, str]:
+    if selectors is None:
+        selectors = BrandLightDarkSelectors()
+
     if isinstance(selectors, dict):
         selectors = BrandLightDarkSelectors.model_validate(selectors)
 
@@ -230,10 +285,8 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
     def to_html(
         self,
         *,
-        method: LogoToHtmlMethodType = "inline",
-        selectors: Literal["prefers-color-scheme"]
-        | dict[str, str | list[str]]
-        | None = {
+        method: ToHtmlArgMethodType = "inline",
+        selectors: ToHtmlArgSelectorsType = {
             "light": ['[data-bs-theme="light"]', ".quarto-light"],
             "dark": ['[data-bs-theme="dark"]', ".quarto-dark"],
         },
@@ -257,9 +310,11 @@ class BrandLogoLightDarkResource(BrandLightDark[BrandLogoResource]):
         ----------
         method
             The method to use for embedding the logo in HTML. Options are:
+
             - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
               data URI for other formats (default).
-            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"embed"` or `"base64"`: Converts the image to a base64-encoded
+              data URI.
             - `"relative"`: Uses a relative path to the image file. The relative
               path used is `_brand/` plus the path to the image file relative to
               the `_brand.yml` where it is defined.
@@ -447,10 +502,9 @@ class BrandLogo(BrandBase):
     def to_html(
         self,
         *,
-        which: Literal["small", "medium", "large", "smallest", "largest"] | str,
-        method: LogoToHtmlMethodType = "inline",
-        selectors: Literal["prefers-color-scheme"]
-        | dict[str, str | list[str]] = {
+        which: ToHtmlArgWhichType,
+        method: ToHtmlArgMethodType = "inline",
+        selectors: ToHtmlArgSelectorsType = {
             "light": ['[data-bs-theme="light"]', ".quarto-light"],
             "dark": ['[data-bs-theme="dark"]', ".quarto-dark"],
         },
@@ -471,9 +525,11 @@ class BrandLogo(BrandBase):
             can be the name of a named image in the `logo.images` dictionary.
         method
             The method to use for embedding the logo in HTML. Options are:
+
             - `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded
               data URI for other formats (default).
-            - `"base64"`: Converts the image to a base64-encoded data URI.
+            - `"embed"` or `"base64"`: Converts the image to a base64-encoded
+              data URI.
             - `"relative"`: Uses a relative path to the image file. The relative
               path used is `_brand/` plus the path to the image file relative to
               the `_brand.yml` where it is defined.
