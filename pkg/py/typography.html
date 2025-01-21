@@ -103,15 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-KHBDBW7"></script>
-
-<script type="text/plain" cookie-consent="tracking">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'GTM-KHBDBW7', { 'anonymize_ip': true});
-</script>
 
 <script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
@@ -131,6 +122,9 @@ cookieconsent.run({
 });
 </script> 
   
+<!-- Google Tag Manager -->
+<script type="text/plain" cookie-consent="tracking">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KHBDBW7');</script>
+<!-- End Google Tag Manager -->
 
 
 <link rel="stylesheet" href="quartodoc.css">
@@ -367,6 +361,9 @@ cookieconsent.run({
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHBDBW7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pkg/py/Brand.html">Reference</a></li><li class="breadcrumb-item"><a href="../../pkg/py/typography.html">Typography</a></li></ol></nav>
 <div class="quarto-title">
@@ -1046,7 +1043,7 @@ cookieconsent.run({
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
 <p>In some cases, you may wish to convert the base font size to an appropriate unit, such as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem"><code>rem</code></a> (i.e.&nbsp;a font size relative to the root element’s font size). Use <code>typography_base_size_unit</code> in <a href="https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context">pydantic’s serialization context</a> to request the units for the base font size. (Note that currently only <code>"rem"</code> is supported.)</p>
-<div id="ff376b83" class="cell" data-execution_count="1">
+<div id="b7f61eb7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>

@@ -103,15 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-KHBDBW7"></script>
-
-<script type="text/plain" cookie-consent="tracking">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'GTM-KHBDBW7', { 'anonymize_ip': true});
-</script>
 
 <script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
@@ -131,6 +122,9 @@ cookieconsent.run({
 });
 </script> 
   
+<!-- Google Tag Manager -->
+<script type="text/plain" cookie-consent="tracking">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KHBDBW7');</script>
+<!-- End Google Tag Manager -->
 
 
 <link rel="stylesheet" href="quartodoc.css">
@@ -347,6 +341,9 @@ cookieconsent.run({
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KHBDBW7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pkg/py/Brand.html">Reference</a></li><li class="breadcrumb-item"><a href="../../pkg/py/color.html">Color Palette and Theme</a></li></ol></nav>
 <div class="quarto-title">
@@ -443,13 +440,13 @@ cookieconsent.run({
 </div>
 <p>Once imported via <code>brand_yml.Brand.from_yaml()</code>, you can access the named color palette via <code>brand.color.palette["purple"]</code> and the <code>primary</code> field will be ready for use.</p>
 <div class="python-code-preview">
-<div id="afa2cb86" class="cell" data-execution_count="2">
+<div id="e0a365bb" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>brand.color.palette[<span class="st">"purple"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="cb547c16" class="cell" data-execution_count="3">
+<div id="a4c7734e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#6339E0'</code></pre>
@@ -473,13 +470,13 @@ cookieconsent.run({
 </div>
 <p>With this Brand YAML, both headings and links will ultimately be styled with the brand’s <code>purple</code> color.</p>
 <div class="python-code-preview">
-<div id="597cf0be" class="cell" data-execution_count="5">
+<div id="7458ad04" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>brand.typography.headings.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'#6339E0'</code></pre>
 </div>
 </div>
-<div id="16ae167e" class="cell" data-execution_count="6">
+<div id="b7f0a7b7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>brand.typography.link.color</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>'#6339E0'</code></pre>
