@@ -65,6 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../logos/favicon/android-chrome-512x512.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -73,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-12763fbe211ecbd261abbd38bfe14e30.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d6ad0c311903918fe50ac87d84d1597a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2098ae828c3c62c2ed61be388de2d5b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,6 +103,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-KHBDBW7"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GTM-KHBDBW7', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":"",
+"website_privacy_policy_url":"https://posit.co/privacy"
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
 
 
 <link rel="stylesheet" href="quartodoc.css">
@@ -344,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.BrandLogo" class="level1">
 <h1>BrandLogo</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandLogo()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandLogo(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Brand Logos</p>
 <p><code>logo</code> stores a single brand logo or a set of logos at three different size points and possibly in different color schemes. Store all of your brand’s logo or image assets in <code>images</code> with meaningful names. Logos can be mapped to three preset sizes – <code>small</code>, <code>medium</code>, and <code>large</code> – and each can be either a single logo file or a light/dark variant (<code>brand_yml.BrandLightDark</code>).</p>
 <p>To attach alternative text to an image, provide the image as a dictionary including <code>path</code> (the image location) and <code>alt</code> (the short, alternative text describing the image).</p>
@@ -469,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.BrandLogoResource" class="level1">
 <h1>BrandLogoResource</h1>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A logo resource, a file with optional alternative text</p>
 <section id="attributes-1" class="level2">
 <h2 class="anchored" data-anchor-id="attributes-1">Attributes</h2>
@@ -495,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.BrandLightDark" class="level1">
 <h1>BrandLightDark</h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandLightDark()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandLightDark(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A Light/Dark Variant</p>
 <p>Holds variants for light and dark settings. Generally speaking <strong>light</strong> settings have white or light backgrounds and dark foreground colors (black text on a white page) and <strong>dark</strong> settings use black or dark background with light foreground colors (white text on a black page).</p>
 <section id="attributes-2" class="level2">
@@ -522,14 +552,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.FileLocation" class="level1">
 <h1>FileLocation</h1>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FileLocation()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FileLocation(<span class="va">self</span>, <span class="op">/</span>, root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The base class for a file location, either a local or an online file.</p>
 <p>Local files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationLocal"><code>brand_yml.file.FileLocationLocal</code></a> and are always considered relative to the source <code>_brand.yml</code> file.</p>
 <p>Online files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationUrl"><code>brand_yml.file.FileLocationUrl</code></a> and are a URL starting with <code>https://</code> or <code>http://</code>. Absolute paths for local or network files are supported via <code>FileLocationUrl</code> when using the <code>file://</code> prefix.</p>
 </section>
 <section id="brand_yml.FileLocationLocal" class="level1">
 <h1>FileLocationLocal</h1>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal(<span class="va">self</span>, <span class="op">/</span>, root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A local file location.</p>
 <p>When used in a <code>brand_yml.Brand</code> instance, this class carries both the relative path to the file, relative to the source <code>_brand.yml</code>, and the absolute path of the file on disk.</p>
 <section id="methods" class="level2">
@@ -615,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.FileLocationUrl" class="level1">
 <h1>FileLocationUrl</h1>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>FileLocationUrl()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>FileLocationUrl(<span class="va">self</span>, <span class="op">/</span>, root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A hosted, online file location, i.e.&nbsp;a URL.</p>
 <p>A URL to a single file, typically an online file path starting with <code>http://</code> or <code>https://</code>. This class can also be used for the absolute path of local or networked files, which should start with <code>file://</code> (otherwise local files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationLocal"><code>brand_yml.file.FileLocationLocal</code></a>).</p>
 </section>
@@ -1052,8 +1082,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Proudly supported by <a href="https://posit.co"><img src="https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg" class="img-fluid" alt="Posit" width="65"></a></p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    </div>
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

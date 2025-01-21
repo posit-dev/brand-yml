@@ -65,6 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../logos/favicon/android-chrome-512x512.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -73,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-12763fbe211ecbd261abbd38bfe14e30.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d6ad0c311903918fe50ac87d84d1597a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2098ae828c3c62c2ed61be388de2d5b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,6 +103,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-KHBDBW7"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GTM-KHBDBW7', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":"",
+"website_privacy_policy_url":"https://posit.co/privacy"
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
 
 
 <link rel="stylesheet" href="quartodoc.css">
@@ -359,7 +389,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="brand_yml.BrandTypography" class="level1">
 <h1>BrandTypography</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandTypography()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandTypography(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Represents the typographic choices of a brand.</p>
 <p>This class defines the structure and behavior of typography settings, including fonts, base text, headings, monospace text, and links.</p>
 <section id="examples" class="level2 doc-section doc-section-examples">
@@ -777,7 +807,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <section id="brand_yml.typography.BrandTypographyFontSource" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontSource">BrandTypographyFontSource</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A base class representing a font source.</p>
 <p>This class serves as a template for various font sources, encapsulating common properties and behaviors.</p>
 <section id="attributes-2" class="level4">
@@ -826,7 +856,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyFontFiles" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontFiles">BrandTypographyFontFiles</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontFiles()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontFiles(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font family defined by a collection of font files.</p>
 <p>This class represents a font family that is specified using individual font files, either from local files or files hosted online. A font family is generally composed of multiple font files for different weights and styles within the same family. Currently, TrueType (<code>.ttf</code>), OpenType (<code>.otf</code>), and WOFF (<code>.woff</code> or <code>.woff2</code>) formats are supported.</p>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
@@ -852,7 +882,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyFontGoogle" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontGoogle">BrandTypographyFontGoogle</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontGoogle()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontGoogle(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font family provided by Google Fonts.</p>
 <p>This class represents a font family that is sourced from Google Fonts. It allows you to specify the font family name, weight range, and style.</p>
 <p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
@@ -864,7 +894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyFontBunny" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontBunny">BrandTypographyFontBunny</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontBunny()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontBunny(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font family provided by Bunny Fonts.</p>
 <p>This class represents a font family that is sourced from Bunny Fonts. It allows you to specify the font family name, weight range, and style.</p>
 <p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
@@ -881,7 +911,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsApi" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsApi">BrandTypographyGoogleFontsApi</h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A font source that utilizes the Google Fonts (or a compatible) API.</p>
 <p>This class provides a way to fetch and manage typography assets from Google Fonts, allowing for easy integration with brand-specific typographic styles.</p>
 <section id="attributes-3" class="level4">
@@ -942,7 +972,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange">BrandTypographyGoogleFontsWeightRange</h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">/</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    root<span class="op">=</span>PydanticUndefined,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>data,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Represents a range of font weights for Google Fonts.</p>
 <p>This class is used to specify a continuous range of font weights to be imported from Google Fonts for variable fonts that support a range of font weights. The weight range is represented as a list of two integers, where the first integer is the start of the range and the second is the end.</p>
 <section id="examples-4" class="level4 doc-section doc-section-examples">
@@ -1006,12 +1041,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyBase" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyBase">BrandTypographyBase</h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyBase()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyBase(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for base (or body) text.</p>
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
 <p>In some cases, you may wish to convert the base font size to an appropriate unit, such as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem"><code>rem</code></a> (i.e.&nbsp;a font size relative to the root element’s font size). Use <code>typography_base_size_unit</code> in <a href="https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context">pydantic’s serialization context</a> to request the units for the base font size. (Note that currently only <code>"rem"</code> is supported.)</p>
-<div id="2c7688a5" class="cell" data-execution_count="1">
+<div id="ff376b83" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>
@@ -1036,18 +1071,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>family</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (boldness) of the text.</p>
 </dd>
 <dt>size</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the text. Should be a CSS length unit (e.g., 14px).</p>
 </dd>
 <dt>line_height</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
 <p>The line height of the text. Line height refers to the vertical space between lines of text.</p>
 </dd>
 </dl>
@@ -1055,29 +1094,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyHeadings" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyHeadings">BrandTypographyHeadings</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyHeadings()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyHeadings(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for headings and titles.</p>
 <section id="attributes-6" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-6">Attributes</h4>
 <dl>
 <dt>family</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font family used for headings. Note that this should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (or boldness) of the text.</p>
 </dd>
 <dt>style</dt>
 <dd>
+<p><code>SingleOrList</code>[<code>BrandTypographyFontStyleType</code>] | None</p>
 <p>The font style for the heading, i.e., whether it should be styled in a <code>"normal"</code> or <code>"italic"</code> style.</p>
 </dd>
 <dt>line_height</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
 <p>The line height of the heading. Line height refers to the vertical space between lines of text.</p>
 </dd>
 <dt>color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The color of the text.</p>
 </dd>
 </dl>
@@ -1094,7 +1138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospace" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospace">BrandTypographyMonospace</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospace()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospace(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for monospace text.</p>
 <p>This class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceInline"><code>brand_yml.typography.BrandTypographyMonospaceInline</code></a> and <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceBlock"><code>brand_yml.typography.BrandTypographyMonospaceBlock</code></a> respectively.</p>
 <section id="attributes-7" class="level4 doc-section doc-section-attributes">
@@ -1102,14 +1146,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>family</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (boldness) of the monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.</p>
 </dd>
 <dt>size</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 </dl>
@@ -1145,7 +1192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospaceInline" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceInline">BrandTypographyMonospaceInline</h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceInline()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceInline(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for inline monospace text.</p>
 <p>This class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> with additional options for foreground and background colors.</p>
 <section id="attributes-8" class="level4 doc-section doc-section-attributes">
@@ -1153,22 +1200,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>family</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for inline monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (boldness) of the inline monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.</p>
 </dd>
 <dt>size</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the inline monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 <dt>color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 </dl>
@@ -1201,7 +1253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospaceBlock" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceBlock">BrandTypographyMonospaceBlock</h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceBlock()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceBlock(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for block monospace text.</p>
 <p>This class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> and adds options for line height, foreground color, and background color.</p>
 <section id="attributes-9" class="level4 doc-section doc-section-attributes">
@@ -1209,26 +1261,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>family</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for block monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (boldness) of the block monospace text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.</p>
 </dd>
 <dt>size</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the block monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 <dt>line_height</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
 <p>The line height of the block monospace text. Line height refers to the vertical space between lines of text.</p>
 </dd>
 <dt>color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 </dl>
@@ -1251,7 +1309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="brand_yml.typography.BrandTypographyLink" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyLink">BrandTypographyLink</h3>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyLink()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyLink(<span class="va">self</span>, <span class="op">/</span>, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Typographic settings for hyperlinks.</p>
 <p>This class defines typography options for hyperlinks, allowing customization of font weight, colors, and text decoration.</p>
 <section id="attributes-10" class="level4 doc-section doc-section-attributes">
@@ -1259,14 +1317,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl>
 <dt>weight</dt>
 <dd>
+<p><code>BrandTypographyFontWeightSimpleType</code> | None</p>
 <p>The font weight (boldness) of the hyperlink text. Can be a numeric value between 100 and 900, or a string like “normal” or “bold”.</p>
 </dd>
 <dt>color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>decoration</dt>
@@ -1725,8 +1786,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <p>Proudly supported by <a href="https://posit.co"><img src="https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg" class="img-fluid" alt="Posit" width="65"></a></p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    </div>
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
