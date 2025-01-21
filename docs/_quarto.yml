@@ -25,6 +25,15 @@ website:
   repo-actions: [issue, edit]
   repo-subdir: docs
 
+  cookie-consent:
+    type: express
+    style: simple
+    palette: light
+    policy-url: https://posit.co/privacy
+  google-analytics:
+    tracking-id: GTM-KHBDBW7
+    anonymize-ip: true
+
   page-footer:
     left: |
       Proudly supported by
