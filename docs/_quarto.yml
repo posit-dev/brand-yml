@@ -30,9 +30,6 @@ website:
     style: simple
     palette: light
     policy-url: https://posit.co/privacy
-  google-analytics:
-    tracking-id: GTM-KHBDBW7
-    anonymize-ip: true
 
   page-footer:
     left: |
@@ -95,6 +92,8 @@ format:
   html:
     theme: [brand]
     toc: true
+    include-in-header: _partials/gtm-head.html
+    include-before-body: _partials/gtm-body.html
 
 lightbox: auto
 
