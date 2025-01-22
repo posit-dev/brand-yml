@@ -3,7 +3,7 @@ pagetitle: "brand.yml"
 ---
 
 ::: text-center
-![](logos/tall/brand-yml-tall-color.svg){style="max-height: 250px; margin-inline: auto; display: block;"}
+![](logos/tall/brand-yml-tall-color.svg){.nolightbox style="max-height: 250px; margin-inline: auto; display: block;"}
 
 ## Unified branding with a simple YAML file
 :::
