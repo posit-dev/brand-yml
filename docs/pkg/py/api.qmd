@@ -11,4 +11,5 @@ Read a `_brand.yml` file or create an instance of a Brand.
 | [Logos and Images](logo.qmd) |  |
 | [Color Palette and Theme](color.qmd) |  |
 | [Typography](typography.qmd) |  |
-| [Utilities](utilities.qmd) |  |
+| [Other: Utilities](utilities.qmd) |  |
+| [Other: Types](types.qmd) |  |
