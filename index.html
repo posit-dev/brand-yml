@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-12763fbe211ecbd261abbd38bfe14e30.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66f6e8c1f7a02019ed512dec0bba22b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8fbb27baa4af029be015fa34996dfe07.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -360,7 +360,7 @@ cookieconsent.run({
 <section id="introducing-brand.yml" class="level2">
 <h2 class="anchored" data-anchor-id="introducing-brand.yml">Introducing brand.yml</h2>
 <p><strong>brand.yml</strong> is a simple, portable YAML file that codifies your company’s brand guidelines into a format that can be used by Quarto, Python and R tooling to create branded outputs. Our goal is to support unified, branded theming for all of Posit’s open source tools—from web applications to printed reports to dashboards and presentations—with a consistent look and feel.</p>
-<p>With a single <code>_brand.yml</code> file you can collect brand logos, colors, fonts and typographic choices, typically found in your company’s brand guidelines. This <code>_brand.yml</code> can be used by Quarto and <a href="https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand">Shiny for Python</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to quickly create basic themes that match the brand guidelines.</p>
+<p>With a single <code>_brand.yml</code> file you can collect brand logos, colors, fonts and typographic choices, typically found in your company’s brand guidelines. This <code>_brand.yml</code> can be used by <a href="https://quarto.org">Quarto</a> and <a href="https://shiny.posit.co">Shiny</a> to quickly create basic themes that match the brand guidelines.</p>
 <!-- TODO: Quarto brand docs link -->
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -421,9 +421,15 @@ We’d love to hear from you
 </section>
 <section id="support" class="level2">
 <h2 class="anchored" data-anchor-id="support">Support</h2>
-<p><strong>brand.yml</strong> is currently <span class="implemented">supported</span> in <a href="https://shiny.posit.co/py/">Shiny for Python</a> and <a href="https://quarto.org/">Quarto</a> websites, presentations, dashboards, and Typst documents, as well as via the <a href="pkg/py/"><code>brand_yml</code> Python package</a>.</p>
+<p><strong>brand.yml</strong> is currently <span class="implemented">supported</span> in:</p>
+<ul>
+<li><a href="https://quarto.org/docs/authoring/brand.html">Quarto</a> websites, presentations, dashboards, and Typst documents</li>
+<li><a href="https://shiny.posit.co/blog/posts/shiny-python-1.2-brand-yml/">Shiny for Python</a></li>
+<li><a href="https://shiny.posit.co/blog/posts/bslib-0.9.0/">Shiny for R</a></li>
+</ul>
+<p><a href="https://posit.co/products/open-source/rstudio/">RStudio</a> and <a href="https://marketplace.visualstudio.com/items?itemName=quarto.quarto">VS Code with the Quarto extension</a> both support automatically validating brand.yml files when they are named <code>_brand.yml</code>. In Python, the <a href="pkg/py/"><code>brand_yml</code> Python package</a> provides parsing and validation support.</p>
 <!-- Support for themed branding is [in progress]{.in-progress} for . -->
-<p>We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below.</p>
+<p>We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="visually-hidden">
 <p>The diagram shows brand.yml connected to Quarto, R and Python. Quarto is connected to HTML (websites, presentations, dashboards and emails) and PDF (Typst) formats. R is connected to the bslib (Shiny for R and R Markdown) and thematic (ggplot, plot) packages. Python is connected with brand_yml, which connects to Shiny for Python and seaborn and other plotting libraries.</p>
 </div>
@@ -451,22 +457,25 @@ flowchart LR
 
     by--&gt;R
     R--&gt;r-bslib["{bslib}"]
-    R--&gt;r-thematic["{thematic}"]
+    r-bslib--&gt;r-thematic["{thematic}"]
     r-bslib--&gt;r-shiny["Shiny for R"]
     r-bslib--&gt;r-rmd["R Markdown"]
-    r-thematic--&gt;r-ggplot2["{ggplot2}"]
-    r-thematic--&gt;r-plot["{plot}"]
+    r-bslib--&gt;r-pkgdown["pkgdown"]
+    %% r-thematic--&gt;r-ggplot2["{ggplot2}"]
+    %% r-thematic--&gt;r-plot["{plot}"]
 
     by--&gt;Python
     Python--&gt;py-brand_yml["brand_yml"]
     py-brand_yml--&gt;py-shiny[Shiny for Python]
-    py-brand_yml--&gt;py-seaborn[seaborn, matplotlib, etc.]
+    py-brand_yml--&gt;py-plots[seaborn, matplotlib, etc.]
 
     classDef implemented fill:#8CE3A0,stroke:#0A2911,color:#0A2911;
-    class quarto-websites,quarto-presentations,quarto-dashboards,quarto-typst,py-brand_yml implemented;
+    classDef partial fill:#A8E5B9,stroke:#4B8A5D,color:#0A2911;
     classDef in-progress fill:#B3D7FF,stroke:#00254D,color:#00254D;
-    class py-shiny implemented;
     classDef highlighted fill:#FFE8DB,stroke:#612200,color:#612200;
+
+    class quarto-websites,quarto-presentations,quarto-dashboards,quarto-typst,py-brand_yml,py-shiny,r-bslib,r-shiny,r-rmd,r-pkgdown implemented;
+    class r-thematic,py-plots partial;
     class by highlighted;
 
     click quarto href "https://prerelease.quarto.org/docs/authoring/brand.html"
@@ -587,7 +596,7 @@ Sofia Torres
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Support for Shiny for R is expected to arrive in the very near future.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Partial support – where brand.yml can be used with manual configuration – is indicated by light green shading.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
