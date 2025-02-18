@@ -2,6 +2,9 @@
 pagetitle: "brand.yml"
 ---
 
+[quarto]: https://quarto.org
+[shiny]: https://shiny.posit.co
+
 ::: text-center
 ![](logos/tall/brand-yml-tall-color.svg){.nolightbox style="max-height: 250px; margin-inline: auto; display: block;"}
 
@@ -18,9 +21,8 @@ Create reports, apps, dashboards, plots and more that match your company's brand
 Our goal is to support unified, branded theming for all of Posit's open source tools---from web applications to printed reports to dashboards and presentations---with a consistent look and feel.
 
 With a single `_brand.yml` file you can collect brand logos, colors, fonts and typographic choices, typically found in your company's brand guidelines.
-This `_brand.yml` can be used by Quarto and [Shiny for Python](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand)[^1] to quickly create basic themes that match the brand guidelines.
+This `_brand.yml` can be used by [Quarto] and [Shiny] to quickly create basic themes that match the brand guidelines.
 
-[^1]: Support for Shiny for R is expected to arrive in the very near future.
 
 <!-- TODO: Quarto brand docs link -->
 
@@ -76,11 +78,20 @@ Please reach out to us on the [discussion forum](https://github.com/posit-dev/br
 
 ## Support
 
-**brand.yml** is currently [supported]{.implemented} in [Shiny for Python](https://shiny.posit.co/py/) and [Quarto](https://quarto.org/) websites, presentations, dashboards, and Typst documents, as well as via the [`brand_yml` Python package](pkg/py/).
+**brand.yml** is currently [supported]{.implemented} in:
+
+* [Quarto](https://quarto.org/docs/authoring/brand.html) websites, presentations, dashboards, and Typst documents
+* [Shiny for Python](https://shiny.posit.co/blog/posts/shiny-python-1.2-brand-yml/)
+* [Shiny for R](https://shiny.posit.co/blog/posts/bslib-0.9.0/)
+
+[RStudio](https://posit.co/products/open-source/rstudio/) and [VS Code with the Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) both support automatically validating brand.yml files when they are named `_brand.yml`.
+In Python, the [`brand_yml` Python package](pkg/py/) provides parsing and validation support.
 
 <!-- Support for themed branding is [in progress]{.in-progress} for . -->
 
-We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below.
+We plan to support brand.yml throughout the suite of open source projects maintained by Posit, in particular the projects included in the diagram below[^partial-support].
+
+[^partial-support]: Partial support -- where brand.yml can be used with manual configuration -- is indicated by light green shading.
 
 ::: visually-hidden
 The diagram shows brand.yml connected to Quarto, R and Python.
@@ -109,22 +120,25 @@ flowchart LR
 
     by-->R
     R-->r-bslib["{bslib}"]
-    R-->r-thematic["{thematic}"]
+    r-bslib-->r-thematic["{thematic}"]
     r-bslib-->r-shiny["Shiny for R"]
     r-bslib-->r-rmd["R Markdown"]
-    r-thematic-->r-ggplot2["{ggplot2}"]
-    r-thematic-->r-plot["{plot}"]
+    r-bslib-->r-pkgdown["pkgdown"]
+    %% r-thematic-->r-ggplot2["{ggplot2}"]
+    %% r-thematic-->r-plot["{plot}"]
 
     by-->Python
     Python-->py-brand_yml["brand_yml"]
     py-brand_yml-->py-shiny[Shiny for Python]
-    py-brand_yml-->py-seaborn[seaborn, matplotlib, etc.]
+    py-brand_yml-->py-plots[seaborn, matplotlib, etc.]
 
     classDef implemented fill:#8CE3A0,stroke:#0A2911,color:#0A2911;
-    class quarto-websites,quarto-presentations,quarto-dashboards,quarto-typst,py-brand_yml implemented;
+    classDef partial fill:#A8E5B9,stroke:#4B8A5D,color:#0A2911;
     classDef in-progress fill:#B3D7FF,stroke:#00254D,color:#00254D;
-    class py-shiny implemented;
     classDef highlighted fill:#FFE8DB,stroke:#612200,color:#612200;
+
+    class quarto-websites,quarto-presentations,quarto-dashboards,quarto-typst,py-brand_yml,py-shiny,r-bslib,r-shiny,r-rmd,r-pkgdown implemented;
+    class r-thematic,py-plots partial;
     class by highlighted;
 
     click quarto href "https://prerelease.quarto.org/docs/authoring/brand.html"
