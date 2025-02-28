@@ -32,7 +32,7 @@ py-setup:  ## [py] Setup python environment
 	uv run pre-commit install
 
 .PHONY: py-check
-py-check:  py-check-tests py-check-format py-check-types ## [py] Run python checks
+py-check:  py-check-format py-check-types py-check-tests ## [py] Run python checks
 
 .PHONY: py-check-tox
 py-check-tox:  ## [py] Run python 3.9 - 3.12 checks with tox
