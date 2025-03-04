@@ -1,134 +1,62 @@
 [
   {
-    "objectID": "pkg/py/Brand.html",
-    "href": "pkg/py/Brand.html",
-    "title": "Brand",
-    "section": "",
-    "text": "Brand guidelines in a class.\nA brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. brand_yml.Brand organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.\nUnified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named _brand.yml, with brand_yml.Brand.from_yaml or from a YAML string with brand_yml.Brand.from_yaml_str. Or create a full brand instance directly via this class.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Brand"
-    ]
-  },
-  {
-    "objectID": "pkg/py/Brand.html#attributes",
-    "href": "pkg/py/Brand.html#attributes",
-    "title": "Brand",
+    "objectID": "pkg/py/logo.html#attributes",
+    "href": "pkg/py/logo.html#attributes",
+    "title": "Logos and Images",
     "section": "Attributes",
-    "text": "Attributes\n\nmeta\n\nBrandMeta | None\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nBrandLogo | BrandLogoResource | None\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nBrandColor | None\nNamed colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).\n\ntypography\n\nBrandTypography | None\nFont definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).\n\ndefaults\n\ndict[str, Any] | None\nAdditional context-specific settings beyond the basic brand colors and typography.\n\npath\n\nPath | None\nThe file path of the brand configuration. This attribute is excluded from serialization and representation.",
+    "text": "Attributes\n\nimages\n\ndict[str, BrandLogoResource] | None\nA dictionary containing any number of logos or brand images. You can refer to these images by their key name in small, medium or large. Local file paths should be relative to the _brand.yml source file. Remote files are also permitted; please use a full URL to the image.\nlogo:\n  images:\n    white: pandas_white.svg\n    white_online: \"https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg\"\n  small: white\n\nsmall\n\nBrandLogoFileType | None\nA small logo, typically used as an favicon or mobile app icon.\n\nmedium\n\nBrandLogoFileType | None\nA medium-sized logo, typically used in the header of a website.\n\nlarge\n\nBrandLogoFileType | None\nA large logo, typically used in a larger format such as a title slide or in marketing materials.",
     "crumbs": [
       "About",
       "Reference",
-      "Brand"
+      "Logos and Images"
     ]
   },
   {
-    "objectID": "pkg/py/Brand.html#methods",
-    "href": "pkg/py/Brand.html#methods",
-    "title": "Brand",
-    "section": "Methods",
-    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nfrom_yaml\nCreate a Brand instance from a Brand YAML file.\n\n\nfrom_yaml_str\nCreate a Brand instance from a string of YAML.\n\n\nmodel_dump_yaml\nSerialize the Brand object to YAML.\n\n\n\n\nfrom_yaml\nBrand.from_yaml(path)\nCreate a Brand instance from a Brand YAML file.\nReads a Brand YAML file or finds and reads a _brand.yml file and returns a validated :class:Brand instance.\nTo find a project-specific _brand.yml file, pass path the project directory or __file__ (the path of the current Python script). brand_yml.Brand.from_yaml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file (or the same variants with a .yaml extension). Note that it starts the search in the directory passed in and moves upward to find the _brand.yml file; it does not search into subdirectories of the current directory.\n\nParameters\n\npath: str | Path\n\nThe path to the brand.yml file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml or _brand.yaml in the current directory or any of its parent directories.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated Brand object with all fields populated according to the brand.yml file.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the brand.yml file is invalid.\n\n\n\n\n\nExamples\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml(__file__)\nbrand = Brand.from_yaml(\"path/to/_brand.yml\")\n\n\n\nfrom_yaml_str\nBrand.from_yaml_str(text, path=None)\nCreate a Brand instance from a string of YAML.\n\nParameters\n\ntext: str\n\nThe text of the Brand YAML file.\n\npath: str | Path | None = None\n\nThe optional path on disk for supporting files like logos and fonts.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated brand_yml.Brand object with all fields populated according to the Brand YAML text.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  primary: \"#ff0202\"\ntypography:\n  base: Open Sans\n\"\"\")\n\n\nbrand.meta\n\nBrandMeta(name=BrandMetaName(full='Brand YAML'))\n\n\n\nbrand.color.primary\n\n'#ff0202'\n\n\n\n\n\nmodel_dump_yaml\nBrand.model_dump_yaml(stream=None, *, transform=None)\nSerialize the Brand object to YAML.\nWrite the brand_yml.Brand instance to a string or to a file on disk.\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  palette:\n    orange: \"#ff9a02\"\n  primary: orange\ntypography:\n  headings: Raleway\n\"\"\")\n\n\n\nprint(brand.model_dump_yaml())\n\nmeta:\n  name:\n    full: Brand YAML\ncolor:\n  palette:\n    orange: '#ff9a02'\n  primary: '#ff9a02'\ntypography:\n  fonts:\n    - family: Raleway\n  headings:\n    family: Raleway\n\n\n\n\n\n\nParameters\n\nstream: Any = None\n\nPassed to stream parameter of ruamel.yaml.YAML.dump.\n\ntransform: Any = None\n\nPassed to transform parameter of ruamel.yaml.YAML.dump.\n\n\n\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nA string with the YAML representation of the brand if stream is None. Otherwise, the YAML representation is written to stream, typically a file. Note that the output YAML may not be 100% identical to the input _brand.yml. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Brand"
-    ]
-  },
-  {
-    "objectID": "pkg/py/utilities.html#parameters",
-    "href": "pkg/py/utilities.html#parameters",
-    "title": "Utilities",
-    "section": "Parameters",
-    "text": "Parameters\n\npath: Path | str\n\nA path to a file or directory where the search for the project’s _brand.yml file should be located.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Utilities"
-    ]
-  },
-  {
-    "objectID": "pkg/py/utilities.html#returns",
-    "href": "pkg/py/utilities.html#returns",
-    "title": "Utilities",
-    "section": "Returns",
-    "text": "Returns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nPath\nThe path of the found _brand.yml.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Utilities"
-    ]
-  },
-  {
-    "objectID": "pkg/py/utilities.html#raises",
-    "href": "pkg/py/utilities.html#raises",
-    "title": "Utilities",
-    "section": "Raises",
-    "text": "Raises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nIf no _brand.yml is found in any of the directories above path.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Utilities"
-    ]
-  },
-  {
-    "objectID": "pkg/py/meta.html#attributes",
-    "href": "pkg/py/meta.html#attributes",
-    "title": "Metadata",
-    "section": "Attributes",
-    "text": "Attributes\n\nname\n\nBrandMetaName | None\nThe name of the brand. In the YAML, this may be a dictionary with the full and short forms of the brand name.\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBCA\nor a single value as shorthand for meta.name.full.\nmeta:\n  name: Very Big Corporation of America\n\nlink\n\nBrandMetaLink | None\nLinks to additional resources related to the brand, such as its homepage, social media accounts, etc. Like name, this can be a single value or a dictionary with additional keys. If a single value is provided, it is promoted to the home key of brand_yml.meta.BrandMetaLink.\nThese two constructions are equivalent:\nmeta:\n  link: https://www.very-big-corp.com/\nmeta:\n  link:\n    home: https://www.very-big-corp.com/",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "pkg/py/meta.html#notes",
-    "href": "pkg/py/meta.html#notes",
-    "title": "Metadata",
-    "section": "Notes",
-    "text": "Notes\nAdditional fields are allowed, so you may store any additional metadata you want to attach to the brand here. Tools that use brand_yml may not know about these fields, however.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "pkg/py/meta.html#examples",
-    "href": "pkg/py/meta.html#examples",
-    "title": "Metadata",
+    "objectID": "pkg/py/logo.html#examples",
+    "href": "pkg/py/logo.html#examples",
+    "title": "Logos and Images",
     "section": "Examples",
-    "text": "Examples\n\nMinimalFull\n\n\n\n\n_brand.yml\n\nmeta:\n  name: Very Big Corp. of America\n  link: https://very-big-corp.com\n\n\n\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBC\n  link:\n    home: https://very-big-corp.com\n    mastodon: https://mastodon.social/@VeryBigCorpOfficial\n    github: https://github.com/Very-Big-Corp\n    linkedin: https://linkedin.com/company/very-big-corp\n    twitter: https://twitter.com/VeryBigCorp\n    facebook: https://facebook.com/Very-Big-Corp",
+    "text": "Examples\n\nSingle LogoMinimalLight/Dark VariantsCompleteComplete with Alt Text\n\n\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium: logos/pandas/pandas_secondary.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: logos/pandas/pandas_secondary_white.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark: logos/pandas/pandas_mark.svg\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white: logos/pandas/pandas_secondary_white.svg\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: secondary-white\n  large: pandas\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark:\n      path: logos/pandas/pandas_mark.svg\n      alt: pandas logo with blue bars and yellow and pink dots\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white:\n      path: logos/pandas/pandas_secondary_white.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light:\n      path: logos/pandas/pandas_secondary.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    dark: secondary-white\n  large:\n    path: logos/pandas/pandas.svg\n    alt: pandas bars and dots to the right of the word \"pandas\"",
     "crumbs": [
       "About",
       "Reference",
-      "Metadata"
+      "Logos and Images"
     ]
   },
   {
-    "objectID": "pkg/py/meta.html#attributes-1",
-    "href": "pkg/py/meta.html#attributes-1",
-    "title": "Metadata",
+    "objectID": "pkg/py/logo.html#attributes-1",
+    "href": "pkg/py/logo.html#attributes-1",
+    "title": "Logos and Images",
     "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nfull\nFull name of the company or brand.\n\n\nshort\nShort name of the company or brand, for use in space-constrained settings.",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nalt\nAlterative text for the image, used for accessibility.\n\n\npath\nThe path to the logo resource. This can be a local file or a URL.",
     "crumbs": [
       "About",
       "Reference",
-      "Metadata"
+      "Logos and Images"
     ]
   },
   {
-    "objectID": "pkg/py/meta.html#attributes-2",
-    "href": "pkg/py/meta.html#attributes-2",
-    "title": "Metadata",
+    "objectID": "pkg/py/logo.html#attributes-2",
+    "href": "pkg/py/logo.html#attributes-2",
+    "title": "Logos and Images",
     "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nbluesky\nBluesky link for the brand or company.\n\n\nfacebook\nFacebook link for the brand or company.\n\n\ngithub\nGitHub link for the brand or company.\n\n\nhome\nHome website link for the brand or company.\n\n\nlinkedin\nLinkedIn link for the brand or company.\n\n\nmastodon\nMastodon link for the brand or company.\n\n\ntwitter\nTwitter link for the brand or company.",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\ndark\nValue in dark mode.\n\n\nlight\nValue in light mode.",
     "crumbs": [
       "About",
       "Reference",
-      "Metadata"
+      "Logos and Images"
+    ]
+  },
+  {
+    "objectID": "pkg/py/logo.html#methods",
+    "href": "pkg/py/logo.html#methods",
+    "title": "Logos and Images",
+    "section": "Methods",
+    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nabsolute\nAbsolute path of the file location, relative to the root directory.\n\n\nexists\nCheck that the file exists at its absolute path.\n\n\nrelative\nRelative path of the file location.\n\n\nset_root_dir\nUpdate the root directory of this file location.\n\n\nvalidate_exists\nValidate that the file exists at its absolute path.\n\n\n\n\nabsolute\nFileLocationLocal.absolute()\nAbsolute path of the file location, relative to the root directory.\nReturns the absolute path to the file, relative to the root directory, which is most typically the directory containing the _brand.yml file.\n\n\nexists\nFileLocationLocal.exists()\nCheck that the file exists at its absolute path.\n\n\nrelative\nFileLocationLocal.relative()\nRelative path of the file location.\nReturns the relative path to the file as it would appear in the source _brand.yml file.\n\n\nset_root_dir\nFileLocationLocal.set_root_dir(root_dir)\nUpdate the root directory of this file location.\nIn general, the root directory is the parent directory containing the source brand_yml file. If you relocate the file, this method can be used to update the new local file location.\n\n\nvalidate_exists\nFileLocationLocal.validate_exists()\nValidate that the file exists at its absolute path.\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if the file does not exist at its absolute path location.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Logos and Images"
     ]
   },
   {
@@ -192,6 +120,416 @@
     ]
   },
   {
+    "objectID": "pkg/py/utilities.html#parameters",
+    "href": "pkg/py/utilities.html#parameters",
+    "title": "Utilities",
+    "section": "Parameters",
+    "text": "Parameters\n\npath: Path | str\n\nA path to a file or directory where the search for the project’s _brand.yml file should be located.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Utilities"
+    ]
+  },
+  {
+    "objectID": "pkg/py/utilities.html#returns",
+    "href": "pkg/py/utilities.html#returns",
+    "title": "Utilities",
+    "section": "Returns",
+    "text": "Returns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nPath\nThe path of the found _brand.yml.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Utilities"
+    ]
+  },
+  {
+    "objectID": "pkg/py/utilities.html#raises",
+    "href": "pkg/py/utilities.html#raises",
+    "title": "Utilities",
+    "section": "Raises",
+    "text": "Raises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nIf no _brand.yml is found in any of the directories above path.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Utilities"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html",
+    "href": "pkg/py/Brand.html",
+    "title": "Brand",
+    "section": "",
+    "text": "Brand guidelines in a class.\nA brand instance encapsulates the color, typography and logo preferences for a given brand, typically found in brand guidelines created by a company’s marketing department. brand_yml.Brand organizes this information in a common, fully-specified class instance that makes it easy to re-use for theming any artifact from websites to data visualizations.\nUnified brand information following the Brand YAML specification. Read brand metadata from a YAML file, typically named _brand.yml, with brand_yml.Brand.from_yaml or from a YAML string with brand_yml.Brand.from_yaml_str. Or create a full brand instance directly via this class.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html#attributes",
+    "href": "pkg/py/Brand.html#attributes",
+    "title": "Brand",
+    "section": "Attributes",
+    "text": "Attributes\n\nmeta\n\nBrandMeta | None\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nBrandLogo | BrandLogoResource | None\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nBrandColor | None\nNamed colors in the brand’s color palette and semantic colors (e.g., primary, secondary, success, warning).\n\ntypography\n\nBrandTypography | None\nFont definitions, font family, weight, style, color, and line height for key elements (e.g., base, headings, and monospace text).\n\ndefaults\n\ndict[str, Any] | None\nAdditional context-specific settings beyond the basic brand colors and typography.\n\npath\n\nPath | None\nThe file path of the brand configuration. This attribute is excluded from serialization and representation.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "pkg/py/Brand.html#methods",
+    "href": "pkg/py/Brand.html#methods",
+    "title": "Brand",
+    "section": "Methods",
+    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nfrom_yaml\nCreate a Brand instance from a Brand YAML file.\n\n\nfrom_yaml_str\nCreate a Brand instance from a string of YAML.\n\n\nmodel_dump_yaml\nSerialize the Brand object to YAML.\n\n\n\n\nfrom_yaml\nBrand.from_yaml(path)\nCreate a Brand instance from a Brand YAML file.\nReads a Brand YAML file or finds and reads a _brand.yml file and returns a validated :class:Brand instance.\nTo find a project-specific _brand.yml file, pass path the project directory or __file__ (the path of the current Python script). brand_yml.Brand.from_yaml will look in that directory or any parent directory for a _brand.yml, brand/_brand.yml or _brand/_brand.yml file (or the same variants with a .yaml extension). Note that it starts the search in the directory passed in and moves upward to find the _brand.yml file; it does not search into subdirectories of the current directory.\n\nParameters\n\npath: str | Path\n\nThe path to the brand.yml file or a directory where _brand.yml is expected to be found. Typically, you can pass __file__ from the calling script to find _brand.yml or _brand.yaml in the current directory or any of its parent directories.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated Brand object with all fields populated according to the brand.yml file.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if no brand configuration file is found within the given path.\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the brand.yml file is invalid.\n\n\n\n\n\nExamples\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml(__file__)\nbrand = Brand.from_yaml(\"path/to/_brand.yml\")\n\n\n\nfrom_yaml_str\nBrand.from_yaml_str(text, path=None)\nCreate a Brand instance from a string of YAML.\n\nParameters\n\ntext: str\n\nThe text of the Brand YAML file.\n\npath: str | Path | None = None\n\nThe optional path on disk for supporting files like logos and fonts.\n\n\n\n\nReturns\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\n\nA validated brand_yml.Brand object with all fields populated according to the Brand YAML text.\n\n\n\n\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nValueError\nRaises ValueError or other validation errors from pydantic if the Brand YAML file is invalid.\n\n\n\n\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  primary: \"#ff0202\"\ntypography:\n  base: Open Sans\n\"\"\")\n\n\nbrand.meta\n\nBrandMeta(name=BrandMetaName(full='Brand YAML'))\n\n\n\nbrand.color.primary\n\n'#ff0202'\n\n\n\n\n\nmodel_dump_yaml\nBrand.model_dump_yaml(stream=None, *, transform=None)\nSerialize the Brand object to YAML.\nWrite the brand_yml.Brand instance to a string or to a file on disk.\n\nExamples\n\nfrom brand_yml import Brand\n\nbrand = Brand.from_yaml_str(\"\"\"\nmeta:\n  name: Brand YAML\ncolor:\n  palette:\n    orange: \"#ff9a02\"\n  primary: orange\ntypography:\n  headings: Raleway\n\"\"\")\n\n\n\nprint(brand.model_dump_yaml())\n\nmeta:\n  name:\n    full: Brand YAML\ncolor:\n  palette:\n    orange: '#ff9a02'\n  primary: '#ff9a02'\ntypography:\n  fonts:\n    - family: Raleway\n  headings:\n    family: Raleway\n\n\n\n\n\n\nParameters\n\nstream: Any = None\n\nPassed to stream parameter of ruamel.yaml.YAML.dump.\n\ntransform: Any = None\n\nPassed to transform parameter of ruamel.yaml.YAML.dump.\n\n\n\n\nReturns\n\n\n\nName\nType\nDescription\n\n\n\n\n\nAny\nA string with the YAML representation of the brand if stream is None. Otherwise, the YAML representation is written to stream, typically a file. Note that the output YAML may not be 100% identical to the input _brand.yml. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Brand"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html",
+    "href": "inspiration/brand-guidelines/nhsr-community/index.html",
+    "title": "NHS-R Community",
+    "section": "",
+    "text": "NHS-R Community Guidelines",
+    "crumbs": [
+      "NHS-R Community"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#colour",
+    "href": "inspiration/brand-guidelines/nhsr-community/index.html#colour",
+    "title": "NHS-R Community",
+    "section": "Colour",
+    "text": "Colour\nThe NHS-R Community uses the NHS England colours for its branding1. The colours used by NHS-R Community do not, currently, include any colours from any other nation in the UK.\n\n\n_brand.yml\n\ncolor:\n  # NHS-R Community uses the NHS England colour palette\n  # https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/ used\n  # under the OGL Licence v3.0\n  palette:\n    # Core neutrals (Level 2)\n    white: '#FFFFFF'\n    black: '#231F20'\n    grey-dark: '#425563'\n    grey-mid: '#768692'\n    grey-pale: '#E8EDEE'\n\n    # Blues (Level 1)\n    blue-dark: '#003087'\n    blue: '#005EB8'\n    blue-bright: '#0072CE'\n    blue-light: '#41B6E6'\n    blue-aqua: '#00A9CE'\n\n    # Greens (Level 3)\n    green-dark: '#006747'\n    green: '#009639'\n    green-light: '#78BE20'\n    green-aqua: '#00A499'\n\n    # Purples and Pinks\n    purple: '#330072'\n    pink-dark: '#7C2855'\n    pink: '#AE2573'\n\n    # Reds\n    red-dark: '#8A1538'\n    red: '#DA291C'  # Emergency Services Red\n\n    # Yellows and Orange\n    orange: '#ED8B00'\n    yellow-warm: '#FFB81C'\n    yellow: '#FAE100'\n\n    # Bootstrap color aliases - using closest matches without duplication\n    indigo: blue-dark\n    cyan: blue-aqua\n    teal: green-aqua\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: grey-dark\n  tertiary: grey-pale\n  success: green\n  danger: red\n  warning: yellow-warm\n  info: blue-light\n  light: grey-pale\n  dark: grey-dark",
+    "crumbs": [
+      "NHS-R Community"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#typography",
+    "href": "inspiration/brand-guidelines/nhsr-community/index.html#typography",
+    "title": "NHS-R Community",
+    "section": "Typography",
+    "text": "Typography\nThe NHS-R Community _brand.yml uses the NHS-recommended font, Arial, which is assumed to be available on the user’s system. It also includes commented code for the use of Frutiger, the official NHS font. Frutiger is a proprietary font that requires purchasing, so it is not used in any NHS-R Community products.\nIf Frutiger is available to an NHS organisation, then the lines of code under fonts: need to be uncommented and the output tested.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    # Note: Frutiger is a licensed NHS England font that requires purchasing\n    # https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/\n    # - family: Frutiger W01\n    #   source: file\n    #   files:\n    #     - path: fonts/FrutigerLTW01-55Roman.ttf\n    #     - path: fonts/FrutigerLTW01-65Bold.ttf\n    #       weight: bold\n\n    - family: Arial\n      source: system\n\n  base:\n    family: Arial, sans-serif\n    line-height: 1.5\n\n  headings:\n    family: Arial, sans-serif\n    weight: 700\n    line-height: 1.25\n    color: blue",
+    "crumbs": [
+      "NHS-R Community"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#logo",
+    "href": "inspiration/brand-guidelines/nhsr-community/index.html#logo",
+    "title": "NHS-R Community",
+    "section": "Logo",
+    "text": "Logo\nThe NHS-R Community _brand.yml uses the NHS-R Community logo2, which incorporates the R project logo3.\nIt should be noted that the logo for the NHS in England is protected by law and is trade marked so can be used by official documents in the work of the NHS. In order to use this please just replace the NHS-R Community logo with that of NHS.\n\n\n_brand.yml\n\nlogo:\n  # Download the NHS-R Community logo and store it next to _brand.yml\n  # You'll have to update this section with the correct file names\n  images:\n    nhsr-logo:\n      path: nhsr-logo.svg\n      alt: NHS-R Community logo\n  small: nhsr-logo\n  medium: nhsr-logo\n  large: nhsr-logo",
+    "crumbs": [
+      "NHS-R Community"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#footnotes",
+    "href": "inspiration/brand-guidelines/nhsr-community/index.html#footnotes",
+    "title": "NHS-R Community",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nUnder the Open Government Licence v3.0.↩︎\nCopies of the NHS-R Community’s logo are available under Creative Commons 1.0.↩︎\nThe R project logo is available under the Creative Commons Attribution-Share Alike 4.0 International licence.↩︎",
+    "crumbs": [
+      "NHS-R Community"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/posit/index.html",
+    "href": "inspiration/brand-guidelines/posit/index.html",
+    "title": "Posit",
+    "section": "",
+    "text": "Posit Brand Guidelines",
+    "crumbs": [
+      "Posit"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/posit/index.html#highlights",
+    "href": "inspiration/brand-guidelines/posit/index.html#highlights",
+    "title": "Posit",
+    "section": "Highlights",
+    "text": "Highlights\n\n\n\nPosit Color Guidance\n\n\n\n\n\nAdditional Primary Posit Tints\n\n\n\n\n\nAdditional Secondary Posit Tints\n\n\n\n\n\nPosit Typography Guidance",
+    "crumbs": [
+      "Posit"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/posit/index.html#colors",
+    "href": "inspiration/brand-guidelines/posit/index.html#colors",
+    "title": "Posit",
+    "section": "Colors",
+    "text": "Colors\nHere are Posit’s primary brand colors, excluding the many shades and tints.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#ee6331\"\n    teal: \"#419599\"\n    green: \"#729943\"\n    burgundy: \"#9a4665\"\n    purple: burgundy\n    gray: \"#404041\"\n    black: \"#151515\"\n    white: \"#FFFFFF\"\n  foreground: black\n  background: white\n  primary: blue\n  secondary: gray\n  info: teal\n  success: green\n  warning: orange\n  danger: burgundy",
+    "crumbs": [
+      "Posit"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/posit/index.html#typography",
+    "href": "inspiration/brand-guidelines/posit/index.html#typography",
+    "title": "Posit",
+    "section": "Typography",
+    "text": "Typography\n\nPlease use Open Sans, and see the brand guidelines for helpful guidance on font style usage.\nIf you are limited to web-safe fonts, please use Arial. For monospace font use Source Code Pro.\n\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Open Sans\n      source: bunny\n    - family: Source Code Pro\n      source: bunny\n  base: Open Sans\n  headings:\n    weight: light\n  monospace: Source Code Pro",
+    "crumbs": [
+      "Posit"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/posit/index.html#logo",
+    "href": "inspiration/brand-guidelines/posit/index.html#logo",
+    "title": "Posit",
+    "section": "Logo",
+    "text": "Logo\n\n\n\nName\nImage\n\n\n\n\nIcon\n\n\n\nFull\n\n\n\nReverse\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon:\n      path: posit-logo.svg\n      alt: Posit icon.\n    full:\n      path: posit-logo-fullcolor.svg\n      alt: Posit logo.\n    full-reverse:\n      path: posit-logo-reverse.svg\n      alt: Posit logo.\n  small: icon\n  medium:\n    light: full\n    dark: full-reverse\n  large:\n    light: full\n    dark: full-reverse",
+    "crumbs": [
+      "Posit"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/walmart/index.html",
+    "href": "inspiration/brand-guidelines/walmart/index.html",
+    "title": "Walmart",
+    "section": "",
+    "text": "Walmart Brand Guidelines",
+    "crumbs": [
+      "Walmart"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/walmart/index.html#logos",
+    "href": "inspiration/brand-guidelines/walmart/index.html#logos",
+    "title": "Walmart",
+    "section": "Logos",
+    "text": "Logos\nFull logo documentation\n\n\n\n\n\n\n\nName\nImage\n\n\n\n\nPrimary blue logo\n\n\n\nPrimary white logo\n\n\n\nSpark icon\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: walmart-spark-logo-digital-blue.png\n    primary-white: walmart-spark-logo-digital-alpha.png\n    spark: walmart-spark-digital-alpha.png\n  small: spark\n  medium:\n    light: primary\n    dark: primary-white",
+    "crumbs": [
+      "Walmart"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/walmart/index.html#colors",
+    "href": "inspiration/brand-guidelines/walmart/index.html#colors",
+    "title": "Walmart",
+    "section": "Colors",
+    "text": "Colors\n\n\n\nWalmart palette\n\n\n\nPrimary color palette\n\nWe are a blue brand with white & yellow. Walmart Blue is the primary color that should be applied across all communications, to uphold brand consistency.\n\nFor .com &/or digital platforms, use digital blue to accommodate readability & legibility needs.\nWhite complements digital blue & is either a background color or a type color.\nSpark Yellow should be used as an accent color. Note: For yellow headlines used online, please refer to the ADA compliance section below.\n\n\n\n\n\nHex\nCMYK\nPMS\nName\n\n\n\n\n#0071DC◉\nCMYK 100, 45, 0, 0\nPMS 285 C\nWalmart Blue\n\n\n#FFFFFF◉\nCMYK 0, 0, 0, 0\nWhite\n\n\n\n#FFC220◉\nCMYK 0, 25, 100, 0\nPMS 1235 C\nSpark Yellow\n\n\n\n\n\nSecondary color palette\n\nOur secondary color palette is an extension of our primary colors & is used as backgrounds & texture for silhouetted product photography. Where primary colors applied to type fail in legibility & compliance, use Ozark Noir.\n\n\n\n\nHex\nCMYK\nName\n\n\n\n\n#F8E6A5◉\nCMYK 3, 7, 42, 0\nYellow Tone\n\n\n#8CD1FC◉\nCMYK 39, 5, 0, 0\nBlue Tone 1\n\n\n#D3EFF8◉\nCMYK 16, 0, 2, 0\nBlue Tone 2\n\n\n#FAFAFA◉\nCMYK 1, 1, 1, 0\nOff White\n\n\n#041E42◉\nCMYK 100, 88, 42, 51\nOzark Noir\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    blue: '#0071DC' # Walmart Blue\n    white: '#FFFFFF'\n    yellow: '#FFC220' # Spark Yellow\n\n    # Secondary Colors\n    red: '#DE1C24'\n    yellow-pale: '#F8E6A5'\n    yellow-bright: '#FFF200'\n    blue-light: '#8CD1FC'\n    blue-lighter: '#D3EFF8'\n    off-white: '#FAFAFA'\n    ozark-noir: '#041E42'\n\n  foreground: ozark-noir\n  background: white\n  light: off-white\n  dark: ozark-noir\n  primary: blue\n  secondary: dark\n  warning: yellow\n  danger: red",
+    "crumbs": [
+      "Walmart"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/walmart/index.html#font",
+    "href": "inspiration/brand-guidelines/walmart/index.html#font",
+    "title": "Walmart",
+    "section": "Font",
+    "text": "Font\nWalmart uses a custom font named Bogle.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Martel Sans # Google Fonts alternative to Bogle\n      source: google\n\n  base: Martel Sans",
+    "crumbs": [
+      "Walmart"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html",
+    "href": "inspiration/brand-guidelines/dell/index.html",
+    "title": "Dell",
+    "section": "",
+    "text": "Dell Brand Guidelines\nDell Design System",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#logo",
+    "href": "inspiration/brand-guidelines/dell/index.html#logo",
+    "title": "Dell",
+    "section": "Logo",
+    "text": "Logo\n\n\n\n_brand.yml\n\nlogo:\n  small: dell-color.svg\n  medium: dell-color.svg",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#color",
+    "href": "inspiration/brand-guidelines/dell/index.html#color",
+    "title": "Dell",
+    "section": "Color",
+    "text": "Color\nDell’s design system translates the brand guidelines into a design system for web products. In this example, we’ll use the color palette directly from the design system’s color palette.\n\n\n\n\n\nDell’s primary color palette\n\n\n\n\n\n\n\nDell’s secondary color palette\n\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Blues\n    blue-100: '#D9F5FD'\n    blue-200: '#94DCF7'\n    blue-300: '#5CC1EE'\n    blue-400: '#31A2E3'\n    blue-500: '#1282D6'\n    blue-600: '#0672CB'\n    blue-700: '#0063B8'\n    blue-800: '#00468B'\n    blue-900: '#002A58'\n\n    # Neutral Grays\n    white: '#FFFFFF'\n    gray-100: '#F5F6F7'\n    gray-200: '#F0F0F0'\n    gray-300: '#E1E1E1'\n    gray-400: '#D2D2D2'\n    gray-500: '#B6B6B6'\n    gray-600: '#7E7E7E'\n    gray-700: '#6E6E6E'\n    gray-800: '#636363'\n    gray-900: '#0E0E0E'\n\n    # Neutral Slates\n    slate-100: '#EBF1F6'\n    slate-200: '#C5D4E3'\n    slate-300: '#A4B8CD'\n    slate-400: '#839DB4'\n    slate-500: '#40586D'\n    slate-600: '#293B4D'\n    slate-700: '#1D2C3B'\n    slate-800: '#141D28'\n    slate-900: '#0A0E14'\n\n    # Secondary Colors\n    yellow-100: '#FEEFCB'\n    yellow-200: '#F5CD6F'\n    yellow-300: '#E6AC28'\n    yellow-400: '#CE8D00'\n    yellow-500: '#B36F00'\n    yellow-600: '#A36100'\n    yellow-700: '#925400'\n    yellow-800: '#6D3A00'\n    yellow-900: '#442200'\n\n    red-100: '#FFECEE'\n    red-200: '#FFC3C9'\n    red-300: '#FF99A1'\n    red-400: '#FE6873'\n    red-500: '#E4424D'\n    red-600: '#D0353F'\n    red-700: '#BB2A33'\n    red-800: '#8C161F'\n    red-900: '#590A0F'\n\n    green-100: '#E9F5CE'\n    green-200: '#C0DD78'\n    green-300: '#9BC438'\n    green-400: '#7AA809'\n    green-500: '#5D8C00'\n    green-600: '#4F7D00'\n    green-700: '#436F00'\n    green-800: '#2C5000'\n    green-900: '#193100'\n\n    # Accent Colors\n    light-blue-100: '#DAF5FD'\n    light-blue-200: '#97DCF4'\n    light-blue-300: '#61C1EB'\n    light-blue-400: '#36A2E0'\n    light-blue-500: '#1885C3'\n    light-blue-600: '#0D76B2'\n    light-blue-700: '#0468A1'\n    light-blue-800: '#004A77'\n    light-blue-900: '#002D4B'\n\n    purple-100: '#FBEBFF'\n    purple-200: '#ECC4FF'\n    purple-300: '#DB9EFF'\n    purple-400: '#C47AF4'\n    purple-500: '#A95ADC'\n    purple-600: '#994CCC'\n    purple-700: '#8A3FBA'\n    purple-800: '#66278F'\n    purple-900: '#40155C'\n\n    berry-100: '#FFEBF5'\n    berry-200: '#FFC0DF'\n    berry-300: '#F69AC6'\n    berry-400: '#E574AA'\n    berry-500: '#CB548D'\n    berry-600: '#BA467D'\n    berry-700: '#A8396F'\n    berry-800: '#7F234F'\n    berry-900: '#511230'\n\n    orange-100: '#FFEED2'\n    orange-200: '#FEC97A'\n    orange-300: '#F8A433'\n    orange-400: '#E67F01'\n    orange-500: '#C96100'\n    orange-600: '#B85200'\n    orange-700: '#A64600'\n    orange-800: '#7D2E00'\n    orange-900: '#4F1A00'\n\n    # Bootstrap color aliases\n    blue: blue-600\n    purple: berry-700\n    pink: berry-400\n    red: red-700\n    orange: orange-600\n    yellow: yellow-300\n    green: green-500\n    teal: '#0EA0A9'\n    cyan: light-blue-500\n    black: gray-900\n\n  # Theme colors\n  foreground: black\n  background: white\n  primary: blue-600\n  secondary: gray-400\n  success: green-500\n  warning: yellow-300\n  danger: red-700\n  info: '#0EA0A9'\n  light: gray-100\n  dark: gray-800",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#typography",
+    "href": "inspiration/brand-guidelines/dell/index.html#typography",
+    "title": "Dell",
+    "section": "Typography",
+    "text": "Typography\nDell’s brand guidelines recommend using the Roboto typeface for all digital products. The guidelines note that “Roboto Condensed and Roboto Mono aren’t recommended for use (to help us maintain consistency.)”\n\n\n\nDell typography guidance\n\n\nRegular font weights should be used for body copy, a light font face for large headings (levels 1-3) and a bold font face for small headings (levels 4-6). The design system also includes guidance on line height, letter spacing, and font size, but it’s more granular that what’s supported by brand.yml.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Roboto\n      source: google\n    - family: Roboto Mono\n      source: google\n\n  base:\n    family: Roboto\n    line-height: 1.5\n\n  headings:\n    weight: 300\n\n  monospace: Roboto Mono\n\n  monospace-block:\n    background-color: gray-100",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/dell/index.html#defaults",
+    "href": "inspiration/brand-guidelines/dell/index.html#defaults",
+    "title": "Dell",
+    "section": "Defaults",
+    "text": "Defaults\nTo achieve varied font weights for headings, we’ll need to use additional CSS rules in Bootstrap contexts.\n\n\n_brand.yml\n\ndefaults:\n  bootstrap:\n    rules: |\n      .h4, .h5, .h6,\n       h4,  h5,  h6 {\n        font-weight: 400\n      }",
+    "crumbs": [
+      "Dell"
+    ]
+  },
+  {
+    "objectID": "articles/llm-brand-yml-prompt/index.html",
+    "href": "articles/llm-brand-yml-prompt/index.html",
+    "title": "Creating a brand.yml with an LLM",
+    "section": "",
+    "text": "Extracting color values, fonts and logos from brand guidelines can be a tedious process. Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!\nBecause brand.yml is a brand1 new project, large language models like OpenAI’s ChatGPT, Anthropic’s Claude and others haven’t learned the syntax (yet)."
+  },
+  {
+    "objectID": "articles/llm-brand-yml-prompt/index.html#teaching-llms-about-brand.yml",
+    "href": "articles/llm-brand-yml-prompt/index.html#teaching-llms-about-brand.yml",
+    "title": "Creating a brand.yml with an LLM",
+    "section": "Teaching LLMs about brand.yml",
+    "text": "Teaching LLMs about brand.yml\nFortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a simple markdown file explaining brand.yml2 that you can copy and paste into a chat interface or that you can use as a system prompt.\n\n\n\n\n\n\nbrand.yml Prompt\n\n\n\n\n\nCopy the code block below and paste it into a chat interface or use it as a system prompt.\n## About brand.yml\n\nbrand.yml is a structured YAML file to hold brand information for key\nbrand elements. The goal of brand.yml is to capture the essence of the\nbrand's color and typographic choices in a simple format.\n\n\"brand.yml\" is the name of the project defining the YAML specification.\nA specific instance of a brand's data is stored in a file named\n\"_brand.yml\" by convention.\n\n## Brand Elements\n\n-   `meta` - Key identity information, name of the company, links to\n    brand guidelines, etc.\n\n-   `logo` - Files or links to the brand's logo at various sizes.\n\n-   `color` Semantic colors, e.g. `primary`, `secondary`, `success`,\n    `warning`, etc. Named colors in the brand's color palette are stored\n    in `color.palette`.\n\n-   `typography` - Font family, weight, style, color, and line height\n    for key elements, e.g. base, headings and monospace text. Available\n    fonts used by the brand are stored in `typography.fonts` and can be\n    sourced from Google Fonts, Bunny Fonts or local or remote font\n    files.\n\n-   `defaults` - Additional context-specific settings beyond the basic\n    brand colors and typography. These could be options, for example,\n    that are used by Bootstrap in Quarto or Shiny. They could also be\n    folded into existing Quarto yaml fields like `format` or `website`,\n    or they could be new fields for other contexts like `shiny`.\n\n## Example file\n\nThe following YAML includes all allowed features of a _brand.yml file.\nNote that all fields are optional.\n\nOnly include fields that directly apply to the brand; it's important for\nthe _brand.yml file to be simple and concise rather than overly\ncomplex. Many fields have simple and complex values variants; generally\nspeaking many fields accept either a simple string or a mapping.\nAlternative syntax is indicated in comments in the example below with\n\"ALT\". If possible, use the simple string.\n\n``` {.yaml filename=\"_brand.yml\"}\nmeta:\n  # name: Acme # ALT: Single string for simple company name\n  name:\n    short: Acme # Short company name\n    full: Acme Corporation International # Full, legal company name\n  \n  # link: https://acmecorp.com # ALT: single url for the company's home page\n  link:\n    home: https://www.acmecorp.com # Company's home apge\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social # Bluesky social media account link\n    github: https://github.com/acmecorp # GitHub account link\n    mastodon: https://mastodon.social/@acmecorp # Mastodon account link\n    linkedin: https://www.linkedin.com/company/acmecorp # LinkedIn account link\n    facebook: https://www.facebook.com/acmecorp # Facebook account link\n    twitter: https://twitter.com/acmecorp # Twitter account link\n\nlogo:\n  images: # Mapping of image names to local files that should be stored next to the _brand.yml file. Users may need to download these files manually.\n    header: logos/header-logo.png # Each entry maps a name to a local file\n    header-white: logos/header-logo-white.png\n    full: # ALT: Images can alternatively be a path with associated alt text for accessibility\n      path: logos/full-logo.svg\n      alt: Acme logo.\n  small: logos/icon.png # A small image, ideally icon-sized. Can be a path to a file or the name of a file in `logo.images`\n  medium: # A medium sized logo, ideally small enough for a sidebar logo\n    # ALT: Logos is small, medium, and large may have `light` and `dark` variants\n    light: header # light variant for use on light backgrounds\n    dark: header-white # dark variant for use on dark backgrounds\n  large: full # A large logo, e.g. for use in a hero or cover page. ALT: Can refer directly to images in `logo.images`.\n\ncolor:\n  palette:\n    # Dictionary of the brand's colors with readable names. \n    # Must be a flat list of names and color values. \n    # Names should be follow Sass variable conventions. Prefer hex color values.\n    # Prefer or create aliases for Bootstrap primary colors: blue, indigo, purple, pink, red, orange, yellow, green, teal, cyan, white, black\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n    purple: burgundy # Aliases are allowed by referring to other colors in `color.palette`\n    fire-red: \"#FF0000\"\n    bright-yellow: \"#FFFF00\"\n\n  # All theme colors can take direct color values, and all are optional.\n  # Only include the colors that are obviously required.\n  # Refer to color names from `color.palette` whenever possible.\n  foreground: \"#151515\"  # Main text color, should have high contrast with background\n  background: \"#FFFFFF\"  # Main background color, should have high contrast with foreground\n  primary: \"#447099\"  # Main accent color for links, buttons, etc.\n  secondary: \"#707073\"  # Used for lighter text or disabled states. Only include if necessary.\n  tertiary: \"#C2C2C4\"  # Even lighter color for hover states, accents, wells. Only include if necessary.\n  success: \"#72994E\"  # Color for positive or successful actions/information\n  info: \"#419599\"  # Color for neutral or informational actions/information\n  warning: \"#EE6331\"  # Color for warning or cautionary actions/information,\n  danger: \"#9A4665\"  # Color for errors, dangerous actions, negative information\n  light: \"#FFFFFF\"  # Bright color for high-contrast on dark elements\n  dark: \"#404041\"  # Dark color for high-contrast on light elements\n  # ALT: All properties in `color` can refer by name to values in `color.palette`, including within `color.palette`.\n  # foreground: black\n  # background: white\n  # primary: blue\n  # success: green\n  # info: teal\n  # ALT: All properties in `color` can refer by name to other properties in `color`.\n\ntypography:\n  fonts:\n    - family: Open Sans  # Font family name\n      source: file  # Source of the font (file, google, bunny, or system)\n      files:  # REQUIRED list of font files for `source: file`, which must have at least one font file. Use placeholder names and comment out the source font section if proprietary fonts are used. (And include a Google Font alternative recommendation.)\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n          # Each file corresponds to a weight and style, both default to \"normal\".\n          weight: 400  # Optional: specify weight for this file\n          style: normal  # Optional: specify style for this file\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n    - family: Roboto Slab\n      source: google\n      weight: [600, 900]  # Optional font weights to include (for google and bunny), defaults to all weights\n      # weight: 600..900 # ALT: fonts with variable weights can have a weight range\n      # weight: [thin, normal, bold] # ALT: font weights by name are allowed\n      style: [normal, italic]  # Font styles to include (for google and bunny)\n      display: block  # Font display property (for google). Optional and should not be included in most cases.\n    - family: Fira Code\n      source: bunny # Use Bunny Fonts, a GDPR-compliant alternative to Google Fonts\n      weight: [400, 500, 600] # Optional, same as for `source: google`\n      style: [normal, italic] # Optional, same as for `source: google`\n  \n  # base: Open San # ALT: If a string, sets the base font family\n  base:\n    family: Open Sans  # Optional: Font family for body text\n    weight: 400  # Optional: Font weight for body text\n    size: 16px  # Optional: Font size for body text, allows any CSS value, rem or px are preferred\n    line-height: 1.5  # Optional: Line height for body text\n    # DO NOT INCLUDE color HERE. The base font uses `color.foreground` by default.\n  \n  # headings: Roboto Slab # ALT: If a string, sets the headings font family\n  headings:\n    family: Roboto Slab  # Optional: Font family for headings\n    weight: 600  # Optional: Font weight for headings\n    style: normal  # Optional: Font style for headings\n    line-height: 1.2  # Optional: Line height for headings\n    color: \"#333333\"  # Optional: Color for headings\n    # color: primary # ALT: Can use named colors from `color` or `color.palette`\n  \n  # monospace: Fira Code # ALT: If a string, sets the monospace font family\n  monospace:\n    family: Fira Code  # Optional: Font family for monospace text\n    weight: 400  # Optional: Font weight for monospace text\n    size: 0.9em  # Optional: Font size for monospace text, CSS units allowed but `rem` or `px` preferred\n  monospace-inline: # Inline monospace text, inherits from monospace\n    # Properties of monospace can be overwritten here\n    color: \"#7d12ba\"  # Color for inline monospace text, ALT: named colors from `color` or `color.palette`\n    background-color: \"#f8f9fa\"  # Background color for inline monospace text, ALT: named colors from `color` or `color.palette`\n  monospace-block:\n    color: foreground  # Color for block monospace text, ALT: named colors from `color` or `color.palette`\n    background-color: background  # Background color for block monospace text, ALT: named colors from `color` or `color.palette`\n    line-height: 1.4  # Line height for block monospace text\n  link:\n    weight: 600  # Font weight for links\n    color: \"#0066cc\"  # Optional color for link, defaults `color.primary`. ALT: named colors from `color` or `color.palette`\n    background-color: transparent  # Optional background color for links, ALT: named colors from `color` or `color.palette`\n    decoration: underline  # Optional text decoration for links\n\ndefaults: # Additional Bootstrap, Shiny, or Quarto rules, all optional and only to be used as a last resort\n  bootstrap: Additional scss rules for any contexts that use Bootstrap\n    functions: # string with scss function declarations\n    defaults: # Mapping of Bootstrap variables to default values\n    mixins: # string with scss mixins\n    rules: # string with scss rules\n  quarto:\n    format:\n      # Options specific to output Quarto output formats\n  shiny:\n    theme: # Additional scss rules to add to the Shiny branded theme\n      defaults:\n        # Named bootstrap variables and their default values\n        navbar-bg: $brand-orange # Use Sass variables to access brand colors: $brand-{color_name}\n      rules:\n        # A string of additional scss rules\n```\n\n## Brand best practices\n\nBe careful and be certain to follow these rules when creating the\n`_brand.yml` file:\n\n-   When brands define a range of shades and tints for colors, it's best\n    to choose the midpoint color as the primary color used in the\n    `color.palette`.\n\n-   For logo and font files, use placeholders in the `_brand.yml` with\n    instructions to download the files and place them next to\n    `_brand.yml`.\n\n-   Suggest substitutes for proprietary fonts by finding the closest\n    equivalent fonts on Google Fonts.\n\n-   Prefer hex color syntax for raw color values.\n\nProvide the YAML file directly in a markdown block. Include any\nfollow-up instructions in the YAML as inline comments.\n\n\n\nIf you’ve copied the above text into the chat (as opposed to using it as a system prompt), make sure that you follow up with additional instructions, for example:\nCreate a _brand.yml for {company} using the following context from {company}'s' brand guidelines\n\n&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;"
+  },
+  {
+    "objectID": "articles/llm-brand-yml-prompt/index.html#some-tips-and-tricks",
+    "href": "articles/llm-brand-yml-prompt/index.html#some-tips-and-tricks",
+    "title": "Creating a brand.yml with an LLM",
+    "section": "Some tips and tricks",
+    "text": "Some tips and tricks\n\nCopy and paste from brand guidelines\nIn general, if you can copy and paste entire sections from your brand guidelines, that approach works better than uploading screenshots. If your brand guidelines are designed in PDF and are not plain text, you can take screenshots or try uploading the brand guidelines directly.\nAs a last resort, find a webpage or document that serves as a complete demonstration of your brand’s design and include a screenshot. In my experience, ChatGPT and Claude can get fairly close to your brand from a simple screenshot.\n\n\nAsk for alternative fonts\nMany brands use proprietary fonts that aren’t freely available online. When translating typographic choices from brand guidelines, LLMs tend to include placeholder YAML for these font files assuming that you’ll be able to download them.\nIt can be helpful to ask a follow-up question to request publicly-available font substitutes using either Google Fonts or Bunny Fonts (a GDPR-compliant alternative to Google Fonts).\nFind alternative fonts that match {company}'s fonts using Google Fonts.\nI’ve been impressed with the ability of LLMs to pick reasonable font substitutes with this simple level of prompting.\n\n\nAsk for Bootstrap color aliases\nBoth brand guidelines and LLMs tend to use creative language when naming colors, e.g. tea-green, amethyst, raisin and hunter (color names used in Dell’s brand guidelines). On the other hand, many web frameworks like Bootstrap have hooks for simple, common color names such as blue, green, yellow, purple, etc.\nIt can be helpful to ask a follow-up question to make sure that your _brand.yml includes aliases for these color names.\nUpdate `color.palette` to include aliases for Bootstrap's\nprimary colors drawing from the brand's color palette.\n\n\nTry _brand.yml in a live example\nOnce you have the initial _brand.yml file from the LLM, you can try it out in a live Shiny app on shinylive.io. Shinylive apps run directly in your browser and do not require any installation.\nWe’ve created an example app using Shiny’s branded theming. Copy the _brand.yml from the LLM and replace the _brand.yml content in the app editor.\n\n\nBranded Shiny App"
+  },
+  {
+    "objectID": "articles/llm-brand-yml-prompt/index.html#footnotes",
+    "href": "articles/llm-brand-yml-prompt/index.html#footnotes",
+    "title": "Creating a brand.yml with an LLM",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nPun intended. Sorry, not sorry.↩︎\nThis file is also served at https://posit-dev.github.io/brand-yml/.well-known/llms.txt.↩︎"
+  },
+  {
+    "objectID": "brand/logo.html#about",
+    "href": "brand/logo.html#about",
+    "title": "Logo",
+    "section": "About",
+    "text": "About\nThe logo section in your _brand.yml file allows you to define and organize the logos and brand images for your project. This flexible system supports various logo sizes, light/dark variants, and the ability to store multiple image resources for different use cases.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Logo"
+    ]
+  },
+  {
+    "objectID": "brand/logo.html#structure",
+    "href": "brand/logo.html#structure",
+    "title": "Logo",
+    "section": "Structure",
+    "text": "Structure\nThe logo field in your _brand.yml file can be structured in several ways, from a simple single-logo setup to a more complex configuration with multiple sizes and variants:\n\nimages: A dictionary of named logo resources\nsmall: Logo for small display contexts (e.g., favicons)\nmedium: Logo for medium display contexts (e.g., website headers)\nlarge: Logo for large display contexts (e.g., title slides, marketing materials)\n\nLogos can be stored locally—adjacent to your _brand.yml file—or hosted online. Local file paths should be relative to the location of your _brand.yml file (I’ll use logos/ as the directory in the examples below). Online images should use full URLs starting with http:// or https://.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Logo"
+    ]
+  },
+  {
+    "objectID": "brand/logo.html#examples",
+    "href": "brand/logo.html#examples",
+    "title": "Logo",
+    "section": "Examples",
+    "text": "Examples\n\nSimple Single Logo\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\nBasic Multi-size Configuration\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium: logos/header-logo.png\n  large: logos/full-logo.svg\n\n\n\nLight/Dark Variants\nYou can specify different logos for light and dark backgrounds by giving the small, medium, and large attributes a nested mapping with light and dark child elements. “light” means for use on light background (or in a light color mode), and “dark” means for use on dark background (or in a dark color mode).\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n  large: logos/full-logo.svg\n\n\n\nComprehensive Configuration with Named Resources\nUse images as a nested mapping to define multiple logo resources with meaningful names. Then, you can directly reference these resources by name in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/icon.png\n    header: logos/header-logo.png\n    header-white: logos/header-logo-white.png\n    full: logos/full-logo.svg\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full\n\n\n\nConfiguration with Alternative Text\nLogo images can have associated alternative text for accessibility purposes. This can be specified as an alt property in the image object as the alt text is directly associated with each image. The University of South Carolina provides a great resource on writing effective alt text for logos in their Digital Accessibility Toolbox.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon:\n      path: logos/icon.png\n      alt: \"Company icon with abstract shapes\"\n    header:\n      path: logos/header-logo.png\n      alt: \"Company name with logo\"\n    header-white:\n      path: logos/header-logo-white.png\n      alt: \"Company name with logo in white\"\n    full:\n      path: logos/full-logo.svg\n      alt: \"Full company logo with tagline\"\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Logo"
+    ]
+  },
+  {
+    "objectID": "brand/logo.html#attributes",
+    "href": "brand/logo.html#attributes",
+    "title": "Logo",
+    "section": "Attributes",
+    "text": "Attributes\n\nimages\nThe images attribute is a mapping that allows you to define multiple logo resources with meaningful names. These named resources can then be referenced in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: logos/primary-logo.png\n    icon: logos/favicon.png\n    white: logos/white-logo.png\n\nEach image can be specified as a simple string path or as an object with path and alt properties:\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary:\n      path: logos/primary-logo.png\n      alt: \"Company logo with name and icon\"\n\n\n\nsmall\nThe small attribute defines the logo used for small display contexts, such as favicons or mobile app icons.\nsmall, medium and large can each be a simple string path to the image or a reference to a named resource defined in the images attribute (shown in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/favicon.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/favicon.png\n  small: icon\n\n\n\n\n\nmedium\nThe medium attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars.\nsmall, medium and large can also be nested mappings with light and dark child elements to specify different logos for light and dark backgrounds (show in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  medium: logos/header-logo.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n\n\n\n\n\nlarge\nThe large attribute defines the logo for large display contexts, such as title slides or marketing materials.\nIt has the same properties as small and medium. Note that light and dark variants can also refer to named images resources (show in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  large: logos/full-logo.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    full: logos/full-logo.svg\n    full-white: logos/full-logo-white.svg\n  large:\n    light: full\n    dark: full-white",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Logo"
+    ]
+  },
+  {
+    "objectID": "brand/defaults.html#about",
+    "href": "brand/defaults.html#about",
+    "title": "Defaults",
+    "section": "About",
+    "text": "About\nIndividual formats and outputs can expose format-specific variables or options that are relevant to branding. These options are tied to a specific output format or context, so they can’t be included in the core brand specification. But they are still relevant to the brand and need a place within brand.yml.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Defaults"
+    ]
+  },
+  {
+    "objectID": "brand/defaults.html#structure",
+    "href": "brand/defaults.html#structure",
+    "title": "Defaults",
+    "section": "Structure",
+    "text": "Structure\n\n\n\n\n\n\nWarning\n\n\n\nThis section of brand.yml is not as well-sepecified as the other sections, by design. As brand.yml adoption grows, new tools will need to be able to store options specific to the tool. This part of the brand.yml spec may change as we learn more about the needs of different tools.\n\n\nCurrently, both Quarto and Shiny support a bootstrap section under defaults that can be used to set default values for Bootstrap Sass variables.\n\n\n_brand.yml\n\ndefaults:\n  bootstrap:\n    defaults:\n      enable-rounded: false\n      link-decoration: none\n\nIn Shiny for Python, an additional shiny.theme section is used to set default values for Shiny-specific theme settings.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    pink: \"#E83E8C\"\ndefaults:\n  shiny:\n    theme:\n      preset: shiny\n      defaults:\n        bslib-dashboard-design: false\n      rules: |\n        .navbar-brand { color: $brand-pink }\n\nNote that in these sections, you can make use of brand features, like the addition of $brand-{color} Sass variables.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Defaults"
+    ]
+  },
+  {
+    "objectID": "brand/meta.html#about",
+    "href": "brand/meta.html#about",
+    "title": "Metadata",
+    "section": "About",
+    "text": "About\nThe meta section in a _brand.yml provides a place to store metadata about the company or project described in the file. This information may be used by tools that support brand.yml to add social media icons, links, footers, etc. It can also be used as a place to store additional context about the company or brand that you’d like to store in a common place.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "brand/meta.html#structure",
+    "href": "brand/meta.html#structure",
+    "title": "Metadata",
+    "section": "Structure",
+    "text": "Structure\nThe meta section primarily consists of two main components:\n\nname: The name of the company or brand\nlink: URLs to the brand’s online presence\n\nBoth name and link are optional fields, and you can add additional fields as needed for your specific use case.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "brand/meta.html#examples",
+    "href": "brand/meta.html#examples",
+    "title": "Metadata",
+    "section": "Examples",
+    "text": "Examples\nHere are some examples of how you might use the meta section in your _brand.yml file:\n\nMinimal Example\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n  link: https://www.acmecorp.com\n\n\n\nComprehensive Example\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n  link:\n    home: https://www.acmecorp.com\n    docs: https://docs.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n    facebook: https://www.facebook.com/acmecorp\n  description: |\n    Acme Corporation is a leading provider of innovative solutions for cartoon\n    characters worldwide.\n  founded: 1952",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "brand/meta.html#attributes",
+    "href": "brand/meta.html#attributes",
+    "title": "Metadata",
+    "section": "Attributes",
+    "text": "Attributes\n\nName\nThe name field can be specified in two ways:\n\nAs a simple string, representing the full name of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n\nAs an object with full and short properties:\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n\nThis format is useful when you need to distinguish between a full company name and a shorter version depending on context.\n\n\n\nLink\nThe link field can also be specified in two ways:\n\nAs a simple string, representing the main website of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  link: https://www.acmecorp.com\n\nAs an object with multiple properties representing different online presences:\n\n\n_brand.yml\n\nmeta:\n  link:\n    home: https://www.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    linkedin: https://www.linkedin.com/company/acmecorp\n\nThis format allows you to record links to the homepage and related social media accounts used by your brand. Note that links should be full URLs, including the https:// prefix.",
+    "crumbs": [
+      "About",
+      "Brand Elements",
+      "Metadata"
+    ]
+  },
+  {
     "objectID": "index.html#unified-branding-with-a-simple-yaml-file",
     "href": "index.html#unified-branding-with-a-simple-yaml-file",
     "title": "brand.yml",
@@ -249,6 +587,39 @@
     "text": "Footnotes\n\n\nPartial support – where brand.yml can be used with manual configuration – is indicated by light green shading.↩︎",
     "crumbs": [
       "About"
+    ]
+  },
+  {
+    "objectID": "brand/index.html#outline",
+    "href": "brand/index.html#outline",
+    "title": "brand.yml Structure",
+    "section": "Outline",
+    "text": "Outline\n\n\n_brand.yml\n\n1meta:\n  name: brand.yml\n  links:\n    home: https://posit-dev.github.io/brand-yml\n    github: https://github.com/posit-dev/brand-yml\n\n2logo:\n  images:\n    icon-color: logos/icon/brand-yml-icon-color.png\n    wide-color: logos/wide/brand-yml-wide-color.png\n    tall-color: logos/wide/brand-yml-tall-color.png\n  small: icon-color\n  medium: wide-color\n  large: tall-color\n\ncolor:\n3  palette:\n    orange: \"#FF6F20\"\n    pink: \"#FF3D7F\"\n    green: \"#28A745\"\n    yellow: \"#FFC107\"\n4  primary: orange\n  success: green\n  warning: yellow\n  danger: pink\n\ntypography:\n5  fonts:\n    - family: Open Sans\n      source: google\n    - family: IBM Plex Mono\n      source: google\n    - family: Rubik\n      source: google\n6  base:\n    family: Open Sans\n    line-height: 1.6\n  headings:\n    family: Rubik\n    weight: normal\n  link:\n    color: purple\n  monospace:\n    family: IBM Plex Mono\n    size: 1em\n\n7defaults:\n  bootstrap:\n    # bootstrap variable definitions\n  quarto:\n    format:\n      # basic format-specific settings\n      html:\n      revealjs:\n  shiny:\n    # shiny specific settings\n\n\n1\n\nmeta: Key identity information, name of the company, links to brand guidelines, etc.\n\n2\n\nlogo: Files or links to the brand’s logo at various sizes.\n\n3\n\ncolor.palette: Named colors in the brand’s color palette.\n\n4\n\ncolor: Semantic colors, e.g. primary, secondary, success, warning, etc.\n\n5\n\ntypography.fonts: Font definitions for Google, remote or bundled fonts.\n\n6\n\ntypography: Font family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text.\n\n7\n\ndefaults: Additional context-specific settings beyond the basic brand colors and typography. These could be options, for example, that are used by Bootstrap in Quarto or Shiny. They could also be folded into existing Quarto yaml fields like format or website, or they could be new fields for other contexts like shiny.",
+    "crumbs": [
+      "About",
+      "Structure"
+    ]
+  },
+  {
+    "objectID": "brand/index.html#description",
+    "href": "brand/index.html#description",
+    "title": "brand.yml Structure",
+    "section": "Description",
+    "text": "Description\n\nmeta\n\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nSemantic colors, e.g. primary, secondary, success, warning, etc. color.palette: Named colors in the brand’s color palette.\n\ntypography\n\nFont family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text. typography.fonts: Font definitions for Google, remote or bundled fonts.\n\ndefaults\n\nAdditional context-specific settings beyond the basic brand colors and typography. These could be options, for example, that are used by Bootstrap in Quarto or Shiny. They could also be folded into existing Quarto yaml fields like format or website, or they could be new fields for other contexts like shiny.",
+    "crumbs": [
+      "About",
+      "Structure"
+    ]
+  },
+  {
+    "objectID": "brand/index.html#specification",
+    "href": "brand/index.html#specification",
+    "title": "brand.yml Structure",
+    "section": "Specification",
+    "text": "Specification\nWe’ve created a schema for the structure of a brand.yml file in two flavors:\n\nbrand.yml schema as YAML, a YAML variant of JSON Schema used by Quarto to validate the structure _brand.yml files or brand in Quarto metadata.\nbrand.yml schema as JSON, a JSON Schema containing the definitions used in the YAML schema.",
+    "crumbs": [
+      "About",
+      "Structure"
     ]
   },
   {
@@ -312,424 +683,6 @@
     ]
   },
   {
-    "objectID": "brand/meta.html#about",
-    "href": "brand/meta.html#about",
-    "title": "Metadata",
-    "section": "About",
-    "text": "About\nThe meta section in a _brand.yml provides a place to store metadata about the company or project described in the file. This information may be used by tools that support brand.yml to add social media icons, links, footers, etc. It can also be used as a place to store additional context about the company or brand that you’d like to store in a common place.",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "brand/meta.html#structure",
-    "href": "brand/meta.html#structure",
-    "title": "Metadata",
-    "section": "Structure",
-    "text": "Structure\nThe meta section primarily consists of two main components:\n\nname: The name of the company or brand\nlink: URLs to the brand’s online presence\n\nBoth name and link are optional fields, and you can add additional fields as needed for your specific use case.",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "brand/meta.html#examples",
-    "href": "brand/meta.html#examples",
-    "title": "Metadata",
-    "section": "Examples",
-    "text": "Examples\nHere are some examples of how you might use the meta section in your _brand.yml file:\n\nMinimal Example\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n  link: https://www.acmecorp.com\n\n\n\nComprehensive Example\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n  link:\n    home: https://www.acmecorp.com\n    docs: https://docs.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    twitter: https://twitter.com/acmecorp\n    linkedin: https://www.linkedin.com/company/acmecorp\n    facebook: https://www.facebook.com/acmecorp\n  description: |\n    Acme Corporation is a leading provider of innovative solutions for cartoon\n    characters worldwide.\n  founded: 1952",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "brand/meta.html#attributes",
-    "href": "brand/meta.html#attributes",
-    "title": "Metadata",
-    "section": "Attributes",
-    "text": "Attributes\n\nName\nThe name field can be specified in two ways:\n\nAs a simple string, representing the full name of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  name: Acme Corporation\n\nAs an object with full and short properties:\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Acme Corporation International\n    short: Acme\n\nThis format is useful when you need to distinguish between a full company name and a shorter version depending on context.\n\n\n\nLink\nThe link field can also be specified in two ways:\n\nAs a simple string, representing the main website of the company or brand:\n\n\n_brand.yml\n\nmeta:\n  link: https://www.acmecorp.com\n\nAs an object with multiple properties representing different online presences:\n\n\n_brand.yml\n\nmeta:\n  link:\n    home: https://www.acmecorp.com\n    github: https://github.com/acmecorp\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social\n    linkedin: https://www.linkedin.com/company/acmecorp\n\nThis format allows you to record links to the homepage and related social media accounts used by your brand. Note that links should be full URLs, including the https:// prefix.",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Metadata"
-    ]
-  },
-  {
-    "objectID": "brand/logo.html#about",
-    "href": "brand/logo.html#about",
-    "title": "Logo",
-    "section": "About",
-    "text": "About\nThe logo section in your _brand.yml file allows you to define and organize the logos and brand images for your project. This flexible system supports various logo sizes, light/dark variants, and the ability to store multiple image resources for different use cases.",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Logo"
-    ]
-  },
-  {
-    "objectID": "brand/logo.html#structure",
-    "href": "brand/logo.html#structure",
-    "title": "Logo",
-    "section": "Structure",
-    "text": "Structure\nThe logo field in your _brand.yml file can be structured in several ways, from a simple single-logo setup to a more complex configuration with multiple sizes and variants:\n\nimages: A dictionary of named logo resources\nsmall: Logo for small display contexts (e.g., favicons)\nmedium: Logo for medium display contexts (e.g., website headers)\nlarge: Logo for large display contexts (e.g., title slides, marketing materials)\n\nLogos can be stored locally—adjacent to your _brand.yml file—or hosted online. Local file paths should be relative to the location of your _brand.yml file (I’ll use logos/ as the directory in the examples below). Online images should use full URLs starting with http:// or https://.",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Logo"
-    ]
-  },
-  {
-    "objectID": "brand/logo.html#examples",
-    "href": "brand/logo.html#examples",
-    "title": "Logo",
-    "section": "Examples",
-    "text": "Examples\n\nSimple Single Logo\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\nBasic Multi-size Configuration\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium: logos/header-logo.png\n  large: logos/full-logo.svg\n\n\n\nLight/Dark Variants\nYou can specify different logos for light and dark backgrounds by giving the small, medium, and large attributes a nested mapping with light and dark child elements. “light” means for use on light background (or in a light color mode), and “dark” means for use on dark background (or in a dark color mode).\n\n\n_brand.yml\n\nlogo:\n  small: logos/icon.png\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n  large: logos/full-logo.svg\n\n\n\nComprehensive Configuration with Named Resources\nUse images as a nested mapping to define multiple logo resources with meaningful names. Then, you can directly reference these resources by name in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/icon.png\n    header: logos/header-logo.png\n    header-white: logos/header-logo-white.png\n    full: logos/full-logo.svg\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full\n\n\n\nConfiguration with Alternative Text\nLogo images can have associated alternative text for accessibility purposes. This can be specified as an alt property in the image object as the alt text is directly associated with each image. The University of South Carolina provides a great resource on writing effective alt text for logos in their Digital Accessibility Toolbox.\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon:\n      path: logos/icon.png\n      alt: \"Company icon with abstract shapes\"\n    header:\n      path: logos/header-logo.png\n      alt: \"Company name with logo\"\n    header-white:\n      path: logos/header-logo-white.png\n      alt: \"Company name with logo in white\"\n    full:\n      path: logos/full-logo.svg\n      alt: \"Full company logo with tagline\"\n  small: icon\n  medium:\n    light: header\n    dark: header-white\n  large: full",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Logo"
-    ]
-  },
-  {
-    "objectID": "brand/logo.html#attributes",
-    "href": "brand/logo.html#attributes",
-    "title": "Logo",
-    "section": "Attributes",
-    "text": "Attributes\n\nimages\nThe images attribute is a mapping that allows you to define multiple logo resources with meaningful names. These named resources can then be referenced in the small, medium, and large attributes.\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: logos/primary-logo.png\n    icon: logos/favicon.png\n    white: logos/white-logo.png\n\nEach image can be specified as a simple string path or as an object with path and alt properties:\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary:\n      path: logos/primary-logo.png\n      alt: \"Company logo with name and icon\"\n\n\n\nsmall\nThe small attribute defines the logo used for small display contexts, such as favicons or mobile app icons.\nsmall, medium and large can each be a simple string path to the image or a reference to a named resource defined in the images attribute (shown in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/favicon.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon: logos/favicon.png\n  small: icon\n\n\n\n\n\nmedium\nThe medium attribute specifies the logo for medium-sized display contexts, typically used in website headers or navigation bars.\nsmall, medium and large can also be nested mappings with light and dark child elements to specify different logos for light and dark backgrounds (show in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  medium: logos/header-logo.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  medium:\n    light: logos/header-logo.png\n    dark: logos/header-logo-white.png\n\n\n\n\n\nlarge\nThe large attribute defines the logo for large display contexts, such as title slides or marketing materials.\nIt has the same properties as small and medium. Note that light and dark variants can also refer to named images resources (show in the second example).\n\n\n\n\n_brand.yml\n\nlogo:\n  large: logos/full-logo.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    full: logos/full-logo.svg\n    full-white: logos/full-logo-white.svg\n  large:\n    light: full\n    dark: full-white",
-    "crumbs": [
-      "About",
-      "Brand Elements",
-      "Logo"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/posit/index.html",
-    "href": "inspiration/brand-guidelines/posit/index.html",
-    "title": "Posit",
-    "section": "",
-    "text": "Posit Brand Guidelines",
-    "crumbs": [
-      "Posit"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/posit/index.html#highlights",
-    "href": "inspiration/brand-guidelines/posit/index.html#highlights",
-    "title": "Posit",
-    "section": "Highlights",
-    "text": "Highlights\n\n\n\nPosit Color Guidance\n\n\n\n\n\nAdditional Primary Posit Tints\n\n\n\n\n\nAdditional Secondary Posit Tints\n\n\n\n\n\nPosit Typography Guidance",
-    "crumbs": [
-      "Posit"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/posit/index.html#colors",
-    "href": "inspiration/brand-guidelines/posit/index.html#colors",
-    "title": "Posit",
-    "section": "Colors",
-    "text": "Colors\nHere are Posit’s primary brand colors, excluding the many shades and tints.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    blue: \"#447099\"\n    orange: \"#ee6331\"\n    teal: \"#419599\"\n    green: \"#729943\"\n    burgundy: \"#9a4665\"\n    purple: burgundy\n    gray: \"#404041\"\n    black: \"#151515\"\n    white: \"#FFFFFF\"\n  foreground: black\n  background: white\n  primary: blue\n  secondary: gray\n  info: teal\n  success: green\n  warning: orange\n  danger: burgundy",
-    "crumbs": [
-      "Posit"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/posit/index.html#typography",
-    "href": "inspiration/brand-guidelines/posit/index.html#typography",
-    "title": "Posit",
-    "section": "Typography",
-    "text": "Typography\n\nPlease use Open Sans, and see the brand guidelines for helpful guidance on font style usage.\nIf you are limited to web-safe fonts, please use Arial. For monospace font use Source Code Pro.\n\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Open Sans\n      source: bunny\n    - family: Source Code Pro\n      source: bunny\n  base: Open Sans\n  headings:\n    weight: light\n  monospace: Source Code Pro",
-    "crumbs": [
-      "Posit"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/posit/index.html#logo",
-    "href": "inspiration/brand-guidelines/posit/index.html#logo",
-    "title": "Posit",
-    "section": "Logo",
-    "text": "Logo\n\n\n\nName\nImage\n\n\n\n\nIcon\n\n\n\nFull\n\n\n\nReverse\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    icon:\n      path: posit-logo.svg\n      alt: Posit icon.\n    full:\n      path: posit-logo-fullcolor.svg\n      alt: Posit logo.\n    full-reverse:\n      path: posit-logo-reverse.svg\n      alt: Posit logo.\n  small: icon\n  medium:\n    light: full\n    dark: full-reverse\n  large:\n    light: full\n    dark: full-reverse",
-    "crumbs": [
-      "Posit"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/home-depot/index.html",
-    "href": "inspiration/brand-guidelines/home-depot/index.html",
-    "title": "Home Depot",
-    "section": "",
-    "text": "Home Depot Brand Guidelines\n\n\n\nHome Depot (Foundation) Colors and Typography\n\n\n\n\n_brand.yml\n\nmeta:\n  name: Home Depot\n  link: https://homedepot.com\n\ncolor:\n  palette:\n    orange: \"#F96302\"\n    white: \"#FFFFFF\"\n    black: \"#000000\"\n    warm-gray-ligt: \"#F5F5F5\"\n    warm-gray-dark: \"#747474\"\n    warm-gray-medium: \"#C4C4C4\"\n  theme:\n    foreground: black\n    background: white\n    primary: orange\n    secondary: warm-gray-dark\n    light: warm-gray-light\n    dark: warm-gray-dark\n\ntypography:\n  fonts:\n    - family: Helvetica Nueue LT Pro\n      source: file\n      files:\n        - path: HelveticaNeueLTPro.ttf\n        - path: HelveticaNeueLTPro-Bold.ttf\n          weight: bold\n    - family: Helvetica Nueue LT Pro Condensed\n      source: file\n      files:\n        - path: HelveticaNeueLTPro-Cond-Bold.ttf\n          weight: bold\n  body: Helvetica Nueue LT Pro\n  headings: Helvetica Nueue LT Pro Condensed",
-    "crumbs": [
-      "Home Depot"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html",
-    "href": "inspiration/brand-guidelines/indeed/index.html",
-    "title": "Indeed",
-    "section": "",
-    "text": "Indeed Brand Guidelines",
-    "crumbs": [
-      "Indeed"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html#color",
-    "href": "inspiration/brand-guidelines/indeed/index.html#color",
-    "title": "Indeed",
-    "section": "Color",
-    "text": "Color\nThe Indeed color swatches PDF lists a large number of colors. We’ll include the primary and functional palettes mentioned there, as well as key colors from the secondary palette.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    white: \"#FFFFFF\"\n    blue: \"#003A9B\"\n    blue-ink: \"#001C40\"\n    blue-a11y: \"#6792F0\"\n    # Secondary Palette\n    earth: \"#C08A38\"\n    orange: \"#DF7838\"\n    magenta: \"#E867A8\"\n    purple: \"#9288EE\"\n    aqua: \"#409EC8\"\n    green: \"#4CA38F\"\n    # Functional Colors\n    blue-100: \"#0D2D5E\"\n    blue-60: \"#6792F0\"\n    blue-80: \"#2557A7\"\n    magenta-80: \"#D700A4\"\n    magenta-20: \"#FCEEF4\"\n    green-80: \"#1F662C\"\n    green-20: \"#E4F7E6\"\n    red-80: \"#A9252B\"\n    red-20: \"#FEEEF\"\n    gray-100: \"#2D2D2D\"\n    gray-90: \"#424242\"\n    gray-80: \"#595959\"\n    gray-70: \"#767676\"\n    gray-60: \"#949494\"\n    gray-50: \"#B4B2B1\"\n    gray-40: \"#D4D2D0\"\n    gray-30: \"#E4E2E0\"\n    gray-20: \"#F3F2F1\"\n    gray-10: \"#FAF9F8\"\n  foreground: gray-80\n  background: white\n  primary: blue\n  success: green\n  warning: earth",
-    "crumbs": [
-      "Indeed"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html#logos",
-    "href": "inspiration/brand-guidelines/indeed/index.html#logos",
-    "title": "Indeed",
-    "section": "Logos",
-    "text": "Logos\n\n\n\n\n\n\n\n\nSize\nVariant\nPreview\n\n\n\n\nSmall\nLight\n\n\n\nSmall\nDark\n\n\n\nMedium\nLight\n\n\n\nMedium\nDark\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small:\n    light: Indeed_2021_Icon_RGB_Blue.svg\n    dark: Indeed_2021_Icon_RGB_White.svg\n  medium:\n    light: Indeed_Logo_Blue.svg\n    dark: Indeed_Logo_White.svg",
-    "crumbs": [
-      "Indeed"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/indeed/index.html#typography",
-    "href": "inspiration/brand-guidelines/indeed/index.html#typography",
-    "title": "Indeed",
-    "section": "Typography",
-    "text": "Typography\nIndeed uses a proprietary font called “Indeed Sans” for its brand. Work Sans is a close match and is available on Google Fonts, so we’re using that here.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Work Sans\n      source: google\n  base: Work Sans\n  headings:\n    color: gray-100\n  link:\n    color: blue",
-    "crumbs": [
-      "Indeed"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/dell/index.html",
-    "href": "inspiration/brand-guidelines/dell/index.html",
-    "title": "Dell",
-    "section": "",
-    "text": "Dell Brand Guidelines\nDell Design System",
-    "crumbs": [
-      "Dell"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/dell/index.html#logo",
-    "href": "inspiration/brand-guidelines/dell/index.html#logo",
-    "title": "Dell",
-    "section": "Logo",
-    "text": "Logo\n\n\n\n_brand.yml\n\nlogo:\n  small: dell-color.svg\n  medium: dell-color.svg",
-    "crumbs": [
-      "Dell"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/dell/index.html#color",
-    "href": "inspiration/brand-guidelines/dell/index.html#color",
-    "title": "Dell",
-    "section": "Color",
-    "text": "Color\nDell’s design system translates the brand guidelines into a design system for web products. In this example, we’ll use the color palette directly from the design system’s color palette.\n\n\n\n\n\nDell’s primary color palette\n\n\n\n\n\n\n\nDell’s secondary color palette\n\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Blues\n    blue-100: '#D9F5FD'\n    blue-200: '#94DCF7'\n    blue-300: '#5CC1EE'\n    blue-400: '#31A2E3'\n    blue-500: '#1282D6'\n    blue-600: '#0672CB'\n    blue-700: '#0063B8'\n    blue-800: '#00468B'\n    blue-900: '#002A58'\n\n    # Neutral Grays\n    white: '#FFFFFF'\n    gray-100: '#F5F6F7'\n    gray-200: '#F0F0F0'\n    gray-300: '#E1E1E1'\n    gray-400: '#D2D2D2'\n    gray-500: '#B6B6B6'\n    gray-600: '#7E7E7E'\n    gray-700: '#6E6E6E'\n    gray-800: '#636363'\n    gray-900: '#0E0E0E'\n\n    # Neutral Slates\n    slate-100: '#EBF1F6'\n    slate-200: '#C5D4E3'\n    slate-300: '#A4B8CD'\n    slate-400: '#839DB4'\n    slate-500: '#40586D'\n    slate-600: '#293B4D'\n    slate-700: '#1D2C3B'\n    slate-800: '#141D28'\n    slate-900: '#0A0E14'\n\n    # Secondary Colors\n    yellow-100: '#FEEFCB'\n    yellow-200: '#F5CD6F'\n    yellow-300: '#E6AC28'\n    yellow-400: '#CE8D00'\n    yellow-500: '#B36F00'\n    yellow-600: '#A36100'\n    yellow-700: '#925400'\n    yellow-800: '#6D3A00'\n    yellow-900: '#442200'\n\n    red-100: '#FFECEE'\n    red-200: '#FFC3C9'\n    red-300: '#FF99A1'\n    red-400: '#FE6873'\n    red-500: '#E4424D'\n    red-600: '#D0353F'\n    red-700: '#BB2A33'\n    red-800: '#8C161F'\n    red-900: '#590A0F'\n\n    green-100: '#E9F5CE'\n    green-200: '#C0DD78'\n    green-300: '#9BC438'\n    green-400: '#7AA809'\n    green-500: '#5D8C00'\n    green-600: '#4F7D00'\n    green-700: '#436F00'\n    green-800: '#2C5000'\n    green-900: '#193100'\n\n    # Accent Colors\n    light-blue-100: '#DAF5FD'\n    light-blue-200: '#97DCF4'\n    light-blue-300: '#61C1EB'\n    light-blue-400: '#36A2E0'\n    light-blue-500: '#1885C3'\n    light-blue-600: '#0D76B2'\n    light-blue-700: '#0468A1'\n    light-blue-800: '#004A77'\n    light-blue-900: '#002D4B'\n\n    purple-100: '#FBEBFF'\n    purple-200: '#ECC4FF'\n    purple-300: '#DB9EFF'\n    purple-400: '#C47AF4'\n    purple-500: '#A95ADC'\n    purple-600: '#994CCC'\n    purple-700: '#8A3FBA'\n    purple-800: '#66278F'\n    purple-900: '#40155C'\n\n    berry-100: '#FFEBF5'\n    berry-200: '#FFC0DF'\n    berry-300: '#F69AC6'\n    berry-400: '#E574AA'\n    berry-500: '#CB548D'\n    berry-600: '#BA467D'\n    berry-700: '#A8396F'\n    berry-800: '#7F234F'\n    berry-900: '#511230'\n\n    orange-100: '#FFEED2'\n    orange-200: '#FEC97A'\n    orange-300: '#F8A433'\n    orange-400: '#E67F01'\n    orange-500: '#C96100'\n    orange-600: '#B85200'\n    orange-700: '#A64600'\n    orange-800: '#7D2E00'\n    orange-900: '#4F1A00'\n\n    # Bootstrap color aliases\n    blue: blue-600\n    purple: berry-700\n    pink: berry-400\n    red: red-700\n    orange: orange-600\n    yellow: yellow-300\n    green: green-500\n    teal: '#0EA0A9'\n    cyan: light-blue-500\n    black: gray-900\n\n  # Theme colors\n  foreground: black\n  background: white\n  primary: blue-600\n  secondary: gray-400\n  success: green-500\n  warning: yellow-300\n  danger: red-700\n  info: '#0EA0A9'\n  light: gray-100\n  dark: gray-800",
-    "crumbs": [
-      "Dell"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/dell/index.html#typography",
-    "href": "inspiration/brand-guidelines/dell/index.html#typography",
-    "title": "Dell",
-    "section": "Typography",
-    "text": "Typography\nDell’s brand guidelines recommend using the Roboto typeface for all digital products. The guidelines note that “Roboto Condensed and Roboto Mono aren’t recommended for use (to help us maintain consistency.)”\n\n\n\nDell typography guidance\n\n\nRegular font weights should be used for body copy, a light font face for large headings (levels 1-3) and a bold font face for small headings (levels 4-6). The design system also includes guidance on line height, letter spacing, and font size, but it’s more granular that what’s supported by brand.yml.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Roboto\n      source: google\n    - family: Roboto Mono\n      source: google\n\n  base:\n    family: Roboto\n    line-height: 1.5\n\n  headings:\n    weight: 300\n\n  monospace: Roboto Mono\n\n  monospace-block:\n    background-color: gray-100",
-    "crumbs": [
-      "Dell"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/dell/index.html#defaults",
-    "href": "inspiration/brand-guidelines/dell/index.html#defaults",
-    "title": "Dell",
-    "section": "Defaults",
-    "text": "Defaults\nTo achieve varied font weights for headings, we’ll need to use additional CSS rules in Bootstrap contexts.\n\n\n_brand.yml\n\ndefaults:\n  bootstrap:\n    rules: |\n      .h4, .h5, .h6,\n       h4,  h5,  h6 {\n        font-weight: 400\n      }",
-    "crumbs": [
-      "Dell"
-    ]
-  },
-  {
-    "objectID": "articles/index.html",
-    "href": "articles/index.html",
-    "title": "Articles",
-    "section": "",
-    "text": "Creating a brand.yml with an LLM\n\n\n\n\n\nLearn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM. \n\n\n\n\n\nNov 15, 2024\n\n\nGarrick Aden-Buie\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "articles/llm-brand-yml-prompt/index.html",
-    "href": "articles/llm-brand-yml-prompt/index.html",
-    "title": "Creating a brand.yml with an LLM",
-    "section": "",
-    "text": "Extracting color values, fonts and logos from brand guidelines can be a tedious process. Thankfully, large language models (LLMs) are great at moving words and information around and can do the tedious work for you!\nBecause brand.yml is a brand1 new project, large language models like OpenAI’s ChatGPT, Anthropic’s Claude and others haven’t learned the syntax (yet)."
-  },
-  {
-    "objectID": "articles/llm-brand-yml-prompt/index.html#teaching-llms-about-brand.yml",
-    "href": "articles/llm-brand-yml-prompt/index.html#teaching-llms-about-brand.yml",
-    "title": "Creating a brand.yml with an LLM",
-    "section": "Teaching LLMs about brand.yml",
-    "text": "Teaching LLMs about brand.yml\nFortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a simple markdown file explaining brand.yml2 that you can copy and paste into a chat interface or that you can use as a system prompt.\n\n\n\n\n\n\nbrand.yml Prompt\n\n\n\n\n\nCopy the code block below and paste it into a chat interface or use it as a system prompt.\n## About brand.yml\n\nbrand.yml is a structured YAML file to hold brand information for key\nbrand elements. The goal of brand.yml is to capture the essence of the\nbrand's color and typographic choices in a simple format.\n\n\"brand.yml\" is the name of the project defining the YAML specification.\nA specific instance of a brand's data is stored in a file named\n\"_brand.yml\" by convention.\n\n## Brand Elements\n\n-   `meta` - Key identity information, name of the company, links to\n    brand guidelines, etc.\n\n-   `logo` - Files or links to the brand's logo at various sizes.\n\n-   `color` Semantic colors, e.g. `primary`, `secondary`, `success`,\n    `warning`, etc. Named colors in the brand's color palette are stored\n    in `color.palette`.\n\n-   `typography` - Font family, weight, style, color, and line height\n    for key elements, e.g. base, headings and monospace text. Available\n    fonts used by the brand are stored in `typography.fonts` and can be\n    sourced from Google Fonts, Bunny Fonts or local or remote font\n    files.\n\n-   `defaults` - Additional context-specific settings beyond the basic\n    brand colors and typography. These could be options, for example,\n    that are used by Bootstrap in Quarto or Shiny. They could also be\n    folded into existing Quarto yaml fields like `format` or `website`,\n    or they could be new fields for other contexts like `shiny`.\n\n## Example file\n\nThe following YAML includes all allowed features of a _brand.yml file.\nNote that all fields are optional.\n\nOnly include fields that directly apply to the brand; it's important for\nthe _brand.yml file to be simple and concise rather than overly\ncomplex. Many fields have simple and complex values variants; generally\nspeaking many fields accept either a simple string or a mapping.\nAlternative syntax is indicated in comments in the example below with\n\"ALT\". If possible, use the simple string.\n\n``` {.yaml filename=\"_brand.yml\"}\nmeta:\n  # name: Acme # ALT: Single string for simple company name\n  name:\n    short: Acme # Short company name\n    full: Acme Corporation International # Full, legal company name\n  \n  # link: https://acmecorp.com # ALT: single url for the company's home page\n  link:\n    home: https://www.acmecorp.com # Company's home apge\n    bluesky: https://bsky.app/profile/acmecorp.bsky.social # Bluesky social media account link\n    github: https://github.com/acmecorp # GitHub account link\n    mastodon: https://mastodon.social/@acmecorp # Mastodon account link\n    linkedin: https://www.linkedin.com/company/acmecorp # LinkedIn account link\n    facebook: https://www.facebook.com/acmecorp # Facebook account link\n    twitter: https://twitter.com/acmecorp # Twitter account link\n\nlogo:\n  images: # Mapping of image names to local files that should be stored next to the _brand.yml file. Users may need to download these files manually.\n    header: logos/header-logo.png # Each entry maps a name to a local file\n    header-white: logos/header-logo-white.png\n    full: # ALT: Images can alternatively be a path with associated alt text for accessibility\n      path: logos/full-logo.svg\n      alt: Acme logo.\n  small: logos/icon.png # A small image, ideally icon-sized. Can be a path to a file or the name of a file in `logo.images`\n  medium: # A medium sized logo, ideally small enough for a sidebar logo\n    # ALT: Logos is small, medium, and large may have `light` and `dark` variants\n    light: header # light variant for use on light backgrounds\n    dark: header-white # dark variant for use on dark backgrounds\n  large: full # A large logo, e.g. for use in a hero or cover page. ALT: Can refer directly to images in `logo.images`.\n\ncolor:\n  palette:\n    # Dictionary of the brand's colors with readable names. \n    # Must be a flat list of names and color values. \n    # Names should be follow Sass variable conventions. Prefer hex color values.\n    # Prefer or create aliases for Bootstrap primary colors: blue, indigo, purple, pink, red, orange, yellow, green, teal, cyan, white, black\n    white: \"#FFFFFF\"\n    black: \"#151515\"\n    blue: \"#447099\"\n    orange: \"#EE6331\"\n    green: \"#72994E\"\n    teal: \"#419599\"\n    burgundy: \"#9A4665\"\n    purple: burgundy # Aliases are allowed by referring to other colors in `color.palette`\n    fire-red: \"#FF0000\"\n    bright-yellow: \"#FFFF00\"\n\n  # All theme colors can take direct color values, and all are optional.\n  # Only include the colors that are obviously required.\n  # Refer to color names from `color.palette` whenever possible.\n  foreground: \"#151515\"  # Main text color, should have high contrast with background\n  background: \"#FFFFFF\"  # Main background color, should have high contrast with foreground\n  primary: \"#447099\"  # Main accent color for links, buttons, etc.\n  secondary: \"#707073\"  # Used for lighter text or disabled states. Only include if necessary.\n  tertiary: \"#C2C2C4\"  # Even lighter color for hover states, accents, wells. Only include if necessary.\n  success: \"#72994E\"  # Color for positive or successful actions/information\n  info: \"#419599\"  # Color for neutral or informational actions/information\n  warning: \"#EE6331\"  # Color for warning or cautionary actions/information,\n  danger: \"#9A4665\"  # Color for errors, dangerous actions, negative information\n  light: \"#FFFFFF\"  # Bright color for high-contrast on dark elements\n  dark: \"#404041\"  # Dark color for high-contrast on light elements\n  # ALT: All properties in `color` can refer by name to values in `color.palette`, including within `color.palette`.\n  # foreground: black\n  # background: white\n  # primary: blue\n  # success: green\n  # info: teal\n  # ALT: All properties in `color` can refer by name to other properties in `color`.\n\ntypography:\n  fonts:\n    - family: Open Sans  # Font family name\n      source: file  # Source of the font (file, google, bunny, or system)\n      files:  # REQUIRED list of font files for `source: file`, which must have at least one font file. Use placeholder names and comment out the source font section if proprietary fonts are used. (And include a Google Font alternative recommendation.)\n        - path: fonts/open-sans/OpenSans-Variable.ttf\n          # Each file corresponds to a weight and style, both default to \"normal\".\n          weight: 400  # Optional: specify weight for this file\n          style: normal  # Optional: specify style for this file\n        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf\n          style: italic\n    - family: Roboto Slab\n      source: google\n      weight: [600, 900]  # Optional font weights to include (for google and bunny), defaults to all weights\n      # weight: 600..900 # ALT: fonts with variable weights can have a weight range\n      # weight: [thin, normal, bold] # ALT: font weights by name are allowed\n      style: [normal, italic]  # Font styles to include (for google and bunny)\n      display: block  # Font display property (for google). Optional and should not be included in most cases.\n    - family: Fira Code\n      source: bunny # Use Bunny Fonts, a GDPR-compliant alternative to Google Fonts\n      weight: [400, 500, 600] # Optional, same as for `source: google`\n      style: [normal, italic] # Optional, same as for `source: google`\n  \n  # base: Open San # ALT: If a string, sets the base font family\n  base:\n    family: Open Sans  # Optional: Font family for body text\n    weight: 400  # Optional: Font weight for body text\n    size: 16px  # Optional: Font size for body text, allows any CSS value, rem or px are preferred\n    line-height: 1.5  # Optional: Line height for body text\n    # DO NOT INCLUDE color HERE. The base font uses `color.foreground` by default.\n  \n  # headings: Roboto Slab # ALT: If a string, sets the headings font family\n  headings:\n    family: Roboto Slab  # Optional: Font family for headings\n    weight: 600  # Optional: Font weight for headings\n    style: normal  # Optional: Font style for headings\n    line-height: 1.2  # Optional: Line height for headings\n    color: \"#333333\"  # Optional: Color for headings\n    # color: primary # ALT: Can use named colors from `color` or `color.palette`\n  \n  # monospace: Fira Code # ALT: If a string, sets the monospace font family\n  monospace:\n    family: Fira Code  # Optional: Font family for monospace text\n    weight: 400  # Optional: Font weight for monospace text\n    size: 0.9em  # Optional: Font size for monospace text, CSS units allowed but `rem` or `px` preferred\n  monospace-inline: # Inline monospace text, inherits from monospace\n    # Properties of monospace can be overwritten here\n    color: \"#7d12ba\"  # Color for inline monospace text, ALT: named colors from `color` or `color.palette`\n    background-color: \"#f8f9fa\"  # Background color for inline monospace text, ALT: named colors from `color` or `color.palette`\n  monospace-block:\n    color: foreground  # Color for block monospace text, ALT: named colors from `color` or `color.palette`\n    background-color: background  # Background color for block monospace text, ALT: named colors from `color` or `color.palette`\n    line-height: 1.4  # Line height for block monospace text\n  link:\n    weight: 600  # Font weight for links\n    color: \"#0066cc\"  # Optional color for link, defaults `color.primary`. ALT: named colors from `color` or `color.palette`\n    background-color: transparent  # Optional background color for links, ALT: named colors from `color` or `color.palette`\n    decoration: underline  # Optional text decoration for links\n\ndefaults: # Additional Bootstrap, Shiny, or Quarto rules, all optional and only to be used as a last resort\n  bootstrap: Additional scss rules for any contexts that use Bootstrap\n    functions: # string with scss function declarations\n    defaults: # Mapping of Bootstrap variables to default values\n    mixins: # string with scss mixins\n    rules: # string with scss rules\n  quarto:\n    format:\n      # Options specific to output Quarto output formats\n  shiny:\n    theme: # Additional scss rules to add to the Shiny branded theme\n      defaults:\n        # Named bootstrap variables and their default values\n        navbar-bg: $brand-orange # Use Sass variables to access brand colors: $brand-{color_name}\n      rules:\n        # A string of additional scss rules\n```\n\n## Brand best practices\n\nBe careful and be certain to follow these rules when creating the\n`_brand.yml` file:\n\n-   When brands define a range of shades and tints for colors, it's best\n    to choose the midpoint color as the primary color used in the\n    `color.palette`.\n\n-   For logo and font files, use placeholders in the `_brand.yml` with\n    instructions to download the files and place them next to\n    `_brand.yml`.\n\n-   Suggest substitutes for proprietary fonts by finding the closest\n    equivalent fonts on Google Fonts.\n\n-   Prefer hex color syntax for raw color values.\n\nProvide the YAML file directly in a markdown block. Include any\nfollow-up instructions in the YAML as inline comments.\n\n\n\nIf you’ve copied the above text into the chat (as opposed to using it as a system prompt), make sure that you follow up with additional instructions, for example:\nCreate a _brand.yml for {company} using the following context from {company}'s' brand guidelines\n\n&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;"
-  },
-  {
-    "objectID": "articles/llm-brand-yml-prompt/index.html#some-tips-and-tricks",
-    "href": "articles/llm-brand-yml-prompt/index.html#some-tips-and-tricks",
-    "title": "Creating a brand.yml with an LLM",
-    "section": "Some tips and tricks",
-    "text": "Some tips and tricks\n\nCopy and paste from brand guidelines\nIn general, if you can copy and paste entire sections from your brand guidelines, that approach works better than uploading screenshots. If your brand guidelines are designed in PDF and are not plain text, you can take screenshots or try uploading the brand guidelines directly.\nAs a last resort, find a webpage or document that serves as a complete demonstration of your brand’s design and include a screenshot. In my experience, ChatGPT and Claude can get fairly close to your brand from a simple screenshot.\n\n\nAsk for alternative fonts\nMany brands use proprietary fonts that aren’t freely available online. When translating typographic choices from brand guidelines, LLMs tend to include placeholder YAML for these font files assuming that you’ll be able to download them.\nIt can be helpful to ask a follow-up question to request publicly-available font substitutes using either Google Fonts or Bunny Fonts (a GDPR-compliant alternative to Google Fonts).\nFind alternative fonts that match {company}'s fonts using Google Fonts.\nI’ve been impressed with the ability of LLMs to pick reasonable font substitutes with this simple level of prompting.\n\n\nAsk for Bootstrap color aliases\nBoth brand guidelines and LLMs tend to use creative language when naming colors, e.g. tea-green, amethyst, raisin and hunter (color names used in Dell’s brand guidelines). On the other hand, many web frameworks like Bootstrap have hooks for simple, common color names such as blue, green, yellow, purple, etc.\nIt can be helpful to ask a follow-up question to make sure that your _brand.yml includes aliases for these color names.\nUpdate `color.palette` to include aliases for Bootstrap's\nprimary colors drawing from the brand's color palette.\n\n\nTry _brand.yml in a live example\nOnce you have the initial _brand.yml file from the LLM, you can try it out in a live Shiny app on shinylive.io. Shinylive apps run directly in your browser and do not require any installation.\nWe’ve created an example app using Shiny’s branded theming. Copy the _brand.yml from the LLM and replace the _brand.yml content in the app editor.\n\n\nBranded Shiny App"
-  },
-  {
-    "objectID": "articles/llm-brand-yml-prompt/index.html#footnotes",
-    "href": "articles/llm-brand-yml-prompt/index.html#footnotes",
-    "title": "Creating a brand.yml with an LLM",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nPun intended. Sorry, not sorry.↩︎\nThis file is also served at https://posit-dev.github.io/brand-yml/.well-known/llms.txt.↩︎"
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html",
-    "href": "inspiration/brand-guidelines/nhsr-community/index.html",
-    "title": "NHS-R Community",
-    "section": "",
-    "text": "NHS-R Community Guidelines",
-    "crumbs": [
-      "NHS-R Community"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#colour",
-    "href": "inspiration/brand-guidelines/nhsr-community/index.html#colour",
-    "title": "NHS-R Community",
-    "section": "Colour",
-    "text": "Colour\nThe NHS-R Community uses the NHS England colours for its branding1. The colours used by NHS-R Community do not, currently, include any colours from any other nation in the UK.\n\n\n_brand.yml\n\ncolor:\n  # NHS-R Community uses the NHS England colour palette\n  # https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/ used\n  # under the OGL Licence v3.0\n  palette:\n    # Core neutrals (Level 2)\n    white: '#FFFFFF'\n    black: '#231F20'\n    grey-dark: '#425563'\n    grey-mid: '#768692'\n    grey-pale: '#E8EDEE'\n\n    # Blues (Level 1)\n    blue-dark: '#003087'\n    blue: '#005EB8'\n    blue-bright: '#0072CE'\n    blue-light: '#41B6E6'\n    blue-aqua: '#00A9CE'\n\n    # Greens (Level 3)\n    green-dark: '#006747'\n    green: '#009639'\n    green-light: '#78BE20'\n    green-aqua: '#00A499'\n\n    # Purples and Pinks\n    purple: '#330072'\n    pink-dark: '#7C2855'\n    pink: '#AE2573'\n\n    # Reds\n    red-dark: '#8A1538'\n    red: '#DA291C'  # Emergency Services Red\n\n    # Yellows and Orange\n    orange: '#ED8B00'\n    yellow-warm: '#FFB81C'\n    yellow: '#FAE100'\n\n    # Bootstrap color aliases - using closest matches without duplication\n    indigo: blue-dark\n    cyan: blue-aqua\n    teal: green-aqua\n\n  foreground: black\n  background: white\n  primary: blue\n  secondary: grey-dark\n  tertiary: grey-pale\n  success: green\n  danger: red\n  warning: yellow-warm\n  info: blue-light\n  light: grey-pale\n  dark: grey-dark",
-    "crumbs": [
-      "NHS-R Community"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#typography",
-    "href": "inspiration/brand-guidelines/nhsr-community/index.html#typography",
-    "title": "NHS-R Community",
-    "section": "Typography",
-    "text": "Typography\nThe NHS-R Community _brand.yml uses the NHS-recommended font, Arial, which is assumed to be available on the user’s system. It also includes commented code for the use of Frutiger, the official NHS font. Frutiger is a proprietary font that requires purchasing, so it is not used in any NHS-R Community products.\nIf Frutiger is available to an NHS organisation, then the lines of code under fonts: need to be uncommented and the output tested.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    # Note: Frutiger is a licensed NHS England font that requires purchasing\n    # https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/\n    # - family: Frutiger W01\n    #   source: file\n    #   files:\n    #     - path: fonts/FrutigerLTW01-55Roman.ttf\n    #     - path: fonts/FrutigerLTW01-65Bold.ttf\n    #       weight: bold\n\n    - family: Arial\n      source: system\n\n  base:\n    family: Arial, sans-serif\n    line-height: 1.5\n\n  headings:\n    family: Arial, sans-serif\n    weight: 700\n    line-height: 1.25\n    color: blue",
-    "crumbs": [
-      "NHS-R Community"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#logo",
-    "href": "inspiration/brand-guidelines/nhsr-community/index.html#logo",
-    "title": "NHS-R Community",
-    "section": "Logo",
-    "text": "Logo\nThe NHS-R Community _brand.yml uses the NHS-R Community logo2, which incorporates the R project logo3.\nIt should be noted that the logo for the NHS in England is protected by law and is trade marked so can be used by official documents in the work of the NHS. In order to use this please just replace the NHS-R Community logo with that of NHS.\n\n\n_brand.yml\n\nlogo:\n  # Download the NHS-R Community logo and store it next to _brand.yml\n  # You'll have to update this section with the correct file names\n  images:\n    nhsr-logo:\n      path: nhsr-logo.svg\n      alt: NHS-R Community logo\n  small: nhsr-logo\n  medium: nhsr-logo\n  large: nhsr-logo",
-    "crumbs": [
-      "NHS-R Community"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/nhsr-community/index.html#footnotes",
-    "href": "inspiration/brand-guidelines/nhsr-community/index.html#footnotes",
-    "title": "NHS-R Community",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nUnder the Open Government Licence v3.0.↩︎\nCopies of the NHS-R Community’s logo are available under Creative Commons 1.0.↩︎\nThe R project logo is available under the Creative Commons Attribution-Share Alike 4.0 International licence.↩︎",
-    "crumbs": [
-      "NHS-R Community"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/slack/index.html",
-    "href": "inspiration/brand-guidelines/slack/index.html",
-    "title": "Slack",
-    "section": "",
-    "text": "Slack Brand Guidelines",
-    "crumbs": [
-      "Slack"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/slack/index.html#logos",
-    "href": "inspiration/brand-guidelines/slack/index.html#logos",
-    "title": "Slack",
-    "section": "Logos",
-    "text": "Logos\n\n\n\n\n\n\n\n\nName\nVariant\nImage\n\n\n\n\nMark\n\n\n\n\nMark\nBlack\n\n\n\nMark\nWhite\n\n\n\nLogo\nBlack\n\n\n\nLogo\nWhite\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark: SLA-Logo-Mark.svg\n    mark-black: SLA-Logo-Mark-Black-RGB.svg\n    mark-white: SLA-Logo-Mark-Monochrome-White.svg\n    logo-black: SLA-Slack-From-Salesforce-Logo-BLACK.svg\n    logo-white: SLA-Slack-From-Salesforce-Logo-WHITE.svg\n  small: mark\n  medium:\n    light: logo-black\n    dark: logo-white",
-    "crumbs": [
-      "Slack"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/slack/index.html#colors",
-    "href": "inspiration/brand-guidelines/slack/index.html#colors",
-    "title": "Slack",
-    "section": "Colors",
-    "text": "Colors\n\nCore palette\n\n\n\nName\nHex\nRGB\n\n\n\n\nAubergine\n#4A154B◉\nrgb(74, 21, 75)◉\n\n\nHorchata\n#F4EDE4◉\nrgb(244, 237, 228)◉\n\n\nBlack\n#1D1C1D◉\nrgb(29, 28, 29)◉\n\n\nWhite\n#FFFFFF◉\nrgb(255, 255, 255)◉\n\n\nSlack blue\n#36C5F0◉\nrgb(54, 197, 240)◉\n\n\nSlack green\n#2EB67D◉\nrgb(46, 182, 125)◉\n\n\nSlack yellow\n#ECB22E◉\nrgb(236, 178, 46)◉\n\n\nSlack red\n#E01E5A◉\nrgb(224, 30, 90)◉\n\n\n\n\n\nSecondary palette\n\n\n\nName\nHex\nRGB\n\n\n\n\nCobalt\n#1E328F◉\nrgb(30, 50, 143)◉\n\n\nSky\n#0E9DD3◉\nrgb(14, 157, 211)◉\n\n\nTeal\n#2392A2◉\nrgb(35, 146, 162)◉\n\n\nPool\n#78D7DD◉\nrgb(120, 215, 221)◉\n\n\nEvergreen\n#185F34◉\nrgb(24, 95, 52)◉\n\n\nMoss\n#729C1A◉\nrgb(114, 156, 26)◉\n\n\nSandbar\n#FFD57E◉\nrgb(255, 213, 126)◉\n\n\nPeach\n#FED4BE◉\nrgb(254, 212, 190)◉\n\n\nSalmon\n#F2606A◉\nrgb(242, 96, 106)◉\n\n\nBubblegum\n#FFB6BD◉\nrgb(225, 182, 189)◉\n\n\nCrimson\n#921D21◉\nrgb(146, 29, 33)◉\n\n\nTerracotta\n#DE8969◉\nrgb(222, 137, 105)◉\n\n\nBerry\n#7C2852◉\nrgb(124, 40, 82)◉\n\n\nMauve\n#C05B8C◉\nrgb(192, 91, 140)◉\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Core palette\n    aubergine: '#4A154B'\n    horchata: '#F4EDE4'\n    black: '#1D1C1D'\n    white: '#FFFFFF'\n    blue: '#36C5F0'\n    green: '#2EB67D'\n    yellow: '#ECB22E'\n    red: '#E01E5A'\n\n    # Secondary palette\n    cobalt: '#1E328F'\n    sky: '#0E9DD3'\n    teal: '#2392A2'\n    pool: '#78D7DD'\n    evergreen: '#185F34'\n    moss: '#729C1A'\n    sandbar: '#FFD57E'\n    peach: '#FED4BE'\n    salmon: '#F2606A'\n    bubblegum: '#FFB6BD'\n    crimson: '#921D21'\n    terracotta: '#DE8969'\n    berry: '#7C2852'\n    mauve: '#C05B8C'\n\n    # Bootstrap color aliases\n    purple: aubergine\n    pink: bubblegum\n    indigo: '#4F2B8C'\n    cyan: sky\n    orange: terracotta\n\n  # Theme colors\n  primary: aubergine\n  background: white\n  foreground: black\n  success: green\n  info: blue\n  warning: yellow\n  danger: red",
-    "crumbs": [
-      "Slack"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/slack/index.html#typography",
-    "href": "inspiration/brand-guidelines/slack/index.html#typography",
-    "title": "Slack",
-    "section": "Typography",
-    "text": "Typography\n\nOur brand fonts are Larsseit and Slack Circular. The following tables outline how best to use them.\n\nUse Larsseit for headlines. …\nUse Slack Circular for most other text, including paragraphs. …\nUse Inter for Google Slides presentations\nUse Helvetica Neue for email\n\n\n\n\n\nSlack typography guidelines for headings\n\n\n\n\n\nSlack typography guidelines for content\n\n\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    # Figtree as replacement for Slack-Circular (primary font)\n    - family: Figtree\n      source: google\n      weight: [400, 500, 600, 700]\n\n    # DM Sans as replacement for Larsseit (heading font)\n    - family: DM Sans\n      source: google\n      weight: [400, 500, 700]\n\n    # Monospace font for code\n    - family: Roboto Mono\n      source: google\n\n  base:\n    family: Figtree\n    weight: 400\n    line-height: 1.4\n\n  headings:\n    family: DM Sans\n    weight: 700\n    line-height: 1.25\n\n  monospace:\n    family: Roboto Mono\n    weight: 400",
-    "crumbs": [
-      "Slack"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html",
-    "href": "inspiration/brand-guidelines/walmart/index.html",
-    "title": "Walmart",
-    "section": "",
-    "text": "Walmart Brand Guidelines",
-    "crumbs": [
-      "Walmart"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html#logos",
-    "href": "inspiration/brand-guidelines/walmart/index.html#logos",
-    "title": "Walmart",
-    "section": "Logos",
-    "text": "Logos\nFull logo documentation\n\n\n\n\n\n\n\nName\nImage\n\n\n\n\nPrimary blue logo\n\n\n\nPrimary white logo\n\n\n\nSpark icon\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    primary: walmart-spark-logo-digital-blue.png\n    primary-white: walmart-spark-logo-digital-alpha.png\n    spark: walmart-spark-digital-alpha.png\n  small: spark\n  medium:\n    light: primary\n    dark: primary-white",
-    "crumbs": [
-      "Walmart"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html#colors",
-    "href": "inspiration/brand-guidelines/walmart/index.html#colors",
-    "title": "Walmart",
-    "section": "Colors",
-    "text": "Colors\n\n\n\nWalmart palette\n\n\n\nPrimary color palette\n\nWe are a blue brand with white & yellow. Walmart Blue is the primary color that should be applied across all communications, to uphold brand consistency.\n\nFor .com &/or digital platforms, use digital blue to accommodate readability & legibility needs.\nWhite complements digital blue & is either a background color or a type color.\nSpark Yellow should be used as an accent color. Note: For yellow headlines used online, please refer to the ADA compliance section below.\n\n\n\n\n\nHex\nCMYK\nPMS\nName\n\n\n\n\n#0071DC◉\nCMYK 100, 45, 0, 0\nPMS 285 C\nWalmart Blue\n\n\n#FFFFFF◉\nCMYK 0, 0, 0, 0\nWhite\n\n\n\n#FFC220◉\nCMYK 0, 25, 100, 0\nPMS 1235 C\nSpark Yellow\n\n\n\n\n\nSecondary color palette\n\nOur secondary color palette is an extension of our primary colors & is used as backgrounds & texture for silhouetted product photography. Where primary colors applied to type fail in legibility & compliance, use Ozark Noir.\n\n\n\n\nHex\nCMYK\nName\n\n\n\n\n#F8E6A5◉\nCMYK 3, 7, 42, 0\nYellow Tone\n\n\n#8CD1FC◉\nCMYK 39, 5, 0, 0\nBlue Tone 1\n\n\n#D3EFF8◉\nCMYK 16, 0, 2, 0\nBlue Tone 2\n\n\n#FAFAFA◉\nCMYK 1, 1, 1, 0\nOff White\n\n\n#041E42◉\nCMYK 100, 88, 42, 51\nOzark Noir\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    blue: '#0071DC' # Walmart Blue\n    white: '#FFFFFF'\n    yellow: '#FFC220' # Spark Yellow\n\n    # Secondary Colors\n    red: '#DE1C24'\n    yellow-pale: '#F8E6A5'\n    yellow-bright: '#FFF200'\n    blue-light: '#8CD1FC'\n    blue-lighter: '#D3EFF8'\n    off-white: '#FAFAFA'\n    ozark-noir: '#041E42'\n\n  foreground: ozark-noir\n  background: white\n  light: off-white\n  dark: ozark-noir\n  primary: blue\n  secondary: dark\n  warning: yellow\n  danger: red",
-    "crumbs": [
-      "Walmart"
-    ]
-  },
-  {
-    "objectID": "inspiration/brand-guidelines/walmart/index.html#font",
-    "href": "inspiration/brand-guidelines/walmart/index.html#font",
-    "title": "Walmart",
-    "section": "Font",
-    "text": "Font\nWalmart uses a custom font named Bogle.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Martel Sans # Google Fonts alternative to Bogle\n      source: google\n\n  base: Martel Sans",
-    "crumbs": [
-      "Walmart"
-    ]
-  },
-  {
-    "objectID": "inspiration/index.html#company-brand-guidelines",
-    "href": "inspiration/index.html#company-brand-guidelines",
-    "title": "Inspiration",
-    "section": "Company Brand Guidelines",
-    "text": "Company Brand Guidelines\n\n\n\n\n\n\n\n\n\n\nPosit\n\n\n\n\n\n\n\n\n\n\n\n\n\nHome Depot\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndeed\n\n\n\n\n\n\n\n\n\n\n\n\n\nSlack\n\n\n\n\n\n\n\n\n\n\n\n\n\nWalmart\n\n\n\n\n\n\n\n\n\n\n\nDell\n\n\n\n\n\n\n\n\n\n\n\n\n\nNHS-R Community\n\n\n\n\n\n\n\nNo matching items\n\n\n\nWould you like to have your brand featured here? Open an issue to let us know."
-  },
-  {
     "objectID": "brand/typography.html#about",
     "href": "brand/typography.html#about",
     "title": "Typography",
@@ -790,128 +743,108 @@
     ]
   },
   {
-    "objectID": "brand/index.html#outline",
-    "href": "brand/index.html#outline",
-    "title": "brand.yml Structure",
-    "section": "Outline",
-    "text": "Outline\n\n\n_brand.yml\n\n1meta:\n  name: brand.yml\n  links:\n    home: https://posit-dev.github.io/brand-yml\n    github: https://github.com/posit-dev/brand-yml\n\n2logo:\n  images:\n    icon-color: logos/icon/brand-yml-icon-color.png\n    wide-color: logos/wide/brand-yml-wide-color.png\n    tall-color: logos/wide/brand-yml-tall-color.png\n  small: icon-color\n  medium: wide-color\n  large: tall-color\n\ncolor:\n3  palette:\n    orange: \"#FF6F20\"\n    pink: \"#FF3D7F\"\n    green: \"#28A745\"\n    yellow: \"#FFC107\"\n4  primary: orange\n  success: green\n  warning: yellow\n  danger: pink\n\ntypography:\n5  fonts:\n    - family: Open Sans\n      source: google\n    - family: IBM Plex Mono\n      source: google\n    - family: Rubik\n      source: google\n6  base:\n    family: Open Sans\n    line-height: 1.6\n  headings:\n    family: Rubik\n    weight: normal\n  link:\n    color: purple\n  monospace:\n    family: IBM Plex Mono\n    size: 1em\n\n7defaults:\n  bootstrap:\n    # bootstrap variable definitions\n  quarto:\n    format:\n      # basic format-specific settings\n      html:\n      revealjs:\n  shiny:\n    # shiny specific settings\n\n\n1\n\nmeta: Key identity information, name of the company, links to brand guidelines, etc.\n\n2\n\nlogo: Files or links to the brand’s logo at various sizes.\n\n3\n\ncolor.palette: Named colors in the brand’s color palette.\n\n4\n\ncolor: Semantic colors, e.g. primary, secondary, success, warning, etc.\n\n5\n\ntypography.fonts: Font definitions for Google, remote or bundled fonts.\n\n6\n\ntypography: Font family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text.\n\n7\n\ndefaults: Additional context-specific settings beyond the basic brand colors and typography. These could be options, for example, that are used by Bootstrap in Quarto or Shiny. They could also be folded into existing Quarto yaml fields like format or website, or they could be new fields for other contexts like shiny.",
+    "objectID": "articles/index.html",
+    "href": "articles/index.html",
+    "title": "Articles",
+    "section": "",
+    "text": "Creating a brand.yml with an LLM\n\n\n\n\n\nLearn how to create a brand.yml file using a large language model (LLM) like ChatGPT or Claude. This guide includes a system prompt you can use to teach LLMs about brand.yml and some tips and tricks for getting the highest quality results from an LLM. \n\n\n\n\n\nNov 15, 2024\n\n\nGarrick Aden-Buie\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "inspiration/index.html#company-brand-guidelines",
+    "href": "inspiration/index.html#company-brand-guidelines",
+    "title": "Inspiration",
+    "section": "Company Brand Guidelines",
+    "text": "Company Brand Guidelines\n\n\n\n\n\n\n\n\n\n\nPosit\n\n\n\n\n\n\n\n\n\n\n\n\n\nHome Depot\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndeed\n\n\n\n\n\n\n\n\n\n\n\n\n\nSlack\n\n\n\n\n\n\n\n\n\n\n\n\n\nWalmart\n\n\n\n\n\n\n\n\n\n\n\nDell\n\n\n\n\n\n\n\n\n\n\n\n\n\nNHS-R Community\n\n\n\n\n\n\n\nNo matching items\n\n\n\nWould you like to have your brand featured here? Open an issue to let us know."
+  },
+  {
+    "objectID": "inspiration/brand-guidelines/slack/index.html",
+    "href": "inspiration/brand-guidelines/slack/index.html",
+    "title": "Slack",
+    "section": "",
+    "text": "Slack Brand Guidelines",
     "crumbs": [
-      "About",
-      "Structure"
+      "Slack"
     ]
   },
   {
-    "objectID": "brand/index.html#description",
-    "href": "brand/index.html#description",
-    "title": "brand.yml Structure",
-    "section": "Description",
-    "text": "Description\n\nmeta\n\nKey identity information, name of the company, links to brand guidelines, etc.\n\nlogo\n\nFiles or links to the brand’s logo at various sizes.\n\ncolor\n\nSemantic colors, e.g. primary, secondary, success, warning, etc. color.palette: Named colors in the brand’s color palette.\n\ntypography\n\nFont family, weight, style, color, and line height for key elements, e.g. base, headings and monospace text. typography.fonts: Font definitions for Google, remote or bundled fonts.\n\ndefaults\n\nAdditional context-specific settings beyond the basic brand colors and typography. These could be options, for example, that are used by Bootstrap in Quarto or Shiny. They could also be folded into existing Quarto yaml fields like format or website, or they could be new fields for other contexts like shiny.",
+    "objectID": "inspiration/brand-guidelines/slack/index.html#logos",
+    "href": "inspiration/brand-guidelines/slack/index.html#logos",
+    "title": "Slack",
+    "section": "Logos",
+    "text": "Logos\n\n\n\n\n\n\n\n\nName\nVariant\nImage\n\n\n\n\nMark\n\n\n\n\nMark\nBlack\n\n\n\nMark\nWhite\n\n\n\nLogo\nBlack\n\n\n\nLogo\nWhite\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark: SLA-Logo-Mark.svg\n    mark-black: SLA-Logo-Mark-Black-RGB.svg\n    mark-white: SLA-Logo-Mark-Monochrome-White.svg\n    logo-black: SLA-Slack-From-Salesforce-Logo-BLACK.svg\n    logo-white: SLA-Slack-From-Salesforce-Logo-WHITE.svg\n  small: mark\n  medium:\n    light: logo-black\n    dark: logo-white",
     "crumbs": [
-      "About",
-      "Structure"
+      "Slack"
     ]
   },
   {
-    "objectID": "brand/index.html#specification",
-    "href": "brand/index.html#specification",
-    "title": "brand.yml Structure",
-    "section": "Specification",
-    "text": "Specification\nWe’ve created a schema for the structure of a brand.yml file in two flavors:\n\nbrand.yml schema as YAML, a YAML variant of JSON Schema used by Quarto to validate the structure _brand.yml files or brand in Quarto metadata.\nbrand.yml schema as JSON, a JSON Schema containing the definitions used in the YAML schema.",
+    "objectID": "inspiration/brand-guidelines/slack/index.html#colors",
+    "href": "inspiration/brand-guidelines/slack/index.html#colors",
+    "title": "Slack",
+    "section": "Colors",
+    "text": "Colors\n\nCore palette\n\n\n\nName\nHex\nRGB\n\n\n\n\nAubergine\n#4A154B◉\nrgb(74, 21, 75)◉\n\n\nHorchata\n#F4EDE4◉\nrgb(244, 237, 228)◉\n\n\nBlack\n#1D1C1D◉\nrgb(29, 28, 29)◉\n\n\nWhite\n#FFFFFF◉\nrgb(255, 255, 255)◉\n\n\nSlack blue\n#36C5F0◉\nrgb(54, 197, 240)◉\n\n\nSlack green\n#2EB67D◉\nrgb(46, 182, 125)◉\n\n\nSlack yellow\n#ECB22E◉\nrgb(236, 178, 46)◉\n\n\nSlack red\n#E01E5A◉\nrgb(224, 30, 90)◉\n\n\n\n\n\nSecondary palette\n\n\n\nName\nHex\nRGB\n\n\n\n\nCobalt\n#1E328F◉\nrgb(30, 50, 143)◉\n\n\nSky\n#0E9DD3◉\nrgb(14, 157, 211)◉\n\n\nTeal\n#2392A2◉\nrgb(35, 146, 162)◉\n\n\nPool\n#78D7DD◉\nrgb(120, 215, 221)◉\n\n\nEvergreen\n#185F34◉\nrgb(24, 95, 52)◉\n\n\nMoss\n#729C1A◉\nrgb(114, 156, 26)◉\n\n\nSandbar\n#FFD57E◉\nrgb(255, 213, 126)◉\n\n\nPeach\n#FED4BE◉\nrgb(254, 212, 190)◉\n\n\nSalmon\n#F2606A◉\nrgb(242, 96, 106)◉\n\n\nBubblegum\n#FFB6BD◉\nrgb(225, 182, 189)◉\n\n\nCrimson\n#921D21◉\nrgb(146, 29, 33)◉\n\n\nTerracotta\n#DE8969◉\nrgb(222, 137, 105)◉\n\n\nBerry\n#7C2852◉\nrgb(124, 40, 82)◉\n\n\nMauve\n#C05B8C◉\nrgb(192, 91, 140)◉\n\n\n\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Core palette\n    aubergine: '#4A154B'\n    horchata: '#F4EDE4'\n    black: '#1D1C1D'\n    white: '#FFFFFF'\n    blue: '#36C5F0'\n    green: '#2EB67D'\n    yellow: '#ECB22E'\n    red: '#E01E5A'\n\n    # Secondary palette\n    cobalt: '#1E328F'\n    sky: '#0E9DD3'\n    teal: '#2392A2'\n    pool: '#78D7DD'\n    evergreen: '#185F34'\n    moss: '#729C1A'\n    sandbar: '#FFD57E'\n    peach: '#FED4BE'\n    salmon: '#F2606A'\n    bubblegum: '#FFB6BD'\n    crimson: '#921D21'\n    terracotta: '#DE8969'\n    berry: '#7C2852'\n    mauve: '#C05B8C'\n\n    # Bootstrap color aliases\n    purple: aubergine\n    pink: bubblegum\n    indigo: '#4F2B8C'\n    cyan: sky\n    orange: terracotta\n\n  # Theme colors\n  primary: aubergine\n  background: white\n  foreground: black\n  success: green\n  info: blue\n  warning: yellow\n  danger: red",
     "crumbs": [
-      "About",
-      "Structure"
+      "Slack"
     ]
   },
   {
-    "objectID": "brand/defaults.html#about",
-    "href": "brand/defaults.html#about",
-    "title": "Defaults",
-    "section": "About",
-    "text": "About\nIndividual formats and outputs can expose format-specific variables or options that are relevant to branding. These options are tied to a specific output format or context, so they can’t be included in the core brand specification. But they are still relevant to the brand and need a place within brand.yml.",
+    "objectID": "inspiration/brand-guidelines/slack/index.html#typography",
+    "href": "inspiration/brand-guidelines/slack/index.html#typography",
+    "title": "Slack",
+    "section": "Typography",
+    "text": "Typography\n\nOur brand fonts are Larsseit and Slack Circular. The following tables outline how best to use them.\n\nUse Larsseit for headlines. …\nUse Slack Circular for most other text, including paragraphs. …\nUse Inter for Google Slides presentations\nUse Helvetica Neue for email\n\n\n\n\n\nSlack typography guidelines for headings\n\n\n\n\n\nSlack typography guidelines for content\n\n\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    # Figtree as replacement for Slack-Circular (primary font)\n    - family: Figtree\n      source: google\n      weight: [400, 500, 600, 700]\n\n    # DM Sans as replacement for Larsseit (heading font)\n    - family: DM Sans\n      source: google\n      weight: [400, 500, 700]\n\n    # Monospace font for code\n    - family: Roboto Mono\n      source: google\n\n  base:\n    family: Figtree\n    weight: 400\n    line-height: 1.4\n\n  headings:\n    family: DM Sans\n    weight: 700\n    line-height: 1.25\n\n  monospace:\n    family: Roboto Mono\n    weight: 400",
     "crumbs": [
-      "About",
-      "Brand Elements",
-      "Defaults"
+      "Slack"
     ]
   },
   {
-    "objectID": "brand/defaults.html#structure",
-    "href": "brand/defaults.html#structure",
-    "title": "Defaults",
-    "section": "Structure",
-    "text": "Structure\n\n\n\n\n\n\nWarning\n\n\n\nThis section of brand.yml is not as well-sepecified as the other sections, by design. As brand.yml adoption grows, new tools will need to be able to store options specific to the tool. This part of the brand.yml spec may change as we learn more about the needs of different tools.\n\n\nCurrently, both Quarto and Shiny support a bootstrap section under defaults that can be used to set default values for Bootstrap Sass variables.\n\n\n_brand.yml\n\ndefaults:\n  bootstrap:\n    defaults:\n      enable-rounded: false\n      link-decoration: none\n\nIn Shiny for Python, an additional shiny.theme section is used to set default values for Shiny-specific theme settings.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    pink: \"#E83E8C\"\ndefaults:\n  shiny:\n    theme:\n      preset: shiny\n      defaults:\n        bslib-dashboard-design: false\n      rules: |\n        .navbar-brand { color: $brand-pink }\n\nNote that in these sections, you can make use of brand features, like the addition of $brand-{color} Sass variables.",
+    "objectID": "inspiration/brand-guidelines/home-depot/index.html",
+    "href": "inspiration/brand-guidelines/home-depot/index.html",
+    "title": "Home Depot",
+    "section": "",
+    "text": "Home Depot Brand Guidelines\n\n\n\nHome Depot (Foundation) Colors and Typography\n\n\n\n\n_brand.yml\n\nmeta:\n  name: Home Depot\n  link: https://homedepot.com\n\ncolor:\n  palette:\n    orange: \"#F96302\"\n    white: \"#FFFFFF\"\n    black: \"#000000\"\n    warm-gray-ligt: \"#F5F5F5\"\n    warm-gray-dark: \"#747474\"\n    warm-gray-medium: \"#C4C4C4\"\n  theme:\n    foreground: black\n    background: white\n    primary: orange\n    secondary: warm-gray-dark\n    light: warm-gray-light\n    dark: warm-gray-dark\n\ntypography:\n  fonts:\n    - family: Helvetica Nueue LT Pro\n      source: file\n      files:\n        - path: HelveticaNeueLTPro.ttf\n        - path: HelveticaNeueLTPro-Bold.ttf\n          weight: bold\n    - family: Helvetica Nueue LT Pro Condensed\n      source: file\n      files:\n        - path: HelveticaNeueLTPro-Cond-Bold.ttf\n          weight: bold\n  body: Helvetica Nueue LT Pro\n  headings: Helvetica Nueue LT Pro Condensed",
     "crumbs": [
-      "About",
-      "Brand Elements",
-      "Defaults"
+      "Home Depot"
     ]
   },
   {
-    "objectID": "pkg/py/logo.html#attributes",
-    "href": "pkg/py/logo.html#attributes",
-    "title": "Logos and Images",
-    "section": "Attributes",
-    "text": "Attributes\n\nimages\n\ndict[str, BrandLogoResource] | None\nA dictionary containing any number of logos or brand images. You can refer to these images by their key name in small, medium or large. Local file paths should be relative to the _brand.yml source file. Remote files are also permitted; please use a full URL to the image.\nlogo:\n  images:\n    white: pandas_white.svg\n    white_online: \"https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg\"\n  small: white\n\nsmall\n\nBrandLogoFileType | None\nA small logo, typically used as an favicon or mobile app icon.\n\nmedium\n\nBrandLogoFileType | None\nA medium-sized logo, typically used in the header of a website.\n\nlarge\n\nBrandLogoFileType | None\nA large logo, typically used in a larger format such as a title slide or in marketing materials.",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html",
+    "href": "inspiration/brand-guidelines/indeed/index.html",
+    "title": "Indeed",
+    "section": "",
+    "text": "Indeed Brand Guidelines",
     "crumbs": [
-      "About",
-      "Reference",
-      "Logos and Images"
+      "Indeed"
     ]
   },
   {
-    "objectID": "pkg/py/logo.html#examples",
-    "href": "pkg/py/logo.html#examples",
-    "title": "Logos and Images",
-    "section": "Examples",
-    "text": "Examples\n\nSingle LogoMinimalLight/Dark VariantsCompleteComplete with Alt Text\n\n\n\n\n_brand.yml\n\nlogo: posit.png\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium: logos/pandas/pandas_secondary.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small: logos/pandas/pandas_mark.svg\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: logos/pandas/pandas_secondary_white.svg\n  large: logos/pandas/pandas.svg\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark: logos/pandas/pandas_mark.svg\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white: logos/pandas/pandas_secondary_white.svg\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light: logos/pandas/pandas_secondary.svg\n    dark: secondary-white\n  large: pandas\n\n\n\n\n\n_brand.yml\n\nlogo:\n  images:\n    mark:\n      path: logos/pandas/pandas_mark.svg\n      alt: pandas logo with blue bars and yellow and pink dots\n    mark-white: logos/pandas/pandas_mark_white.svg\n    secondary: logos/pandas/pandas_secondary.svg\n    secondary-white:\n      path: logos/pandas/pandas_secondary_white.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    pandas: logos/pandas/pandas.svg\n    pandas-white: logos/pandas/pandas_white.svg\n  small: mark\n  medium:\n    light:\n      path: logos/pandas/pandas_secondary.svg\n      alt: pandas logo with bars and dots over the word \"pandas\"\n    dark: secondary-white\n  large:\n    path: logos/pandas/pandas.svg\n    alt: pandas bars and dots to the right of the word \"pandas\"",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#color",
+    "href": "inspiration/brand-guidelines/indeed/index.html#color",
+    "title": "Indeed",
+    "section": "Color",
+    "text": "Color\nThe Indeed color swatches PDF lists a large number of colors. We’ll include the primary and functional palettes mentioned there, as well as key colors from the secondary palette.\n\n\n_brand.yml\n\ncolor:\n  palette:\n    # Primary Colors\n    white: \"#FFFFFF\"\n    blue: \"#003A9B\"\n    blue-ink: \"#001C40\"\n    blue-a11y: \"#6792F0\"\n    # Secondary Palette\n    earth: \"#C08A38\"\n    orange: \"#DF7838\"\n    magenta: \"#E867A8\"\n    purple: \"#9288EE\"\n    aqua: \"#409EC8\"\n    green: \"#4CA38F\"\n    # Functional Colors\n    blue-100: \"#0D2D5E\"\n    blue-60: \"#6792F0\"\n    blue-80: \"#2557A7\"\n    magenta-80: \"#D700A4\"\n    magenta-20: \"#FCEEF4\"\n    green-80: \"#1F662C\"\n    green-20: \"#E4F7E6\"\n    red-80: \"#A9252B\"\n    red-20: \"#FEEEF\"\n    gray-100: \"#2D2D2D\"\n    gray-90: \"#424242\"\n    gray-80: \"#595959\"\n    gray-70: \"#767676\"\n    gray-60: \"#949494\"\n    gray-50: \"#B4B2B1\"\n    gray-40: \"#D4D2D0\"\n    gray-30: \"#E4E2E0\"\n    gray-20: \"#F3F2F1\"\n    gray-10: \"#FAF9F8\"\n  foreground: gray-80\n  background: white\n  primary: blue\n  success: green\n  warning: earth",
     "crumbs": [
-      "About",
-      "Reference",
-      "Logos and Images"
+      "Indeed"
     ]
   },
   {
-    "objectID": "pkg/py/logo.html#attributes-1",
-    "href": "pkg/py/logo.html#attributes-1",
-    "title": "Logos and Images",
-    "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nalt\nAlterative text for the image, used for accessibility.\n\n\npath\nThe path to the logo resource. This can be a local file or a URL.",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#logos",
+    "href": "inspiration/brand-guidelines/indeed/index.html#logos",
+    "title": "Indeed",
+    "section": "Logos",
+    "text": "Logos\n\n\n\n\n\n\n\n\nSize\nVariant\nPreview\n\n\n\n\nSmall\nLight\n\n\n\nSmall\nDark\n\n\n\nMedium\nLight\n\n\n\nMedium\nDark\n\n\n\n\n\n\n_brand.yml\n\nlogo:\n  small:\n    light: Indeed_2021_Icon_RGB_Blue.svg\n    dark: Indeed_2021_Icon_RGB_White.svg\n  medium:\n    light: Indeed_Logo_Blue.svg\n    dark: Indeed_Logo_White.svg",
     "crumbs": [
-      "About",
-      "Reference",
-      "Logos and Images"
+      "Indeed"
     ]
   },
   {
-    "objectID": "pkg/py/logo.html#attributes-2",
-    "href": "pkg/py/logo.html#attributes-2",
-    "title": "Logos and Images",
-    "section": "Attributes",
-    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\ndark\nValue in dark mode.\n\n\nlight\nValue in light mode.",
+    "objectID": "inspiration/brand-guidelines/indeed/index.html#typography",
+    "href": "inspiration/brand-guidelines/indeed/index.html#typography",
+    "title": "Indeed",
+    "section": "Typography",
+    "text": "Typography\nIndeed uses a proprietary font called “Indeed Sans” for its brand. Work Sans is a close match and is available on Google Fonts, so we’re using that here.\n\n\n_brand.yml\n\ntypography:\n  fonts:\n    - family: Work Sans\n      source: google\n  base: Work Sans\n  headings:\n    color: gray-100\n  link:\n    color: blue",
     "crumbs": [
-      "About",
-      "Reference",
-      "Logos and Images"
+      "Indeed"
     ]
-  },
-  {
-    "objectID": "pkg/py/logo.html#methods",
-    "href": "pkg/py/logo.html#methods",
-    "title": "Logos and Images",
-    "section": "Methods",
-    "text": "Methods\n\n\n\nName\nDescription\n\n\n\n\nabsolute\nAbsolute path of the file location, relative to the root directory.\n\n\nexists\nCheck that the file exists at its absolute path.\n\n\nrelative\nRelative path of the file location.\n\n\nset_root_dir\nUpdate the root directory of this file location.\n\n\nvalidate_exists\nValidate that the file exists at its absolute path.\n\n\n\n\nabsolute\nFileLocationLocal.absolute()\nAbsolute path of the file location, relative to the root directory.\nReturns the absolute path to the file, relative to the root directory, which is most typically the directory containing the _brand.yml file.\n\n\nexists\nFileLocationLocal.exists()\nCheck that the file exists at its absolute path.\n\n\nrelative\nFileLocationLocal.relative()\nRelative path of the file location.\nReturns the relative path to the file as it would appear in the source _brand.yml file.\n\n\nset_root_dir\nFileLocationLocal.set_root_dir(root_dir)\nUpdate the root directory of this file location.\nIn general, the root directory is the parent directory containing the source brand_yml file. If you relocate the file, this method can be used to update the new local file location.\n\n\nvalidate_exists\nFileLocationLocal.validate_exists()\nValidate that the file exists at its absolute path.\n\nRaises\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFileNotFoundError\nRaises a FileNotFoundError if the file does not exist at its absolute path location.",
-    "crumbs": [
-      "About",
-      "Reference",
-      "Logos and Images"
-    ]
-  },
-  {
-    "objectID": "pkg/py/api.html#reference",
-    "href": "pkg/py/api.html#reference",
-    "title": "brand_yml Python Package Reference",
-    "section": "Reference",
-    "text": "Reference\nRead a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography\n\n\n\nUtilities"
   },
   {
     "objectID": "pkg/py/index.html#installation",
@@ -933,6 +866,66 @@
     "crumbs": [
       "About",
       "Brand YAML Python Package"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#attributes",
+    "href": "pkg/py/meta.html#attributes",
+    "title": "Metadata",
+    "section": "Attributes",
+    "text": "Attributes\n\nname\n\nBrandMetaName | None\nThe name of the brand. In the YAML, this may be a dictionary with the full and short forms of the brand name.\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBCA\nor a single value as shorthand for meta.name.full.\nmeta:\n  name: Very Big Corporation of America\n\nlink\n\nBrandMetaLink | None\nLinks to additional resources related to the brand, such as its homepage, social media accounts, etc. Like name, this can be a single value or a dictionary with additional keys. If a single value is provided, it is promoted to the home key of brand_yml.meta.BrandMetaLink.\nThese two constructions are equivalent:\nmeta:\n  link: https://www.very-big-corp.com/\nmeta:\n  link:\n    home: https://www.very-big-corp.com/",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#notes",
+    "href": "pkg/py/meta.html#notes",
+    "title": "Metadata",
+    "section": "Notes",
+    "text": "Notes\nAdditional fields are allowed, so you may store any additional metadata you want to attach to the brand here. Tools that use brand_yml may not know about these fields, however.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#examples",
+    "href": "pkg/py/meta.html#examples",
+    "title": "Metadata",
+    "section": "Examples",
+    "text": "Examples\n\nMinimalFull\n\n\n\n\n_brand.yml\n\nmeta:\n  name: Very Big Corp. of America\n  link: https://very-big-corp.com\n\n\n\n\n\n_brand.yml\n\nmeta:\n  name:\n    full: Very Big Corporation of America\n    short: VBC\n  link:\n    home: https://very-big-corp.com\n    mastodon: https://mastodon.social/@VeryBigCorpOfficial\n    github: https://github.com/Very-Big-Corp\n    linkedin: https://linkedin.com/company/very-big-corp\n    twitter: https://twitter.com/VeryBigCorp\n    facebook: https://facebook.com/Very-Big-Corp",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#attributes-1",
+    "href": "pkg/py/meta.html#attributes-1",
+    "title": "Metadata",
+    "section": "Attributes",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nfull\nFull name of the company or brand.\n\n\nshort\nShort name of the company or brand, for use in space-constrained settings.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
+    ]
+  },
+  {
+    "objectID": "pkg/py/meta.html#attributes-2",
+    "href": "pkg/py/meta.html#attributes-2",
+    "title": "Metadata",
+    "section": "Attributes",
+    "text": "Attributes\n\n\n\nName\nDescription\n\n\n\n\nbluesky\nBluesky link for the brand or company.\n\n\nfacebook\nFacebook link for the brand or company.\n\n\ngithub\nGitHub link for the brand or company.\n\n\nhome\nHome website link for the brand or company.\n\n\nlinkedin\nLinkedIn link for the brand or company.\n\n\nmastodon\nMastodon link for the brand or company.\n\n\ntwitter\nTwitter link for the brand or company.",
+    "crumbs": [
+      "About",
+      "Reference",
+      "Metadata"
     ]
   },
   {
@@ -982,5 +975,12 @@
       "Reference",
       "Color Palette and Theme"
     ]
+  },
+  {
+    "objectID": "pkg/py/api.html#reference",
+    "href": "pkg/py/api.html#reference",
+    "title": "brand_yml Python Package Reference",
+    "section": "Reference",
+    "text": "Reference\nRead a _brand.yml file or create an instance of a Brand.\n\n\n\nBrand\nBrand guidelines in a class.\n\n\nMetadata\n\n\n\nLogos and Images\n\n\n\nColor Palette and Theme\n\n\n\nTypography\n\n\n\nUtilities"
   }
 ]
