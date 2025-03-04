@@ -1,8 +1,6 @@
-# Use qvm to manage quarto, also update:
-# * `quarto.path` in .vscode/settings.json
-# * quarto version in .github/workflows/docs-publish.yml
+# Use qvm to manage quarto
 QUARTO_VERSION ?= 1.6.42
-QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
+QUARTO_PATH = ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
 install-quarto:
@@ -20,11 +18,11 @@ install-quarto:
 
 .PHONY: docs
 docs:  ## [docs] Build the documentation
-	${QVM_QUARTO_PATH} render docs
+	${QUARTO_PATH} render docs
 
 .PHONY: docs-preview
 docs-preview:  ## [docs] Preview the documentation
-	${QVM_QUARTO_PATH} preview docs
+	${QUARTO_PATH} preview docs
 
 .PHONY: pre-commit-all
 pre-commit-all:
