@@ -1,7 +1,7 @@
 # Use qvm to manage quarto, also update:
 # * `quarto.path` in .vscode/settings.json
 # * quarto version in .github/workflows/docs-publish.yml
-QUARTO_VERSION ?= v1.6.42
+QUARTO_VERSION ?= 1.6.42
 QVM_QUARTO_PATH = ~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto
 
 .PHONY: install-quarto
@@ -11,9 +11,9 @@ install-quarto:
 		@echo "Error: qvm is not installed. Please visit https://github.com/dpastoor/qvm/releases/ to install it." >&2 \
 		exit 1; \
 	fi
-	qvm install ${QUARTO_VERSION}
+	qvm install v${QUARTO_VERSION}
 	@echo "🔹 Updating .vscode/settings.json"
-	@awk -v path="~/.local/share/qvm/versions/${QUARTO_VERSION}/bin/quarto" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
+	@awk -v path="~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto" '/"quarto.path":/ {gsub(/"quarto.path": ".*"/, "\"quarto.path\": \"" path "\"")} 1' .vscode/settings.json > .vscode/settings.json.tmp && mv .vscode/settings.json.tmp .vscode/settings.json
 	@echo "🔹 Updating .github/workflows/docs-publish.yml"
 	@awk -v ver="${QUARTO_VERSION}" '/QUARTO_VERSION:/ {gsub(/QUARTO_VERSION: .*/, "QUARTO_VERSION: " ver)} 1' .github/workflows/docs-publish.yml > .github/workflows/docs-publish.yml.tmp && mv .github/workflows/docs-publish.yml.tmp .github/workflows/docs-publish.yml
 
