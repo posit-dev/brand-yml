@@ -145,11 +145,10 @@ quartodoc:
           contents:
             - BrandLogo
             - BrandLogoResource
-            - BrandLightDark
+            - BrandLogoLightDarkResource
             - FileLocation
             - FileLocationLocal
             - FileLocationUrl
-            - file.FileLocationLocalOrUrlType
         - kind: page
           path: color
           summary:
@@ -180,9 +179,19 @@ quartodoc:
         - kind: page
           path: utilities
           summary:
-            name: Utilities
+            name: "Other: Utilities"
           contents:
             - find_project_brand_yml
+        - kind: page
+          path: types
+          summary:
+            name: "Other: Types"
+          contents:
+            - logo.BrandLogoFileType
+            - logo.ToHtmlArgMethodType
+            - logo.ToHtmlArgWhichType
+            - logo.ToHtmlArgSelectorsType
+            - file.FileLocationLocalOrUrlType
 
 interlinks:
   fast: true

@@ -17,7 +17,7 @@ from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
-from .logo import BrandLogo, BrandLogoResource
+from .logo import BrandLogo, BrandLogoLightDarkResource, BrandLogoResource
 from .meta import BrandMeta
 from .typography import BrandTypography
 
@@ -373,6 +373,7 @@ __all__ = [
     "BrandTypography",
     "BrandLightDark",
     "BrandLogoResource",
+    "BrandLogoLightDarkResource",
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",

@@ -1,0 +1,67 @@
+# Other: Types
+
+
+
+# logo.BrandLogoFileType { #brand_yml.logo.BrandLogoFileType }
+
+`logo.BrandLogoFileType`
+
+A logo image file can be either a local or URL file location with optional
+alternative text ([](`brand_yml.BrandLogoResource`)) or a light-dark variant
+that includes both a light and dark color scheme
+([](`brand_yml.BrandLogoLightDarkResource`)).
+
+# logo.ToHtmlArgMethodType { #brand_yml.logo.ToHtmlArgMethodType }
+
+`logo.ToHtmlArgMethodType`
+
+Method to determine how logo images are converted to HTML
+
+Options include:
+
+- `"inline"`: Embeds SVG directly in HTML or uses a base64-encoded data URI for
+  other formats (default).
+- `"embed"` or `"base64"`: Converts the image to a base64-encoded data URI.
+- `"relative"`: Uses a relative path to the image file. The relative path used
+  is `_brand/` plus the path to the image file relative to the `_brand.yml`
+  where it is defined.
+
+# logo.ToHtmlArgWhichType { #brand_yml.logo.ToHtmlArgWhichType }
+
+`logo.ToHtmlArgWhichType`
+
+Which image to include as HTML by name.
+
+In addition to the named sizes---`"small"`, `"medium"` and `"large"`---`which`
+can be `"smallest"` or `"largest"` for the smallest or largest size available,
+or `which` can be the name of a named image in the `logo.images` dictionary.
+
+# logo.ToHtmlArgSelectorsType { #brand_yml.logo.ToHtmlArgSelectorsType }
+
+`logo.ToHtmlArgSelectorsType`
+
+CSS selectors used to indicate that light or dark mode is active.
+
+Use `selectors="prefers-color-scheme"` for a variant that uses media queries
+associated with the system color scheme, rather than specific CSS selectors.
+Alternatively, provide a dictionary with any of `id`, `light` or `dark` items:
+
+`id`
+:    The identifier for the light/dark pair. If not included, a random ID is
+     generated.
+
+`light`
+:    The selector or list of selectors that indicate light mode is active.
+     Default: `['[data-bs-theme="light"]', ".quarto-light"]`.
+
+`dark`
+:    The selectors or list of selectors that indicate dark mode is active.
+     Default: `['[data-bs-theme="dark"]', ".quarto-dark"]`.
+
+# file.FileLocationLocalOrUrlType { #brand_yml.file.FileLocationLocalOrUrlType }
+
+`file.FileLocationLocalOrUrlType`
+
+A type representing a file location that may be a local path
+([`FileLocationLocal`](`brand_yml.FileLocationLocal`)) or a URL
+([`FileLocationUrl`](`brand_yml.FileLocationUrl`)).

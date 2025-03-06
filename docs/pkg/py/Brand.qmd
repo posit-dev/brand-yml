@@ -1,7 +1,7 @@
 # Brand { #brand_yml.Brand }
 
 ```python
-Brand()
+Brand(self, /, **data)
 ```
 
 Brand guidelines in a class.
