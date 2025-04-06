@@ -128,7 +128,7 @@ def recurse_dicts_and_models(
             recurse_dicts_and_models(value, pred, modify)
 
     if isinstance(item, BaseModel):
-        for field in item.model_fields.keys():
+        for field in item.__class__.model_fields.keys():
             value = getattr(item, field)
             apply(value)
 
