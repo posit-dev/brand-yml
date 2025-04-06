@@ -125,6 +125,7 @@ commands = pyright
 [tool.ruff]
 src = ["pkg-py"]
 exclude = [
+    "__version.py",
     ".bzr",
     ".direnv",
     ".eggs",
