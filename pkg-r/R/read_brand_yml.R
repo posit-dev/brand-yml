@@ -66,6 +66,7 @@ as_brand_yml.list <- function(brand) {
   brand <- brand_meta_normalize(brand)
   brand <- brand_color_normalize(brand)
   brand <- brand_typography_normalize(brand)
+  brand <- brand_logo_normalize(brand)
 
   brand <- compact(brand)
 

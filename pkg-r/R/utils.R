@@ -1,3 +1,8 @@
+`%??%` <- function(x, y) {
+  if (!is.null(x)) y
+}
+
+
 #' Convert a font size to rem
 #'
 #' Some frameworks, like Bootstrap expect base font size to be in `rem`. This
