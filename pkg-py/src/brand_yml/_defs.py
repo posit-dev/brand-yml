@@ -176,7 +176,7 @@ def level_indent(x: str, level: int) -> str:
 
 def item_keys(item: DictStringRecursiveBaseModel | BaseModel) -> Iterable[str]:
     if isinstance(item, BaseModel):
-        return item.model_fields.keys()
+        return item.__class__.model_fields.keys()
     elif hasattr(item, "keys"):
         return item.keys()
     else:
@@ -251,5 +251,5 @@ class CircularReferenceError(Exception):
 
         msg_name = "" if not name else f" in '{name}'"
 
-        message = f'Circular reference detected{msg_name}.\nRefs    : {" -> ".join(seen)}\nVia path: {" -> ".join(path)}'
+        message = f"Circular reference detected{msg_name}.\nRefs    : {' -> '.join(seen)}\nVia path: {' -> '.join(path)}"
         super().__init__(message)

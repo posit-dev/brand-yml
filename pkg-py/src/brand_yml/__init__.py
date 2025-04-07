@@ -276,13 +276,15 @@ class Brand(BrandBase):
             k for k in BrandColor.model_fields.keys() if k != "palette"
         ]
 
-        for top_field in self.typography.model_fields.keys():
+        for top_field in self.typography.__class__.model_fields.keys():
             typography_node = getattr(self.typography, top_field)
 
             if not isinstance(typography_node, BaseModel):
                 continue
 
-            for typography_node_field in typography_node.model_fields.keys():
+            for (
+                typography_node_field
+            ) in typography_node.__class__.model_fields.keys():
                 if typography_node_field not in ("color", "background_color"):
                     continue
 
