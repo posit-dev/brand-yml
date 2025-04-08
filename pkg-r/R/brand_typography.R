@@ -29,8 +29,6 @@ brand_font_bunny <- function(
   style = NULL,
   display = NULL
 ) {
-  check_installed("utils")
-
   weight <- brand_remap_font_weight(weight) %||% seq(100, 900, 100)
 
   style <- style %||% c("normal", "italic")

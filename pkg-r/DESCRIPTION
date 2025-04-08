@@ -12,7 +12,9 @@ Description: Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a
     presentations with a consistent look and feel.
 License: MIT + file LICENSE
 Imports:
+    cli,
     rlang (>= 1.1.0),
+    utils,
     yaml
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
