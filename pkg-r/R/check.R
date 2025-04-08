@@ -60,7 +60,7 @@ check_list <- function(input, proto, path = NULL) {
         string = check_string(input_item, allow_null = TRUE, arg = current_path),
         character = check_character(input_item, allow_null = TRUE, arg = current_path),
         integer = check_number_whole(input_item, allow_null = TRUE, arg = current_path),
-        numeric = check_number(input_item, allow_null = TRUE, arg = current_path),
+        numeric = check_number_decimal(input_item, allow_null = TRUE, arg = current_path),
         boolean = check_logical(input_item, allow_null = TRUE, arg = current_path),
         list = check_is_list(input_item, allow_null = TRUE, arg = current_path),
       )
