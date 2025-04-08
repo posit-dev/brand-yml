@@ -15,3 +15,19 @@ A normalized \code{brand_yml} list.
 \description{
 Create a Brand instance from a list or character vector.
 }
+\examples{
+as_brand_yml("
+meta:
+  name: Example Brand
+
+color:
+  primary: '#FF5733'
+  secondary: '#33FF57'
+")
+
+as_brand_yml(list(
+  meta = list(name = "Example Brand"),
+  color = list(primary = "#FF5733", secondary = "#33FF57")
+))
+
+}
