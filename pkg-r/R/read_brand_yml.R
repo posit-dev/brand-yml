@@ -46,6 +46,21 @@ read_brand_yml <- function(path = NULL) {
 
 #' Create a Brand instance from a list or character vector.
 #'
+#' @examples
+#' as_brand_yml("
+#' meta:
+#'   name: Example Brand
+#'
+#' color:
+#'   primary: '#FF5733'
+#'   secondary: '#33FF57'
+#' ")
+#'
+#' as_brand_yml(list(
+#'   meta = list(name = "Example Brand"),
+#'   color = list(primary = "#FF5733", secondary = "#33FF57")
+#' ))
+#'
 #' @param brand A list or YAML as a character vector representing the brand.
 #'
 #' @return A normalized `brand_yml` list.
