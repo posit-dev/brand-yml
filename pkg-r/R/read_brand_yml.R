@@ -11,11 +11,6 @@
 #' automatic discovery, `read_brand_yml()` starts the search in the working
 #' directory and moves upward to find the `_brand.yml` file.
 #'
-#' @param path The path to the brand.yml file or a directory where `_brand.yml`
-#'   is expected to be found.
-#'
-#' @return A normalized `brand_yml` list from the brand.yml file.
-#'
 #' @examples
 #'
 #' # For this example: copy a brand.yml to a temporary directory
@@ -28,6 +23,12 @@
 #'
 #' brand <- read_brand_yml(tmp_dir)
 #'
+#' @param path The path to the brand.yml file or a directory where `_brand.yml`
+#'   is expected to be found.
+#'
+#' @return A normalized `brand_yml` list from the brand.yml file.
+#'
+#' @references <https://posit-dev.github.io/brand-yml/>
 #' @export
 read_brand_yml <- function(path = NULL) {
   path <- find_project_brand_yml(

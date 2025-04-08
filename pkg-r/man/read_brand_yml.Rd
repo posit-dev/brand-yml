@@ -39,3 +39,6 @@ file.copy(
 brand <- read_brand_yml(tmp_dir)
 
 }
+\references{
+\url{https://posit-dev.github.io/brand-yml/}
+}
