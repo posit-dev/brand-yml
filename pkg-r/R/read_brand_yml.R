@@ -78,7 +78,6 @@ as_brand_yml.character <- function(brand) {
 
 #' @export
 as_brand_yml.list <- function(brand) {
-  # Normalize brand internals !! MINIMAL VALIDATION !!
   brand <- brand_meta_normalize(brand)
   brand <- brand_color_normalize(brand)
   brand <- brand_typography_normalize(brand)
@@ -167,4 +166,41 @@ path_ext <- function(path) {
   # Same as tools::file_ext()
   pos <- regexpr("\\.([[:alnum:]]+)$", path)
   ifelse(pos > -1L, substring(path, pos + 1L), "")
+}
+
+# Display ---------------------------------------------------------------------
+
+#' @export
+print.brand_yml <- function(x, ...) {
+  path <- x$path %||% "_brand.yml"
+  path <- sub(path.expand("~/"), "~/", path, fixed = TRUE)
+
+  y <- x
+  y$path <- NULL
+
+  if (brand_has(y, "typography", "fonts")) {
+    if (identical(y$typography$fonts, list())) {
+      y$typography$fonts <- NULL
+    }
+  }
+
+  brand_yml <- yaml::as.yaml(y, indent.mapping.sequence = TRUE)
+
+  for (section in c("meta", "color", "typography", "logo", "defaults")) {
+    pattern <- paste0("(^|\\n)", section, ":")
+    replacement <- paste0("\\1", cli::style_bold(cli::col_cyan(section)), ":")
+    brand_yml <- sub(pattern, replacement, brand_yml)
+  }
+
+  for (subsection in c("palette", "images", "fonts")) {
+    pattern <- paste0("\n  ", subsection, ":")
+    replacement <- paste0("\n  ", cli::style_italic(subsection), ":")
+    brand_yml <- sub(pattern, replacement, brand_yml)
+  }
+
+  cli::cli_text("## {.path {path}}")
+  cli::cli_verbatim(brand_yml)
+  cli::cat_line()
+
+  invisible(x)
 }
