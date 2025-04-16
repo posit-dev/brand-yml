@@ -19,9 +19,121 @@ brand_typography_normalize <- function(brand) {
     }
   }
 
+  brand_typography_fonts_check(brand)
+
+  brand$typography$fonts <- brand_typography_fonts_declare_implied(brand)
+  brand$typography$fonts <- brand_typography_fonts_normalize(brand)
+
   brand
 }
 
+brand_typography_fonts_check <- function(brand) {
+  if (!brand_has(brand, "typography", "fonts")) {
+    return(invisible())
+  }
+
+  check_is_list(
+    brand$typography$fonts,
+    allow_null = TRUE,
+    arg = "typography.fonts"
+  )
+
+  for (i in seq_along(brand$typography$fonts)) {
+    font <- brand$typography$fonts[[i]]
+    path <- sprintf("typography.fonts[%d]", i)
+
+    check_is_list(font, arg = path)
+
+    check_list(
+      font,
+      proto = list(family = "string", source = "string"),
+      path = path,
+      closed = FALSE
+    )
+
+    if (length(intersect(c("family", "source"), names(font))) != 2) {
+      cli::cli_abort(
+        "{.var {path}} must include both `family` and `source`."
+      )
+    }
+
+    check_enum(font$source, c("system", "file", "google", "bunny"))
+  }
+}
+
+brand_typography_fonts_declare_implied <- function(brand) {
+  fonts <-
+    if (brand_has(brand, "typography", "fonts")) {
+      brand$typography$fonts
+    } else {
+      list()
+    }
+
+  font_family_listed <- map_chr(fonts, "[[", "family")
+  font_family_implied <- map_chr(
+    keep(brand$typography, function(x) "family" %in% names(x)),
+    `[[`,
+    "family"
+  )
+
+  font_family_not_declared <- setdiff(
+    font_family_implied,
+    font_family_listed
+  )
+
+  for (family in unique(font_family_not_declared)) {
+    font <- list(
+      family = family,
+      source = brand_typography_default_font_source()
+    )
+    fonts <- c(fonts, list(font))
+  }
+
+  fonts
+}
+
+brand_typography_default_font_source <- function() {
+  opt <- getOption("brand_yml.default_font_source", NULL)
+  if (!is.null(opt)) {
+    return(opt)
+  }
+
+  Sys.getenv("BRAND_YML_DEFAULT_FONT_SOURCE", "system")
+}
+
+brand_typography_fonts_normalize <- function(brand) {
+  fonts <- brand$typography$fonts
+  if (is.null(fonts)) return(NULL)
+
+  defaults <- list(
+    file = list(
+      format = "truetype",
+      weight = "auto",
+      style = "normal"
+    )
+  )
+
+  for (i in seq_along(fonts)) {
+    default <- defaults[[fonts[[i]]$source]]
+
+    check_enum(
+      fonts[[i]]$source,
+      c("system", "file", "bunny", "google"),
+      arg = sprintf("typography$fonts[[%d]]$source", i)
+    )
+
+    if (fonts[[i]]$source == "file") {
+      fonts[[i]]$files <- map(fonts[[i]]$files, function(file) {
+        list_merge(
+          list(weight = "auto", style = "normal"),
+          file
+        )
+      })
+    }
+  }
+
+  fonts
+}
 
 brand_font_bunny <- function(
   family,

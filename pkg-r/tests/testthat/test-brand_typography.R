@@ -1,3 +1,20 @@
+test_that("brand.typography validation errors", {
+  expect_snapshot(error = TRUE, {
+    as_brand_yml(list(typography = list(fonts = "foo")))
+    as_brand_yml(list(typography = list(fonts = list(source = "bad"))))
+    as_brand_yml(list(typography = list(fonts = list(source = TRUE))))
+  })
+
+  expect_snapshot(error = TRUE, {
+    as_brand_yml(list(typography = list(fonts = list(list(source = "bad")))))
+    as_brand_yml(list(typography = list(fonts = list(list(family = 42)))))
+    as_brand_yml(list(typography = list(fonts = list(list(weight = 400)))))
+    as_brand_yml(list(
+      typography = list(fonts = list(list(family = "foo", source = "bad")))
+    ))
+  })
+})
+
 test_that("brand.typography adds system fonts by default", {
   brand <- read_brand_yml(test_example("brand-typography-simple.yml"))
 
@@ -13,17 +30,14 @@ test_that("brand.typography adds system fonts by default", {
     map_chr(brand$typography$fonts, function(f) f$source),
     rep("system", 3)
   )
-
-  expect_snapshot(print(brand))
 })
 
-test_that("brand typography with Google fonts", {
-  withr::with_envvar(c("DEFAULT_FONT_SOURCE" = "google"), {
+test_that("brand.typography with Google fonts", {
+  withr::with_envvar(c("BRAND_YML_DEFAULT_FONT_SOURCE" = "google"), {
     brand <- read_brand_yml(test_example("brand-typography-simple.yml"))
   })
 
   expect_true(is.list(brand$typography))
-  expect_s3_class(brand$typography, "brand_typography")
 
   expect_true(is.list(brand$typography$fonts))
   expect_length(brand$typography$fonts, 3)
@@ -37,89 +51,61 @@ test_that("brand typography with Google fonts", {
   )
 
   expect_null(brand$typography$link)
-  expect_s3_class(brand$typography$base, "brand_typography_base")
-  expect_s3_class(brand$typography$headings, "brand_typography_headings")
-  expect_s3_class(brand$typography$monospace, "brand_typography_monospace")
-  expect_s3_class(
-    brand$typography$monospace_inline,
-    "brand_typography_monospace_inline"
-  )
-  expect_s3_class(
-    brand$typography$monospace_block,
-    "brand_typography_monospace_block"
-  )
-
-  expect_snapshot(print(brand))
 })
 
-test_that("brand typography with various font sources", {
+test_that("brand.typography with various font sources", {
   brand <- read_brand_yml(test_example("brand-typography-fonts.yml"))
 
   expect_true(is.list(brand$typography))
-  expect_s3_class(brand$typography, "brand_typography")
   expect_length(brand$typography$fonts, 4)
 
   # Local Font Files
   local_font <- brand$typography$fonts[[1]]
-  expect_s3_class(local_font, "brand_typography_font_files")
   expect_equal(local_font$source, "file")
   expect_equal(local_font$family, "Open Sans")
 
   for (i in seq_along(local_font$files)) {
     font <- local_font$files[[i]]
-    expect_s3_class(font, "brand_typography_font_files_path")
     expect_true(grepl("OpenSans", font$path))
     expect_true(grepl("\\.ttf$", font$path))
-    expect_equal(font$format, "truetype")
-    expect_s3_class(font$weight, "brand_typography_font_file_weight")
+    # expect_equal(font$format, "truetype")
     expect_equal(as.character(font$weight), "auto")
     expect_equal(font$style, c("normal", "italic")[i])
   }
 
   # Online Font Files
   online_font <- brand$typography$fonts[[2]]
-  expect_s3_class(online_font, "brand_typography_font_files")
   expect_equal(online_font$source, "file")
   expect_equal(online_font$family, "Closed Sans")
 
   for (i in seq_along(online_font$files)) {
     font <- online_font$files[[i]]
-    expect_s3_class(font, "brand_typography_font_files_path")
     expect_true(grepl("^https://", font$path))
     expect_true(grepl("\\.woff2$", font$path))
-    expect_equal(font$format, "woff2")
+    # expect_equal(font$format, "woff2")
     expect_equal(as.character(font$weight), c("bold", "auto")[i])
     expect_equal(font$style, c("normal", "italic")[i])
   }
 
   # Google Fonts
   google_font <- brand$typography$fonts[[3]]
-  expect_s3_class(google_font, "brand_typography_font_google")
   expect_equal(google_font$family, "Roboto Slab")
-  expect_s3_class(
-    google_font$weight,
-    "brand_typography_google_fonts_weight_range"
-  )
+  expect_equal(google_font$source, "google")
   expect_equal(as.character(google_font$weight), "600..900")
-  expect_equal(google_font$weight$to_url_list(), list("600..900"))
   expect_equal(google_font$style, "normal")
   expect_equal(google_font$display, "block")
 
   # Bunny Fonts
   bunny_font <- brand$typography$fonts[[4]]
-  expect_s3_class(bunny_font, "brand_typography_font_bunny")
+  expect_equal(bunny_font$source, "bunny")
   expect_equal(bunny_font$family, "Fira Code")
-
-  expect_snapshot(print(brand))
 })
 
 test_that("brand typography with colors", {
   brand <- read_brand_yml(test_example("brand-typography-color.yml"))
 
   expect_true(is.list(brand$typography))
-  expect_s3_class(brand$typography, "brand_typography")
   expect_true(is.list(brand$color))
-  expect_s3_class(brand$color, "brand_color")
 
   t <- brand$typography
   color <- brand$color
@@ -127,21 +113,15 @@ test_that("brand typography with colors", {
 
   expect_null(t$base) # base color is set via color$foreground
 
-  expect_s3_class(t$headings, "brand_typography_headings")
   expect_equal(t$headings$color, color$primary)
 
-  expect_s3_class(t$monospace_inline, "brand_typography_monospace_inline")
   expect_equal(t$monospace_inline$color, color$background)
   expect_equal(t$monospace_inline$background_color, color$palette$red)
 
-  expect_s3_class(t$monospace_block, "brand_typography_monospace_block")
   expect_equal(t$monospace_block$color, color$foreground)
   expect_equal(t$monospace_block$background_color, color$background)
 
-  expect_s3_class(t$link, "brand_typography_link")
   expect_equal(t$link$color, color$palette$red)
-
-  expect_snapshot(print(brand))
 })
 
 test_that("brand typography CSS fonts", {

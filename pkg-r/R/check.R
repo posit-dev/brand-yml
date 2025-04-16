@@ -1,4 +1,4 @@
-check_list <- function(input, proto, path = NULL) {
+check_list <- function(input, proto, path = NULL, closed = TRUE) {
   if (!is.list(input)) {
     cli::cli_abort(
       "{.var input} must be a list, not {.obj_type_friendly {input}}"
@@ -12,13 +12,15 @@ check_list <- function(input, proto, path = NULL) {
   }
 
   # Check for items in input that aren't in the proto
-  extra_items <- setdiff(names(input), names(proto))
-  if (length(extra_items) > 0) {
-    field_path <- if (is.null(path)) "" else paste(path, collapse = ".")
-    cli::cli_abort(c(
-      "Unexpected fields in {.field {field_path}}:",
-      "x" = "{.val {extra_items}}"
-    ))
+  if (isTRUE(closed)) {
+    extra_items <- setdiff(names(input), names(proto))
+    if (length(extra_items) > 0) {
+      field_path <- if (is.null(path)) "" else paste(path, collapse = ".")
+      cli::cli_abort(c(
+        "Unexpected fields in {.field {field_path}}:",
+        "x" = "{.val {extra_items}}"
+      ))
+    }
   }
 
   # Check that each item in input matches the type in proto
@@ -28,6 +30,10 @@ check_list <- function(input, proto, path = NULL) {
 
     if (is.null(input_item)) {
       # Skip null values
+      next
+    }
+
+    if (isFALSE(closed) && is.null(proto_item)) {
       next
     }
 
@@ -101,4 +107,35 @@ check_is_list <- function(
   }
 
   invisible(x)
+}
+
+check_enum <- function(
+  x,
+  values,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
+  if (!missing(x)) {
+    if (is.character(x) && length(x) == 1 && x %in% values) {
+      return(invisible(NULL))
+    }
+    if (allow_null && is_null(x)) {
+      return(invisible(NULL))
+    }
+  }
+
+  values_label <- paste0("`", values, "`", collapse = ", ")
+  msg <- sprintf("one of %s", values_label)
+
+  stop_input_type(
+    x,
+    msg,
+    ...,
+    allow_na = FALSE,
+    allow_null = allow_null,
+    arg = arg,
+    call = call
+  )
 }

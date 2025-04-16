@@ -65,3 +65,33 @@ split_css_value_and_unit <- function(x) {
 
   return(list(value = result[2], unit = result[3]))
 }
+
+list_merge <- function(x, y) {
+  if (rlang::is_empty(y)) return(x)
+  if (rlang::is_empty(x)) return(y)
+
+  x_names <- rlang::names2(x)
+  y_names <- rlang::names2(y)
+
+  for (i in seq_along(y)) {
+    y_nm <- y_names[i]
+
+    # Handle unnamed elements by position
+    if (y_nm == "") {
+      x <- c(x, list(y[[i]]))
+      next
+    }
+
+    both_lists <- rlang::is_list(x[[y_nm]]) && rlang::is_list(y[[i]])
+
+    # If item exists in x and both values are lists, recurse
+    if (y_nm %in% x_names && both_lists) {
+      x[[y_nm]] <- list_merge(x[[y_nm]], y[[i]])
+    } else {
+      # Otherwise, overwrite or add
+      x[[y_nm]] <- y[[i]]
+    }
+  }
+
+  return(x)
+}
