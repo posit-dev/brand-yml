@@ -37,6 +37,7 @@ read_brand_yml <- function(path = NULL) {
   )
 
   brand <- yaml::read_yaml(path, readLines.warn = FALSE)
+  brand <- list_restyle_names(brand, "snake")
 
   brand <- as_brand_yml(brand)
   brand$path <- path
@@ -175,16 +176,7 @@ print.brand_yml <- function(x, ...) {
   path <- x$path %||% "_brand.yml"
   path <- sub(path.expand("~/"), "~/", path, fixed = TRUE)
 
-  y <- x
-  y$path <- NULL
-
-  if (brand_has(y, "typography", "fonts")) {
-    if (identical(y$typography$fonts, list())) {
-      y$typography$fonts <- NULL
-    }
-  }
-
-  brand_yml <- yaml::as.yaml(y, indent.mapping.sequence = TRUE)
+  brand_yml <- format(x, ...)
 
   for (section in c("meta", "color", "typography", "logo", "defaults")) {
     pattern <- paste0("(^|\\n)", section, ":")
@@ -203,4 +195,21 @@ print.brand_yml <- function(x, ...) {
   cli::cat_line()
 
   invisible(x)
+}
+
+#' @export
+format.brand_yml <- function(x, ..., style = c("kebab")) {
+  path <- x$path %||% "_brand.yml"
+  path <- sub(path.expand("~/"), "~/", path, fixed = TRUE)
+
+  x$path <- NULL
+
+  if (brand_has(x, "typography", "fonts")) {
+    if (identical(x$typography$fonts, list())) {
+      x$typography$fonts <- NULL
+    }
+  }
+
+  x <- list_restyle_names(x, style)
+  yaml::as.yaml(x, indent.mapping.sequence = TRUE, ...)
 }

@@ -43,3 +43,40 @@ describe("maybe_convert_font_size_to_rem()", {
     )
   })
 })
+
+describe("list_restyle_names()", {
+  it("converts names to snake case", {
+    input_list <- list(a_b = 1, c_d = 2)
+    expected_output <- list(a_b = 1, c_d = 2)
+    output <- list_restyle_names(input_list, style = "snake")
+    expect_equal(output, expected_output)
+  })
+
+  it("converts names to kebab case", {
+    input_list <- list("a-b" = 1, "c-d" = 2)
+    expected_output <- list("a-b" = 1, "c-d" = 2)
+    output <- list_restyle_names(input_list, style = "kebab")
+    expect_equal(output, expected_output)
+  })
+
+  it("handles nested lists", {
+    input_list <- list(a_b = list(c_d = 1), e_f = list(g_h = 2))
+    expected_output <- list("a-b" = list("c-d" = 1), "e-f" = list("g-h" = 2))
+    output <- list_restyle_names(input_list, style = "kebab")
+    expect_equal(output, expected_output)
+  })
+
+  it("handles empty lists", {
+    input_list <- list()
+    expected_output <- list()
+    output <- list_restyle_names(input_list, style = "snake")
+    expect_equal(output, expected_output)
+  })
+
+  it("handles lists with NULL names", {
+    input_list <- list(1, 2, 3)
+    expected_output <- list(1, 2, 3)
+    output <- list_restyle_names(input_list, style = "snake")
+    expect_equal(output, expected_output)
+  })
+})

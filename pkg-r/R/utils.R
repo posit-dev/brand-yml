@@ -95,3 +95,19 @@ list_merge <- function(x, y) {
 
   return(x)
 }
+
+list_restyle_names <- function(x, style = c("snake", "kebab")) {
+  style <- arg_match(style)
+
+  if (is_list(x)) {
+    if (!is.null(names(x))) {
+      names(x) <- switch(
+        style,
+        snake = gsub("-", "_", names(x)),
+        kebab = gsub("_", "-", names(x))
+      )
+    }
+    x <- map(x, list_restyle_names, style)
+  }
+  return(x)
+}
