@@ -44,7 +44,7 @@ color:
     expect_equal(brand$typography$base$family, "Times New Roman")
     expect_equal(brand$typography$headings$family, "Helvetica")
     expect_equal(brand$typography[["monospace"]]$family, "Courier New")
-    expect_equal(brand$typography[["monospace-inline"]]$family, "Fira Code")
+    expect_equal(brand$typography$monospace_inline$family, "Fira Code")
   })
 })
 

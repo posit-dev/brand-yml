@@ -85,7 +85,7 @@ test_that("brand.logo full example works", {
     "logos/pandas/pandas_secondary.svg"
   )
   expect_s3_class(brand$logo$medium$dark, "brand_logo_resource")
-  expect_equal(brand$logo$medium$dark, brand$logo$images$`secondary-white`)
+  expect_equal(brand$logo$medium$dark, brand$logo$images$secondary_white)
 
   expect_s3_class(brand$logo$large, "brand_logo_resource")
   expect_equal(brand$logo$large, brand$logo$images$pandas)

@@ -37,7 +37,6 @@ read_brand_yml <- function(path = NULL) {
   )
 
   brand <- yaml::read_yaml(path, readLines.warn = FALSE)
-  brand <- list_restyle_names(brand, "snake")
 
   brand <- as_brand_yml(brand)
   brand$path <- path
@@ -84,7 +83,14 @@ as_brand_yml.list <- function(brand) {
   brand <- brand_typography_normalize(brand)
   brand <- brand_logo_normalize(brand)
 
+  # This is here for consistency with the python package, see
+  # Brand._resolve_typography_colors()
+  brand <- brand_resolve_typography_colors(brand)
+
   brand <- compact(brand)
+
+  # Convert to snake-case names after validation and normalization
+  brand <- list_restyle_names(brand, "snake")
 
   class(brand) <- "brand_yml"
   brand
