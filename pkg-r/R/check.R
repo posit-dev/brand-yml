@@ -127,31 +127,67 @@ check_enum <- function(
   x,
   values,
   ...,
+  max_len = 1,
   allow_null = FALSE,
+  allow_dups = FALSE,
   arg = caller_arg(x),
   call = caller_env()
 ) {
-  if (!missing(x)) {
-    if (is.character(x) && length(x) == 1 && x %in% values) {
-      return(invisible(NULL))
-    }
-    if (allow_null && is_null(x)) {
-      return(invisible(NULL))
-    }
+  if (allow_null && is_null(x)) {
+    return(invisible(NULL))
+  }
+
+  check_number_whole(max_len, allow_infinite = TRUE)
+  check_len <- is.finite(max_len)
+
+  is_chr <- is.character(x)
+  all_allowed <- if (length(x) > 0) all(map_lgl(x, `%in%`, values)) else FALSE
+  is_valid_len <- if (check_len) length(x) <= max_len else length(x) > 0
+  no_dups <- if (!allow_dups) identical(unique(x), x) else TRUE
+
+  if (is_chr && all_allowed && is_valid_len && no_dups) {
+    return(invisible(NULL))
   }
 
   values_label <- paste0("`", values, "`", collapse = ", ")
-  msg <- sprintf("one of %s", values_label)
 
-  stop_input_type(
-    x,
-    msg,
-    ...,
-    allow_na = FALSE,
-    allow_null = allow_null,
-    arg = arg,
-    call = call
-  )
+  how_many <-
+    if (!check_len) {
+      "one or more"
+    } else if (max_len == 1) {
+      "exactly one"
+    } else {
+      sprintf("at most %d", max_len)
+    }
+
+  msg <- sprintf("%s of %s", how_many, values_label)
+
+  if (!is_chr) {
+    stop_input_type(
+      x,
+      msg,
+      ...,
+      allow_na = FALSE,
+      allow_null = allow_null,
+      arg = arg,
+      call = call
+    )
+  } else if (!all_allowed) {
+    not_allowed <- unique(setdiff(x, values))
+    cli::cli_abort(c(
+      "{.arg {arg}} does not allow {.val {not_allowed}}.",
+      "i" = "Values must be {how_many} of {.val {values}}."
+    ))
+  } else if (!is_valid_len) {
+    cli::cli_abort(
+      "{.arg {arg}} must have at most {max_len} item{?s}, not {length(x)} item{?s}."
+    )
+  } else if (!no_dups) {
+    cli::cli_abort(c(
+      "{.arg {arg}} must contain unique values.",
+      "i" = "Duplicated values: {.val {unique(x[duplicated(x)])}}"
+    ))
+  }
 }
 
 check_string_or_list <- function(
@@ -174,4 +210,40 @@ check_string_or_list <- function(
       call = call
     )
   }
+}
+
+check_string_or_number <- function(
+  x,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
+  if (allow_null && is.null(x)) return(invisible(NULL))
+
+  ok_string <- FALSE
+  ok_list <- FALSE
+
+  try(silent = TRUE, {
+    check_string(x, allow_null = allow_null)
+    ok_string <- TRUE
+  })
+  try(silent = TRUE, {
+    check_number_decimal(x, allow_null = TRUE)
+    ok_list <- TRUE
+  })
+
+  if (ok_string || ok_list) {
+    return(invisible(NULL))
+  }
+
+  stop_input_type(
+    x,
+    "either a string or a number",
+    ...,
+    allow_na = FALSE,
+    allow_null = allow_null,
+    arg = arg,
+    call = call
+  )
 }
