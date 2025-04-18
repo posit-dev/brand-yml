@@ -45,22 +45,22 @@
       $images
       $images$mark
       <brand_logo_resource src="logos/pandas/pandas_mark.svg" alt="">
-      $images$`mark-white`
+      $images$mark_white
       <brand_logo_resource src="logos/pandas/pandas_mark_white.svg" alt="">
       $images$secondary
       <brand_logo_resource src="logos/pandas/pandas_secondary.svg" alt="">
-      $images$`secondary-white`
+      $images$secondary_white
       <brand_logo_resource src="logos/pandas/pandas_secondary_white.svg" alt="">
       $images$pandas
       <brand_logo_resource src="logos/pandas/pandas.svg" alt="">
-      $images$`pandas-white`
+      $images$pandas_white
       <brand_logo_resource src="logos/pandas/pandas_white.svg" alt="">
       
       $small
       <brand_logo_resource src="logos/pandas/pandas_mark.svg" alt="">
       $medium
       <brand_logo_resource variant="light" src="logos/pandas/pandas_secondary.svg" alt="">
-      <brand_logo_resource variant="dark" src="logos/pandas/pandas_secondary_white.svg" alt="">
+      <brand_logo_resource variant="dark" src="secondary-white" alt="">
       $large
       <brand_logo_resource src="logos/pandas/pandas.svg" alt="">
 
