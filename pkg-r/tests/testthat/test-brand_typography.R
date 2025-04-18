@@ -61,6 +61,12 @@ test_that("brand.typography with Google fonts", {
     brand <- read_brand_yml(test_example("brand-typography-simple.yml"))
   })
 
+  withr::with_options(list(brand_yml.default_font_source = "google"), {
+    brand_opt <- read_brand_yml(test_example("brand-typography-simple.yml"))
+  })
+
+  expect_equal(brand, brand_opt)
+
   expect_true(is.list(brand$typography))
 
   expect_true(is.list(brand$typography$fonts))

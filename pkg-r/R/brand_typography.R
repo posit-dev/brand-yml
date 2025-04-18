@@ -17,7 +17,7 @@ brand_typography_normalize <- function(brand) {
 
 brand_typography_expand_strings <- function(brand) {
   typography <- brand_pluck(brand, "typography")
-  if (is.null(typography)) return(NULL)
+  if (is.null(typography)) return(NULL) # nocovr
 
   expand_family <- c(
     "base",
@@ -177,7 +177,7 @@ brand_typography_check_allowed_color_fields <- function(typography) {
     )
 
     for (key in color_keys) {
-      if (is.null(typography[[field]][[key]])) next
+      if (is.null(typography[[field]][[key]])) next # nocovr
 
       not_allowed <-
         field == "base" ||
@@ -217,9 +217,9 @@ brand_resolve_typography_colors <- function(brand) {
     )
 
     for (key in color_keys) {
-      if (is.null(typography[[field]][[key]])) next
-
       old <- typography[[field]][[key]]
+      if (is.null(old)) next # nocovr
+
       new <- brand_color_pluck(brand, old)
 
       if (identical(old, new) && old %in% theme_color_fields) {
@@ -314,7 +314,7 @@ brand_typography_default_font_source <- function() {
 
 brand_typography_fonts_normalize <- function(brand) {
   fonts <- brand$typography$fonts
-  if (is.null(fonts)) return(NULL)
+  if (is.null(fonts)) return(NULL) # nocovr
 
   defaults <- list(
     file = list(
