@@ -114,3 +114,35 @@ describe("brand_color_pluck()", {
     expect_error(brand_color_pluck(brand, "black"), "brand.color.palette.black")
   })
 })
+
+test_that("brand.color is validated for unexpected fields and basic field structure", {
+  expect_error(
+    as_brand_yml(list(color = list(palette = "one"))),
+    "color[.]palette"
+  )
+
+  expect_error(
+    as_brand_yml(list(color = list(palette = list("one")))),
+    "color[.]palette"
+  )
+
+  expect_error(
+    as_brand_yml(list(color = list(palette = list("one" = 12)))),
+    "color[.]palette[.]one"
+  )
+
+  expect_error(
+    as_brand_yml(list(color = list(bad = "foo"))),
+    "Unexpected"
+  )
+
+  for (key in brand_color_fields_theme()) {
+    b <- list(color = list())
+    b$color[[key]] <- 123
+
+    expect_error(
+      as_brand_yml(!!b),
+      sprintf("color[.]%s", key)
+    )
+  }
+})

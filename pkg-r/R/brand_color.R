@@ -3,6 +3,8 @@ brand_color_normalize <- function(brand) {
     return(brand)
   }
 
+  brand_color_check_fields(brand$color)
+
   # Pull out colors and resolve each color from original brand
   theme <- brand_pluck(brand, "color")
 
@@ -21,6 +23,42 @@ brand_color_normalize <- function(brand) {
   # Then replace brand.color with resolved colors
   brand[["color"]] <- theme
   brand
+}
+
+brand_color_check_fields <- function(color) {
+  ptype <- list(palette = "list")
+  for (theme_field in brand_color_fields_theme()) {
+    ptype[[theme_field]] <- "string"
+  }
+
+  check_list(color, ptype, "color")
+
+  if (!is.null(color$palette)) {
+    check_is_list(color$palette, all_named = TRUE, arg = "color.palette")
+
+    for (field in names(color$palette)) {
+      check_string(
+        color$palette[[field]],
+        arg = sprintf("color.palette.%s", field)
+      )
+    }
+  }
+}
+
+brand_color_fields_theme <- function() {
+  c(
+    "foreground",
+    "background",
+    "primary",
+    "secondary",
+    "tertiary",
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "light",
+    "dark"
+  )
 }
 
 brand_color_pluck <- function(brand, key) {

@@ -80,10 +80,15 @@ check_is_list <- function(
   x,
   allow_null = FALSE,
   arg = NULL,
-  allowed_names = NULL
+  allowed_names = NULL,
+  all_named = FALSE
 ) {
   if (is.null(x) && allow_null) {
     return(invisible(x))
+  }
+
+  if (is.null(arg)) {
+    arg <- deparse(substitute(x))
   }
 
   if (!is.list(x)) {
@@ -91,6 +96,15 @@ check_is_list <- function(
       "{.var {arg}} must be a list, not {.obj_type_friendly {x}}",
       call = caller_call(),
     )
+  }
+
+  if (all_named) {
+    if (is.null(names(x)) || !all(nzchar(names2(x)))) {
+      cli::cli_abort(
+        "All items in {.var {arg}} must be named.",
+        call = caller_call()
+      )
+    }
   }
 
   if (!is.null(allowed_names)) {
