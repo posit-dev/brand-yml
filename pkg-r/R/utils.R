@@ -103,11 +103,18 @@ list_restyle_names <- function(x, style = c("snake", "kebab")) {
     if (!is.null(names(x))) {
       names(x) <- switch(
         style,
-        snake = gsub("-", "_", names(x)),
-        kebab = gsub("_", "-", names(x))
+        snake = as_snake_case(names(x)),
+        kebab = as_kebab_case(names(x))
       )
     }
     x <- map(x, list_restyle_names, style)
   }
   return(x)
+}
+
+as_snake_case <- function(x) gsub("-", "_", x)
+as_kebab_case <- function(x) gsub("_", "-", x)
+
+paste. <- function(...) {
+  paste(c(...), collapse = ".")
 }
