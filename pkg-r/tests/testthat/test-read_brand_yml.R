@@ -122,3 +122,21 @@ describe("read_brand_yml()", {
     )
   })
 })
+
+test_that("brand_yml read and print methods", {
+  brand <- read_brand_yml(test_path("examples", "brand-posit.yml"))
+  brand$path <- "_brand.yml"
+
+  expect_snapshot(
+    print(brand)
+  )
+})
+
+test_that("brand_yml read and print methods with typography and colors", {
+  brand <- read_brand_yml(test_path("examples", "brand-typography-color.yml"))
+  brand$path <- "_brand.yml"
+
+  expect_snapshot(
+    print(brand)
+  )
+})
