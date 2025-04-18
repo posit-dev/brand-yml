@@ -13,6 +13,30 @@ test_that("brand.typography validation errors", {
       typography = list(fonts = list(list(family = "foo", source = "bad")))
     ))
   })
+
+  expect_snapshot(error = TRUE, {
+    as_brand_yml(list(typography = list(bad = "foo")))
+    as_brand_yml(list(typography = list(base = list(family = 42))))
+    as_brand_yml(list(typography = list(base = list(size = 42))))
+    as_brand_yml(list(typography = list(base = list(size = 42))))
+
+    # not allowed
+    as_brand_yml(list(typography = list(base = list(color = "red"))))
+    as_brand_yml(list(
+      typography = list(base = list("background-color" = "red"))
+    ))
+
+    as_brand_yml(list(typography = list(base = list(weight = "bad"))))
+    as_brand_yml(list(typography = list(base = list(weight = 100.50))))
+
+    as_brand_yml(list(typography = list(base = list("line-height" = NA))))
+
+    as_brand_yml(list(typography = list(headings = list(style = "bad"))))
+    as_brand_yml(list(
+      typography = list(headings = list(style = rep("normal", 2)))
+    ))
+    as_brand_yml(list(typography = list(headings = list(color = 42))))
+  })
 })
 
 test_that("brand.typography adds system fonts by default", {

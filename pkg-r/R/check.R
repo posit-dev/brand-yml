@@ -16,10 +16,9 @@ check_list <- function(input, proto, path = NULL, closed = TRUE) {
     extra_items <- setdiff(names(input), names(proto))
     if (length(extra_items) > 0) {
       field_path <- if (is.null(path)) "" else paste(path, collapse = ".")
-      cli::cli_abort(c(
-        "Unexpected fields in {.field {field_path}}:",
-        "x" = "{.val {extra_items}}"
-      ))
+      cli::cli_abort(
+        "Unexpected fields in {.field {field_path}}: {.val {extra_items}}"
+      )
     }
   }
 
@@ -55,7 +54,8 @@ check_list <- function(input, proto, path = NULL, closed = TRUE) {
 
       if (is.function(proto_item)) {
         # Validator function
-        proto_item(input_item)
+        check_proto_item <- proto_item # alias for traceback
+        check_proto_item(input_item)
         next
       }
 
@@ -222,7 +222,7 @@ check_string_or_number <- function(
   if (allow_null && is.null(x)) return(invisible(NULL))
 
   ok_string <- FALSE
-  ok_list <- FALSE
+  ok_number <- FALSE
 
   try(silent = TRUE, {
     check_string(x, allow_null = allow_null)
@@ -230,10 +230,10 @@ check_string_or_number <- function(
   })
   try(silent = TRUE, {
     check_number_decimal(x, allow_null = TRUE)
-    ok_list <- TRUE
+    ok_number <- TRUE
   })
 
-  if (ok_string || ok_list) {
+  if (ok_string || ok_number) {
     return(invisible(NULL))
   }
 

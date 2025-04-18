@@ -6,6 +6,7 @@ brand_typography_normalize <- function(brand) {
   brand$typography <- brand_typography_expand_strings(brand)
   brand$typography <- brand_typography_forward_monospace(brand)
   brand_typography_check_allowed_color_fields(brand$typography)
+  brand_typography_check(brand$typography)
 
   brand_typography_fonts_check(brand)
   brand$typography$fonts <- brand_typography_fonts_declare_implied(brand)
@@ -35,6 +36,107 @@ brand_typography_expand_strings <- function(brand) {
   }
 
   typography
+}
+
+brand_typography_check <- function(typography) {
+  check_list(
+    typography,
+    brand_typography_prototype(),
+    path = "typography"
+  )
+}
+
+brand_typography_prototype <- function() {
+  opt_family <- "string"
+  opt_color <- "string"
+  opt_size <- "string"
+  opt_background_color <- "string"
+  opt_style <- function(path) {
+    force(path)
+
+    function(style) {
+      check_enum(
+        style,
+        c("normal", "italic"),
+        max_len = 2,
+        arg = paste.("typography", path, style)
+      )
+    }
+  }
+  opt_weight <- function(path) {
+    path_weight <- paste.("typography", path, "weight")
+
+    function(weight) {
+      check_string_or_number(weight, arg = path_weight)
+
+      if (is.numeric(weight)) {
+        check_number_whole(
+          weight,
+          min = 0,
+          max = 1000,
+          arg = path_weight
+        )
+        return()
+      }
+
+      if (is_string(weight)) {
+        check_enum(
+          weight,
+          values = names(brand_font_weight_map),
+          arg = path_weight
+        )
+      }
+    }
+  }
+  opt_line_height = function(path) {
+    path <- paste.("typography", path, "line-height")
+
+    function(...) {
+      check_string_or_number(..., arg = path)
+    }
+  }
+
+  list(
+    fonts = "list",
+    base = list(
+      family = opt_family,
+      weight = opt_weight("base"),
+      size = opt_size,
+      "line-height" = opt_line_height("base")
+    ),
+    headings = list(
+      family = opt_family,
+      weight = opt_weight("headings"),
+      style = opt_style("headings"),
+      "line-height" = opt_line_height("headings"),
+      color = opt_color
+    ),
+    monospace = list(
+      family = opt_family,
+      weight = opt_weight("monospace"),
+      size = opt_size
+    ),
+    "monospace-inline" = list(
+      family = opt_family,
+      weight = opt_weight("monospace-inline"),
+      size = opt_size,
+      color = opt_color,
+      "background-color" = opt_background_color
+    ),
+    "monospace-block" = list(
+      family = opt_family,
+      weight = opt_weight("monospace-block"),
+      size = opt_size,
+      color = opt_color,
+      "background-color" = opt_background_color,
+      "line-height" = opt_line_height("monospace-block")
+    ),
+    "link" = list(
+      weight = opt_weight("link"),
+      color = opt_color,
+      "background-color" = opt_background_color
+    )
+  )
 }
 
 # Forward values from `monospace` to inline and block variants.
