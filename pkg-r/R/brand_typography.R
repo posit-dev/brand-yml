@@ -3,6 +3,21 @@ brand_typography_normalize <- function(brand) {
     return(brand)
   }
 
+  brand$typography <- brand_typography_expand_strings(brand)
+  brand$typography <- brand_typography_forward_monospace(brand)
+  brand_typography_check_allowed_color_fields(brand$typography)
+
+  brand_typography_fonts_check(brand)
+  brand$typography$fonts <- brand_typography_fonts_declare_implied(brand)
+  brand$typography$fonts <- brand_typography_fonts_normalize(brand)
+
+  brand
+}
+
+brand_typography_expand_strings <- function(brand) {
+  typography <- brand_pluck(brand, "typography")
+  if (is.null(typography)) return(NULL)
+
   expand_family <- c(
     "base",
     "headings",
@@ -12,20 +27,114 @@ brand_typography_normalize <- function(brand) {
   )
 
   for (field in expand_family) {
-    if (brand_has_string(brand, "typography", field)) {
-      brand[["typography"]][[field]] <- list(
-        family = brand[["typography"]][[field]]
+    if (brand_has_string(typography, field)) {
+      typography[[field]] <- list(
+        family = typography[[field]]
       )
     }
   }
 
-  brand_typography_fonts_check(brand)
+  typography
+}
 
-  brand$typography$fonts <- brand_typography_fonts_declare_implied(brand)
-  brand$typography$fonts <- brand_typography_fonts_normalize(brand)
+# Forward values from `monospace` to inline and block variants.
+#
+# Ensures that `monospace-inline` and `monospace-block` inherit `family`,
+# `style`, `weight`, and `size` from `monospace` if not explicitly set.
+brand_typography_forward_monospace <- function(brand) {
+  typography <- brand_pluck(brand, "typography")
 
+  if (!brand_has_list(typography, "monospace")) {
+    return(typography)
+  }
+
+  fwd_keys <- c("family", "style", "weight", "size")
+
+  monospace_defaults <- typography$monospace[
+    intersect(fwd_keys, names(typography$monospace))
+  ]
+
+  for (field in c("monospace-inline", "monospace-block")) {
+    if (brand_has_list(typography, field)) {
+      typography[[field]] <- list_merge(monospace_defaults, typography[[field]])
+    }
+  }
+
+  typography
+}
+
+brand_typography_check_allowed_color_fields <- function(typography) {
+  disallowed_fields <- list()
+
+  for (field in names(typography)) {
+    if (field == "fonts") next
+
+    color_keys <- intersect(
+      c("color", "background-color"),
+      names(typography[[field]])
+    )
+
+    for (key in color_keys) {
+      if (is.null(typography[[field]][[key]])) next
+
+      not_allowed <-
+        field == "base" ||
+        field == "monospace" ||
+        field == "headings" && key == "background-color"
+
+      if (not_allowed) {
+        disallowed_fields <- c(disallowed_fields, list(c(field, key)))
+      }
+    }
+  }
+
+  if (length(disallowed_fields) > 0) {
+    disallowed_fields <- map_chr(disallowed_fields, paste, collapse = ".")
+    disallowed_fields <- paste0("typography.", disallowed_fields)
+    cli::cli_abort(
+      "The following fields are not allowed in brand.yml: {.field {disallowed_fields}}."
+    )
+  }
+}
+
+brand_resolve_typography_colors <- function(brand) {
+  typography <- brand_pluck(brand, "typography")
+
+  if (is.null(typography)) {
+    return(brand)
+  }
+
+  theme_color_fields <- brand_color_fields_theme()
+
+  for (field in names(typography)) {
+    if (field == "fonts") next
+
+    color_keys <- intersect(
+      c("color", "background-color"),
+      names(typography[[field]])
+    )
+
+    for (key in color_keys) {
+      if (is.null(typography[[field]][[key]])) next
+
+      old <- typography[[field]][[key]]
+      new <- brand_color_pluck(brand, old)
+
+      if (identical(old, new) && old %in% theme_color_fields) {
+        path <- as_kebab_case(paste.(field, key))
+        cli::cli_abort(
+          "{.field typography.{path}} referred to {.code color.{old}} which is not defined."
+        )
+      }
+
+      typography[[field]][[key]] <- new
+    }
+  }
+
+  brand$typography <- typography
   brand
 }
+
 
 brand_typography_fonts_check <- function(brand) {
   if (!brand_has(brand, "typography", "fonts")) {
