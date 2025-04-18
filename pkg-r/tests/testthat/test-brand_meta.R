@@ -104,3 +104,55 @@ test_that("brand$meta from YAML file (small example)", {
     )
   )
 })
+
+test_that("brand.meta validates common issues", {
+  expect_error(
+    as_brand_yml(list(meta = list(name = 12))),
+    "meta.name"
+  )
+
+  expect_error(
+    as_brand_yml(list(meta = list(name = list(bad = "foo")))),
+    "meta.name"
+  )
+
+  expect_error(
+    as_brand_yml(list(meta = list(link = 12))),
+    "meta.link"
+  )
+
+  expect_error(
+    as_brand_yml(list(meta = list(link = list(home = 42)))),
+    "meta.link.home"
+  )
+})
+
+test_that("brand.meta allows extra fields", {
+  brand <- as_brand_yml(
+    list(
+      meta = list(
+        link = list(guidelines = "https://example.com/brand-guidelines"),
+        extra = "my extra field"
+      )
+    )
+  )
+
+  expect_equal(
+    brand_pluck(brand, "meta", "link", "guidelines"),
+    "https://example.com/brand-guidelines/"
+  )
+
+  expect_equal(
+    brand_pluck(brand, "meta", "extra"),
+    "my extra field"
+  )
+})
+
+test_that("brand.meta.name is normalized to a list", {
+  brand <- as_brand_yml(list(
+    meta = list(name = "brand.yml")
+  ))
+
+  expect_equal(brand_pluck(brand, "meta", "name", "short"), "brand.yml")
+  expect_equal(brand_pluck(brand, "meta", "name", "full"), "brand.yml")
+})

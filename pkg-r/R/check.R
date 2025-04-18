@@ -153,3 +153,25 @@ check_enum <- function(
     call = call
   )
 }
+
+check_string_or_list <- function(
+  x,
+  ...,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
+  if (allow_null && is.null(x)) return(invisible(NULL))
+
+  if (!is_string(x) && !is_list(x)) {
+    stop_input_type(
+      x,
+      "either a string or a list",
+      ...,
+      allow_na = FALSE,
+      allow_null = allow_null,
+      arg = arg,
+      call = call
+    )
+  }
+}
