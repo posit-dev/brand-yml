@@ -1,0 +1,94 @@
+meta:
+  name: Slack
+  link:
+    home: https://slack.com
+    linkedin: https://www.linkedin.com/company/tiny-spec-inc/
+    facebook: https://facebook.com/slackhq
+    twitter: https://twitter.com/slackhq
+    github: https://github.com/slackhq
+
+logo:
+  images:
+    mark: SLA-Logo-Mark.svg
+    mark-black: SLA-Logo-Mark-Black-RGB.svg
+    mark-white: SLA-Logo-Mark-Monochrome-White.svg
+    logo-black: SLA-Slack-From-Salesforce-Logo-BLACK.svg
+    logo-white: SLA-Slack-From-Salesforce-Logo-WHITE.svg
+  small: mark
+  medium:
+    light: logo-black
+    dark: logo-white
+
+color:
+  palette:
+    # Core palette
+    aubergine: "#4A154B"
+    horchata: "#F4EDE4"
+    black: "#1D1C1D"
+    white: "#FFFFFF"
+    blue: "#36C5F0"
+    green: "#2EB67D"
+    yellow: "#ECB22E"
+    red: "#E01E5A"
+
+    # Secondary palette
+    cobalt: "#1E328F"
+    sky: "#0E9DD3"
+    teal: "#2392A2"
+    pool: "#78D7DD"
+    evergreen: "#185F34"
+    moss: "#729C1A"
+    sandbar: "#FFD57E"
+    peach: "#FED4BE"
+    salmon: "#F2606A"
+    bubblegum: "#FFB6BD"
+    crimson: "#921D21"
+    terracotta: "#DE8969"
+    berry: "#7C2852"
+    mauve: "#C05B8C"
+
+    # Bootstrap color aliases
+    purple: aubergine
+    pink: bubblegum
+    indigo: "#4F2B8C"
+    cyan: sky
+    orange: terracotta
+
+  # Theme colors
+  primary: aubergine
+  background: white
+  foreground: black
+  success: green
+  info: blue
+  warning: yellow
+  danger: red
+
+typography:
+  fonts:
+    # Figtree as replacement for Slack-Circular (primary font)
+    - family: Figtree
+      source: google
+      weight: [400, 500, 600, 700]
+
+    # DM Sans as replacement for Larsseit (heading font)
+    - family: DM Sans
+      source: google
+      weight: [400, 500, 700]
+
+    # Monospace font for code
+    - family: Roboto Mono
+      source: google
+
+  base:
+    family: Figtree
+    weight: 400
+    line-height: 1.4
+
+  headings:
+    family: DM Sans
+    weight: 700
+    line-height: 1.25
+
+  monospace:
+    family: Roboto Mono
+    weight: 400

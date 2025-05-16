@@ -10,39 +10,5 @@ order: 2
 ![Home Depot (Foundation) Colors and Typography](home-depot-foundation.png)
 
 ```{.yaml filename="_brand.yml"}
-meta:
-  name: Home Depot
-  link: https://homedepot.com
-
-color:
-  palette:
-    orange: "#F96302"
-    white: "#FFFFFF"
-    black: "#000000"
-    warm-gray-light: "#F5F5F5"
-    warm-gray-dark: "#747474"
-    warm-gray-medium: "#C4C4C4"
-  theme:
-    foreground: black
-    background: white
-    primary: orange
-    secondary: warm-gray-dark
-    light: warm-gray-light
-    dark: warm-gray-dark
-
-typography:
-  fonts:
-    - family: Helvetica Neue LT Pro
-      source: file
-      files:
-        - path: HelveticaNeueLTPro.ttf
-        - path: HelveticaNeueLTPro-Bold.ttf
-          weight: bold
-    - family: Helvetica Neue LT Pro Condensed
-      source: file
-      files:
-        - path: HelveticaNeueLTPro-Cond-Bold.ttf
-          weight: bold
-  body: Helvetica Neue LT Pro
-  headings: Helvetica Neue LT Pro Condensed
+{{< include /_resources/examples/inspiration/home-depot/_brand.yml >}}
 ```

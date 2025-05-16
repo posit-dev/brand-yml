@@ -1,0 +1,174 @@
+## This is copy of /docs/inspiration/brand-guidelines/dell/_brand-dell.yml
+## Eventually we should ensure there's a single source of truth for this data
+meta:
+  name:
+    short: Dell
+    full: Dell Technologies
+  link:
+    home: https://www.dell.com
+    brand: https://www.dell.com/en-us/lp/brand-identity
+    design: https://www.delldesignsystem.com/
+
+logo:
+  small: dell-color.svg
+  medium: dell-color.svg
+
+color:
+  palette:
+    # Primary Blues
+    blue-100: "#D9F5FD"
+    blue-200: "#94DCF7"
+    blue-300: "#5CC1EE"
+    blue-400: "#31A2E3"
+    blue-500: "#1282D6"
+    blue-600: "#0672CB"
+    blue-700: "#0063B8"
+    blue-800: "#00468B"
+    blue-900: "#002A58"
+
+    # Neutral Grays
+    white: "#FFFFFF"
+    gray-100: "#F5F6F7"
+    gray-200: "#F0F0F0"
+    gray-300: "#E1E1E1"
+    gray-400: "#D2D2D2"
+    gray-500: "#B6B6B6"
+    gray-600: "#7E7E7E"
+    gray-700: "#6E6E6E"
+    gray-800: "#636363"
+    gray-900: "#0E0E0E"
+
+    # Neutral Slates
+    slate-100: "#EBF1F6"
+    slate-200: "#C5D4E3"
+    slate-300: "#A4B8CD"
+    slate-400: "#839DB4"
+    slate-500: "#40586D"
+    slate-600: "#293B4D"
+    slate-700: "#1D2C3B"
+    slate-800: "#141D28"
+    slate-900: "#0A0E14"
+
+    # Secondary Colors
+    yellow-100: "#FEEFCB"
+    yellow-200: "#F5CD6F"
+    yellow-300: "#E6AC28"
+    yellow-400: "#CE8D00"
+    yellow-500: "#B36F00"
+    yellow-600: "#A36100"
+    yellow-700: "#925400"
+    yellow-800: "#6D3A00"
+    yellow-900: "#442200"
+
+    red-100: "#FFECEE"
+    red-200: "#FFC3C9"
+    red-300: "#FF99A1"
+    red-400: "#FE6873"
+    red-500: "#E4424D"
+    red-600: "#D0353F"
+    red-700: "#BB2A33"
+    red-800: "#8C161F"
+    red-900: "#590A0F"
+
+    green-100: "#E9F5CE"
+    green-200: "#C0DD78"
+    green-300: "#9BC438"
+    green-400: "#7AA809"
+    green-500: "#5D8C00"
+    green-600: "#4F7D00"
+    green-700: "#436F00"
+    green-800: "#2C5000"
+    green-900: "#193100"
+
+    # Accent Colors
+    light-blue-100: "#DAF5FD"
+    light-blue-200: "#97DCF4"
+    light-blue-300: "#61C1EB"
+    light-blue-400: "#36A2E0"
+    light-blue-500: "#1885C3"
+    light-blue-600: "#0D76B2"
+    light-blue-700: "#0468A1"
+    light-blue-800: "#004A77"
+    light-blue-900: "#002D4B"
+
+    purple-100: "#FBEBFF"
+    purple-200: "#ECC4FF"
+    purple-300: "#DB9EFF"
+    purple-400: "#C47AF4"
+    purple-500: "#A95ADC"
+    purple-600: "#994CCC"
+    purple-700: "#8A3FBA"
+    purple-800: "#66278F"
+    purple-900: "#40155C"
+
+    berry-100: "#FFEBF5"
+    berry-200: "#FFC0DF"
+    berry-300: "#F69AC6"
+    berry-400: "#E574AA"
+    berry-500: "#CB548D"
+    berry-600: "#BA467D"
+    berry-700: "#A8396F"
+    berry-800: "#7F234F"
+    berry-900: "#511230"
+
+    orange-100: "#FFEED2"
+    orange-200: "#FEC97A"
+    orange-300: "#F8A433"
+    orange-400: "#E67F01"
+    orange-500: "#C96100"
+    orange-600: "#B85200"
+    orange-700: "#A64600"
+    orange-800: "#7D2E00"
+    orange-900: "#4F1A00"
+
+    # Bootstrap color aliases
+    blue: blue-600
+    purple: berry-700
+    pink: berry-400
+    red: red-700
+    orange: orange-600
+    yellow: yellow-300
+    green: green-500
+    teal: "#0EA0A9"
+    cyan: light-blue-500
+    black: gray-900
+
+  # Theme colors
+  foreground: black
+  background: white
+  primary: blue-600
+  secondary: gray-400
+  success: green-500
+  warning: yellow-300
+  danger: red-700
+  info: "#0EA0A9"
+  light: gray-100
+  dark: gray-800
+
+
+typography:
+  fonts:
+    - family: Roboto
+      source: google
+    - family: Roboto Mono
+      source: google
+
+  base:
+    family: Roboto
+    line-height: 1.5
+
+  headings:
+    weight: 300
+
+  monospace: Roboto Mono
+
+  monospace-block:
+    background-color: gray-100
+
+defaults:
+  bootstrap:
+    rules: |
+      .h4, .h5, .h6,
+       h4,  h5,  h6 {
+        font-weight: 400
+      }
