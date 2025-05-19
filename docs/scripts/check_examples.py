@@ -5,7 +5,7 @@ import sys
 
 examples = [
     "_resources/examples/home",
-    "_resources/examples/inspiration/dell",
+    "inspiration/brand-guidelines/dell/_brand",
     "_resources/examples/inspiration/home-depot",
     "_resources/examples/inspiration/indeed",
     "_resources/examples/inspiration/nhsr-community",
