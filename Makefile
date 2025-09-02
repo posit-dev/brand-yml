@@ -1,6 +1,9 @@
 # Use qvm to manage quarto
-QUARTO_VERSION ?= 1.6.42
+QUARTO_VERSION ?= 1.7.31
 QUARTO_PATH = ~/.local/share/qvm/versions/v${QUARTO_VERSION}/bin/quarto
+PATH_PKG_R := pkg-r
+PATH_PKG_PY := pkg-py
+PATH_PKG_JS := js
 
 .PHONY: install-quarto
 install-quarto:
@@ -107,6 +110,51 @@ py-build:   ## [py] Build python package
 	@echo "🧳 Building python package"
 	@[ -d dist ] && rm -r dist || true
 	uv build
+
+.PHONY: r-setup
+r-setup:  ## [r] Install R dependencies
+	@echo "🆙 Updating R dependencies"
+	cd $(PATH_PKG_R) && Rscript -e "pak::local_install_dev_deps()"
+
+.PHONY: r-check
+r-check: r-check-format r-check-tests r-check-package  ## [r] All R checks
+
+.PHONY: r-document
+r-document: ## [r] Document package
+	@echo "📜 Documenting R package"
+	cd $(PATH_PKG_R) && Rscript -e "devtools::document()"
+
+.PHONY: r-format
+r-format:  ## [r] Format R code
+	air format $(PATH_PKG_R)/
+
+.PHONY: r-check-package
+r-check-package:  ## [r] Check package
+	@echo ""
+	@echo "🔄 Running R CMD Check"
+	cd $(PATH_PKG_R) && Rscript -e "devtools::check(document = FALSE)"
+
+.PHONY: r-check-tests
+r-check-tests:  ## [r] Check tests
+	@echo ""
+	@echo "🧪 Running R tests"
+	cd $(PATH_PKG_R) && Rscript -e "devtools::test()"
+
+.PHONY: r-check-format
+r-check-format:  ## [r] Check format
+	@echo ""
+	@echo "📐 Checking R format"
+	air format --check $(PATH_PKG_R)/
+
+.PHONY: r-docs
+r-docs: ## [r] Build R docs
+	@echo "📖 Rendering R docs with pkgdown"
+	cd $(PATH_PKG_R) && Rscript -e "pkgdown::build_site()"
+
+.PHONY: r-docs-preview
+r-docs-preview: ## [r] Build R docs
+	@echo "📖 Rendering R docs with pkgdown"
+	cd $(PATH_PKG_R) && Rscript -e "pkgdown::preview_site()"
 
 .PHONY: help
 help:  ## Show help messages for make targets
