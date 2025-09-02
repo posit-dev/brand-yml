@@ -190,7 +190,11 @@ brand_sass_defaults_bootstrap <- function(brand) {
   bootstrap <- bootstrap %||% list()
   bootstrap_defaults <- brand_validate_bootstrap_defaults(bootstrap$defaults)
 
-  defaults <- list2(!!!bootstrap_defaults, !!!shiny_defaults)
+  defaults <- dots_list(
+    !!!bootstrap_defaults,
+    !!!shiny_defaults,
+    .homonyms = "last"
+  )
   defaults <- lapply(defaults, function(x) {
     if (is.null(x)) {
       x <- "null"
