@@ -7,7 +7,8 @@
 as_brand_yml(brand)
 }
 \arguments{
-\item{brand}{A list or YAML as a character vector representing the brand.}
+\item{brand}{A list or string of YAML representing the brand, or a path to a
+brand.yml file.}
 }
 \value{
 A normalized \code{brand_yml} list.

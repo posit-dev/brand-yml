@@ -36,9 +36,7 @@ read_brand_yml <- function(path = NULL) {
     max_parents = if (is.null(path)) 20 else 1
   )
 
-  brand <- yaml::read_yaml(path, readLines.warn = FALSE)
-
-  brand <- as_brand_yml(brand)
+  brand <- as_brand_yml(path)
   brand$path <- path
 
   brand
@@ -61,7 +59,8 @@ read_brand_yml <- function(path = NULL) {
 #'   color = list(primary = "#FF5733", secondary = "#33FF57")
 #' ))
 #'
-#' @param brand A list or YAML as a character vector representing the brand.
+#' @param brand A list or string of YAML representing the brand, or a path to a
+#'   brand.yml file.
 #'
 #' @return A normalized `brand_yml` list.
 #'
@@ -71,8 +70,21 @@ as_brand_yml <- function(brand) {
 }
 
 #' @export
+as_brand_yml.default <- function(brand) {
+  cli::cli_abort(
+    "`brand` must be a list or character vector, not {.obj_type_friendly {brand}}."
+  )
+}
+
+#' @export
 as_brand_yml.character <- function(brand) {
-  brand <- yaml::yaml.load(brand, eval.expr = FALSE)
+  if (length(brand) == 1 && file.exists(brand)) {
+    path <- brand
+    brand <- read_yaml(path)
+    brand$path <- normalizePath(path)
+  } else {
+    brand <- yaml::yaml.load(brand, eval.expr = FALSE)
+  }
   as_brand_yml(brand)
 }
 

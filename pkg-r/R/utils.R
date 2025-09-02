@@ -122,3 +122,7 @@ as_kebab_case <- function(x) gsub("_", "-", x)
 paste. <- function(...) {
   paste(c(...), collapse = ".")
 }
+
+read_yaml <- function(path) {
+  yaml::read_yaml(path, eval.expr = FALSE, readLines.warn = FALSE)
+}
