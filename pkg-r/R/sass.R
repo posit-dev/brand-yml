@@ -173,13 +173,14 @@ brand_sass_defaults_bootstrap <- function(brand) {
   bootstrap <- brand_pluck(brand, "defaults", "bootstrap")
   shiny <- brand_pluck(brand, "defaults", "shiny", "theme")
 
-  if (is.null(bootstrap) && is.null(shiny))
+  if (is.null(bootstrap) && is.null(shiny)) {
     return(
       list(
         defaults = list(),
         layer = list()
       )
     )
+  }
 
   shiny <- shiny %||% list()
   shiny_defaults <- brand_validate_bootstrap_defaults(

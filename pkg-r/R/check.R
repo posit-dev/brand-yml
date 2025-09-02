@@ -197,7 +197,9 @@ check_string_or_list <- function(
   arg = caller_arg(x),
   call = caller_env()
 ) {
-  if (allow_null && is.null(x)) return(invisible(NULL))
+  if (allow_null && is.null(x)) {
+    return(invisible(NULL))
+  }
 
   if (!is_string(x) && !is_list(x)) {
     stop_input_type(
@@ -219,7 +221,9 @@ check_string_or_number <- function(
   arg = caller_arg(x),
   call = caller_env()
 ) {
-  if (allow_null && is.null(x)) return(invisible(NULL))
+  if (allow_null && is.null(x)) {
+    return(invisible(NULL))
+  }
 
   ok_string <- FALSE
   ok_number <- FALSE

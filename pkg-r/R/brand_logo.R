@@ -51,7 +51,9 @@ brand_logo <- function(
 }
 
 brand_logo_normalize <- function(brand) {
-  if (is.null(brand$logo)) return(brand)
+  if (is.null(brand$logo)) {
+    return(brand)
+  }
 
   if (is_string(brand$logo)) {
     brand$logo <- brand_logo_resource(path = brand$logo)
@@ -114,8 +116,12 @@ brand_logo_normalize_images <- function(images) {
 }
 
 brand_logo_normalize_path_or_image <- function(path, images = NULL) {
-  if (is.null(path)) return(NULL) # nocov
-  if (!is.character(path)) return(path)
+  if (is.null(path)) {
+    return(NULL) # nocovr
+  }
+  if (!is.character(path)) {
+    return(path)
+  }
 
   if (is.null(images) || !path %in% names(images)) {
     return(brand_logo_resource(path = path))
@@ -133,7 +139,9 @@ brand_logo_normalize_sizes <- function(logo, images) {
   for (size in c("small", "medium", "large")) {
     value <- logo[[size]]
 
-    if (is.null(value)) next
+    if (is.null(value)) {
+      next
+    }
 
     if (is.character(value)) {
       logo[[size]] <- brand_logo_normalize_path_or_image(value, images)

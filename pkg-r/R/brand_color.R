@@ -97,8 +97,12 @@ brand_color_pluck <- function(brand, key) {
   }
 
   check_string_or_null <- function(key, value) {
-    if (is.null(value)) return()
-    if (is_string(value)) return(value)
+    if (is.null(value)) {
+      return()
+    }
+    if (is_string(value)) {
+      return(value)
+    }
 
     abort(sprintf("`brand.color.%s` must be a string or `NULL`.", key))
   }
@@ -107,7 +111,9 @@ brand_color_pluck <- function(brand, key) {
   value <- ""
   i <- 0
   while (!identical(value, key)) {
-    if (is.null(key) || is.null(value)) return()
+    if (is.null(key) || is.null(value)) {
+      return()
+    }
 
     i <- i + 1
     if (i > 100) {

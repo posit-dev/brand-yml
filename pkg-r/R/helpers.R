@@ -5,7 +5,9 @@ brand_has <- function(brand, ...) {
 
   for (f in c(...)) {
     val <- tryCatch(x[[f]], error = function(e) NULL)
-    if (is.null(val)) return(FALSE)
+    if (is.null(val)) {
+      return(FALSE)
+    }
     x <- x[[f]]
   }
 
@@ -21,11 +23,15 @@ brand_pluck <- function(brand, ...) {
 }
 
 brand_has_string <- function(brand, ...) {
-  if (!brand_has(brand, ...)) return(FALSE)
+  if (!brand_has(brand, ...)) {
+    return(FALSE)
+  }
   is_string(brand[[c(...)]])
 }
 
 brand_has_list <- function(brand, ...) {
-  if (!brand_has(brand, ...)) return(FALSE)
+  if (!brand_has(brand, ...)) {
+    return(FALSE)
+  }
   is_list(brand[[c(...)]])
 }

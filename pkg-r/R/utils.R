@@ -67,8 +67,12 @@ split_css_value_and_unit <- function(x) {
 }
 
 list_merge <- function(x, y) {
-  if (rlang::is_empty(y)) return(x)
-  if (rlang::is_empty(x)) return(y)
+  if (rlang::is_empty(y)) {
+    return(x)
+  }
+  if (rlang::is_empty(x)) {
+    return(y)
+  }
 
   x_names <- rlang::names2(x)
   y_names <- rlang::names2(y)

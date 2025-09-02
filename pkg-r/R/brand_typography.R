@@ -17,7 +17,9 @@ brand_typography_normalize <- function(brand) {
 
 brand_typography_expand_strings <- function(brand) {
   typography <- brand_pluck(brand, "typography")
-  if (is.null(typography)) return(NULL) # nocovr
+  if (is.null(typography)) {
+    return(NULL) # nocovr
+  }
 
   expand_family <- c(
     "base",
@@ -169,7 +171,9 @@ brand_typography_check_allowed_color_fields <- function(typography) {
   disallowed_fields <- list()
 
   for (field in names(typography)) {
-    if (field == "fonts") next
+    if (field == "fonts") {
+      next
+    }
 
     color_keys <- intersect(
       c("color", "background-color"),
@@ -177,7 +181,9 @@ brand_typography_check_allowed_color_fields <- function(typography) {
     )
 
     for (key in color_keys) {
-      if (is.null(typography[[field]][[key]])) next # nocovr
+      if (is.null(typography[[field]][[key]])) {
+        next # nocovr
+      }
 
       not_allowed <-
         field == "base" ||
@@ -209,7 +215,9 @@ brand_resolve_typography_colors <- function(brand) {
   theme_color_fields <- brand_color_fields_theme()
 
   for (field in names(typography)) {
-    if (field == "fonts") next
+    if (field == "fonts") {
+      next
+    }
 
     color_keys <- intersect(
       c("color", "background-color"),
@@ -218,7 +226,9 @@ brand_resolve_typography_colors <- function(brand) {
 
     for (key in color_keys) {
       old <- typography[[field]][[key]]
-      if (is.null(old)) next # nocovr
+      if (is.null(old)) {
+        next # nocovr
+      }
 
       new <- brand_color_pluck(brand, old)
 
@@ -314,7 +324,9 @@ brand_typography_default_font_source <- function() {
 
 brand_typography_fonts_normalize <- function(brand) {
   fonts <- brand$typography$fonts
-  if (is.null(fonts)) return(NULL) # nocovr
+  if (is.null(fonts)) {
+    return(NULL) # nocovr
+  }
 
   defaults <- list(
     file = list(
@@ -476,7 +488,9 @@ brand_font_file <- function(family, files, brand_root = getwd()) {
 }
 
 brand_remap_font_weight <- function(x) {
-  if (is.null(x)) return()
+  if (is.null(x)) {
+    return()
+  }
 
   for (i in seq_along(x)) {
     if (x[[i]] %in% names(brand_font_weight_map)) {

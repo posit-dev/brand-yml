@@ -157,9 +157,13 @@ find_project_file <- function(
       "Could not find %s in %s%s.",
       paste(filename, collapse = ", "),
       dir_og,
-      if (max_parents_og == 1) "" else if (max_parents == 2)
-        "or its parent directory" else
+      if (max_parents_og == 1) {
+        ""
+      } else if (max_parents == 2) {
+        "or its parent directory"
+      } else {
         sprintf("or its %d parent directories", max_parents_og - 1)
+      }
     )
   )
 }

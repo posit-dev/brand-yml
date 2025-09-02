@@ -19,7 +19,9 @@ brand_validate_bootstrap_defaults <- function(
   }
 
   is_scalar <- function(v) {
-    if (is.null(v)) return(TRUE)
+    if (is.null(v)) {
+      return(TRUE)
+    }
     rlang::is_scalar_character(v) ||
       rlang::is_scalar_logical(v) ||
       rlang::is_scalar_double(v) ||
