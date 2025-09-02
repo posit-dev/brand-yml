@@ -1,5 +1,17 @@
+#' Generate Sass variables and CSS custom properties for brand color palette
+#'
+#' Converts color palette entries from a brand object to Sass variables with
+#' `brand-` prefix and CSS custom properties with `--brand-` prefix.
+#'
+#' @inheritParams as_brand_yml
+#' @return A list with two components:
+#'   * `defaults`: Sass variable definitions with `!default` flag
+#'   * `rules`: CSS rules that define custom properties in `:root`
+#'
+#' @export
 brand_sass_color_palette <- function(brand) {
   check_installed("htmltools")
+  brand <- as_brand_yml(brand)
 
   palette <- brand_pluck(brand, "color", "palette")
 
@@ -47,11 +59,22 @@ bootstrap_colors <- c(
   "cyan"
 )
 
+#' Generate Sass variables for brand colors
+#'
+#' Creates Sass variables for brand colors with the `brand_color_` prefix.
+#' Excludes the color palette which is handled by `brand_sass_color_palette()`.
+#'
+#' @inheritParams as_brand_yml
+#' @return A list with one component:
+#'   * `defaults`: Sass variable definitions with `!default` flag
+#'
+#' @export
 brand_sass_color <- function(brand) {
   # Create brand Sass variables and set related Bootstrap Sass vars
   # brand.color.primary = "#007bff"
   # ==> $brand_color_primary: #007bff !default;
   # ==> $primary: $brand_color_primary !default;
+  brand <- as_brand_yml(brand)
 
   colors <- brand_pluck(brand, "color") %||% list()
   colors$palette <- NULL
@@ -76,7 +99,19 @@ brand_sass_color <- function(brand) {
   list(defaults = defaults)
 }
 
+#' Generate Sass variables for brand typography
+#'
+#' Creates Sass variables for typography settings with the `brand_typography_` prefix.
+#' Font size values in pixels are converted to rem units, and color references are resolved.
+#'
+#' @inheritParams as_brand_yml
+#' @return A list with one component:
+#'   * `defaults`: Sass variable definitions with `!default` flag
+#'
+#' @export
 brand_sass_typography <- function(brand) {
+  brand <- as_brand_yml(brand)
+
   # Creates a dictionary of Sass variables for typography settings defined in
   # the `brand` object. These are used to set brand Sass variables in the format
   # `$brand_typography_{field}_{prop}`.
@@ -111,8 +146,20 @@ brand_sass_typography <- function(brand) {
   list(defaults = defaults)
 }
 
+#' Generate Sass variables and CSS rules for brand fonts
+#'
+#' Creates Sass variables and CSS rules for fonts defined in the brand object.
+#' Supports Google fonts, Bunny fonts, and file-based fonts.
+#'
+#' @inheritParams as_brand_yml
+#' @return A list with two components:
+#'   * `defaults`: Sass variables for font definitions
+#'   * `rules`: CSS rules for applying fonts via classes
+#'
+#' @export
 brand_sass_fonts <- function(brand) {
   check_installed("sass")
+  brand <- as_brand_yml(brand)
 
   fonts <- brand_pluck(brand, "typography", "fonts")
 
@@ -167,8 +214,21 @@ brand_sass_fonts <- function(brand) {
   list(defaults = defaults, rules = rules)
 }
 
+#' Generate Sass variables and layer for Bootstrap defaults
+#'
+#' Creates Sass variables and a sass layer from Bootstrap defaults defined in the brand object.
+#' Allows overriding defaults from other sources like Shiny themes.
+#'
+#' @inheritParams as_brand_yml
+#' @param overrides Path to override defaults, e.g., "shiny.theme"
+#' @return A list with two components:
+#'   * `defaults`: Sass variable definitions with `!default` flag
+#'   * `layer`: A sass_layer object with functions, mixins, and rules
+#'
+#' @export
 brand_sass_defaults_bootstrap <- function(brand, overrides = "shiny.theme") {
   check_installed("sass")
+  brand <- as_brand_yml(brand)
 
   bootstrap <- brand_pluck(brand, "defaults", "bootstrap")
 

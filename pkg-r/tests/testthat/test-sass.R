@@ -119,7 +119,7 @@ describe("brand_sass_typography()", {
   it("skips fonts field", {
     brand <- list(
       typography = list(
-        fonts = list(should = "be ignored"),
+        fonts = list(list(family = "ignored", source = "google")),
         base = list(size = "16px")
       )
     )
@@ -138,7 +138,7 @@ describe("brand_sass_typography()", {
       typography = list(
         base = list(
           size = "16px",
-          line_height = 1.5
+          family = "Roboto"
         ),
         headings = list(
           weight = "bold",
@@ -154,8 +154,8 @@ describe("brand_sass_typography()", {
       "1rem !default"
     )
     expect_equal(
-      result$defaults[["brand_typography_base_line_height"]],
-      "1.5 !default"
+      result$defaults[["brand_typography_base_family"]],
+      "Roboto !default"
     )
     expect_equal(
       result$defaults[["brand_typography_headings_weight"]],
@@ -167,11 +167,11 @@ describe("brand_sass_typography()", {
     )
   })
 
-  it("replaces hyphens with underscores in variable names", {
+  it("replaces hyphens with underscores in variable names and translate base size to rem", {
     brand <- list(
       typography = list(
-        "base-text" = list(
-          "font-size" = "14px",
+        "base" = list(
+          "size" = "14px",
           "line-height" = 1.6
         )
       )
@@ -180,11 +180,11 @@ describe("brand_sass_typography()", {
     result <- brand_sass_typography(brand)
 
     expect_equal(
-      result$defaults[["brand_typography_base_text_font_size"]],
-      "14px !default"
+      result$defaults[["brand_typography_base_size"]],
+      "0.875rem !default"
     )
     expect_equal(
-      result$defaults[["brand_typography_base_text_line_height"]],
+      result$defaults[["brand_typography_base_line_height"]],
       "1.6 !default"
     )
   })
@@ -281,7 +281,7 @@ describe("brand_sass_fonts()", {
 
     expect_error(
       brand_sass_fonts(brand),
-      "Unknown font source 'unknown'"
+      "font[$]source"
     )
   })
 })
