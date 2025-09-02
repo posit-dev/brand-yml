@@ -167,13 +167,35 @@ brand_sass_fonts <- function(brand) {
   list(defaults = defaults, rules = rules)
 }
 
-brand_sass_defaults_bootstrap <- function(brand) {
+brand_sass_defaults_bootstrap <- function(brand, overrides = "shiny.theme") {
   check_installed("sass")
 
   bootstrap <- brand_pluck(brand, "defaults", "bootstrap")
-  shiny <- brand_pluck(brand, "defaults", "shiny", "theme")
 
-  if (is.null(bootstrap) && is.null(shiny)) {
+  if (!is.null(overrides)) {
+    overrides_names <- paste0("defaults.", overrides)
+    overrides_names <- sub(
+      "defaults.defaults.",
+      "defaults.",
+      overrides_names,
+      fixed = TRUE
+    )
+    overrides <- strsplit(overrides_names, ".", fixed = TRUE)
+    overrides <- map(overrides, brand_pluck, brand = brand)
+    for (i in seq_along(overrides)) {
+      brand_validate_bootstrap_defaults(
+        overrides[[i]]$defaults,
+        overrides_names[[i]]
+      )
+    }
+    overrides <- reduce(overrides, function(acc, x) {
+      dots_list(!!!acc, !!!x, .homonyms = "last")
+    })
+  }
+
+  has_overrides <- !is.null(overrides) && length(overrides) > 0
+
+  if (is.null(bootstrap) && !has_overrides) {
     return(
       list(
         defaults = list(),
@@ -182,18 +204,12 @@ brand_sass_defaults_bootstrap <- function(brand) {
     )
   }
 
-  shiny <- shiny %||% list()
-  shiny_defaults <- brand_validate_bootstrap_defaults(
-    shiny$defaults,
-    "brand.defaults.shiny.theme"
-  )
-
   bootstrap <- bootstrap %||% list()
   bootstrap_defaults <- brand_validate_bootstrap_defaults(bootstrap$defaults)
 
   defaults <- dots_list(
     !!!bootstrap_defaults,
-    !!!shiny_defaults,
+    !!!overrides$defaults,
     .homonyms = "last"
   )
   defaults <- lapply(defaults, function(x) {
@@ -208,9 +224,9 @@ brand_sass_defaults_bootstrap <- function(brand) {
   list(
     defaults = defaults,
     layer = sass::sass_layer(
-      functions = c(bootstrap$functions, shiny$functions),
-      mixins = c(bootstrap$mixins, shiny$mixins),
-      rules = c(bootstrap$rules, shiny$rules)
+      functions = c(bootstrap$functions, overrides$functions),
+      mixins = c(bootstrap$mixins, overrides$mixins),
+      rules = c(bootstrap$rules, overrides$rules)
     )
   )
 }
