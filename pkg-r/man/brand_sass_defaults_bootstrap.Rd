@@ -23,3 +23,27 @@ A list with two components:
 Creates Sass variables and a sass layer from Bootstrap defaults defined in the brand object.
 Allows overriding defaults from other sources like Shiny themes.
 }
+\examples{
+\dontshow{if (requireNamespace("sass", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+brand <- list(
+  defaults = list(
+    bootstrap = list(
+      defaults = list(
+        primary = "#007bff",
+        enable_rounded = TRUE
+      ),
+      functions = "@function brand-function() { @return true; }"
+    ),
+    shiny = list(
+      theme = list(
+        defaults = list(
+          primary = "#428bca"  # Override bootstrap primary
+        )
+      )
+    )
+  )
+)
+
+brand_sass_defaults_bootstrap(brand)
+\dontshow{\}) # examplesIf}
+}

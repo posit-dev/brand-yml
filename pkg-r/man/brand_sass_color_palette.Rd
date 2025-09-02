@@ -21,3 +21,16 @@ A list with two components:
 Converts color palette entries from a brand object to Sass variables with
 \verb{brand-} prefix and CSS custom properties with \verb{--brand-} prefix.
 }
+\examples{
+brand <- list(
+  color = list(
+    palette = list(
+      primary = "#007bff",
+      secondary = "#6c757d"
+    )
+  )
+)
+
+brand_sass_color_palette(brand)
+
+}

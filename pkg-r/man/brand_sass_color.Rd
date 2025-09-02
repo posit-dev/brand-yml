@@ -20,3 +20,14 @@ A list with one component:
 Creates Sass variables for brand colors with the \code{brand_color_} prefix.
 Excludes the color palette which is handled by \code{brand_sass_color_palette()}.
 }
+\examples{
+brand <- list(
+  color = list(
+    primary = "#007bff",
+    danger = "#dc3545"
+  )
+)
+
+brand_sass_color(brand)
+
+}

@@ -20,3 +20,20 @@ A list with one component:
 Creates Sass variables for typography settings with the \code{brand_typography_} prefix.
 Font size values in pixels are converted to rem units, and color references are resolved.
 }
+\examples{
+brand <- list(
+  typography = list(
+    base = list(
+      size = "16px",
+      line_height = 1.5
+    ),
+    headings = list(
+      weight = "bold",
+      style = "normal"
+    )
+  )
+)
+
+brand_sass_typography(brand)
+
+}

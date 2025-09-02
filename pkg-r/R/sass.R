@@ -3,6 +3,18 @@
 #' Converts color palette entries from a brand object to Sass variables with
 #' `brand-` prefix and CSS custom properties with `--brand-` prefix.
 #'
+#' @examples
+#' brand <- list(
+#'   color = list(
+#'     palette = list(
+#'       primary = "#007bff",
+#'       secondary = "#6c757d"
+#'     )
+#'   )
+#' )
+#'
+#' brand_sass_color_palette(brand)
+#'
 #' @inheritParams as_brand_yml
 #' @return A list with two components:
 #'   * `defaults`: Sass variable definitions with `!default` flag
@@ -64,6 +76,16 @@ bootstrap_colors <- c(
 #' Creates Sass variables for brand colors with the `brand_color_` prefix.
 #' Excludes the color palette which is handled by `brand_sass_color_palette()`.
 #'
+#' @examples
+#' brand <- list(
+#'   color = list(
+#'     primary = "#007bff",
+#'     danger = "#dc3545"
+#'   )
+#' )
+#'
+#' brand_sass_color(brand)
+#'
 #' @inheritParams as_brand_yml
 #' @return A list with one component:
 #'   * `defaults`: Sass variable definitions with `!default` flag
@@ -103,6 +125,22 @@ brand_sass_color <- function(brand) {
 #'
 #' Creates Sass variables for typography settings with the `brand_typography_` prefix.
 #' Font size values in pixels are converted to rem units, and color references are resolved.
+#'
+#' @examples
+#' brand <- list(
+#'   typography = list(
+#'     base = list(
+#'       size = "16px",
+#'       line_height = 1.5
+#'     ),
+#'     headings = list(
+#'       weight = "bold",
+#'       style = "normal"
+#'     )
+#'   )
+#' )
+#'
+#' brand_sass_typography(brand)
 #'
 #' @inheritParams as_brand_yml
 #' @return A list with one component:
@@ -150,6 +188,22 @@ brand_sass_typography <- function(brand) {
 #'
 #' Creates Sass variables and CSS rules for fonts defined in the brand object.
 #' Supports Google fonts, Bunny fonts, and file-based fonts.
+#'
+#' @examplesIf requireNamespace("sass", quietly = TRUE)
+#' brand <- list(
+#'   typography = list(
+#'     fonts = list(
+#'       list(
+#'         family = "Roboto",
+#'         source = "google",
+#'         weight = c(400, 700),
+#'         style = "normal"
+#'       )
+#'     )
+#'   )
+#' )
+#'
+#' brand_sass_fonts(brand)
 #'
 #' @inheritParams as_brand_yml
 #' @return A list with two components:
@@ -218,6 +272,28 @@ brand_sass_fonts <- function(brand) {
 #'
 #' Creates Sass variables and a sass layer from Bootstrap defaults defined in the brand object.
 #' Allows overriding defaults from other sources like Shiny themes.
+#'
+#' @examplesIf requireNamespace("sass", quietly = TRUE)
+#' brand <- list(
+#'   defaults = list(
+#'     bootstrap = list(
+#'       defaults = list(
+#'         primary = "#007bff",
+#'         enable_rounded = TRUE
+#'       ),
+#'       functions = "@function brand-function() { @return true; }"
+#'     ),
+#'     shiny = list(
+#'       theme = list(
+#'         defaults = list(
+#'           primary = "#428bca"  # Override bootstrap primary
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#'
+#' brand_sass_defaults_bootstrap(brand)
 #'
 #' @inheritParams as_brand_yml
 #' @param overrides Path to override defaults, e.g., "shiny.theme"
