@@ -20,6 +20,7 @@
 #'   * `defaults`: Sass variable definitions with `!default` flag
 #'   * `rules`: CSS rules that define custom properties in `:root`
 #'
+#' @family brand.yml Sass helpers
 #' @export
 brand_sass_color_palette <- function(brand) {
   check_installed("htmltools")
@@ -90,6 +91,7 @@ bootstrap_colors <- c(
 #' @return A list with one component:
 #'   * `defaults`: Sass variable definitions with `!default` flag
 #'
+#' @family brand.yml Sass helpers
 #' @export
 brand_sass_color <- function(brand) {
   # Create brand Sass variables and set related Bootstrap Sass vars
@@ -146,6 +148,7 @@ brand_sass_color <- function(brand) {
 #' @return A list with one component:
 #'   * `defaults`: Sass variable definitions with `!default` flag
 #'
+#' @family brand.yml Sass helpers
 #' @export
 brand_sass_typography <- function(brand) {
   brand <- as_brand_yml(brand)
@@ -210,6 +213,7 @@ brand_sass_typography <- function(brand) {
 #'   * `defaults`: Sass variables for font definitions
 #'   * `rules`: CSS rules for applying fonts via classes
 #'
+#' @family brand.yml Sass helpers
 #' @export
 brand_sass_fonts <- function(brand) {
   check_installed("sass")
@@ -301,6 +305,7 @@ brand_sass_fonts <- function(brand) {
 #'   * `defaults`: Sass variable definitions with `!default` flag
 #'   * `layer`: A sass_layer object with functions, mixins, and rules
 #'
+#' @family brand.yml Sass helpers
 #' @export
 brand_sass_defaults_bootstrap <- function(brand, overrides = "shiny.theme") {
   check_installed("sass")
