@@ -136,7 +136,8 @@ brand_typography_prototype <- function() {
     "link" = list(
       weight = opt_weight("link"),
       color = opt_color,
-      "background-color" = opt_background_color
+      "background-color" = opt_background_color,
+      decoration = "string"
     )
   )
 }
