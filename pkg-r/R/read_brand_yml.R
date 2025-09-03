@@ -179,19 +179,19 @@ find_project_file <- function(
     max_parents <- max_parents - 1
   }
 
-  abort(
-    sprintf(
-      "Could not find %s in %s%s.",
-      paste(filename, collapse = ", "),
-      dir_og,
-      if (max_parents_og == 1) {
-        ""
-      } else if (max_parents == 2) {
-        "or its parent directory"
-      } else {
-        sprintf("or its %d parent directories", max_parents_og - 1)
-      }
+  extra <- if (max_parents_og == 1) {
+    ""
+  } else if (max_parents_og == 2) {
+    " or its parent directory"
+  } else {
+    cli::format_inline(
+      " or its {.field {max_parents_og - max_parents - 1}} parent directories"
     )
+  }
+
+  cli::cli_abort(
+    "Could not find {.or {.strong {filename}}} in {.path {dir_og}}{extra}.",
+    class = "brand_yml_not_found"
   )
 }
 
