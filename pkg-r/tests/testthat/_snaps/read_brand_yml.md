@@ -57,13 +57,19 @@
             display: block
         base:
           family: Open Sans
-          line_height: 1.25
+          line-height: 1.25
           size: 1rem
         headings:
           family: Roboto Slab
           color: '#447099'
           weight: 600
         monospace:
+          family: Fira Code
+          size: 0.9em
+        monospace-inline:
+          family: Fira Code
+          size: 0.9em
+        monospace-block:
           family: Fira Code
           size: 0.9em
     Output
@@ -90,12 +96,12 @@
       typography:
         headings:
           color: '#87CEEB'
-        monospace_inline:
+        monospace-inline:
           color: '#f7f4f4'
-          background_color: '#FF6F61'
-        monospace_block:
+          background-color: '#FF6F61'
+        monospace-block:
           color: '#1b1818'
-          background_color: '#f7f4f4'
+          background-color: '#f7f4f4'
         link:
           color: '#FF6F61'
     Output
