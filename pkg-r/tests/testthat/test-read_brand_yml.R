@@ -60,7 +60,7 @@ describe("find_project_brand_yml()", {
 
     expect_equal(
       find_project_brand_yml(),
-      file.path(getwd(), "_brand.yml")
+      path_norm(file.path(getwd(), "_brand.yml"))
     )
   })
 
@@ -69,7 +69,7 @@ describe("find_project_brand_yml()", {
 
     expect_equal(
       find_project_brand_yml(),
-      file.path(getwd(), "brand", "_brand.yml")
+      path_norm(file.path(getwd(), "brand", "_brand.yml"))
     )
   })
 
@@ -78,7 +78,7 @@ describe("find_project_brand_yml()", {
 
     expect_equal(
       find_project_brand_yml(),
-      normalizePath(file.path(getwd(), "..", "brand", "_brand.yml"))
+      path_norm(file.path(getwd(), "..", "brand", "_brand.yml"))
     )
   })
 
@@ -87,7 +87,7 @@ describe("find_project_brand_yml()", {
       find_project_brand_yml(
         test_path("fixtures", "find-brand-dir", "app", "app.R")
       ),
-      normalizePath(
+      path_norm(
         test_path("fixtures", "find-brand-dir", "brand", "_brand.yml")
       )
     )
@@ -124,7 +124,7 @@ describe("read_brand_yml()", {
     expect_equal(brand_found, brand_direct)
     expect_equal(
       brand_found$path,
-      normalizePath(test_path("fixtures", "find-brand-yml", "_brand.yml"))
+      path_norm(test_path("fixtures", "find-brand-yml", "_brand.yml"))
     )
   })
 })

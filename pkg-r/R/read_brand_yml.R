@@ -81,7 +81,7 @@ as_brand_yml.character <- function(brand) {
   if (length(brand) == 1 && file.exists(brand)) {
     path <- brand
     brand <- read_yaml(path)
-    brand$path <- normalizePath(path)
+    brand$path <- path_norm(path)
   } else {
     brand <- yaml::yaml.load(brand, eval.expr = FALSE)
   }
@@ -128,7 +128,7 @@ brand_path_dir <- function(brand) {
 
 find_project_brand_yml <- function(path = NULL, max_parents = 20) {
   path <- path %||% getwd()
-  path <- normalizePath(path, mustWork = FALSE)
+  path <- path_norm(path)
 
   ext <- if (dir.exists(path)) "" else path_ext(path)
   if (ext %in% c("yml", "yaml")) {
@@ -204,6 +204,10 @@ path_ext <- function(path) {
   # Same as tools::file_ext()
   pos <- regexpr("\\.([[:alnum:]]+)$", path)
   ifelse(pos > -1L, substring(path, pos + 1L), "")
+}
+
+path_norm <- function(path, winslash = "/", mustWork = FALSE) {
+  normalizePath(path, mustWork = mustWork, winslash = winslash)
 }
 
 # Display ---------------------------------------------------------------------
