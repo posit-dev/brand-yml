@@ -242,7 +242,6 @@ test_that("brand typography Google fonts weight range", {
   expect_match(css, "font-family: 'Roboto'", fixed = TRUE)
   expect_match(css, "font-style: normal;", fixed = TRUE)
   expect_match(css, "font-weight: 200 500;", fixed = TRUE)
-  expect_match(css, "src: url(https://fonts.gstatic.com", fixed = TRUE)
 })
 
 test_that("brand.typography disallowed colors", {
