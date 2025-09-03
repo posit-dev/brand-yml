@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/brand.yml)](https://CRAN.R-project.org/package=brand.yml)
+[![r-universe status badge](https://posit-dev.r-universe.dev/brand.yml/badges/version)](https://posit-dev.r-universe.dev/brand.yml)
 [![R-CMD-check](https://github.com/posit-dev/brand-yml/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/posit-dev/brand-yml/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
