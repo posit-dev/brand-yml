@@ -90,6 +90,8 @@ as_brand_yml.character <- function(brand) {
 
 #' @export
 as_brand_yml.list <- function(brand) {
+  brand <- list_restyle_names(brand, "kebab")
+
   brand <- brand_meta_normalize(brand)
   brand <- brand_color_normalize(brand)
   brand <- brand_typography_normalize(brand)
