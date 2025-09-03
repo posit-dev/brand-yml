@@ -108,6 +108,11 @@ as_brand_yml.list <- function(brand) {
   brand
 }
 
+#' @export
+as_brand_yml.brand_yml <- function(brand) {
+  brand
+}
+
 
 # Find _brand.yml --------------------------------------------------------------
 

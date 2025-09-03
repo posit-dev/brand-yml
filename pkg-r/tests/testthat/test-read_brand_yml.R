@@ -22,6 +22,12 @@ color:
     expect_equal(brand_from_list, brand_from_str)
   })
 
+  it("returns brand_yml objects unchanged", {
+    brand <- as_brand_yml(brand_list)
+    expect_s3_class(brand, "brand_yml")
+    expect_identical(as_brand_yml(brand), brand)
+  })
+
   it("normalizes colors", {
     brand <- as_brand_yml(brand_list)
     expect_s3_class(brand, "brand_yml")
