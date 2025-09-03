@@ -103,7 +103,7 @@ list_merge <- function(x, y) {
 list_restyle_names <- function(x, style = c("snake", "kebab")) {
   style <- arg_match(style)
 
-  if (inherits(x, "list")) {
+  if (is_list(x)) {
     if (!is.null(names(x))) {
       names(x) <- switch(
         style,
