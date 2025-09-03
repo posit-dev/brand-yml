@@ -35,6 +35,7 @@ brand_pluck(brand, "color", "secondary") # NULL
 }
 \seealso{
 Other brand.yml helpers: 
+\code{\link{brand_color_pluck}()},
 \code{\link{brand_has}()}
 }
 \concept{brand.yml helpers}

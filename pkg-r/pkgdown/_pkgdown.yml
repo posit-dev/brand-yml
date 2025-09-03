@@ -79,8 +79,7 @@ reference:
 
 - title: brand.yml helpers
   contents:
-  - brand_has
-  - brand_pluck
+  - has_concept("brand.yml helpers")
 
 - title: brand.yml Sass utilities
   contents:
