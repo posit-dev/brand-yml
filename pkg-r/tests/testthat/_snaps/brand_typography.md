@@ -120,3 +120,11 @@
       .brand-font-roboto-slab { font-family: $brand-font-roboto-slab; }
       .brand-font-fira-code { font-family: $brand-font-fira-code; }
 
+# brand.typography CSS fonts local
+
+    Code
+      brand_sass_fonts(brand)
+    Condition
+      Error in `brand_path_dir()`:
+      ! `brand` must have been read from a file on disk or have a `path` field.
+

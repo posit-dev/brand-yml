@@ -169,27 +169,10 @@ test_that("brand.typography CSS fonts", {
 })
 
 test_that("brand.typography CSS fonts local", {
-  skip("not yet updated")
-
-  fw <- brand_typography_font_file_weight("400..800")
-  expect_equal(as.character(fw), "400 800")
-  # expect_equal(jsonlite::toJSON(fw, auto_unbox = TRUE), '"400..800"')
-  expect_equal(fw$to_str_url(), "400..800")
-
-  expect_error(brand_typography_font_file_weight("400..600..900"))
-
-  fp <- brand_typography_font_files_path(list(
-    path = "OpenSans-Variable.ttf",
-    weight = "400..800"
-  ))
-  expect_equal(
-    fp$to_css(),
-    paste(
-      "font-weight: 400 800;",
-      "font-style: normal;",
-      "src: url('OpenSans-Variable.ttf') format('truetype');",
-      sep = "\n"
-    )
+  brand_path <- withr::local_tempdir()
+  file.copy(
+    test_example("fonts", "open-sans", "OpenSans-Variable.ttf"),
+    brand_path
   )
 
   brand <- as_brand_yml(list(
@@ -209,28 +192,57 @@ test_that("brand.typography CSS fonts local", {
     )
   ))
 
-  expect_true(is.list(brand$typography))
-  fonts_css <- brand$typography$fonts_css_include()
-  # at_rules <- stringr::str_extract_all(fonts_css, "@(import|font-face)")[[1]]
+  expect_snapshot(
+    error = TRUE,
+    brand_sass_fonts(brand)
+  )
 
-  expect_equal(at_rules, c("@import", "@font-face"))
-  expect_snapshot(fonts_css)
+  brand$path <- file.path(brand_path, "_brand.yml")
+
+  fonts_bundle <- brand_sass_fonts(brand)
+  expect_equal(
+    names(fonts_bundle$defaults),
+    c("brand-font-open-sans", "brand-font-roboto")
+  )
+  local_file_dep <- fonts_bundle$defaults[["brand-font-open-sans"]]$html_deps[[1]]() # fmt: skip
+  expect_s3_class(local_file_dep, "html_dependency")
+
+  local_file_css <- readLines(file.path(local_file_dep$src$file, "font.css"))
+  local_file_css <- sub("base64,[^)]+", "base64,...", local_file_css)
+  local_file_css <- paste(local_file_css, collapse = "\n")
+
+  expect_match(local_file_css, "font-family: 'Open Sans'", fixed = TRUE)
+  expect_match(local_file_css, "font-style: italic;", fixed = TRUE)
+  expect_match(local_file_css, "font-weight: 400 800;", fixed = TRUE)
+  expect_match(local_file_css, "src: url(data:font/ttf", fixed = TRUE)
 })
 
 test_that("brand typography Google fonts weight range", {
-  skip("not yet updated")
+  brand_path <- withr::local_tempdir()
+  brand <- as_brand_yml(list(
+    typography = list(
+      fonts = list(
+        list(family = "Roboto", source = "google", weight = "200..500")
+      )
+    )
+  ))
+  brand$path <- file.path(brand_path, "_brand.yml")
 
-  fw <- brand_typography_google_fonts_weight_range("600..800")
-  expect_equal(fw$root, c(600, 800))
-  expect_equal(as.character(fw), "600..800")
-  # expect_equal(jsonlite::toJSON(fw, auto_unbox = TRUE), '"600..800"')
-  expect_equal(fw$to_url_list(), list("600..800"))
+  fonts_bundle <- brand_sass_fonts(brand)
+  expect_equal(names(fonts_bundle$defaults), "brand-font-roboto")
 
-  fw <- brand_typography_google_fonts_weight_range(c("thin", "bold"))
-  expect_equal(fw$root, c(100, 700))
+  dep <- suppressMessages(
+    fonts_bundle$defaults[["brand-font-roboto"]]$html_deps()
+  )
+  expect_s3_class(dep, "html_dependency")
 
-  expect_error(brand_typography_google_fonts_weight_range("600..800..123"))
-  expect_error(brand_typography_google_fonts_weight_range(c(200, 400, 600)))
+  css <- readLines(file.path(dep$src$file, "font.css"))
+  css <- paste(css, collapse = "\n")
+
+  expect_match(css, "font-family: 'Roboto'", fixed = TRUE)
+  expect_match(css, "font-style: normal;", fixed = TRUE)
+  expect_match(css, "font-weight: 200 500;", fixed = TRUE)
+  expect_match(css, "src: url(https://fonts.gstatic.com", fixed = TRUE)
 })
 
 test_that("brand.typography disallowed colors", {
@@ -260,63 +272,6 @@ test_that("brand.typography disallowed colors", {
     file.path(fixtures_dir, "undefined-palette-headings-color.yml")
   )
   expect_equal(brand_pluck(brand, "typography", "headings", "color"), "orange")
-})
-
-test_that("brand.typography write font CSS", {
-  skip("not yet updated")
-
-  brand <- read_brand_yml(test_example("brand-typography-fonts.yml"))
-
-  expect_true(is.list(brand$typography))
-  expect_s3_class(brand$typography, "brand_typography")
-
-  withr::with_tempdir({
-    res <- brand$typography$fonts_write_css(getwd())
-    expect_false(is.null(res))
-    expect_equal(res, normalizePath(getwd()))
-
-    expect_true(file.exists("fonts.css"))
-    expect_true(file.exists(file.path(
-      "fonts",
-      "open-sans",
-      "OpenSans-Variable.ttf"
-    )))
-    expect_true(file.exists(file.path(
-      "fonts",
-      "open-sans",
-      "OpenSans-Variable-Italic.ttf"
-    )))
-  })
-
-  withr::with_tempdir({
-    dep <- brand$typography$fonts_html_dependency(getwd())
-    expect_false(is.null(dep))
-    expect_s3_class(dep, "html_dependency")
-
-    expect_false(is.null(dep$src$subdir))
-    subdir <- dep$src$subdir
-    expect_equal(subdir, normalizePath(getwd()))
-
-    expect_true(file.exists(file.path(subdir, "fonts.css")))
-    expect_true(file.exists(file.path(
-      subdir,
-      "fonts",
-      "open-sans",
-      "OpenSans-Variable.ttf"
-    )))
-    expect_true(file.exists(file.path(
-      subdir,
-      "fonts",
-      "open-sans",
-      "OpenSans-Variable-Italic.ttf"
-    )))
-
-    fonts_css_content <- readLines(file.path(subdir, "fonts.css"))
-    expect_equal(
-      paste(fonts_css_content, collapse = "\n"),
-      brand$typography$fonts_css_include()
-    )
-  })
 })
 
 test_that("brand.typography base font size as rem", {

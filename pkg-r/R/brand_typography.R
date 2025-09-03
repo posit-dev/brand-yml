@@ -383,6 +383,14 @@ brand_font_bunny <- function(
   if (!is.null(weight)) {
     stopifnot(is.character(weight) || is.numeric(weight))
     weight <- sort(weight)
+    wgt_has_dots <- grepl("..", as.character(weight), fixed = TRUE)
+    if (any(wgt_has_dots)) {
+      ex <- weight[wgt_has_dots][1]
+      cli::cli_warn(c(
+        "{.strong Bunny Fonts} does not support font weight ranges (e.g. {.val {ex}}).",
+        "i" = "Using individual weights instead."
+      ))
+    }
   }
 
   weight_list <- as.character(weight)
@@ -475,10 +483,13 @@ brand_font_file <- function(family, files, brand_root = getwd()) {
       )
     )
 
+    weight <- brand_remap_font_weight(file$weight)
+    weight <- sub("(\\d)[.]{2}(\\d)", "\\1 \\2", weight)
+
     sass::font_face(
       family = family,
       src = sprintf("url(%s) format(%s)", font_data_uri, font_type),
-      weight = brand_remap_font_weight(file$weight),
+      weight = weight,
       style = file$style,
       display = "auto"
     )

@@ -1,3 +1,14 @@
+check_is_brand_yml <- function(x) {
+  x_name <- deparse(substitute(x))
+
+  if (!inherits(x, "brand_yml")) {
+    cli::cli_abort(
+      "{.var {x_name}} must be a {.cls brand_yml} object, not {.obj_type_friendly {x}}"
+    )
+  }
+  invisible(x)
+}
+
 check_list <- function(input, proto, path = NULL, closed = TRUE) {
   if (!is.list(input)) {
     cli::cli_abort(

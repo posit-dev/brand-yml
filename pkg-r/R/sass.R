@@ -254,7 +254,7 @@ brand_sass_fonts <- function(brand) {
       file = brand_font_file(
         family = font$family,
         files = font$files,
-        brand_root = dirname(brand$path)
+        brand_root = brand_path_dir(brand)
       ),
       system = NULL,
       abort(sprintf("Unknown font source '%s'.", font$source))

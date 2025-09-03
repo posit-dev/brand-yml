@@ -113,6 +113,16 @@ as_brand_yml.brand_yml <- function(brand) {
   brand
 }
 
+brand_path_dir <- function(brand) {
+  check_is_brand_yml(brand)
+  if (!is_string(brand$path)) {
+    cli::cli_abort(
+      "{.var brand} must have been read from a file on disk or have a {.var path} field."
+    )
+  }
+  dirname(brand$path)
+}
+
 
 # Find _brand.yml --------------------------------------------------------------
 
