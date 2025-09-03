@@ -1,0 +1,105 @@
+meta:
+  name:
+    short: NHSR
+    full: NHS-R Community
+  link:
+    home: https://nhsrcommunity.com/
+    brand-guidelines: https://nhsrway.nhsrcommunity.com/style-guides.html#branding
+
+logo:
+  # Download the NHS-R Community logo and store it next to _brand.yml
+  # You'll have to update this section with the correct file names
+  images:
+    nhsr-logo:
+      path: nhsr-logo.svg
+      alt: NHS-R Community logo
+  small: nhsr-logo
+  medium: nhsr-logo
+  large: nhsr-logo
+
+
+color:
+  # NHS-R Community uses the NHS England colour palette
+  # https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/ used
+  # under the OGL Licence v3.0
+  palette:
+    # Core neutrals (Level 2)
+    white: "#FFFFFF"
+    black: "#231F20"
+    grey-dark: "#425563"
+    grey-mid: "#768692"
+    grey-pale: "#E8EDEE"
+
+    # Blues (Level 1)
+    blue-dark: "#003087"
+    blue: "#005EB8"
+    blue-bright: "#0072CE"
+    blue-light: "#41B6E6"
+    blue-aqua: "#00A9CE"
+
+    # Greens (Level 3)
+    green-dark: "#006747"
+    green: "#009639"
+    green-light: "#78BE20"
+    green-aqua: "#00A499"
+
+    # Purples and Pinks
+    purple: "#330072"
+    pink-dark: "#7C2855"
+    pink: "#AE2573"
+
+    # Reds
+    red-dark: "#8A1538"
+    red: "#DA291C"  # Emergency Services Red
+
+    # Yellows and Orange
+    orange: "#ED8B00"
+    yellow-warm: "#FFB81C"
+    yellow: "#FAE100"
+
+    # Bootstrap color aliases - using closest matches without duplication
+    indigo: blue-dark
+    cyan: blue-aqua
+    teal: green-aqua
+
+  foreground: black
+  background: white
+  primary: blue
+  secondary: grey-dark
+  tertiary: grey-pale
+  success: green
+  danger: red
+  warning: yellow-warm
+  info: blue-light
+  light: grey-pale
+  dark: grey-dark
+
+typography:
+  fonts:
+    # Note: Frutiger is a licensed NHS England font that requires purchasing
+    # https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/
+    # - family: Frutiger W01
+    #   source: file
+    #   files:
+    #     - path: fonts/FrutigerLTW01-55Roman.ttf
+    #     - path: fonts/FrutigerLTW01-65Bold.ttf
+    #       weight: bold
+
+    - family: Arial
+      source: system
+
+  base:
+    family: "Arial, sans-serif"
+    line-height: 1.5
+
+  headings:
+    family: "Arial, sans-serif"
+    weight: 700
+    line-height: 1.25
+    color: blue
+
+defaults:
+  bootstrap:
+    defaults:
+      # NHS-R Community specific variables could be added here
+      enable-rounded: false

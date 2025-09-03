@@ -12,10 +12,17 @@ order: 6
 
 ```{python}
 #| echo: false
+from brand_yml import Brand
 from brand_yml._utils_yaml import yaml_brand as yaml
 from IPython.display import Markdown
 
-with open("_brand-dell.yml", "r") as f:
+brand_path = "_brand/_brand-dell.yml"
+
+# Validate brand.yml file with Python brand_yml
+Brand.from_yaml(brand_path)
+
+# But load YAML directly to keep unvalidated yaml block
+with open(brand_path, "r") as f:
     brand = yaml.load(f)
 
 meta = yaml.dump({"meta": brand["meta"]}).strip()

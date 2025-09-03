@@ -29,6 +29,12 @@ Online images should use full URLs starting with `http://` or `https://`.
 logo: posit.png
 ```
 
+::: callout-warning
+
+[Quarto](https://quarto.org) doesn't currently support this syntax. See the [bug report](https://github.com/quarto-dev/quarto-cli/issues/12755) for more details.
+
+:::
+
 ### Basic Multi-size Configuration
 
 ```{.yaml filename="_brand.yml"}
