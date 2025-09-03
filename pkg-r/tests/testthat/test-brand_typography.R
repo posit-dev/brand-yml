@@ -56,6 +56,89 @@ test_that("brand.typography adds system fonts by default", {
   )
 })
 
+test_that("brand.typography.monospace default font is forwarded", {
+  brand <- as_brand_yml(list(
+    typography = list(
+      base = "Times New Roman",
+      headings = "Helvetica",
+      monospace = "Courier New"
+    )
+  ))
+
+  expect_s3_class(brand, "brand_yml")
+  expect_equal(brand$typography$monospace, list(family = "Courier New"))
+  expect_equal(brand$typography$monospace_inline, list(family = "Courier New"))
+  expect_equal(brand$typography$monospace_block, list(family = "Courier New"))
+})
+
+test_that("brand.typography.monospace default font can be overridden", {
+  brand <- as_brand_yml(list(
+    typography = list(
+      base = "Times New Roman",
+      headings = "Helvetica",
+      monospace = "Courier New",
+      "monospace-inline" = "Fira Code",
+      "monospace-block" = "Source Code Pro"
+    )
+  ))
+
+  expect_s3_class(brand, "brand_yml")
+  expect_equal(brand$typography$monospace, list(family = "Courier New"))
+  expect_equal(brand$typography$monospace_inline, list(family = "Fira Code"))
+  expect_equal(
+    brand$typography$monospace_block,
+    list(family = "Source Code Pro")
+  )
+})
+
+test_that("brand.typography.monospace with properties is forwarded", {
+  monospace <- list(
+    family = "Courier New",
+    weight = 700,
+    size = "1em"
+  )
+
+  brand <- as_brand_yml(list(
+    typography = list(
+      base = "Times New Roman",
+      headings = "Helvetica",
+      monospace = monospace
+    )
+  ))
+
+  expect_s3_class(brand, "brand_yml")
+  expect_equal(brand$typography$monospace, monospace)
+  expect_equal(brand$typography$monospace_inline, brand$typography$monospace)
+  expect_equal(brand$typography$monospace_block, brand$typography$monospace)
+})
+
+test_that("brand.typography.monospace with properties is forwarded, but overridden", {
+  monospace <- list(
+    family = "Courier New",
+    weight = 700,
+    size = "1em"
+  )
+
+  brand <- as_brand_yml(list(
+    typography = list(
+      base = "Times New Roman",
+      headings = "Helvetica",
+      monospace = monospace,
+      monospace_inline = list(weight = 600),
+      monospace_block = list(size = "1.5em")
+    )
+  ))
+
+  mono_block <- mono_inline <- monospace
+  mono_inline$weight <- 600
+  mono_block$size <- "1.5em"
+
+  expect_s3_class(brand, "brand_yml")
+  expect_equal(brand$typography$monospace, monospace)
+  expect_equal(brand$typography$monospace_inline, mono_inline)
+  expect_equal(brand$typography$monospace_block, mono_block)
+})
+
 test_that("brand.typography with Google fonts", {
   withr::with_envvar(c("BRAND_YML_DEFAULT_FONT_SOURCE" = "google"), {
     brand <- read_brand_yml(test_example("brand-typography-simple.yml"))

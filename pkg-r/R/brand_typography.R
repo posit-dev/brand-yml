@@ -152,16 +152,14 @@ brand_typography_forward_monospace <- function(brand) {
     return(typography)
   }
 
-  fwd_keys <- c("family", "style", "weight", "size")
+  fwd_keys <- c("family", "weight", "size")
 
   monospace_defaults <- typography$monospace[
     intersect(fwd_keys, names(typography$monospace))
   ]
 
   for (field in c("monospace-inline", "monospace-block")) {
-    if (brand_has_list(typography, field)) {
-      typography[[field]] <- list_merge(monospace_defaults, typography[[field]])
-    }
+    typography[[field]] <- list_merge(monospace_defaults, typography[[field]])
   }
 
   typography
