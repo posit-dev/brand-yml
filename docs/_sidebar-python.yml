@@ -9,6 +9,7 @@ website:
       - pkg/py/color.qmd
       - pkg/py/typography.qmd
       - pkg/py/utilities.qmd
+      - pkg/py/types.qmd
       section: Reference
     id: pkg/py
   - id: dummy-sidebar
