@@ -133,7 +133,7 @@ brand_sass_color <- function(brand) {
 #'   typography = list(
 #'     base = list(
 #'       size = "16px",
-#'       line_height = 1.5
+#'       "line-height" = 1.5
 #'     ),
 #'     headings = list(
 #'       weight = "bold",
