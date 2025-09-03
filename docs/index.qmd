@@ -69,6 +69,8 @@ You can explore some [inspiring examples of brand guidelines](inspiration/index.
 
 If you're a Python developer or are interested in using `_brand.yml` to adapt a Python package to use brand.yml for theming, check out the [brand_yml Python package documentation](pkg/py/index.qmd) to get started.
 
+For R developers, you can use the [brand.yml R package](pkg/r/index.qmd) to help you read and use brand.yml files in your own R packages.
+
 ::: {.callout-note title="We'd love to hear from you"}
 brand.yml is a new project and we'd love to hear from you to decide how the project will evolve.
 Some fields may change as we learn what works and what doesn't.
@@ -85,7 +87,7 @@ Please reach out to us on the [discussion forum](https://github.com/posit-dev/br
 * [Shiny for R](https://shiny.posit.co/blog/posts/bslib-0.9.0/)
 
 [RStudio](https://posit.co/products/open-source/rstudio/) and [VS Code with the Quarto extension](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) both support automatically validating brand.yml files when they are named `_brand.yml`.
-In Python, the [`brand_yml` Python package](pkg/py/) provides parsing and validation support.
+For parsing and validation of brand.yml files, use the [`brand_yml` Python package](pkg/py/) or the [`brand.yml` R package](pkg/r/).
 
 <!-- Support for themed branding is [in progress]{.in-progress} for . -->
 
