@@ -77,7 +77,12 @@ reference:
   - read_brand_yml
   - as_brand_yml
 
-- title: Brand Sass utilities
+- title: brand.yml helpers
+  contents:
+  - brand_has
+  - brand_pluck
+
+- title: brand.yml Sass utilities
   contents:
   - brand_sass_color
   - brand_sass_color_palette
