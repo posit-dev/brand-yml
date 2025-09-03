@@ -1,11 +1,5 @@
 [
   {
-    "listing": "/articles/index.html",
-    "items": [
-      "/articles/llm-brand-yml-prompt/index.html"
-    ]
-  },
-  {
     "listing": "/inspiration/index.html",
     "items": [
       "/inspiration/brand-guidelines/posit/index.html",
@@ -15,6 +9,12 @@
       "/inspiration/brand-guidelines/walmart/index.html",
       "/inspiration/brand-guidelines/dell/index.html",
       "/inspiration/brand-guidelines/nhsr-community/index.html"
+    ]
+  },
+  {
+    "listing": "/articles/index.html",
+    "items": [
+      "/articles/llm-brand-yml-prompt/index.html"
     ]
   }
 ]

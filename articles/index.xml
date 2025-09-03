@@ -14,7 +14,7 @@
 <title>brand.yml</title>
 <link>https://posit-dev.github.io/brand-yml/articles/</link>
 </image>
-<generator>quarto-1.6.42</generator>
+<generator>quarto-1.7.31</generator>
 <lastBuildDate>Fri, 15 Nov 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Creating a brand.yml with an LLM</title>
@@ -139,426 +139,1390 @@ font-style: inherit;">## Example file</span></span>
 <span id="cb1-46"><span class="in" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">``` {.yaml filename="_brand.yml"}</span></span>
-<span id="cb1-47"><span class="in" style="color: #5E5E5E;
+<span id="cb1-47"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">meta:</span></span>
-<span id="cb1-48"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">meta</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-48"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # name: Acme # ALT: Single string for simple company name</span></span>
-<span id="cb1-49"><span class="in" style="color: #5E5E5E;
+<span id="cb1-49"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  name:</span></span>
-<span id="cb1-50"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    short: Acme # Short company name</span></span>
-<span id="cb1-51"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">name</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    full: Acme Corporation International # Full, legal company name</span></span>
-<span id="cb1-52"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-50"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">short</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Acme</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Short company name</span></span>
+<span id="cb1-51"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">full</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Acme Corporation International</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Full, legal company name</span></span>
+<span id="cb1-52"><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">  </span></span>
-<span id="cb1-53"><span class="in" style="color: #5E5E5E;
+<span id="cb1-53"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # link: https://acmecorp.com # ALT: single url for the company's home page</span></span>
-<span id="cb1-54"><span class="in" style="color: #5E5E5E;
+<span id="cb1-54"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  link:</span></span>
-<span id="cb1-55"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    home: https://www.acmecorp.com # Company's home apge</span></span>
-<span id="cb1-56"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">link</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    bluesky: https://bsky.app/profile/acmecorp.bsky.social # Bluesky social media account link</span></span>
-<span id="cb1-57"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-55"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    github: https://github.com/acmecorp # GitHub account link</span></span>
-<span id="cb1-58"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    mastodon: https://mastodon.social/@acmecorp # Mastodon account link</span></span>
-<span id="cb1-59"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">home</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    linkedin: https://www.linkedin.com/company/acmecorp # LinkedIn account link</span></span>
-<span id="cb1-60"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    facebook: https://www.facebook.com/acmecorp # Facebook account link</span></span>
-<span id="cb1-61"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> https://www.acmecorp.com</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">    twitter: https://twitter.com/acmecorp # Twitter account link</span></span>
+font-style: inherit;"> # Company's home apge</span></span>
+<span id="cb1-56"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">bluesky</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://bsky.app/profile/acmecorp.bsky.social</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Bluesky social media account link</span></span>
+<span id="cb1-57"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">github</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://github.com/acmecorp</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # GitHub account link</span></span>
+<span id="cb1-58"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mastodon</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://mastodon.social/@acmecorp</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Mastodon account link</span></span>
+<span id="cb1-59"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">linkedin</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://www.linkedin.com/company/acmecorp</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # LinkedIn account link</span></span>
+<span id="cb1-60"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">facebook</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://www.facebook.com/acmecorp</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Facebook account link</span></span>
+<span id="cb1-61"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">twitter</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> https://twitter.com/acmecorp</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Twitter account link</span></span>
 <span id="cb1-62"></span>
-<span id="cb1-63"><span class="in" style="color: #5E5E5E;
+<span id="cb1-63"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">logo:</span></span>
-<span id="cb1-64"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">logo</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  images: # Mapping of image names to local files that should be stored next to the _brand.yml file. Users may need to download these files manually.</span></span>
-<span id="cb1-65"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-64"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    header: logos/header-logo.png # Each entry maps a name to a local file</span></span>
-<span id="cb1-66"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    header-white: logos/header-logo-white.png</span></span>
-<span id="cb1-67"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">images</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    full: # ALT: Images can alternatively be a path with associated alt text for accessibility</span></span>
-<span id="cb1-68"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">      path: logos/full-logo.svg</span></span>
-<span id="cb1-69"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> # Mapping of image names to local files that should be stored next to the _brand.yml file. Users may need to download these files manually.</span></span>
+<span id="cb1-65"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">      alt: Acme logo.</span></span>
-<span id="cb1-70"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">  small: logos/icon.png # A small image, ideally icon-sized. Can be a path to a file or the name of a file in `logo.images`</span></span>
-<span id="cb1-71"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">header</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  medium: # A medium sized logo, ideally small enough for a sidebar logo</span></span>
-<span id="cb1-72"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> logos/header-logo.png</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Each entry maps a name to a local file</span></span>
+<span id="cb1-66"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">header-white</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> logos/header-logo-white.png</span></span>
+<span id="cb1-67"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">full</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # ALT: Images can alternatively be a path with associated alt text for accessibility</span></span>
+<span id="cb1-68"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> logos/full-logo.svg</span></span>
+<span id="cb1-69"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">alt</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Acme logo.</span></span>
+<span id="cb1-70"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">small</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> logos/icon.png</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # A small image, ideally icon-sized. Can be a path to a file or the name of a file in `logo.images`</span></span>
+<span id="cb1-71"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">medium</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # A medium sized logo, ideally small enough for a sidebar logo</span></span>
+<span id="cb1-72"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # ALT: Logos is small, medium, and large may have `light` and `dark` variants</span></span>
-<span id="cb1-73"><span class="in" style="color: #5E5E5E;
+<span id="cb1-73"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    light: header # light variant for use on light backgrounds</span></span>
-<span id="cb1-74"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    dark: header-white # dark variant for use on dark backgrounds</span></span>
-<span id="cb1-75"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">light</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  large: full # A large logo, e.g. for use in a hero or cover page. ALT: Can refer directly to images in `logo.images`.</span></span>
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> header</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # light variant for use on light backgrounds</span></span>
+<span id="cb1-74"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dark</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> header-white</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # dark variant for use on dark backgrounds</span></span>
+<span id="cb1-75"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">large</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> full</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # A large logo, e.g. for use in a hero or cover page. ALT: Can refer directly to images in `logo.images`.</span></span>
 <span id="cb1-76"></span>
-<span id="cb1-77"><span class="in" style="color: #5E5E5E;
+<span id="cb1-77"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">color:</span></span>
-<span id="cb1-78"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">color</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  palette:</span></span>
-<span id="cb1-79"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-78"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">palette</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-79"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # Dictionary of the brand's colors with readable names. </span></span>
-<span id="cb1-80"><span class="in" style="color: #5E5E5E;
+<span id="cb1-80"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # Must be a flat list of names and color values. </span></span>
-<span id="cb1-81"><span class="in" style="color: #5E5E5E;
+<span id="cb1-81"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # Names should be follow Sass variable conventions. Prefer hex color values.</span></span>
-<span id="cb1-82"><span class="in" style="color: #5E5E5E;
+<span id="cb1-82"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # Prefer or create aliases for Bootstrap primary colors: blue, indigo, purple, pink, red, orange, yellow, green, teal, cyan, white, black</span></span>
-<span id="cb1-83"><span class="in" style="color: #5E5E5E;
+<span id="cb1-83"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    white: "#FFFFFF"</span></span>
-<span id="cb1-84"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    black: "#151515"</span></span>
-<span id="cb1-85"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">white</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    blue: "#447099"</span></span>
-<span id="cb1-86"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    orange: "#EE6331"</span></span>
-<span id="cb1-87"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">    green: "#72994E"</span></span>
-<span id="cb1-88"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">"#FFFFFF"</span></span>
+<span id="cb1-84"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    teal: "#419599"</span></span>
-<span id="cb1-89"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    burgundy: "#9A4665"</span></span>
-<span id="cb1-90"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">black</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    purple: burgundy # Aliases are allowed by referring to other colors in `color.palette`</span></span>
-<span id="cb1-91"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    fire-red: "#FF0000"</span></span>
-<span id="cb1-92"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">    bright-yellow: "#FFFF00"</span></span>
+font-style: inherit;">"#151515"</span></span>
+<span id="cb1-85"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">blue</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#447099"</span></span>
+<span id="cb1-86"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">orange</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#EE6331"</span></span>
+<span id="cb1-87"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">green</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#72994E"</span></span>
+<span id="cb1-88"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">teal</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#419599"</span></span>
+<span id="cb1-89"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">burgundy</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#9A4665"</span></span>
+<span id="cb1-90"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">purple</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> burgundy</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Aliases are allowed by referring to other colors in `color.palette`</span></span>
+<span id="cb1-91"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">fire-red</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#FF0000"</span></span>
+<span id="cb1-92"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">bright-yellow</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#FFFF00"</span></span>
 <span id="cb1-93"></span>
-<span id="cb1-94"><span class="in" style="color: #5E5E5E;
+<span id="cb1-94"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # All theme colors can take direct color values, and all are optional.</span></span>
-<span id="cb1-95"><span class="in" style="color: #5E5E5E;
+<span id="cb1-95"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # Only include the colors that are obviously required.</span></span>
-<span id="cb1-96"><span class="in" style="color: #5E5E5E;
+<span id="cb1-96"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # Refer to color names from `color.palette` whenever possible.</span></span>
-<span id="cb1-97"><span class="in" style="color: #5E5E5E;
+<span id="cb1-97"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  foreground: "#151515"  # Main text color, should have high contrast with background</span></span>
-<span id="cb1-98"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">  background: "#FFFFFF"  # Main background color, should have high contrast with foreground</span></span>
-<span id="cb1-99"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">foreground</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  primary: "#447099"  # Main accent color for links, buttons, etc.</span></span>
-<span id="cb1-100"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  secondary: "#707073"  # Used for lighter text or disabled states. Only include if necessary.</span></span>
-<span id="cb1-101"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">  tertiary: "#C2C2C4"  # Even lighter color for hover states, accents, wells. Only include if necessary.</span></span>
-<span id="cb1-102"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">"#151515"</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">  success: "#72994E"  # Color for positive or successful actions/information</span></span>
-<span id="cb1-103"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  # Main text color, should have high contrast with background</span></span>
+<span id="cb1-98"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  info: "#419599"  # Color for neutral or informational actions/information</span></span>
-<span id="cb1-104"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">  warning: "#EE6331"  # Color for warning or cautionary actions/information,</span></span>
-<span id="cb1-105"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">background</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  danger: "#9A4665"  # Color for errors, dangerous actions, negative information</span></span>
-<span id="cb1-106"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  light: "#FFFFFF"  # Bright color for high-contrast on dark elements</span></span>
-<span id="cb1-107"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">  dark: "#404041"  # Dark color for high-contrast on light elements</span></span>
-<span id="cb1-108"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">"#FFFFFF"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Main background color, should have high contrast with foreground</span></span>
+<span id="cb1-99"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">primary</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#447099"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Main accent color for links, buttons, etc.</span></span>
+<span id="cb1-100"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">secondary</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#707073"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Used for lighter text or disabled states. Only include if necessary.</span></span>
+<span id="cb1-101"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">tertiary</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#C2C2C4"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Even lighter color for hover states, accents, wells. Only include if necessary.</span></span>
+<span id="cb1-102"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">success</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#72994E"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Color for positive or successful actions/information</span></span>
+<span id="cb1-103"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">info</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#419599"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Color for neutral or informational actions/information</span></span>
+<span id="cb1-104"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">warning</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#EE6331"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Color for warning or cautionary actions/information,</span></span>
+<span id="cb1-105"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">danger</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#9A4665"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Color for errors, dangerous actions, negative information</span></span>
+<span id="cb1-106"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">light</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#FFFFFF"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Bright color for high-contrast on dark elements</span></span>
+<span id="cb1-107"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dark</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#404041"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Dark color for high-contrast on light elements</span></span>
+<span id="cb1-108"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # ALT: All properties in `color` can refer by name to values in `color.palette`, including within `color.palette`.</span></span>
-<span id="cb1-109"><span class="in" style="color: #5E5E5E;
+<span id="cb1-109"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # foreground: black</span></span>
-<span id="cb1-110"><span class="in" style="color: #5E5E5E;
+<span id="cb1-110"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # background: white</span></span>
-<span id="cb1-111"><span class="in" style="color: #5E5E5E;
+<span id="cb1-111"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # primary: blue</span></span>
-<span id="cb1-112"><span class="in" style="color: #5E5E5E;
+<span id="cb1-112"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # success: green</span></span>
-<span id="cb1-113"><span class="in" style="color: #5E5E5E;
+<span id="cb1-113"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # info: teal</span></span>
-<span id="cb1-114"><span class="in" style="color: #5E5E5E;
+<span id="cb1-114"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # ALT: All properties in `color` can refer by name to other properties in `color`.</span></span>
 <span id="cb1-115"></span>
-<span id="cb1-116"><span class="in" style="color: #5E5E5E;
+<span id="cb1-116"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">typography:</span></span>
-<span id="cb1-117"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">typography</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  fonts:</span></span>
-<span id="cb1-118"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-117"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    - family: Open Sans  # Font family name</span></span>
-<span id="cb1-119"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">      source: file  # Source of the font (file, google, bunny, or system)</span></span>
-<span id="cb1-120"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">fonts</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">      files:  # REQUIRED list of font files for `source: file`, which must have at least one font file. Use placeholder names and comment out the source font section if proprietary fonts are used. (And include a Google Font alternative recommendation.)</span></span>
-<span id="cb1-121"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-118"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">        - path: fonts/open-sans/OpenSans-Variable.ttf</span></span>
-<span id="cb1-122"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Open Sans</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Font family name</span></span>
+<span id="cb1-119"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">source</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> file</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Source of the font (file, google, bunny, or system)</span></span>
+<span id="cb1-120"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">files</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # REQUIRED list of font files for `source: file`, which must have at least one font file. Use placeholder names and comment out the source font section if proprietary fonts are used. (And include a Google Font alternative recommendation.)</span></span>
+<span id="cb1-121"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> fonts/open-sans/OpenSans-Variable.ttf</span></span>
+<span id="cb1-122"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">          # Each file corresponds to a weight and style, both default to "normal".</span></span>
-<span id="cb1-123"><span class="in" style="color: #5E5E5E;
+<span id="cb1-123"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">          weight: 400  # Optional: specify weight for this file</span></span>
-<span id="cb1-124"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">          style: normal  # Optional: specify style for this file</span></span>
-<span id="cb1-125"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">        - path: fonts/open-sans/OpenSans-Variable-Italic.ttf</span></span>
-<span id="cb1-126"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">          style: italic</span></span>
-<span id="cb1-127"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">    - family: Roboto Slab</span></span>
-<span id="cb1-128"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">400</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">      source: google</span></span>
-<span id="cb1-129"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  # Optional: specify weight for this file</span></span>
+<span id="cb1-124"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">      weight: [600, 900]  # Optional font weights to include (for google and bunny), defaults to all weights</span></span>
-<span id="cb1-130"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> normal</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: specify style for this file</span></span>
+<span id="cb1-125"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">        </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> fonts/open-sans/OpenSans-Variable-Italic.ttf</span></span>
+<span id="cb1-126"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">          </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> italic</span></span>
+<span id="cb1-127"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Roboto Slab</span></span>
+<span id="cb1-128"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">source</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> google</span></span>
+<span id="cb1-129"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">,</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">900</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">]</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional font weights to include (for google and bunny), defaults to all weights</span></span>
+<span id="cb1-130"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">      # weight: 600..900 # ALT: fonts with variable weights can have a weight range</span></span>
-<span id="cb1-131"><span class="in" style="color: #5E5E5E;
+<span id="cb1-131"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">      # weight: [thin, normal, bold] # ALT: font weights by name are allowed</span></span>
-<span id="cb1-132"><span class="in" style="color: #5E5E5E;
+<span id="cb1-132"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">      style: [normal, italic]  # Font styles to include (for google and bunny)</span></span>
-<span id="cb1-133"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">      display: block  # Font display property (for google). Optional and should not be included in most cases.</span></span>
-<span id="cb1-134"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    - family: Fira Code</span></span>
-<span id="cb1-135"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">      source: bunny # Use Bunny Fonts, a GDPR-compliant alternative to Google Fonts</span></span>
-<span id="cb1-136"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">      weight: [400, 500, 600] # Optional, same as for `source: google`</span></span>
-<span id="cb1-137"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">[</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">      style: [normal, italic] # Optional, same as for `source: google`</span></span>
-<span id="cb1-138"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">normal</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">,</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> italic</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">]</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Font styles to include (for google and bunny)</span></span>
+<span id="cb1-133"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">display</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> block</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Font display property (for google). Optional and should not be included in most cases.</span></span>
+<span id="cb1-134"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Fira Code</span></span>
+<span id="cb1-135"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">source</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> bunny</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Use Bunny Fonts, a GDPR-compliant alternative to Google Fonts</span></span>
+<span id="cb1-136"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">,</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">500</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">,</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">]</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Optional, same as for `source: google`</span></span>
+<span id="cb1-137"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">normal</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">,</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> italic</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">]</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Optional, same as for `source: google`</span></span>
+<span id="cb1-138"><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">  </span></span>
-<span id="cb1-139"><span class="in" style="color: #5E5E5E;
+<span id="cb1-139"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # base: Open San # ALT: If a string, sets the base font family</span></span>
-<span id="cb1-140"><span class="in" style="color: #5E5E5E;
+<span id="cb1-140"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  base:</span></span>
-<span id="cb1-141"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    family: Open Sans  # Optional: Font family for body text</span></span>
-<span id="cb1-142"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">base</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    weight: 400  # Optional: Font weight for body text</span></span>
-<span id="cb1-143"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-141"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    size: 16px  # Optional: Font size for body text, allows any CSS value, rem or px are preferred</span></span>
-<span id="cb1-144"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    line-height: 1.5  # Optional: Line height for body text</span></span>
-<span id="cb1-145"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Open Sans</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font family for body text</span></span>
+<span id="cb1-142"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font weight for body text</span></span>
+<span id="cb1-143"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">size</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> 16px</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font size for body text, allows any CSS value, rem or px are preferred</span></span>
+<span id="cb1-144"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">line-height</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.5</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Line height for body text</span></span>
+<span id="cb1-145"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # DO NOT INCLUDE color HERE. The base font uses `color.foreground` by default.</span></span>
-<span id="cb1-146"><span class="in" style="color: #5E5E5E;
+<span id="cb1-146"><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">  </span></span>
-<span id="cb1-147"><span class="in" style="color: #5E5E5E;
+<span id="cb1-147"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # headings: Roboto Slab # ALT: If a string, sets the headings font family</span></span>
-<span id="cb1-148"><span class="in" style="color: #5E5E5E;
+<span id="cb1-148"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  headings:</span></span>
-<span id="cb1-149"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    family: Roboto Slab  # Optional: Font family for headings</span></span>
-<span id="cb1-150"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">headings</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    weight: 600  # Optional: Font weight for headings</span></span>
-<span id="cb1-151"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-149"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    style: normal  # Optional: Font style for headings</span></span>
-<span id="cb1-152"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    line-height: 1.2  # Optional: Line height for headings</span></span>
-<span id="cb1-153"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    color: "#333333"  # Optional: Color for headings</span></span>
-<span id="cb1-154"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Roboto Slab</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font family for headings</span></span>
+<span id="cb1-150"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font weight for headings</span></span>
+<span id="cb1-151"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">style</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> normal</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font style for headings</span></span>
+<span id="cb1-152"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">line-height</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.2</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Line height for headings</span></span>
+<span id="cb1-153"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">color</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#333333"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Color for headings</span></span>
+<span id="cb1-154"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # color: primary # ALT: Can use named colors from `color` or `color.palette`</span></span>
-<span id="cb1-155"><span class="in" style="color: #5E5E5E;
+<span id="cb1-155"><span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">  </span></span>
-<span id="cb1-156"><span class="in" style="color: #5E5E5E;
+<span id="cb1-156"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">  # monospace: Fira Code # ALT: If a string, sets the monospace font family</span></span>
-<span id="cb1-157"><span class="in" style="color: #5E5E5E;
+<span id="cb1-157"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  monospace:</span></span>
-<span id="cb1-158"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    family: Fira Code  # Optional: Font family for monospace text</span></span>
-<span id="cb1-159"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">monospace</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    weight: 400  # Optional: Font weight for monospace text</span></span>
-<span id="cb1-160"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-158"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    size: 0.9em  # Optional: Font size for monospace text, CSS units allowed but `rem` or `px` preferred</span></span>
-<span id="cb1-161"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">  monospace-inline: # Inline monospace text, inherits from monospace</span></span>
-<span id="cb1-162"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">family</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> Fira Code</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font family for monospace text</span></span>
+<span id="cb1-159"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font weight for monospace text</span></span>
+<span id="cb1-160"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">size</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> 0.9em</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional: Font size for monospace text, CSS units allowed but `rem` or `px` preferred</span></span>
+<span id="cb1-161"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">monospace-inline</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Inline monospace text, inherits from monospace</span></span>
+<span id="cb1-162"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">    # Properties of monospace can be overwritten here</span></span>
-<span id="cb1-163"><span class="in" style="color: #5E5E5E;
+<span id="cb1-163"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    color: "#7d12ba"  # Color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-164"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    background-color: "#f8f9fa"  # Background color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-165"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">color</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  monospace-block:</span></span>
-<span id="cb1-166"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    color: foreground  # Color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-167"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">    background-color: background  # Background color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-168"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">"#7d12ba"</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">    line-height: 1.4  # Line height for block monospace text</span></span>
-<span id="cb1-169"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  # Color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-164"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  link:</span></span>
-<span id="cb1-170"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    weight: 600  # Font weight for links</span></span>
-<span id="cb1-171"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">background-color</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    color: "#0066cc"  # Optional color for link, defaults `color.primary`. ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-172"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    background-color: transparent  # Optional background color for links, ALT: named colors from `color` or `color.palette`</span></span>
-<span id="cb1-173"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">    decoration: underline  # Optional text decoration for links</span></span>
+font-style: inherit;">"#f8f9fa"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Background color for inline monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-165"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">monospace-block</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-166"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">color</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> foreground</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-167"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">background-color</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> background</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Background color for block monospace text, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-168"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">line-height</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.4</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Line height for block monospace text</span></span>
+<span id="cb1-169"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">link</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-170"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">weight</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Font weight for links</span></span>
+<span id="cb1-171"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">color</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#0066cc"</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional color for link, defaults `color.primary`. ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-172"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">background-color</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> transparent</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional background color for links, ALT: named colors from `color` or `color.palette`</span></span>
+<span id="cb1-173"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">decoration</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> underline</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">  # Optional text decoration for links</span></span>
 <span id="cb1-174"></span>
-<span id="cb1-175"><span class="in" style="color: #5E5E5E;
+<span id="cb1-175"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">defaults: # Additional Bootstrap, Shiny, or Quarto rules, all optional and only to be used as a last resort</span></span>
-<span id="cb1-176"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">defaults</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">  bootstrap: Additional scss rules for any contexts that use Bootstrap</span></span>
-<span id="cb1-177"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">    functions: # string with scss function declarations</span></span>
-<span id="cb1-178"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> # Additional Bootstrap, Shiny, or Quarto rules, all optional and only to be used as a last resort</span></span>
+<span id="cb1-176"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    defaults: # Mapping of Bootstrap variables to default values</span></span>
-<span id="cb1-179"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    mixins: # string with scss mixins</span></span>
-<span id="cb1-180"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">bootstrap</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">    rules: # string with scss rules</span></span>
-<span id="cb1-181"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  quarto:</span></span>
-<span id="cb1-182"><span class="in" style="color: #5E5E5E;
+font-style: inherit;"> Additional scss rules for any contexts that use Bootstrap</span></span>
+<span id="cb1-177"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">    format:</span></span>
-<span id="cb1-183"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">functions</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # string with scss function declarations</span></span>
+<span id="cb1-178"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">defaults</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Mapping of Bootstrap variables to default values</span></span>
+<span id="cb1-179"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mixins</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # string with scss mixins</span></span>
+<span id="cb1-180"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rules</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # string with scss rules</span></span>
+<span id="cb1-181"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">quarto</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-182"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-183"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">      # Options specific to output Quarto output formats</span></span>
-<span id="cb1-184"><span class="in" style="color: #5E5E5E;
+<span id="cb1-184"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">  shiny:</span></span>
-<span id="cb1-185"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">    theme: # Additional scss rules to add to the Shiny branded theme</span></span>
-<span id="cb1-186"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">shiny</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">      defaults:</span></span>
-<span id="cb1-187"><span class="in" style="color: #5E5E5E;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-185"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Additional scss rules to add to the Shiny branded theme</span></span>
+<span id="cb1-186"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">defaults</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-187"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">        # Named bootstrap variables and their default values</span></span>
-<span id="cb1-188"><span class="in" style="color: #5E5E5E;
+<span id="cb1-188"><span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">        navbar-bg: $brand-orange # Use Sass variables to access brand colors: $brand-{color_name}</span></span>
-<span id="cb1-189"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">        </span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">      rules:</span></span>
-<span id="cb1-190"><span class="in" style="color: #5E5E5E;
+font-style: inherit;">navbar-bg</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> $brand-orange</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> # Use Sass variables to access brand colors: $brand-{color_name}</span></span>
+<span id="cb1-189"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rules</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-190"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">        # A string of additional scss rules</span></span>
 <span id="cb1-191"><span class="in" style="color: #5E5E5E;
