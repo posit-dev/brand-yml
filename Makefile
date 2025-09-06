@@ -131,8 +131,8 @@ r-format:  ## [r] Format R code
 .PHONY: r-check-package
 r-check-package:  ## [r] Check package
 	@echo ""
-	@echo "🔄 Running R CMD Check"
-	cd $(PATH_PKG_R) && Rscript -e "devtools::check(document = FALSE)"
+	@echo "🔄 Running R CMD Check (without tests)"
+	cd $(PATH_PKG_R) && Rscript -e "devtools::check(document = FALSE, args = '--no-tests')"
 
 .PHONY: r-check-tests
 r-check-tests:  ## [r] Check tests

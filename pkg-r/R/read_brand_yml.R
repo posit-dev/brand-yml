@@ -31,6 +31,8 @@
 #' @references <https://posit-dev.github.io/brand-yml/>
 #' @export
 read_brand_yml <- function(path = NULL) {
+  path <- path %||% envvar_brand_yml_path()
+
   path <- find_project_brand_yml(
     path,
     max_parents = if (is.null(path)) 20 else 1
@@ -83,7 +85,13 @@ as_brand_yml.character <- function(brand) {
     brand <- read_yaml(path)
     brand$path <- path_norm(path)
   } else {
-    brand <- yaml::yaml.load(brand, eval.expr = FALSE)
+    brand_list <- yaml::yaml.load(brand, eval.expr = FALSE)
+    if (!is.list(brand_list)) {
+      cli::cli_abort(
+        "{.var brand} must be a path to a brand.yml file or a string of YAML."
+      )
+    }
+    brand <- brand_list
   }
   as_brand_yml(brand)
 }
@@ -127,6 +135,10 @@ brand_path_dir <- function(brand) {
 
 
 # Find _brand.yml --------------------------------------------------------------
+envvar_brand_yml_path <- function() {
+  path <- Sys.getenv("BRAND_YML_PATH", "")
+  if (nzchar(path)) path_norm(path) else NULL
+}
 
 find_project_brand_yml <- function(path = NULL, max_parents = 20) {
   path <- path %||% getwd()
