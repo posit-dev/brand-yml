@@ -11,6 +11,23 @@ from pydantic import BaseModel
 rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)\s*([a-zA-Z%]*)$")
 
 
+def envvar_brand_yml_path() -> Path | None:
+    """
+    Get the path to a brand.yml file from the `BRAND_YML_PATH` environment
+    variable, if it is set.
+
+    Returns
+    -------
+    :
+        The path to the brand.yml file, or `None` if the environment variable
+        is not set.
+    """
+    envvar = os.getenv("BRAND_YML_PATH")
+    if envvar:
+        return Path(envvar).expanduser().resolve()
+    return None
+
+
 def find_project_file(
     filename: tuple[str, ...] | str,
     dir_: Path,

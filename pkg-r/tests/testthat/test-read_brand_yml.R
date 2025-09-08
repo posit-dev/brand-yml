@@ -146,3 +146,93 @@ test_that("brand_yml read and print methods with typography and colors", {
     print(brand)
   )
 })
+
+describe("envvar_brand_yml_path()", {
+  it("returns NULL when BRAND_YML_PATH is not set", {
+    withr::local_envvar("BRAND_YML_PATH" = NA)
+    expect_null(envvar_brand_yml_path())
+  })
+
+  it("returns path when BRAND_YML_PATH is set", {
+    test_path <- path_norm(file.path(tempdir(), "test_brand.yml"))
+    withr::local_envvar("BRAND_YML_PATH" = test_path)
+    expect_equal(envvar_brand_yml_path(), test_path)
+  })
+})
+
+describe("read_brand_yml() with environment variable", {
+  # Create a temporary brand.yml file for testing
+  temp_brand_file <- function(brand = NULL, .envir = parent.frame()) {
+    tmp_file <- withr::local_tempfile(fileext = ".yml", .local_envir = .envir)
+    brand <- brand %||%
+      list(color = list(palette = list(blue = "#0000FF"), primary = "blue"))
+    brand <- as_brand_yml(brand)
+    writeLines(format(brand), tmp_file)
+    path_norm(tmp_file)
+  }
+
+  it("uses BRAND_YML_PATH when path is NULL", {
+    brand_file <- temp_brand_file()
+    withr::local_envvar(BRAND_YML_PATH = brand_file)
+
+    brand <- read_brand_yml()
+    expect_equal(brand$path, brand_file)
+    expect_equal(brand$color$primary, "#0000FF")
+  })
+
+  it("explicit path overrides BRAND_YML_PATH", {
+    # Create two brand files with different content
+    brand_file1 <- temp_brand_file()
+    brand_file2 <- temp_brand_file(
+      list(color = list(palette = list(red = "#FF0000"), primary = "red"))
+    )
+
+    withr::local_envvar("BRAND_YML_PATH" = brand_file1)
+
+    # Use explicit path instead of env var
+    brand <- read_brand_yml(brand_file2)
+    expect_equal(brand$path, brand_file2)
+    expect_equal(brand$color$primary, "#FF0000")
+  })
+
+  it("BRAND_YML_PATH can point to directory as long as it has _brand.yml", {
+    # Create temp directory structure
+    tmp_dir <- withr::local_tempdir()
+    brand_dir <- file.path(tmp_dir, "brand")
+    app_dir <- file.path(tmp_dir, "app")
+
+    dir.create(brand_dir, recursive = TRUE)
+    dir.create(app_dir, recursive = TRUE)
+
+    # Create brand.yml in brand directory
+    brand_file <- file.path(brand_dir, "_brand.yml")
+    writeLines(
+      format(
+        as_brand_yml(
+          list(
+            color = list(palette = list(green = "#00FF00"), primary = "green")
+          )
+        )
+      ),
+      brand_file
+    )
+
+    withr::local_envvar("BRAND_YML_PATH" = brand_dir)
+    brand <- read_brand_yml()
+    expect_equal(brand$color$primary, "#00FF00")
+
+    withr::local_envvar("BRAND_YML_PATH" = app_dir)
+    expect_error(
+      read_brand_yml(),
+      class = "brand_yml_not_found"
+    )
+  })
+
+  it("error if path is NULL, BRAND_YML_PATH not set, and no brand.yml found", {
+    # Create an empty temp directory with no brand.yml
+    tmp_dir <- withr::local_tempdir()
+    withr::local_dir(tmp_dir)
+    withr::local_envvar(BRAND_YML_PATH = NA)
+    expect_error(read_brand_yml(), class = "brand_yml_not_found")
+  })
+})
