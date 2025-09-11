@@ -1,0 +1,49 @@
+meta:
+  name: Walmart
+  link:
+    home: https://www.walmart.com
+    brand: https://walmartbrandcenter.lingoapp.com/s/de9qpe/?v=13
+    facebook: https://www.facebook.com/walmart
+    linkedin: https://www.linkedin.com/company/walmart
+
+logo:
+  images:
+    primary: walmart-spark-logo-digital-blue.png
+    primary-white: walmart-spark-logo-digital-alpha.png
+    spark: walmart-spark-digital-alpha.png
+  small: spark
+  medium:
+    light: primary
+    dark: primary-white
+
+color:
+  palette:
+    # Primary Colors
+    blue: "#0071DC" # Walmart Blue
+    white: "#FFFFFF"
+    yellow: "#FFC220" # Spark Yellow
+
+    # Secondary Colors
+    red: "#DE1C24"
+    yellow-pale: "#F8E6A5"
+    yellow-bright: "#FFF200"
+    blue-light: "#8CD1FC"
+    blue-lighter: "#D3EFF8"
+    off-white: "#FAFAFA"
+    ozark-noir: "#041E42"
+
+  foreground: ozark-noir
+  background: white
+  light: off-white
+  dark: ozark-noir
+  primary: blue
+  secondary: dark
+  warning: yellow
+  danger: red
+
+typography:
+  fonts:
+    - family: Martel Sans # Google Fonts alternative to Bogle
+      source: google
+
+  base: Martel Sans

@@ -1,0 +1,9 @@
+---
+title: Hello, NHS R Community brand
+---
+
+This is an example file using the following `_brand.yml` configuration:
+
+```{.yaml filename="_brand.yml"}
+{{< include _brand.yml >}}
+```

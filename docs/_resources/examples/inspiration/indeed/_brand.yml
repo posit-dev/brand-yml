@@ -1,0 +1,63 @@
+meta:
+  name: Indeed
+  link:
+    home: https://indeed.com
+    brand-guidelines: https://indeed.design/brand/resources
+    facebook: https://www.facebook.com/IndeedforBusiness/
+    twitter: https://x.com/indeedbusiness
+    linkedin: https://www.linkedin.com/showcase/indeed-business/
+color:
+  palette:
+    # Primary Colors
+    white: "#FFFFFF"
+    blue: "#003A9B"
+    blue-ink: "#001C40"
+    blue-a11y: "#6792F0"
+    # Secondary Palette
+    earth: "#C08A38"
+    orange: "#DF7838"
+    magenta: "#E867A8"
+    purple: "#9288EE"
+    aqua: "#409EC8"
+    green: "#4CA38F"
+    # Functional Colors
+    blue-100: "#0D2D5E"
+    blue-60: "#6792F0"
+    blue-80: "#2557A7"
+    magenta-80: "#D700A4"
+    magenta-20: "#FCEEF4"
+    green-80: "#1F662C"
+    green-20: "#E4F7E6"
+    red-80: "#A9252B"
+    red-20: "#FEEEF"
+    gray-100: "#2D2D2D"
+    gray-90: "#424242"
+    gray-80: "#595959"
+    gray-70: "#767676"
+    gray-60: "#949494"
+    gray-50: "#B4B2B1"
+    gray-40: "#D4D2D0"
+    gray-30: "#E4E2E0"
+    gray-20: "#F3F2F1"
+    gray-10: "#FAF9F8"
+  foreground: gray-80
+  background: white
+  primary: blue
+  success: green
+  warning: earth
+logo:
+  small:
+    light: Indeed_2021_Icon_RGB_Blue.svg
+    dark: Indeed_2021_Icon_RGB_White.svg
+  medium:
+    light: Indeed_Logo_Blue.svg
+    dark: Indeed_Logo_White.svg
+typography:
+  fonts:
+    - family: Work Sans
+      source: google
+  base: Work Sans
+  headings:
+    color: gray-100
+  link:
+    color: blue
