@@ -14,7 +14,7 @@ But they are still relevant to the brand and need a place within brand.yml.
 ## Structure
 
 ::: callout-warning
-This section of brand.yml is not as well-sepecified as the other sections, by design.
+This section of brand.yml is not as well-specified as the other sections, by design.
 As brand.yml adoption grows, new tools will need to be able to store options specific to the tool.
 This part of the brand.yml spec may change as we learn more about the needs of different tools.
 :::
