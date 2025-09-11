@@ -6,6 +6,9 @@
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/index.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/as_brand_yml.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand.yml-package.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_color_pluck.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_has.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_pluck.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_sass_color.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_sass_color_palette.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_sass_defaults_bootstrap.html</loc></url>

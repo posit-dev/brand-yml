@@ -431,16 +431,16 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.Brand.from_yaml" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.Brand.from_yaml">from_yaml</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Brand.from_yaml(path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Brand.from_yaml(path<span class="op">=</span><span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Create a Brand instance from a Brand YAML file.</p>
 <p>Reads a Brand YAML file or finds and reads a <code>_brand.yml</code> file and returns a validated :class:<code>Brand</code> instance.</p>
 <p>To find a project-specific <code>_brand.yml</code> file, pass <code>path</code> the project directory or <code>__file__</code> (the path of the current Python script). <a href="../../pkg/py/Brand.html#brand_yml.Brand.from_yaml"><code>brand_yml.Brand.from_yaml</code></a> will look in that directory or any parent directory for a <code>_brand.yml</code>, <code>brand/_brand.yml</code> or <code>_brand/_brand.yml</code> file (or the same variants with a <code>.yaml</code> extension). Note that it starts the search in the directory passed in and moves upward to find the <code>_brand.yml</code> file; it does not search into subdirectories of the current directory.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
+<dt><code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a> | None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
 <dd>
-<p>The path to the brand.yml file or a directory where <code>_brand.yml</code> is expected to be found. Typically, you can pass <code>__file__</code> from the calling script to find <code>_brand.yml</code> or <code>_brand.yaml</code> in the current directory or any of its parent directories.</p>
+<p>The path to the brand.yml file or a directory where <code>_brand.yml</code> is expected to be found. Typically, you can pass <code>__file__</code> from the calling script to find <code>_brand.yml</code> or <code>_brand.yaml</code> in the current directory or any of its parent directories. Alternatively, if no path is specified, the <code>BRAND_YML_PATH</code> environment variable is checked for the path to the brand.yml file.</p>
 </dd>
 </dl>
 </section>
@@ -562,7 +562,7 @@ cookieconsent.run({
 </section>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-1">Examples</h4>
-<div id="4e6397a0" class="cell" data-execution_count="1">
+<div id="07e98d82" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -574,13 +574,13 @@ cookieconsent.run({
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">  base: Open Sans</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2441d586" class="cell" data-execution_count="2">
+<div id="ac3d129d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>brand.meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>BrandMeta(name=BrandMetaName(full='Brand YAML'))</code></pre>
 </div>
 </div>
-<div id="7b386e97" class="cell" data-execution_count="3">
+<div id="f9fb1299" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#ff0202'</code></pre>
@@ -595,7 +595,7 @@ cookieconsent.run({
 <p>Write the <a href="../../pkg/py/Brand.html#brand_yml.Brand"><code>brand_yml.Brand</code></a> instance to a string or to a file on disk.</p>
 <section id="examples-2" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-2">Examples</h4>
-<div id="0044b94f" class="cell" data-execution_count="4">
+<div id="37eb510a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -610,7 +610,7 @@ cookieconsent.run({
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="python-code-preview">
-<div id="487a6556" class="cell" data-execution_count="5">
+<div id="1b67de05" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(brand.model_dump_yaml())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>meta:
