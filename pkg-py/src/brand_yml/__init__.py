@@ -16,6 +16,7 @@ from ._utils import (
     envvar_brand_yml_path,
     find_project_brand_yml,
     recurse_dicts_and_models,
+    use_brand_yml_path,
 )
 from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
@@ -395,4 +396,5 @@ __all__ = [
     "FileLocationLocal",
     "FileLocationUrl",
     "find_project_brand_yml",
+    "use_brand_yml_path",
 ]

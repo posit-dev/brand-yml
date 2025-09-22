@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 
 import pytest
-from brand_yml import Brand, BrandColor
+from brand_yml import Brand, BrandColor, use_brand_yml_path
 from brand_yml._utils import envvar_brand_yml_path
 
 
@@ -119,6 +119,51 @@ color:
             assert isinstance(brand, Brand)
             assert isinstance(brand.color, BrandColor)
             assert brand.color.primary == "#00FF00"
+        finally:
+            # Clean up environment
+            del os.environ["BRAND_YML_PATH"]
+
+    def test_use_brand_yml_path_context_manager(self, brand_yml_file, tmp_path):
+        """Test the use_brand_yml_path context manager."""
+        # Create a different brand file with different content
+        other_path = tmp_path / "other_brand.yml"
+        other_path.write_text("""
+color:
+  palette:
+    purple: '#800080'
+  primary: purple
+""")
+
+        # Test use_brand_yml_path temporarily changes the path
+        with use_brand_yml_path(other_path):
+            # Within context, should use other_path
+            brand = Brand.from_yaml()
+            assert brand.path == other_path.resolve()
+            assert isinstance(brand, Brand)
+            assert isinstance(brand.color, BrandColor)
+            assert brand.color.primary == "#800080"
+
+        # Test that it also restores properly
+        os.environ["BRAND_YML_PATH"] = str(brand_yml_file)
+        try:
+            # First confirm we're using the expected file
+            brand1 = Brand.from_yaml()
+            assert isinstance(brand1, Brand)
+            assert isinstance(brand1.color, BrandColor)
+            assert brand1.color.primary == "#0000FF"
+
+            # Use context manager to temporarily change
+            with use_brand_yml_path(other_path):
+                brand2 = Brand.from_yaml()
+                assert isinstance(brand2, Brand)
+                assert isinstance(brand2.color, BrandColor)
+                assert brand2.color.primary == "#800080"
+
+            # Should be back to original after context ends
+            brand3 = Brand.from_yaml()
+            assert isinstance(brand3, Brand)
+            assert isinstance(brand3.color, BrandColor)
+            assert brand3.color.primary == "#0000FF"
         finally:
             # Clean up environment
             del os.environ["BRAND_YML_PATH"]
