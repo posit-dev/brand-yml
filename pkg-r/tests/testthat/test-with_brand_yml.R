@@ -3,7 +3,7 @@ test_that("with_brand_yml", {
   tmpdir <- withr::local_tempdir("brand")
   brand_path <- file.path(tmpdir, "my-brand.yml")
 
-  with_brand_yml(brand_path, {
+  with_brand_yml_path(brand_path, {
     expect_equal(Sys.getenv("BRAND_YML_PATH", "unset"), brand_path)
   })
 
