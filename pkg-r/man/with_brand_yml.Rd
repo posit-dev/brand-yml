@@ -2,14 +2,19 @@
 % Please edit documentation in R/with_brand_yml.R
 \name{with_brand_yml}
 \alias{with_brand_yml}
+\alias{local_brand_yml}
 \title{Temporarily set the BRAND_YML_PATH environment variable}
 \usage{
 with_brand_yml(path, code)
+
+local_brand_yml(path, .local_envir = parent.frame())
 }
 \arguments{
 \item{path}{The path to a brand.yml file.}
 
 \item{code}{\code{[any]}\cr Code to execute in the temporary environment}
+
+\item{.local_envir}{\verb{[environment]}\cr The environment to use for scoping.}
 }
 \description{
 This function sets the \code{BRAND_YML_PATH} environment variable to the specified
@@ -17,6 +22,15 @@ path for the duration of the local environment. This ensures that, for the
 scope of the local environment, any calls to functions that automatically
 discover a \verb{_brand.yml} file will use the path specified.
 }
+\section{Functions}{
+\itemize{
+\item \code{with_brand_yml()}: Run code in a temporary environment with the
+\code{BRAND_YML_PATH} environment variable set to \code{path}.
+
+\item \code{local_brand_yml()}: Set the \code{BRAND_YML_PATH} environment variable for
+the scope of the local environment (e.g. within the current function).
+
+}}
 \examples{
 # Create a temporary brand.yml file in a tempdir for this example
 tmpdir <- withr::local_tempdir("brand")

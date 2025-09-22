@@ -22,12 +22,17 @@
 #' @param path The path to a brand.yml file.
 #' @inheritParams withr::local_envvar
 #'
+#' @describeIn with_brand_yml Run code in a temporary environment with the
+#'   `BRAND_YML_PATH` environment variable set to `path`.
 #' @export
 with_brand_yml <- function(path, code) {
   local_brand_yml(path)
   force(code)
 }
 
+#' @describeIn with_brand_yml Set the `BRAND_YML_PATH` environment variable for
+#'   the scope of the local environment (e.g. within the current function).
+#' @export
 local_brand_yml <- function(path, .local_envir = parent.frame()) {
   withr::local_envvar(
     BRAND_YML_PATH = path,
