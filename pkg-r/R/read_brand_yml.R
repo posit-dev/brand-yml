@@ -135,11 +135,6 @@ brand_path_dir <- function(brand) {
 
 
 # Find _brand.yml --------------------------------------------------------------
-envvar_brand_yml_path <- function() {
-  path <- Sys.getenv("BRAND_YML_PATH", "")
-  if (nzchar(path)) path_norm(path) else NULL
-}
-
 find_project_brand_yml <- function(path = NULL, max_parents = 20) {
   path <- path %||% getwd()
   path <- path_norm(path)
