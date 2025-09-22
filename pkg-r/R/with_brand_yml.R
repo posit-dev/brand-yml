@@ -1,4 +1,4 @@
-#' Temporarily set the BRAND_YML_PATH environment variable
+#' Temporarily set the `BRAND_YML_PATH` environment variable
 #'
 #' This function sets the `BRAND_YML_PATH` environment variable to the specified
 #' path for the duration of the local environment. This ensures that, for the
@@ -14,7 +14,7 @@
 #'   path_brand
 #' )
 #'
-#' with_brand_yml(path_brand, {
+#' with_brand_yml_path(path_brand, {
 #'   brand <- read_brand_yml()
 #'   brand$color$primary
 #' })
@@ -22,18 +22,18 @@
 #' @param path The path to a brand.yml file.
 #' @inheritParams withr::local_envvar
 #'
-#' @describeIn with_brand_yml Run code in a temporary environment with the
+#' @describeIn with_brand_yml_path Run code in a temporary environment with the
 #'   `BRAND_YML_PATH` environment variable set to `path`.
 #' @export
-with_brand_yml <- function(path, code) {
-  local_brand_yml(path)
+with_brand_yml_path <- function(path, code) {
+  local_brand_yml_path(path)
   force(code)
 }
 
-#' @describeIn with_brand_yml Set the `BRAND_YML_PATH` environment variable for
-#'   the scope of the local environment (e.g. within the current function).
+#' @describeIn with_brand_yml_path Set the `BRAND_YML_PATH` environment variable
+#'   for the scope of the local environment (e.g. within the current function).
 #' @export
-local_brand_yml <- function(path, .local_envir = parent.frame()) {
+local_brand_yml_path <- function(path, .local_envir = parent.frame()) {
   withr::local_envvar(
     BRAND_YML_PATH = path,
     .local_envir = .local_envir,
