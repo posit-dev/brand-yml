@@ -22,7 +22,7 @@ Creates Sass variables and CSS rules for fonts defined in the brand object.
 Supports Google fonts, Bunny fonts, and file-based fonts.
 }
 \examples{
-\dontshow{if (requireNamespace("sass", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("sass", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 brand <- list(
   typography = list(
     fonts = list(

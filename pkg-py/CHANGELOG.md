@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * `Brand.from_yaml()` now consults the `BRAND_YML_PATH` environment variable when `path` is not provided. (#90)
 
+* Added `use_brand_yml_path()` context manager to temporarily set `BRAND_YML_PATH` environment variable. (#92)
+
 ## [0.1.1]
 
 ### Bug fixes

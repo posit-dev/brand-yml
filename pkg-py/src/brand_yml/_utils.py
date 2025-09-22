@@ -172,6 +172,39 @@ def set_env_var(key: str, value: str):
 
 
 @contextmanager
+def use_brand_yml_path(path: str | Path):
+    """
+    Temporarily set the `BRAND_YML_PATH` environment variable.
+
+    This context manager sets the `BRAND_YML_PATH` environment variable to the
+    specified path for the duration of the context. This ensures that, within
+    the context, any calls to functions that automatically discover a
+    `_brand.yml` file will use the path specified.
+
+    Parameters
+    ----------
+    path
+        The path to a brand.yml file.
+
+    Examples
+    --------
+    ```python
+    from brand_yml import Brand, use_brand_yml_path
+
+    # Create a temporary brand.yml file for this example
+    with open("my-brand.yml", "w") as f:
+        f.write("color:\n  primary: '#abc123'")
+
+    with use_brand_yml_path("my-brand.yml"):
+        brand = Brand.from_yaml()  # Will use my-brand.yml
+        print(brand.color.primary)  # #abc123
+    ```
+    """
+    with set_env_var("BRAND_YML_PATH", str(path)):
+        yield
+
+
+@contextmanager
 def maybe_default_font_source(value: str | None):
     """
     Safely update the default font source if one is provided.

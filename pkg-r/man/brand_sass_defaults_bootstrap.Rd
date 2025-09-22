@@ -24,7 +24,7 @@ Creates Sass variables and a sass layer from Bootstrap defaults defined in the b
 Allows overriding defaults from other sources like Shiny themes.
 }
 \examples{
-\dontshow{if (requireNamespace("sass", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("sass", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 brand <- list(
   defaults = list(
     bootstrap = list(
