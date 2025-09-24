@@ -18,17 +18,32 @@
         allow_fallback = FALSE)
     Condition
       Error in `brand_use_logo()`:
-      ! `brand.logo.small` doesn't have a "light" variant, but `brand.logo.small.light` is required.
+      ! `brand.logo.small.light` is required.
     Code
       brand_use_logo(brand, "small", variant = "dark", required = "for header display",
         allow_fallback = FALSE)
     Condition
       Error in `brand_use_logo()`:
-      ! `brand.logo.small` doesn't have a "dark" variant, but `brand.logo.small.dark` is required for header display.
+      ! `brand.logo.small.dark` is required for header display.
     Code
       brand_use_logo(brand, "large", variant = "light", required = "for light plot icons",
         allow_fallback = FALSE)
     Condition
       Error in `brand_use_logo()`:
       ! `brand.logo.large.light` is required for light plot icons.
+
+# brand_use_logo(): errors when requesting light_dark with required=TRUE on non-light_dark logo without fallback
+
+    Code
+      brand_use_logo(brand, name = "small", variant = c("light", "dark"), required = TRUE,
+      allow_fallback = FALSE)
+    Condition
+      Error in `brand_use_logo()`:
+      ! `brand.logo.small` requires light/dark variants.
+    Code
+      brand_use_logo(brand, name = "small", variant = c("light", "dark"), required = "for theme support",
+      allow_fallback = FALSE)
+    Condition
+      Error in `brand_use_logo()`:
+      ! `brand.logo.small` requires light/dark variants for theme support.
 

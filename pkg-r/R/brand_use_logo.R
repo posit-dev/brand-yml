@@ -7,9 +7,17 @@ brand_use_logo <- function(
   allow_fallback = TRUE
 ) {
   brand <- as_brand_yml(brand)
-  name <- arg_match(name, c("small", "medium", "large"))
 
-  variant <- arg_match(variant)
+  name <- arg_match(name, c("small", "medium", "large"))
+  variant <- arg_match(variant, multiple = TRUE)
+
+  if ("auto" %in% variant) {
+    variant <- "auto"
+  } else if (
+    identical(intersect(c("light", "dark"), variant), c("light", "dark"))
+  ) {
+    variant <- "light_dark"
+  }
 
   if (isTRUE(required)) {
     required_reason <- ""
@@ -30,49 +38,103 @@ brand_use_logo <- function(
   }
 
   this <- brand_pluck(brand, "logo", name)
-  is_light_dark <- inherits(this, "light_dark")
+  has_light_dark <- inherits(this, "light_dark")
 
-  if ((variant %in% c("light", "dark")) && !is_light_dark && !allow_fallback) {
+  # Fixup internal paths to be relative to brand yml file.
+  if (has_light_dark) {
+    if (!is.null(this$light)) {
+      this$light$path <- brand_path(brand, this$light$path)
+    }
+    if (!is.null(this$dark)) {
+      this$dark$path <- brand_path(brand, this$dark$path)
+    }
+  } else {
+    this$path <- brand_path(brand, this$path)
+  }
+
+  # | variant    | has        | fallback | return               | case |
+  # |:-----------|:-----------|:---------|:---------------------|:-----|
+  # | auto       | single     | ~        | single               | A.1  |
+  # | auto       | light_dark | ~        | light_dark           | A.2  |
+  # | auto       | light      | ~        | light                | A.3  |
+  # | auto       | dark       | ~        | dark                 | A.4  |
+  # | light,dark | light|dark | ~        | light_dark           | B.1  |
+  # | light,dark | single     | TRUE     | single -> light_dark | B.2  |
+  # | light,dark | single     | FALSE    |                      | B.3  |
+  # | light      | light      | ~        | light                | C    |
+  # | dark       | dark       | ~        | dark                 | C    |
+  # | light      | single     | TRUE     | single               | D    |
+  # | dark       | single     | TRUE     | single               | D    |
+  # | light      | single     | FALSE    |                      | X    |
+  # | dark       | single     | FALSE    |                      | X    |
+  # | light      | dark       | ~        |                      | X    |
+  # | dark       | light      | ~        |                      | X    |
+
+  # Case A: "auto" variant
+  if (variant == "auto") {
+    if (!has_light_dark) {
+      # Case A.1: Return single value as-is
+      return(this)
+    }
+
+    if (!is.null(this$light) && !is.null(this$dark)) {
+      # Case A.2: Return light_dark if both variants exist
+      return(this)
+    }
+
+    if (!is.null(this$light)) {
+      # Case A.3: Return light if only light exists
+      return(this$light)
+    }
+
+    if (!is.null(this$dark)) {
+      # Case A.4: Return dark if only dark exists
+      return(this$dark)
+    }
+  }
+
+  # Case B: "light_dark" variant
+  if (variant == "light_dark") {
+    if (has_light_dark) {
+      # Case B.1: Return light_dark if both variants exist
+      return(this)
+    }
+
+    if (allow_fallback) {
+      # Case B.2: Promote single to light_dark if fallback allowed
+      return(brand_logo_resource_light_dark(this, this))
+    }
+
+    # Case B.3: No fallback allowed, error or return NULL
     if (!is.null(required_reason)) {
       cli::cli_abort(
-        "{.var brand.logo.{name}} doesn't have a {.val {variant}} variant, but {.var brand.logo.{name}.{variant}} is required{required_reason}."
+        "{.var brand.logo.{name}} requires light/dark variants{required_reason}."
       )
     }
+
     return(NULL)
   }
 
-  if (is_light_dark) {
-    if (variant == "auto") {
-      # If auto, prefer light, but use whichever is available
-      variants <- intersect(c("light", "dark"), names(this))
-      if (length(variants) > 0) {
-        this <- this[[variants[1]]]
-      } else {
-        # This shouldn't be possible after `as_brand_yml()` validation, but
-        # someone could get here manually.
-        this <- NULL # nocov
-      }
-    } else {
-      this <- this[[variant]]
+  # variant is now "light" or "dark" by definition
+
+  if (has_light_dark) {
+    # Case C: return specific variant if it exists
+    if (!is.null(this[[variant]])) {
+      return(this[[variant]])
+    }
+  } else {
+    # Case D: return single if fallback allowed
+    if (allow_fallback) {
+      return(this)
     }
   }
 
-  if (is.null(this)) {
-    if (!is.null(required_reason)) {
-      cli::cli_abort(
-        "{.var brand.logo.{name}.{variant}} is required{required_reason}."
-      )
-    }
-    return(NULL)
+  # Case X: specific variant doesn't exist and can't fallback
+  if (!is.null(required_reason)) {
+    cli::cli_abort(
+      "{.var brand.logo.{.strong {name}.{variant}}} is required{required_reason}."
+    )
   }
 
-  base_path <- brand$path %||% "."
-  is_abs <- substr(this$path, 1, 1) == "/"
-  is_link <- substr(this$path, 1, 4) == "http"
-
-  if (!(is_abs || is_link)) {
-    this$path <- file.path(base_path, this$path)
-  }
-
-  this
+  return(NULL)
 }
