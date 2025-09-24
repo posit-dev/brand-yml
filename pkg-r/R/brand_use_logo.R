@@ -1,3 +1,84 @@
+#' Extract a logo resource from a brand
+#'
+#' Returns a brand logo resource specified by name and variant from a brand
+#' object. The image paths in the returned object are adjusted to be absolute,
+#' relative to the location of the brand YAML file, if `brand` was read from a
+#' file, or the local working directory otherwise.
+#'
+#' @examples
+#' brand <- as_brand_yml(list(
+#'   logo = list(
+#'     images = list(
+#'       small = "logos/small.png",
+#'       huge = list(path = "logos/huge.png", alt = "Huge Logo")
+#'     ),
+#'     small = "small",
+#'     medium = list(
+#'       light = list(
+#'         path = "logos/medium-light.png",
+#'         alt = "Medium Light Logo"
+#'       ),
+#'       dark = list(path = "logos/medium-dark.png")
+#'     )
+#'   )
+#' ))
+#'
+#' brand_use_logo(brand, "small")
+#' brand_use_logo(brand, "medium")
+#' brand_use_logo(brand, "large")
+#' brand_use_logo(brand, "huge")
+#'
+#' brand_use_logo(brand, "small", variant = "light")
+#' brand_use_logo(brand, "small", variant = "light", allow_fallback = FALSE)
+#' brand_use_logo(brand, "small", variant = c("light", "dark"))
+#' brand_use_logo(
+#'   brand,
+#'   "small",
+#'   variant = c("light", "dark"),
+#'   allow_fallback = FALSE
+#' )
+#'
+#' brand_use_logo(brand, "medium", variant = "light")
+#' brand_use_logo(brand, "medium", variant = "dark")
+#' brand_use_logo(brand, "medium", variant = c("light", "dark"))
+#'
+#' @param brand A brand object from [read_brand_yml()] or [as_brand_yml()].
+#' @param name The name of the logo to use. Either a size (`"small"`,
+#'   `"medium"`, `"large"`) or an image name from `brand.logo.images`.
+#' @param variant Which variant to use, only used when `name` is one of the
+#'   brand.yml fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be
+#'   one of:
+#'
+#'   * `"auto"`: Auto-detect, returns a light/dark logo resource if both
+#'     variants are present, otherwise it returns a single logo resource, either
+#'     the value for `brand.logo.{name}` or the single light or dark variant if
+#'     only one is present.
+#'   * `"light"`: Returns only the light variant. If no light variant is
+#'     present, but `brand.logo.{name}` is a single logo resource and
+#'     `allow_fallback` is `TRUE`, `brand_use_logo()` falls back to the single
+#'     logo resource.
+#'   * `"dark"`: Returns only the dark variant, or, as above, falls back to the
+#'     single logo resource if no dark variant is present and `allow_fallback`
+#'     is `TRUE`.
+#'   * `c("light", "dark")`: Returns a light/dark object with both variants. If
+#'     a single logo resource is present for `brand.logo.{name}` and
+#'     `allow_fallback` is `TRUE`, the single logo resource is promoted to a
+#'     light/dark logo resource with identical light and dark variants.
+#' @param required Logical or character string. If `TRUE`, an error is thrown if
+#'   the requested logo is not found. If a string, it is used to describe why
+#'   the logo is required in the error message and completes the phrase
+#'   `"is required ____"`.
+#' @param allow_fallback If `TRUE` (the default), allows falling back to a
+#'   non-variant-specific logo when a specific variant is requested. Only used
+#'   when `name` is one of the fixed logo sizes (`"small"`, `"medium"`, or
+#'   `"large"`).
+#' @param ... Ignored, must be empty.
+#'
+#' @return A `brand_logo_resource` object, a `brand_logo_resource_light_dark`
+#'   object, or `NULL` if the requested logo doesn't exist and `required` is
+#'   `FALSE`.
+#'
+#' @export
 brand_use_logo <- function(
   brand,
   name,
