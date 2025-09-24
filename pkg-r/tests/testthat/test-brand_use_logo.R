@@ -1,7 +1,11 @@
 describe("brand_use_logo()", {
   brand <- as_brand_yml(list(
     logo = list(
-      small = list(path = "logos/small.png", alt = "Small logo"),
+      images = list(
+        small = "logos/small.png",
+        huge = list(path = "logos/huge.png", alt = "Huge logo")
+      ),
+      small = "small",
       medium = list(
         light = list(
           path = "logos/medium-light.png",
@@ -19,6 +23,12 @@ describe("brand_use_logo()", {
     expect_equal(result$path, "./logos/small.png")
   })
 
+  it("returns the logo resource from images if specified", {
+    result <- brand_use_logo(brand, name = "huge")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/huge.png")
+  })
+
   it("returns NULL if the logo doesn't exist and not required", {
     # Try to get non-existent large logo
     result <- brand_use_logo(brand, name = "large")
@@ -30,6 +40,7 @@ describe("brand_use_logo()", {
     expect_snapshot(error = TRUE, {
       brand_use_logo(brand, name = "large", required = TRUE)
       brand_use_logo(brand, name = "large", required = "for header display")
+      brand_use_logo(brand, name = "tiny", required = TRUE)
     })
   })
 

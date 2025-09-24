@@ -7,6 +7,37 @@ brand_use_logo <- function(
   allow_fallback = TRUE
 ) {
   brand <- as_brand_yml(brand)
+  check_dots_empty()
+  check_string(name)
+  check_bool(allow_fallback)
+
+  if (isTRUE(required)) {
+    required_reason <- ""
+  } else if (isFALSE(required)) {
+    required_reason <- NULL
+  } else {
+    check_string(required)
+    required_reason <- paste0(" ", trimws(required))
+  }
+
+  if (!name %in% setdiff(names(brand$logo), "images")) {
+    if (brand_has(brand, "logo", "images", name)) {
+      res <- brand_pluck(brand, "logo", "images", name)
+      res$path <- brand_path(brand, res$path)
+      return(res)
+    }
+
+    if (!is.null(required_reason)) {
+      if (!name %in% c("small", "medium", "large")) {
+        name <- sprintf("images['%s']", name)
+      }
+      cli::cli_abort(
+        "{.var brand.logo.{name}} is required{required_reason}."
+      )
+    }
+
+    return(NULL)
+  }
 
   name <- arg_match(name, c("small", "medium", "large"))
   variant <- arg_match(variant, multiple = TRUE)
@@ -17,15 +48,6 @@ brand_use_logo <- function(
     identical(intersect(c("light", "dark"), variant), c("light", "dark"))
   ) {
     variant <- "light_dark"
-  }
-
-  if (isTRUE(required)) {
-    required_reason <- ""
-  } else if (isFALSE(required)) {
-    required_reason <- NULL
-  } else {
-    check_string(required)
-    required_reason <- paste0(" ", trimws(required))
   }
 
   if (!brand_has(brand, "logo", name)) {
