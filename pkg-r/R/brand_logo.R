@@ -11,10 +11,7 @@ print.brand_logo_resource <- function(x, ...) {
 }
 
 brand_logo_resource_light_dark <- function(light = NULL, dark = NULL) {
-  structure(
-    compact(list(light = light, dark = dark)),
-    class = "brand_logo_resource_light_dark"
-  )
+  as_light_dark(light, dark)
 }
 
 #' @export
