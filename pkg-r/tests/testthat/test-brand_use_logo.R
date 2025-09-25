@@ -221,3 +221,169 @@ describe("brand_use_logo()", {
     })
   })
 })
+
+describe("format() method for brand_logo_resource", {
+  logo_resource <- brand_logo_resource(local_tiny_image(), "Test logo")
+
+  it("formats as HTML by default", {
+    expect_snapshot({
+      cat(format(logo_resource))
+    })
+  })
+
+  it("formats as HTML with additional attributes", {
+    expect_snapshot({
+      cat(format(logo_resource, class = "my-logo", width = 100, height = 50))
+    })
+  })
+
+  it("formats as markdown", {
+    expect_snapshot({
+      cat(format(logo_resource, .format = "markdown"))
+    })
+  })
+
+  it("formats as markdown with additional attributes", {
+    expect_snapshot({
+      cat(format(
+        logo_resource,
+        .format = "markdown",
+        class = "my-logo",
+        width = 100
+      ))
+    })
+  })
+})
+
+describe("format() method for brand_logo_resource_light_dark", {
+  logo_light <- brand_logo_resource(local_tiny_image(), "Light logo")
+  logo_dark <- brand_logo_resource(local_tiny_image(), "Dark logo")
+  logo_light_dark <- brand_logo_resource_light_dark(
+    light = logo_light,
+    dark = logo_dark
+  )
+
+  it("formats as HTML by default", {
+    expect_snapshot({
+      cat(format(logo_light_dark))
+    })
+  })
+
+  it("formats as HTML with additional attributes", {
+    expect_snapshot({
+      cat(format(logo_light_dark, class = "my-logo", width = 100, height = 50))
+    })
+  })
+
+  it("formats as markdown", {
+    expect_snapshot({
+      cat(format(logo_light_dark, .format = "markdown"))
+    })
+  })
+
+  it("formats as markdown with additional attributes", {
+    expect_snapshot({
+      cat(format(
+        logo_light_dark,
+        .format = "markdown",
+        class = "my-logo",
+        width = 100
+      ))
+    })
+  })
+
+  it("handles different classes for light and dark in markdown mode", {
+    expect_snapshot({
+      cat(format(
+        logo_light_dark,
+        .format = "markdown",
+        class = c("light-logo", "dark-logo")
+      ))
+    })
+  })
+})
+
+describe("as.tags() method", {
+  logo_resource <- brand_logo_resource(local_tiny_image(), "Test logo")
+  logo_light <- brand_logo_resource(local_tiny_image(), "Light logo")
+  logo_dark <- brand_logo_resource(local_tiny_image(), "Dark logo")
+  logo_light_dark <- brand_logo_resource_light_dark(
+    light = logo_light,
+    dark = logo_dark
+  )
+
+  it("converts brand_logo_resource to HTML tags", {
+    skip_if_not_installed("htmltools")
+
+    # Test that format(..., .format = "html") calls as.tags()
+    # This indirectly tests as.tags() functionality
+    expect_snapshot({
+      cat(format(logo_resource, .format = "html"))
+    })
+
+    expect_snapshot({
+      cat(format(
+        logo_resource,
+        .format = "html",
+        class = "custom-logo",
+        width = 200
+      ))
+    })
+  })
+
+  it("converts brand_logo_resource_light_dark to HTML tags", {
+    skip_if_not_installed("htmltools")
+
+    # Test that format(..., .format = "html") calls as.tags()
+    # This indirectly tests as.tags() functionality
+    expect_snapshot({
+      cat(format(logo_light_dark, .format = "html"))
+    })
+
+    expect_snapshot({
+      cat(format(
+        logo_light_dark,
+        .format = "html",
+        class = "custom-logo",
+        width = 200
+      ))
+    })
+  })
+})
+
+describe("knit_print() method", {
+  logo_resource <- brand_logo_resource(local_tiny_image(), "Test logo")
+  logo_light <- brand_logo_resource(local_tiny_image(), "Light logo")
+  logo_dark <- brand_logo_resource(local_tiny_image(), "Dark logo")
+  logo_light_dark <- brand_logo_resource_light_dark(
+    light = logo_light,
+    dark = logo_dark
+  )
+
+  local_mocked_bindings(
+    asis_output = function(x, meta = list(), ...) {
+      list(out = x, meta = meta)
+    },
+    .package = "knitr"
+  )
+
+  it("renders brand_logo_resource in knitr", {
+    skip_if_not_installed("knitr")
+    skip_if_not_installed("htmltools")
+
+    result <- knit_print.brand_logo_resource(logo_resource)
+    expect_equal(result$meta, list(html_dep_brand_light_dark()))
+    expect_type(result$out, "character")
+    expect_snapshot(cat(result$out))
+  })
+
+  it("renders brand_logo_resource_light_dark in knitr", {
+    skip_if_not_installed("knitr")
+    skip_if_not_installed("htmltools")
+
+    result <- knit_print.brand_logo_resource_light_dark(logo_light_dark)
+    expect_equal(result$meta, list(html_dep_brand_light_dark()))
+    expect_type(result$out, "character")
+    expect_snapshot(cat(result$out))
+  })
+})
