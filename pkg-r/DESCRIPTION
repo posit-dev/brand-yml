@@ -25,6 +25,7 @@ Imports:
 Suggests:
     base64enc,
     htmltools,
+    knitr,
     mime,
     sass,
     testthat (>= 3.0.0),

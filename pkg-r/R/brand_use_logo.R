@@ -5,6 +5,93 @@
 #' relative to the location of the brand YAML file, if `brand` was read from a
 #' file, or the local working directory otherwise.
 #'
+#' @section Shiny apps and HTML documents:
+#' You can use `brand_use_logo()` to include logos in [Shiny
+#' apps][shiny::shinyApp()] or in HTML documents produced by
+#' [Quarto](https://quarto.org/docs/output-formats/html-basics.html) or [R
+#' Markdown][rmarkdown::html_document()].
+#'
+#' In Shiny apps, logos returned by `brand_use_logo()` will automatically be
+#' converted into HTML tags using [htmltools::as.tags()], so you can include
+#' them directly in your UI code.
+#'
+#' ```r
+#' library(shiny)
+#' library(bslib)
+#'
+#' brand <- read_brand_yml()
+#'
+#' ui <- page_navbar(
+#'   title = tagList(
+#'     brand_use_logo(brand, "small"),
+#'     "Brand Use Logo Test"
+#'   ),
+#'   nav_panel(
+#'     "Page 1",
+#'     card(
+#'       card_header("My Brand"),
+#'       brand_use_logo(brand, "medium", variant = "dark")
+#'     )
+#'   )
+#'   # ... The rest of your app
+#' )
+#' ```
+#'
+#' If your brand includes a light/dark variant for a specific size, both images
+#' will be included in the app, but only the appropriate image will be shown
+#' based on the user's system preference of the app's current theme mode if you
+#' are using [bslib::input_dark_mode()].
+#'
+#' To include additional classes or attributes in the `<img>` tag, you can call
+#' [htmltools::as.tags()] directly and provide those attributes:
+#'
+#' ```{r}
+#' brand <- as_brand_yml(list(
+#'   logo = list(
+#'     images = list(
+#'       "cat-light" = list(
+#'         path = "https://placecats.com/louie/300/300",
+#'         alt = "A light-colored tabby cat on a purple rug"
+#'       ),
+#'       "cat-dark" = list(
+#'         path = "https://placecats.com/millie/300/300",
+#'         alt = "A dark-colored cat looking into the camera"
+#'       ),
+#'       "cat-med" = "https://placecats.com/600/600"
+#'     ),
+#'     small = list(light = "cat-light", dark = "cat-dark"),
+#'     medium = "cat-med"
+#'   )
+#' ))
+#'
+#' brand_use_logo(brand, "small") |>
+#'   htmltools::as.tags(class = "my-logo", height = 32)
+#' ```
+#'
+#' The same applies to HTML documents produced by Quarto or R Markdown, where
+#' images can be used in-line:
+#'
+#' ````markdown
+#' ```{r}
+#' brand_use_logo(brand, "small")
+#' ```
+#'
+#' This is my brand's medium sized logo: `r brand_use_logo(brand, "medium")`
+#' ````
+#'
+#' Finally, you can use `format()` to convert the logo to raw HTML or markdown:
+#'
+#' ```{r}
+#' cat(format(brand_use_logo(brand, "small", variant = "light")))
+#'
+#' cat(format(
+#'   brand_use_logo(brand, "medium"),
+#'   .format = "markdown",
+#'   class = "my-logo",
+#'   height = 500
+#' ))
+#' ```
+#'
 #' @examples
 #' brand <- as_brand_yml(list(
 #'   logo = list(
@@ -241,3 +328,188 @@ brand_use_logo <- function(
 
   return(NULL)
 }
+
+
+#' @exportS3Method htmltools::as.tags
+as.tags.brand_logo_resource <- function(x, ...) {
+  check_installed("htmltools")
+  img_src <- maybe_base64_encode_image(x$path)
+
+  htmltools::img(
+    src = img_src,
+    alt = x$alt %||% "",
+    class = "brand-logo",
+    ...,
+    html_dep_brand_light_dark()
+  )
+}
+
+maybe_base64_encode_image <- function(path) {
+  if (substr(path, 1, 4) %in% c("http", "data")) {
+    return(path)
+  }
+  check_installed(
+    "base64enc",
+    reason = "to embed local images as base64 data URIs."
+  )
+  base64enc::dataURI(
+    file = path,
+    mime = mime::guess_type(path)
+  )
+}
+
+#' @exportS3Method htmltools::as.tags
+as.tags.brand_logo_resource_light_dark <- function(x, ...) {
+  check_installed("htmltools")
+
+  htmltools::span(
+    class = "brand-logo-light-dark",
+    htmltools::as.tags(x$light, class = "light-content", ...),
+    htmltools::as.tags(x$dark, class = "dark-content", ...),
+  )
+}
+
+#' @exportS3Method knitr::knit_print
+knit_print.brand_logo_resource <- function(x, ...) {
+  check_installed("knitr")
+  check_installed("htmltools")
+  knitr::asis_output(
+    format(htmltools::as.tags(x)),
+    meta = list(html_dep_brand_light_dark())
+  )
+}
+
+#' @exportS3Method knitr::knit_print
+knit_print.brand_logo_resource_light_dark <- function(x, ...) {
+  check_installed("knitr")
+  check_installed("htmltools")
+  knitr::asis_output(
+    format(htmltools::as.tags(x)),
+    meta = list(html_dep_brand_light_dark())
+  )
+}
+
+
+#' @export
+format.brand_logo_resource <- function(
+  x,
+  ...,
+  .format = c("html", "markdown")
+) {
+  check_installed("htmltools")
+  .format <- arg_match(.format)
+
+  if (.format == "html") {
+    return(format(htmltools::as.tags(x, ...)))
+  }
+
+  dots <- dots_list(..., .homonyms = "error")
+  if (any(!nzchar(names2(dots)))) {
+    cli::cli_abort("All arguments must be named.")
+  }
+
+  path <- maybe_base64_encode_image(x$path)
+
+  classes <- ".brand-logo"
+  if ("class" %in% names(dots)) {
+    user_classes <- sprintf(".%s", unlist(strsplit(dots$class, " ")))
+    classes <- c(classes, user_classes)
+    dots$class <- NULL
+  }
+
+  attrs <- c(
+    paste(classes, sep = " "),
+    sprintf('alt="%s"', x$alt %||% "")
+  )
+
+  for (i in seq_along(dots)) {
+    value <- dots[[i]]
+    if (is.na(value)) {
+      attr <- names(dots)[i]
+    } else if (is.logical(value)) {
+      attr <- sprintf('%s="%s"', names(dots)[i], tolower(as.character(value)))
+    } else {
+      attr <- sprintf('%s="%s"', names(dots)[i], value)
+    }
+    attrs <- c(attrs, attr)
+  }
+  attrs <- paste(attrs, collapse = " ")
+
+  sprintf('![](%s){%s}', path, attrs)
+}
+
+#' @export
+format.brand_logo_resource_light_dark <- function(
+  x,
+  ...,
+  .format = c("html", "markdown")
+) {
+  check_installed("htmltools")
+  .format <- arg_match(.format)
+
+  if (.format == "html") {
+    return(format(htmltools::as.tags(x, ...)))
+  }
+
+  dots <- dots_list(..., .homonyms = "error")
+  dots_light <- dots_dark <- dots
+  if ("class" %in% names(dots)) {
+    if (length(dots$class) == 1) {
+      dots_light$class <- paste(dots$class, "light-content")
+      dots_dark$class <- paste(dots$class, "dark-content")
+    } else if (length(dots$class) > 1) {
+      dots_light$class <- c(dots$class[1], "light-content")
+      dots_dark$class <- c(dots$class[2], "dark-content")
+    } else {
+      dots$class <- NULL
+    }
+  }
+  if (is.null(dots$class)) {
+    dots_light$class <- "light-content"
+    dots_dark$class <- "dark-content"
+  }
+
+  light <- format(x$light, ..., .format = "markdown")
+  dark <- format(x$dark, ..., .format = "markdown")
+
+  paste(light, dark)
+}
+
+knitr_is_in_quarto <- function() {
+  if (!knitr_in_progress()) {
+    return(FALSE)
+  }
+
+  !is.null(knitr::opts_knit$get("quarto.version"))
+}
+
+knitr_in_progress <- function() {
+  isTRUE(getOption("knitr.in.progress"))
+}
+
+html_dep_brand_light_dark <- local({
+  dep <- NULL
+
+  function() {
+    if (knitr_is_in_quarto()) {
+      return(NULL)
+    }
+
+    if (!is.null(dep)) {
+      return(dep)
+    }
+
+    check_installed("htmltools")
+
+    dep <<- htmltools::htmlDependency(
+      name = "brand-logo-light-dark",
+      version = utils::packageVersion("brand.yml"),
+      package = "brand.yml",
+      src = "resources",
+      stylesheet = "brand-light-dark.css",
+      all_files = FALSE
+    )
+
+    dep
+  }
+})

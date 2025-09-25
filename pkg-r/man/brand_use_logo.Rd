@@ -63,6 +63,99 @@ object. The image paths in the returned object are adjusted to be absolute,
 relative to the location of the brand YAML file, if \code{brand} was read from a
 file, or the local working directory otherwise.
 }
+\section{Shiny apps and HTML documents}{
+
+You can use \code{brand_use_logo()} to include logos in \link[shiny:shinyApp]{Shiny apps} or in HTML documents produced by
+\href{https://quarto.org/docs/output-formats/html-basics.html}{Quarto} or \link[rmarkdown:html_document]{R Markdown}.
+
+In Shiny apps, logos returned by \code{brand_use_logo()} will automatically be
+converted into HTML tags using \code{\link[htmltools:as.tags]{htmltools::as.tags()}}, so you can include
+them directly in your UI code.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(shiny)
+library(bslib)
+
+brand <- read_brand_yml()
+
+ui <- page_navbar(
+  title = tagList(
+    brand_use_logo(brand, "small"),
+    "Brand Use Logo Test"
+  ),
+  nav_panel(
+    "Page 1",
+    card(
+      card_header("My Brand"),
+      brand_use_logo(brand, "medium", variant = "dark")
+    )
+  )
+  # ... The rest of your app
+)
+}\if{html}{\out{</div>}}
+
+If your brand includes a light/dark variant for a specific size, both images
+will be included in the app, but only the appropriate image will be shown
+based on the user's system preference of the app's current theme mode if you
+are using \code{\link[bslib:input_dark_mode]{bslib::input_dark_mode()}}.
+
+To include additional classes or attributes in the \verb{<img>} tag, you can call
+\code{\link[htmltools:as.tags]{htmltools::as.tags()}} directly and provide those attributes:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{brand <- as_brand_yml(list(
+  logo = list(
+    images = list(
+      "cat-light" = list(
+        path = "https://placecats.com/louie/300/300",
+        alt = "A light-colored tabby cat on a purple rug"
+      ),
+      "cat-dark" = list(
+        path = "https://placecats.com/millie/300/300",
+        alt = "A dark-colored cat looking into the camera"
+      ),
+      "cat-med" = "https://placecats.com/600/600"
+    ),
+    small = list(light = "cat-light", dark = "cat-dark"),
+    medium = "cat-med"
+  )
+))
+
+brand_use_logo(brand, "small") |>
+  htmltools::as.tags(class = "my-logo", height = 32)
+}\if{html}{\out{</div>}}\if{html}{\out{
+<!--html_preserve--><span class="brand-logo-light-dark">
+}}
+\if{html}{\out{
+<img alt="A light-colored tabby cat on a purple rug" class="brand-logo light-content my-logo" height="32" src="https://placecats.com/louie/300/300"/>
+<img alt="A dark-colored cat looking into the camera" class="brand-logo dark-content my-logo" height="32" src="https://placecats.com/millie/300/300"/>
+</span><!--/html_preserve-->
+}}
+
+
+The same applies to HTML documents produced by Quarto or R Markdown, where
+images can be used in-line:
+
+\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{```\{r\}
+brand_use_logo(brand, "small")
+```
+
+This is my brand's medium sized logo: `r brand_use_logo(brand, "medium")`
+}\if{html}{\out{</div>}}
+
+Finally, you can use \code{format()} to convert the logo to raw HTML or markdown:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{cat(format(brand_use_logo(brand, "small", variant = "light")))
+#> <img src="https://placecats.com/louie/300/300" alt="A light-colored tabby cat on a purple rug" class="brand-logo"/>
+
+cat(format(
+  brand_use_logo(brand, "medium"),
+  .format = "markdown",
+  class = "my-logo",
+  height = 500
+))
+#> ![](https://placecats.com/600/600)\{.brand-logo .my-logo alt="" height="500"\}
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 brand <- as_brand_yml(list(
   logo = list(
