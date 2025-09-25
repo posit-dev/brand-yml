@@ -221,7 +221,7 @@ brand_use_logo <- function(
         name <- sprintf("images['%s']", name)
       }
       cli::cli_abort(
-        "{.var brand.logo.{name}} is required{required_reason}."
+        "{.var brand.logo.{.strong {name}}} is required{required_reason}."
       )
     }
 
@@ -242,7 +242,7 @@ brand_use_logo <- function(
   if (!brand_has(brand, "logo", name)) {
     if (!is.null(required_reason)) {
       cli::cli_abort(
-        "{.var brand.logo.{name}} is required{required_reason}."
+        "{.var brand.logo.{.strong {name}}} is required{required_reason}."
       )
     }
     return(NULL)
@@ -319,7 +319,7 @@ brand_use_logo <- function(
     # Case B.3: No fallback allowed, error or return NULL
     if (!is.null(required_reason)) {
       cli::cli_abort(
-        "{.var brand.logo.{name}} requires light/dark variants{required_reason}."
+        "{.var brand.logo.{.strong {name}}} requires light/dark variants{required_reason}."
       )
     }
 
