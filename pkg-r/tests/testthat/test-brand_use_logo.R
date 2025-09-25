@@ -320,7 +320,7 @@ describe("brand_use_logo()", {
     })
   })
 
-  it("stores attributes from ... in attrs attribute", {
+  it("stores attributes from ... in the attrs field", {
     # Test with a simple logo
     result <- brand_use_logo(
       brand,
@@ -330,7 +330,7 @@ describe("brand_use_logo()", {
     )
     expect_s3_class(result, "brand_logo_resource")
     expect_equal(
-      attr(result, "attrs"),
+      result$attrs,
       list(class = "custom-class", width = 100)
     )
 
@@ -342,7 +342,7 @@ describe("brand_use_logo()", {
       height = 50
     )
     expect_s3_class(result_ld, "brand_logo_resource_light_dark")
-    expect_equal(attr(result_ld, "attrs"), list(id = "logo-id", height = 50))
+    expect_equal(result_ld$attrs, list(id = "logo-id", height = 50))
   })
 
   it("maintains attributes through variant selection", {
@@ -354,7 +354,7 @@ describe("brand_use_logo()", {
       class = "light-logo"
     )
     expect_s3_class(result, "brand_logo_resource")
-    expect_equal(attr(result, "attrs"), list(class = "light-logo"))
+    expect_equal(result$attrs, list(class = "light-logo"))
     expect_equal(result$path, "./logos/medium-light.png")
 
     # Test with auto variant
@@ -365,7 +365,36 @@ describe("brand_use_logo()", {
       id = "auto-logo"
     )
     expect_s3_class(result_auto, "brand_logo_resource_light_dark")
-    expect_equal(attr(result_auto, "attrs"), list(id = "auto-logo"))
+    expect_equal(result_auto$attrs, list(id = "auto-logo"))
+  })
+
+  it("concatenates attributes when object already has attrs", {
+    # Create a logo resource with existing attrs
+    logo_with_attrs <- brand$logo$small
+    logo_with_attrs$attrs <- list(class = "existing-class", width = 100)
+
+    # Create brand with this modified logo
+    brand_modified <- brand
+    brand_modified$logo$small <- logo_with_attrs
+
+    # Test that attributes are concatenated, not merged
+    result <- brand_use_logo(
+      brand_modified,
+      name = "small",
+      class = "new-class",
+      height = 50
+    )
+
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(
+      result$attrs,
+      list(class = "existing-class", width = 100, class = "new-class", height = 50)
+    )
+
+    # Verify both class attributes exist (not merged into one)
+    classes <- result$attrs[names(result$attrs) == "class"]
+    expect_equal(length(classes), 2)
+    expect_equal(unname(unlist(classes)), c("existing-class", "new-class"))
   })
 
   it("errors if arguments in ... are not named", {

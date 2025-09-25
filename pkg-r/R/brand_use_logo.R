@@ -197,7 +197,9 @@ brand_use_logo <- function(
   }
 
   attach_attrs <- function(x) {
-    attr(x, "attrs") <- if (length(dots) == 0) NULL else dots
+    if (length(dots) > 0) {
+      x$attrs <- c(x$attrs, dots)
+    }
     x
   }
 
@@ -367,7 +369,7 @@ as.tags.brand_logo_resource <- function(x, ...) {
   check_installed("htmltools")
   img_src <- maybe_base64_encode_image(x$path)
 
-  attrs <- attr(x, "attrs") %||% list()
+  attrs <- x$attrs %||% list()
 
   htmltools::img(
     src = img_src,
@@ -438,7 +440,7 @@ format.brand_logo_resource <- function(
     return(format(htmltools::as.tags(x, ...)))
   }
 
-  attrs <- attr(x, "attrs") %||% list()
+  attrs <- x$attrs %||% list()
 
   format_dots <- dots_list(..., .homonyms = "error")
   if (any(!nzchar(names2(format_dots)))) {
@@ -471,14 +473,8 @@ format.brand_logo_resource_light_dark <- function(
 
   dots <- dots_list(..., .homonyms = "error")
 
-  attr(x$light, "attrs") <- c(
-    attr(x$light, "attrs"),
-    list(class = "light-content")
-  )
-  attr(x$dark, "attrs") <- c(
-    attr(x$dark, "attrs"),
-    list(class = "dark-content")
-  )
+  x$light$attrs <- c(x$light$attrs, list(class = "light-content"))
+  x$dark$attrs <- c(x$dark$attrs, list(class = "dark-content"))
 
   light <- format.brand_logo_resource(
     x$light,
