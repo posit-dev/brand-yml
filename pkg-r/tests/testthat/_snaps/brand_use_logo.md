@@ -118,14 +118,14 @@
     Code
       cat(format(logo_light_dark, .format = "markdown"))
     Output
-      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo alt="Dark logo"}
+      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-content alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .dark-content alt="Dark logo"}
 
 # format() method for brand_logo_resource_light_dark: formats as markdown with additional attributes
 
     Code
       cat(format(logo_light_dark, .format = "markdown", class = "my-logo", width = 100))
     Output
-      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .my-logo alt="Light logo" width="100"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .my-logo alt="Dark logo" width="100"}
+      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .my-logo .light-content alt="Light logo" width="100"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .my-logo .dark-content alt="Dark logo" width="100"}
 
 # format() method for brand_logo_resource_light_dark: handles different classes for light and dark in markdown mode
 
@@ -133,7 +133,7 @@
       cat(format(logo_light_dark, .format = "markdown", class = c("light-logo",
         "dark-logo")))
     Output
-      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-logo .dark-logo alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-logo .dark-logo alt="Dark logo"}
+      ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-logo .light-content alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .dark-logo .dark-content alt="Dark logo"}
 
 # as.tags() method: converts brand_logo_resource to HTML tags
 

@@ -490,8 +490,16 @@ format.brand_logo_resource_light_dark <- function(
     dots_dark$class <- "dark-content"
   }
 
-  light <- format(x$light, ..., .format = "markdown")
-  dark <- format(x$dark, ..., .format = "markdown")
+  light <- format.brand_logo_resource(
+    x$light,
+    !!!dots_light,
+    .format = "markdown"
+  )
+  dark <- format.brand_logo_resource(
+    x$dark,
+    !!!dots_dark,
+    .format = "markdown"
+  )
 
   paste(light, dark)
 }
