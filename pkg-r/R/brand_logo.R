@@ -209,8 +209,8 @@ brand_logo_normalize_sizes <- function(logo, images) {
       check_list(
         value,
         list(
-          light = list(path = "path", alt = "string"),
-          dark = list(path = "path", alt = "string")
+          light = list(path = "path", alt = "string", attrs = "list"),
+          dark = list(path = "path", alt = "string", attrs = "list")
         ),
         path = c("logo", size)
       )
@@ -228,7 +228,7 @@ brand_logo_normalize_sizes <- function(logo, images) {
 
     check_list(
       value,
-      list(path = "path", alt = "string"),
+      list(path = "path", alt = "string", attrs = "list"),
       path = c("logo", size)
     )
 
