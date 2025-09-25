@@ -192,9 +192,7 @@ brand_use_logo <- function(
   }
 
   dots <- dots_list(..., .homonyms = "keep")
-  if (any(!nzchar(names2(dots)))) {
-    cli::cli_abort("All arguments in {.arg ...} must be named.")
-  }
+  check_dots_named(dots)
 
   attach_attrs <- function(x) {
     if (length(dots) > 0) {
@@ -443,9 +441,7 @@ format.brand_logo_resource <- function(
   attrs <- x$attrs %||% list()
 
   format_dots <- dots_list(..., .homonyms = "error")
-  if (any(!nzchar(names2(format_dots)))) {
-    cli::cli_abort("All arguments in {.arg ...} must be named.")
-  }
+  check_dots_named(format_dots)
 
   dots <- dots_list(
     class = "brand-logo",

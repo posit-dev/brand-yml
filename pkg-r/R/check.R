@@ -9,6 +9,22 @@ check_is_brand_yml <- function(x) {
   invisible(x)
 }
 
+check_dots_named <- function(dots, arg = "...", call = caller_env()) {
+  if (is.null(dots) || length(dots) == 0) {
+    return(invisible(dots))
+  }
+
+  if (any(!nzchar(names2(dots)))) {
+    cli::cli_abort(
+      "All arguments in {.arg {arg}} must be named.",
+      call = call
+    )
+  }
+
+  invisible(dots)
+}
+
+
 check_list <- function(input, proto, path = NULL, closed = TRUE) {
   if (!is.list(input)) {
     cli::cli_abort(

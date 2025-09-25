@@ -1,12 +1,28 @@
-brand_logo_resource <- function(path, alt = NULL) {
-  structure(list(path = path, alt = alt), class = "brand_logo_resource")
+brand_logo_resource <- function(path, alt = NULL, attrs = NULL) {
+  resource <- list(path = path, alt = alt)
+
+  attrs <- check_dots_named(dots_list(!!!attrs))
+  if (length(attrs)) {
+    resource$attrs <- attrs
+  }
+
+  structure(resource, class = "brand_logo_resource")
+}
+
+format_inline_brand_logo_resource <- function(x) {
+  attrs <- attrs_as_raw_html(x$attrs, "html")
+  if (nzchar(attrs)) {
+    attrs <- paste0(" ", attrs)
+  }
+
+  cli::format_inline(
+    '{.cls brand_logo_resource src="{x$path}" alt="{x$alt}"{attrs}}'
+  )
 }
 
 #' @export
 print.brand_logo_resource <- function(x, ...) {
-  cat(cli::format_inline(
-    '{.cls brand_logo_resource src="{x$path}" alt="{x$alt}"}'
-  ))
+  cat(format_inline_brand_logo_resource(x))
   invisible(x)
 }
 
@@ -16,16 +32,20 @@ brand_logo_resource_light_dark <- function(light = NULL, dark = NULL) {
 
 #' @export
 print.brand_logo_resource_light_dark <- function(x, ...) {
-  if (!is.null(x$light)) {
-    cat(cli::format_inline(
-      '{.cls brand_logo_resource variant="light" src="{x$light$path}" alt="{x$light$alt}"}'
-    ))
+  light <- x$light
+  dark <- x$dark
+
+  if (!is.null(light)) {
+    light$attrs <- c(list(variant = "light"), light$attrs)
+    cat(format_inline_brand_logo_resource(light))
   }
-  if (!is.null(x$dark)) {
-    x$light %??% cat("\n")
-    cat(cli::format_inline(
-      '{.cls brand_logo_resource variant="dark" src="{x$dark$path}" alt="{x$dark$alt}"}'
-    ))
+
+  if (!is.null(dark)) {
+    dark$attrs <- c(list(variant = "dark"), dark$attrs)
+    if (!is.null(light)) {
+      cat("\n")
+    }
+    cat(format_inline_brand_logo_resource(dark))
   }
 
   invisible(x)
