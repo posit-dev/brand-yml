@@ -17,7 +17,9 @@ brand_use_logo(
 \item{brand}{A brand object from \code{\link[=read_brand_yml]{read_brand_yml()}} or \code{\link[=as_brand_yml]{as_brand_yml()}}.}
 
 \item{name}{The name of the logo to use. Either a size (\code{"small"},
-\code{"medium"}, \code{"large"}) or an image name from \code{brand.logo.images}.}
+\code{"medium"}, \code{"large"}) or an image name from \code{brand.logo.images}.
+Alternatively, you can also use \code{"smallest"} or \code{"largest"} to select the
+smallest or largest available logo size, respectively.}
 
 \item{variant}{Which variant to use, only used when \code{name} is one of the
 brand.yml fixed logo sizes (\code{"small"}, \code{"medium"}, or \code{"large"}). Can be
@@ -121,15 +123,11 @@ To include additional classes or attributes in the \verb{<img>} tag, you can cal
 
 brand_use_logo(brand, "small") |>
   htmltools::as.tags(class = "my-logo", height = 32)
-}\if{html}{\out{</div>}}\if{html}{\out{
-<!--html_preserve--><span class="brand-logo-light-dark">
-}}
-\if{html}{\out{
-<img alt="A light-colored tabby cat on a purple rug" class="brand-logo light-content my-logo" height="32" src="https://placecats.com/louie/300/300"/>
-<img alt="A dark-colored cat looking into the camera" class="brand-logo dark-content my-logo" height="32" src="https://placecats.com/millie/300/300"/>
-</span><!--/html_preserve-->
-}}
-
+#> <!--html_preserve--><span class="brand-logo-light-dark">
+#> <img alt="A light-colored tabby cat on a purple rug" class="brand-logo light-content my-logo" height="32" src="https://placecats.com/louie/300/300"/>
+#> <img alt="A dark-colored cat looking into the camera" class="brand-logo dark-content my-logo" height="32" src="https://placecats.com/millie/300/300"/>
+#> </span><!--/html_preserve-->
+}\if{html}{\out{</div>}}
 
 The same applies to HTML documents produced by Quarto or R Markdown, where
 images can be used in-line:

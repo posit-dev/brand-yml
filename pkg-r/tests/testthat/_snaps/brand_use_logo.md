@@ -16,6 +16,19 @@
       Error in `brand_use_logo()`:
       ! `brand.logo.images['tiny']` is required.
 
+# brand_use_logo(): handles errors for smallest/largest when no logos available
+
+    Code
+      brand_use_logo(brand_no_logos, name = "smallest", required = TRUE)
+    Condition
+      Error in `brand_use_logo()`:
+      ! No logos are available to satisfy `smallest` in `brand.logo` or `brand.logo.images`.
+    Code
+      brand_use_logo(brand_no_logos, name = "largest", required = "for header display")
+    Condition
+      Error in `brand_use_logo()`:
+      ! No logos are available to satisfy `largest` in `brand.logo` or `brand.logo.images` for header display.
+
 # brand_use_logo(): errors when variant is specified and required but not available and fallback not allowed
 
     Code

@@ -132,6 +132,8 @@
 #' @param brand A brand object from [read_brand_yml()] or [as_brand_yml()].
 #' @param name The name of the logo to use. Either a size (`"small"`,
 #'   `"medium"`, `"large"`) or an image name from `brand.logo.images`.
+#'   Alternatively, you can also use `"smallest"` or `"largest"` to select the
+#'   smallest or largest available logo size, respectively.
 #' @param variant Which variant to use, only used when `name` is one of the
 #'   brand.yml fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be
 #'   one of:
@@ -186,6 +188,25 @@ brand_use_logo <- function(
   } else {
     check_string(required)
     required_reason <- paste0(" ", trimws(required))
+  }
+
+  if (name %in% c("smallest", "largest")) {
+    sizes <- c("small", "medium", "large")
+    available <- intersect(sizes, names(brand$logo))
+    if (length(available) == 0 && !name %in% names(brand$logo$images)) {
+      if (!is.null(required_reason)) {
+        cli::cli_abort(
+          "No logos are available to satisfy {.var {name}} in {.var brand.logo} or {.var brand.logo.images}{required_reason}."
+        )
+      }
+      return(NULL)
+    } else {
+      name <- switch(
+        name,
+        smallest = available[[1]],
+        largest = available[[length(available)]]
+      )
+    }
   }
 
   if (!name %in% setdiff(names(brand$logo), "images")) {

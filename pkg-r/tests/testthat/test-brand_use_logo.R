@@ -29,6 +29,50 @@ describe("brand_use_logo()", {
     expect_equal(result$path, "./logos/huge.png")
   })
 
+  it("returns smallest logo with 'smallest' parameter", {
+    brand_sizes <- as_brand_yml(list(
+      logo = list(
+        small = list(path = "logos/small.png"),
+        medium = list(path = "logos/medium.png")
+      )
+    ))
+
+    result <- brand_use_logo(brand_sizes, name = "smallest")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/small.png")
+
+    # Test with a brand that has only medium logo
+    brand_medium_only <- brand_sizes
+    brand_medium_only$logo$small <- NULL
+
+    result <- brand_use_logo(brand_medium_only, name = "smallest")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/medium.png")
+  })
+
+  it("returns largest logo with 'largest' parameter", {
+    brand_sizes <- as_brand_yml(list(
+      logo = list(
+        small = list(path = "logos/small.png"),
+        medium = list(path = "logos/medium.png"),
+        large = list(path = "logos/large.png")
+      )
+    ))
+
+    result <- brand_use_logo(brand_sizes, name = "largest")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/large.png")
+
+    # Test with a brand that has only small logo
+    brand_small_only <- brand_sizes
+    brand_small_only$logo$medium <- NULL
+    brand_small_only$logo$large <- NULL
+
+    result <- brand_use_logo(brand_small_only, name = "largest")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/small.png")
+  })
+
   it("returns NULL if the logo doesn't exist and not required", {
     # Try to get non-existent large logo
     result <- brand_use_logo(brand, name = "large")
@@ -41,6 +85,61 @@ describe("brand_use_logo()", {
       brand_use_logo(brand, name = "large", required = TRUE)
       brand_use_logo(brand, name = "large", required = "for header display")
       brand_use_logo(brand, name = "tiny", required = TRUE)
+    })
+  })
+
+  it("handles smallest/largest parameters with variants", {
+    brand_variants <- as_brand_yml(list(
+      logo = list(
+        small = list(
+          light = list(path = "logos/small-light.png"),
+          dark = list(path = "logos/small-dark.png")
+        ),
+        medium = list(
+          light = list(path = "logos/medium-light.png"),
+          dark = list(path = "logos/medium-dark.png")
+        )
+      )
+    ))
+
+    # Test smallest with light variant
+    result <- brand_use_logo(
+      brand_variants,
+      name = "smallest",
+      variant = "light"
+    )
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/small-light.png")
+
+    # Test largest with dark variant
+    result <- brand_use_logo(brand_variants, name = "largest", variant = "dark")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/medium-dark.png")
+
+    # Test smallest with light/dark variant
+    result <- brand_use_logo(
+      brand_variants,
+      name = "smallest",
+      variant = c("light", "dark")
+    )
+    expect_s3_class(result, "brand_logo_resource_light_dark")
+    expect_equal(result$light$path, "./logos/small-light.png")
+    expect_equal(result$dark$path, "./logos/small-dark.png")
+  })
+
+  it("handles errors for smallest/largest when no logos available", {
+    brand_no_logos <- as_brand_yml(list(logo = list()))
+
+    expect_null(brand_use_logo(brand_no_logos, name = "smallest"))
+    expect_null(brand_use_logo(brand_no_logos, name = "largest"))
+
+    expect_snapshot(error = TRUE, {
+      brand_use_logo(brand_no_logos, name = "smallest", required = TRUE)
+      brand_use_logo(
+        brand_no_logos,
+        name = "largest",
+        required = "for header display"
+      )
     })
   })
 
