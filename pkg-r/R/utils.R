@@ -126,3 +126,72 @@ paste. <- function(...) {
 read_yaml <- function(path) {
   yaml::read_yaml(path, eval.expr = FALSE, readLines.warn = FALSE)
 }
+
+coalesce_attrs_class_style <- function(attrs) {
+  i <- 1
+  while (i <= length(attrs)) {
+    key <- names(attrs)[i]
+
+    if (!key %in% c("class", "style")) {
+      i <- i + 1
+      next
+    }
+
+    idx_first <- min(which(names(attrs) == key))
+
+    if (i == idx_first) {
+      i <- i + 1
+      next
+    }
+
+    attrs[idx_first] <- collapse_attr_key_value(
+      key,
+      c(attrs[[idx_first]], attrs[[i]])
+    )
+    attrs[[i]] <- NULL
+  }
+
+  attrs
+}
+
+collapse_attr_key_value <- function(key, value) {
+  paste(value, collapse = switch(key, style = "; ", " "))
+}
+
+attrs_as_raw_html <- function(attrs, flavor = c("html", "markdown")) {
+  if (length(attrs) == 0) {
+    return("")
+  }
+
+  flavor <- arg_match(flavor)
+  attrs <- coalesce_attrs_class_style(attrs)
+
+  res <- c()
+  for (i in seq_along(attrs)) {
+    key <- names(attrs)[i]
+    value <- attrs[[i]]
+
+    if (key == "class" && flavor == "markdown") {
+      value <- paste(
+        sprintf(".%s", unlist(strsplit(value, " "))),
+        collapse = " "
+      )
+      res <- c(value, res)
+      next
+    }
+
+    if (is.logical(value)) {
+      value <- tolower(as.character(value))
+    }
+
+    value <- htmltools::htmlEscape(as.character(value), attribute = TRUE)
+
+    if (length(value) > 1) {
+      value <- collapse_attr_key_value(key, value)
+    }
+
+    res <- c(res, sprintf('%s="%s"', key, value))
+  }
+
+  paste(res, collapse = " ")
+}

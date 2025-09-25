@@ -9,8 +9,8 @@ brand_use_logo(
   name,
   variant = c("auto", "light", "dark"),
   ...,
-  required = FALSE,
-  allow_fallback = TRUE
+  .required = FALSE,
+  .allow_fallback = TRUE
 )
 }
 \arguments{
@@ -42,21 +42,23 @@ a single logo resource is present for \verb{brand.logo.\{name\}} and
 light/dark logo resource with identical light and dark variants.
 }}
 
-\item{...}{Ignored, must be empty.}
+\item{...}{Additional named attributes to be added to the image HTML or
+markdown when created via \code{format()}, \code{\link[knitr:knit_print]{knitr::knit_print()}}, or
+\code{\link[htmltools:as.tags]{htmltools::as.tags()}}.}
 
-\item{required}{Logical or character string. If \code{TRUE}, an error is thrown if
+\item{.required}{Logical or character string. If \code{TRUE}, an error is thrown if
 the requested logo is not found. If a string, it is used to describe why
 the logo is required in the error message and completes the phrase
 \code{"is required ____"}.}
 
-\item{allow_fallback}{If \code{TRUE} (the default), allows falling back to a
+\item{.allow_fallback}{If \code{TRUE} (the default), allows falling back to a
 non-variant-specific logo when a specific variant is requested. Only used
 when \code{name} is one of the fixed logo sizes (\code{"small"}, \code{"medium"}, or
 \code{"large"}).}
 }
 \value{
 A \code{brand_logo_resource} object, a \code{brand_logo_resource_light_dark}
-object, or \code{NULL} if the requested logo doesn't exist and \code{required} is
+object, or \code{NULL} if the requested logo doesn't exist and \code{.required} is
 \code{FALSE}.
 }
 \description{

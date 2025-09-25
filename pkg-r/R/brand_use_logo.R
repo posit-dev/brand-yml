@@ -153,18 +153,20 @@
 #'     a single logo resource is present for `brand.logo.{name}` and
 #'     `allow_fallback` is `TRUE`, the single logo resource is promoted to a
 #'     light/dark logo resource with identical light and dark variants.
-#' @param required Logical or character string. If `TRUE`, an error is thrown if
+#' @param .required Logical or character string. If `TRUE`, an error is thrown if
 #'   the requested logo is not found. If a string, it is used to describe why
 #'   the logo is required in the error message and completes the phrase
 #'   `"is required ____"`.
-#' @param allow_fallback If `TRUE` (the default), allows falling back to a
+#' @param .allow_fallback If `TRUE` (the default), allows falling back to a
 #'   non-variant-specific logo when a specific variant is requested. Only used
 #'   when `name` is one of the fixed logo sizes (`"small"`, `"medium"`, or
 #'   `"large"`).
-#' @param ... Ignored, must be empty.
+#' @param ... Additional named attributes to be added to the image HTML or
+#'   markdown when created via `format()`, [knitr::knit_print()], or
+#'   [htmltools::as.tags()].
 #'
 #' @return A `brand_logo_resource` object, a `brand_logo_resource_light_dark`
-#'   object, or `NULL` if the requested logo doesn't exist and `required` is
+#'   object, or `NULL` if the requested logo doesn't exist and `.required` is
 #'   `FALSE`.
 #'
 #' @export
@@ -173,21 +175,30 @@ brand_use_logo <- function(
   name,
   variant = c("auto", "light", "dark"),
   ...,
-  required = FALSE,
-  allow_fallback = TRUE
+  .required = FALSE,
+  .allow_fallback = TRUE
 ) {
   brand <- as_brand_yml(brand)
-  check_dots_empty()
   check_string(name)
-  check_bool(allow_fallback)
+  check_bool(.allow_fallback)
 
-  if (isTRUE(required)) {
+  if (isTRUE(.required)) {
     required_reason <- ""
-  } else if (isFALSE(required)) {
+  } else if (isFALSE(.required)) {
     required_reason <- NULL
   } else {
-    check_string(required)
-    required_reason <- paste0(" ", trimws(required))
+    check_string(.required)
+    required_reason <- paste0(" ", trimws(.required))
+  }
+
+  dots <- dots_list(..., .homonyms = "keep")
+  if (any(!nzchar(names2(dots)))) {
+    cli::cli_abort("All arguments in {.arg ...} must be named.")
+  }
+
+  attach_attrs <- function(x) {
+    attr(x, "attrs") <- if (length(dots) == 0) NULL else dots
+    x
   }
 
   if (name %in% c("smallest", "largest")) {
@@ -213,7 +224,7 @@ brand_use_logo <- function(
     if (brand_has(brand, "logo", "images", name)) {
       res <- brand_pluck(brand, "logo", "images", name)
       res$path <- brand_path(brand, res$path)
-      return(res)
+      return(attach_attrs(res))
     }
 
     if (!is.null(required_reason)) {
@@ -248,19 +259,19 @@ brand_use_logo <- function(
     return(NULL)
   }
 
-  this <- brand_pluck(brand, "logo", name)
-  has_light_dark <- inherits(this, "light_dark")
+  res <- brand_pluck(brand, "logo", name)
+  has_light_dark <- inherits(res, "light_dark")
 
   # Fixup internal paths to be relative to brand yml file.
   if (has_light_dark) {
-    if (!is.null(this$light)) {
-      this$light$path <- brand_path(brand, this$light$path)
+    if (!is.null(res$light)) {
+      res$light$path <- brand_path(brand, res$light$path)
     }
-    if (!is.null(this$dark)) {
-      this$dark$path <- brand_path(brand, this$dark$path)
+    if (!is.null(res$dark)) {
+      res$dark$path <- brand_path(brand, res$dark$path)
     }
   } else {
-    this$path <- brand_path(brand, this$path)
+    res$path <- brand_path(brand, res$path)
   }
 
   # | variant    | has        | fallback | return               | case |
@@ -285,22 +296,22 @@ brand_use_logo <- function(
   if (variant == "auto") {
     if (!has_light_dark) {
       # Case A.1: Return single value as-is
-      return(this)
+      return(attach_attrs(res))
     }
 
-    if (!is.null(this$light) && !is.null(this$dark)) {
+    if (!is.null(res$light) && !is.null(res$dark)) {
       # Case A.2: Return light_dark if both variants exist
-      return(this)
+      return(attach_attrs(res))
     }
 
-    if (!is.null(this$light)) {
+    if (!is.null(res$light)) {
       # Case A.3: Return light if only light exists
-      return(this$light)
+      return(attach_attrs(res$light))
     }
 
-    if (!is.null(this$dark)) {
+    if (!is.null(res$dark)) {
       # Case A.4: Return dark if only dark exists
-      return(this$dark)
+      return(attach_attrs(res$dark))
     }
   }
 
@@ -308,12 +319,12 @@ brand_use_logo <- function(
   if (variant == "light_dark") {
     if (has_light_dark) {
       # Case B.1: Return light_dark if both variants exist
-      return(this)
+      return(attach_attrs(res))
     }
 
-    if (allow_fallback) {
+    if (.allow_fallback) {
       # Case B.2: Promote single to light_dark if fallback allowed
-      return(brand_logo_resource_light_dark(this, this))
+      return(attach_attrs(brand_logo_resource_light_dark(res, res)))
     }
 
     # Case B.3: No fallback allowed, error or return NULL
@@ -330,13 +341,13 @@ brand_use_logo <- function(
 
   if (has_light_dark) {
     # Case C: return specific variant if it exists
-    if (!is.null(this[[variant]])) {
-      return(this[[variant]])
+    if (!is.null(res[[variant]])) {
+      return(attach_attrs(res[[variant]]))
     }
   } else {
     # Case D: return single if fallback allowed
-    if (allow_fallback) {
-      return(this)
+    if (.allow_fallback) {
+      return(attach_attrs(res))
     }
   }
 
@@ -356,10 +367,13 @@ as.tags.brand_logo_resource <- function(x, ...) {
   check_installed("htmltools")
   img_src <- maybe_base64_encode_image(x$path)
 
+  attrs <- attr(x, "attrs") %||% list()
+
   htmltools::img(
     src = img_src,
     alt = x$alt %||% "",
     class = "brand-logo",
+    !!!attrs,
     ...,
     html_dep_brand_light_dark()
   )
@@ -395,7 +409,7 @@ knit_print.brand_logo_resource <- function(x, ...) {
   check_installed("knitr")
   check_installed("htmltools")
   knitr::asis_output(
-    format(htmltools::as.tags(x)),
+    format(htmltools::as.tags(x, ...)),
     meta = list(html_dep_brand_light_dark())
   )
 }
@@ -405,7 +419,7 @@ knit_print.brand_logo_resource_light_dark <- function(x, ...) {
   check_installed("knitr")
   check_installed("htmltools")
   knitr::asis_output(
-    format(htmltools::as.tags(x)),
+    format(htmltools::as.tags(x, ...)),
     meta = list(html_dep_brand_light_dark())
   )
 }
@@ -424,39 +438,22 @@ format.brand_logo_resource <- function(
     return(format(htmltools::as.tags(x, ...)))
   }
 
-  dots <- dots_list(..., .homonyms = "error")
-  if (any(!nzchar(names2(dots)))) {
-    cli::cli_abort("All arguments must be named.")
+  attrs <- attr(x, "attrs") %||% list()
+
+  format_dots <- dots_list(..., .homonyms = "error")
+  if (any(!nzchar(names2(format_dots)))) {
+    cli::cli_abort("All arguments in {.arg ...} must be named.")
   }
 
+  dots <- dots_list(
+    class = "brand-logo",
+    alt = x$alt %||% "",
+    !!!attrs,
+    !!!format_dots
+  )
   path <- maybe_base64_encode_image(x$path)
 
-  classes <- ".brand-logo"
-  if ("class" %in% names(dots)) {
-    user_classes <- sprintf(".%s", unlist(strsplit(dots$class, " ")))
-    classes <- c(classes, user_classes)
-    dots$class <- NULL
-  }
-
-  attrs <- c(
-    paste(classes, sep = " "),
-    sprintf('alt="%s"', x$alt %||% "")
-  )
-
-  for (i in seq_along(dots)) {
-    value <- dots[[i]]
-    if (is.na(value)) {
-      attr <- names(dots)[i]
-    } else if (is.logical(value)) {
-      attr <- sprintf('%s="%s"', names(dots)[i], tolower(as.character(value)))
-    } else {
-      attr <- sprintf('%s="%s"', names(dots)[i], value)
-    }
-    attrs <- c(attrs, attr)
-  }
-  attrs <- paste(attrs, collapse = " ")
-
-  sprintf('![](%s){%s}', path, attrs)
+  sprintf('![](%s){%s}', path, attrs_as_raw_html(dots, "markdown"))
 }
 
 #' @export
@@ -473,31 +470,24 @@ format.brand_logo_resource_light_dark <- function(
   }
 
   dots <- dots_list(..., .homonyms = "error")
-  dots_light <- dots_dark <- dots
-  if ("class" %in% names(dots)) {
-    if (length(dots$class) == 1) {
-      dots_light$class <- paste(dots$class, "light-content")
-      dots_dark$class <- paste(dots$class, "dark-content")
-    } else if (length(dots$class) > 1) {
-      dots_light$class <- c(dots$class[1], "light-content")
-      dots_dark$class <- c(dots$class[2], "dark-content")
-    } else {
-      dots$class <- NULL
-    }
-  }
-  if (is.null(dots$class)) {
-    dots_light$class <- "light-content"
-    dots_dark$class <- "dark-content"
-  }
+
+  attr(x$light, "attrs") <- c(
+    attr(x$light, "attrs"),
+    list(class = "light-content")
+  )
+  attr(x$dark, "attrs") <- c(
+    attr(x$dark, "attrs"),
+    list(class = "dark-content")
+  )
 
   light <- format.brand_logo_resource(
     x$light,
-    !!!dots_light,
+    !!!dots,
     .format = "markdown"
   )
   dark <- format.brand_logo_resource(
     x$dark,
-    !!!dots_dark,
+    !!!dots,
     .format = "markdown"
   )
 

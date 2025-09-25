@@ -80,11 +80,11 @@ describe("brand_use_logo()", {
   })
 
   it("errors if logo doesn't exist and is required", {
-    # Try to get non-existent large logo with required = TRUE
+    # Try to get non-existent large logo with .required = TRUE
     expect_snapshot(error = TRUE, {
-      brand_use_logo(brand, name = "large", required = TRUE)
-      brand_use_logo(brand, name = "large", required = "for header display")
-      brand_use_logo(brand, name = "tiny", required = TRUE)
+      brand_use_logo(brand, name = "large", .required = TRUE)
+      brand_use_logo(brand, name = "large", .required = "for header display")
+      brand_use_logo(brand, name = "tiny", .required = TRUE)
     })
   })
 
@@ -134,11 +134,11 @@ describe("brand_use_logo()", {
     expect_null(brand_use_logo(brand_no_logos, name = "largest"))
 
     expect_snapshot(error = TRUE, {
-      brand_use_logo(brand_no_logos, name = "smallest", required = TRUE)
+      brand_use_logo(brand_no_logos, name = "smallest", .required = TRUE)
       brand_use_logo(
         brand_no_logos,
         name = "largest",
-        required = "for header display"
+        .required = "for header display"
       )
     })
   })
@@ -163,14 +163,14 @@ describe("brand_use_logo()", {
 
   it("returns NULL when fallback is not allowed and variant is not available", {
     expect_null(
-      brand_use_logo(brand, "small", variant = "light", allow_fallback = FALSE)
+      brand_use_logo(brand, "small", variant = "light", .allow_fallback = FALSE)
     )
 
     brand$logo$large <- brand_logo_resource_light_dark(
       dark = brand_logo_resource("logos/large-dark.png")
     )
     expect_null(
-      brand_use_logo(brand, "large", variant = "light", allow_fallback = FALSE)
+      brand_use_logo(brand, "large", variant = "light", .allow_fallback = FALSE)
     )
   })
 
@@ -184,22 +184,22 @@ describe("brand_use_logo()", {
         brand,
         "small",
         variant = "light",
-        required = TRUE,
-        allow_fallback = FALSE
+        .required = TRUE,
+        .allow_fallback = FALSE
       )
       brand_use_logo(
         brand,
         "small",
         variant = "dark",
-        required = "for header display",
-        allow_fallback = FALSE
+        .required = "for header display",
+        .allow_fallback = FALSE
       )
       brand_use_logo(
         brand,
         "large",
         variant = "light",
-        required = "for light plot icons",
-        allow_fallback = FALSE
+        .required = "for light plot icons",
+        .allow_fallback = FALSE
       )
     })
   })
@@ -295,7 +295,7 @@ describe("brand_use_logo()", {
       brand,
       name = "small",
       variant = c("light", "dark"),
-      allow_fallback = FALSE
+      .allow_fallback = FALSE
     )
     expect_null(result)
   })
@@ -307,17 +307,72 @@ describe("brand_use_logo()", {
         brand,
         name = "small",
         variant = c("light", "dark"),
-        required = TRUE,
-        allow_fallback = FALSE
+        .required = TRUE,
+        .allow_fallback = FALSE
       )
       brand_use_logo(
         brand,
         name = "small",
         variant = c("light", "dark"),
-        required = "for theme support",
-        allow_fallback = FALSE
+        .required = "for theme support",
+        .allow_fallback = FALSE
       )
     })
+  })
+
+  it("stores attributes from ... in attrs attribute", {
+    # Test with a simple logo
+    result <- brand_use_logo(
+      brand,
+      name = "small",
+      class = "custom-class",
+      width = 100
+    )
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(
+      attr(result, "attrs"),
+      list(class = "custom-class", width = 100)
+    )
+
+    # Test with a light/dark logo
+    result_ld <- brand_use_logo(
+      brand,
+      name = "medium",
+      id = "logo-id",
+      height = 50
+    )
+    expect_s3_class(result_ld, "brand_logo_resource_light_dark")
+    expect_equal(attr(result_ld, "attrs"), list(id = "logo-id", height = 50))
+  })
+
+  it("maintains attributes through variant selection", {
+    # Test with a specific variant of a light/dark logo
+    result <- brand_use_logo(
+      brand,
+      name = "medium",
+      variant = "light",
+      class = "light-logo"
+    )
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(attr(result, "attrs"), list(class = "light-logo"))
+    expect_equal(result$path, "./logos/medium-light.png")
+
+    # Test with auto variant
+    result_auto <- brand_use_logo(
+      brand,
+      name = "medium",
+      variant = "auto",
+      id = "auto-logo"
+    )
+    expect_s3_class(result_auto, "brand_logo_resource_light_dark")
+    expect_equal(attr(result_auto, "attrs"), list(id = "auto-logo"))
+  })
+
+  it("errors if arguments in ... are not named", {
+    expect_error(
+      brand_use_logo(brand, name = "small", variant = "auto", "unnamed-arg"),
+      "All arguments in `...` must be named"
+    )
   })
 })
 
@@ -391,12 +446,12 @@ describe("format() method for brand_logo_resource_light_dark", {
     })
   })
 
-  it("handles different classes for light and dark in markdown mode", {
+  it("handles a vector of classes", {
     expect_snapshot({
       cat(format(
         logo_light_dark,
         .format = "markdown",
-        class = c("light-logo", "dark-logo")
+        class = c("my-logo", "my-logo-other")
       ))
     })
   })
