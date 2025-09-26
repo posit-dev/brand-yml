@@ -22,13 +22,12 @@ color:
     warm-gray-light: "#F5F5F5"
     warm-gray-dark: "#747474"
     warm-gray-medium: "#C4C4C4"
-  theme:
-    foreground: black
-    background: white
-    primary: orange
-    secondary: warm-gray-dark
-    light: warm-gray-light
-    dark: warm-gray-dark
+  foreground: black
+  background: white
+  primary: orange
+  secondary: warm-gray-dark
+  light: warm-gray-light
+  dark: warm-gray-dark
 
 typography:
   fonts:
