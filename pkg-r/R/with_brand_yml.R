@@ -24,6 +24,8 @@
 #'
 #' @describeIn with_brand_yml_path Run code in a temporary environment with the
 #'   `BRAND_YML_PATH` environment variable set to `path`.
+#'
+#' @family brand.yml helpers
 #' @export
 with_brand_yml_path <- function(path, code) {
   local_brand_yml_path(path)
