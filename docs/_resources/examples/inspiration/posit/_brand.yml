@@ -1,0 +1,59 @@
+meta:
+  name:
+    short: Posit
+    full: Posit Software, PBC
+  link:
+    home: https://posit.co
+    github: https://github.com/posit-dev
+    bluesky: https://bsky.app/profile/posit.co
+    mastodon: https://fosstodon.org/@Posit
+
+logo:
+  images:
+    icon:
+      path: posit-logo.svg
+      alt: Posit icon.
+    full:
+      path: posit-logo-fullcolor.svg
+      alt: Posit logo.
+    full-reverse:
+      path: posit-logo-reverse.svg
+      alt: Posit logo.
+  small: icon
+  medium:
+    light: full
+    dark: full-reverse
+  large:
+    light: full
+    dark: full-reverse
+
+color:
+  palette:
+    blue: "#447099"
+    orange: "#ee6331"
+    teal: "#419599"
+    green: "#729943"
+    burgundy: "#9a4665"
+    purple: burgundy
+    gray: "#404041"
+    black: "#151515"
+    white: "#FFFFFF"
+  foreground: black
+  background: white
+  primary: blue
+  secondary: gray
+  info: teal
+  success: green
+  warning: orange
+  danger: burgundy
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: bunny
+    - family: Source Code Pro
+      source: bunny
+  base: Open Sans
+  headings:
+    weight: light
+  monospace: Source Code Pro
