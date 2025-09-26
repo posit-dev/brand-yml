@@ -59,8 +59,8 @@
       $small
       <brand_logo_resource src="logos/pandas/pandas_mark.svg" alt="">
       $medium
-      <brand_logo_resource variant="light" src="logos/pandas/pandas_secondary.svg" alt="">
-      <brand_logo_resource variant="dark" src="logos/pandas/pandas_secondary_white.svg" alt="">
+      <brand_logo_resource src="logos/pandas/pandas_secondary.svg" alt="" variant="light">
+      <brand_logo_resource src="logos/pandas/pandas_secondary_white.svg" alt="" variant="dark">
       $large
       <brand_logo_resource src="logos/pandas/pandas.svg" alt="">
 

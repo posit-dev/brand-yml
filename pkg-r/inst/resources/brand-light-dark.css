@@ -1,0 +1,37 @@
+@layer base;
+
+@layer base {
+  @media (prefers-color-scheme: dark) {
+    :where(.light-content) {
+      display: none;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :where(.dark-content) {
+      display: none;
+    }
+  }
+
+  [data-bs-theme="light"] :where(.light-content),
+  body.quarto-light :where(.light-content) {
+    display: revert-layer;
+  }
+
+  [data-bs-theme="dark"] :where(.dark-content),
+  body.quarto-dark :where(.dark-content) {
+    display: revert-layer;
+  }
+}
+
+[data-bs-theme="dark"] .light-content {
+  display: none;
+}
+
+[data-bs-theme="light"] .dark-content {
+  display: none;
+}
+
+.navbar-brand .brand-logo {
+  max-height: var(--brand-logo-navbar-icon-height, 1lh);
+}
