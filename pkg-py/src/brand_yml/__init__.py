@@ -12,7 +12,12 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark
-from ._utils import find_project_brand_yml, recurse_dicts_and_models
+from ._utils import (
+    envvar_brand_yml_path,
+    find_project_brand_yml,
+    recurse_dicts_and_models,
+    use_brand_yml_path,
+)
 from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
@@ -73,7 +78,7 @@ class Brand(BrandBase):
     path: Path | None = Field(None, exclude=True, repr=False)
 
     @classmethod
-    def from_yaml(cls, path: str | Path):
+    def from_yaml(cls, path: str | Path | None = None):
         """
         Create a Brand instance from a Brand YAML file.
 
@@ -95,7 +100,9 @@ class Brand(BrandBase):
             The path to the brand.yml file or a directory where `_brand.yml` is
             expected to be found. Typically, you can pass `__file__` from the
             calling script to find `_brand.yml` or `_brand.yaml` in the current
-            directory or any of its parent directories.
+            directory or any of its parent directories. Alternatively, if no
+            path is specified, the `BRAND_YML_PATH` environment variable is
+            checked for the path to the brand.yml file.
 
         Returns
         -------
@@ -123,6 +130,16 @@ class Brand(BrandBase):
         brand = Brand.from_yaml("path/to/_brand.yml")
         ```
         """
+        if path is None:
+            path = envvar_brand_yml_path()
+            if path is None:
+                raise ValueError(
+                    "No path specified and the BRAND_YML_PATH environment "
+                    "variable is not set. You likely need to pass `__file__` to "
+                    "`brand_yml.Brand.from_yaml()` or set the BRAND_YML_PATH "
+                    "environment variable."
+                )
+
         path = Path(path).absolute()
 
         if path.is_dir() or path.suffix == ".py":
@@ -379,4 +396,5 @@ __all__ = [
     "FileLocationLocal",
     "FileLocationUrl",
     "find_project_brand_yml",
+    "use_brand_yml_path",
 ]

@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+# brand.yml
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/brand.yml)](https://CRAN.R-project.org/package=brand.yml)
+[![r-universe status badge](https://posit-dev.r-universe.dev/brand.yml/badges/version)](https://posit-dev.r-universe.dev/brand.yml)
+[![R-CMD-check](https://github.com/posit-dev/brand-yml/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/posit-dev/brand-yml/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+Centralize brand guidelines in a single 'brand.yml' file, enabling consistent theming across Quarto, Shiny, R applications, reports, and presentations with minimal configuration.
+
+
+## Installation
+
+You can install the development version of brand.yml from [GitHub](https://github.com/) with:
+
+```{r}
+#| eval: false
+
+# install.packages("pak")
+pak::pak("posit-dev/brand-yml/pkg-r")
+```
+
+Alternatively, you can install from [posit-dev.r-universe.dev](https://posit-dev.r-universe.dev/) with:
+
+```{r}
+#| eval: false
+
+install.packages(
+  'brand.yml',
+  repos = c('https://posit-dev.r-universe.dev', 'https://cloud.r-project.org')
+)
+```
+
+## Example
+
+Use `read_brand_yml()` to read in a brand.yml file into a validated and consistent R list.
+You can provide a path to a local file, or `read_brand_yml()` will look for a `_brand.yml` file in your project.
+
+```{r}
+library(brand.yml)
+
+brand <- read_brand_yml(
+  system.file("examples", "brand-posit.yml", package = "brand.yml")
+)
+
+brand$color |> str()
+```

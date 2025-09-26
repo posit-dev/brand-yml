@@ -11,6 +11,23 @@ from pydantic import BaseModel
 rgx_css_value_unit = re.compile(r"^(-?\d*\.?\d+)\s*([a-zA-Z%]*)$")
 
 
+def envvar_brand_yml_path() -> Path | None:
+    """
+    Get the path to a brand.yml file from the `BRAND_YML_PATH` environment
+    variable, if it is set.
+
+    Returns
+    -------
+    :
+        The path to the brand.yml file, or `None` if the environment variable
+        is not set.
+    """
+    envvar = os.getenv("BRAND_YML_PATH")
+    if envvar:
+        return Path(envvar).expanduser().resolve()
+    return None
+
+
 def find_project_file(
     filename: tuple[str, ...] | str,
     dir_: Path,
@@ -152,6 +169,39 @@ def set_env_var(key: str, value: str):
             os.environ[key] = original_value
         else:
             del os.environ[key]
+
+
+@contextmanager
+def use_brand_yml_path(path: str | Path):
+    """
+    Temporarily set the `BRAND_YML_PATH` environment variable.
+
+    This context manager sets the `BRAND_YML_PATH` environment variable to the
+    specified path for the duration of the context. This ensures that, within
+    the context, any calls to functions that automatically discover a
+    `_brand.yml` file will use the path specified.
+
+    Parameters
+    ----------
+    path
+        The path to a brand.yml file.
+
+    Examples
+    --------
+    ```python
+    from brand_yml import Brand, use_brand_yml_path
+
+    # Create a temporary brand.yml file for this example
+    with open("my-brand.yml", "w") as f:
+        f.write("color:\n  primary: '#abc123'")
+
+    with use_brand_yml_path("my-brand.yml"):
+        brand = Brand.from_yaml()  # Will use my-brand.yml
+        print(brand.color.primary)  # #abc123
+    ```
+    """
+    with set_env_var("BRAND_YML_PATH", str(path)):
+        yield
 
 
 @contextmanager

@@ -1,0 +1,36 @@
+Package: brand.yml
+Title: Unified Branding with a Simple YAML File
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Garrick", "Aden-Buie", , "garrick@posit.co", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7111-0077")),
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
+  )
+Description: Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a
+    simple, portable YAML file that codifies your company's brand
+    guidelines into a format that can be used by 'Quarto', 'Shiny' and R
+    tooling to create branded outputs. Maintain unified, branded theming
+    for web applications to printed reports to dashboards and
+    presentations with a consistent look and feel.
+License: MIT + file LICENSE
+URL: https://posit-dev.github.io/brand-yml/pkg/r,
+    https://github.com/posit-dev/brand-yaml
+BugReports: https://github.com/posit-dev/brand-yaml/issues
+Imports:
+    cli,
+    rlang (>= 1.1.0),
+    utils,
+    yaml
+Suggests:
+    base64enc,
+    htmltools,
+    mime,
+    sass,
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

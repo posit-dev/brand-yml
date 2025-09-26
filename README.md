@@ -28,11 +28,13 @@ This `_brand.yml` can be used Quarto and Shiny for Python[^1] to instantly basic
 
 - [brand.yml Documentation](https://posit-dev.github.io/brand-yml) - The brand.yml specification, explanation, details, examples and more.
 
-- [brand_yml for Python](https://posit-dev.github.io/brand-yml/pkg/py) - Python package for reading and applying the `_brand.yml` file.
+- [brand_yml for Python](https://posit-dev.github.io/brand-yml/pkg/py) - Python package for reading and using brand.yml files.
 
-- [Quarto](https://quarto.org) - An open-source scientific and technical publishing system. Automatically uses `_brand.yml` in the v1.6 release.
+- [brand.yml for R](https://posit-dev.github.io/brand-yml/pkg/r) - R package for reading and using brand.yml files.
 
-- [Shiny](https://shiny.posit.co) - An open-source framework for effortless web applications for data scientists. [Shiny for Python](https://shiny.posit.co/py) supports [branded theming via brand.yml](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand). Support in Shiny for R will arrive soon.
+- [Quarto](https://quarto.org) - An open-source scientific and technical publishing system. Automatically uses brand.yml in the v1.6 release and later.
+
+- [Shiny](https://shiny.posit.co) - An open-source framework for effortless web applications for data scientists. [Shiny for Python](https://shiny.posit.co/py) supports [branded theming via brand.yml](https://shiny.posit.co/py/api/core/ui.Theme.html#shiny.ui.Theme.from_brand) and [Shiny for R](https://shiny.posit.co/r) supports [branded theming via bslib](https://rstudio.github.io/bslib/articles/brand-yml/index.html).
 
 
 ## Contributing

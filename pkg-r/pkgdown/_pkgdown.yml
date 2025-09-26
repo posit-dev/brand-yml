@@ -1,0 +1,90 @@
+url: https://posit-dev.github.io/brand-yml/pkg/r
+
+destination: "../docs/pkg/r"
+
+development:
+  mode: auto
+
+authors:
+  Posit Software, PBC:
+    href: https://www.posit.co
+    html: >-
+      <img src='https://www.tidyverse.org/posit-logo.svg' alt='Posit' height='16' width='62' style="margin-bottom: 3px;" />
+  Garrick Aden-Buie:
+    href: https://garrickadenbuie.com
+
+template:
+  bootstrap: 5
+  light-switch: true
+  theme: github-light
+  theme-dark: github-dark
+  bslib:
+    brand: pkgdown/_brand.yml
+
+navbar:
+  structure:
+    left:
+      - brand-yml-about
+      - brand-yml-structure
+      - brand-yml-inspiration
+      - brand-yml-articles
+      - brand-yml-packages
+    right: [get-started, reference, search, news, github, lightswitch]
+  components:
+    home: ~
+
+    brand-yml-about:
+      text: About
+      href: https://posit-dev.github.io/brand-yml/index.html
+
+    brand-yml-structure:
+      text: Structure
+      menu:
+        - text: Overview
+          href: https://posit-dev.github.io/brand-yml/brand/index.html
+        - text: "---"
+        - text: "Brand Elements"
+        - href: https://posit-dev.github.io/brand-yml/brand/meta.html
+          text: Metadata
+        - href: https://posit-dev.github.io/brand-yml/brand/logo.html
+          text: Logo
+        - href: https://posit-dev.github.io/brand-yml/brand/color.html
+          text: Color
+        - href: https://posit-dev.github.io/brand-yml/brand/typography.html
+          text: Typography
+        - href: https://posit-dev.github.io/brand-yml/brand/defaults.html
+          text: Defaults
+
+    brand-yml-inspiration:
+      text: Inspiration
+      href: https://posit-dev.github.io/brand-yml/inspiration/index.html
+
+    brand-yml-articles:
+      text: Articles
+      href: https://posit-dev.github.io/brand-yml/articles/index.html
+
+    brand-yml-packages:
+      text: Packages
+      menu:
+        - text: Python
+          href: https://posit-dev.github.io/brand-yml/pkg/py/index.html
+        - text: R
+          href: https://posit-dev.github.io/brand-yml/pkg/r/index.html
+
+reference:
+- title: Read and normalize a brand.yml file
+  contents:
+  - read_brand_yml
+  - as_brand_yml
+
+- title: brand.yml helpers
+  contents:
+  - has_concept("brand.yml helpers")
+
+- title: brand.yml Sass utilities
+  contents:
+  - brand_sass_color
+  - brand_sass_color_palette
+  - brand_sass_defaults_bootstrap
+  - brand_sass_fonts
+  - brand_sass_typography
