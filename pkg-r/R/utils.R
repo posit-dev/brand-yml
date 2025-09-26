@@ -105,11 +105,16 @@ list_restyle_names <- function(x, style = c("snake", "kebab")) {
 
   if (inherits(x, c("brand_yml", "list"))) {
     if (!is.null(names(x))) {
-      names(x) <- switch(
+      new_names <- switch(
         style,
         snake = as_snake_case(names(x)),
         kebab = as_kebab_case(names(x))
       )
+      is_conflicted <-
+        (new_names %in% names(x)) | # skip unchanged names
+        (names(x) %in% names(x)[duplicated(names(x))]) | # skip original duplicates
+        new_names %in% new_names[duplicated(new_names)] # skip would-be duplicates
+      names(x)[!is_conflicted] <- new_names[!is_conflicted]
     }
     x <- map(x, list_restyle_names, style)
   }

@@ -124,8 +124,8 @@ test_that("brand.typography.monospace with properties is forwarded, but overridd
       base = "Times New Roman",
       headings = "Helvetica",
       monospace = monospace,
-      monospace_inline = list(weight = 600),
-      monospace_block = list(size = "1.5em")
+      "monospace-inline" = list(weight = 600),
+      "monospace-block" = list(size = "1.5em")
     )
   ))
 
