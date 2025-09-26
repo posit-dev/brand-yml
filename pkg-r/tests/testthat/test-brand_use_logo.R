@@ -84,7 +84,7 @@ describe("brand_use_logo()", {
     expect_snapshot(error = TRUE, {
       brand_use_logo(brand, name = "large", .required = TRUE)
       brand_use_logo(brand, name = "large", .required = "for header display")
-      brand_use_logo(brand, name = "tiny", .required = TRUE)
+      brand_use_logo(brand, name = "tiny") # automatically required
     })
   })
 
@@ -388,7 +388,12 @@ describe("brand_use_logo()", {
     expect_s3_class(result, "brand_logo_resource")
     expect_equal(
       result$attrs,
-      list(class = "existing-class", width = 100, class = "new-class", height = 50)
+      list(
+        class = "existing-class",
+        width = 100,
+        class = "new-class",
+        height = 50
+      )
     )
 
     # Verify both class attributes exist (not merged into one)

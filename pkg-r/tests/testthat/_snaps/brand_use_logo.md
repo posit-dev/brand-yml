@@ -11,7 +11,7 @@
       Error in `brand_use_logo()`:
       ! `brand.logo.large` is required for header display.
     Code
-      brand_use_logo(brand, name = "tiny", .required = TRUE)
+      brand_use_logo(brand, name = "tiny")
     Condition
       Error in `brand_use_logo()`:
       ! `brand.logo.images['tiny']` is required.
