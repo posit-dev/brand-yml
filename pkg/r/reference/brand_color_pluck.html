@@ -104,7 +104,8 @@ references B which references A), the function will throw an error.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other brand.yml helpers:
 <code><a href="brand_has.html">brand_has</a>()</code>,
-<code><a href="brand_pluck.html">brand_pluck</a>()</code></p></div>
+<code><a href="brand_pluck.html">brand_pluck</a>()</code>,
+<code><a href="with_brand_yml_path.html">with_brand_yml_path</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -127,12 +128,12 @@ references B which references A), the function will throw an error.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract a color that references another color</span></span></span>
 <span class="r-in"><span><span class="fu">brand_color_pluck</span><span class="op">(</span><span class="va">brand</span>, <span class="st">"info"</span><span class="op">)</span> <span class="co"># "#c3ddff"</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#c3ddff"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "light-blue"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract a color that references another color</span></span></span>
 <span class="r-in"><span><span class="co"># which in turn references the palette</span></span></span>
 <span class="r-in"><span><span class="fu">brand_color_pluck</span><span class="op">(</span><span class="va">brand</span>, <span class="st">"secondary"</span><span class="op">)</span> <span class="co"># "#c3ddff"</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#c3ddff"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "light-blue"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extract a color that isn't defined</span></span></span>
 <span class="r-in"><span><span class="fu">brand_color_pluck</span><span class="op">(</span><span class="va">brand</span>, <span class="st">"green"</span><span class="op">)</span> <span class="co"># "green"</span></span></span>
@@ -142,7 +143,7 @@ references B which references A), the function will throw an error.</p>
 <span class="r-in"><span><span class="fu"><a href="brand_pluck.html">brand_pluck</a></span><span class="op">(</span><span class="va">brand</span>, <span class="st">"color"</span>, <span class="st">"primary"</span><span class="op">)</span> <span class="co"># "#004488"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#004488"</span>
 <span class="r-in"><span><span class="fu"><a href="brand_pluck.html">brand_pluck</a></span><span class="op">(</span><span class="va">brand</span>, <span class="st">"color"</span>, <span class="st">"info"</span><span class="op">)</span> <span class="co"># "#c3ddff"</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#c3ddff"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "light-blue"</span>
 <span class="r-in"><span><span class="fu"><a href="brand_pluck.html">brand_pluck</a></span><span class="op">(</span><span class="va">brand</span>, <span class="st">"color"</span>, <span class="st">"green"</span><span class="op">)</span> <span class="co"># NULL</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>

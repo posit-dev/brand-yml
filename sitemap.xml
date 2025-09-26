@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://posit-dev.github.io/brand-yml/pkg/py/api.html</loc>
-    <lastmod>2025-09-11T11:06:17.292Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/pkg/py/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.424Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/pkg/py/Brand.html</loc>
-    <lastmod>2025-09-11T11:06:17.319Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/pkg/py/meta.html</loc>
-    <lastmod>2025-09-11T11:06:17.328Z</lastmod>
-  </url>
-  <url>
     <loc>https://posit-dev.github.io/brand-yml/articles/llm-brand-yml-prompt/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/posit/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.415Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/walmart/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.420Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/indeed/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.415Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/home-depot/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.414Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.402Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/meta.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/typography.html</loc>
-    <lastmod>2025-09-11T11:03:56.402Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/defaults.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/color.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/brand/logo.html</loc>
-    <lastmod>2025-09-11T11:03:56.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.421Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/nhsr-community/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.415Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/dell/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/slack/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.419Z</lastmod>
-  </url>
-  <url>
-    <loc>https://posit-dev.github.io/brand-yml/articles/index.html</loc>
-    <lastmod>2025-09-11T11:03:56.399Z</lastmod>
+    <loc>https://posit-dev.github.io/brand-yml/pkg/py/api.html</loc>
+    <lastmod>2025-09-26T17:26:23.584Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/brand-yml/pkg/py/typography.html</loc>
-    <lastmod>2025-09-11T11:06:17.428Z</lastmod>
+    <lastmod>2025-09-26T17:26:23.717Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/pkg/py/meta.html</loc>
+    <lastmod>2025-09-26T17:26:23.618Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/brand-yml/pkg/py/color.html</loc>
-    <lastmod>2025-09-11T11:06:17.361Z</lastmod>
+    <lastmod>2025-09-26T17:26:23.650Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/brand-yml/pkg/py/utilities.html</loc>
-    <lastmod>2025-09-11T11:06:17.431Z</lastmod>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/walmart/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.470Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/dell/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/home-depot/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.464Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/indeed/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.465Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/typography.html</loc>
+    <lastmod>2025-09-26T17:22:44.451Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/logo.html</loc>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/defaults.html</loc>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.451Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/color.html</loc>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/brand/meta.html</loc>
+    <lastmod>2025-09-26T17:22:44.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.471Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/posit/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.465Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/slack/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.469Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/inspiration/brand-guidelines/nhsr-community/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.465Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/pkg/py/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.474Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/brand-yml/pkg/py/logo.html</loc>
-    <lastmod>2025-09-11T11:06:17.352Z</lastmod>
+    <lastmod>2025-09-26T17:26:23.641Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/pkg/py/utilities.html</loc>
+    <lastmod>2025-09-26T17:26:23.720Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/pkg/py/Brand.html</loc>
+    <lastmod>2025-09-26T17:26:23.610Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/brand-yml/articles/index.html</loc>
+    <lastmod>2025-09-26T17:22:44.448Z</lastmod>
   </url>
 </urlset>
