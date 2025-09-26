@@ -408,6 +408,53 @@ describe("brand_use_logo()", {
       "All arguments in `...` must be named"
     )
   })
+
+  it("finds kebab-case image names", {
+    brand_kebab <- as_brand_yml(list(
+      logo = list(
+        images = list(
+          "my-logo" = "logos/my-logo.png"
+        )
+      )
+    ))
+
+    result <- brand_use_logo(brand_kebab, name = "my-logo")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/my-logo.png")
+  })
+
+  it("finds snake-case image names", {
+    brand_snake <- as_brand_yml(list(
+      logo = list(
+        images = list(
+          "my-logo" = "logos/my_logo.png"
+        )
+      )
+    ))
+
+    result <- brand_use_logo(brand_snake, name = "my_logo")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./logos/my_logo.png")
+  })
+
+  it("finds correct snake or kebab-case image names", {
+    brand_both <- as_brand_yml(list(
+      logo = list(
+        images = list(
+          "my-logo" = "logos/my-logo.png",
+          "my_logo" = "logos/my_logo.png"
+        )
+      )
+    ))
+
+    result_kebab <- brand_use_logo(brand_both, name = "my-logo")
+    expect_s3_class(result_kebab, "brand_logo_resource")
+    expect_equal(result_kebab$path, "./logos/my-logo.png")
+
+    result_snake <- brand_use_logo(brand_both, name = "my_logo")
+    expect_s3_class(result_snake, "brand_logo_resource")
+    expect_equal(result_snake$path, "./logos/my_logo.png")
+  })
 })
 
 describe("format() method for brand_logo_resource", {

@@ -11,7 +11,7 @@ brand_pluck(brand, ...)
 \code{\link[=as_brand_yml]{as_brand_yml()}}.}
 
 \item{...}{One or more character strings or symbols representing the path to
-the nested element to extract.}
+the nested element.}
 }
 \value{
 The value of the nested element if it exists, \code{NULL} otherwise.
