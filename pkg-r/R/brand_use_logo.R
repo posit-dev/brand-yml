@@ -156,7 +156,10 @@
 #' @param .required Logical or character string. If `TRUE`, an error is thrown if
 #'   the requested logo is not found. If a string, it is used to describe why
 #'   the logo is required in the error message and completes the phrase
-#'   `"is required ____"`.
+#'   `"is required ____"`. Defaults to `FALSE` when `name` is one of the fixed
+#'   sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or `"largest"`.
+#'   Otherwise, an error is thrown by default if the requested logo is not
+#'   found.
 #' @param .allow_fallback If `TRUE` (the default), allows falling back to a
 #'   non-variant-specific logo when a specific variant is requested. Only used
 #'   when `name` is one of the fixed logo sizes (`"small"`, `"medium"`, or
@@ -175,7 +178,7 @@ brand_use_logo <- function(
   name,
   variant = c("auto", "light", "dark"),
   ...,
-  .required = FALSE,
+  .required = !name %in% c("small", "medium", "large", "smallest", "largest"),
   .allow_fallback = TRUE
 ) {
   brand <- as_brand_yml(brand)

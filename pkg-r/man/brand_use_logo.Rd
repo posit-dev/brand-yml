@@ -9,7 +9,7 @@ brand_use_logo(
   name,
   variant = c("auto", "light", "dark"),
   ...,
-  .required = FALSE,
+  .required = !name \%in\% c("small", "medium", "large", "smallest", "largest"),
   .allow_fallback = TRUE
 )
 }
@@ -49,7 +49,10 @@ markdown when created via \code{format()}, \code{\link[knitr:knit_print]{knitr::
 \item{.required}{Logical or character string. If \code{TRUE}, an error is thrown if
 the requested logo is not found. If a string, it is used to describe why
 the logo is required in the error message and completes the phrase
-\code{"is required ____"}.}
+\code{"is required ____"}. Defaults to \code{FALSE} when \code{name} is one of the fixed
+sizes -- \code{"small"}, \code{"medium"}, \code{"large"} or \code{"smallest"} or \code{"largest"}.
+Otherwise, an error is thrown by default if the requested logo is not
+found.}
 
 \item{.allow_fallback}{If \code{TRUE} (the default), allows falling back to a
 non-variant-specific logo when a specific variant is requested. Only used
