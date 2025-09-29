@@ -139,10 +139,10 @@ class TestBrandLogoResourceLightDarkFormatting:
         html = logo.to_html()
 
         # Should contain span wrapper
-        assert '<span class="brand-logo-light-dark">' in html
+        assert '<span class="brand-logo-light-dark">' in str(html)
         # Should contain both images
-        assert "light-content" in html
-        assert "dark-content" in html
+        assert "light-content" in str(html)
+        assert "dark-content" in str(html)
 
     def test_to_markdown_light_dark(self):
         """Test markdown output for light/dark logo"""
@@ -234,8 +234,8 @@ class TestFormatmingIntegration:
 
         # Test in HTML output
         html = logo.to_html()
-        assert 'width="200"' in html
-        assert 'class="brand-logo override-class"' in html
+        assert 'width="200"' in str(html)
+        assert 'class="brand-logo override-class"' in str(html)
 
     def test_light_dark_attrs_propagation(self):
         """Test that attrs are properly propagated to light/dark variants"""
@@ -251,10 +251,10 @@ class TestFormatmingIntegration:
         html = logo.to_html()
 
         # Both variants should have the width
-        assert html.count('width="150"') == 2
+        assert str(html).count('width="150"') == 2
         # Both should have their respective content classes
-        assert "light-content" in html
-        assert "dark-content" in html
+        assert "light-content" in str(html)
+        assert "dark-content" in str(html)
 
     def test_jupyter_repr_html(self):
         """Test _repr_html_ for Jupyter integration"""

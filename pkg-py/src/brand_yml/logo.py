@@ -12,6 +12,7 @@ import mimetypes
 from pathlib import Path
 from typing import Annotated, Any, Literal, Union
 
+import htmltools
 from pydantic import (
     AnyUrl,
     ConfigDict,
@@ -26,11 +27,6 @@ from ._html_deps import html_dep_brand_light_dark
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
-
-try:
-    import htmltools
-except ImportError:
-    htmltools = None
 
 
 class BrandLogoResource(BrandBase):
@@ -52,7 +48,7 @@ class BrandLogoResource(BrandBase):
     attrs: dict[str, Any] | None = None
     """Additional attributes for HTML/markdown rendering."""
 
-    def to_html(self, **kwargs: Any) -> str:
+    def to_html(self, **kwargs: Any) -> htmltools.Tag:
         """
         Generate HTML img tag for the logo resource.
 
@@ -84,17 +80,13 @@ class BrandLogoResource(BrandBase):
         else:
             img_src = str(self.path)
 
-        # Create img tag with dependency
-        img_tag = htmltools.tags.img(
-            src=img_src, alt=self.alt or "", class_="brand-logo", **all_attrs
+        return htmltools.tags.img(
+            {"class": "brand-logo"},
+            all_attrs,
+            html_dep_brand_light_dark(),
+            src=img_src,
+            alt=self.alt or "",
         )
-
-        # Add HTML dependency
-        dep = html_dep_brand_light_dark()
-        if dep:
-            img_tag = htmltools.TagList(img_tag, dep)
-
-        return str(img_tag)
 
     def to_markdown(self, **kwargs: Any) -> str:
         """
@@ -144,13 +136,13 @@ class BrandLogoResource(BrandBase):
             String representation in the specified format.
         """
         if format_type == "html":
-            return self.to_html(**kwargs)
+            return str(self.to_html(**kwargs))
         elif format_type == "markdown":
             return self.to_markdown(**kwargs)
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self, **kwargs: Any) -> str:
+    def tagify(self, **kwargs: Any) -> htmltools.Tag:
         """
         Convenience method for to_html().
 
@@ -168,7 +160,7 @@ class BrandLogoResource(BrandBase):
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""
-        return self.to_html()
+        return str(self.to_html())
 
     def __str__(self) -> str:
         """String representation defaults to markdown."""
@@ -245,7 +237,10 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
     for HTML and Markdown output.
     """
 
-    def to_html(self, **kwargs: Any) -> str:
+    def __repr__(self) -> str:
+        return super().__repr__()
+
+    def to_html(self, **kwargs: Any) -> htmltools.Tag:
         """
         Generate HTML for light/dark logo resources.
 
@@ -271,39 +266,25 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         dark_html = ""
 
         if self.light:
-            # Add light-content class to existing classes
-            light_kwargs = kwargs.copy()
-            existing_class = light_kwargs.get("class_", "brand-logo")
-            if isinstance(existing_class, str):
-                light_kwargs["class_"] = f"{existing_class} light-content"
-            else:
-                light_kwargs["class_"] = "brand-logo light-content"
-            light_html = self.light.to_html(**light_kwargs)
+            light_html = self.light.to_html(**kwargs)
+            light_html.add_class("light-content")
 
         if self.dark:
-            # Add dark-content class to existing classes
-            dark_kwargs = kwargs.copy()
-            existing_class = dark_kwargs.get("class_", "brand-logo")
-            if isinstance(existing_class, str):
-                dark_kwargs["class_"] = f"{existing_class} dark-content"
-            else:
-                dark_kwargs["class_"] = "brand-logo dark-content"
-            dark_html = self.dark.to_html(**dark_kwargs)
+            dark_html = self.dark.to_html(**kwargs)
+            dark_html.add_class("dark-content")
 
         # Create span with light and dark images as children
         light_part = htmltools.HTML(light_html) if light_html else ""
         dark_part = htmltools.HTML(dark_html) if dark_html else ""
 
         span_tag = htmltools.tags.span(
-            light_part, dark_part, class_="brand-logo-light-dark"
+            light_part,
+            dark_part,
+            html_dep_brand_light_dark(),
+            class_="brand-logo-light-dark",
         )
 
-        # Add HTML dependency
-        dep = html_dep_brand_light_dark()
-        if dep:
-            span_tag = htmltools.TagList(span_tag, dep)
-
-        return str(span_tag)
+        return span_tag
 
     def to_markdown(self, **kwargs: Any) -> str:
         """
@@ -363,13 +344,13 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
             String representation in the specified format.
         """
         if format_type == "html":
-            return self.to_html(**kwargs)
+            return str(self.to_html(**kwargs))
         elif format_type == "markdown":
             return self.to_markdown(**kwargs)
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self, **kwargs: Any) -> str:
+    def tagify(self, **kwargs: Any) -> htmltools.Tag:
         """
         Convenience method for to_html().
 
@@ -387,7 +368,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""
-        return self.to_html()
+        return str(self.to_html())
 
     def __str__(self) -> str:
         """String representation defaults to markdown."""
