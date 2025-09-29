@@ -21,7 +21,7 @@
 #' @param brand A brand object created by [read_brand_yml()] or
 #'   [as_brand_yml()].
 #' @param ... One or more character strings or symbols representing the path to
-#'   the nested element to check.
+#'   the nested element.
 #'
 #' @return `TRUE` if the nested element exists in the brand object,
 #'   `FALSE` otherwise.
@@ -33,6 +33,10 @@ brand_has <- function(brand, ...) {
 
   for (f in c(...)) {
     val <- tryCatch(x[[f]], error = function(e) NULL)
+    if (is.null(val)) {
+      f <- as_snake_case(f)
+      val <- tryCatch(x[[f]], error = function(e) NULL)
+    }
     if (is.null(val)) {
       return(FALSE)
     }
@@ -61,8 +65,6 @@ brand_has <- function(brand, ...) {
 #' brand_pluck(brand, "color", "secondary") # NULL
 #'
 #' @inheritParams brand_has
-#' @param ... One or more character strings or symbols representing the path to
-#'   the nested element to extract.
 #'
 #' @return The value of the nested element if it exists, `NULL` otherwise.
 #' @family brand.yml helpers
@@ -72,19 +74,28 @@ brand_pluck <- function(brand, ...) {
     return(NULL)
   }
 
-  brand[[c(...)]]
+  res <- brand
+  for (f in c(...)) {
+    val <- tryCatch(res[[f]], error = function(e) NULL)
+    if (is.null(val)) {
+      val <- res[[as_snake_case(f)]]
+    }
+    res <- val
+  }
+
+  res
 }
 
 brand_has_string <- function(brand, ...) {
   if (!brand_has(brand, ...)) {
     return(FALSE)
   }
-  is_string(brand[[c(...)]])
+  is_string(brand_pluck(brand, ...))
 }
 
 brand_has_list <- function(brand, ...) {
   if (!brand_has(brand, ...)) {
     return(FALSE)
   }
-  is_list(brand[[c(...)]])
+  is_list(brand_pluck(brand, ...))
 }

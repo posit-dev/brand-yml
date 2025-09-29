@@ -122,14 +122,33 @@ as_brand_yml.brand_yml <- function(brand) {
   brand
 }
 
-brand_path_dir <- function(brand) {
+brand_path_dir <- function(brand, required = TRUE) {
   check_is_brand_yml(brand)
+
+  if (!required && is.null(brand$path)) {
+    return(NULL)
+  }
+
   if (!is_string(brand$path)) {
     cli::cli_abort(
       "{.var brand} must have been read from a file on disk or have a {.var path} field."
     )
   }
   dirname(brand$path)
+}
+
+brand_path <- function(brand, ...) {
+  dir <- brand_path_dir(brand, required = FALSE) %||% "."
+  path <- file.path(...)
+
+  is_abs <- substr(path, 1, 1) == "/"
+  is_link <- substr(path, 1, 4) == "http"
+
+  if (is_abs || is_link) {
+    return(path)
+  }
+
+  file.path(dir, path)
 }
 
 

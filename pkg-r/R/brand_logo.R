@@ -1,34 +1,51 @@
-brand_logo_resource <- function(path, alt = NULL) {
-  structure(list(path = path, alt = alt), class = "brand_logo_resource")
+brand_logo_resource <- function(path, alt = NULL, attrs = NULL) {
+  resource <- list(path = path, alt = alt)
+
+  attrs <- check_dots_named(dots_list(!!!attrs))
+  if (length(attrs)) {
+    resource$attrs <- attrs
+  }
+
+  structure(resource, class = "brand_logo_resource")
 }
 
-#' @export
-print.brand_logo_resource <- function(x, ...) {
-  cat(cli::format_inline(
-    '{.cls brand_logo_resource src="{x$path}" alt="{x$alt}"}'
-  ))
-  invisible(x)
-}
+format_inline_brand_logo_resource <- function(x) {
+  attrs <- attrs_as_raw_html(x$attrs, "html")
+  if (nzchar(attrs)) {
+    attrs <- paste0(" ", attrs)
+  }
 
-brand_logo_resource_light_dark <- function(light = NULL, dark = NULL) {
-  structure(
-    compact(list(light = light, dark = dark)),
-    class = "brand_logo_resource_light_dark"
+  cli::format_inline(
+    '{.cls brand_logo_resource src="{x$path}" alt="{x$alt}"{attrs}}'
   )
 }
 
 #' @export
+print.brand_logo_resource <- function(x, ...) {
+  cat(format_inline_brand_logo_resource(x))
+  invisible(x)
+}
+
+brand_logo_resource_light_dark <- function(light = NULL, dark = NULL) {
+  as_light_dark(light, dark)
+}
+
+#' @export
 print.brand_logo_resource_light_dark <- function(x, ...) {
-  if (!is.null(x$light)) {
-    cat(cli::format_inline(
-      '{.cls brand_logo_resource variant="light" src="{x$light$path}" alt="{x$light$alt}"}'
-    ))
+  light <- x$light
+  dark <- x$dark
+
+  if (!is.null(light)) {
+    light$attrs <- c(list(variant = "light"), light$attrs)
+    cat(format_inline_brand_logo_resource(light))
   }
-  if (!is.null(x$dark)) {
-    x$light %??% cat("\n")
-    cat(cli::format_inline(
-      '{.cls brand_logo_resource variant="dark" src="{x$dark$path}" alt="{x$dark$alt}"}'
-    ))
+
+  if (!is.null(dark)) {
+    dark$attrs <- c(list(variant = "dark"), dark$attrs)
+    if (!is.null(light)) {
+      cat("\n")
+    }
+    cat(format_inline_brand_logo_resource(dark))
   }
 
   invisible(x)
@@ -115,13 +132,29 @@ brand_logo_normalize_images <- function(images) {
   images
 }
 
-brand_logo_normalize_path_or_image <- function(path, images = NULL) {
+brand_logo_normalize_path_or_image <- function(
+  path,
+  images = NULL,
+  size = NULL
+) {
   if (is.null(path)) {
     return(NULL) # nocovr
   }
-  if (!is.character(path)) {
+
+  if (inherits(path, "brand_logo_resource")) {
     return(path)
   }
+
+  if (is_bare_list(path)) {
+    check_list(
+      path,
+      list(path = "path", alt = "string"),
+      path = c("logo", size)
+    )
+    return(brand_logo_resource(path = path$path, alt = path$alt))
+  }
+
+  check_string(path, arg = paste(c("logo", size), collapse = "."))
 
   if (is.null(images) || !path %in% names(images)) {
     return(brand_logo_resource(path = path))
@@ -139,12 +172,16 @@ brand_logo_normalize_sizes <- function(logo, images) {
   for (size in c("small", "medium", "large")) {
     value <- logo[[size]]
 
+    brand_logo_normalize_size <- function(x, .size = NULL) {
+      brand_logo_normalize_path_or_image(x, images, size = c(size, .size))
+    }
+
     if (is.null(value)) {
       next
     }
 
     if (is.character(value)) {
-      logo[[size]] <- brand_logo_normalize_path_or_image(value, images)
+      logo[[size]] <- brand_logo_normalize_size(value)
       next
     }
 
@@ -165,15 +202,15 @@ brand_logo_normalize_sizes <- function(logo, images) {
 
     if (is_light_dark) {
       value <- brand_logo_resource_light_dark(
-        light = brand_logo_normalize_path_or_image(value$light, images),
-        dark = brand_logo_normalize_path_or_image(value$dark, images)
+        light = brand_logo_normalize_size(value$light, "light"),
+        dark = brand_logo_normalize_size(value$dark, "dark")
       )
 
       check_list(
         value,
         list(
-          light = list(path = "path", alt = "string"),
-          dark = list(path = "path", alt = "string")
+          light = list(path = "path", alt = "string", attrs = "list"),
+          dark = list(path = "path", alt = "string", attrs = "list")
         ),
         path = c("logo", size)
       )
@@ -187,11 +224,11 @@ brand_logo_normalize_sizes <- function(logo, images) {
       next
     }
 
-    value <- brand_logo_normalize_path_or_image(value, images)
+    value <- brand_logo_normalize_size(value)
 
     check_list(
       value,
-      list(path = "path", alt = "string"),
+      list(path = "path", alt = "string", attrs = "list"),
       path = c("logo", size)
     )
 
