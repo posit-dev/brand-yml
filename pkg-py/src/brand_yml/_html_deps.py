@@ -29,20 +29,10 @@ def html_dep_brand_light_dark():
     # if in_quarto_environment():
     #     return None
 
-    # Create a simple dependency - the exact API may vary by htmltools version
-    try:
-        return htmltools.HTMLDependency(
-            name="brand-logo-light-dark",
-            version="0.1.0",  # TODO: Get from package version
-            source={"subdir": "resources"},
-            stylesheet=["brand-light-dark.css"],
-            all_files=False,
-        )
-    except Exception:
-        # Fallback if htmltools API is different
-        return htmltools.HTMLDependency(
-            name="brand-logo-light-dark",
-            version="0.1.0",
-            source="resources",
-            stylesheet="brand-light-dark.css",
-        )
+    return htmltools.HTMLDependency(
+        name="brand-logo-light-dark",
+        version="0.1.0",  # TODO: Get from package version
+        source={"subdir": "www/shiny"},
+        stylesheet={"href": "brand-light-dark.css"},
+        all_files=False,
+    )
