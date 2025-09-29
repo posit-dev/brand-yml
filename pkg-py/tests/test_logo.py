@@ -296,9 +296,11 @@ def test_use_logo_smallest_largest():
     """)
 
     smallest_full = brand_full.use_logo("smallest")
+    assert isinstance(smallest_full, BrandLogoResource)
     assert str(smallest_full.path) == "small.png"
 
     largest_full = brand_full.use_logo("largest")
+    assert isinstance(largest_full, BrandLogoResource)
     assert str(largest_full.path) == "large.png"
 
 
@@ -391,12 +393,16 @@ def test_use_logo_variant_light_dark():
     # Light/dark from existing light/dark
     medium_both = brand.use_logo("medium", variant=["light", "dark"])
     assert isinstance(medium_both, BrandLogoResourceLightDark)
+    assert medium_both.light is not None
+    assert medium_both.dark is not None
     assert str(medium_both.light.path) == "medium-light.png"
     assert str(medium_both.dark.path) == "medium-dark.png"
 
     # Light/dark with fallback promotion
     small_both = brand.use_logo("small", variant=["light", "dark"])
     assert isinstance(small_both, BrandLogoResourceLightDark)
+    assert small_both.light is not None
+    assert small_both.dark is not None
     assert str(small_both.light.path) == "small.png"
     assert str(small_both.dark.path) == "small.png"
 
@@ -453,12 +459,16 @@ def test_use_logo_attrs():
 
     # Basic attrs
     logo = brand.use_logo("small", width="100", height="50")
+    assert isinstance(logo, BrandLogoResource)
+    assert logo.attrs is not None
     assert logo.attrs["class"] == "existing-class"
     assert logo.attrs["width"] == "100"
     assert logo.attrs["height"] == "50"
 
     # Attrs override
     logo2 = brand.use_logo("small", class_="new-class")
+    assert isinstance(logo2, BrandLogoResource)
+    assert logo2.attrs is not None
     assert logo2.attrs["class"] == "new-class"
 
 

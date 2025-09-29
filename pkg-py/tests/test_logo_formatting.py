@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
+from brand_yml.logo import BrandLogoResource, BrandLogoResourceLightDark
 
 
 class TestBrandLogoResourceFormatting:
@@ -20,6 +21,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         md = logo.to_markdown()
 
         # Should contain markdown image syntax
@@ -38,6 +40,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         md = logo.to_markdown(width="100")
 
         assert ".brand-logo" in md
@@ -52,6 +55,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
 
         # Default should be HTML
         html_str = logo.to_str()
@@ -77,6 +81,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         html1 = logo.tagify()
         html2 = logo.to_html()
 
@@ -91,6 +96,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         str_output = str(logo)
         md_output = logo.to_markdown()
 
@@ -104,6 +110,7 @@ class TestBrandLogoResourceFormatting:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
 
         # Test class handling
         attrs = {"class": "class1 class2", "width": "100", "alt": "Alt text"}
@@ -128,6 +135,7 @@ class TestBrandLogoResourceLightDarkFormatting:
         """)
 
         logo = brand.use_logo("medium")
+        assert isinstance(logo, BrandLogoResourceLightDark)
         html = logo.to_html()
 
         # Should contain span wrapper
@@ -146,6 +154,7 @@ class TestBrandLogoResourceLightDarkFormatting:
         """)
 
         logo = brand.use_logo("medium")
+        assert isinstance(logo, BrandLogoResourceLightDark)
         md = logo.to_markdown()
 
         # Should contain both images
@@ -164,6 +173,7 @@ class TestBrandLogoResourceLightDarkFormatting:
         """)
 
         logo = brand.use_logo("medium")
+        assert isinstance(logo, BrandLogoResourceLightDark)
 
         # HTML format
         html_str = logo.to_str(format_type="html")
@@ -184,6 +194,7 @@ class TestBrandLogoResourceLightDarkFormatting:
         """)
 
         logo = brand.use_logo("medium")
+        assert isinstance(logo, BrandLogoResourceLightDark)
         str_output = str(logo)
         md_output = logo.to_markdown()
 
@@ -214,6 +225,8 @@ class TestFormatmingIntegration:
 
         # Add attrs via use_logo
         logo = brand.use_logo("small", width="200", class_="override-class")
+        assert isinstance(logo, BrandLogoResource)
+        assert logo.attrs is not None
 
         # Check that attrs are combined
         assert logo.attrs["width"] == "200"
@@ -234,6 +247,7 @@ class TestFormatmingIntegration:
         """)
 
         logo = brand.use_logo("medium", width="150")
+        assert isinstance(logo, BrandLogoResourceLightDark)
         html = logo.to_html()
 
         # Both variants should have the width
@@ -254,11 +268,13 @@ class TestFormatmingIntegration:
 
         # Single resource
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         repr_html = logo._repr_html_()
         assert repr_html.startswith("<img")
 
         # Light/dark resource
         logo_ld = brand.use_logo("medium")
+        assert isinstance(logo_ld, BrandLogoResourceLightDark)
         repr_html_ld = logo_ld._repr_html_()
         assert "brand-logo-light-dark" in repr_html_ld
 
@@ -273,6 +289,7 @@ class TestFormatmingIntegration:
         """)
 
         logo = brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
         html = logo.to_html()
 
         # Should include the CSS dependency somehow
