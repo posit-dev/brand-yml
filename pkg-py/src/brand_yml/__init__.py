@@ -349,6 +349,338 @@ class Brand(BrandBase):
 
         return value.resolve()
 
+    def use_logo(
+        self,
+        name: str,
+        variant: str | list[str] = "auto",
+        *,
+        required: bool | str | None = None,
+        allow_fallback: bool = True,
+        **kwargs: Any,
+    ) -> BrandLogoResource | BrandLightDark[BrandLogoResource] | None:
+        """
+        Extract a logo resource from a brand.
+
+        Returns a brand logo resource specified by name and variant from a brand
+        object. The image paths in the returned object are adjusted to be absolute,
+        relative to the location of the brand YAML file, if `brand` was read from a
+        file, or the local working directory otherwise.
+
+        Parameters
+        ----------
+        name
+            The name of the logo to use. Either a size (`"small"`, `"medium"`,
+            `"large"`) or an image name from `brand.logo.images`. Alternatively,
+            you can also use `"smallest"` or `"largest"` to select the smallest
+            or largest available logo size, respectively.
+        variant
+            Which variant to use, only used when `name` is one of the
+            brand.yml fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be
+            one of:
+
+            * `"auto"`: Auto-detect, returns a light/dark logo resource if both
+              variants are present, otherwise it returns a single logo resource, either
+              the value for `brand.logo.{name}` or the single light or dark variant if
+              only one is present.
+            * `"light"`: Returns only the light variant. If no light variant is
+              present, but `brand.logo.{name}` is a single logo resource and
+              `allow_fallback` is `True`, `use_logo()` falls back to the single
+              logo resource.
+            * `"dark"`: Returns only the dark variant, or, as above, falls back to the
+              single logo resource if no dark variant is present and `allow_fallback`
+              is `True`.
+            * `["light", "dark"]`: Returns a light/dark object with both variants. If
+              a single logo resource is present for `brand.logo.{name}` and
+              `allow_fallback` is `True`, the single logo resource is promoted to a
+              light/dark logo resource with identical light and dark variants.
+        required
+            Logical or string. If `True`, an error is thrown if
+            the requested logo is not found. If a string, it is used to describe why
+            the logo is required in the error message and completes the phrase
+            `"is required ____"`. Defaults to `False` when `name` is one of the fixed
+            sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or `"largest"`.
+            Otherwise, an error is thrown by default if the requested logo is not
+            found.
+        allow_fallback
+            If `True` (the default), allows falling back to a
+            non-variant-specific logo when a specific variant is requested. Only used
+            when `name` is one of the fixed logo sizes (`"small"`, `"medium"`, or
+            `"large"`).
+        **kwargs
+            Additional named attributes to be added to the image HTML or
+            markdown when created via formatting methods.
+
+        Returns
+        -------
+        :
+            A `BrandLogoResource` object, a `BrandLightDark[BrandLogoResource]`
+            object, or `None` if the requested logo doesn't exist and `required` is
+            `False`.
+
+        Raises
+        ------
+        ValueError
+            If the requested logo is not found and `required` is `True` or a string.
+        """
+        if self.logo is None:
+            if required is not False:
+                reason = (
+                    " " + str(required) if isinstance(required, str) else ""
+                )
+                raise ValueError(f"brand.logo.{name} is required{reason}.")
+            return None
+
+        # Handle required parameter
+        if required is True:
+            required_reason = ""
+        elif required is False:
+            required_reason = None
+        elif isinstance(required, str):
+            required_reason = " " + required.strip()
+        elif required is None:
+            # Default behavior: required for image names, not required for size names
+            if name in {"small", "medium", "large", "smallest", "largest"}:
+                required_reason = None
+            else:
+                required_reason = ""
+
+        def attach_attrs(resource):
+            """Add kwargs as attrs to a logo resource"""
+            if kwargs and hasattr(resource, "model_copy"):
+                # Handle single resource
+                current_attrs = getattr(resource, "attrs", None) or {}
+                new_attrs = {**current_attrs, **kwargs}
+                return resource.model_copy(update={"attrs": new_attrs})
+            elif (
+                kwargs
+                and hasattr(resource, "light")
+                and hasattr(resource, "dark")
+            ):
+                # Handle light/dark resource - need to copy attrs to both variants
+                light_attrs = (
+                    getattr(resource.light, "attrs", None) or {}
+                    if resource.light
+                    else {}
+                )
+                dark_attrs = (
+                    getattr(resource.dark, "attrs", None) or {}
+                    if resource.dark
+                    else {}
+                )
+
+                new_light = (
+                    resource.light.model_copy(
+                        update={"attrs": {**light_attrs, **kwargs}}
+                    )
+                    if resource.light
+                    else None
+                )
+                new_dark = (
+                    resource.dark.model_copy(
+                        update={"attrs": {**dark_attrs, **kwargs}}
+                    )
+                    if resource.dark
+                    else None
+                )
+
+                return BrandLightDark(light=new_light, dark=new_dark)
+            return resource
+
+        # Handle "smallest" and "largest" convenience options
+        if name in {"smallest", "largest"}:
+            sizes = ["small", "medium", "large"]
+            available = []
+
+            # Check what sizes are available in the logo
+            if isinstance(self.logo, BrandLogo):
+                for size in sizes:
+                    if getattr(self.logo, size, None) is not None:
+                        available.append(size)
+
+            # Also check in images
+            if (
+                isinstance(self.logo, BrandLogo)
+                and self.logo.images
+                and name in self.logo.images
+            ):
+                # If name exists in images, use it directly
+                resource = self.logo.images[name]
+                if hasattr(resource, "path") and self.path:
+                    # Convert relative paths to absolute
+                    if isinstance(resource.path, FileLocationLocal):
+                        resource = resource.model_copy(
+                            update={
+                                "path": resource.path.set_root_dir(
+                                    self.path.parent
+                                )
+                            }
+                        )
+                return attach_attrs(resource)
+
+            if not available:
+                if required_reason is not None:
+                    raise ValueError(
+                        f"No logos are available to satisfy '{name}' in brand.logo or brand.logo.images{required_reason}."
+                    )
+                return None
+
+            name = available[0] if name == "smallest" else available[-1]
+
+        # Check if name exists in images
+        if (
+            isinstance(self.logo, BrandLogo)
+            and self.logo.images
+            and name in self.logo.images
+        ):
+            resource = self.logo.images[name]
+            if hasattr(resource, "path") and self.path:
+                # Convert relative paths to absolute
+                if isinstance(resource.path, FileLocationLocal):
+                    resource = resource.model_copy(
+                        update={
+                            "path": resource.path.set_root_dir(self.path.parent)
+                        }
+                    )
+            return attach_attrs(resource)
+
+        # Check if name is a standard size
+        if name not in {"small", "medium", "large"}:
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.images['{name}'] is required{required_reason}."
+                )
+            return None
+
+        # Handle standard sizes (small, medium, large)
+        if not isinstance(self.logo, BrandLogo):
+            # logo is a single BrandLogoResource, not a BrandLogo with sizes
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.{name} is required{required_reason}."
+                )
+            return None
+
+        size_logo = getattr(self.logo, name, None)
+        if size_logo is None:
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.{name} is required{required_reason}."
+                )
+            return None
+
+        # Process variant parameter
+        if isinstance(variant, list):
+            if set(variant) == {"light", "dark"}:
+                variant = "light_dark"
+            else:
+                raise ValueError(
+                    "variant list must be exactly ['light', 'dark']"
+                )
+        elif variant not in {"auto", "light", "dark"}:
+            raise ValueError(
+                "variant must be 'auto', 'light', 'dark', or ['light', 'dark']"
+            )
+
+        # Determine if we have a light/dark variant
+        has_light_dark = isinstance(size_logo, BrandLightDark)
+
+        # Fix up internal paths to be relative to brand yml file
+        if has_light_dark:
+            if (
+                size_logo.light
+                and hasattr(size_logo.light, "path")
+                and self.path
+            ):
+                if isinstance(size_logo.light.path, FileLocationLocal):
+                    size_logo = size_logo.model_copy(
+                        update={
+                            "light": size_logo.light.model_copy(
+                                update={
+                                    "path": size_logo.light.path.set_root_dir(
+                                        self.path.parent
+                                    )
+                                }
+                            )
+                        }
+                    )
+            if size_logo.dark and hasattr(size_logo.dark, "path") and self.path:
+                if isinstance(size_logo.dark.path, FileLocationLocal):
+                    size_logo = size_logo.model_copy(
+                        update={
+                            "dark": size_logo.dark.model_copy(
+                                update={
+                                    "path": size_logo.dark.path.set_root_dir(
+                                        self.path.parent
+                                    )
+                                }
+                            )
+                        }
+                    )
+        else:
+            if hasattr(size_logo, "path") and self.path:
+                if isinstance(size_logo.path, FileLocationLocal):
+                    size_logo = size_logo.model_copy(
+                        update={
+                            "path": size_logo.path.set_root_dir(
+                                self.path.parent
+                            )
+                        }
+                    )
+
+        # Implement variant logic based on the table from R implementation
+        if variant == "auto":
+            if not has_light_dark:
+                # Case A.1: Return single value as-is
+                return attach_attrs(size_logo)
+
+            if size_logo.light is not None and size_logo.dark is not None:
+                # Case A.2: Return light_dark if both variants exist
+                return attach_attrs(size_logo)
+
+            if size_logo.light is not None:
+                # Case A.3: Return light if only light exists
+                return attach_attrs(size_logo.light)
+
+            if size_logo.dark is not None:
+                # Case A.4: Return dark if only dark exists
+                return attach_attrs(size_logo.dark)
+
+        elif variant == "light_dark":
+            if has_light_dark:
+                # Case B.1: Return light_dark if both variants exist
+                return attach_attrs(size_logo)
+
+            if allow_fallback:
+                # Case B.2: Promote single to light_dark if fallback allowed
+                return attach_attrs(
+                    BrandLightDark(light=size_logo, dark=size_logo)
+                )
+
+            # Case B.3: No fallback allowed, error or return NULL
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.{name} requires light/dark variants{required_reason}."
+                )
+            return None
+
+        else:  # variant is "light" or "dark"
+            if has_light_dark:
+                # Case C: return specific variant if it exists
+                variant_resource = getattr(size_logo, variant, None)
+                if variant_resource is not None:
+                    return attach_attrs(variant_resource)
+            else:
+                # Case D: return single if fallback allowed
+                if allow_fallback:
+                    return attach_attrs(size_logo)
+
+            # Case X: specific variant doesn't exist and can't fallback
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.{name}.{variant} is required{required_reason}."
+                )
+            return None
+
     @model_validator(mode="after")
     def _set_root_path(self):
         """

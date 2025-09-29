@@ -7,6 +7,8 @@ or online, possibly with light or dark variants.
 
 from __future__ import annotations
 
+import base64
+import mimetypes
 from pathlib import Path
 from typing import Annotated, Any, Literal, Union
 
@@ -22,7 +24,12 @@ from pydantic import (
 from ._defs import BrandLightDark, defs_replace_recursively
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
-from .file import FileLocation, FileLocationLocalOrUrlType
+from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
+
+try:
+    import htmltools
+except ImportError:
+    htmltools = None
 
 
 class BrandLogoResource(BrandBase):
@@ -40,6 +47,196 @@ class BrandLogoResource(BrandBase):
 
     alt: str | None = None
     """Alterative text for the image, used for accessibility."""
+
+    attrs: dict[str, Any] | None = None
+    """Additional attributes for HTML/markdown rendering."""
+
+    def to_html(self, **kwargs: Any) -> str:
+        """
+        Generate HTML img tag for the logo resource.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes to include in the img tag. Values should be
+            compatible with htmltools.TagAttrValue types.
+
+        Returns
+        -------
+        :
+            HTML img tag as a string.
+        """
+        if htmltools is None:
+            raise ImportError(
+                "htmltools is required for HTML output. Install with: pip install htmltools"
+            )
+
+        # Combine existing attrs with kwargs
+        all_attrs: dict[str, Any] = {}
+        if self.attrs:
+            all_attrs.update(self.attrs)
+        all_attrs.update(kwargs)
+
+        # Get image source, handling base64 encoding for local files if needed
+        if isinstance(self.path, FileLocationLocal):
+            img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
+        else:
+            img_src = str(self.path)
+
+        # Import here to avoid circular imports  # pylint: disable=import-outside-toplevel
+        from ._html_deps import html_dep_brand_light_dark
+
+        # Create img tag with dependency
+        img_tag = htmltools.tags.img(
+            src=img_src, alt=self.alt or "", class_="brand-logo", **all_attrs
+        )
+
+        # Add HTML dependency
+        dep = html_dep_brand_light_dark()
+        if dep:
+            img_tag = htmltools.TagList(img_tag, dep)
+
+        return str(img_tag)
+
+    def to_markdown(self, **kwargs: Any) -> str:
+        """
+        Generate markdown image syntax for the logo resource.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional attributes to include in the markdown image syntax.
+
+        Returns
+        -------
+        :
+            Markdown image syntax as a string.
+        """
+        # Combine existing attrs with kwargs
+        all_attrs = {"class": "brand-logo", "alt": self.alt or ""}
+        if self.attrs:
+            all_attrs.update(self.attrs)
+        all_attrs.update(kwargs)
+
+        # Get image source, handling base64 encoding for local files if needed
+        if isinstance(self.path, FileLocationLocal):
+            img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
+        else:
+            img_src = str(self.path)
+
+        # Format attributes for markdown
+        attrs_str = self._attrs_as_markdown(all_attrs)
+
+        return f"![]({img_src}){{{attrs_str}}}"
+
+    def to_str(self, format_type: str = "html", **kwargs: Any) -> str:
+        """
+        Convert logo resource to string representation.
+
+        Parameters
+        ----------
+        format_type
+            Output format, either "html" or "markdown".
+        **kwargs
+            Additional attributes for the output format.
+
+        Returns
+        -------
+        :
+            String representation in the specified format.
+        """
+        if format_type == "html":
+            return self.to_html(**kwargs)
+        elif format_type == "markdown":
+            return self.to_markdown(**kwargs)
+        else:
+            raise ValueError("format_type must be 'html' or 'markdown'")
+
+    def tagify(self, **kwargs: Any) -> str:
+        """
+        Convenience method for to_html().
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes.
+
+        Returns
+        -------
+        :
+            HTML img tag as a string.
+        """
+        return self.to_html(**kwargs)
+
+    def _repr_html_(self) -> str:
+        """Jupyter notebook HTML representation."""
+        return self.to_html()
+
+    def __str__(self) -> str:
+        """String representation defaults to markdown."""
+        return self.to_markdown()
+
+    def _maybe_base64_encode_image(self, path: str) -> str:
+        """
+        Encode local images as base64 data URIs for embedding.
+
+        Parameters
+        ----------
+        path
+            The image file path.
+
+        Returns
+        -------
+        :
+            The original path for URLs, or base64 data URI for local files.
+        """
+        if path.startswith(("http://", "https://", "data:")):
+            return path
+
+        try:
+            file_path = Path(path)
+            if not file_path.exists():
+                return path
+
+            mime_type = (
+                mimetypes.guess_type(path)[0] or "application/octet-stream"
+            )
+
+            with open(file_path, "rb") as f:
+                encoded = base64.b64encode(f.read()).decode("ascii")
+
+            return f"data:{mime_type};base64,{encoded}"
+        except Exception:
+            # If anything goes wrong, just return the original path
+            return path
+
+    def _attrs_as_markdown(self, attrs: dict[str, Any]) -> str:
+        """
+        Format attributes for markdown image syntax.
+
+        Parameters
+        ----------
+        attrs
+            Dictionary of attributes.
+
+        Returns
+        -------
+        :
+            Formatted attribute string for markdown.
+        """
+        parts = []
+        for key, value in attrs.items():
+            if key == "class":
+                # Handle class specially - prefix with dot
+                classes = (
+                    value.split() if isinstance(value, str) else [str(value)]
+                )
+                parts.extend(f".{cls}" for cls in classes)
+            else:
+                # Regular attribute
+                parts.append(f'{key}="{value}"')
+
+        return " ".join(parts)
 
 
 def brand_logo_type_discriminator(

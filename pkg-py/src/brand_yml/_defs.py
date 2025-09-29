@@ -12,6 +12,11 @@ from typing_extensions import TypeGuard
 
 from ._utils_logging import logger
 
+try:
+    import htmltools
+except ImportError:
+    htmltools = None
+
 DictString = dict[str, str]
 DictStringRecursive = Union[DictString, dict[str, "DictStringRecursive"]]
 DictStringRecursiveBaseModel = Union[DictStringRecursive, dict[str, BaseModel]]
@@ -40,6 +45,184 @@ class BrandLightDark(BaseModel, Generic[T]):
 
     dark: T | None = None
     """Value in dark mode."""
+
+    def to_html(self, **kwargs: Any) -> str:
+        """
+        Generate HTML for light/dark logo resources.
+
+        Only works when T is BrandLogoResource. Creates a span container with
+        light and dark images that can be shown/hidden via CSS.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes for the images.
+
+        Returns
+        -------
+        :
+            HTML span containing both light and dark images.
+        """
+        # Check if this is a BrandLogoResource type
+        if not (
+            hasattr(self.light, "to_html") and hasattr(self.dark, "to_html")
+        ):
+            raise TypeError(
+                "to_html() only works with BrandLightDark[BrandLogoResource]"
+            )
+
+        if htmltools is None:
+            raise ImportError(
+                "htmltools is required for HTML output. Install with: pip install htmltools"
+            )
+
+        light_html = ""
+        dark_html = ""
+
+        if self.light:
+            # Add light-content class to existing classes
+            light_kwargs = kwargs.copy()
+            existing_class = light_kwargs.get("class_", "brand-logo")
+            if isinstance(existing_class, str):
+                light_kwargs["class_"] = f"{existing_class} light-content"
+            else:
+                light_kwargs["class_"] = "brand-logo light-content"
+            light_html = self.light.to_html(**light_kwargs)  # type: ignore
+
+        if self.dark:
+            # Add dark-content class to existing classes
+            dark_kwargs = kwargs.copy()
+            existing_class = dark_kwargs.get("class_", "brand-logo")
+            if isinstance(existing_class, str):
+                dark_kwargs["class_"] = f"{existing_class} dark-content"
+            else:
+                dark_kwargs["class_"] = "brand-logo dark-content"
+            dark_html = self.dark.to_html(**dark_kwargs)  # type: ignore
+
+        # Create span with light and dark images as children
+        light_part = htmltools.HTML(light_html) if light_html else ""
+        dark_part = htmltools.HTML(dark_html) if dark_html else ""
+
+        span_tag = htmltools.tags.span(
+            light_part, dark_part, class_="brand-logo-light-dark"
+        )
+
+        # Add HTML dependency
+        # Import here to avoid circular imports  # pylint: disable=import-outside-toplevel
+        from ._html_deps import html_dep_brand_light_dark
+
+        dep = html_dep_brand_light_dark()
+        if dep:
+            span_tag = htmltools.TagList(span_tag, dep)
+
+        return str(span_tag)
+
+    def to_markdown(self, **kwargs: Any) -> str:
+        """
+        Generate markdown for light/dark logo resources.
+
+        Only works when T is BrandLogoResource. Creates two adjacent images
+        with light-content and dark-content classes.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional attributes for the markdown images.
+
+        Returns
+        -------
+        :
+            Markdown with both light and dark images.
+        """
+        # Check if this is a BrandLogoResource type
+        if not (
+            hasattr(self.light, "to_markdown")
+            and hasattr(self.dark, "to_markdown")
+        ):
+            raise TypeError(
+                "to_markdown() only works with BrandLightDark[BrandLogoResource]"
+            )
+
+        light_md = ""
+        dark_md = ""
+
+        if self.light:
+            # Add light-content class
+            light_kwargs = kwargs.copy()
+            existing_class = light_kwargs.get("class", "brand-logo")
+            if isinstance(existing_class, str):
+                light_kwargs["class"] = f"{existing_class} light-content"
+            else:
+                light_kwargs["class"] = "brand-logo light-content"
+            light_md = self.light.to_markdown(**light_kwargs)  # type: ignore
+
+        if self.dark:
+            # Add dark-content class
+            dark_kwargs = kwargs.copy()
+            existing_class = dark_kwargs.get("class", "brand-logo")
+            if isinstance(existing_class, str):
+                dark_kwargs["class"] = f"{existing_class} dark-content"
+            else:
+                dark_kwargs["class"] = "brand-logo dark-content"
+            dark_md = self.dark.to_markdown(**dark_kwargs)  # type: ignore
+
+        return f"{light_md} {dark_md}".strip()
+
+    def to_str(self, format_type: str = "html", **kwargs: Any) -> str:
+        """
+        Convert light/dark logo resources to string representation.
+
+        Parameters
+        ----------
+        format_type
+            Output format, either "html" or "markdown".
+        **kwargs
+            Additional attributes for the output format.
+
+        Returns
+        -------
+        :
+            String representation in the specified format.
+        """
+        if format_type == "html":
+            return self.to_html(**kwargs)
+        elif format_type == "markdown":
+            return self.to_markdown(**kwargs)
+        else:
+            raise ValueError("format_type must be 'html' or 'markdown'")
+
+    def tagify(self, **kwargs: Any) -> str:
+        """
+        Convenience method for to_html().
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes.
+
+        Returns
+        -------
+        :
+            HTML span with light and dark images.
+        """
+        return self.to_html(**kwargs)
+
+    def _repr_html_(self) -> str:
+        """Jupyter notebook HTML representation."""
+        # Only works for BrandLogoResource
+        if not (
+            hasattr(self.light, "to_html") and hasattr(self.dark, "to_html")
+        ):
+            return repr(self)
+        return self.to_html()
+
+    def __str__(self) -> str:
+        """String representation defaults to markdown for BrandLogoResource."""
+        if hasattr(self.light, "to_markdown") and hasattr(
+            self.dark, "to_markdown"
+        ):
+            return self.to_markdown()
+        return super().__str__()
 
 
 def is_dict_or_basemodel(value: Any) -> TypeGuard[Union[dict, BaseModel]]:
