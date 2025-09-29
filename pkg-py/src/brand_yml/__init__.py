@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from pydantic import (
     BaseModel,
@@ -656,8 +656,12 @@ class Brand(BrandBase):
 
             if allow_fallback:
                 # Case B.2: Promote single to light_dark if fallback allowed
+                # At this point we know size_logo is a single BrandLogoResource
+                single_resource = cast(BrandLogoResource, size_logo)
                 return attach_attrs(
-                    BrandLogoResourceLightDark(light=size_logo, dark=size_logo)
+                    BrandLogoResourceLightDark(
+                        light=single_resource, dark=single_resource
+                    )
                 )
 
             # Case B.3: No fallback allowed, error or return NULL
