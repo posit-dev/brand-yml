@@ -22,6 +22,7 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark, defs_replace_recursively
+from ._html_deps import html_dep_brand_light_dark
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
@@ -82,9 +83,6 @@ class BrandLogoResource(BrandBase):
             img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
         else:
             img_src = str(self.path)
-
-        # Import here to avoid circular imports  # pylint: disable=import-outside-toplevel
-        from ._html_deps import html_dep_brand_light_dark
 
         # Create img tag with dependency
         img_tag = htmltools.tags.img(
@@ -239,6 +237,163 @@ class BrandLogoResource(BrandBase):
         return " ".join(parts)
 
 
+class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
+    """
+    Light/Dark variant container specifically for BrandLogoResource.
+
+    This class extends BrandLightDark[BrandLogoResource] with formatting methods
+    for HTML and Markdown output.
+    """
+
+    def to_html(self, **kwargs: Any) -> str:
+        """
+        Generate HTML for light/dark logo resources.
+
+        Creates a span container with light and dark images that can be
+        shown/hidden via CSS.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes for the images.
+
+        Returns
+        -------
+        :
+            HTML span containing both light and dark images.
+        """
+        if htmltools is None:
+            raise ImportError(
+                "htmltools is required for HTML output. Install with: pip install htmltools"
+            )
+
+        light_html = ""
+        dark_html = ""
+
+        if self.light:
+            # Add light-content class to existing classes
+            light_kwargs = kwargs.copy()
+            existing_class = light_kwargs.get("class_", "brand-logo")
+            if isinstance(existing_class, str):
+                light_kwargs["class_"] = f"{existing_class} light-content"
+            else:
+                light_kwargs["class_"] = "brand-logo light-content"
+            light_html = self.light.to_html(**light_kwargs)
+
+        if self.dark:
+            # Add dark-content class to existing classes
+            dark_kwargs = kwargs.copy()
+            existing_class = dark_kwargs.get("class_", "brand-logo")
+            if isinstance(existing_class, str):
+                dark_kwargs["class_"] = f"{existing_class} dark-content"
+            else:
+                dark_kwargs["class_"] = "brand-logo dark-content"
+            dark_html = self.dark.to_html(**dark_kwargs)
+
+        # Create span with light and dark images as children
+        light_part = htmltools.HTML(light_html) if light_html else ""
+        dark_part = htmltools.HTML(dark_html) if dark_html else ""
+
+        span_tag = htmltools.tags.span(
+            light_part, dark_part, class_="brand-logo-light-dark"
+        )
+
+        # Add HTML dependency
+        dep = html_dep_brand_light_dark()
+        if dep:
+            span_tag = htmltools.TagList(span_tag, dep)
+
+        return str(span_tag)
+
+    def to_markdown(self, **kwargs: Any) -> str:
+        """
+        Generate markdown for light/dark logo resources.
+
+        Creates two adjacent images with light-content and dark-content classes.
+
+        Parameters
+        ----------
+        **kwargs
+            Additional attributes for the markdown images.
+
+        Returns
+        -------
+        :
+            Markdown with both light and dark images.
+        """
+        light_md = ""
+        dark_md = ""
+
+        if self.light:
+            # Add light-content class
+            light_kwargs = kwargs.copy()
+            existing_class = light_kwargs.get("class", "brand-logo")
+            if isinstance(existing_class, str):
+                light_kwargs["class"] = f"{existing_class} light-content"
+            else:
+                light_kwargs["class"] = "brand-logo light-content"
+            light_md = self.light.to_markdown(**light_kwargs)
+
+        if self.dark:
+            # Add dark-content class
+            dark_kwargs = kwargs.copy()
+            existing_class = dark_kwargs.get("class", "brand-logo")
+            if isinstance(existing_class, str):
+                dark_kwargs["class"] = f"{existing_class} dark-content"
+            else:
+                dark_kwargs["class"] = "brand-logo dark-content"
+            dark_md = self.dark.to_markdown(**dark_kwargs)
+
+        return f"{light_md} {dark_md}".strip()
+
+    def to_str(self, format_type: str = "html", **kwargs: Any) -> str:
+        """
+        Convert light/dark logo resources to string representation.
+
+        Parameters
+        ----------
+        format_type
+            Output format, either "html" or "markdown".
+        **kwargs
+            Additional attributes for the output format.
+
+        Returns
+        -------
+        :
+            String representation in the specified format.
+        """
+        if format_type == "html":
+            return self.to_html(**kwargs)
+        elif format_type == "markdown":
+            return self.to_markdown(**kwargs)
+        else:
+            raise ValueError("format_type must be 'html' or 'markdown'")
+
+    def tagify(self, **kwargs: Any) -> str:
+        """
+        Convenience method for to_html().
+
+        Parameters
+        ----------
+        **kwargs
+            Additional HTML attributes.
+
+        Returns
+        -------
+        :
+            HTML span with light and dark images.
+        """
+        return self.to_html(**kwargs)
+
+    def _repr_html_(self) -> str:
+        """Jupyter notebook HTML representation."""
+        return self.to_html()
+
+    def __str__(self) -> str:
+        """String representation defaults to markdown."""
+        return self.to_markdown()
+
+
 def brand_logo_type_discriminator(
     x: Any,
 ) -> Literal["file", "light-dark", "resource"]:
@@ -248,7 +403,7 @@ def brand_logo_type_discriminator(
         if "light" in x or "dark" in x:
             return "light-dark"
 
-    if isinstance(x, BrandLightDark):
+    if isinstance(x, (BrandLightDark, BrandLogoResourceLightDark)):
         return "light-dark"
     if isinstance(x, BrandLogoResource):
         return "resource"
@@ -267,7 +422,7 @@ alternative text for the logo image to be used for accessibility.
 BrandLogoFileType = Annotated[
     Union[
         Annotated[BrandLogoResource, Tag("resource")],
-        Annotated[BrandLightDark[BrandLogoResource], Tag("light-dark")],
+        Annotated[BrandLogoResourceLightDark, Tag("light-dark")],
     ],
     Discriminator(brand_logo_type_discriminator),
 ]
@@ -387,7 +542,7 @@ class BrandLogo(BrandBase):
                     continue
                 value[k] = cls._promote_bare_files_to_logo_resource(value[k])
 
-        if isinstance(value, BrandLightDark):
+        if isinstance(value, (BrandLightDark, BrandLogoResourceLightDark)):
             for k in ("light", "dark"):
                 prop = getattr(value, k)
                 if prop is not None:

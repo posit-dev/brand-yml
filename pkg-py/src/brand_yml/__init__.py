@@ -22,7 +22,7 @@ from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
-from .logo import BrandLogo, BrandLogoResource
+from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 from .meta import BrandMeta
 from .typography import BrandTypography
 
@@ -357,7 +357,7 @@ class Brand(BrandBase):
         required: bool | str | None = None,
         allow_fallback: bool = True,
         **kwargs: Any,
-    ) -> BrandLogoResource | BrandLightDark[BrandLogoResource] | None:
+    ) -> BrandLogoResource | BrandLogoResourceLightDark | None:
         """
         Extract a logo resource from a brand.
 
@@ -413,7 +413,7 @@ class Brand(BrandBase):
         Returns
         -------
         :
-            A `BrandLogoResource` object, a `BrandLightDark[BrandLogoResource]`
+            A `BrandLogoResource` object, a `BrandLogoResourceLightDark`
             object, or `None` if the requested logo doesn't exist and `required` is
             `False`.
 
@@ -483,7 +483,9 @@ class Brand(BrandBase):
                     else None
                 )
 
-                return BrandLightDark(light=new_light, dark=new_dark)
+                return BrandLogoResourceLightDark(
+                    light=new_light, dark=new_dark
+                )
             return resource
 
         # Handle "smallest" and "largest" convenience options
@@ -582,7 +584,9 @@ class Brand(BrandBase):
             )
 
         # Determine if we have a light/dark variant
-        has_light_dark = isinstance(size_logo, BrandLightDark)
+        has_light_dark = isinstance(
+            size_logo, (BrandLightDark, BrandLogoResourceLightDark)
+        )
 
         # Fix up internal paths to be relative to brand yml file
         if has_light_dark:
@@ -653,7 +657,7 @@ class Brand(BrandBase):
             if allow_fallback:
                 # Case B.2: Promote single to light_dark if fallback allowed
                 return attach_attrs(
-                    BrandLightDark(light=size_logo, dark=size_logo)
+                    BrandLogoResourceLightDark(light=size_logo, dark=size_logo)
                 )
 
             # Case B.3: No fallback allowed, error or return NULL
@@ -724,6 +728,7 @@ __all__ = [
     "BrandTypography",
     "BrandLightDark",
     "BrandLogoResource",
+    "BrandLogoResourceLightDark",
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",

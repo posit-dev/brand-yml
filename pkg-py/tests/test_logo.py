@@ -6,7 +6,11 @@ import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
 from brand_yml.file import FileLocation, FileLocationLocal
-from brand_yml.logo import BrandLogo, BrandLogoResource
+from brand_yml.logo import (
+    BrandLogo,
+    BrandLogoResource,
+    BrandLogoResourceLightDark,
+)
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -315,7 +319,7 @@ def test_use_logo_variant_auto_single():
 
     # Auto with light/dark returns the light/dark container
     medium = brand.use_logo("medium", variant="auto")
-    assert isinstance(medium, BrandLightDark)
+    assert isinstance(medium, BrandLogoResourceLightDark)
     assert isinstance(medium.light, BrandLogoResource)
     assert isinstance(medium.dark, BrandLogoResource)
     assert str(medium.light.path) == "medium-light.png"
@@ -386,13 +390,13 @@ def test_use_logo_variant_light_dark():
 
     # Light/dark from existing light/dark
     medium_both = brand.use_logo("medium", variant=["light", "dark"])
-    assert isinstance(medium_both, BrandLightDark)
+    assert isinstance(medium_both, BrandLogoResourceLightDark)
     assert str(medium_both.light.path) == "medium-light.png"
     assert str(medium_both.dark.path) == "medium-dark.png"
 
     # Light/dark with fallback promotion
     small_both = brand.use_logo("small", variant=["light", "dark"])
-    assert isinstance(small_both, BrandLightDark)
+    assert isinstance(small_both, BrandLogoResourceLightDark)
     assert str(small_both.light.path) == "small.png"
     assert str(small_both.dark.path) == "small.png"
 

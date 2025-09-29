@@ -115,8 +115,8 @@ class TestBrandLogoResourceFormatting:
         assert 'alt="Alt text"' in formatted
 
 
-class TestBrandLightDarkFormatting:
-    """Test formatting methods for BrandLightDark[BrandLogoResource]"""
+class TestBrandLogoResourceLightDarkFormatting:
+    """Test formatting methods for BrandLogoResourceLightDark"""
 
     def test_to_html_light_dark(self):
         """Test HTML output for light/dark logo"""
@@ -194,17 +194,9 @@ class TestBrandLightDarkFormatting:
         # Create a BrandLightDark with non-logo content
         light_dark = BrandLightDark(light="not a logo", dark="also not a logo")
 
-        with pytest.raises(
-            TypeError,
-            match="only works with BrandLightDark\\[BrandLogoResource\\]",
-        ):
-            light_dark.to_html()
-
-        with pytest.raises(
-            TypeError,
-            match="only works with BrandLightDark\\[BrandLogoResource\\]",
-        ):
-            light_dark.to_markdown()
+        # BrandLightDark should not have formatting methods
+        assert not hasattr(light_dark, "to_html")
+        assert not hasattr(light_dark, "to_markdown")
 
 
 class TestFormatmingIntegration:
