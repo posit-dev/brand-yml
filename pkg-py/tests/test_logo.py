@@ -462,7 +462,7 @@ def test_use_logo_error_cases():
     with pytest.raises(ValueError, match="variant must be"):
         brand.use_logo("small", variant="invalid")  # type: ignore
 
-    with pytest.raises(ValueError, match="variant list must be exactly"):
+    with pytest.raises(ValueError, match="variant must be"):
         brand.use_logo("small", variant=["light"])  # type: ignore
 
     # Missing variant without fallback
@@ -501,11 +501,11 @@ def test_use_logo_attrs():
     assert logo.attrs["width"] == "100"
     assert logo.attrs["height"] == "50"
 
-    # Attrs override
+    # Attrs are merged, not replaced
     logo2 = brand.use_logo("small", class_="new-class")
     assert isinstance(logo2, BrandLogoResource)
     assert logo2.attrs is not None
-    assert logo2.attrs["class"] == "new-class"
+    assert logo2.attrs["class"] == "existing-class new-class"
 
 
 def test_use_logo_path_resolution():

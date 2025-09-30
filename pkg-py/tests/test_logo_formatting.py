@@ -26,7 +26,7 @@ class TestBrandLogoResourceFormatting:
 
         # Should contain markdown image syntax
         assert "![](data:" in md or "![](test.png)" in md
-        assert "{.brand-logo" in md
+        assert ".brand-logo" in md
         assert 'alt="Test Logo"' in md
 
     def test_to_markdown_with_attrs(self):
@@ -210,7 +210,7 @@ class TestBrandLogoResourceLightDarkFormatting:
         assert not hasattr(light_dark, "to_markdown")
 
 
-class TestFormatmingIntegration:
+class TestFormattingIntegration:
     """Test integration between use_logo and formatting"""
 
     def test_use_logo_with_formatting_attrs(self):
@@ -224,18 +224,18 @@ class TestFormatmingIntegration:
         """)
 
         # Add attrs via use_logo
-        logo = brand.use_logo("small", width="200", class_="override-class")
+        logo = brand.use_logo("small", width="200", class_="extra-class")
         assert isinstance(logo, BrandLogoResource)
         assert logo.attrs is not None
 
         # Check that attrs are combined
         assert logo.attrs["width"] == "200"
-        assert logo.attrs["class"] == "override-class"  # Should override
+        assert logo.attrs["class"] == "base-class extra-class"
 
         # Test in HTML output
         html = logo.to_html()
         assert 'width="200"' in str(html)
-        assert 'class="brand-logo override-class"' in str(html)
+        assert 'class="brand-logo base-class extra-class"' in str(html)
 
     def test_light_dark_attrs_propagation(self):
         """Test that attrs are properly propagated to light/dark variants"""

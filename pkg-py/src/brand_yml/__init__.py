@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Literal
 
+from htmltools import TagAttrValue
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -357,7 +358,7 @@ class Brand(BrandBase):
         *,
         required: bool | str | None = None,
         allow_fallback: bool = True,
-        **kwargs: Any,
+        **kwargs: TagAttrValue,
     ) -> BrandLogoResource | BrandLogoResourceLightDark | None:
         """
         Extract a logo resource from a brand.

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Literal, cast, overload
 
+import htmltools
+
 if TYPE_CHECKING:
     from . import Brand
 from ._defs import BrandLightDark
@@ -16,13 +18,20 @@ def use_logo(
     *,
     required: bool | str | None = None,
     allow_fallback: bool = True,
-    **kwargs: Any,
+    **kwargs: htmltools.TagAttrValue,
 ) -> BrandLogoResource | BrandLogoResourceLightDark | None:
     """
     Extract a logo resource from a brand.
 
     See `Brand.use_logo()` for full documentation.
     """
+
+    if not isinstance(variant, str) or (
+        variant not in {"auto", "light", "dark", "light-dark"}
+    ):
+        raise ValueError(
+            "variant must be one of 'auto', 'light', 'dark', or 'light-dark'."
+        )
 
     if required is True:
         required_reason = ""
@@ -274,31 +283,32 @@ def logo_attach_attrs(
     # Check if this is a BrandLogoResourceLightDark (has light and dark attributes)
     if isinstance(logo, BrandLogoResourceLightDark):
         # Handle BrandLogoResourceLightDark - copy attrs to both variants
-        light_attrs = (
-            getattr(logo.light, "attrs", None) or {} if logo.light else {}
-        )
-        dark_attrs = (
-            getattr(logo.dark, "attrs", None) or {} if logo.dark else {}
-        )
+        new_light = None
+        new_dark = None
 
-        new_light = (
-            logo.light.model_copy(
-                update={"attrs": {**light_attrs, **processed_attrs}}
+        if logo.light:
+            light_attrs = getattr(logo.light, "attrs", None) or {}
+            consolidated_light_attrs, _ = htmltools.consolidate_attrs(
+                light_attrs, processed_attrs
+            )  # type: ignore
+            new_light = logo.light.model_copy(
+                update={"attrs": consolidated_light_attrs}
             )
-            if logo.light
-            else None
-        )
-        new_dark = (
-            logo.dark.model_copy(
-                update={"attrs": {**dark_attrs, **processed_attrs}}
+
+        if logo.dark:
+            dark_attrs = getattr(logo.dark, "attrs", None) or {}
+            consolidated_dark_attrs, _ = htmltools.consolidate_attrs(
+                dark_attrs, processed_attrs
+            )  # type: ignore
+            new_dark = logo.dark.model_copy(
+                update={"attrs": consolidated_dark_attrs}
             )
-            if logo.dark
-            else None
-        )
 
         return BrandLogoResourceLightDark(light=new_light, dark=new_dark)
     else:
         # Handle single BrandLogoResource
         current_attrs = getattr(logo, "attrs", None) or {}
-        new_attrs = {**current_attrs, **processed_attrs}
-        return logo.model_copy(update={"attrs": new_attrs})
+        consolidated_attrs, _ = htmltools.consolidate_attrs(
+            current_attrs, processed_attrs
+        )  # type: ignore
+        return logo.model_copy(update={"attrs": consolidated_attrs})

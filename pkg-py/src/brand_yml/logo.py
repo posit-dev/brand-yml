@@ -46,7 +46,10 @@ class BrandLogoResource(BrandBase):
     """Alterative text for the image, used for accessibility."""
 
     attrs: dict[str, Any] | None = None
-    """Additional attributes for HTML/markdown rendering."""
+    """Additional attributes for HTML/markdown rendering.
+
+    Values should be compatible with htmltools.TagAttrValue types when using HTML output.
+    """
 
     def to_html(self, **kwargs: Any) -> htmltools.Tag:
         """
@@ -63,29 +66,25 @@ class BrandLogoResource(BrandBase):
         :
             HTML img tag as a string.
         """
-        if htmltools is None:
-            raise ImportError(
-                "htmltools is required for HTML output. Install with: pip install htmltools"
-            )
-
-        # Combine existing attrs with kwargs
-        all_attrs: dict[str, Any] = {}
-        if self.attrs:
-            all_attrs.update(self.attrs)
-        all_attrs.update(kwargs)
-
         # Get image source, handling base64 encoding for local files if needed
         if isinstance(self.path, FileLocationLocal):
             img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
         else:
             img_src = str(self.path)
 
+        attrs, _ = htmltools.consolidate_attrs(self.attrs, kwargs)
+
+        # Set src and alt on attrs to ensure they aren't overridden
+        attrs["src"] = img_src
+        if self.alt:
+            attrs["alt"] = self.alt
+        elif not attrs.get("alt"):
+            attrs["alt"] = ""
+
         return htmltools.tags.img(
             {"class": "brand-logo"},
-            all_attrs,
+            attrs,
             html_dep_brand_light_dark(),
-            src=img_src,
-            alt=self.alt or "",
         )
 
     def to_markdown(self, **kwargs: Any) -> str:
@@ -102,19 +101,17 @@ class BrandLogoResource(BrandBase):
         :
             Markdown image syntax as a string.
         """
-        # Combine existing attrs with kwargs
-        all_attrs = {"class": "brand-logo", "alt": self.alt or ""}
-        if self.attrs:
-            all_attrs.update(self.attrs)
-        all_attrs.update(kwargs)
-
         # Get image source, handling base64 encoding for local files if needed
         if isinstance(self.path, FileLocationLocal):
             img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
         else:
             img_src = str(self.path)
 
-        # Format attributes for markdown
+        all_attrs, _ = htmltools.consolidate_attrs(
+            {"alt": self.alt or "", "class": "brand-logo"},
+            self.attrs,
+            kwargs,
+        )
         attrs_str = self._attrs_as_markdown(all_attrs)
 
         return f"![]({img_src}){{{attrs_str}}}"
@@ -217,7 +214,7 @@ class BrandLogoResource(BrandBase):
         parts = []
         for key, value in attrs.items():
             if key == "class":
-                # Handle class specially - prefix with dot
+                # "my-class" --> ".my-class"
                 classes = (
                     value.split() if isinstance(value, str) else [str(value)]
                 )
@@ -257,31 +254,22 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         :
             HTML span containing both light and dark images.
         """
-        if htmltools is None:
-            raise ImportError(
-                "htmltools is required for HTML output. Install with: pip install htmltools"
-            )
-
-        light_html = ""
-        dark_html = ""
+        children = []
 
         if self.light:
-            light_html = self.light.to_html(**kwargs)
-            light_html.add_class("light-content")
+            light_tag = self.light.to_html(**kwargs)
+            light_tag.add_class("light-content")
+            children.append(light_tag)
 
         if self.dark:
-            dark_html = self.dark.to_html(**kwargs)
-            dark_html.add_class("dark-content")
-
-        # Create span with light and dark images as children
-        light_part = htmltools.HTML(light_html) if light_html else ""
-        dark_part = htmltools.HTML(dark_html) if dark_html else ""
+            dark_tag = self.dark.to_html(**kwargs)
+            dark_tag.add_class("dark-content")
+            children.append(dark_tag)
 
         span_tag = htmltools.tags.span(
-            light_part,
-            dark_part,
+            {"class": "brand-logo-light-dark"},
+            *children,
             html_dep_brand_light_dark(),
-            class_="brand-logo-light-dark",
         )
 
         return span_tag
@@ -306,24 +294,18 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         dark_md = ""
 
         if self.light:
-            # Add light-content class
-            light_kwargs = kwargs.copy()
-            existing_class = light_kwargs.get("class", "brand-logo")
-            if isinstance(existing_class, str):
-                light_kwargs["class"] = f"{existing_class} light-content"
-            else:
-                light_kwargs["class"] = "brand-logo light-content"
-            light_md = self.light.to_markdown(**light_kwargs)
+            light_class_attrs, _ = htmltools.consolidate_attrs(
+                {"class": "light-content"},
+                kwargs,
+            )
+            light_md = self.light.to_markdown(**light_class_attrs)
 
         if self.dark:
-            # Add dark-content class
-            dark_kwargs = kwargs.copy()
-            existing_class = dark_kwargs.get("class", "brand-logo")
-            if isinstance(existing_class, str):
-                dark_kwargs["class"] = f"{existing_class} dark-content"
-            else:
-                dark_kwargs["class"] = "brand-logo dark-content"
-            dark_md = self.dark.to_markdown(**dark_kwargs)
+            dark_class_attrs, _ = htmltools.consolidate_attrs(
+                {"class": "dark-content"},
+                kwargs,
+            )
+            dark_md = self.dark.to_markdown(**dark_class_attrs)
 
         return f"{light_md} {dark_md}".strip()
 
