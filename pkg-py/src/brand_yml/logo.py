@@ -142,12 +142,7 @@ class BrandLogoResource(BrandBase):
 
     def tagify(self) -> htmltools.Tag:
         """
-        Convenience method for to_html(), for use in Shiny apps.
-
-        Parameters
-        ----------
-        **kwargs
-            Additional HTML attributes.
+        Convenience method for `.to_html()`, for use in Shiny apps.
 
         Returns
         -------
@@ -337,11 +332,6 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
-        Parameters
-        ----------
-        **kwargs
-            Additional HTML attributes.
-
         Returns
         -------
         :
@@ -418,6 +408,9 @@ class BrandLogo(BrandBase):
     To attach alternative text to an image, provide the image as a dictionary
     including `path` (the image location) and `alt` (the short, alternative
     text describing the image).
+
+    For a convenient way to use logos from a `Brand` instance, see
+    `Brand.use_logo`.
 
     Attributes
     ----------

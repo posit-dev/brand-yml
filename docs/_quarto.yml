@@ -100,6 +100,7 @@ format:
 lightbox: auto
 
 filters:
+  - interlinks
   - preview-colour
 
 preview-colour:
@@ -187,7 +188,10 @@ quartodoc:
             - find_project_brand_yml
 
 interlinks:
+  autolink: true
   fast: true
+  aliases:
+    brand_yml: [null]
   sources:
     pydantic:
       url: https://docs.pydantic.dev/latest/

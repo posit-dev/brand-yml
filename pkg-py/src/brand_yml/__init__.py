@@ -425,6 +425,38 @@ class Brand(BrandBase):
         ValueError
             If the requested logo is not found and `required` is `True` or a
             string.
+
+        Examples
+        --------
+
+        ```{python}
+        from brand_yml import Brand
+
+        brand = Brand.from_yaml_str('''
+        logo:
+          small:
+            light:
+              path: https://pandas.pydata.org/static/img/pandas_mark.svg
+              alt: Pandas logo
+            dark:
+              path: https://pandas.pydata.org/static/img/pandas_mark_white.svg
+              alt: Pandas logo
+          medium:
+            path: https://pandas.pydata.org/static/img/pandas_secondary.svg
+            alt: Pandas logo and name
+        ''')
+
+        brand.use_logo("small", width="100px")
+        ```
+        ```{python}
+        str(brand.use_logo("small", variant="light").to_html())
+        ```
+        ```{python}
+        brand.use_logo("small", variant="dark").to_markdown()
+        ```
+        ```{python}
+        brand.use_logo("medium").to_markdown()
+        ```
         """
         return use_logo(
             self,

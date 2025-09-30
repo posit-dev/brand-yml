@@ -5,7 +5,7 @@
 # BrandColor { #brand_yml.BrandColor }
 
 ```python
-BrandColor()
+BrandColor(**data)
 ```
 
 Brand Colors
