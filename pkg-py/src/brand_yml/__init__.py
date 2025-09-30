@@ -422,9 +422,12 @@ class Brand(BrandBase):
 
         Raises
         ------
-        ValueError
+        BrandLogoMissingError
             If the requested logo is not found and `required` is `True` or a
             string.
+        ValueError
+            If `variant` is not one of `"auto"`, `"light"`, `"dark"`, or
+            `"light-dark"`.
 
         Examples
         --------

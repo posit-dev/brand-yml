@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
+from brand_yml._use_logo import BrandLogoMissingError
 from brand_yml.file import FileLocation, FileLocationLocal
 from brand_yml.logo import (
     BrandLogo,
@@ -207,11 +208,13 @@ def test_use_logo_no_logo():
     assert brand.use_logo("large") is None
 
     # Should raise error when required
-    with pytest.raises(ValueError, match="brand.logo.small is required"):
+    with pytest.raises(
+        BrandLogoMissingError, match="brand.logo.small is required"
+    ):
         brand.use_logo("small", required=True)
 
     with pytest.raises(
-        ValueError, match="brand.logo.custom is required for testing"
+        BrandLogoMissingError, match="brand.logo.custom is required for testing"
     ):
         brand.use_logo("custom", required="for testing")
 
@@ -253,12 +256,14 @@ def test_use_logo_single_resource():
     assert brand.use_logo("custom-name", required=False) is None
 
     with pytest.raises(
-        ValueError, match="brand.logo.images\\['custom-name'\\] is required"
+        BrandLogoMissingError,
+        match="brand.logo.images\\['custom-name'\\] is required",
     ):
         brand.use_logo("custom-name")
 
     with pytest.raises(
-        ValueError, match="brand.logo.images\\['custom-name'\\] is required"
+        BrandLogoMissingError,
+        match="brand.logo.images\\['custom-name'\\] is required",
     ):
         brand.use_logo("custom-name", required=True)
 
@@ -295,12 +300,14 @@ def test_use_logo_from_images():
     assert brand.use_logo("nonexistent", required=False) is None
 
     with pytest.raises(
-        ValueError, match="brand.logo.images\\['nonexistent'\\] is required"
+        BrandLogoMissingError,
+        match="brand.logo.images\\['nonexistent'\\] is required",
     ):
         brand.use_logo("nonexistent")
 
     with pytest.raises(
-        ValueError, match="brand.logo.images\\['nonexistent'\\] is required"
+        BrandLogoMissingError,
+        match="brand.logo.images\\['nonexistent'\\] is required",
     ):
         brand.use_logo("nonexistent", required=True)
 
@@ -466,14 +473,17 @@ def test_use_logo_error_cases():
         brand.use_logo("small", variant=["light"])  # type: ignore
 
     # Missing variant without fallback
-    with pytest.raises(ValueError, match="brand.logo.medium.dark is required"):
+    with pytest.raises(
+        BrandLogoMissingError, match="brand.logo.medium.dark is required"
+    ):
         brand.use_logo(
             "medium", variant="dark", allow_fallback=False, required=True
         )
 
     # Missing light/dark variants without fallback
     with pytest.raises(
-        ValueError, match="brand.logo.small requires light/dark variants"
+        BrandLogoMissingError,
+        match="brand.logo.small with light/dark variants",
     ):
         brand.use_logo(
             "small",

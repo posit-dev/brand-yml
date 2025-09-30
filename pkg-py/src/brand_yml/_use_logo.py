@@ -10,6 +10,19 @@ from ._defs import BrandLightDark
 from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 
 
+class BrandLogoMissingError(Exception):
+    """Custom error for missing brand logos."""
+
+    pass
+
+
+def raise_if_required(prefix: str, required_reason: str | None) -> None:
+    """Raise error if field is required, otherwise return None."""
+    if required_reason is not None:
+        raise BrandLogoMissingError(f"{prefix} is required{required_reason}.")
+    return None
+
+
 def use_logo(
     brand: Brand,
     name: str,
@@ -46,19 +59,15 @@ def use_logo(
             required_reason = ""
 
     if brand.logo is None:
-        if required_reason is not None:
-            raise ValueError(f"brand.logo.{name} is required{required_reason}.")
-        return None
+        return raise_if_required(f"brand.logo.{name}", required_reason)
 
     if isinstance(brand.logo, BrandLogoResource):
         if name in {"small", "medium", "large", "smallest", "largest"}:
             return logo_attach_attrs(brand.logo, kwargs)
         else:
-            if required_reason is not None:
-                raise ValueError(
-                    f"brand.logo.images['{name}'] is required{required_reason}."
-                )
-            return None
+            return raise_if_required(
+                f"brand.logo.images['{name}']", required_reason
+            )
 
     # Handle "smallest" and "largest" convenience options
     if name in {"smallest", "largest"}:
@@ -82,11 +91,9 @@ def use_logo(
             return logo_attach_attrs(resource, kwargs)
 
         if not available:
-            if required_reason is not None:
-                raise ValueError(
-                    f"No logos are available to satisfy '{name}' in brand.logo or brand.logo.images{required_reason}."
-                )
-            return None
+            return raise_if_required(
+                "A 'small', 'medium' or 'large' logo", required_reason
+            )
 
         name = available[0] if name == "smallest" else available[-1]
 
@@ -101,24 +108,18 @@ def use_logo(
 
     # Check if name is a standard size
     if name not in {"small", "medium", "large"}:
-        if required_reason is not None:
-            raise ValueError(
-                f"brand.logo.images['{name}'] is required{required_reason}."
-            )
-        return None
+        return raise_if_required(
+            f"brand.logo.images['{name}']", required_reason
+        )
 
     # Handle standard sizes (small, medium, large)
     if not isinstance(brand.logo, BrandLogo):
         # logo is a single BrandLogoResource, not a BrandLogo with sizes
-        if required_reason is not None:
-            raise ValueError(f"brand.logo.{name} is required{required_reason}.")
-        return None
+        return raise_if_required(f"brand.logo.{name}", required_reason)
 
     size_logo = getattr(brand.logo, name, None)
     if size_logo is None:
-        if required_reason is not None:
-            raise ValueError(f"brand.logo.{name} is required{required_reason}.")
-        return None
+        return raise_if_required(f"brand.logo.{name}", required_reason)
 
     has_light_dark = isinstance(
         size_logo, (BrandLightDark, BrandLogoResourceLightDark)
@@ -184,11 +185,9 @@ def use_logo(
             )
 
         # Case B.3: No fallback allowed, error or return NULL
-        if required_reason is not None:
-            raise ValueError(
-                f"brand.logo.{name} requires light/dark variants{required_reason}."
-            )
-        return None
+        return raise_if_required(
+            f"brand.logo.{name} with light/dark variants", required_reason
+        )
 
     else:  # variant is "light" or "dark"
         if has_light_dark:
@@ -205,11 +204,9 @@ def use_logo(
                 )
 
         # Case X: specific variant doesn't exist and can't fallback
-        if required_reason is not None:
-            raise ValueError(
-                f"brand.logo.{name}.{variant} is required{required_reason}."
-            )
-        return None
+        return raise_if_required(
+            f"brand.logo.{name}.{variant}", required_reason
+        )
 
 
 @overload
