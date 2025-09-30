@@ -2,36 +2,41 @@
 
 from __future__ import annotations
 
+import htmltools
 import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
-from brand_yml.logo import BrandLogoResource, BrandLogoResourceLightDark
+from brand_yml.logo import (
+    BrandLogoResource,
+    BrandLogoResourceLightDark,
+    html_dep_brand_light_dark,
+)
 
 
 class TestBrandLogoResourceFormatting:
     """Test formatting methods for BrandLogoResource"""
 
-    def test_to_markdown_basic(self):
-        """Test basic markdown output"""
-        brand = Brand.from_yaml_str("""
+    @pytest.fixture
+    def basic_brand(self):
+        """Brand with basic logo configuration"""
+        return Brand.from_yaml_str("""
         logo:
           small:
             path: test.png
             alt: Test Logo
         """)
 
-        logo = brand.use_logo("small")
+    @pytest.fixture
+    def basic_logo(self, basic_brand):
+        """Basic logo resource"""
+        logo = basic_brand.use_logo("small")
         assert isinstance(logo, BrandLogoResource)
-        md = logo.to_markdown()
+        return logo
 
-        # Should contain markdown image syntax
-        assert "![](data:" in md or "![](test.png)" in md
-        assert ".brand-logo" in md
-        assert 'alt="Test Logo"' in md
-
-    def test_to_markdown_with_attrs(self):
-        """Test markdown output with additional attributes"""
-        brand = Brand.from_yaml_str("""
+    @pytest.fixture
+    def brand_with_attrs(self):
+        """Brand with custom attributes"""
+        return Brand.from_yaml_str("""
         logo:
           small:
             path: test.png
@@ -39,7 +44,33 @@ class TestBrandLogoResourceFormatting:
               class: custom-class
         """)
 
-        logo = brand.use_logo("small")
+    @pytest.fixture
+    def simple_brand(self):
+        """Brand with minimal logo configuration"""
+        return Brand.from_yaml_str("""
+        logo:
+          small: test.png
+        """)
+
+    @pytest.fixture
+    def simple_logo(self, simple_brand):
+        """Simple logo resource"""
+        logo = simple_brand.use_logo("small")
+        assert isinstance(logo, BrandLogoResource)
+        return logo
+
+    def test_to_markdown_basic(self, basic_logo):
+        """Test basic markdown output"""
+        md = basic_logo.to_markdown()
+
+        # Should contain markdown image syntax
+        assert "![](data:" in md or "![](test.png)" in md
+        assert ".brand-logo" in md
+        assert 'alt="Test Logo"' in md
+
+    def test_to_markdown_with_attrs(self, brand_with_attrs):
+        """Test markdown output with additional attributes"""
+        logo = brand_with_attrs.use_logo("small")
         assert isinstance(logo, BrandLogoResource)
         md = logo.to_markdown(width="100")
 
@@ -47,74 +78,44 @@ class TestBrandLogoResourceFormatting:
         assert ".custom-class" in md
         assert 'width="100"' in md
 
-    def test_to_str_formats(self):
+    def test_to_str_formats(self, simple_logo):
         """Test to_str with different formats"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-        """)
-
-        logo = brand.use_logo("small")
-        assert isinstance(logo, BrandLogoResource)
-
         # Default should be HTML
-        html_str = logo.to_str()
+        html_str = simple_logo.to_str()
         assert html_str.startswith("<img")
 
         # Explicit HTML
-        html_str2 = logo.to_str(format_type="html")
+        html_str2 = simple_logo.to_str(format_type="html")
         assert html_str2.startswith("<img")
 
         # Markdown
-        md_str = logo.to_str(format_type="markdown")
+        md_str = simple_logo.to_str(format_type="markdown")
         assert md_str.startswith("![")
 
         # Invalid format
         with pytest.raises(ValueError, match="format_type must be"):
-            logo.to_str(format_type="invalid")
+            simple_logo.to_str(format_type="invalid")
 
-    def test_tagify_convenience(self):
+    def test_tagify_convenience(self, simple_logo):
         """Test tagify convenience method"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-        """)
-
-        logo = brand.use_logo("small")
-        assert isinstance(logo, BrandLogoResource)
-        html1 = logo.tagify()
-        html2 = logo.to_html()
+        html1 = simple_logo.tagify()
+        html2 = simple_logo.to_html()
 
         # Should be identical
         assert html1 == html2
 
-    def test_str_method(self):
+    def test_str_method(self, simple_logo):
         """Test __str__ method defaults to markdown"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-        """)
-
-        logo = brand.use_logo("small")
-        assert isinstance(logo, BrandLogoResource)
-        str_output = str(logo)
-        md_output = logo.to_markdown()
+        str_output = str(simple_logo)
+        md_output = simple_logo.to_markdown()
 
         assert str_output == md_output
 
-    def test_attrs_as_markdown(self):
+    def test_attrs_as_markdown(self, simple_logo):
         """Test _attrs_as_markdown helper"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-        """)
-
-        logo = brand.use_logo("small")
-        assert isinstance(logo, BrandLogoResource)
-
         # Test class handling
         attrs = {"class": "class1 class2", "width": "100", "alt": "Alt text"}
-        formatted = logo._attrs_as_markdown(attrs)
+        formatted = simple_logo._attrs_as_markdown(attrs)
 
         assert ".class1" in formatted
         assert ".class2" in formatted
@@ -125,18 +126,26 @@ class TestBrandLogoResourceFormatting:
 class TestBrandLogoResourceLightDarkFormatting:
     """Test formatting methods for BrandLogoResourceLightDark"""
 
-    def test_to_html_light_dark(self):
-        """Test HTML output for light/dark logo"""
-        brand = Brand.from_yaml_str("""
+    @pytest.fixture
+    def light_dark_brand(self):
+        """Brand with light/dark logo configuration"""
+        return Brand.from_yaml_str("""
         logo:
           medium:
             light: light.png
             dark: dark.png
         """)
 
-        logo = brand.use_logo("medium")
+    @pytest.fixture
+    def light_dark_logo(self, light_dark_brand):
+        """Light/dark logo resource"""
+        logo = light_dark_brand.use_logo("medium")
         assert isinstance(logo, BrandLogoResourceLightDark)
-        html = logo.to_html()
+        return logo
+
+    def test_to_html_light_dark(self, light_dark_logo):
+        """Test HTML output for light/dark logo"""
+        html = light_dark_logo.to_html()
 
         # Should contain span wrapper
         assert '<span class="brand-logo-light-dark">' in str(html)
@@ -144,18 +153,9 @@ class TestBrandLogoResourceLightDarkFormatting:
         assert "light-content" in str(html)
         assert "dark-content" in str(html)
 
-    def test_to_markdown_light_dark(self):
+    def test_to_markdown_light_dark(self, light_dark_logo):
         """Test markdown output for light/dark logo"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          medium:
-            light: light.png
-            dark: dark.png
-        """)
-
-        logo = brand.use_logo("medium")
-        assert isinstance(logo, BrandLogoResourceLightDark)
-        md = logo.to_markdown()
+        md = light_dark_logo.to_markdown()
 
         # Should contain both images
         assert ".light-content" in md
@@ -163,40 +163,21 @@ class TestBrandLogoResourceLightDarkFormatting:
         # Should have two separate image tags
         assert md.count("![") == 2
 
-    def test_to_str_light_dark(self):
+    def test_to_str_light_dark(self, light_dark_logo):
         """Test to_str with light/dark logo"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          medium:
-            light: light.png
-            dark: dark.png
-        """)
-
-        logo = brand.use_logo("medium")
-        assert isinstance(logo, BrandLogoResourceLightDark)
-
         # HTML format
-        html_str = logo.to_str(format_type="html")
+        html_str = light_dark_logo.to_str(format_type="html")
         assert "brand-logo-light-dark" in html_str
 
         # Markdown format
-        md_str = logo.to_str(format_type="markdown")
+        md_str = light_dark_logo.to_str(format_type="markdown")
         assert ".light-content" in md_str
         assert ".dark-content" in md_str
 
-    def test_str_method_light_dark(self):
+    def test_str_method_light_dark(self, light_dark_logo):
         """Test __str__ method for light/dark logo"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          medium:
-            light: light.png
-            dark: dark.png
-        """)
-
-        logo = brand.use_logo("medium")
-        assert isinstance(logo, BrandLogoResourceLightDark)
-        str_output = str(logo)
-        md_output = logo.to_markdown()
+        str_output = str(light_dark_logo)
+        md_output = light_dark_logo.to_markdown()
 
         assert str_output == md_output
 
@@ -213,9 +194,10 @@ class TestBrandLogoResourceLightDarkFormatting:
 class TestFormattingIntegration:
     """Test integration between use_logo and formatting"""
 
-    def test_use_logo_with_formatting_attrs(self):
-        """Test that attrs from use_logo are properly passed to formatting"""
-        brand = Brand.from_yaml_str("""
+    @pytest.fixture
+    def brand_with_base_class(self):
+        """Brand with base class in attrs"""
+        return Brand.from_yaml_str("""
         logo:
           small:
             path: test.png
@@ -223,8 +205,33 @@ class TestFormattingIntegration:
               class: base-class
         """)
 
+    @pytest.fixture
+    def light_dark_brand(self):
+        """Brand with light/dark logo configuration"""
+        return Brand.from_yaml_str("""
+        logo:
+          medium:
+            light: light.png
+            dark: dark.png
+        """)
+
+    @pytest.fixture
+    def multi_logo_brand(self):
+        """Brand with both single and light/dark logos"""
+        return Brand.from_yaml_str("""
+        logo:
+          small: test.png
+          medium:
+            light: light.png
+            dark: dark.png
+        """)
+
+    def test_use_logo_with_formatting_attrs(self, brand_with_base_class):
+        """Test that attrs from use_logo are properly passed to formatting"""
         # Add attrs via use_logo
-        logo = brand.use_logo("small", width="200", class_="extra-class")
+        logo = brand_with_base_class.use_logo(
+            "small", width="200", class_="extra-class"
+        )
         assert isinstance(logo, BrandLogoResource)
         assert logo.attrs is not None
 
@@ -237,16 +244,9 @@ class TestFormattingIntegration:
         assert 'width="200"' in str(html)
         assert 'class="brand-logo base-class extra-class"' in str(html)
 
-    def test_light_dark_attrs_propagation(self):
+    def test_light_dark_attrs_propagation(self, light_dark_brand):
         """Test that attrs are properly propagated to light/dark variants"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          medium:
-            light: light.png
-            dark: dark.png
-        """)
-
-        logo = brand.use_logo("medium", width="150")
+        logo = light_dark_brand.use_logo("medium", width="150")
         assert isinstance(logo, BrandLogoResourceLightDark)
         html = logo.to_html()
 
@@ -256,42 +256,25 @@ class TestFormattingIntegration:
         assert "light-content" in str(html)
         assert "dark-content" in str(html)
 
-    def test_jupyter_repr_html(self):
+    def test_jupyter_repr_html(self, multi_logo_brand):
         """Test _repr_html_ for Jupyter integration"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-          medium:
-            light: light.png
-            dark: dark.png
-        """)
-
         # Single resource
-        logo = brand.use_logo("small")
+        logo = multi_logo_brand.use_logo("small")
         assert isinstance(logo, BrandLogoResource)
         repr_html = logo._repr_html_()
         assert repr_html.startswith("<img")
 
         # Light/dark resource
-        logo_ld = brand.use_logo("medium")
+        logo_ld = multi_logo_brand.use_logo("medium")
         assert isinstance(logo_ld, BrandLogoResourceLightDark)
         repr_html_ld = logo_ld._repr_html_()
         assert "brand-logo-light-dark" in repr_html_ld
 
-    @pytest.mark.skipif(
-        True, reason="htmltools not available in test environment"
-    )
-    def test_html_dependency_inclusion(self):
-        """Test that HTML dependencies are included (requires htmltools)"""
-        brand = Brand.from_yaml_str("""
-        logo:
-          small: test.png
-        """)
-
-        logo = brand.use_logo("small")
+    def test_html_dependency_inclusion(self, multi_logo_brand):
+        """Test that HTML dependencies are included"""
+        logo = multi_logo_brand.use_logo("small")
         assert isinstance(logo, BrandLogoResource)
         html = logo.to_html()
 
-        # Should include the CSS dependency somehow
-        # This test would need to be updated based on actual htmltools behavior
-        assert html is not None
+        assert isinstance(html, htmltools.Tag)
+        assert html.get_dependencies() == [html_dep_brand_light_dark()]
