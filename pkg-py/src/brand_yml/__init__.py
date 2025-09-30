@@ -421,17 +421,10 @@ class Brand(BrandBase):
         Raises
         ------
         ValueError
-            If the requested logo is not found and `required` is `True` or a string.
+            If the requested logo is not found and `required` is `True` or a
+            string.
         """
-        if self.logo is None:
-            if required is not False:
-                reason = (
-                    " " + str(required) if isinstance(required, str) else ""
-                )
-                raise ValueError(f"brand.logo.{name} is required{reason}.")
-            return None
 
-        # Handle required parameter
         if required is True:
             required_reason = ""
         elif required is False:
@@ -444,6 +437,13 @@ class Brand(BrandBase):
                 required_reason = None
             else:
                 required_reason = ""
+
+        if self.logo is None:
+            if required_reason is not None:
+                raise ValueError(
+                    f"brand.logo.{name} is required{required_reason}."
+                )
+            return None
 
         def attach_attrs(resource):
             """Add kwargs as attrs to a logo resource"""
