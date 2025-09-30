@@ -224,13 +224,38 @@ def test_use_logo_single_resource():
       alt: Single Logo
     """)
 
-    # Single logo doesn't support size-based access
-    assert brand.use_logo("small") is None
-    assert brand.use_logo("medium") is None
-    assert brand.use_logo("large") is None
+    # Single logo now DOES support size-based access
+    small = brand.use_logo("small")
+    assert isinstance(small, BrandLogoResource)
+    assert str(small.path) == "single-logo.png"
+    assert small.alt == "Single Logo"
 
-    with pytest.raises(ValueError, match="brand.logo.small is required"):
-        brand.use_logo("small", required=True)
+    medium = brand.use_logo("medium")
+    assert isinstance(medium, BrandLogoResource)
+    assert str(medium.path) == "single-logo.png"
+    assert medium.alt == "Single Logo"
+
+    large = brand.use_logo("large")
+    assert isinstance(large, BrandLogoResource)
+    assert str(large.path) == "single-logo.png"
+    assert large.alt == "Single Logo"
+
+    # Smallest/largest should also work
+    smallest = brand.use_logo("smallest")
+    assert isinstance(smallest, BrandLogoResource)
+    assert str(smallest.path) == "single-logo.png"
+
+    largest = brand.use_logo("largest")
+    assert isinstance(largest, BrandLogoResource)
+    assert str(largest.path) == "single-logo.png"
+
+    # Named access still doesn't work for single resource
+    assert brand.use_logo("custom-name") is None
+
+    with pytest.raises(
+        ValueError, match="brand.logo.images\\['custom-name'\\] is required"
+    ):
+        brand.use_logo("custom-name", required=True)
 
 
 def test_use_logo_from_images():

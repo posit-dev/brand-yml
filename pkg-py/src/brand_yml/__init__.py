@@ -489,6 +489,16 @@ class Brand(BrandBase):
                 )
             return resource
 
+        if isinstance(self.logo, BrandLogoResource):
+            if name in {"small", "medium", "large", "smallest", "largest"}:
+                return attach_attrs(self.logo)
+            else:
+                if required_reason is not None:
+                    raise ValueError(
+                        f"brand.logo.images['{name}'] is required{required_reason}."
+                    )
+                return None
+
         # Handle "smallest" and "largest" convenience options
         if name in {"smallest", "largest"}:
             sizes = ["small", "medium", "large"]
