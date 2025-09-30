@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import (
     BaseModel,
@@ -353,7 +353,7 @@ class Brand(BrandBase):
     def use_logo(
         self,
         name: str,
-        variant: str | list[str] = "auto",
+        variant: Literal["auto", "light", "dark", "light-dark"] = "auto",
         *,
         required: bool | str | None = None,
         allow_fallback: bool = True,
@@ -390,11 +390,11 @@ class Brand(BrandBase):
             * `"dark"`: Returns only the dark variant, or, as above, falls back
               to the single logo resource if no dark variant is present and
               `allow_fallback` is `True`.
-            * `["light", "dark"]`: Returns a light/dark object with both
-              variants. If a single logo resource is present for
-              `brand.logo.{name}` and `allow_fallback` is `True`, the single
-              logo resource is promoted to a light/dark logo resource with
-              identical light and dark variants.
+            * `"light-dark"`: Returns a light/dark object with both variants. If
+              a single logo resource is present for `brand.logo.{name}` and
+              `allow_fallback` is `True`, the single logo resource is promoted
+              to a light/dark logo resource with identical light and dark
+              variants.
         required
             Logical or string. If `True`, an error is thrown if the requested
             logo is not found. If a string, it is used to describe why the logo

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, cast, overload
+from typing import TYPE_CHECKING, Any, Literal, cast, overload
 
 if TYPE_CHECKING:
     from . import Brand
@@ -12,12 +12,18 @@ from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 def use_logo(
     brand: Brand,
     name: str,
-    variant: str | list[str] = "auto",
+    variant: Literal["auto", "light", "dark", "light-dark"] = "auto",
     *,
     required: bool | str | None = None,
     allow_fallback: bool = True,
     **kwargs: Any,
 ) -> BrandLogoResource | BrandLogoResourceLightDark | None:
+    """
+    Extract a logo resource from a brand.
+
+    See `Brand.use_logo()` for full documentation.
+    """
+
     if required is True:
         required_reason = ""
     elif required is False:
@@ -124,17 +130,6 @@ def use_logo(
             raise ValueError(f"brand.logo.{name} is required{required_reason}.")
         return None
 
-    # Process variant parameter
-    if isinstance(variant, list):
-        if set(variant) == {"light", "dark"}:
-            variant = "light_dark"
-        else:
-            raise ValueError("variant list must be exactly ['light', 'dark']")
-    elif variant not in {"auto", "light", "dark"}:
-        raise ValueError(
-            "variant must be 'auto', 'light', 'dark', or ['light', 'dark']"
-        )
-
     # Determine if we have a light/dark variant
     has_light_dark = isinstance(
         size_logo, (BrandLightDark, BrandLogoResourceLightDark)
@@ -201,7 +196,7 @@ def use_logo(
             # Case A.4: Return dark if only dark exists
             return logo_attach_attrs(light_dark_logo.dark, kwargs)
 
-    elif variant == "light_dark":
+    elif variant == "light-dark":
         if has_light_dark:
             # Case B.1: Return light_dark if both variants exist
             return logo_attach_attrs(

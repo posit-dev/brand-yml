@@ -427,7 +427,7 @@ def test_use_logo_variant_light_dark():
     """)
 
     # Light/dark from existing light/dark
-    medium_both = brand.use_logo("medium", variant=["light", "dark"])
+    medium_both = brand.use_logo("medium", variant="light-dark")
     assert isinstance(medium_both, BrandLogoResourceLightDark)
     assert medium_both.light is not None
     assert medium_both.dark is not None
@@ -435,7 +435,7 @@ def test_use_logo_variant_light_dark():
     assert str(medium_both.dark.path) == "medium-dark.png"
 
     # Light/dark with fallback promotion
-    small_both = brand.use_logo("small", variant=["light", "dark"])
+    small_both = brand.use_logo("small", variant="light-dark")
     assert isinstance(small_both, BrandLogoResourceLightDark)
     assert small_both.light is not None
     assert small_both.dark is not None
@@ -444,7 +444,7 @@ def test_use_logo_variant_light_dark():
 
     # Light/dark without fallback
     assert (
-        brand.use_logo("small", variant=["light", "dark"], allow_fallback=False)
+        brand.use_logo("small", variant="light-dark", allow_fallback=False)
         is None
     )
 
@@ -460,10 +460,10 @@ def test_use_logo_error_cases():
 
     # Invalid variant
     with pytest.raises(ValueError, match="variant must be"):
-        brand.use_logo("small", variant="invalid")
+        brand.use_logo("small", variant="invalid")  # type: ignore
 
     with pytest.raises(ValueError, match="variant list must be exactly"):
-        brand.use_logo("small", variant=["light"])
+        brand.use_logo("small", variant=["light"])  # type: ignore
 
     # Missing variant without fallback
     with pytest.raises(ValueError, match="brand.logo.medium.dark is required"):
@@ -477,7 +477,7 @@ def test_use_logo_error_cases():
     ):
         brand.use_logo(
             "small",
-            variant=["light", "dark"],
+            variant="light-dark",
             allow_fallback=False,
             required=True,
         )
