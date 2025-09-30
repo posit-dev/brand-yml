@@ -362,9 +362,9 @@ class Brand(BrandBase):
         Extract a logo resource from a brand.
 
         Returns a brand logo resource specified by name and variant from a brand
-        object. The image paths in the returned object are adjusted to be absolute,
-        relative to the location of the brand YAML file, if `brand` was read from a
-        file, or the local working directory otherwise.
+        object. The image paths in the returned object are adjusted to be
+        absolute, relative to the location of the brand YAML file, if `brand`
+        was read from a file, or the local working directory otherwise.
 
         Parameters
         ----------
@@ -374,38 +374,39 @@ class Brand(BrandBase):
             you can also use `"smallest"` or `"largest"` to select the smallest
             or largest available logo size, respectively.
         variant
-            Which variant to use, only used when `name` is one of the
-            brand.yml fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be
-            one of:
+            Which variant to use, only used when `name` is one of the brand.yml
+            fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be one
+            of:
 
             * `"auto"`: Auto-detect, returns a light/dark logo resource if both
-              variants are present, otherwise it returns a single logo resource, either
-              the value for `brand.logo.{name}` or the single light or dark variant if
-              only one is present.
+              variants are present, otherwise it returns a single logo resource,
+              either the value for `brand.logo.{name}` or the single light or
+              dark variant if only one is present.
             * `"light"`: Returns only the light variant. If no light variant is
               present, but `brand.logo.{name}` is a single logo resource and
               `allow_fallback` is `True`, `use_logo()` falls back to the single
               logo resource.
-            * `"dark"`: Returns only the dark variant, or, as above, falls back to the
-              single logo resource if no dark variant is present and `allow_fallback`
-              is `True`.
-            * `["light", "dark"]`: Returns a light/dark object with both variants. If
-              a single logo resource is present for `brand.logo.{name}` and
-              `allow_fallback` is `True`, the single logo resource is promoted to a
-              light/dark logo resource with identical light and dark variants.
+            * `"dark"`: Returns only the dark variant, or, as above, falls back
+              to the single logo resource if no dark variant is present and
+              `allow_fallback` is `True`.
+            * `["light", "dark"]`: Returns a light/dark object with both
+              variants. If a single logo resource is present for
+              `brand.logo.{name}` and `allow_fallback` is `True`, the single
+              logo resource is promoted to a light/dark logo resource with
+              identical light and dark variants.
         required
-            Logical or string. If `True`, an error is thrown if
-            the requested logo is not found. If a string, it is used to describe why
-            the logo is required in the error message and completes the phrase
-            `"is required ____"`. Defaults to `False` when `name` is one of the fixed
-            sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or `"largest"`.
-            Otherwise, an error is thrown by default if the requested logo is not
-            found.
+            Logical or string. If `True`, an error is thrown if the requested
+            logo is not found. If a string, it is used to describe why the logo
+            is required in the error message and completes the phrase `"is
+            required ____"`. Defaults to `False` when `name` is one of the fixed
+            sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or
+            `"largest"`. Otherwise, an error is thrown by default if the
+            requested logo is not found.
         allow_fallback
             If `True` (the default), allows falling back to a
-            non-variant-specific logo when a specific variant is requested. Only used
-            when `name` is one of the fixed logo sizes (`"small"`, `"medium"`, or
-            `"large"`).
+            non-variant-specific logo when a specific variant is requested. Only
+            used when `name` is one of the fixed logo sizes (`"small"`,
+            `"medium"`, or `"large"`).
         **kwargs
             Additional named attributes to be added to the image HTML or
             markdown when created via formatting methods.
@@ -413,8 +414,8 @@ class Brand(BrandBase):
         Returns
         -------
         :
-            A `BrandLogoResource` object, a `BrandLogoResourceLightDark`
-            object, or `None` if the requested logo doesn't exist and `required` is
+            A `BrandLogoResource` object, a `BrandLogoResourceLightDark` object,
+            or `None` if the requested logo doesn't exist and `required` is
             `False`.
 
         Raises
