@@ -250,7 +250,12 @@ def test_use_logo_single_resource():
     assert str(largest.path) == "single-logo.png"
 
     # Named access still doesn't work for single resource
-    assert brand.use_logo("custom-name") is None
+    assert brand.use_logo("custom-name", required=False) is None
+
+    with pytest.raises(
+        ValueError, match="brand.logo.images\\['custom-name'\\] is required"
+    ):
+        brand.use_logo("custom-name")
 
     with pytest.raises(
         ValueError, match="brand.logo.images\\['custom-name'\\] is required"
@@ -287,7 +292,13 @@ def test_use_logo_from_images():
     assert str(small_logo.path) == "logo.png"
 
     # Non-existent image
-    assert brand.use_logo("nonexistent") is None
+    assert brand.use_logo("nonexistent", required=False) is None
+
+    with pytest.raises(
+        ValueError, match="brand.logo.images\\['nonexistent'\\] is required"
+    ):
+        brand.use_logo("nonexistent")
+
     with pytest.raises(
         ValueError, match="brand.logo.images\\['nonexistent'\\] is required"
     ):
