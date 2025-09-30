@@ -558,3 +558,182 @@ def test_use_logo_formatting_methods():
     assert hasattr(logo_ld, "to_markdown")
     assert hasattr(logo_ld, "to_str")
     assert hasattr(logo_ld, "tagify")
+
+
+def test_use_logo_single_resource_size_requests():
+    """Test requesting sizes from a single BrandLogoResource (not BrandLogo with sizes)"""
+    # Brand with single logo resource (no sizes)
+    brand = Brand.from_yaml_str("""
+    logo: single-logo.png
+    """)
+
+    # Requesting sizes from single resource should work for convenience
+    logo_small = brand.use_logo("small")
+    logo_medium = brand.use_logo("medium")
+    logo_large = brand.use_logo("large")
+    logo_smallest = brand.use_logo("smallest")
+    logo_largest = brand.use_logo("largest")
+
+    # All should return the same single logo resource
+    assert isinstance(logo_small, BrandLogoResource)
+    assert isinstance(logo_medium, BrandLogoResource)
+    assert isinstance(logo_large, BrandLogoResource)
+    assert isinstance(logo_smallest, BrandLogoResource)
+    assert isinstance(logo_largest, BrandLogoResource)
+
+    assert str(logo_small.path) == "single-logo.png"
+    assert str(logo_medium.path) == "single-logo.png"
+    assert str(logo_large.path) == "single-logo.png"
+    assert str(logo_smallest.path) == "single-logo.png"
+    assert str(logo_largest.path) == "single-logo.png"
+
+    # Requesting a named image should fail for single resource
+    assert brand.use_logo("custom-image", required=False) is None
+
+    with pytest.raises(
+        BrandLogoMissingError,
+        match="brand.logo.images\\['custom-image'\\] is required",
+    ):
+        brand.use_logo("custom-image", required=True)
+
+
+def test_use_logo_missing_sizes():
+    """Test requesting missing sizes from BrandLogo"""
+    # Brand with some sizes but not all
+    brand = Brand.from_yaml_str("""
+    logo:
+      small: small.png
+      # medium is missing
+      large: large.png
+    """)
+
+    # Existing sizes should work
+    small = brand.use_logo("small")
+    large = brand.use_logo("large")
+    assert isinstance(small, BrandLogoResource)
+    assert isinstance(large, BrandLogoResource)
+    assert str(small.path) == "small.png"
+    assert str(large.path) == "large.png"
+
+    # Missing size should return None by default
+    medium = brand.use_logo("medium")
+    assert medium is None
+
+    # Missing size with required=True should raise error
+    with pytest.raises(
+        BrandLogoMissingError, match="brand.logo.medium is required"
+    ):
+        brand.use_logo("medium", required=True)
+
+    # Missing size with custom required message
+    with pytest.raises(
+        BrandLogoMissingError,
+        match="brand.logo.medium is required for navbar display",
+    ):
+        brand.use_logo("medium", required="for navbar display")
+
+
+def test_use_logo_smallest_largest_with_images():
+    """Test smallest/largest when names exist in images dictionary"""
+    brand = Brand.from_yaml_str("""
+    logo:
+      images:
+        smallest: special-tiny.png
+        largest: special-huge.png
+        custom: custom-logo.png
+      small: regular-small.png
+      large: regular-large.png
+    """)
+
+    # When "smallest" exists in images, it should be used directly
+    smallest = brand.use_logo("smallest")
+    assert isinstance(smallest, BrandLogoResource)
+    assert str(smallest.path) == "special-tiny.png"
+
+    # When "largest" exists in images, it should be used directly
+    largest = brand.use_logo("largest")
+    assert isinstance(largest, BrandLogoResource)
+    assert str(largest.path) == "special-huge.png"
+
+    # Other custom image names should also work
+    custom = brand.use_logo("custom")
+    assert isinstance(custom, BrandLogoResource)
+    assert str(custom.path) == "custom-logo.png"
+
+
+def test_use_logo_smallest_largest_no_sizes_available():
+    """Test smallest/largest when no standard sizes are available"""
+    # Brand with only images, no standard sizes
+    brand = Brand.from_yaml_str("""
+    logo:
+      images:
+        custom: custom-logo.png
+        # No small, medium, or large defined
+    """)
+
+    # Should return None when no standard sizes are available
+    smallest = brand.use_logo("smallest")
+    assert smallest is None
+
+    largest = brand.use_logo("largest")
+    assert largest is None
+
+    # With required=True should raise error
+    with pytest.raises(
+        BrandLogoMissingError,
+        match="A 'small', 'medium' or 'large' logo is required",
+    ):
+        brand.use_logo("smallest", required=True)
+
+    with pytest.raises(
+        BrandLogoMissingError,
+        match="A 'small', 'medium' or 'large' logo is required",
+    ):
+        brand.use_logo("largest", required=True)
+
+    # Custom images should still work
+    custom = brand.use_logo("custom")
+    assert isinstance(custom, BrandLogoResource)
+    assert str(custom.path) == "custom-logo.png"
+
+
+def test_use_logo_smallest_largest_fallback_to_sizes():
+    """Test smallest/largest fallback behavior when images don't contain them"""
+    brand = Brand.from_yaml_str("""
+    logo:
+      images:
+        custom: custom-logo.png
+        # No "smallest" or "largest" defined in images
+      small: small.png
+      medium: medium.png
+      large: large.png
+    """)
+
+    # Should fall back to actual size-based selection
+    smallest = brand.use_logo("smallest")  # Should return small
+    assert isinstance(smallest, BrandLogoResource)
+    assert str(smallest.path) == "small.png"
+
+    largest = brand.use_logo("largest")  # Should return large
+    assert isinstance(largest, BrandLogoResource)
+    assert str(largest.path) == "large.png"
+
+    # Partial sizes - smallest/largest should still work
+    brand_partial = Brand.from_yaml_str("""
+    logo:
+      medium: medium.png
+      large: large.png
+      # No small defined
+    """)
+
+    smallest_partial = brand_partial.use_logo(
+        "smallest"
+    )  # Should return medium (first available)
+    assert isinstance(smallest_partial, BrandLogoResource)
+    assert str(smallest_partial.path) == "medium.png"
+
+    largest_partial = brand_partial.use_logo(
+        "largest"
+    )  # Should return large (last available)
+    assert isinstance(largest_partial, BrandLogoResource)
+    assert str(largest_partial.path) == "large.png"

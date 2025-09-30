@@ -310,9 +310,10 @@ was read from a file, or the local working directory otherwise.
 
 #### Raises {.doc-section .doc-section-raises}
 
-| Name   | Type                       | Description                                                              |
-|--------|----------------------------|--------------------------------------------------------------------------|
-|        | [ValueError](`ValueError`) | If the requested logo is not found and `required` is `True` or a string. |
+| Name   | Type                                             | Description                                                                  |
+|--------|--------------------------------------------------|------------------------------------------------------------------------------|
+|        | [BrandLogoMissingError](`BrandLogoMissingError`) | If the requested logo is not found and `required` is `True` or a string.     |
+|        | [ValueError](`ValueError`)                       | If `variant` is not one of `"auto"`, `"light"`, `"dark"`, or `"light-dark"`. |
 
 #### Examples {.doc-section .doc-section-examples}
 
