@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, cast, overload
 
 from pydantic import (
     BaseModel,
@@ -445,53 +445,9 @@ class Brand(BrandBase):
                 )
             return None
 
-        def attach_attrs(resource):
-            """Add kwargs as attrs to a logo resource"""
-            if kwargs and hasattr(resource, "model_copy"):
-                # Handle single resource
-                current_attrs = getattr(resource, "attrs", None) or {}
-                new_attrs = {**current_attrs, **kwargs}
-                return resource.model_copy(update={"attrs": new_attrs})
-            elif (
-                kwargs
-                and hasattr(resource, "light")
-                and hasattr(resource, "dark")
-            ):
-                # Handle light/dark resource - need to copy attrs to both variants
-                light_attrs = (
-                    getattr(resource.light, "attrs", None) or {}
-                    if resource.light
-                    else {}
-                )
-                dark_attrs = (
-                    getattr(resource.dark, "attrs", None) or {}
-                    if resource.dark
-                    else {}
-                )
-
-                new_light = (
-                    resource.light.model_copy(
-                        update={"attrs": {**light_attrs, **kwargs}}
-                    )
-                    if resource.light
-                    else None
-                )
-                new_dark = (
-                    resource.dark.model_copy(
-                        update={"attrs": {**dark_attrs, **kwargs}}
-                    )
-                    if resource.dark
-                    else None
-                )
-
-                return BrandLogoResourceLightDark(
-                    light=new_light, dark=new_dark
-                )
-            return resource
-
         if isinstance(self.logo, BrandLogoResource):
             if name in {"small", "medium", "large", "smallest", "largest"}:
-                return attach_attrs(self.logo)
+                return logo_attach_attrs(self.logo, kwargs)
             else:
                 if required_reason is not None:
                     raise ValueError(
@@ -528,7 +484,7 @@ class Brand(BrandBase):
                                 )
                             }
                         )
-                return attach_attrs(resource)
+                return logo_attach_attrs(resource, kwargs)
 
             if not available:
                 if required_reason is not None:
@@ -554,7 +510,7 @@ class Brand(BrandBase):
                             "path": resource.path.set_root_dir(self.path.parent)
                         }
                     )
-            return attach_attrs(resource)
+            return logo_attach_attrs(resource, kwargs)
 
         # Check if name is a standard size
         if name not in {"small", "medium", "large"}:
@@ -646,33 +602,44 @@ class Brand(BrandBase):
         if variant == "auto":
             if not has_light_dark:
                 # Case A.1: Return single value as-is
-                return attach_attrs(size_logo)
+                # size_logo must be BrandLogoResource here since has_light_dark is False
+                return logo_attach_attrs(
+                    cast(BrandLogoResource, size_logo), kwargs
+                )
 
-            if size_logo.light is not None and size_logo.dark is not None:
+            # size_logo must be BrandLogoResourceLightDark here since has_light_dark is True
+            light_dark_logo = cast(BrandLogoResourceLightDark, size_logo)
+            if (
+                light_dark_logo.light is not None
+                and light_dark_logo.dark is not None
+            ):
                 # Case A.2: Return light_dark if both variants exist
-                return attach_attrs(size_logo)
+                return logo_attach_attrs(light_dark_logo, kwargs)
 
-            if size_logo.light is not None:
+            if light_dark_logo.light is not None:
                 # Case A.3: Return light if only light exists
-                return attach_attrs(size_logo.light)
+                return logo_attach_attrs(light_dark_logo.light, kwargs)
 
-            if size_logo.dark is not None:
+            if light_dark_logo.dark is not None:
                 # Case A.4: Return dark if only dark exists
-                return attach_attrs(size_logo.dark)
+                return logo_attach_attrs(light_dark_logo.dark, kwargs)
 
         elif variant == "light_dark":
             if has_light_dark:
                 # Case B.1: Return light_dark if both variants exist
-                return attach_attrs(size_logo)
+                return logo_attach_attrs(
+                    cast(BrandLogoResourceLightDark, size_logo), kwargs
+                )
 
             if allow_fallback:
                 # Case B.2: Promote single to light_dark if fallback allowed
                 # At this point we know size_logo is a single BrandLogoResource
                 single_resource = cast(BrandLogoResource, size_logo)
-                return attach_attrs(
+                return logo_attach_attrs(
                     BrandLogoResourceLightDark(
                         light=single_resource, dark=single_resource
-                    )
+                    ),
+                    kwargs,
                 )
 
             # Case B.3: No fallback allowed, error or return NULL
@@ -685,13 +652,16 @@ class Brand(BrandBase):
         else:  # variant is "light" or "dark"
             if has_light_dark:
                 # Case C: return specific variant if it exists
-                variant_resource = getattr(size_logo, variant, None)
+                light_dark_logo = cast(BrandLogoResourceLightDark, size_logo)
+                variant_resource = getattr(light_dark_logo, variant, None)
                 if variant_resource is not None:
-                    return attach_attrs(variant_resource)
+                    return logo_attach_attrs(variant_resource, kwargs)
             else:
                 # Case D: return single if fallback allowed
                 if allow_fallback:
-                    return attach_attrs(size_logo)
+                    return logo_attach_attrs(
+                        cast(BrandLogoResource, size_logo), kwargs
+                    )
 
             # Case X: specific variant doesn't exist and can't fallback
             if required_reason is not None:
@@ -733,6 +703,67 @@ class Brand(BrandBase):
         if isinstance(value, (str, Path, FileLocation)):
             return {"path": value}
         return value
+
+
+@overload
+def logo_attach_attrs(
+    logo: BrandLogoResource, attrs: dict[str, Any]
+) -> BrandLogoResource: ...
+
+
+@overload
+def logo_attach_attrs(
+    logo: BrandLogoResourceLightDark, attrs: dict[str, Any]
+) -> BrandLogoResourceLightDark: ...
+
+
+def logo_attach_attrs(
+    logo: BrandLogoResource | BrandLogoResourceLightDark,
+    attrs: dict[str, Any],
+) -> BrandLogoResource | BrandLogoResourceLightDark:
+    """Add attrs to a logo resource, preserving the original type."""
+    if not attrs:
+        return logo
+
+    # Convert class_ to class for HTML compatibility
+    processed_attrs = {}
+    for key, value in attrs.items():
+        if key == "class_":
+            processed_attrs["class"] = value
+        else:
+            processed_attrs[key] = value
+
+    # Check if this is a BrandLogoResourceLightDark (has light and dark attributes)
+    if isinstance(logo, BrandLogoResourceLightDark):
+        # Handle BrandLogoResourceLightDark - copy attrs to both variants
+        light_attrs = (
+            getattr(logo.light, "attrs", None) or {} if logo.light else {}
+        )
+        dark_attrs = (
+            getattr(logo.dark, "attrs", None) or {} if logo.dark else {}
+        )
+
+        new_light = (
+            logo.light.model_copy(
+                update={"attrs": {**light_attrs, **processed_attrs}}
+            )
+            if logo.light
+            else None
+        )
+        new_dark = (
+            logo.dark.model_copy(
+                update={"attrs": {**dark_attrs, **processed_attrs}}
+            )
+            if logo.dark
+            else None
+        )
+
+        return BrandLogoResourceLightDark(light=new_light, dark=new_dark)
+    else:
+        # Handle single BrandLogoResource
+        current_attrs = getattr(logo, "attrs", None) or {}
+        new_attrs = {**current_attrs, **processed_attrs}
+        return logo.model_copy(update={"attrs": new_attrs})
 
 
 __all__ = [
