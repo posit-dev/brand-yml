@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import base64
 import mimetypes
+import warnings
 from pathlib import Path
 from typing import Annotated, Any, Literal, Union
 
@@ -68,7 +69,7 @@ class BrandLogoResource(BrandBase):
         """
         # Get image source, handling base64 encoding for local files if needed
         if isinstance(self.path, FileLocationLocal):
-            img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
+            img_src = self._maybe_base64_encode_image(self.path)
         else:
             img_src = str(self.path)
 
@@ -103,7 +104,7 @@ class BrandLogoResource(BrandBase):
         """
         # Get image source, handling base64 encoding for local files if needed
         if isinstance(self.path, FileLocationLocal):
-            img_src = self._maybe_base64_encode_image(str(self.path.absolute()))
+            img_src = self._maybe_base64_encode_image(self.path)
         else:
             img_src = str(self.path)
 
@@ -163,7 +164,7 @@ class BrandLogoResource(BrandBase):
         """String representation defaults to markdown."""
         return self.to_markdown()
 
-    def _maybe_base64_encode_image(self, path: str) -> str:
+    def _maybe_base64_encode_image(self, path: FileLocationLocal) -> str:
         """
         Encode local images as base64 data URIs for embedding.
 
@@ -177,25 +178,25 @@ class BrandLogoResource(BrandBase):
         :
             The original path for URLs, or base64 data URI for local files.
         """
-        if path.startswith(("http://", "https://", "data:")):
-            return path
+        if not path.exists():
+            return str(path.relative())
 
         try:
-            file_path = Path(path)
-            if not file_path.exists():
-                return path
-
             mime_type = (
-                mimetypes.guess_type(path)[0] or "application/octet-stream"
+                mimetypes.guess_type(path.absolute())[0]
+                or "application/octet-stream"
             )
 
-            with open(file_path, "rb") as f:
+            with open(path.absolute(), "rb") as f:
                 encoded = base64.b64encode(f.read()).decode("ascii")
 
             return f"data:{mime_type};base64,{encoded}"
         except Exception:
+            warnings.warn(
+                f"Could not base64 encode image at {path}. Using the relative file path instead."
+            )
             # If anything goes wrong, just return the original path
-            return path
+            return str(path.relative())
 
     def _attrs_as_markdown(self, attrs: dict[str, Any]) -> str:
         """

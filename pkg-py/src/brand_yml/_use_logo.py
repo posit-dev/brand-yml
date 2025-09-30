@@ -7,7 +7,6 @@ import htmltools
 if TYPE_CHECKING:
     from . import Brand
 from ._defs import BrandLightDark
-from .file import FileLocationLocal
 from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 
 
@@ -40,7 +39,7 @@ def use_logo(
     elif isinstance(required, str):
         required_reason = " " + required.strip()
     elif required is None:
-        # Default behavior: required for image names, not required for size names
+        # Default: required for image names, not required for size names
         if name in {"small", "medium", "large", "smallest", "largest"}:
             required_reason = None
         else:
@@ -80,16 +79,6 @@ def use_logo(
         ):
             # If name exists in images, use it directly
             resource = brand.logo.images[name]
-            if hasattr(resource, "path") and brand.path:
-                # Convert relative paths to absolute
-                if isinstance(resource.path, FileLocationLocal):
-                    resource = resource.model_copy(
-                        update={
-                            "path": resource.path.set_root_dir(
-                                brand.path.parent
-                            )
-                        }
-                    )
             return logo_attach_attrs(resource, kwargs)
 
         if not available:
@@ -108,14 +97,6 @@ def use_logo(
         and name in brand.logo.images
     ):
         resource = brand.logo.images[name]
-        if hasattr(resource, "path") and brand.path:
-            # Convert relative paths to absolute
-            if isinstance(resource.path, FileLocationLocal):
-                resource = resource.model_copy(
-                    update={
-                        "path": resource.path.set_root_dir(brand.path.parent)
-                    }
-                )
         return logo_attach_attrs(resource, kwargs)
 
     # Check if name is a standard size
@@ -139,54 +120,33 @@ def use_logo(
             raise ValueError(f"brand.logo.{name} is required{required_reason}.")
         return None
 
-    # Determine if we have a light/dark variant
     has_light_dark = isinstance(
         size_logo, (BrandLightDark, BrandLogoResourceLightDark)
     )
 
-    # Fix up internal paths to be relative to brand yml file
-    if has_light_dark:
-        if size_logo.light and hasattr(size_logo.light, "path") and brand.path:
-            if isinstance(size_logo.light.path, FileLocationLocal):
-                size_logo = size_logo.model_copy(
-                    update={
-                        "light": size_logo.light.model_copy(
-                            update={
-                                "path": size_logo.light.path.set_root_dir(
-                                    brand.path.parent
-                                )
-                            }
-                        )
-                    }
-                )
-        if size_logo.dark and hasattr(size_logo.dark, "path") and brand.path:
-            if isinstance(size_logo.dark.path, FileLocationLocal):
-                size_logo = size_logo.model_copy(
-                    update={
-                        "dark": size_logo.dark.model_copy(
-                            update={
-                                "path": size_logo.dark.path.set_root_dir(
-                                    brand.path.parent
-                                )
-                            }
-                        )
-                    }
-                )
-    else:
-        if hasattr(size_logo, "path") and brand.path:
-            if isinstance(size_logo.path, FileLocationLocal):
-                size_logo = size_logo.model_copy(
-                    update={
-                        "path": size_logo.path.set_root_dir(brand.path.parent)
-                    }
-                )
+    # | variant    | has        | fallback | return               | case |
+    # |:-----------|:-----------|:---------|:---------------------|:-----|
+    # | auto       | single     | ~        | single               | A.1  |
+    # | auto       | light_dark | ~        | light_dark           | A.2  |
+    # | auto       | light      | ~        | light                | A.3  |
+    # | auto       | dark       | ~        | dark                 | A.4  |
+    # | light,dark | light|dark | ~        | light_dark           | B.1  |
+    # | light,dark | single     | TRUE     | single -> light_dark | B.2  |
+    # | light,dark | single     | FALSE    |                      | B.3  |
+    # | light      | light      | ~        | light                | C    |
+    # | dark       | dark       | ~        | dark                 | C    |
+    # | light      | single     | TRUE     | single               | D    |
+    # | dark       | single     | TRUE     | single               | D    |
+    # | light      | single     | FALSE    |                      | X    |
+    # | dark       | single     | FALSE    |                      | X    |
+    # | light      | dark       | ~        |                      | X    |
+    # | dark       | light      | ~        |                      | X    |
 
-    # Implement variant logic based on the table from R implementation
     if variant == "auto":
-        if not has_light_dark:
+        if isinstance(size_logo, BrandLogoResource):
             # Case A.1: Return single value as-is
             # size_logo must be BrandLogoResource here since has_light_dark is False
-            return logo_attach_attrs(cast(BrandLogoResource, size_logo), kwargs)
+            return logo_attach_attrs(size_logo, kwargs)
 
         # size_logo must be BrandLogoResourceLightDark here since has_light_dark is True
         light_dark_logo = cast(BrandLogoResourceLightDark, size_logo)
@@ -272,43 +232,33 @@ def logo_attach_attrs(
     if not attrs:
         return logo
 
-    # Convert class_ to class for HTML compatibility
-    processed_attrs = {}
-    for key, value in attrs.items():
-        if key == "class_":
-            processed_attrs["class"] = value
-        else:
-            processed_attrs[key] = value
-
-    # Check if this is a BrandLogoResourceLightDark (has light and dark attributes)
-    if isinstance(logo, BrandLogoResourceLightDark):
-        # Handle BrandLogoResourceLightDark - copy attrs to both variants
-        new_light = None
-        new_dark = None
-
-        if logo.light:
-            light_attrs = getattr(logo.light, "attrs", None) or {}
-            consolidated_light_attrs, _ = htmltools.consolidate_attrs(
-                light_attrs, processed_attrs
-            )  # type: ignore
-            new_light = logo.light.model_copy(
-                update={"attrs": consolidated_light_attrs}
-            )
-
-        if logo.dark:
-            dark_attrs = getattr(logo.dark, "attrs", None) or {}
-            consolidated_dark_attrs, _ = htmltools.consolidate_attrs(
-                dark_attrs, processed_attrs
-            )  # type: ignore
-            new_dark = logo.dark.model_copy(
-                update={"attrs": consolidated_dark_attrs}
-            )
-
-        return BrandLogoResourceLightDark(light=new_light, dark=new_dark)
-    else:
-        # Handle single BrandLogoResource
+    if isinstance(logo, BrandLogoResource):
         current_attrs = getattr(logo, "attrs", None) or {}
         consolidated_attrs, _ = htmltools.consolidate_attrs(
-            current_attrs, processed_attrs
-        )  # type: ignore
+            current_attrs, attrs
+        )
         return logo.model_copy(update={"attrs": consolidated_attrs})
+
+    # Handle BrandLogoResourceLightDark - copy attrs to both variants
+    new_light = None
+    new_dark = None
+
+    if logo.light:
+        consolidated_light_attrs, _ = htmltools.consolidate_attrs(
+            getattr(logo.light, "attrs", None),
+            attrs,
+        )
+        new_light = logo.light.model_copy(
+            update={"attrs": consolidated_light_attrs}
+        )
+
+    if logo.dark:
+        consolidated_dark_attrs, _ = htmltools.consolidate_attrs(
+            getattr(logo.dark, "attrs", None),
+            attrs,
+        )
+        new_dark = logo.dark.model_copy(
+            update={"attrs": consolidated_dark_attrs}
+        )
+
+    return BrandLogoResourceLightDark(light=new_light, dark=new_dark)
