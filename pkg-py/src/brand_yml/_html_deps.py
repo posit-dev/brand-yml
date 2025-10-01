@@ -25,7 +25,7 @@ def html_dep_brand_light_dark():
 
     return htmltools.HTMLDependency(
         name="brand-logo-light-dark",
-        version=".".join(map(str, __version_tuple__[:4])),
+        version=".".join(map(str, __version_tuple__[:3])),
         source={"subdir": "www/shiny"},
         stylesheet={"href": "brand-light-dark.css"},
         all_files=False,
