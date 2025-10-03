@@ -1,33 +1,43 @@
-# Helper function to combine multiple flextable objects into a single HTML output
-combine_flextables_html <- function(..., titles = NULL, preview = TRUE) {
+# Helper function to combine multiple table objects into a single HTML output
+combine_tables_html <- function(..., titles = NULL, preview = TRUE, title = "Table Theme Tests") {
   # Check if htmltools is installed
   if (!requireNamespace("htmltools", quietly = TRUE)) {
-    warning("htmltools package is required to combine flextables into HTML.")
+    warning("htmltools package is required to combine tables into HTML.")
     return(invisible())
   }
 
-  # Get the list of flextables from dots
-  ft_list <- list(...)
+  # Get the list of tables from dots
+  table_list <- list(...)
 
   # If titles not provided, create generic ones
-  if (is.null(titles) || length(titles) != length(ft_list)) {
-    titles <- paste("Table", seq_along(ft_list))
+  if (is.null(titles) || length(titles) != length(table_list)) {
+    titles <- paste("Table", seq_along(table_list))
   }
 
-  # Create a list of HTML elements for each flextable
-  html_elements <- lapply(seq_along(ft_list), function(i) {
-    ft <- ft_list[[i]]
+  # Create a list of HTML elements for each table
+  html_elements <- lapply(seq_along(table_list), function(i) {
+    tbl <- table_list[[i]]
     title <- titles[i]
 
-    # Skip if not a flextable object
-    if (!inherits(ft, "flextable")) {
+    # Skip if NULL
+    if (is.null(tbl)) {
       return(NULL)
     }
 
-    # Create an HTML div with a title and the flextable
+    # Create an HTML div with a title and the table
+    # Handle both flextable and gt objects
+    if (inherits(tbl, "flextable")) {
+      table_html <- flextable::htmltools_value(tbl)
+    } else if (inherits(tbl, "gt_tbl")) {
+      table_html <- gt::as_raw_html(tbl)
+    } else {
+      warning("Object type not supported for HTML preview")
+      return(NULL)
+    }
+
     htmltools::div(
       htmltools::h3(title),
-      flextable::htmltools_value(ft),
+      table_html,
       htmltools::hr(),
       style = "margin-bottom: 30px;"
     )
@@ -44,7 +54,7 @@ combine_flextables_html <- function(..., titles = NULL, preview = TRUE) {
         h3 { margin-top: 20px; }
       ")
     ),
-    htmltools::h2("Flextable Theme Tests"),
+    htmltools::h2(title),
     html_elements
   )
 
@@ -200,35 +210,31 @@ test_that("theme_brand_flextable", {
   dark_ft <- ft |> dark_theme()
   both_ft <- ft |> light_theme() |> dark_theme()
 
-  # Create a combined HTML display of all tables
-  all_tables <- combine_flextables_html(
+  # Create and preview a combined HTML display of all tables (output goes to viewer)
+  invisible(combine_tables_html(
     light_ft, dark_ft,
     titles = c(
       "Light theme using theme_brand_flextable with brand-posit.yml",
       "Dark theme using theme_brand_flextable with brand-posit-dark.yml"
-    )
-  )
-
-  # Print combined HTML output once
-  cat("\n\n")
-  print(all_tables)
-  cat("\n\n")
+    ),
+    title = "Flextable Theme Tests"
+  ))
 })
 
 test_that("theme_colors_flextable", {
   skip_if_not_installed("flextable")
   skip_if_not_installed("htmltools")
 
-  # Use colors consistent with our brand YAML files
-  light_bg <- "#FFFFFF"
-  light_fg <- "#151515"
+  # Use fun, playful colors for our themes
+  candy_bg <- "#FFCCE5"  # Soft pink
+  candy_fg <- "#8A2BE2"  # Blueviolet
 
-  dark_bg <- "#1A1A1A"
-  dark_fg <- "#F1F1F2"
+  cosmic_bg <- "#0A043C"  # Deep space blue
+  cosmic_fg <- "#03FCA1"  # Neon green
 
-  # Create themes with direct colors
-  light_colors_theme <- theme_colors_flextable(bg = light_bg, fg = light_fg)
-  dark_colors_theme <- theme_colors_flextable(bg = dark_bg, fg = dark_fg)
+  # Create themes with fun colors
+  light_colors_theme <- theme_colors_flextable(bg = candy_bg, fg = candy_fg)
+  dark_colors_theme <- theme_colors_flextable(bg = cosmic_bg, fg = cosmic_fg)
 
   # Verify themes are functions
   expect_type(light_colors_theme, "closure")
@@ -252,19 +258,15 @@ test_that("theme_colors_flextable", {
   dark_ft <- ft |> dark_colors_theme()
   both_ft <- ft |> light_colors_theme() |> dark_colors_theme()
 
-  # Create a combined HTML display of all tables
-  all_tables <- combine_flextables_html(
+  # Create and preview a combined HTML display of all tables (output goes to viewer)
+  invisible(combine_tables_html(
     light_ft, dark_ft,
     titles = c(
-      "Light theme using theme_colors_flextable with direct colors",
-      "Dark theme using theme_colors_flextable with direct colors"
-    )
-  )
-
-  # Print combined HTML output once
-  cat("\n\n")
-  print(all_tables)
-  cat("\n\n")
+      "Candy theme using theme_colors_flextable (Pink & Purple)",
+      "Cosmic theme using theme_colors_flextable (Space Blue & Neon Green)"
+    ),
+    title = "Fun Flextable Themes"
+  ))
 })
 
 test_that("theme_brand_gt", {
