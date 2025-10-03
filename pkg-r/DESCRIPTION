@@ -24,11 +24,21 @@ Imports:
     yaml
 Suggests:
     base64enc,
+    dplyr,
+    flextable,
+    ggiraph,
+    ggplot2 (>= 4.0.0),
+    gt,
     htmltools,
     knitr,
     mime,
+    palmerpenguins,
+    patchwork,
+    plotly,
     sass,
     testthat (>= 3.0.0),
+    thematic (>= 0.1.7.9000),
+    tidyverse,
     withr
 Config/testthat/edition: 3
 Config/testthat/parallel: true

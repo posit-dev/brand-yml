@@ -38,6 +38,7 @@ theme_colors_flextable <- function(bg, fg) {
 }
 
 #' @rdname theme_helpers
+#' @family brand.yml helpers
 #'
 #' @export
 theme_brand_flextable <- function(brand_yml) {
@@ -63,8 +64,7 @@ theme_colors_ggplot2 <- function(bg, fg, accent = NULL) {
   )
 
   # Create and return the theme directly
-  ggplot2::`%+%`(
-    ggplot2::theme_minimal(base_size = 11, accent = accent),
+  ggplot2::theme_minimal(base_size = 11, accent = accent) +
     ggplot2::theme(
       panel.border = ggplot2::element_blank(),
       panel.grid.major.y = ggplot2::element_blank(),
@@ -78,10 +78,10 @@ theme_colors_ggplot2 <- function(bg, fg, accent = NULL) {
       axis.line = ggplot2::element_line(colour = fg),
       axis.ticks = ggplot2::element_line(colour = fg)
     )
-  )
 }
 
 #' @rdname theme_helpers
+#' @family brand.yml helpers
 #'
 #' @export
 theme_brand_ggplot2 <- function(brand_yml) {
@@ -123,6 +123,7 @@ theme_colors_gt <- function(bg, fg) {
 }
 
 #' @rdname theme_helpers
+#' @family brand.yml helpers
 #'
 #' @export
 theme_brand_gt <- function(brand_yml) {
@@ -162,6 +163,7 @@ theme_colors_plotly <- function(bg, fg, accent = NULL) {
 }
 
 #' @rdname theme_helpers
+#' @family brand.yml helpers
 #'
 #' @export
 theme_brand_plotly <- function(brand_yml) {
@@ -203,6 +205,7 @@ theme_colors_thematic <- function(bg, fg, accent = NULL) {
 }
 
 #' @rdname theme_helpers
+#' @family brand.yml helpers
 #'
 #' @export
 theme_brand_thematic <- function(brand_yml) {
