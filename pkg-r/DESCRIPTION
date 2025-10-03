@@ -36,8 +36,10 @@ Suggests:
     patchwork,
     plotly,
     sass,
+    stringr,
     testthat (>= 3.0.0),
     thematic (>= 0.1.7.9000),
+    tidyr,
     tidyverse,
     withr
 Config/testthat/edition: 3
