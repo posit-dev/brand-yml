@@ -680,38 +680,220 @@ test_that("theme_colors_plotly dark", {
   cat("\n\nAbove: Dark theme using theme_colors_plotly with burgundy accent (#C96B8C)\n\n")
 })
 
-test_that("theme_brand_thematic", {
+test_that("theme_brand_thematic light", {
   skip_if_not_installed("thematic")
+  skip_if_not_installed("palmerpenguins")
 
   # Test with light theme
   posit_light <- test_example("brand-posit.yml")
+  # Load the brand.yml file
+  brand <- brand.yml::read_brand_yml(posit_light)
+
+  # Extract colors from brand.yml using the API
+  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
+  accent_color <- brand.yml::brand_color_pluck(brand, "accent")
+  if (identical(accent_color, "accent")) {
+    accent_color <- brand.yml::brand_color_pluck(brand, "primary")
+  }
+
+  # Create translucent version of foreground color (30% opacity)
+  fg_color_alpha <- adjustcolor(fg_color, alpha.f = 0.3)
+
+  # Create the theme
   light_theme <- theme_brand_thematic(posit_light)
 
   # Verify light theme is a function
   expect_type(light_theme, "closure")
 
+  # Set up the light theme
+  light_theme()
+
+  # No need to check if thematic is on, we'll see the visual results
+
+  # Plot with base R graphics - penguin flipper length vs body mass
+  # Using the same example from thematic.qmd
+  data <- palmerpenguins::penguins
+
+  # Create a base R plot with foreground-colored points with alpha
+  plot(
+    data$flipper_length_mm,
+    data$body_mass_g,
+    main = "Flipper Length vs Body Mass (Light Theme)",
+    xlab = "Flipper Length (mm)",
+    ylab = "Body Mass (g)",
+    col = fg_color_alpha, # Use foreground color with alpha
+    pch = 19
+  )
+
+  # Add a thick trend line using the accent color
+  model <- lm(body_mass_g ~ flipper_length_mm, data = data, na.action = na.omit)
+  x_range <- range(data$flipper_length_mm, na.rm = TRUE)
+  x_seq <- seq(x_range[1], x_range[2], length.out = 100)
+  pred <- predict(model, newdata = data.frame(flipper_length_mm = x_seq))
+  lines(x_seq, pred, col=accent_color, lwd = 4) # Use the accent color with thicker line
+
+  # Print a message about the theme
+  cat("\n\nAbove: Base R plot using theme_brand_thematic with brand-posit.yml\n\n")
+
+  # Turn off thematic after test
+  thematic::thematic_off()
+})
+
+test_that("theme_brand_thematic dark", {
+  skip_if_not_installed("thematic")
+  skip_if_not_installed("palmerpenguins")
+
   # Test with dark theme
   posit_dark <- test_example("brand-posit-dark.yml")
+  # Load the brand.yml file
+  brand <- brand.yml::read_brand_yml(posit_dark)
+
+  # Extract colors from brand.yml using the API
+  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
+  accent_color <- brand.yml::brand_color_pluck(brand, "accent")
+  if (identical(accent_color, "accent")) {
+    accent_color <- brand.yml::brand_color_pluck(brand, "primary")
+  }
+
+  # Create translucent version of foreground color (30% opacity)
+  fg_color_alpha <- adjustcolor(fg_color, alpha.f = 0.3)
+
+  # Create the theme
   dark_theme <- theme_brand_thematic(posit_dark)
 
   # Verify dark theme is a function
   expect_type(dark_theme, "closure")
+
+  # Set up the dark theme
+  dark_theme()
+
+  # No need to check if thematic is on, we'll see the visual results
+
+  # Plot with base R graphics - penguin flipper length vs body mass
+  # Using the same example from thematic.qmd
+  data <- palmerpenguins::penguins
+
+  # Create a base R plot with foreground-colored points with alpha
+  plot(
+    data$flipper_length_mm,
+    data$body_mass_g,
+    main = "Flipper Length vs Body Mass (Dark Theme)",
+    xlab = "Flipper Length (mm)",
+    ylab = "Body Mass (g)",
+    col = fg_color_alpha, # Use foreground color with alpha
+    pch = 19
+  )
+
+  # Add a thick trend line using the accent color
+  model <- lm(body_mass_g ~ flipper_length_mm, data = data, na.action = na.omit)
+  x_range <- range(data$flipper_length_mm, na.rm = TRUE)
+  x_seq <- seq(x_range[1], x_range[2], length.out = 100)
+  pred <- predict(model, newdata = data.frame(flipper_length_mm = x_seq))
+  lines(x_seq, pred, col = accent_color, lwd = 4) # Use the accent color with thicker line
+
+  # Print a message about the theme
+  cat("\n\nAbove: Base R plot using theme_brand_thematic with brand-posit-dark.yml\n\n")
+
+  # Turn off thematic after test
+  thematic::thematic_off()
 })
 
-test_that("theme_colors_thematic", {
+test_that("theme_colors_thematic light", {
   skip_if_not_installed("thematic")
+  skip_if_not_installed("palmerpenguins")
 
-  # Use actual accent colors from the brand YAML files
-  light_orange_accent <- "#EE6331"  # Orange from brand-posit.yml
-  dark_burgundy_accent <- "#C96B8C" # Burgundy from brand-posit-dark.yml
+  # Define fun but appropriate light-mode colors
+  bg <- "#FFF3DB"  # Soft cream/vanilla background
+  fg <- "#663399"  # Rebecca Purple for text
+  accent <- "#FF6B6B"  # Coral red accent
 
-  # Create themes with direct colors and specific accents
-  light_colors_theme <- theme_colors_thematic(bg = "#FFFFFF", fg = "#151515", accent = light_orange_accent)
-  dark_colors_theme <- theme_colors_thematic(bg = "#1A1A1A", fg = "#F1F1F2", accent = dark_burgundy_accent)
+  # Create theme with direct colors
+  light_colors_theme <- theme_colors_thematic(bg = bg, fg = fg, accent = accent)
 
-  # Verify themes are functions
+  # Verify theme is a function
   expect_type(light_colors_theme, "closure")
+
+  # Create translucent version of foreground color (30% opacity)
+  fg_color_alpha <- adjustcolor(fg, alpha.f = 0.3)
+
+  # Set up the light theme
+  light_colors_theme()
+
+  # Plot with base R graphics - penguin flipper length vs body mass
+  data <- palmerpenguins::penguins
+
+  # Create a base R plot with foreground-colored points with alpha
+  plot(
+    data$flipper_length_mm,
+    data$body_mass_g,
+    main = "Flipper Length vs Body Mass (Vanilla & Purple Theme)",
+    xlab = "Flipper Length (mm)",
+    ylab = "Body Mass (g)",
+    col = fg_color_alpha, # Use foreground color with alpha
+    pch = 19
+  )
+
+  # Add a thick trend line using the accent color
+  model <- lm(body_mass_g ~ flipper_length_mm, data = data, na.action = na.omit)
+  x_range <- range(data$flipper_length_mm, na.rm = TRUE)
+  x_seq <- seq(x_range[1], x_range[2], length.out = 100)
+  pred <- predict(model, newdata = data.frame(flipper_length_mm = x_seq))
+  lines(x_seq, pred, col = accent, lwd = 4) # Use the accent color with thicker line
+
+  # Print a message about the theme
+  cat("\n\nAbove: Base R plot using theme_colors_thematic with vanilla cream background, purple text and coral accent\n\n")
+
+  # Turn off thematic after test
+  thematic::thematic_off()
+})
+
+test_that("theme_colors_thematic dark", {
+  skip_if_not_installed("thematic")
+  skip_if_not_installed("palmerpenguins")
+
+  # Define fun but appropriate dark-mode colors
+  bg <- "#0A2342"  # Deep navy blue background
+  fg <- "#DBFEB8"  # Pale mint green text
+  accent <- "#FF8C42"  # Bright tangerine orange accent
+
+  # Create theme with direct colors
+  dark_colors_theme <- theme_colors_thematic(bg = bg, fg = fg, accent = accent)
+
+  # Verify theme is a function
   expect_type(dark_colors_theme, "closure")
+
+  # Create translucent version of foreground color (30% opacity)
+  fg_color_alpha <- adjustcolor(fg, alpha.f = 0.3)
+
+  # Set up the dark theme
+  dark_colors_theme()
+
+  # Plot with base R graphics - penguin flipper length vs body mass
+  data <- palmerpenguins::penguins
+
+  # Create a base R plot with foreground-colored points with alpha
+  plot(
+    data$flipper_length_mm,
+    data$body_mass_g,
+    main = "Flipper Length vs Body Mass (Navy & Mint Theme)",
+    xlab = "Flipper Length (mm)",
+    ylab = "Body Mass (g)",
+    col = fg_color_alpha, # Use foreground color with alpha
+    pch = 19
+  )
+
+  # Add a thick trend line using the accent color
+  model <- lm(body_mass_g ~ flipper_length_mm, data = data, na.action = na.omit)
+  x_range <- range(data$flipper_length_mm, na.rm = TRUE)
+  x_seq <- seq(x_range[1], x_range[2], length.out = 100)
+  pred <- predict(model, newdata = data.frame(flipper_length_mm = x_seq))
+  lines(x_seq, pred, col = accent, lwd = 4) # Use the accent color with thicker line
+
+  # Print a message about the theme
+  cat("\n\nAbove: Base R plot using theme_colors_thematic with navy background, mint text and tangerine accent\n\n")
+
+  # Turn off thematic after test
+  thematic::thematic_off()
 })
 
 test_that("ggiraph light", {
