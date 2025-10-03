@@ -271,6 +271,10 @@ test_that("theme_colors_flextable", {
 
 test_that("theme_brand_gt", {
   skip_if_not_installed("gt")
+  skip_if_not_installed("palmerpenguins")
+  skip_if_not_installed("dplyr")
+  skip_if_not_installed("tidyr")
+  skip_if_not_installed("htmltools")
 
   # Test with light theme
   posit_light <- test_example("brand-posit.yml")
@@ -285,18 +289,209 @@ test_that("theme_brand_gt", {
 
   # Verify dark theme is a function
   expect_type(dark_theme, "closure")
+
+  # Create a GT table for visual testing
+  library(gt)
+  library(dplyr)
+  library(tidyr)
+
+  # Get penguin data and prepare it for the table
+  penguins <- palmerpenguins::penguins |>
+    filter(!is.na(sex)) |>
+    mutate(year = as.character(year))
+
+  # Create a summary of penguin counts by species, island, sex, and year
+  penguin_counts <- penguins |>
+    group_by(species, island, sex, year) |>
+    summarise(n = n(), .groups = 'drop')
+
+  # Reshape data to wide format
+  penguin_counts_wider <- penguin_counts |>
+    pivot_wider(
+      names_from = c(species, sex),
+      values_from = n
+    ) |>
+    # Make missing numbers (NAs) into zero
+    mutate(across(.cols = -(1:2), .fns = ~tidyr::replace_na(., replace = 0))) |>
+    arrange(island, year)
+
+  # Prepare column names for display
+  actual_colnames <- colnames(penguin_counts_wider)
+  desired_colnames <- actual_colnames |>
+    stringr::str_remove('(Adelie|Gentoo|Chinstrap)_') |>
+    stringr::str_to_title()
+  names(desired_colnames) <- actual_colnames
+
+  # Create the GT table
+  penguins_table <- penguin_counts_wider |>
+    mutate(across(.cols = -(1:2), ~if_else(. == 0, NA_integer_, .))) |>
+    mutate(
+      island = as.character(island),
+      year = as.numeric(year),
+      island = paste0('Island: ', island)
+    ) |>
+    gt(groupname_col = 'island', rowname_col = 'year') |>
+    cols_label(.list = desired_colnames) |>
+    tab_spanner(
+      label = md('**Adelie**'),
+      columns = contains('Adelie')
+    ) |>
+    tab_spanner(
+      label = md('**Chinstrap**'),
+      columns = contains('Chinstrap')
+    ) |>
+    tab_spanner(
+      label = md('**Gentoo**'),
+      columns = contains('Gentoo')
+    ) |>
+    tab_header(
+      title = 'Penguins in the Palmer Archipelago',
+      subtitle = 'Data from the {palmerpenguins} R package'
+    ) |>
+    sub_missing(missing_text = '-') |>
+    summary_rows(
+      groups = TRUE,
+      fns = list(
+        'Maximum' = ~max(., na.rm = TRUE),
+        'Total' = ~sum(., na.rm = TRUE)
+      ),
+      formatter = fmt_number,
+      decimals = 0,
+      missing_text = '-'
+    ) |>
+    tab_options(
+      data_row.padding = px(2),
+      summary_row.padding = px(3),
+      row_group.padding = px(4)
+    ) |>
+    opt_stylize(style = 6, color = 'gray')
+
+  # Apply themes
+  light_table <- penguins_table |> light_theme()
+  dark_table <- penguins_table |> dark_theme()
+
+  # Create and preview a combined HTML display of the tables
+  invisible(combine_tables_html(
+    light_table, dark_table,
+    titles = c(
+      "Light theme using theme_brand_gt with brand-posit.yml",
+      "Dark theme using theme_brand_gt with brand-posit-dark.yml"
+    ),
+    title = "GT Table Theme Tests"
+  ))
 })
 
 test_that("theme_colors_gt", {
   skip_if_not_installed("gt")
+  skip_if_not_installed("palmerpenguins")
+  skip_if_not_installed("dplyr")
+  skip_if_not_installed("tidyr")
+  skip_if_not_installed("htmltools")
 
-  # Create themes with direct colors
-  light_colors_theme <- theme_colors_gt(bg = "#FFFFFF", fg = "#151515")
-  dark_colors_theme <- theme_colors_gt(bg = "#1A1A1A", fg = "#F1F1F2")
+  # Use fun, playful colors for our themes
+  sunset_bg <- "#FFF3DE"  # Warm cream
+  sunset_fg <- "#FF5722"  # Vibrant orange-red
+
+  ocean_bg <- "#05445E"   # Deep blue
+  ocean_fg <- "#D4F1F9"   # Light cyan
+
+  # Create themes with fun colors
+  sunset_theme <- theme_colors_gt(bg = sunset_bg, fg = sunset_fg)
+  ocean_theme <- theme_colors_gt(bg = ocean_bg, fg = ocean_fg)
 
   # Verify themes are functions
-  expect_type(light_colors_theme, "closure")
-  expect_type(dark_colors_theme, "closure")
+  expect_type(sunset_theme, "closure")
+  expect_type(ocean_theme, "closure")
+
+  # Create a GT table for visual testing
+  library(gt)
+  library(dplyr)
+  library(tidyr)
+
+  # Get penguin data and prepare it for the table
+  penguins <- palmerpenguins::penguins |>
+    filter(!is.na(sex)) |>
+    mutate(year = as.character(year))
+
+  # Create a summary of penguin counts by species, island, sex, and year
+  penguin_counts <- penguins |>
+    group_by(species, island, sex, year) |>
+    summarise(n = n(), .groups = 'drop')
+
+  # Reshape data to wide format
+  penguin_counts_wider <- penguin_counts |>
+    pivot_wider(
+      names_from = c(species, sex),
+      values_from = n
+    ) |>
+    # Make missing numbers (NAs) into zero
+    mutate(across(.cols = -(1:2), .fns = ~tidyr::replace_na(., replace = 0))) |>
+    arrange(island, year)
+
+  # Prepare column names for display
+  actual_colnames <- colnames(penguin_counts_wider)
+  desired_colnames <- actual_colnames |>
+    stringr::str_remove('(Adelie|Gentoo|Chinstrap)_') |>
+    stringr::str_to_title()
+  names(desired_colnames) <- actual_colnames
+
+  # Create the GT table
+  penguins_table <- penguin_counts_wider |>
+    mutate(across(.cols = -(1:2), ~if_else(. == 0, NA_integer_, .))) |>
+    mutate(
+      island = as.character(island),
+      year = as.numeric(year),
+      island = paste0('Island: ', island)
+    ) |>
+    gt(groupname_col = 'island', rowname_col = 'year') |>
+    cols_label(.list = desired_colnames) |>
+    tab_spanner(
+      label = md('**Adelie**'),
+      columns = contains('Adelie')
+    ) |>
+    tab_spanner(
+      label = md('**Chinstrap**'),
+      columns = contains('Chinstrap')
+    ) |>
+    tab_spanner(
+      label = md('**Gentoo**'),
+      columns = contains('Gentoo')
+    ) |>
+    tab_header(
+      title = 'Penguins in the Palmer Archipelago',
+      subtitle = 'Data from the {palmerpenguins} R package'
+    ) |>
+    sub_missing(missing_text = '-') |>
+    summary_rows(
+      groups = TRUE,
+      fns = list(
+        'Maximum' = ~max(., na.rm = TRUE),
+        'Total' = ~sum(., na.rm = TRUE)
+      ),
+      formatter = fmt_number,
+      decimals = 0,
+      missing_text = '-'
+    ) |>
+    tab_options(
+      data_row.padding = px(2),
+      summary_row.padding = px(3),
+      row_group.padding = px(4)
+    ) |>
+    opt_stylize(style = 6, color = 'gray')
+
+  # Apply themes
+  sunset_table <- penguins_table |> sunset_theme()
+  ocean_table <- penguins_table |> ocean_theme()
+
+  # Create and preview a combined HTML display of the tables
+  invisible(combine_tables_html(
+    sunset_table, ocean_table,
+    titles = c(
+      "Sunset theme using theme_colors_gt (Warm Cream & Orange)",
+      "Ocean theme using theme_colors_gt (Deep Blue & Cyan)"
+    ),
+    title = "Fun GT Table Themes"
+  ))
 })
 
 test_that("theme_brand_plotly", {
