@@ -1,4 +1,82 @@
-test_that("theme_brand_ggplot2 creates valid themes from brand.yml files", {
+# Helper function to combine multiple flextable objects into a single HTML output
+combine_flextables_html <- function(..., titles = NULL, preview = TRUE) {
+  # Check if htmltools is installed
+  if (!requireNamespace("htmltools", quietly = TRUE)) {
+    warning("htmltools package is required to combine flextables into HTML.")
+    return(invisible())
+  }
+
+  # Get the list of flextables from dots
+  ft_list <- list(...)
+
+  # If titles not provided, create generic ones
+  if (is.null(titles) || length(titles) != length(ft_list)) {
+    titles <- paste("Table", seq_along(ft_list))
+  }
+
+  # Create a list of HTML elements for each flextable
+  html_elements <- lapply(seq_along(ft_list), function(i) {
+    ft <- ft_list[[i]]
+    title <- titles[i]
+
+    # Skip if not a flextable object
+    if (!inherits(ft, "flextable")) {
+      return(NULL)
+    }
+
+    # Create an HTML div with a title and the flextable
+    htmltools::div(
+      htmltools::h3(title),
+      flextable::htmltools_value(ft),
+      htmltools::hr(),
+      style = "margin-bottom: 30px;"
+    )
+  })
+
+  # Filter out NULL elements
+  html_elements <- html_elements[!sapply(html_elements, is.null)]
+
+  # Combine all elements into a single HTML document
+  result <- htmltools::tagList(
+    htmltools::tags$head(
+      htmltools::tags$style("
+        body { font-family: Arial, sans-serif; }
+        h3 { margin-top: 20px; }
+      ")
+    ),
+    htmltools::h2("Flextable Theme Tests"),
+    html_elements
+  )
+
+  # If preview is TRUE, display HTML in the viewer pane
+  if (preview) {
+    # Create a temporary HTML file
+    tmp_file <- tempfile(fileext = ".html")
+
+    # Save the HTML to the file
+    html_content <- as.character(result)
+    writeLines(html_content, tmp_file)
+
+    # Check if we're in RStudio/Positron
+    viewer <- getOption("viewer")
+    if (!is.null(viewer) && is.function(viewer)) {
+      # Use the RStudio/Positron viewer
+      viewer(tmp_file)
+      message("HTML preview opened in the viewer pane")
+    } else if (interactive()) {
+      # Fallback to browser for interactive sessions not in RStudio/Positron
+      utils::browseURL(tmp_file)
+      message("HTML preview opened in your default web browser")
+    } else {
+      # Just provide the file path in non-interactive sessions
+      message("HTML file saved to: ", tmp_file)
+    }
+  }
+
+  return(result)
+}
+
+test_that("theme_brand_ggplot2", {
   skip_if_not_installed("ggplot2", "4.0.0")
 
   # Test with light theme (uses orange accent from brand-posit.yml)
@@ -36,14 +114,13 @@ test_that("theme_brand_ggplot2 creates valid themes from brand.yml files", {
 
   # Verify sequential theme application (applying both themes)
   expect_no_error(plot_both <- plot_base + light_theme + dark_theme)
-  # Display the combined theme plot
 
   # Verify that the last applied theme takes precedence
   # Background color should match the dark theme
   expect_equal(plot_both$theme$rect$fill, dark_theme$rect$fill)
 })
 
-test_that("theme_colors_ggplot2 creates valid themes from direct color specs", {
+test_that("theme_colors_ggplot2", {
   skip_if_not_installed("ggplot2", "4.0.0")
 
   # Use actual accent colors from the brand YAML files
@@ -81,17 +158,15 @@ test_that("theme_colors_ggplot2 creates valid themes from direct color specs", {
 
   # Verify sequential theme application (applying both themes)
   expect_no_error(plot_both <- plot_base + light_colors_theme + dark_colors_theme)
-  # Display the combined theme plot
-  print(plot_both)
-  cat("\n\nAbove: Combined plot with light (orange) theme followed by dark (burgundy) theme\n\n")
 
   # Verify that the last applied theme takes precedence
   # Background color should match the dark theme
   expect_equal(plot_both$theme$rect$fill, dark_colors_theme$rect$fill)
 })
 
-test_that("theme_brand_flextable creates valid themes from brand.yml files", {
+test_that("theme_brand_flextable", {
   skip_if_not_installed("flextable")
+  skip_if_not_installed("htmltools")
 
   # Test with light theme
   posit_light <- test_example("brand-posit.yml")
@@ -106,21 +181,93 @@ test_that("theme_brand_flextable creates valid themes from brand.yml files", {
 
   # Verify dark theme is a function
   expect_type(dark_theme, "closure")
+
+  # Create a flextable for visual testing
+  library(flextable)
+  ft <- flextable(airquality[sample.int(nrow(airquality), 10),])
+  ft <- add_header_row(
+    ft,
+    colwidths = c(4, 2),
+    values = c("Air quality", "Time")
+  )
+  ft <- flextable::theme_vanilla(ft)
+  ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+  ft <- color(ft, part = "footer", color = "#666666")
+  ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+
+  # Apply themes but don't print individually
+  light_ft <- ft |> light_theme()
+  dark_ft <- ft |> dark_theme()
+  both_ft <- ft |> light_theme() |> dark_theme()
+
+  # Create a combined HTML display of all tables
+  all_tables <- combine_flextables_html(
+    light_ft, dark_ft,
+    titles = c(
+      "Light theme using theme_brand_flextable with brand-posit.yml",
+      "Dark theme using theme_brand_flextable with brand-posit-dark.yml"
+    )
+  )
+
+  # Print combined HTML output once
+  cat("\n\n")
+  print(all_tables)
+  cat("\n\n")
 })
 
-test_that("theme_colors_flextable creates valid themes from direct color specs", {
+test_that("theme_colors_flextable", {
   skip_if_not_installed("flextable")
+  skip_if_not_installed("htmltools")
+
+  # Use colors consistent with our brand YAML files
+  light_bg <- "#FFFFFF"
+  light_fg <- "#151515"
+
+  dark_bg <- "#1A1A1A"
+  dark_fg <- "#F1F1F2"
 
   # Create themes with direct colors
-  light_colors_theme <- theme_colors_flextable(bg = "#FFFFFF", fg = "#151515")
-  dark_colors_theme <- theme_colors_flextable(bg = "#1A1A1A", fg = "#F1F1F2")
+  light_colors_theme <- theme_colors_flextable(bg = light_bg, fg = light_fg)
+  dark_colors_theme <- theme_colors_flextable(bg = dark_bg, fg = dark_fg)
 
   # Verify themes are functions
   expect_type(light_colors_theme, "closure")
   expect_type(dark_colors_theme, "closure")
+
+  # Create a flextable for visual testing
+  library(flextable)
+  ft <- flextable(airquality[sample.int(nrow(airquality), 10),])
+  ft <- add_header_row(
+    ft,
+    colwidths = c(4, 2),
+    values = c("Air quality", "Time")
+  )
+  ft <- flextable::theme_vanilla(ft)
+  ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+  ft <- color(ft, part = "footer", color = "#666666")
+  ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+
+  # Apply themes but don't print individually
+  light_ft <- ft |> light_colors_theme()
+  dark_ft <- ft |> dark_colors_theme()
+  both_ft <- ft |> light_colors_theme() |> dark_colors_theme()
+
+  # Create a combined HTML display of all tables
+  all_tables <- combine_flextables_html(
+    light_ft, dark_ft,
+    titles = c(
+      "Light theme using theme_colors_flextable with direct colors",
+      "Dark theme using theme_colors_flextable with direct colors"
+    )
+  )
+
+  # Print combined HTML output once
+  cat("\n\n")
+  print(all_tables)
+  cat("\n\n")
 })
 
-test_that("theme_brand_gt creates valid themes from brand.yml files", {
+test_that("theme_brand_gt", {
   skip_if_not_installed("gt")
 
   # Test with light theme
@@ -138,7 +285,7 @@ test_that("theme_brand_gt creates valid themes from brand.yml files", {
   expect_type(dark_theme, "closure")
 })
 
-test_that("theme_colors_gt creates valid themes from direct color specs", {
+test_that("theme_colors_gt", {
   skip_if_not_installed("gt")
 
   # Create themes with direct colors
@@ -150,7 +297,7 @@ test_that("theme_colors_gt creates valid themes from direct color specs", {
   expect_type(dark_colors_theme, "closure")
 })
 
-test_that("theme_brand_plotly creates valid themes from brand.yml files", {
+test_that("theme_brand_plotly", {
   skip_if_not_installed("plotly")
 
   # Test with light theme
@@ -168,7 +315,7 @@ test_that("theme_brand_plotly creates valid themes from brand.yml files", {
   expect_type(dark_theme, "closure")
 })
 
-test_that("theme_colors_plotly creates valid themes from direct color specs", {
+test_that("theme_colors_plotly", {
   skip_if_not_installed("plotly")
 
   # Use actual accent colors from the brand YAML files
@@ -184,7 +331,7 @@ test_that("theme_colors_plotly creates valid themes from direct color specs", {
   expect_type(dark_colors_theme, "closure")
 })
 
-test_that("theme_brand_thematic creates valid themes from brand.yml files", {
+test_that("theme_brand_thematic", {
   skip_if_not_installed("thematic")
 
   # Test with light theme
@@ -202,7 +349,7 @@ test_that("theme_brand_thematic creates valid themes from brand.yml files", {
   expect_type(dark_theme, "closure")
 })
 
-test_that("theme_colors_thematic creates valid themes from direct color specs", {
+test_that("theme_colors_thematic", {
   skip_if_not_installed("thematic")
 
   # Use actual accent colors from the brand YAML files
