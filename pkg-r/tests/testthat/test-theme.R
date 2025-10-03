@@ -1,5 +1,5 @@
-# Helper function to combine multiple table objects into a single HTML output
-combine_tables_html <- function(..., titles = NULL, preview = TRUE, title = "Table Theme Tests") {
+# Helper function to combine multiple HTML widgets (tables) into a single HTML output
+combine_html_widgets <- function(..., titles = NULL, preview = TRUE, title = "Theme Tests") {
   # Check if htmltools is installed
   if (!requireNamespace("htmltools", quietly = TRUE)) {
     warning("htmltools package is required to combine tables into HTML.")
@@ -31,7 +31,7 @@ combine_tables_html <- function(..., titles = NULL, preview = TRUE, title = "Tab
     } else if (inherits(tbl, "gt_tbl")) {
       table_html <- gt::as_raw_html(tbl)
     } else {
-      warning("Object type not supported for HTML preview")
+      warning("Object type not supported for HTML preview: ", class(tbl)[1])
       return(NULL)
     }
 
@@ -63,7 +63,7 @@ combine_tables_html <- function(..., titles = NULL, preview = TRUE, title = "Tab
     # Create a temporary HTML file
     tmp_file <- tempfile(fileext = ".html")
 
-    # Save the HTML to the file
+    # Use a simpler approach to save the HTML
     html_content <- as.character(result)
     writeLines(html_content, tmp_file)
 
@@ -211,7 +211,7 @@ test_that("theme_brand_flextable", {
   both_ft <- ft |> light_theme() |> dark_theme()
 
   # Create and preview a combined HTML display of all tables (output goes to viewer)
-  invisible(combine_tables_html(
+  invisible(combine_html_widgets(
     light_ft, dark_ft,
     titles = c(
       "Light theme using theme_brand_flextable with brand-posit.yml",
@@ -259,7 +259,7 @@ test_that("theme_colors_flextable", {
   both_ft <- ft |> light_colors_theme() |> dark_colors_theme()
 
   # Create and preview a combined HTML display of all tables (output goes to viewer)
-  invisible(combine_tables_html(
+  invisible(combine_html_widgets(
     light_ft, dark_ft,
     titles = c(
       "Candy theme using theme_colors_flextable (Pink & Purple)",
@@ -371,7 +371,7 @@ test_that("theme_brand_gt", {
   dark_table <- penguins_table |> dark_theme()
 
   # Create and preview a combined HTML display of the tables
-  invisible(combine_tables_html(
+  invisible(combine_html_widgets(
     light_table, dark_table,
     titles = c(
       "Light theme using theme_brand_gt with brand-posit.yml",
@@ -484,7 +484,7 @@ test_that("theme_colors_gt", {
   ocean_table <- penguins_table |> ocean_theme()
 
   # Create and preview a combined HTML display of the tables
-  invisible(combine_tables_html(
+  invisible(combine_html_widgets(
     sunset_table, ocean_table,
     titles = c(
       "Sunset theme using theme_colors_gt (Warm Cream & Orange)",
@@ -494,7 +494,7 @@ test_that("theme_colors_gt", {
   ))
 })
 
-test_that("theme_brand_plotly", {
+test_that("theme_brand_plotly light", {
   skip_if_not_installed("plotly")
 
   # Test with light theme
@@ -504,28 +504,180 @@ test_that("theme_brand_plotly", {
   # Verify light theme is a function
   expect_type(light_theme, "closure")
 
+  # Create a plotly violin plot using iris data
+  library(plotly)
+
+  # Create a violin plot with box and meanline visible, showing all points
+  fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
+                box = list(visible = TRUE),
+                meanline = list(visible = TRUE),
+                points = 'all',
+                colors = c("#1F77B4", "#FF7F0E", "#2CA02C")) |>
+        layout(title = "Iris Sepal Width by Species",
+               xaxis = list(title = "Species"),
+               yaxis = list(title = "Sepal Width"))
+
+  # Apply the light theme
+  light_plot <- fig |> light_theme()
+
+  # Print the light theme plot
+  print(light_plot)
+  cat("\n\nAbove: Light theme plot using theme_brand_plotly with orange accent from brand-posit.yml\n\n")
+})
+
+test_that("theme_brand_plotly dark", {
+  skip_if_not_installed("plotly")
+
   # Test with dark theme
   posit_dark <- test_example("brand-posit-dark.yml")
   dark_theme <- theme_brand_plotly(posit_dark)
 
   # Verify dark theme is a function
   expect_type(dark_theme, "closure")
+
+  # Create a plotly violin plot using iris data
+  library(plotly)
+
+  # Create a violin plot with box and meanline visible, showing all points
+  fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
+                box = list(visible = TRUE),
+                meanline = list(visible = TRUE),
+                points = 'all',
+                colors = c("#1F77B4", "#FF7F0E", "#2CA02C")) |>
+        layout(title = "Iris Sepal Width by Species",
+               xaxis = list(title = "Species"),
+               yaxis = list(title = "Sepal Width"))
+
+  # Apply the dark theme
+  dark_plot <- fig |> dark_theme()
+
+  # Print the dark theme plot
+  print(dark_plot)
+  cat("\n\nAbove: Dark theme plot using theme_brand_plotly with burgundy accent from brand-posit-dark.yml\n\n")
 })
 
-test_that("theme_colors_plotly", {
+test_that("theme_colors_plotly light", {
   skip_if_not_installed("plotly")
 
-  # Use actual accent colors from the brand YAML files
+  # Define colors
+  bg <- "#FFFFFF"
+  fg <- "#151515"
   light_orange_accent <- "#EE6331"  # Orange from brand-posit.yml
+
+  # Create theme with direct colors and specific accent
+  light_colors_theme <- theme_colors_plotly(bg = bg, fg = fg, accent = light_orange_accent)
+
+  # Verify theme is a function
+  expect_type(light_colors_theme, "closure")
+
+  # Create a plotly scatter plot with trendline
+  library(plotly)
+
+  # Create a linear model for trendline
+  model <- lm(mpg ~ wt, data = mtcars)
+  x_range <- seq(min(mtcars$wt), max(mtcars$wt), length.out = 50)
+  predicted <- predict(model, newdata = data.frame(wt = x_range))
+
+  # Create a scatter plot with trendline overlay
+  fig <- plot_ly() |>
+    # Add data points
+    add_trace(
+      data = mtcars,
+      x = ~wt,
+      y = ~mpg,
+      type = 'scatter',
+      mode = 'markers',
+      marker = list(size = 10),
+      text = ~paste("Car:", rownames(mtcars),
+                  "<br>Weight:", wt,
+                  "<br>MPG:", mpg),
+      name = "Data points"
+    ) |>
+    # Add trendline on the same plot using foreground color with alpha
+    add_trace(
+      x = x_range,
+      y = predicted,
+      type = 'scatter',
+      mode = 'lines',
+      line = list(color = paste0(fg, "66"), width = 2), # fg with 40% alpha
+      name = "Trendline"
+    ) |>
+    # Set layout
+    layout(
+      title = "Car Weight vs. Fuel Efficiency",
+      xaxis = list(title = "Weight (1000 lbs)"),
+      yaxis = list(title = "Miles Per Gallon"),
+      showlegend = TRUE
+    )
+
+  # Apply the light theme with orange accent
+  light_plot <- fig |> light_colors_theme()
+
+  # Print the light theme plot
+  print(light_plot)
+  cat("\n\nAbove: Light theme using theme_colors_plotly with orange accent (#EE6331)\n\n")
+})
+
+test_that("theme_colors_plotly dark", {
+  skip_if_not_installed("plotly")
+
+  # Define colors
+  bg <- "#1A1A1A"
+  fg <- "#F1F1F2"
   dark_burgundy_accent <- "#C96B8C" # Burgundy from brand-posit-dark.yml
 
-  # Create themes with direct colors and specific accents
-  light_colors_theme <- theme_colors_plotly(bg = "#FFFFFF", fg = "#151515", accent = light_orange_accent)
-  dark_colors_theme <- theme_colors_plotly(bg = "#1A1A1A", fg = "#F1F1F2", accent = dark_burgundy_accent)
+  # Create theme with direct colors and specific accent
+  dark_colors_theme <- theme_colors_plotly(bg = bg, fg = fg, accent = dark_burgundy_accent)
 
-  # Verify themes are functions
-  expect_type(light_colors_theme, "closure")
+  # Verify theme is a function
   expect_type(dark_colors_theme, "closure")
+
+  # Create a plotly scatter plot with trendline
+  library(plotly)
+
+  # Create a linear model for trendline
+  model <- lm(mpg ~ wt, data = mtcars)
+  x_range <- seq(min(mtcars$wt), max(mtcars$wt), length.out = 50)
+  predicted <- predict(model, newdata = data.frame(wt = x_range))
+
+  # Create a scatter plot with trendline overlay
+  fig <- plot_ly() |>
+    # Add data points
+    add_trace(
+      data = mtcars,
+      x = ~wt,
+      y = ~mpg,
+      type = 'scatter',
+      mode = 'markers',
+      marker = list(size = 10),
+      text = ~paste("Car:", rownames(mtcars),
+                  "<br>Weight:", wt,
+                  "<br>MPG:", mpg),
+      name = "Data points"
+    ) |>
+    # Add trendline on the same plot using foreground color with alpha
+    add_trace(
+      x = x_range,
+      y = predicted,
+      type = 'scatter',
+      mode = 'lines',
+      line = list(color = paste0(fg, "66"), width = 2), # fg with 40% alpha
+      name = "Trendline"
+    ) |>
+    # Set layout
+    layout(
+      title = "Car Weight vs. Fuel Efficiency",
+      xaxis = list(title = "Weight (1000 lbs)"),
+      yaxis = list(title = "Miles Per Gallon"),
+      showlegend = TRUE
+    )
+
+  # Apply the dark theme with burgundy accent
+  dark_plot <- fig |> dark_colors_theme()
+
+  # Print the dark theme plot
+  print(dark_plot)
+  cat("\n\nAbove: Dark theme using theme_colors_plotly with burgundy accent (#C96B8C)\n\n")
 })
 
 test_that("theme_brand_thematic", {
