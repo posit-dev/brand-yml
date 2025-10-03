@@ -33,6 +33,7 @@
           teal: '#419599'
           green: '#72994E'
           burgundy: '#9A4665'
+          accent: '#EE6331'
         foreground: '#151515'
         background: '#FFFFFF'
         primary: '#447099'

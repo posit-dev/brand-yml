@@ -128,11 +128,15 @@ To include additional classes or attributes in the \verb{<img>} tag, you can cal
 
 brand_use_logo(brand, "small") |>
   htmltools::as.tags(class = "my-logo", height = 32)
-#> <!--html_preserve--><span class="brand-logo-light-dark">
-#> <img alt="A light-colored tabby cat on a purple rug" class="brand-logo light-content my-logo" height="32" src="https://placecats.com/louie/300/300"/>
-#> <img alt="A dark-colored cat looking into the camera" class="brand-logo dark-content my-logo" height="32" src="https://placecats.com/millie/300/300"/>
-#> </span><!--/html_preserve-->
-}\if{html}{\out{</div>}}
+}\if{html}{\out{</div>}}\if{html}{\out{
+<!--html_preserve--><span class="brand-logo-light-dark">
+}}
+\if{html}{\out{
+<img alt="A light-colored tabby cat on a purple rug" class="brand-logo light-content my-logo" height="32" src="https://placecats.com/louie/300/300"/>
+<img alt="A dark-colored cat looking into the camera" class="brand-logo dark-content my-logo" height="32" src="https://placecats.com/millie/300/300"/>
+</span><!--/html_preserve-->
+}}
+
 
 The same applies to HTML documents produced by Quarto or R Markdown, where
 images can be used in-line:
