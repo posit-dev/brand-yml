@@ -713,3 +713,105 @@ test_that("theme_colors_thematic", {
   expect_type(light_colors_theme, "closure")
   expect_type(dark_colors_theme, "closure")
 })
+
+test_that("ggiraph light", {
+  skip_if_not_installed("ggiraph")
+  skip_if_not_installed("ggplot2", "4.0.0")
+
+  # Test with light theme (uses orange accent from brand-posit.yml)
+  posit_light <- test_example("brand-posit.yml")
+  light_theme <- theme_brand_ggplot2(posit_light)
+
+  # Verify light theme created successfully
+  expect_s3_class(light_theme, c("theme", "gg"))
+  expect_type(light_theme, "list")
+
+  # Create a ggiraph interactive plot
+  library(ggiraph)
+  library(ggplot2)
+
+  # Create a base plot with interactive points
+  plot_base <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point_interactive(aes(
+      colour = factor(cyl),
+      tooltip = rownames(mtcars),
+      data_id = rownames(mtcars)
+    )) +
+    geom_smooth(method = "lm") +
+    labs(
+      title = "Car Weight vs. Fuel Efficiency (Light Theme)",
+      subtitle = "Hover over points to see car names",
+      x = "Miles Per Gallon",
+      y = "Weight (1000 lbs)",
+      colour = "Cylinders"
+    )
+
+  # Apply the light theme
+  plot_themed <- plot_base + light_theme
+
+  # Create girafe object
+  girafe_obj <- girafe(
+    ggobj = plot_themed,
+    width_svg = 8,
+    height_svg = 6,
+    options = list(
+      opts_hover(css = "fill:orange;stroke:black;r:6pt;"),
+      opts_selection(css = "fill:red;stroke:black;r:6pt;")
+    )
+  )
+
+  # Print the light theme plot
+  print(girafe_obj)
+  cat("\n\nAbove: Interactive ggiraph plot using theme_brand_ggplot2 with orange accent from brand-posit.yml\n\n")
+})
+
+test_that("ggiraph dark", {
+  skip_if_not_installed("ggiraph")
+  skip_if_not_installed("ggplot2", "4.0.0")
+
+  # Test with dark theme (uses burgundy accent from brand-posit-dark.yml)
+  posit_dark <- test_example("brand-posit-dark.yml")
+  dark_theme <- theme_brand_ggplot2(posit_dark)
+
+  # Verify dark theme created successfully
+  expect_s3_class(dark_theme, c("theme", "gg"))
+  expect_type(dark_theme, "list")
+
+  # Create a ggiraph interactive plot
+  library(ggiraph)
+  library(ggplot2)
+
+  # Create a base plot with interactive points
+  plot_base <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point_interactive(aes(
+      colour = factor(cyl),
+      tooltip = rownames(mtcars),
+      data_id = rownames(mtcars)
+    )) +
+    geom_smooth(method = "lm") +
+    labs(
+      title = "Car Weight vs. Fuel Efficiency (Dark Theme)",
+      subtitle = "Hover over points to see car names",
+      x = "Miles Per Gallon",
+      y = "Weight (1000 lbs)",
+      colour = "Cylinders"
+    )
+
+  # Apply the dark theme
+  plot_themed <- plot_base + dark_theme
+
+  # Create girafe object with darker hover/selection colors suited for dark theme
+  girafe_obj <- girafe(
+    ggobj = plot_themed,
+    width_svg = 8,
+    height_svg = 6,
+    options = list(
+      opts_hover(css = "fill:#C96B8C;stroke:white;r:6pt;"), # Use burgundy for hover
+      opts_selection(css = "fill:#EE6331;stroke:white;r:6pt;") # Use orange for selection
+    )
+  )
+
+  # Print the dark theme plot
+  print(girafe_obj)
+  cat("\n\nAbove: Interactive ggiraph plot using theme_brand_ggplot2 with burgundy accent from brand-posit-dark.yml\n\n")
+})
