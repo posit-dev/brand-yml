@@ -53,14 +53,14 @@
 # brand_use_logo(): errors when requesting light_dark with required=TRUE on non-light_dark logo without fallback
 
     Code
-      brand_use_logo(brand, name = "small", variant = c("light", "dark"), .required = TRUE,
-      .allow_fallback = FALSE)
+      brand_use_logo(brand, name = "small", variant = "light-dark", .required = TRUE,
+        .allow_fallback = FALSE)
     Condition
       Error in `brand_use_logo()`:
       ! `brand.logo.small` requires light/dark variants.
     Code
-      brand_use_logo(brand, name = "small", variant = c("light", "dark"), .required = "for theme support",
-      .allow_fallback = FALSE)
+      brand_use_logo(brand, name = "small", variant = "light-dark", .required = "for theme support",
+        .allow_fallback = FALSE)
     Condition
       Error in `brand_use_logo()`:
       ! `brand.logo.small` requires light/dark variants for theme support.
