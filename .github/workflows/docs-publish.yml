@@ -46,7 +46,7 @@ jobs:
       run: uv python install ${{ env.PYTHON_VERSION }}
 
     - name: 📦 Install brand_yml for Python
-      run: uv sync --python ${{ env.PYTHON_VERSION }} --no-dev --extra docs
+      run: uv sync --python ${{ env.PYTHON_VERSION }} --no-dev --group docs
 
     - name: 📦 Install brand.yml for R
       uses: r-lib/actions/setup-r-dependencies@v2
