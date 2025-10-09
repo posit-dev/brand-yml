@@ -340,6 +340,13 @@ cookieconsent.run({
   <li><a href="#brand_yml.BrandLogoResource" id="toc-brand_yml.BrandLogoResource" class="nav-link" data-scroll-target="#brand_yml.BrandLogoResource">BrandLogoResource</a>
   <ul class="collapse">
   <li><a href="#attributes-1" id="toc-attributes-1" class="nav-link" data-scroll-target="#attributes-1">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#brand_yml.BrandLogoResource.tagify" id="toc-brand_yml.BrandLogoResource.tagify" class="nav-link" data-scroll-target="#brand_yml.BrandLogoResource.tagify">tagify</a></li>
+  <li><a href="#brand_yml.BrandLogoResource.to_html" id="toc-brand_yml.BrandLogoResource.to_html" class="nav-link" data-scroll-target="#brand_yml.BrandLogoResource.to_html">to_html</a></li>
+  <li><a href="#brand_yml.BrandLogoResource.to_markdown" id="toc-brand_yml.BrandLogoResource.to_markdown" class="nav-link" data-scroll-target="#brand_yml.BrandLogoResource.to_markdown">to_markdown</a></li>
+  <li><a href="#brand_yml.BrandLogoResource.to_str" id="toc-brand_yml.BrandLogoResource.to_str" class="nav-link" data-scroll-target="#brand_yml.BrandLogoResource.to_str">to_str</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#brand_yml.BrandLightDark" id="toc-brand_yml.BrandLightDark" class="nav-link" data-scroll-target="#brand_yml.BrandLightDark">BrandLightDark</a>
   <ul class="collapse">
@@ -348,7 +355,7 @@ cookieconsent.run({
   <li><a href="#brand_yml.FileLocation" id="toc-brand_yml.FileLocation" class="nav-link" data-scroll-target="#brand_yml.FileLocation">FileLocation</a></li>
   <li><a href="#brand_yml.FileLocationLocal" id="toc-brand_yml.FileLocationLocal" class="nav-link" data-scroll-target="#brand_yml.FileLocationLocal">FileLocationLocal</a>
   <ul class="collapse">
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a>
   <ul class="collapse">
   <li><a href="#brand_yml.FileLocationLocal.absolute" id="toc-brand_yml.FileLocationLocal.absolute" class="nav-link" data-scroll-target="#brand_yml.FileLocationLocal.absolute">absolute</a></li>
   <li><a href="#brand_yml.FileLocationLocal.exists" id="toc-brand_yml.FileLocationLocal.exists" class="nav-link" data-scroll-target="#brand_yml.FileLocationLocal.exists">exists</a></li>
@@ -380,6 +387,7 @@ cookieconsent.run({
 <p>Brand Logos</p>
 <p><code>logo</code> stores a single brand logo or a set of logos at three different size points and possibly in different color schemes. Store all of your brand’s logo or image assets in <code>images</code> with meaningful names. Logos can be mapped to three preset sizes – <code>small</code>, <code>medium</code>, and <code>large</code> – and each can be either a single logo file or a light/dark variant (<code>brand_yml.BrandLightDark</code>).</p>
 <p>To attach alternative text to an image, provide the image as a dictionary including <code>path</code> (the image location) and <code>alt</code> (the short, alternative text describing the image).</p>
+<p>For a convenient way to use logos from a <code>Brand</code> instance, see <code>Brand.use_logo</code>.</p>
 <section id="attributes" class="level2 doc-section doc-section-attributes">
 <h2 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes">Attributes</h2>
 <dl>
@@ -518,16 +526,186 @@ cookieconsent.run({
 <td>Alterative text for the image, used for accessibility.</td>
 </tr>
 <tr class="even">
+<td><a href="#brand_yml.logo.BrandLogoResource.attrs">attrs</a></td>
+<td>Additional attributes for HTML/markdown rendering.</td>
+</tr>
+<tr class="odd">
 <td><a href="#brand_yml.logo.BrandLogoResource.path">path</a></td>
 <td>The path to the logo resource. This can be a local file or a URL.</td>
 </tr>
 </tbody>
 </table>
 </section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#brand_yml.BrandLogoResource.tagify">tagify</a></td>
+<td>Convenience method for <code>.to_html()</code>, for use in Shiny apps.</td>
+</tr>
+<tr class="even">
+<td><a href="#brand_yml.BrandLogoResource.to_html">to_html</a></td>
+<td>Generate HTML img tag for the logo resource.</td>
+</tr>
+<tr class="odd">
+<td><a href="#brand_yml.BrandLogoResource.to_markdown">to_markdown</a></td>
+<td>Generate markdown image syntax for the logo resource.</td>
+</tr>
+<tr class="even">
+<td><a href="#brand_yml.BrandLogoResource.to_str">to_str</a></td>
+<td>Convert logo resource to string representation.</td>
+</tr>
+</tbody>
+</table>
+<section id="brand_yml.BrandLogoResource.tagify" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.BrandLogoResource.tagify">tagify</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource.tagify()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Convenience method for <code>.to_html()</code>, for use in Shiny apps.</p>
+<section id="returns" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 58%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>htmltools</code>.<code>Tag</code></td>
+<td>HTML img tag as a string.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="brand_yml.BrandLogoResource.to_html" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.BrandLogoResource.to_html">to_html</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource.to_html(<span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Generate HTML img tag for the logo resource.</p>
+<section id="parameters" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
+<dl>
+<dt><code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code></dt>
+<dd>
+<p>Additional HTML attributes to include in the img tag. Values should be compatible with htmltools.TagAttrValue types.</p>
+</dd>
+</dl>
+</section>
+<section id="returns-1" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-1">Returns</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 58%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>htmltools</code>.<code>Tag</code></td>
+<td>HTML img tag as a string.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="brand_yml.BrandLogoResource.to_markdown" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.BrandLogoResource.to_markdown">to_markdown</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource.to_markdown(<span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Generate markdown image syntax for the logo resource.</p>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
+<dl>
+<dt><code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code></dt>
+<dd>
+<p>Additional attributes to include in the markdown image syntax.</p>
+</dd>
+</dl>
+</section>
+<section id="returns-2" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-2">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>Markdown image syntax as a string.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="brand_yml.BrandLogoResource.to_str" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.BrandLogoResource.to_str">to_str</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>BrandLogoResource.to_str(format_type<span class="op">=</span><span class="st">'html'</span>, <span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Convert logo resource to string representation.</p>
+<section id="parameters-2" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-2">Parameters</h4>
+<dl>
+<dt><code><span class="parameter-name">format_type</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘html’</span></code></dt>
+<dd>
+<p>Output format, either “html” or “markdown”.</p>
+</dd>
+<dt><code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code></dt>
+<dd>
+<p>Additional attributes for the output format.</p>
+</dd>
+</dl>
+</section>
+<section id="returns-3" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-3">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>String representation in the specified format.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
 </section>
 <section id="brand_yml.BrandLightDark" class="level1">
 <h1>BrandLightDark</h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandLightDark(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>BrandLightDark(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A Light/Dark Variant</p>
 <p>Holds variants for light and dark settings. Generally speaking <strong>light</strong> settings have white or light backgrounds and dark foreground colors (black text on a white page) and <strong>dark</strong> settings use black or dark background with light foreground colors (white text on a black page).</p>
 <section id="attributes-2" class="level2">
@@ -554,18 +732,18 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.FileLocation" class="level1">
 <h1>FileLocation</h1>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FileLocation(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>FileLocation(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The base class for a file location, either a local or an online file.</p>
 <p>Local files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationLocal"><code>brand_yml.file.FileLocationLocal</code></a> and are always considered relative to the source <code>_brand.yml</code> file.</p>
 <p>Online files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationUrl"><code>brand_yml.file.FileLocationUrl</code></a> and are a URL starting with <code>https://</code> or <code>http://</code>. Absolute paths for local or network files are supported via <code>FileLocationUrl</code> when using the <code>file://</code> prefix.</p>
 </section>
 <section id="brand_yml.FileLocationLocal" class="level1">
 <h1>FileLocationLocal</h1>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A local file location.</p>
 <p>When used in a <code>brand_yml.Brand</code> instance, this class carries both the relative path to the file, relative to the source <code>_brand.yml</code>, and the absolute path of the file on disk.</p>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="methods-1" class="level2">
+<h2 class="anchored" data-anchor-id="methods-1">Methods</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -598,30 +776,30 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.FileLocationLocal.absolute" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.FileLocationLocal.absolute">absolute</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.absolute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.absolute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Absolute path of the file location, relative to the root directory.</p>
 <p>Returns the absolute path to the file, relative to the root directory, which is most typically the directory containing the <code>_brand.yml</code> file.</p>
 </section>
 <section id="brand_yml.FileLocationLocal.exists" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.FileLocationLocal.exists">exists</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.exists()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.exists()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Check that the file exists at its absolute path.</p>
 </section>
 <section id="brand_yml.FileLocationLocal.relative" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.FileLocationLocal.relative">relative</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.relative()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.relative()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Relative path of the file location.</p>
 <p>Returns the relative path to the file as it would appear in the source <code>_brand.yml</code> file.</p>
 </section>
 <section id="brand_yml.FileLocationLocal.set_root_dir" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.FileLocationLocal.set_root_dir">set_root_dir</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.set_root_dir(root_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.set_root_dir(root_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Update the root directory of this file location.</p>
 <p>In general, the root directory is the parent directory containing the source <code>brand_yml</code> file. If you relocate the file, this method can be used to update the new local file location.</p>
 </section>
 <section id="brand_yml.FileLocationLocal.validate_exists" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.FileLocationLocal.validate_exists">validate_exists</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.validate_exists()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>FileLocationLocal.validate_exists()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Validate that the file exists at its absolute path.</p>
 <section id="raises" class="level4 doc-section doc-section-raises">
 <h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises">Raises</h4>
@@ -647,7 +825,7 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.FileLocationUrl" class="level1">
 <h1>FileLocationUrl</h1>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>FileLocationUrl(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>FileLocationUrl(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A hosted, online file location, i.e.&nbsp;a URL.</p>
 <p>A URL to a single file, typically an online file path starting with <code>http://</code> or <code>https://</code>. This class can also be used for the absolute path of local or networked files, which should start with <code>file://</code> (otherwise local files are handled by <a href="../../pkg/py/logo.html#brand_yml.FileLocationLocal"><code>brand_yml.file.FileLocationLocal</code></a>).</p>
 </section>

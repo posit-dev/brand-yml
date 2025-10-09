@@ -6,6 +6,7 @@ brand_yml.Brand.from_yaml py:function 1 pkg/py/Brand.html#brand_yml.Brand.from_y
 brand_yml.Brand.from_yaml_str py:function 1 pkg/py/Brand.html#brand_yml.Brand.from_yaml_str -
 brand_yml.Brand.model_config py:attribute 1 pkg/py/Brand.html#brand_yml.Brand.model_config -
 brand_yml.Brand.model_dump_yaml py:function 1 pkg/py/Brand.html#brand_yml.Brand.model_dump_yaml -
+brand_yml.Brand.use_logo py:function 1 pkg/py/Brand.html#brand_yml.Brand.use_logo -
 brand_yml.Brand py:class 1 pkg/py/Brand.html#brand_yml.Brand -
 brand_yml.BrandMeta.model_config py:attribute 1 pkg/py/meta.html#brand_yml.BrandMeta.model_config -
 brand_yml.meta.BrandMeta.model_config py:attribute 1 pkg/py/meta.html#brand_yml.BrandMeta.model_config brand_yml.BrandMeta.model_config
@@ -29,9 +30,18 @@ brand_yml.logo.BrandLogo.model_config py:attribute 1 pkg/py/logo.html#brand_yml.
 brand_yml.BrandLogo py:class 1 pkg/py/logo.html#brand_yml.BrandLogo -
 brand_yml.logo.BrandLogo py:class 1 pkg/py/logo.html#brand_yml.BrandLogo brand_yml.BrandLogo
 brand_yml.logo.BrandLogoResource.alt py:attribute 1 pkg/py/logo.html#brand_yml.logo.BrandLogoResource.alt -
+brand_yml.logo.BrandLogoResource.attrs py:attribute 1 pkg/py/logo.html#brand_yml.logo.BrandLogoResource.attrs -
 brand_yml.BrandLogoResource.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLogoResource.model_config -
 brand_yml.logo.BrandLogoResource.model_config py:attribute 1 pkg/py/logo.html#brand_yml.BrandLogoResource.model_config brand_yml.BrandLogoResource.model_config
 brand_yml.logo.BrandLogoResource.path py:attribute 1 pkg/py/logo.html#brand_yml.logo.BrandLogoResource.path -
+brand_yml.BrandLogoResource.tagify py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.tagify -
+brand_yml.logo.BrandLogoResource.tagify py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.tagify brand_yml.BrandLogoResource.tagify
+brand_yml.BrandLogoResource.to_html py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_html -
+brand_yml.logo.BrandLogoResource.to_html py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_html brand_yml.BrandLogoResource.to_html
+brand_yml.BrandLogoResource.to_markdown py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_markdown -
+brand_yml.logo.BrandLogoResource.to_markdown py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_markdown brand_yml.BrandLogoResource.to_markdown
+brand_yml.BrandLogoResource.to_str py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_str -
+brand_yml.logo.BrandLogoResource.to_str py:function 1 pkg/py/logo.html#brand_yml.BrandLogoResource.to_str brand_yml.BrandLogoResource.to_str
 brand_yml.BrandLogoResource py:class 1 pkg/py/logo.html#brand_yml.BrandLogoResource -
 brand_yml.logo.BrandLogoResource py:class 1 pkg/py/logo.html#brand_yml.BrandLogoResource brand_yml.BrandLogoResource
 brand_yml._defs.BrandLightDark.dark py:attribute 1 pkg/py/logo.html#brand_yml._defs.BrandLightDark.dark -

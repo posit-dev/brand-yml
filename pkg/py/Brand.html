@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -127,6 +127,9 @@ cookieconsent.run({
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KHBDBW7');</script>
 <!-- End Google Tag Manager -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="quartodoc.css">
@@ -337,6 +340,7 @@ cookieconsent.run({
   <li><a href="#brand_yml.Brand.from_yaml" id="toc-brand_yml.Brand.from_yaml" class="nav-link" data-scroll-target="#brand_yml.Brand.from_yaml">from_yaml</a></li>
   <li><a href="#brand_yml.Brand.from_yaml_str" id="toc-brand_yml.Brand.from_yaml_str" class="nav-link" data-scroll-target="#brand_yml.Brand.from_yaml_str">from_yaml_str</a></li>
   <li><a href="#brand_yml.Brand.model_dump_yaml" id="toc-brand_yml.Brand.model_dump_yaml" class="nav-link" data-scroll-target="#brand_yml.Brand.model_dump_yaml">model_dump_yaml</a></li>
+  <li><a href="#brand_yml.Brand.use_logo" id="toc-brand_yml.Brand.use_logo" class="nav-link" data-scroll-target="#brand_yml.Brand.use_logo">use_logo</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -426,6 +430,10 @@ cookieconsent.run({
 <tr class="odd">
 <td><a href="#brand_yml.Brand.model_dump_yaml">model_dump_yaml</a></td>
 <td>Serialize the Brand object to YAML.</td>
+</tr>
+<tr class="even">
+<td><a href="#brand_yml.Brand.use_logo">use_logo</a></td>
+<td>Extract a logo resource from a brand.</td>
 </tr>
 </tbody>
 </table>
@@ -562,7 +570,7 @@ cookieconsent.run({
 </section>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-1">Examples</h4>
-<div id="0298b48b" class="cell" data-execution_count="1">
+<div id="9966704a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -574,13 +582,13 @@ cookieconsent.run({
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">  base: Open Sans</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="105fb8ff" class="cell" data-execution_count="2">
+<div id="77ed94a1" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>brand.meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>BrandMeta(name=BrandMetaName(full='Brand YAML'))</code></pre>
 </div>
 </div>
-<div id="bf6c7393" class="cell" data-execution_count="3">
+<div id="e4557e5c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>brand.color.primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'#ff0202'</code></pre>
@@ -595,7 +603,7 @@ cookieconsent.run({
 <p>Write the <a href="../../pkg/py/Brand.html#brand_yml.Brand"><code>brand_yml.Brand</code></a> instance to a string or to a file on disk.</p>
 <section id="examples-2" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-2">Examples</h4>
-<div id="6f5295e7" class="cell" data-execution_count="4">
+<div id="11eac733" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">"""</span></span>
@@ -610,7 +618,7 @@ cookieconsent.run({
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="python-code-preview">
-<div id="b988eaa3" class="cell" data-execution_count="5">
+<div id="0af728c9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(brand.model_dump_yaml())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>meta:
@@ -661,6 +669,136 @@ typography:
 </tr>
 </tbody>
 </table>
+</section>
+</section>
+<section id="brand_yml.Brand.use_logo" class="level3">
+<h3 class="anchored" data-anchor-id="brand_yml.Brand.use_logo">use_logo</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Brand.use_logo(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    name,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    variant<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    required<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    allow_fallback<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>kwargs,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Extract a logo resource from a brand.</p>
+<p>Returns a brand logo resource specified by name and variant from a brand object. The image paths in the returned object are adjusted to be absolute, relative to the location of the brand YAML file, if <code>brand</code> was read from a file, or the local working directory otherwise.</p>
+<section id="parameters-3" class="level4 doc-section doc-section-parameters">
+<h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-3">Parameters</h4>
+<dl>
+<dt><code><span class="parameter-name">name</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span></code></dt>
+<dd>
+<p>The name of the logo to use. Either a size (<code>"small"</code>, <code>"medium"</code>, <code>"large"</code>) or an image name from <code>brand.logo.images</code>. Alternatively, you can also use <code>"smallest"</code> or <code>"largest"</code> to select the smallest or largest available logo size, respectively.</p>
+</dd>
+<dt><code><span class="parameter-name">variant</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>['auto', 'light', 'dark', 'light-dark']</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘auto’</span></code></dt>
+<dd>
+<p>Which variant to use, only used when <code>name</code> is one of the brand.yml fixed logo sizes (<code>"small"</code>, <code>"medium"</code>, or <code>"large"</code>). Can be one of:</p>
+<ul>
+<li><code>"auto"</code>: Auto-detect, returns a light/dark logo resource if both variants are present, otherwise it returns a single logo resource, either the value for <code>brand.logo.{name}</code> or the single light or dark variant if only one is present.</li>
+<li><code>"light"</code>: Returns only the light variant. If no light variant is present, but <code>brand.logo.{name}</code> is a single logo resource and <code>allow_fallback</code> is <code>True</code>, <code>use_logo()</code> falls back to the single logo resource.</li>
+<li><code>"dark"</code>: Returns only the dark variant, or, as above, falls back to the single logo resource if no dark variant is present and <code>allow_fallback</code> is <code>True</code>.</li>
+<li><code>"light-dark"</code>: Returns a light/dark object with both variants. If a single logo resource is present for <code>brand.logo.{name}</code> and <code>allow_fallback</code> is <code>True</code>, the single logo resource is promoted to a light/dark logo resource with identical light and dark variants.</li>
+</ul>
+</dd>
+<dt><code><span class="parameter-name">required</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/functions.html#bool">bool</a> | <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code></dt>
+<dd>
+<p>Logical or string. If <code>True</code>, an error is thrown if the requested logo is not found. If a string, it is used to describe why the logo is required in the error message and completes the phrase <code>"is required ____"</code>. Defaults to <code>False</code> when <code>name</code> is one of the fixed sizes – <code>"small"</code>, <code>"medium"</code>, <code>"large"</code> or <code>"smallest"</code> or <code>"largest"</code>. Otherwise, an error is thrown by default if the requested logo is not found.</p>
+</dd>
+<dt><code><span class="parameter-name">allow_fallback</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">True</span></code></dt>
+<dd>
+<p>If <code>True</code> (the default), allows falling back to a non-variant-specific logo when a specific variant is requested. Only used when <code>name</code> is one of the fixed logo sizes (<code>"small"</code>, <code>"medium"</code>, or <code>"large"</code>).</p>
+</dd>
+<dt><code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><code>TagAttrValue</code></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code></dt>
+<dd>
+<p>Additional named attributes to be added to the image HTML or markdown when created via formatting methods.</p>
+</dd>
+</dl>
+</section>
+<section id="returns-3" class="level4 doc-section doc-section-returns">
+<h4 class="doc-section doc-section-returns anchored" data-anchor-id="returns-3">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><a href="../../pkg/py/logo.html#brand_yml.BrandLogoResource">BrandLogoResource</a> | <code>BrandLogoResourceLightDark</code> | None</td>
+<td>A <code>BrandLogoResource</code> object, a <code>BrandLogoResourceLightDark</code> object, or <code>None</code> if the requested logo doesn’t exist and <code>required</code> is <code>False</code>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="raises-2" class="level4 doc-section doc-section-raises">
+<h4 class="doc-section doc-section-raises anchored" data-anchor-id="raises-2">Raises</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>BrandLogoMissingError</code></td>
+<td>If the requested logo is not found and <code>required</code> is <code>True</code> or a string.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></td>
+<td>If <code>variant</code> is not one of <code>"auto"</code>, <code>"light"</code>, <code>"dark"</code>, or <code>"light-dark"</code>.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="examples-3" class="level4 doc-section doc-section-examples">
+<h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-3">Examples</h4>
+<div id="b890f7a1" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(<span class="st">'''</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">logo:</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="st">  small:</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="st">    light:</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="st">      path: https://pandas.pydata.org/static/img/pandas_mark.svg</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">      alt: Pandas logo</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="st">    dark:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="st">      path: https://pandas.pydata.org/static/img/pandas_mark_white.svg</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="st">      alt: Pandas logo</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="st">  medium:</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="st">    path: https://pandas.pydata.org/static/img/pandas_secondary.svg</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="st">    alt: Pandas logo and name</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>brand.use_logo(<span class="st">"small"</span>, width<span class="op">=</span><span class="st">"100px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<span class="brand-logo-light-dark"><img class="brand-logo light-content" width="100px" src="https://pandas.pydata.org/static/img/pandas_mark.svg" alt="Pandas logo"><img class="brand-logo dark-content" width="100px" src="https://pandas.pydata.org/static/img/pandas_mark_white.svg" alt="Pandas logo"></span>
+</div>
+</div>
+<div id="bfab2c0e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(brand.use_logo(<span class="st">"small"</span>, variant<span class="op">=</span><span class="st">"light"</span>).to_html())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>'&lt;img class="brand-logo" src="https://pandas.pydata.org/static/img/pandas_mark.svg" alt="Pandas logo"/&gt;'</code></pre>
+</div>
+</div>
+<div id="b6a70c28" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>brand.use_logo(<span class="st">"small"</span>, variant<span class="op">=</span><span class="st">"dark"</span>).to_markdown()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>'![](https://pandas.pydata.org/static/img/pandas_mark_white.svg){alt="Pandas logo" .brand-logo}'</code></pre>
+</div>
+</div>
+<div id="55b29e6c" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>brand.use_logo(<span class="st">"medium"</span>).to_markdown()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>'![](https://pandas.pydata.org/static/img/pandas_secondary.svg){alt="Pandas logo and name" .brand-logo}'</code></pre>
+</div>
+</div>
 
 
 </section>
