@@ -33,12 +33,12 @@ pre-commit-all:
 
 .PHONY: py-setup
 py-setup:  ## [py] Setup python environment (or: py-setup-upgrade)
-	uv sync --all-extras
+	uv sync --all-extras --all-groups
 	uv run pre-commit install
 
 .PHONY: py-setup-upgrade
 py-setup-upgrade:
-	uv sync --upgrade --all-extras
+	uv sync --upgrade --all-extras --all-groups
 	uv run pre-commit install
 
 .PHONY: py-check
