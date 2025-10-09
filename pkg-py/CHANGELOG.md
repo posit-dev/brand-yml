@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Added `Brand.use_logo()` method to resolve and use brand logos in a variety of contexts, including Shiny apps. (#98)
 
+* Use PEP 735 `dependency-groups` for dev dependencies. (#100)
+
+* brand_yml now requires pydantic 2.10+. (#100)
+
 ## [0.1.1]
 
 ### Bug fixes

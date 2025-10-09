@@ -32,8 +32,13 @@ pre-commit-all:
 	uv run pre-commit run --files $$(git ls-files | grep -E "[.]([qR]?md|py|R|ya?ml|[jt]s|toml)$$")
 
 .PHONY: py-setup
-py-setup:  ## [py] Setup python environment
+py-setup:  ## [py] Setup python environment (or: py-setup-upgrade)
 	uv sync --all-extras
+	uv run pre-commit install
+
+.PHONY: py-setup-upgrade
+py-setup-upgrade:
+	uv sync --upgrade --all-extras
 	uv run pre-commit install
 
 .PHONY: py-check
