@@ -205,6 +205,15 @@ brand_use_logo <- function(
     x
   }
 
+  # When brand$logo is a simple brand_logo_resource, promote it to all sizes
+  if (inherits(brand$logo, "brand_logo_resource")) {
+    brand$logo <- list(
+      small = brand$logo,
+      medium = brand$logo,
+      large = brand$logo
+    )
+  }
+
   if (name %in% c("smallest", "largest")) {
     sizes <- c("small", "medium", "large")
     available <- intersect(sizes, names(brand$logo))
