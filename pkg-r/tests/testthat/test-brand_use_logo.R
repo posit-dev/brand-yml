@@ -120,7 +120,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_variants,
       name = "smallest",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_equal(result$light$path, "./logos/small-light.png")
@@ -229,7 +229,7 @@ describe("brand_use_logo()", {
     simple_result <- brand_use_logo(
       brand,
       name = "small",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(simple_result, "brand_logo_resource_light_dark")
     # These are the same because we requested light/dark, so the single value
@@ -241,7 +241,7 @@ describe("brand_use_logo()", {
     ld_result <- brand_use_logo(
       brand,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(ld_result, "brand_logo_resource_light_dark")
     expect_s3_class(ld_result, "light_dark")
@@ -260,7 +260,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_pathed,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_equal(result$light$path, "/base/path/logos/medium-light.png")
@@ -281,7 +281,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_light_only,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_s3_class(result$light, "brand_logo_resource")
@@ -294,7 +294,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand,
       name = "small",
-      variant = c("light", "dark"),
+      variant = "light-dark",
       .allow_fallback = FALSE
     )
     expect_null(result)
@@ -306,14 +306,14 @@ describe("brand_use_logo()", {
       brand_use_logo(
         brand,
         name = "small",
-        variant = c("light", "dark"),
+        variant = "light-dark",
         .required = TRUE,
         .allow_fallback = FALSE
       )
       brand_use_logo(
         brand,
         name = "small",
-        variant = c("light", "dark"),
+        variant = "light-dark",
         .required = "for theme support",
         .allow_fallback = FALSE
       )
