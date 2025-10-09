@@ -5,7 +5,7 @@
 # BrandLogo { #brand_yml.BrandLogo }
 
 ```python
-BrandLogo()
+BrandLogo(**data)
 ```
 
 Brand Logos
@@ -20,6 +20,9 @@ either a single logo file or a light/dark variant
 To attach alternative text to an image, provide the image as a dictionary
 including `path` (the image location) and `alt` (the short, alternative
 text describing the image).
+
+For a convenient way to use logos from a `Brand` instance, see
+`Brand.use_logo`.
 
 ## Attributes {.doc-section .doc-section-attributes}
 
@@ -147,7 +150,7 @@ logo:
 # BrandLogoResource { #brand_yml.BrandLogoResource }
 
 ```python
-BrandLogoResource()
+BrandLogoResource(**data)
 ```
 
 A logo resource, a file with optional alternative text
@@ -157,12 +160,101 @@ A logo resource, a file with optional alternative text
 | Name | Description |
 | --- | --- |
 | [alt](#brand_yml.logo.BrandLogoResource.alt) | Alterative text for the image, used for accessibility. |
+| [attrs](#brand_yml.logo.BrandLogoResource.attrs) | Additional attributes for HTML/markdown rendering. |
 | [path](#brand_yml.logo.BrandLogoResource.path) | The path to the logo resource. This can be a local file or a URL. |
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [tagify](#brand_yml.BrandLogoResource.tagify) | Convenience method for `.to_html()`, for use in Shiny apps. |
+| [to_html](#brand_yml.BrandLogoResource.to_html) | Generate HTML img tag for the logo resource. |
+| [to_markdown](#brand_yml.BrandLogoResource.to_markdown) | Generate markdown image syntax for the logo resource. |
+| [to_str](#brand_yml.BrandLogoResource.to_str) | Convert logo resource to string representation. |
+
+### tagify { #brand_yml.BrandLogoResource.tagify }
+
+```python
+BrandLogoResource.tagify()
+```
+
+Convenience method for `.to_html()`, for use in Shiny apps.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                            | Description               |
+|--------|-------------------------------------------------|---------------------------|
+|        | [htmltools](`htmltools`).[Tag](`htmltools.Tag`) | HTML img tag as a string. |
+
+### to_html { #brand_yml.BrandLogoResource.to_html }
+
+```python
+BrandLogoResource.to_html(**kwargs)
+```
+
+Generate HTML img tag for the logo resource.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Any](`typing.Any`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional HTML attributes to include in the img tag. Values should be
+    compatible with htmltools.TagAttrValue types.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                            | Description               |
+|--------|-------------------------------------------------|---------------------------|
+|        | [htmltools](`htmltools`).[Tag](`htmltools.Tag`) | HTML img tag as a string. |
+
+### to_markdown { #brand_yml.BrandLogoResource.to_markdown }
+
+```python
+BrandLogoResource.to_markdown(**kwargs)
+```
+
+Generate markdown image syntax for the logo resource.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Any](`typing.Any`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional attributes to include in the markdown image syntax.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                        |
+|--------|--------------|------------------------------------|
+|        | [str](`str`) | Markdown image syntax as a string. |
+
+### to_str { #brand_yml.BrandLogoResource.to_str }
+
+```python
+BrandLogoResource.to_str(format_type='html', **kwargs)
+```
+
+Convert logo resource to string representation.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">format_type</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'html'</span></code>
+
+:   Output format, either "html" or "markdown".
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Any](`typing.Any`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional attributes for the output format.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                    |
+|--------|--------------|------------------------------------------------|
+|        | [str](`str`) | String representation in the specified format. |
 
 # BrandLightDark { #brand_yml.BrandLightDark }
 
 ```python
-BrandLightDark()
+BrandLightDark(**data)
 ```
 
 A Light/Dark Variant
@@ -183,7 +275,7 @@ background with light foreground colors (white text on a black page).
 # FileLocation { #brand_yml.FileLocation }
 
 ```python
-FileLocation()
+FileLocation(root=PydanticUndefined, **data)
 ```
 
 The base class for a file location, either a local or an online file.
@@ -201,7 +293,7 @@ local or network files are supported via `FileLocationUrl` when using the
 # FileLocationLocal { #brand_yml.FileLocationLocal }
 
 ```python
-FileLocationLocal()
+FileLocationLocal(root=PydanticUndefined, **data)
 ```
 
 A local file location.
@@ -279,7 +371,7 @@ Validate that the file exists at its absolute path.
 # FileLocationUrl { #brand_yml.FileLocationUrl }
 
 ```python
-FileLocationUrl()
+FileLocationUrl(root=PydanticUndefined, **data)
 ```
 
 A hosted, online file location, i.e. a URL.
