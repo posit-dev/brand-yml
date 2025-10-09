@@ -108,7 +108,7 @@ exclude_lines = [
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-env_list = type-py3{9,10,11,12}, py3{9,10,11,12}
+env_list = type-py3{9,10,11,12,13,14}, py3{9,10,11,12,13,14}
 isolated_build = True
 
 [testenv]
