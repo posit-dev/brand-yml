@@ -133,7 +133,7 @@ The `theme_brand_plotly()` function applies brand colors to plotly plots. The fu
 
 library(plotly)
 
-plot_ly(
+p <- plot_ly(
   iris,
   x = ~Species,
   y = ~Sepal.Width,
@@ -141,8 +141,9 @@ plot_ly(
   box = list(visible = TRUE),
   meanline = list(visible = TRUE),
   points = "all"
-) |>
-  theme_brand_plotly(brand, accent = "pink")
+)
+
+theme_brand_plotly(p, brand, accent = "pink")
 ```
 
 ## gt
@@ -152,16 +153,11 @@ The `theme_brand_gt()` function applies brand colors to gt tables. Here we use t
 ```{r gt}
 #| warning: false
 #| message: false
-#|
-library(gt)
-library(dplyr)
 
-islands_tbl <-
-  tibble(
-    name = names(islands),
-    size = islands
-  ) |>
-  slice_max(size, n = 10)
+library(gt)
+
+islands_tbl <- dplyr::tibble(name = names(islands), size = islands)
+islands_tbl <- dplyr::slice_max(islands_tbl, size, n = 10)
 
 theme_brand_gt(
   gt(islands_tbl),
