@@ -28,7 +28,8 @@ This vignette demonstrates using the `theme_brand_*` functions with a simple bra
 First, we'll create a brand object using a subset of the colors from the brand.yml project's own `_brand.yml` file:
 
 ```{r brand}
-brand <- as_brand_yml('
+brand <- as_brand_yml(
+  '
 color:
   palette:
     black: "#1A1A1A"
@@ -41,7 +42,8 @@ color:
   background: white
   primary: orange
   danger: pink
-')
+'
+)
 ```
 
 If you have a `_brand.yml` file in your project directory, you can read it in with `read_brand_yml()`, or just let the `theme_brand_*` functions find it automatically.
@@ -57,7 +59,13 @@ library(ggplot2)
 
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
-  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
+  scale_colour_manual(
+    values = c(
+      brand_color_pluck(brand, "orange"),
+      brand_color_pluck(brand, "purple"),
+      brand_color_pluck(brand, "green")
+    )
+  ) +
   theme_brand_ggplot2(brand, background = "black", foreground = "white")
 ```
 
@@ -73,7 +81,7 @@ library(patchwork)
 library(thematic)
 
 # Use thematic_with_theme to apply the theme temporarily
-thematic_with_theme(theme_brand_thematic(brand, accent = "purple"), {
+thematic_with_theme(theme_brand_thematic(brand, foreground = "purple"), {
   # Generate three scatterplots
   plot1 <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point()
@@ -100,8 +108,17 @@ library(ggplot2)
 library(ggiraph)
 
 cars <- ggplot(mtcars, aes(mpg, wt)) +
-  geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
-  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
+  geom_point_interactive(aes(
+    colour = factor(cyl),
+    tooltip = rownames(mtcars)
+  )) +
+  scale_colour_manual(
+    values = c(
+      brand_color_pluck(brand, "orange"),
+      brand_color_pluck(brand, "purple"),
+      brand_color_pluck(brand, "green")
+    )
+  ) +
   theme_brand_ggplot2(brand)
 
 girafe(ggobj = cars)
@@ -116,10 +133,15 @@ The `theme_brand_plotly()` function applies brand colors to plotly plots. The fu
 
 library(plotly)
 
-plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
-        box = list(visible = TRUE),
-        meanline = list(visible = TRUE),
-        points = "all") |>
+plot_ly(
+  iris,
+  x = ~Species,
+  y = ~Sepal.Width,
+  type = "violin",
+  box = list(visible = TRUE),
+  meanline = list(visible = TRUE),
+  points = "all"
+) |>
   theme_brand_plotly(brand, accent = "pink")
 ```
 
@@ -129,7 +151,8 @@ The `theme_brand_gt()` function applies brand colors to gt tables. Here we use t
 
 ```{r gt}
 #| warning: false
-
+#| message: false
+#|
 library(gt)
 library(dplyr)
 
@@ -140,7 +163,12 @@ islands_tbl <-
   ) |>
   slice_max(size, n = 10)
 
-theme_brand_gt(gt(islands_tbl), brand, background = "green", foreground = "white")
+theme_brand_gt(
+  gt(islands_tbl),
+  brand,
+  background = "green",
+  foreground = "white"
+)
 ```
 
 ## flextable
@@ -153,12 +181,12 @@ The `theme_brand_flextable()` function applies brand colors to a flextable table
 library(flextable)
 
 ft <- flextable(airquality[sample.int(10), ])
-ft <- add_header_row(ft,
-  colwidths = c(4, 2),
-  values = c("Air quality", "Time")
-)
+ft <- add_header_row(ft, colwidths = c(4, 2), values = c("Air quality", "Time"))
 ft <- theme_vanilla(ft)
-ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+ft <- add_footer_lines(
+  ft,
+  "Daily air quality measurements in New York, May to September 1973."
+)
 ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 
 theme_brand_flextable(ft, brand)
