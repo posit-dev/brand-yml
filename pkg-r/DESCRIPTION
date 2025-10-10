@@ -35,6 +35,7 @@ Suggests:
     palmerpenguins,
     patchwork,
     plotly,
+    rmarkdown,
     sass,
     stringr,
     testthat (>= 3.0.0),
@@ -47,3 +48,4 @@ Config/testthat/parallel: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+VignetteBuilder: knitr
