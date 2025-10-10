@@ -39,9 +39,15 @@
 #'   - A brand object (as returned by `read_brand_yml()` or `as_brand_yml()`)
 #'   - `FALSE`: Don't use a brand file; explicit colors must be provided
 #' @param background The background color, defaults to `brand.color.background`.
+#'   If provided directly, this value can be a valid R color or the name of a
+#'   color in `brand.color` or `brand.color.palette`.
 #' @param foreground The foreground color, defaults to `brand.color.foreground`.
+#'   If provided directly, this value can be a valid R color or the name of a
+#'   color in `brand.color` or `brand.color.palette`.
 #' @param accent The accent color, defaults to `brand.color.primary` or
-#'   `brand.color.palette.accent`.
+#'   `brand.color.palette.accent`. If provided directly, this value can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`.
 #'
 #' @return A [ggplot2::theme()] object.
 #'

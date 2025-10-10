@@ -20,12 +20,18 @@ theme_brand_thematic(
 \item \code{FALSE}: Don't use a brand file; explicit colors must be provided
 }}
 
-\item{background}{The background color, defaults to \code{brand.color.background}.}
+\item{background}{The background color, defaults to \code{brand.color.background}.
+If provided directly, this value can be a valid R color or the name of a
+color in \code{brand.color} or \code{brand.color.palette}.}
 
-\item{foreground}{The foreground color, defaults to \code{brand.color.foreground}.}
+\item{foreground}{The foreground color, defaults to \code{brand.color.foreground}.
+If provided directly, this value can be a valid R color or the name of a
+color in \code{brand.color} or \code{brand.color.palette}.}
 
 \item{accent}{The accent color, defaults to \code{brand.color.primary} or
-\code{brand.color.palette.accent}.}
+\code{brand.color.palette.accent}. If provided directly, this value can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}.}
 }
 \description{
 Apply thematic styling using explicit colors or by automatically extracting
