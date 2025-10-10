@@ -36,6 +36,38 @@ Returns a themed plotly plot object.
 \description{
 Apply brand colors to a plotly plot.
 }
+\examples{
+\dontshow{if (rlang::is_installed("plotly") && getRversion() >= "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(plotly)
+plot_ly(palmerpenguins::penguins, x = ~bill_length_mm, y = ~bill_depth_mm) |>
+  theme_brand_plotly(brand)
+\dontshow{\}) # examplesIf}
+\dontshow{if (rlang::is_installed("plotly") && getRversion() < "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(plotly)
+plot_ly(mtcars, x = ~wt, y = ~mpg) |>
+  theme_brand_plotly(brand)
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other branded theming functions: 
 \code{\link{theme_brand_flextable}()},

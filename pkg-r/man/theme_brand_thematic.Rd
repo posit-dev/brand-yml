@@ -32,6 +32,25 @@ Apply thematic styling using explicit colors or by automatically extracting
 colors from a \strong{brand.yml} file. This function sets global theming for base
 R graphics.
 }
+\examples{
+\dontshow{if (rlang::is_installed("thematic") && rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+thematic::thematic_with_theme(theme_brand_thematic(brand), {
+  library(ggplot2)
+  ggplot(diamonds, aes(carat, price)) +
+    geom_point()
+})
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 See the "Branded Theming" section of \code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}} for
 more details on how the \code{brand} argument works.

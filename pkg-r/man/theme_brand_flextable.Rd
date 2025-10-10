@@ -20,6 +20,42 @@ Returns a themed flextable object.
 \description{
 Apply brand colors to a flextable table.
 }
+\examples{
+\dontshow{if (rlang::is_installed("flextable") && getRversion() >= "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(flextable)
+theme_brand_flextable(
+  flextable(head(palmerpenguins::penguins)),
+  brand
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (rlang::is_installed("flextable") && getRversion() < "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(flextable)
+theme_brand_flextable(
+  flextable(head(mtcars)),
+  brand
+)
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other branded theming functions: 
 \code{\link{theme_brand_ggplot2}()},

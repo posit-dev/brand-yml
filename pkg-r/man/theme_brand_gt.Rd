@@ -27,6 +27,42 @@ Returns a themed gt table object.
 \description{
 Apply brand colors to a gt table.
 }
+\examples{
+\dontshow{if (rlang::is_installed("gt") && getRversion() >= "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(gt)
+theme_brand_gt(
+  gt(head(palmerpenguins::penguins)),
+  brand
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (rlang::is_installed("gt") && getRversion() < "4.5") withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(gt)
+theme_brand_gt(
+  gt(head(mtcars)),
+  brand
+)
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other branded theming functions: 
 \code{\link{theme_brand_flextable}()},

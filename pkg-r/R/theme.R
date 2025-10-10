@@ -17,6 +17,22 @@
 #'    default brand colors, or you can use `brand = FALSE` to ignore any project
 #'    `_brand.yml` files and only use the explicitly provided colors.
 #'
+#' @examplesIf rlang::is_installed("ggplot2")
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(ggplot2)
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   theme_brand_ggplot2(brand)
+#'
 #' @param brand One of:
 #'   - `NULL` (default): Automatically detect and read a _brand.yml file
 #'   - A path to a brand.yml file or directory containing _brand.yml
@@ -70,11 +86,29 @@ theme_brand_ggplot2 <- function(
 #' colors from a **brand.yml** file. This function sets global theming for base
 #' R graphics.
 #'
+#' @examplesIf rlang::is_installed("thematic") && rlang::is_installed("ggplot2")
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' thematic::thematic_with_theme(theme_brand_thematic(brand), {
+#'   library(ggplot2)
+#'   ggplot(diamonds, aes(carat, price)) +
+#'     geom_point()
+#' })
+#'
 #' @inheritParams theme_brand_ggplot2
 #'
 #' @seealso See the "Branded Theming" section of [theme_brand_ggplot2()] for
 #'   more details on how the `brand` argument works.
 #' @family branded theming functions
+#'
 #' @export
 theme_brand_thematic <- function(
   brand = NULL,
@@ -103,12 +137,47 @@ theme_brand_thematic <- function(
 #'
 #' Apply brand colors to a flextable table.
 #'
+#' @examplesIf rlang::is_installed("flextable") && getRversion() >= "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(flextable)
+#' theme_brand_flextable(
+#'   flextable(head(palmerpenguins::penguins)),
+#'   brand
+#' )
+#'
+#' @examplesIf rlang::is_installed("flextable") && getRversion() < "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(flextable)
+#' theme_brand_flextable(
+#'   flextable(head(mtcars)),
+#'   brand
+#' )
+#'
 #' @param table A flextable object to theme.
 #'
 #' @return Returns a themed flextable object.
 #'
 #' @inherit theme_brand_thematic seealso
 #' @family branded theming functions
+#'
 #' @export
 theme_brand_flextable <- function(
   table,
@@ -137,6 +206,40 @@ theme_brand_flextable <- function(
 #' Create a gt table theme using brand colors
 #'
 #' Apply brand colors to a gt table.
+#'
+#' @examplesIf rlang::is_installed("gt") && getRversion() >= "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(gt)
+#' theme_brand_gt(
+#'   gt(head(palmerpenguins::penguins)),
+#'   brand
+#' )
+#'
+#' @examplesIf rlang::is_installed("gt") && getRversion() < "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(gt)
+#' theme_brand_gt(
+#'   gt(head(mtcars)),
+#'   brand
+#' )
 #'
 #' @param table A gt table object to theme.
 #' @inheritParams theme_brand_ggplot2
@@ -175,6 +278,36 @@ theme_brand_gt <- function(
 #' Create a plotly theme using brand colors
 #'
 #' Apply brand colors to a plotly plot.
+#'
+#' @examplesIf rlang::is_installed("plotly") && getRversion() >= "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(plotly)
+#' plot_ly(palmerpenguins::penguins, x = ~bill_length_mm, y = ~bill_depth_mm) |>
+#'   theme_brand_plotly(brand)
+#'
+#' @examplesIf rlang::is_installed("plotly") && getRversion() < "4.5"
+#' brand <- as_brand_yml('
+#' color:
+#'   palette:
+#'     black: "#1A1A1A"
+#'     white: "#F9F9F9"
+#'     orange: "#FF6F20"
+#'   foreground: black
+#'   background: white
+#'   primary: orange')
+#'
+#' library(plotly)
+#' plot_ly(mtcars, x = ~wt, y = ~mpg) |>
+#'   theme_brand_plotly(brand)
 #'
 #' @param plot A plotly plot object to theme.
 #' @inheritParams theme_brand_ggplot2

@@ -50,6 +50,24 @@ default brand colors, or you can use \code{brand = FALSE} to ignore any project
 }
 }
 
+\examples{
+\dontshow{if (rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+  foreground: black
+  background: white
+  primary: orange')
+
+library(ggplot2)
+ggplot(diamonds, aes(carat, price)) +
+  geom_point() +
+  theme_brand_ggplot2(brand)
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other branded theming functions: 
 \code{\link{theme_brand_flextable}()},
