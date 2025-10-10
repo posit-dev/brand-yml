@@ -46,45 +46,6 @@ color:
 
 If you have a `_brand.yml` file in your project directory, you can read it in with `read_brand_yml()`, or just let the `theme_brand_*` functions find it automatically.
 
-## flextable
-
-The `theme_brand_flextable()` function applies brand colors to a flextable table. It uses the `foreground` and `background` colors from the brand. Here we'll use the default brand we created above:
-
-```{r flextable}
-#| warning: false
-
-library(flextable)
-
-ft <- flextable(airquality[sample.int(10), ])
-ft <- add_header_row(ft,
-  colwidths = c(4, 2),
-  values = c("Air quality", "Time")
-)
-ft <- theme_vanilla(ft)
-ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
-ft <- set_caption(ft, caption = "New York Air Quality Measurements")
-
-theme_brand_flextable(ft, brand)
-```
-
-## ggiraph
-
-The `theme_brand_ggplot2()` function works with ggiraph interactive plots. We can override specific colors while using the brand defaults:
-
-```{r ggiraph}
-#| warning: false
-
-library(ggplot2)
-library(ggiraph)
-
-cars <- ggplot(mtcars, aes(mpg, wt)) +
-  geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
-  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
-  theme_brand_ggplot2(brand)
-
-girafe(ggobj = cars)
-```
-
 ## ggplot2
 
 The `theme_brand_ggplot2()` function creates a ggplot2 theme using brand colors. You can also override individual colors by passing them directly:
@@ -98,43 +59,6 @@ ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
   scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
   theme_brand_ggplot2(brand, background = "black", foreground = "white")
-```
-
-## gt
-
-The `theme_brand_gt()` function applies brand colors to gt tables. Here we use the brand's palette colors directly by name:
-
-```{r gt}
-#| warning: false
-
-library(gt)
-library(dplyr)
-
-islands_tbl <-
-  tibble(
-    name = names(islands),
-    size = islands
-  ) |>
-  slice_max(size, n = 10)
-
-theme_brand_gt(gt(islands_tbl), brand, background = "green", foreground = "white")
-```
-
-
-## plotly
-
-The `theme_brand_plotly()` function applies brand colors to plotly plots. The function also accepts an `accent` parameter for highlighting colors:
-
-```{r plotly}
-#| warning: false
-
-library(plotly)
-
-plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
-        box = list(visible = TRUE),
-        meanline = list(visible = TRUE),
-        points = "all") |>
-  theme_brand_plotly(brand, accent = "pink")
 ```
 
 ## thematic
@@ -163,4 +87,79 @@ thematic_with_theme(theme_brand_thematic(brand, accent = "purple"), {
   # Display all three scatterplots in same graphic
   plot1 + plot2 + plot3
 })
+```
+
+## ggiraph
+
+The `theme_brand_ggplot2()` function works with ggiraph interactive plots. We can override specific colors while using the brand defaults:
+
+```{r ggiraph}
+#| warning: false
+
+library(ggplot2)
+library(ggiraph)
+
+cars <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
+  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
+  theme_brand_ggplot2(brand)
+
+girafe(ggobj = cars)
+```
+
+## plotly
+
+The `theme_brand_plotly()` function applies brand colors to plotly plots. The function also accepts an `accent` parameter for highlighting colors:
+
+```{r plotly}
+#| warning: false
+
+library(plotly)
+
+plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
+        box = list(visible = TRUE),
+        meanline = list(visible = TRUE),
+        points = "all") |>
+  theme_brand_plotly(brand, accent = "pink")
+```
+
+## gt
+
+The `theme_brand_gt()` function applies brand colors to gt tables. Here we use the brand's palette colors directly by name:
+
+```{r gt}
+#| warning: false
+
+library(gt)
+library(dplyr)
+
+islands_tbl <-
+  tibble(
+    name = names(islands),
+    size = islands
+  ) |>
+  slice_max(size, n = 10)
+
+theme_brand_gt(gt(islands_tbl), brand, background = "green", foreground = "white")
+```
+
+## flextable
+
+The `theme_brand_flextable()` function applies brand colors to a flextable table. It uses the `foreground` and `background` colors from the brand. Here we'll use the default brand we created above:
+
+```{r flextable}
+#| warning: false
+
+library(flextable)
+
+ft <- flextable(airquality[sample.int(10), ])
+ft <- add_header_row(ft,
+  colwidths = c(4, 2),
+  values = c("Air quality", "Time")
+)
+ft <- theme_vanilla(ft)
+ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+
+theme_brand_flextable(ft, brand)
 ```
