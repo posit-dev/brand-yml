@@ -178,6 +178,7 @@ theme_brand_thematic <- function(
 #' )
 #'
 #' @param table A flextable object to theme.
+#' @inheritParams theme_brand_ggplot2
 #'
 #' @return Returns a themed flextable object.
 #'

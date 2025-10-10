@@ -13,6 +13,22 @@ theme_brand_flextable(
 }
 \arguments{
 \item{table}{A flextable object to theme.}
+
+\item{brand}{One of:
+\itemize{
+\item \code{NULL} (default): Automatically detect and read a _brand.yml file
+\item A path to a brand.yml file or directory containing _brand.yml
+\item A brand object (as returned by \code{read_brand_yml()} or \code{as_brand_yml()})
+\item \code{FALSE}: Don't use a brand file; explicit colors must be provided
+}}
+
+\item{background}{The background color, defaults to \code{brand.color.background}.
+If provided directly, this value can be a valid R color or the name of a
+color in \code{brand.color} or \code{brand.color.palette}.}
+
+\item{foreground}{The foreground color, defaults to \code{brand.color.foreground}.
+If provided directly, this value can be a valid R color or the name of a
+color in \code{brand.color} or \code{brand.color.palette}.}
 }
 \value{
 Returns a themed flextable object.
