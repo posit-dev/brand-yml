@@ -50,7 +50,6 @@ with_brand_yml_path(path_brand, {
 Other brand.yml helpers: 
 \code{\link{brand_color_pluck}()},
 \code{\link{brand_has}()},
-\code{\link{brand_pluck}()},
-\code{\link{theme_colors_flextable}()}
+\code{\link{brand_pluck}()}
 }
 \concept{brand.yml helpers}

@@ -38,7 +38,6 @@ brand_has(brand, "color", "secondary") # FALSE
 Other brand.yml helpers: 
 \code{\link{brand_color_pluck}()},
 \code{\link{brand_pluck}()},
-\code{\link{theme_colors_flextable}()},
 \code{\link{with_brand_yml_path}()}
 }
 \concept{brand.yml helpers}

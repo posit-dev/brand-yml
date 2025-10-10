@@ -1,229 +1,253 @@
-#' Create a theme for a plotting or table package
+#' Create a ggplot2 theme using brand colors
 #'
-#' Create a theme using background and foreground colors (`theme_colors_*`) or
-#' using a **brand.yml** file (`theme_brand_*`).
+#' Create a ggplot2 theme using explicit colors or by automatically extracting
+#' colors from a **brand.yml** file.
 #'
-#' The use of the theme will depend on the package. Please see
-#' [light/dark renderings examples](https://examples.quarto.pub/lightdark-renderings-examples/ggplot2.html)
-#' for examples using each supported package with dark mode, `theme_brand_*`,
-#' and `renderings: [light, dark]`,
-#' or [theme helper article](https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html)
-#' for examples using each package and `theme_colors_*` to specify the
-#' background and foreground colors directly.
+#' @section Branded Theming:
+#' The `theme_brand_*` functions can be used in two ways:
 #'
-#' The `theme_brand_*` functions use the brand.yml package to parse brand.yml files
-#' and extract the appropriate color values for theming.
+#' 1. **With a brand.yml file**: The `theme_brand_*` functions use
+#'    [read_brand_yml()] to automatically detect and use a `_brand.yml` file in
+#'    your current project. You can also explicitly pass a path to a brand.yml
+#'    file or a brand object (as returned by [read_brand_yml()] or created with
+#'    [as_brand_yml()]). When a `brand` is provided, the theme functions will
+#'    use the colors defined in the brand file automatically.
 #'
-#' @param bg The background color
-#' @param fg The foreground color
-#' @param accent The accent color for plots and visualizations (default: same as foreground color)
-#' @param brand_yml The path to a brand.yml file or directory containing a _brand.yml file
-
-#' @rdname theme_helpers
+#' 2. **With explicit colors**: You can directly provide colors to override the
+#'    default brand colors, or you can use `brand = FALSE` to ignore any project
+#'    `_brand.yml` files and only use the explicitly provided colors.
 #'
-#' @export
-theme_colors_flextable <- function(bg, fg) {
-  rlang::check_installed(
-    "flextable",
-    "flextable is required for theme_colors_flextable"
-  )
-  (function(x) {
-    if (!inherits(x, "flextable")) {
-      stop("theme_colors_flextable only supports flextable objects.")
-    }
-    x <- flextable::bg(x, bg = bg, part = "all")
-    x <- flextable::color(x, color = fg, part = "all")
-    flextable::autofit(x)
-  })
-}
-
-#' @rdname theme_helpers
-#' @family brand.yml helpers
+#' @param brand One of:
+#'   - `NULL` (default): Automatically detect and read a _brand.yml file
+#'   - A path to a brand.yml file or directory containing _brand.yml
+#'   - A brand object (as returned by `read_brand_yml()` or `as_brand_yml()`)
+#'   - `FALSE`: Don't use a brand file; explicit colors must be provided
+#' @param background The background color, defaults to `brand.color.background`.
+#' @param foreground The foreground color, defaults to `brand.color.foreground`.
+#' @param accent The accent color, defaults to `brand.color.primary` or
+#'   `brand.color.palette.accent`.
+#'
+#' @return A [ggplot2::theme()] object.
+#'
+#' @family branded theming functions
 #'
 #' @export
-theme_brand_flextable <- function(brand_yml) {
-  rlang::check_installed(
-    "brand.yml",
-    "brand.yml is required for brand support in R"
-  )
-  brand <- brand.yml::read_brand_yml(brand_yml)
-  bg_color <- brand.yml::brand_color_pluck(brand, "background")
-  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
-  theme_colors_flextable(bg_color, fg_color)
-}
+theme_brand_ggplot2 <- function(
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  accent = NULL
+) {
+  check_installed("ggplot2", version = "4.0.0")
 
+  brand <- resolve_brand_yml(brand)
 
-#' @rdname theme_helpers
-#'
-#' @export
-theme_colors_ggplot2 <- function(bg, fg, accent = NULL) {
-  rlang::check_installed(
-    "ggplot2",
-    "ggplot2 v4.0 or later is required for theme_colors_ggplot2",
-    version = "4.0.0"
-  )
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
 
   # Create and return the theme directly
-  ggplot2::theme_minimal(base_size = 11, accent = accent) +
+  ggplot2::theme_minimal(base_size = 11, accent = accent_color) +
     ggplot2::theme(
       panel.border = ggplot2::element_blank(),
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(),
       panel.grid.major.x = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank(),
-      text = ggplot2::element_text(colour = fg),
-      axis.text = ggplot2::element_text(colour = fg),
-      rect = ggplot2::element_rect(colour = bg, fill = bg),
-      plot.background = ggplot2::element_rect(fill = bg, colour = NA),
-      axis.line = ggplot2::element_line(colour = fg),
-      axis.ticks = ggplot2::element_line(colour = fg)
+      text = ggplot2::element_text(colour = fg_color),
+      axis.text = ggplot2::element_text(colour = fg_color),
+      rect = ggplot2::element_rect(colour = bg_color, fill = bg_color),
+      plot.background = ggplot2::element_rect(fill = bg_color, colour = NA),
+      axis.line = ggplot2::element_line(colour = fg_color),
+      axis.ticks = ggplot2::element_line(colour = fg_color)
     )
 }
 
-#' @rdname theme_helpers
-#' @family brand.yml helpers
+
+#' Create a thematic theme using brand colors
 #'
+#' Apply thematic styling using explicit colors or by automatically extracting
+#' colors from a **brand.yml** file. This function sets global theming for base
+#' R graphics.
+#'
+#' @inheritParams theme_brand_ggplot2
+#'
+#' @seealso See the "Branded Theming" section of [theme_brand_ggplot2()] for
+#'   more details on how the `brand` argument works.
+#' @family branded theming functions
 #' @export
-theme_brand_ggplot2 <- function(brand_yml) {
-  rlang::check_installed(
-    "brand.yml",
-    "brand.yml is required for brand support in R"
+theme_brand_thematic <- function(
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  accent = NULL
+) {
+  check_installed("thematic")
+
+  brand <- resolve_brand_yml(brand)
+
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+
+  "light-dark"
+  thematic::thematic_on(
+    bg = bg_color,
+    fg = fg_color,
+    accent = accent_color
   )
-  brand <- brand.yml::read_brand_yml(brand_yml)
-  bg_color <- brand.yml::brand_color_pluck(brand, "background")
-  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
-
-  accent_color <- brand.yml::brand_color_pluck(brand, "accent")
-  if (identical(accent_color, "accent")) {
-    accent_color <- brand.yml::brand_color_pluck(brand, "primary")
-    if (identical(accent_color, "primary")) {
-      accent_color <- NULL
-    }
-  }
-
-  theme_colors_ggplot2(bg_color, fg_color, accent_color)
 }
 
 
-#' @rdname theme_helpers
+#' Create a flextable theme using brand colors
 #'
-#' @export
-theme_colors_gt <- function(bg, fg) {
-  rlang::check_installed(
-    "gt",
-    "gt is required for theme_colors_gt"
-  )
-  (function(table) {
-    table |>
-      gt::tab_options(
-        table.background.color = bg,
-        table.font.color = fg,
-      )
-  })
-}
-
-#' @rdname theme_helpers
-#' @family brand.yml helpers
+#' Apply brand colors to a flextable table.
 #'
-#' @export
-theme_brand_gt <- function(brand_yml) {
-  rlang::check_installed(
-    "brand.yml",
-    "brand.yml is required for brand support in R"
-  )
-  brand <- brand.yml::read_brand_yml(brand_yml)
-  bg_color <- brand.yml::brand_color_pluck(brand, "background")
-  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
-  theme_colors_gt(bg_color, fg_color)
-}
-
-#' @rdname theme_helpers
+#' @param table A flextable object to theme.
 #'
+#' @return Returns a themed flextable object.
+#'
+#' @inherit theme_brand_thematic seealso
+#' @family branded theming functions
 #' @export
-theme_colors_plotly <- function(bg, fg, accent = NULL) {
-  rlang::check_installed(
-    "plotly",
-    "plotly is required for theme_colors_plotly"
-  )
-  (function(plot) {
-    plot <- plot |> plotly::layout(
-      paper_bgcolor = bg,
-      plot_bgcolor = bg,
-      font = list(color = fg)
+theme_brand_flextable <- function(
+  table,
+  brand = NULL,
+  background = NULL,
+  foreground = NULL
+) {
+  check_installed("flextable")
+  if (!inherits(table, "flextable")) {
+    cli::cli_abort(
+      "{.var table} must be a flextable object, not {.obj_type_friendly {table}}."
     )
-
-    if (!is.null(accent)) {
-      plot <- plot |> plotly::layout(
-        colorway = rep(accent, 10)
-      )
-    }
-
-    plot
-  })
-}
-
-#' @rdname theme_helpers
-#' @family brand.yml helpers
-#'
-#' @export
-theme_brand_plotly <- function(brand_yml) {
-  rlang::check_installed(
-    "brand.yml",
-    "brand.yml is required for brand support in R"
-  )
-  brand <- brand.yml::read_brand_yml(brand_yml)
-  bg_color <- brand.yml::brand_color_pluck(brand, "background")
-  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
-
-  accent_color <- brand.yml::brand_color_pluck(brand, "accent")
-  if (identical(accent_color, "accent")) {
-    accent_color <- brand.yml::brand_color_pluck(brand, "primary")
-    if (identical(accent_color, "primary")) {
-      accent_color <- NULL
-    }
   }
 
-  theme_colors_plotly(bg_color, fg_color, accent_color)
+  brand <- resolve_brand_yml(brand)
+
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+
+  table <- flextable::bg(table, bg = bg_color, part = "all")
+  table <- flextable::color(table, color = fg_color, part = "all")
+  flextable::autofit(table)
 }
 
 
-#' @rdname theme_helpers
+#' Create a gt table theme using brand colors
 #'
+#' Apply brand colors to a gt table.
+#'
+#' @param table A gt table object to theme.
+#' @inheritParams theme_brand_ggplot2
+#'
+#' @return Returns a themed gt table object.
+#'
+#' @inherit theme_brand_thematic seealso
+#' @family branded theming functions
 #' @export
-theme_colors_thematic <- function(bg, fg, accent = NULL) {
-  rlang::check_installed(
-    "thematic",
-    "thematic is required for theme_colors_thematic"
-  )
-  (function() {
-    thematic::thematic_on(
-      bg = bg,
-      fg = fg,
-      accent = accent
+theme_brand_gt <- function(
+  table,
+  brand = NULL,
+  background = NULL,
+  foreground = NULL
+) {
+  check_installed("gt")
+  if (!inherits(table, "gt_tbl")) {
+    cli::cli_abort(
+      "{.var table} must be a gt table object, not {.obj_type_friendly {table}}."
     )
-  })
+  }
+
+  brand <- resolve_brand_yml(brand)
+
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+
+  gt::tab_options(
+    table,
+    table.background.color = bg_color,
+    table.font.color = fg_color
+  )
 }
 
-#' @rdname theme_helpers
-#' @family brand.yml helpers
-#'
-#' @export
-theme_brand_thematic <- function(brand_yml) {
-  rlang::check_installed(
-    "brand.yml",
-    "brand.yml is required for brand support in R"
-  )
-  brand <- brand.yml::read_brand_yml(brand_yml)
-  bg_color <- brand.yml::brand_color_pluck(brand, "background")
-  fg_color <- brand.yml::brand_color_pluck(brand, "foreground")
 
-  accent_color <- brand.yml::brand_color_pluck(brand, "accent")
-  if (identical(accent_color, "accent")) {
-    accent_color <- brand.yml::brand_color_pluck(brand, "primary")
-    if (identical(accent_color, "primary")) {
-      accent_color <- NULL
+#' Create a plotly theme using brand colors
+#'
+#' Apply brand colors to a plotly plot.
+#'
+#' @param plot A plotly plot object to theme.
+#' @inheritParams theme_brand_ggplot2
+#'
+#' @return Returns a themed plotly plot object.
+#'
+#' @inherit theme_brand_thematic seealso
+#' @family branded theming functions
+#' @export
+theme_brand_plotly <- function(
+  plot,
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  accent = NULL
+) {
+  check_installed("plotly")
+  if (!inherits(plot, "plotly")) {
+    cli::cli_abort(
+      "{.var plot} must be a plotly object, not {.obj_type_friendly {plot}}."
+    )
+  }
+
+  brand <- resolve_brand_yml(brand)
+
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+
+  plot <- plotly::layout(
+    plot,
+    paper_bgcolor = bg_color,
+    plot_bgcolor = bg_color,
+    font = list(color = fg_color)
+  )
+
+  if (!is.null(accent_color)) {
+    plot <- plotly::layout(
+      plot,
+      colorway = rep(accent_color, 10)
+    )
+  }
+
+  plot
+}
+
+# Helpers ---------------------------------------------------------------------
+
+brand_color_maybe_pluck <- function(brand, value, ...) {
+  # Try brand color directly
+  color <- brand_pluck(brand, "color", value)
+  if (!is.null(color)) {
+    return(color)
+  }
+
+  # Try brand color palette
+  color <- brand_pluck(brand, "color", "palette", value)
+  if (!is.null(color)) {
+    return(color)
+  }
+
+  # Use explicit value if provided
+  if (!is.null(value)) {
+    return(value)
+  }
+
+  # Try fallback keys
+  for (key in c(...)) {
+    color <- brand_color_pluck(brand, key)
+    if (!is.null(color) && !identical(color, key)) {
+      return(color)
     }
   }
 
-  theme_colors_thematic(bg_color, fg_color, accent_color)
+  NULL
 }

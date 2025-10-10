@@ -64,7 +64,6 @@ brand_pluck(brand, "color", "green") # NULL
 Other brand.yml helpers: 
 \code{\link{brand_has}()},
 \code{\link{brand_pluck}()},
-\code{\link{theme_colors_flextable}()},
 \code{\link{with_brand_yml_path}()}
 }
 \concept{brand.yml helpers}
