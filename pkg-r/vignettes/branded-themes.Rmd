@@ -1,103 +1,114 @@
 ---
-title: "Theme Helpers"
-format:
-  html:
-    toc: true
+title: "Branded Themes"
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Theme Helpers}
-  %\VignetteEngine{quarto::html}
+  %\VignetteIndexEntry{Branded Themes}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup}
+library(brand.yml)
+```
+
 ## Overview
 
-The **quarto** package includes helper functions for theming plotting and table packages.
+The **brand.yml** package includes helper functions for theming plotting and table packages using your brand colors.
 
-The functions return theme objects or functions, which are applied differently depending on the package.
+The `theme_brand_*` functions can be used in two ways:
 
-These are simple helper functions to get you started. Copy them if you to customize them further.
+1. **With a brand.yml file**: The functions automatically detect and use a `_brand.yml` file in your current project. You can also explicitly pass a path to a brand.yml file or a brand object.
 
-This vignette demonstrates adding background and foreground colors to outputs from each package using the `theme_colors_*` functions.
+2. **With explicit colors**: You can directly provide colors to override the default brand colors, or use `brand = FALSE` to ignore any project `_brand.yml` files.
 
-Please see
-[light/dark renderings examples](https://examples.quarto.pub/lightdark-renderings-examples/ggplot2.html)
-for examples using each supported package with dark mode, `theme_brand_*`, and [`renderings: [light, dark]`](https://quarto.org/docs/computations/execution-options.html#cell-renderings)
+## Creating a brand
+
+This vignette demonstrates using the `theme_brand_*` functions with a simple brand object created with `as_brand_yml()`, but you can imagine this YAML being stored in a `_brand.yml` file in your project directory.
+
+First, we'll create a brand object using a subset of the colors from the brand.yml project's own `_brand.yml` file:
+
+```{r brand}
+brand <- as_brand_yml('
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+    purple: "#A500B5"
+    pink: "#FF3D7F"
+    green: "#28A745"
+  foreground: black
+  background: white
+  primary: orange
+  danger: pink
+')
+```
+
+If you have a `_brand.yml` file in your project directory, you can read it in with `read_brand_yml()`, or just let the `theme_brand_*` functions find it automatically.
 
 ## flextable
 
-Demonstrates a flextable with green foreground and yellow background.
+The `theme_brand_flextable()` function applies brand colors to a flextable table. It uses the `foreground` and `background` colors from the brand. Here we'll use the default brand we created above:
 
-```{r}
+```{r flextable}
 #| warning: false
+
 library(flextable)
-library(quarto)
 
-yellow_green_theme <- theme_colors_flextable("#e3e5a9", "#165b26")
-
-ft <- flextable(airquality[ sample.int(10),])
+ft <- flextable(airquality[sample.int(10), ])
 ft <- add_header_row(ft,
   colwidths = c(4, 2),
   values = c("Air quality", "Time")
 )
 ft <- theme_vanilla(ft)
 ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
-ft <- color(ft, part = "footer", color = "#666666")
 ft <- set_caption(ft, caption = "New York Air Quality Measurements")
 
-ft |> yellow_green_theme()
+theme_brand_flextable(ft, brand)
 ```
 
 ## ggiraph
 
-Demonstrates a ggiraph interactive plot with deep blue background and mauve foreground.
+The `theme_brand_ggplot2()` function works with ggiraph interactive plots. We can override specific colors while using the brand defaults:
 
-
-```{r}
+```{r ggiraph}
 #| warning: false
-library(quarto)
+
 library(ggplot2)
 library(ggiraph)
 
-blue_mauve_theme = theme_colors_ggplot2("#111038", "#E0B0FF")
-
 cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
-  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
+  theme_brand_ggplot2(brand)
 
-girafe(ggobj = cars + blue_mauve_theme)
+girafe(ggobj = cars)
 ```
 
 ## ggplot2
 
-Demonstrates a ggplot2 plot with near-black background and green-grey foreground.
+The `theme_brand_ggplot2()` function creates a ggplot2 theme using brand colors. You can also override individual colors by passing them directly:
 
-
-```{r}
+```{r ggplot2}
 #| warning: false
-library(quarto)
+
 library(ggplot2)
 
-black_greyn <- theme_colors_ggplot2("#050411", "#8faf8e")
-
-cars <- ggplot(mtcars, aes(mpg, wt)) +
+ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
-  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
-
-cars + black_greyn
+  scale_colour_manual(values = c("#FF6F20", "#A500B5", "#28A745")) +
+  theme_brand_ggplot2(brand, background = "black", foreground = "white")
 ```
 
 ## gt
 
-Demonstrates a gt table with light green background and black foreground.
+The `theme_brand_gt()` function applies brand colors to gt tables. Here we use the brand's palette colors directly by name:
 
-
-```{r}
+```{r gt}
 #| warning: false
-library(gt)
-library(quarto)
-library(dplyr)
 
-green_black_theme <- theme_colors_gt("#a5f7d6", "#020202")
+library(gt)
+library(dplyr)
 
 islands_tbl <-
   tibble(
@@ -106,54 +117,50 @@ islands_tbl <-
   ) |>
   slice_max(size, n = 10)
 
-gt(islands_tbl) |> green_black_theme()
+theme_brand_gt(gt(islands_tbl), brand, background = "green", foreground = "white")
 ```
 
 
 ## plotly
 
-Demonstrates a heatmaply interactive heatmap with a dark green background background and light blue foreground.
+The `theme_brand_plotly()` function applies brand colors to plotly plots. The function also accepts an `accent` parameter for highlighting colors:
 
-```{r}
+```{r plotly}
 #| warning: false
-library(quarto)
+
 library(plotly)
 
-green_blue_theme <- theme_colors_plotly("#293a0a", "#a5eff7")
-
-fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
-               box = list(visible = TRUE),
-               meanline = list(visible = TRUE),
-               points = "all")
-
-fig |> green_blue_theme()
+plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
+        box = list(visible = TRUE),
+        meanline = list(visible = TRUE),
+        points = "all") |>
+  theme_brand_plotly(brand, accent = "pink")
 ```
 
 ## thematic
 
-Demonstrates a patchwork plot with dark red background and light grey foreground.
+The `theme_brand_thematic()` function sets global theming for base R graphics and ggplot2. Use `thematic_with_theme()` to apply the theme temporarily:
 
-
-```{r}
+```{r thematic}
 #| warning: false
+
 library(ggplot2)
-library(quarto)
 library(patchwork)
+library(thematic)
 
-darkred_grey_theme <- theme_colors_thematic("#560115", "#ddeeee");
+# Use thematic_with_theme to apply the theme temporarily
+thematic_with_theme(theme_brand_thematic(brand, accent = "purple"), {
+  # Generate three scatterplots
+  plot1 <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point()
 
-#generate three scatterplots
-plot1 <- ggplot(mtcars, aes(mpg, wt)) +
-  geom_point()
+  plot2 <- ggplot(mtcars, aes(mpg, disp)) +
+    geom_point()
 
-plot2 <- ggplot(mtcars, aes(mpg, disp)) +
-  geom_point()
+  plot3 <- ggplot(mtcars, aes(mpg, hp)) +
+    geom_point()
 
-plot3 <- ggplot(mtcars, aes(mpg, hp)) +
-  geom_point()
-
-#display all three scatterplots in same graphic
-darkred_grey_theme()
-plot1 + plot2 + plot3
-
+  # Display all three scatterplots in same graphic
+  plot1 + plot2 + plot3
+})
 ```
