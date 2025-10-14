@@ -200,7 +200,7 @@ theme_brand_ggplot2 <- function(
     )
   )
 
-  if (packageVersion("ggplot2") >= "4.0.0") {
+  if (utils::packageVersion("ggplot2") >= "4.0.0") {
     theme <- theme +
       ggplot2::theme(
         geom = ggplot2::element_geom(
