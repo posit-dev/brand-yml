@@ -31,7 +31,7 @@
 brand_has <- function(brand, ...) {
   x <- brand
 
-  for (f in c(...)) {
+  for (f in list(...)) {
     val <- tryCatch(x[[f]], error = function(e) NULL)
     if (is.null(val)) {
       f <- as_snake_case(f)

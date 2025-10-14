@@ -44,6 +44,16 @@ read_brand_yml <- function(path = NULL) {
   brand
 }
 
+resolve_brand_yml <- function(brand = NULL, default = list()) {
+  if (is.null(brand)) {
+    read_brand_yml()
+  } else if (isFALSE(brand)) {
+    default
+  } else {
+    as_brand_yml(brand)
+  }
+}
+
 #' Create a Brand instance from a list or character vector.
 #'
 #' @examples

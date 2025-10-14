@@ -1,0 +1,60 @@
+meta:
+  name:
+    full: Posit Software, PBC
+    short: Posit
+  link:
+    home: https://posit.co
+    guide: https://positpbc.atlassian.net/wiki/x/AQAgBQ
+
+logo:
+  small: posit-icon.png
+  medium: posit.png
+  large: posit.svg
+
+color:
+  palette:
+    blue: "#75A5CC"      # Lighter blue
+    orange: "#FF8855"    # Lighter orange
+    gray: "#AAAAAB"      # Lighter gray
+    white: "#FFFFFF"
+    teal: "#55C5C9"      # Lighter teal
+    green: "#8FBF65"     # Lighter green
+    burgundy: "#C96B8C"  # Lighter burgundy
+    charcoal: "#1A1A1A"  # Very dark gray for background
+    darkgray: "#2D2D2E"  # Dark gray for UI elements
+    accent: burgundy
+  foreground: "#F1F1F2"  # Off-white for text
+  background: "#1A1A1A"  # Very dark gray/charcoal
+  primary: "#75A5CC"     # Lighter blue
+  secondary: "#AAAAAB"   # Light gray
+  tertiary: "#505052"    # Mid-dark gray
+  success: "#8FBF65"     # Lighter green
+  info: "#55C5C9"        # Lighter teal
+  warning: "#FF8855"     # Lighter orange
+  danger: "#C96B8C"      # Lighter burgundy
+  light: "#D0D0D2"       # Light gray
+  dark: "#2D2D2E"        # Dark gray
+
+typography:
+  fonts:
+    - source: google
+      family: Open Sans
+    - source: google
+      family: Fira Code
+    - source: google
+      family: Roboto Slab
+      weight: 600
+      style: normal
+      display: block
+
+  base:
+    family: "Open Sans"
+    line-height: 1.25
+    size: 1rem
+  headings:
+    family: "Roboto Slab"
+    color: primary
+    weight: 600
+  monospace:
+    family: "Fira Code"
+    size: 0.9em
