@@ -52,9 +52,75 @@ describe("theme_brand_ggplot2()", {
 
 describe("theme_brand_thematic()", {
   skip_if_not_installed("thematic")
-  skip("thematic tests are not yet implemented")
 
   brand <- test_example("brand-posit.yml")
+
+  it("creates valid thematic theme", {
+    theme <- theme_brand_thematic(brand)
+    expect_type(theme, "list")
+    expect_true(all(c("bg", "fg", "accent", "font") %in% names(theme)))
+  })
+
+  it("resolves literal color over named color from brand.yml", {
+    theme_literal <- theme_brand_thematic(brand, background = "#FF0000")
+    expect_equal(theme_literal$bg, "#FF0000")
+  })
+
+  it("resolves named color from brand.yml", {
+    theme_named <- theme_brand_thematic(brand, background = "orange")
+    expect_equal(theme_named$bg, "#EE6331")
+  })
+
+  it("uses theme fallback when no explicit color provided", {
+    theme_default <- theme_brand_thematic(brand)
+    expect_equal(theme_default$bg, "#FFFFFF")
+    expect_equal(theme_default$fg, "#151515")
+  })
+
+  it("resolves foreground color with correct precedence", {
+    theme_fg <- theme_brand_thematic(brand, foreground = "#00FF00")
+    expect_equal(theme_fg$fg, "#00FF00")
+
+    theme_fg_named <- theme_brand_thematic(brand, foreground = "blue")
+    expect_equal(theme_fg_named$fg, "#447099")
+  })
+
+  it("resolves accent color with correct precedence", {
+    theme_accent <- theme_brand_thematic(brand, accent = "orange")
+    expect_equal(theme_accent$accent, "#EE6331")
+  })
+
+  it("works with brand = FALSE and explicit colors", {
+    theme <- theme_brand_thematic(
+      brand = FALSE,
+      background = "#FFFFFF",
+      foreground = "#000000",
+      accent = "#FF0000"
+    )
+    expect_type(theme, "list")
+    expect_equal(theme$bg, "#FFFFFF")
+    expect_equal(theme$fg, "#000000")
+    expect_equal(theme$accent, "#FF0000")
+  })
+
+  it("thematic_on() gives equivalent theme", {
+    brand <- read_brand_yml(test_example("brand-posit.yml"))
+    theme_brand_thematic_on(brand)
+    withr::defer(thematic::thematic_off())
+
+    expect_equal(
+      thematic::thematic_get_option("bg"),
+      brand_color_pluck(brand, "background")
+    )
+    expect_equal(
+      thematic::thematic_get_option("fg"),
+      brand_color_pluck(brand, "foreground")
+    )
+    expect_equal(
+      thematic::thematic_get_option("accent"),
+      brand_color_pluck(brand, "accent")
+    )
+  })
 })
 
 describe("theme_brand_flextable()", {
