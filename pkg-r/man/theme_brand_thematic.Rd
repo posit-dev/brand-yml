@@ -2,13 +2,23 @@
 % Please edit documentation in R/theme.R
 \name{theme_brand_thematic}
 \alias{theme_brand_thematic}
+\alias{theme_brand_thematic_on}
 \title{Create a thematic theme using brand colors}
 \usage{
 theme_brand_thematic(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  ...
+)
+
+theme_brand_thematic_on(
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  accent = NULL,
+  ...
 )
 }
 \arguments{
@@ -32,12 +42,24 @@ color in \code{brand.color} or \code{brand.color.palette}.}
 \code{brand.color.palette.accent}. If provided directly, this value can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}.}
+
+\item{...}{Additional arguments passed to \code{\link[thematic:thematic_on]{thematic::thematic_theme()}} or
+\code{\link[thematic:thematic_on]{thematic::thematic_on()}}.}
 }
 \description{
 Apply thematic styling using explicit colors or by automatically extracting
 colors from a \strong{brand.yml} file. This function sets global theming for base
 R graphics.
 }
+\section{Functions}{
+\itemize{
+\item \code{theme_brand_thematic()}: brand.yml wrapper for
+\code{\link[thematic:thematic_on]{thematic::thematic_on()}}
+
+\item \code{theme_brand_thematic_on()}: brand.yml wrapper for
+\code{\link[thematic:thematic_on]{thematic::thematic_theme()}}
+
+}}
 \examples{
 \dontshow{if (rlang::is_installed("thematic") && rlang::is_installed("ggplot2")) withAutoprint(\{ # examplesIf}
 brand <- as_brand_yml('
@@ -50,11 +72,11 @@ color:
   background: white
   primary: orange')
 
-thematic::thematic_with_theme(theme_brand_thematic(brand), {
-  library(ggplot2)
-  ggplot(diamonds, aes(carat, price)) +
-    geom_point()
-})
+
+library(ggplot2)
+ggplot(diamonds, aes(carat, price)) +
+  geom_point() +
+  theme_brand_thematic(brand)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

@@ -103,24 +103,29 @@ theme_brand_ggplot2 <- function(
 #'   background: white
 #'   primary: orange')
 #'
-#' thematic::thematic_with_theme(theme_brand_thematic(brand), {
-#'   library(ggplot2)
-#'   ggplot(diamonds, aes(carat, price)) +
-#'     geom_point()
-#' })
+#'
+#' library(ggplot2)
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   theme_brand_thematic(brand)
 #'
 #' @inheritParams theme_brand_ggplot2
+#' @param ... Additional arguments passed to [thematic::thematic_theme()] or
+#'   [thematic::thematic_on()].
 #'
 #' @seealso See the "Branded Theming" section of [theme_brand_ggplot2()] for
 #'   more details on how the `brand` argument works.
 #' @family branded theming functions
 #'
+#' @describeIn theme_brand_thematic brand.yml wrapper for
+#'   [thematic::thematic_on()]
 #' @export
 theme_brand_thematic <- function(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  ...
 ) {
   check_installed("thematic")
 
@@ -130,11 +135,37 @@ theme_brand_thematic <- function(
   fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
   accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
 
-  "light-dark"
+  thematic::thematic_theme(
+    bg = bg_color,
+    fg = fg_color,
+    accent = accent_color,
+    ...
+  )
+}
+
+#' @describeIn theme_brand_thematic brand.yml wrapper for
+#'   [thematic::thematic_theme()]
+#' @export
+theme_brand_thematic_on <- function(
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  accent = NULL,
+  ...
+) {
+  check_installed("thematic")
+
+  brand <- resolve_brand_yml(brand)
+
+  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+
   thematic::thematic_on(
     bg = bg_color,
     fg = fg_color,
-    accent = accent_color
+    accent = accent_color,
+    ...
   )
 }
 
