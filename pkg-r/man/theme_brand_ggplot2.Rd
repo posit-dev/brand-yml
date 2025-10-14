@@ -8,7 +8,20 @@ theme_brand_ggplot2(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  ...,
+  base_size = 11,
+  title_size = base_size * 1.2,
+  title_color = NULL,
+  line_color = NULL,
+  rect_fill = NULL,
+  text_color = NULL,
+  plot_background_fill = NULL,
+  panel_background_fill = NULL,
+  panel_grid_major_color = NULL,
+  panel_grid_minor_color = NULL,
+  axis_text_color = NULL,
+  plot_caption_color = NULL
 )
 }
 \arguments{
@@ -32,6 +45,68 @@ color in \code{brand.color} or \code{brand.color.palette}.}
 \code{brand.color.palette.accent}. If provided directly, this value can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}.}
+
+\item{...}{Reserved for future use.}
+
+\item{base_size}{Base font size in points. Used for the \code{size} property of
+\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{text} theme element.}
+
+\item{title_size}{Title font size in points. Used for the \code{size} property of
+\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{title} theme element. Defaults to
+\code{base_size * 1.2}.}
+
+\item{title_color, }{Color for the \code{color} property of
+\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{title} theme element. Can be a valid R
+color or the name of a color in \code{brand.color} or \code{brand.color.palette}. If
+not provided, defaults to the \code{foreground} color.}
+
+\item{line_color}{Color for the \code{color} property of \code{\link[ggplot2:element]{ggplot2::element_line()}}
+in the \code{line} theme element. Can be a valid R color or the name of a color
+in \code{brand.color} or \code{brand.color.palette}. If not provided, defaults to a
+blend of foreground and background colors.}
+
+\item{rect_fill}{Fill color for the \code{fill} property of
+\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{rect} theme element. Can be a valid R
+color or the name of a color in \code{brand.color} or \code{brand.color.palette}. If
+not provided, defaults to the background color.}
+
+\item{text_color}{Color for the \code{color} property of \code{\link[ggplot2:element]{ggplot2::element_text()}}
+in the \code{text} theme element. Can be a valid R color or the name of a color
+in \code{brand.color} or \code{brand.color.palette}. If not provided, defaults to a
+blend of foreground and background colors.}
+
+\item{plot_background_fill}{Fill color for the \code{fill} property of
+\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{plot.background} theme element. Can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}. If not provided, defaults to the background color.}
+
+\item{panel_background_fill}{Fill color for the \code{fill} property of
+\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{panel.background} theme element. Can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}. If not provided, defaults to the background color.}
+
+\item{panel_grid_major_color}{Color for the \code{color} property of
+\code{\link[ggplot2:element]{ggplot2::element_line()}} in the \code{panel.grid.major} theme element. Can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}. If not provided, defaults to a blend of foreground
+and background colors.}
+
+\item{panel_grid_minor_color}{Color for the \code{color} property of
+\code{\link[ggplot2:element]{ggplot2::element_line()}} in the \code{panel.grid.minor} theme element. Can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}. If not provided, defaults to a blend of foreground
+and background colors.}
+
+\item{axis_text_color}{Color for the \code{color} property of
+\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{axis.text} theme element. Can be a valid
+R color or the name of a color in \code{brand.color} or \code{brand.color.palette}.
+If not provided, defaults to a blend of foreground and background colors.}
+
+\item{plot_caption_color}{Color for the \code{color} property of
+\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{plot.caption} theme element. Can be a
+valid R color or the name of a color in \code{brand.color} or
+\code{brand.color.palette}. If not provided, defaults to a blend of foreground
+and background colors.}
 }
 \value{
 A \code{\link[ggplot2:theme]{ggplot2::theme()}} object.

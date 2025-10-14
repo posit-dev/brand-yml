@@ -48,6 +48,55 @@
 #'   `brand.color.palette.accent`. If provided directly, this value can be a
 #'   valid R color or the name of a color in `brand.color` or
 #'   `brand.color.palette`.
+#' @param ... Reserved for future use.
+#' @param base_size Base font size in points. Used for the `size` property of
+#'   [ggplot2::element_text()] in the `text` theme element.
+#' @param title_size Title font size in points. Used for the `size` property of
+#'   [ggplot2::element_text()] in the `title` theme element. Defaults to
+#'   `base_size * 1.2`.
+#' @param title_color, Color for the `color` property of
+#'   [ggplot2::element_text()] in the `title` theme element. Can be a valid R
+#'   color or the name of a color in `brand.color` or `brand.color.palette`. If
+#'   not provided, defaults to the `foreground` color.
+#' @param line_color Color for the `color` property of [ggplot2::element_line()]
+#'   in the `line` theme element. Can be a valid R color or the name of a color
+#'   in `brand.color` or `brand.color.palette`. If not provided, defaults to a
+#'   blend of foreground and background colors.
+#' @param rect_fill Fill color for the `fill` property of
+#'   [ggplot2::element_rect()] in the `rect` theme element. Can be a valid R
+#'   color or the name of a color in `brand.color` or `brand.color.palette`. If
+#'   not provided, defaults to the background color.
+#' @param text_color Color for the `color` property of [ggplot2::element_text()]
+#'   in the `text` theme element. Can be a valid R color or the name of a color
+#'   in `brand.color` or `brand.color.palette`. If not provided, defaults to a
+#'   blend of foreground and background colors.
+#' @param plot_background_fill Fill color for the `fill` property of
+#'   [ggplot2::element_rect()] in the `plot.background` theme element. Can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`. If not provided, defaults to the background color.
+#' @param panel_background_fill Fill color for the `fill` property of
+#'   [ggplot2::element_rect()] in the `panel.background` theme element. Can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`. If not provided, defaults to the background color.
+#' @param panel_grid_major_color Color for the `color` property of
+#'   [ggplot2::element_line()] in the `panel.grid.major` theme element. Can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`. If not provided, defaults to a blend of foreground
+#'   and background colors.
+#' @param panel_grid_minor_color Color for the `color` property of
+#'   [ggplot2::element_line()] in the `panel.grid.minor` theme element. Can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`. If not provided, defaults to a blend of foreground
+#'   and background colors.
+#' @param axis_text_color Color for the `color` property of
+#'   [ggplot2::element_text()] in the `axis.text` theme element. Can be a valid
+#'   R color or the name of a color in `brand.color` or `brand.color.palette`.
+#'   If not provided, defaults to a blend of foreground and background colors.
+#' @param plot_caption_color Color for the `color` property of
+#'   [ggplot2::element_text()] in the `plot.caption` theme element. Can be a
+#'   valid R color or the name of a color in `brand.color` or
+#'   `brand.color.palette`. If not provided, defaults to a blend of foreground
+#'   and background colors.
 #'
 #' @return A [ggplot2::theme()] object.
 #'
@@ -58,31 +107,111 @@ theme_brand_ggplot2 <- function(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  ...,
+  base_size = 11,
+  title_size = base_size * 1.2,
+  title_color = NULL,
+  line_color = NULL,
+  rect_fill = NULL,
+  text_color = NULL,
+  plot_background_fill = NULL,
+  panel_background_fill = NULL,
+  panel_grid_major_color = NULL,
+  panel_grid_minor_color = NULL,
+  axis_text_color = NULL,
+  plot_caption_color = NULL
 ) {
-  check_installed("ggplot2", version = "4.0.0")
+  check_installed("ggplot2")
+  check_installed("prismatic")
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  # fmt: skip
+  {
+  background_color <- brand_color_maybe_pluck(brand, background, "background", "black")
+  foreground_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  accent_color     <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  title_color      <- brand_color_maybe_pluck(brand, title_color)
+  line_color       <- brand_color_maybe_pluck(brand, line_color)
+  rect_fill        <- brand_color_maybe_pluck(brand, rect_fill)
+  text_color       <- brand_color_maybe_pluck(brand, text_color)
+  plot_background_fill   <- brand_color_maybe_pluck(brand, plot_background_fill)
+  panel_background_fill  <- brand_color_maybe_pluck(brand, panel_background_fill)
+  panel_grid_major_color <- brand_color_maybe_pluck(brand, panel_grid_major_color)
+  panel_grid_minor_color <- brand_color_maybe_pluck(brand, panel_grid_minor_color)
+  axis_text_color        <- brand_color_maybe_pluck(brand, axis_text_color)
+  plot_caption_color     <- brand_color_maybe_pluck(brand, plot_caption_color)
+  }
 
-  # Create and return the theme directly
-  ggplot2::theme_minimal(base_size = 11, accent = accent_color) +
-    ggplot2::theme(
-      panel.border = ggplot2::element_blank(),
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor.y = ggplot2::element_blank(),
-      panel.grid.major.x = ggplot2::element_blank(),
-      panel.grid.minor.x = ggplot2::element_blank(),
-      text = ggplot2::element_text(colour = fg_color),
-      axis.text = ggplot2::element_text(colour = fg_color),
-      rect = ggplot2::element_rect(colour = bg_color, fill = bg_color),
-      plot.background = ggplot2::element_rect(fill = bg_color, colour = NA),
-      axis.line = ggplot2::element_line(colour = fg_color),
-      axis.ticks = ggplot2::element_line(colour = fg_color)
+  # Create blend function for intermediate colors
+  blend <- color_blender(foreground_color, background_color)
+
+  # TODO: ggplot2 fonts
+  # text_font <- brand_pluck(brand, "typography", "base", "family")
+  # title_font <- brand_pluck(brand, "typography", "headings", "family")
+  # text_font_size <- brand_pluck(brand, "typography", "base", "size")
+  # if (!is.null(text_font_size)) {
+  #   text_font_size <- as.numeric(gsub("[^0-9.]", "", text_font_size))
+  # }
+  # text_font_size <- text_font_size %||% 11
+  # title_font_size <- text_font_size * 1.2
+
+  theme <- ggplot2::theme(
+    line = ggplot2::element_line(color = line_color %||% blend(0.2)),
+    rect = ggplot2::element_rect(fill = rect_fill %||% background_color),
+    text = ggplot2::element_text(
+      color = text_color %||% blend(0.1),
+      # TODO: ggplot2 fonts
+      # family = text_font,
+      size = base_size
+    ),
+    title = ggplot2::element_text(
+      color = title_color %||% foreground_color,
+      # TODO: ggplot2 fonts
+      # family = title_font,
+      size = title_size
+    ),
+    plot.background = ggplot2::element_rect(
+      fill = plot_background_fill %||% background_color,
+      color = plot_background_fill %||% background_color
+    ),
+    panel.background = ggplot2::element_rect(
+      fill = panel_background_fill %||% background_color,
+      color = panel_background_fill %||% background_color
+    ),
+    panel.grid.major = ggplot2::element_line(
+      color = panel_grid_major_color %||% blend(0.85),
+      inherit.blank = TRUE
+    ),
+    panel.grid.minor = ggplot2::element_line(
+      color = panel_grid_minor_color %||% blend(0.9),
+      inherit.blank = TRUE
+    ),
+    axis.title = ggplot2::element_text(size = title_size * 0.8),
+    axis.ticks = ggplot2::element_line(
+      color = panel_grid_major_color %||% blend(0.85)
+    ),
+    axis.text = ggplot2::element_text(color = axis_text_color %||% blend(0.4)),
+    legend.key = ggplot2::element_rect(fill = "transparent", colour = NA),
+    plot.caption = ggplot2::element_text(
+      size = base_size * 0.8,
+      color = plot_caption_color %||% blend(0.3)
     )
+  )
+
+  if (packageVersion("ggplot2") >= "4.0.0") {
+    theme <- theme +
+      ggplot2::theme(
+        geom = ggplot2::element_geom(
+          ink = foreground_color,
+          paper = background_color,
+          accent = accent_color
+        )
+      )
+  }
+
+  theme
 }
 
 
@@ -421,4 +550,14 @@ brand_color_maybe_pluck <- function(brand, value, ...) {
   }
 
   NULL
+}
+
+blend_colors <- function(x, y, alpha = 0.5) {
+  check_installed("prismatic")
+  x <- prismatic::clr_mix(x, y, ratio = alpha)
+  as.character(x)
+}
+
+color_blender <- function(x, y) {
+  function(alpha = 0.5) blend_colors(x, y, alpha)
 }

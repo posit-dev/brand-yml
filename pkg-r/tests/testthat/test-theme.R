@@ -21,15 +21,18 @@ describe("theme_brand_ggplot2()", {
   it("uses theme fallback when no explicit color provided", {
     theme_default <- theme_brand_ggplot2(brand)
     expect_equal(theme_default$plot.background$fill, "#FFFFFF")
-    expect_equal(theme_default$text$colour, "#151515")
+    # Text color is blended (10% background, 90% foreground)
+    expect_equal(theme_default$text$colour, "#2C2C2CFF")
   })
 
   it("resolves foreground color with correct precedence", {
     theme_fg <- theme_brand_ggplot2(brand, foreground = "#00FF00")
-    expect_equal(theme_fg$text$colour, "#00FF00")
+    # Text color is blended with background
+    expect_equal(theme_fg$text$colour, "#1AFF1AFF")
 
     theme_fg_named <- theme_brand_ggplot2(brand, foreground = "blue")
-    expect_equal(theme_fg_named$text$colour, "#447099")
+    # Text color is blended with background
+    expect_equal(theme_fg_named$text$colour, "#577EA3FF")
   })
 
   it("resolves accent color with correct precedence", {
@@ -46,7 +49,8 @@ describe("theme_brand_ggplot2()", {
     )
     expect_s3_class(theme, c("theme", "gg"))
     expect_equal(theme$plot.background$fill, "#FFFFFF")
-    expect_equal(theme$text$colour, "#000000")
+    # Text color is blended with background
+    expect_equal(theme$text$colour, "#1A1A1AFF")
   })
 })
 

@@ -11,6 +11,10 @@ vignette: >
 library(brand.yml)
 ```
 
+```{r setup-knitr, include=FALSE}
+knitr::opts_chunk$set(fig.width = 7, fig.height = 3.5)
+```
+
 ## Overview
 
 The **brand.yml** package includes helper functions for theming plotting and table packages using your brand colors.
@@ -37,6 +41,7 @@ color:
     orange: "#FF6F20"
     purple: "#A500B5"
     pink: "#FF3D7F"
+    blue: "#007BFF"
     green: "#28A745"
   foreground: black
   background: white
@@ -58,15 +63,24 @@ The `theme_brand_ggplot2()` function creates a ggplot2 theme using brand colors.
 library(ggplot2)
 
 ggplot(mtcars, aes(mpg, wt)) +
-  geom_point(aes(colour = factor(cyl))) +
+  geom_point(size = 2, aes(color = factor(cyl))) +
+  geom_smooth(method = "lm", formula = y ~ x) +
   scale_colour_manual(
     values = c(
-      brand_color_pluck(brand, "orange"),
+      brand_color_pluck(brand, "blue"),
       brand_color_pluck(brand, "purple"),
       brand_color_pluck(brand, "green")
     )
   ) +
-  theme_brand_ggplot2(brand, background = "black", foreground = "white")
+  labs(
+    title = "Motor Trend Car Road Tests",
+    subtitle = "1974 Motor Trend US magazine",
+    caption = "Data from the 1974 Motor Trend US magazine",
+    x = "Miles per Gallon",
+    y = "Weight (1,000 lbs)",
+    colour = "Cylinders"
+  ) +
+  theme_brand_ggplot2(brand)
 ```
 
 ## thematic

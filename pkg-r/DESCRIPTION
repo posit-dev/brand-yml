@@ -35,6 +35,7 @@ Suggests:
     palmerpenguins,
     patchwork,
     plotly,
+    prismatic,
     rmarkdown,
     sass,
     stringr,
