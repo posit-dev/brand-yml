@@ -5,7 +5,7 @@
 # BrandTypography { #brand_yml.BrandTypography }
 
 ```python
-BrandTypography()
+BrandTypography(**data)
 ```
 
 Represents the typographic choices of a brand.
@@ -249,9 +249,9 @@ defined in the typography configuration.
 
 ```python
 BrandTypography.fonts_html_dependency(
-    path_dir
-    name='brand-fonts'
-    version='0.0.1'
+    path_dir,
+    name='brand-fonts',
+    version='0.0.1',
 )
 ```
 
@@ -354,7 +354,7 @@ choices in brand guidelines.
 ### BrandTypographyFontSource { #brand_yml.typography.BrandTypographyFontSource }
 
 ```python
-typography.BrandTypographyFontSource()
+typography.BrandTypographyFontSource(**data)
 ```
 
 A base class representing a font source.
@@ -386,7 +386,7 @@ Create the CSS declarations needed to use the font family.
 ### BrandTypographyFontFiles { #brand_yml.typography.BrandTypographyFontFiles }
 
 ```python
-typography.BrandTypographyFontFiles()
+typography.BrandTypographyFontFiles(**data)
 ```
 
 A font family defined by a collection of font files.
@@ -423,7 +423,7 @@ typography:
 ### BrandTypographyFontGoogle { #brand_yml.typography.BrandTypographyFontGoogle }
 
 ```python
-typography.BrandTypographyFontGoogle()
+typography.BrandTypographyFontGoogle(**data)
 ```
 
 A font family provided by Google Fonts.
@@ -454,7 +454,7 @@ Slab font is sourced from Google Fonts with three specific font weights --
 ### BrandTypographyFontBunny { #brand_yml.typography.BrandTypographyFontBunny }
 
 ```python
-typography.BrandTypographyFontBunny()
+typography.BrandTypographyFontBunny(**data)
 ```
 
 A font family provided by Bunny Fonts.
@@ -484,7 +484,7 @@ typography:
 ### BrandTypographyGoogleFontsApi { #brand_yml.typography.BrandTypographyGoogleFontsApi }
 
 ```python
-typography.BrandTypographyGoogleFontsApi()
+typography.BrandTypographyGoogleFontsApi(**data)
 ```
 
 A font source that utilizes the Google Fonts (or a compatible) API.
@@ -520,7 +520,7 @@ Returns the URL for the font family to be used in a CSS `@import` statement.
 ### BrandTypographyGoogleFontsWeightRange { #brand_yml.typography.BrandTypographyGoogleFontsWeightRange }
 
 ```python
-typography.BrandTypographyGoogleFontsWeightRange()
+typography.BrandTypographyGoogleFontsWeightRange(root=PydanticUndefined, **data)
 ```
 
 Represents a range of font weights for Google Fonts.
@@ -554,27 +554,29 @@ root
 
 | Name | Description |
 | --- | --- |
-| [model_dump](#brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump) | Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump |
+| [model_dump](#brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump) | !!! abstract "Usage Documentation"     [`model_dump`](../concepts/serialization.md#modelmodel_dump) |
 
 ##### model_dump { #brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump }
 
 ```python
 typography.BrandTypographyGoogleFontsWeightRange.model_dump(
-    mode='python'
-    include=None
-    exclude=None
-    context=None
-    by_alias=False
-    exclude_unset=False
-    exclude_defaults=False
-    exclude_none=False
-    round_trip=False
-    warnings=True
-    serialize_as_any=False
+    mode='python',
+    include=None,
+    exclude=None,
+    context=None,
+    by_alias=None,
+    exclude_unset=False,
+    exclude_defaults=False,
+    exclude_none=False,
+    round_trip=False,
+    warnings=True,
+    fallback=None,
+    serialize_as_any=False,
 )
 ```
 
-Usage docs: https://docs.pydantic.dev/2.9/concepts/serialization/#modelmodel_dump
+!!! abstract "Usage Documentation"
+    [`model_dump`](../concepts/serialization.md#modelmodel_dump)
 
 Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.
 
@@ -592,6 +594,8 @@ Args:
     round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
     warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
         "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
+    fallback: A function to call when an unknown value is encountered. If not provided,
+        a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError] error is raised.
     serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
 
 Returns:
@@ -600,7 +604,7 @@ Returns:
 ### BrandTypographyBase { #brand_yml.typography.BrandTypographyBase }
 
 ```python
-typography.BrandTypographyBase()
+typography.BrandTypographyBase(**data)
 ```
 
 Typographic settings for base (or body) text.
@@ -637,26 +641,34 @@ brand.typography.model_dump(
 
 family
 
-:   The font family to be used. Note that the font family name should match
+:   [str](`str`) \| None
+
+    The font family to be used. Note that the font family name should match
     a resource in `typography.fonts`.
 
 weight
 
-:   The font weight (boldness) of the text.
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (boldness) of the text.
 
 size
 
-:   The font size of the text. Should be a CSS length unit (e.g., 14px).
+:   [str](`str`) \| None
+
+    The font size of the text. Should be a CSS length unit (e.g., 14px).
 
 line_height
 
-:   The line height of the text. Line height refers to the vertical space
+:   [float](`float`) \| None
+
+    The line height of the text. Line height refers to the vertical space
     between lines of text.
 
 ### BrandTypographyHeadings { #brand_yml.typography.BrandTypographyHeadings }
 
 ```python
-typography.BrandTypographyHeadings()
+typography.BrandTypographyHeadings(**data)
 ```
 
 Typographic settings for headings and titles.
@@ -665,26 +677,36 @@ Typographic settings for headings and titles.
 
 family
 
-:   The font family used for headings. Note that this should match a resource
+:   [str](`str`) \| None
+
+    The font family used for headings. Note that this should match a resource
     in `typography.fonts`.
 
 weight
 
-:   The font weight (or boldness) of the text.
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (or boldness) of the text.
 
 style
 
-:   The font style for the heading, i.e., whether it should be styled in a
+:   [SingleOrList](`brand_yml.typography.SingleOrList`)\[[BrandTypographyFontStyleType](`brand_yml.typography.BrandTypographyFontStyleType`)\] \| None
+
+    The font style for the heading, i.e., whether it should be styled in a
     `"normal"` or `"italic"` style.
 
 line_height
 
-:   The line height of the heading. Line height refers to the vertical space
+:   [float](`float`) \| None
+
+    The line height of the heading. Line height refers to the vertical space
     between lines of text.
 
 color
 
-:   The color of the text.
+:   [str](`str`) \| None
+
+    The color of the text.
 
 #### Examples {.doc-section .doc-section-examples}
 
@@ -702,7 +724,7 @@ typography:
 ### BrandTypographyMonospace { #brand_yml.typography.BrandTypographyMonospace }
 
 ```python
-typography.BrandTypographyMonospace()
+typography.BrandTypographyMonospace(**data)
 ```
 
 Typographic settings for monospace text.
@@ -719,17 +741,23 @@ respectively.
 
 family
 
-:   The font family to be used for monospace text. Note that the font family
+:   [str](`str`) \| None
+
+    The font family to be used for monospace text. Note that the font family
     name should match a resource in `typography.fonts`.
 
 weight
 
-:   The font weight (boldness) of the monospace text. Can be a numeric value
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (boldness) of the monospace text. Can be a numeric value
     between 100 and 900, or a string like "normal" or "bold".
 
 size
 
-:   The font size of the monospace text. Should be a CSS length unit
+:   [str](`str`) \| None
+
+    The font size of the monospace text. Should be a CSS length unit
     (e.g., "0.9em", "14px").
 
 #### Examples {.doc-section .doc-section-examples}
@@ -776,7 +804,7 @@ typography:
 ### BrandTypographyMonospaceInline { #brand_yml.typography.BrandTypographyMonospaceInline }
 
 ```python
-typography.BrandTypographyMonospaceInline()
+typography.BrandTypographyMonospaceInline(**data)
 ```
 
 Typographic settings for inline monospace text.
@@ -791,28 +819,38 @@ with additional options for foreground and background colors.
 
 family
 
-:   The font family to be used for inline monospace text. Note that the font
+:   [str](`str`) \| None
+
+    The font family to be used for inline monospace text. Note that the font
     family name should match a resource in `typography.fonts`.
 
 weight
 
-:   The font weight (boldness) of the inline monospace text. Can be a
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (boldness) of the inline monospace text. Can be a
     numeric value between 100 and 900, or a string like "normal" or "bold".
 
 size
 
-:   The font size of the inline monospace text. Should be a CSS length unit
+:   [str](`str`) \| None
+
+    The font size of the inline monospace text. Should be a CSS length unit
     (e.g., "0.9em", "14px").
 
 color
 
-:   The color of the inline monospace text. Can be any CSS-compatible color
+:   [str](`str`) \| None
+
+    The color of the inline monospace text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
     palette.
 
 background_color
 
-:   The background color of the inline monospace text. Can be any
+:   [str](`str`) \| None
+
+    The background color of the inline monospace text. Can be any
     CSS-compatible color definition or a reference to a color defined in the
     brand's color palette.
 
@@ -853,7 +891,7 @@ typography:
 ### BrandTypographyMonospaceBlock { #brand_yml.typography.BrandTypographyMonospaceBlock }
 
 ```python
-typography.BrandTypographyMonospaceBlock()
+typography.BrandTypographyMonospaceBlock(**data)
 ```
 
 Typographic settings for block monospace text.
@@ -868,33 +906,45 @@ and adds options for line height, foreground color, and background color.
 
 family
 
-:   The font family to be used for block monospace text. Note that the font
+:   [str](`str`) \| None
+
+    The font family to be used for block monospace text. Note that the font
     family name should match a resource in `typography.fonts`.
 
 weight
 
-:   The font weight (boldness) of the block monospace text. Can be a
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (boldness) of the block monospace text. Can be a
     numeric value between 100 and 900, or a string like "normal" or "bold".
 
 size
 
-:   The font size of the block monospace text. Should be a CSS length unit
+:   [str](`str`) \| None
+
+    The font size of the block monospace text. Should be a CSS length unit
     (e.g., "0.9em", "14px").
 
 line_height
 
-:   The line height of the block monospace text. Line height refers to the
+:   [float](`float`) \| None
+
+    The line height of the block monospace text. Line height refers to the
     vertical space between lines of text.
 
 color
 
-:   The color of the block monospace text. Can be any CSS-compatible color
+:   [str](`str`) \| None
+
+    The color of the block monospace text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
     palette.
 
 background_color
 
-:   The background color of the block monospace text. Can be any
+:   [str](`str`) \| None
+
+    The background color of the block monospace text. Can be any
     CSS-compatible color definition or a reference to a color defined in the
     brand's color palette.
 
@@ -921,7 +971,7 @@ typography:
 ### BrandTypographyLink { #brand_yml.typography.BrandTypographyLink }
 
 ```python
-typography.BrandTypographyLink()
+typography.BrandTypographyLink(**data)
 ```
 
 Typographic settings for hyperlinks.
@@ -933,18 +983,24 @@ of font weight, colors, and text decoration.
 
 weight
 
-:   The font weight (boldness) of the hyperlink text. Can be a numeric value
+:   [BrandTypographyFontWeightSimpleType](`brand_yml.typography.BrandTypographyFontWeightSimpleType`) \| None
+
+    The font weight (boldness) of the hyperlink text. Can be a numeric value
     between 100 and 900, or a string like "normal" or "bold".
 
 color
 
-:   The color of the hyperlink text. Can be any CSS-compatible color
+:   [str](`str`) \| None
+
+    The color of the hyperlink text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
     palette.
 
 background_color
 
-:   The background color of the hyperlink text. Can be any CSS-compatible
+:   [str](`str`) \| None
+
+    The background color of the hyperlink text. Can be any CSS-compatible
     color definition or a reference to a color defined in the brand's color
     palette.
 

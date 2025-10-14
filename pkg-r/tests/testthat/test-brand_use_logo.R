@@ -120,7 +120,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_variants,
       name = "smallest",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_equal(result$light$path, "./logos/small-light.png")
@@ -229,7 +229,7 @@ describe("brand_use_logo()", {
     simple_result <- brand_use_logo(
       brand,
       name = "small",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(simple_result, "brand_logo_resource_light_dark")
     # These are the same because we requested light/dark, so the single value
@@ -241,7 +241,7 @@ describe("brand_use_logo()", {
     ld_result <- brand_use_logo(
       brand,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(ld_result, "brand_logo_resource_light_dark")
     expect_s3_class(ld_result, "light_dark")
@@ -260,7 +260,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_pathed,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_equal(result$light$path, "/base/path/logos/medium-light.png")
@@ -281,7 +281,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand_light_only,
       name = "medium",
-      variant = c("light", "dark")
+      variant = "light-dark"
     )
     expect_s3_class(result, "brand_logo_resource_light_dark")
     expect_s3_class(result$light, "brand_logo_resource")
@@ -294,7 +294,7 @@ describe("brand_use_logo()", {
     result <- brand_use_logo(
       brand,
       name = "small",
-      variant = c("light", "dark"),
+      variant = "light-dark",
       .allow_fallback = FALSE
     )
     expect_null(result)
@@ -306,14 +306,14 @@ describe("brand_use_logo()", {
       brand_use_logo(
         brand,
         name = "small",
-        variant = c("light", "dark"),
+        variant = "light-dark",
         .required = TRUE,
         .allow_fallback = FALSE
       )
       brand_use_logo(
         brand,
         name = "small",
-        variant = c("light", "dark"),
+        variant = "light-dark",
         .required = "for theme support",
         .allow_fallback = FALSE
       )
@@ -620,5 +620,98 @@ describe("knit_print() method", {
     expect_equal(result$meta, list(html_dep_brand_light_dark()))
     expect_type(result$out, "character")
     expect_snapshot(cat(result$out))
+  })
+})
+
+describe("brand_use_logo() with simple logo (logo: path.png)", {
+  it("returns logo for all sizes when logo is a simple path", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    # All sizes should return the same logo
+    result_small <- brand_use_logo(brand_simple, "small")
+    expect_s3_class(result_small, "brand_logo_resource")
+    expect_equal(result_small$path, "./foo.png")
+
+    result_medium <- brand_use_logo(brand_simple, "medium")
+    expect_s3_class(result_medium, "brand_logo_resource")
+    expect_equal(result_medium$path, "./foo.png")
+
+    result_large <- brand_use_logo(brand_simple, "large")
+    expect_s3_class(result_large, "brand_logo_resource")
+    expect_equal(result_large$path, "./foo.png")
+  })
+
+  it("returns logo for all sizes when logo has path and alt", {
+    brand_simple <- as_brand_yml(list(
+      logo = list(path = "bar.png", alt = "Bar Logo")
+    ))
+
+    result_small <- brand_use_logo(brand_simple, "small")
+    expect_s3_class(result_small, "brand_logo_resource")
+    expect_equal(result_small$path, "./bar.png")
+    expect_equal(result_small$alt, "Bar Logo")
+
+    result_medium <- brand_use_logo(brand_simple, "medium")
+    expect_s3_class(result_medium, "brand_logo_resource")
+    expect_equal(result_medium$path, "./bar.png")
+    expect_equal(result_medium$alt, "Bar Logo")
+
+    result_large <- brand_use_logo(brand_simple, "large")
+    expect_s3_class(result_large, "brand_logo_resource")
+    expect_equal(result_large$path, "./bar.png")
+    expect_equal(result_large$alt, "Bar Logo")
+  })
+
+  it("handles variant='auto' with simple logo", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    result <- brand_use_logo(brand_simple, "small", variant = "auto")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./foo.png")
+  })
+
+  it("handles variant='light' with simple logo and fallback", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    result <- brand_use_logo(brand_simple, "medium", variant = "light")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./foo.png")
+  })
+
+  it("handles variant='dark' with simple logo and fallback", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    result <- brand_use_logo(brand_simple, "large", variant = "dark")
+    expect_s3_class(result, "brand_logo_resource")
+    expect_equal(result$path, "./foo.png")
+  })
+
+  it("handles variant='light-dark' with simple logo and fallback", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    result <- brand_use_logo(brand_simple, "small", variant = "light-dark")
+    expect_s3_class(result, "brand_logo_resource_light_dark")
+    expect_equal(result$light$path, "./foo.png")
+    expect_equal(result$dark$path, "./foo.png")
+  })
+
+  it("returns NULL for light-dark variant without fallback", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+
+    result <- brand_use_logo(
+      brand_simple,
+      "medium",
+      variant = "light-dark",
+      .allow_fallback = FALSE
+    )
+    expect_null(result)
+  })
+
+  it("adjusts path relative to brand base_path", {
+    brand_simple <- as_brand_yml(list(logo = "foo.png"))
+    brand_simple$path <- "/base/path/_brand.yml"
+
+    result <- brand_use_logo(brand_simple, "small")
+    expect_equal(result$path, "/base/path/foo.png")
   })
 })

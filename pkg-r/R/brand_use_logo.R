@@ -117,17 +117,17 @@
 #'
 #' brand_use_logo(brand, "small", variant = "light")
 #' brand_use_logo(brand, "small", variant = "light", allow_fallback = FALSE)
-#' brand_use_logo(brand, "small", variant = c("light", "dark"))
+#' brand_use_logo(brand, "small", variant = "light-dark")
 #' brand_use_logo(
 #'   brand,
 #'   "small",
-#'   variant = c("light", "dark"),
+#'   variant = "light-dark",
 #'   allow_fallback = FALSE
 #' )
 #'
 #' brand_use_logo(brand, "medium", variant = "light")
 #' brand_use_logo(brand, "medium", variant = "dark")
-#' brand_use_logo(brand, "medium", variant = c("light", "dark"))
+#' brand_use_logo(brand, "medium", variant = "light-dark")
 #'
 #' @param brand A brand object from [read_brand_yml()] or [as_brand_yml()].
 #' @param name The name of the logo to use. Either a size (`"small"`,
@@ -149,8 +149,8 @@
 #'   * `"dark"`: Returns only the dark variant, or, as above, falls back to the
 #'     single logo resource if no dark variant is present and `allow_fallback`
 #'     is `TRUE`.
-#'   * `c("light", "dark")`: Returns a light/dark object with both variants. If
-#'     a single logo resource is present for `brand.logo.{name}` and
+#'   * `"light-dark"`: Returns a light/dark object with both variants. If a
+#'     single logo resource is present for `brand.logo.{name}` and
 #'     `allow_fallback` is `TRUE`, the single logo resource is promoted to a
 #'     light/dark logo resource with identical light and dark variants.
 #' @param .required Logical or character string. If `TRUE`, an error is thrown if
@@ -176,7 +176,7 @@
 brand_use_logo <- function(
   brand,
   name,
-  variant = c("auto", "light", "dark"),
+  variant = c("auto", "light", "dark", "light-dark"),
   ...,
   .required = !name %in% c("small", "medium", "large", "smallest", "largest"),
   .allow_fallback = TRUE
@@ -184,6 +184,7 @@ brand_use_logo <- function(
   brand <- as_brand_yml(brand)
   check_string(name)
   check_bool(.allow_fallback)
+  variant <- arg_match(variant)
 
   if (isTRUE(.required)) {
     required_reason <- ""
@@ -202,6 +203,15 @@ brand_use_logo <- function(
       x$attrs <- c(x$attrs, dots)
     }
     x
+  }
+
+  # When brand$logo is a simple brand_logo_resource, promote it to all sizes
+  if (inherits(brand$logo, "brand_logo_resource")) {
+    brand$logo <- list(
+      small = brand$logo,
+      medium = brand$logo,
+      large = brand$logo
+    )
   }
 
   if (name %in% c("smallest", "largest")) {
@@ -243,15 +253,6 @@ brand_use_logo <- function(
   }
 
   name <- arg_match(name, c("small", "medium", "large"))
-  variant <- arg_match(variant, multiple = TRUE)
-
-  if ("auto" %in% variant) {
-    variant <- "auto"
-  } else if (
-    identical(intersect(c("light", "dark"), variant), c("light", "dark"))
-  ) {
-    variant <- "light_dark"
-  }
 
   if (!brand_has(brand, "logo", name)) {
     if (!is.null(required_reason)) {
@@ -318,8 +319,8 @@ brand_use_logo <- function(
     }
   }
 
-  # Case B: "light_dark" variant
-  if (variant == "light_dark") {
+  # Case B: "light-dark" variant
+  if (variant == "light-dark") {
     if (has_light_dark) {
       # Case B.1: Return light_dark if both variants exist
       return(attach_attrs(res))

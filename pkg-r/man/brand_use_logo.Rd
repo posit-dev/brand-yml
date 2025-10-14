@@ -7,7 +7,7 @@
 brand_use_logo(
   brand,
   name,
-  variant = c("auto", "light", "dark"),
+  variant = c("auto", "light", "dark", "light-dark"),
   ...,
   .required = !name \%in\% c("small", "medium", "large", "smallest", "largest"),
   .allow_fallback = TRUE
@@ -36,8 +36,8 @@ logo resource.
 \item \code{"dark"}: Returns only the dark variant, or, as above, falls back to the
 single logo resource if no dark variant is present and \code{allow_fallback}
 is \code{TRUE}.
-\item \code{c("light", "dark")}: Returns a light/dark object with both variants. If
-a single logo resource is present for \verb{brand.logo.\{name\}} and
+\item \code{"light-dark"}: Returns a light/dark object with both variants. If a
+single logo resource is present for \verb{brand.logo.\{name\}} and
 \code{allow_fallback} is \code{TRUE}, the single logo resource is promoted to a
 light/dark logo resource with identical light and dark variants.
 }}
@@ -188,16 +188,16 @@ brand_use_logo(brand, "huge")
 
 brand_use_logo(brand, "small", variant = "light")
 brand_use_logo(brand, "small", variant = "light", allow_fallback = FALSE)
-brand_use_logo(brand, "small", variant = c("light", "dark"))
+brand_use_logo(brand, "small", variant = "light-dark")
 brand_use_logo(
   brand,
   "small",
-  variant = c("light", "dark"),
+  variant = "light-dark",
   allow_fallback = FALSE
 )
 
 brand_use_logo(brand, "medium", variant = "light")
 brand_use_logo(brand, "medium", variant = "dark")
-brand_use_logo(brand, "medium", variant = c("light", "dark"))
+brand_use_logo(brand, "medium", variant = "light-dark")
 
 }

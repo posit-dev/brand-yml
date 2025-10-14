@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
+from htmltools import TagAttrValue
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -12,6 +13,7 @@ from pydantic import (
 )
 
 from ._defs import BrandLightDark
+from ._use_logo import use_logo
 from ._utils import (
     envvar_brand_yml_path,
     find_project_brand_yml,
@@ -22,7 +24,7 @@ from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
 from .color import BrandColor
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
-from .logo import BrandLogo, BrandLogoResource
+from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 from .meta import BrandMeta
 from .typography import BrandTypography
 
@@ -349,6 +351,125 @@ class Brand(BrandBase):
 
         return value.resolve()
 
+    def use_logo(
+        self,
+        name: str,
+        variant: Literal["auto", "light", "dark", "light-dark"] = "auto",
+        *,
+        required: bool | str | None = None,
+        allow_fallback: bool = True,
+        **kwargs: TagAttrValue,
+    ) -> BrandLogoResource | BrandLogoResourceLightDark | None:
+        """
+        Extract a logo resource from a brand.
+
+        Returns a brand logo resource specified by name and variant from a brand
+        object. The image paths in the returned object are adjusted to be
+        absolute, relative to the location of the brand YAML file, if `brand`
+        was read from a file, or the local working directory otherwise.
+
+        Parameters
+        ----------
+        name
+            The name of the logo to use. Either a size (`"small"`, `"medium"`,
+            `"large"`) or an image name from `brand.logo.images`. Alternatively,
+            you can also use `"smallest"` or `"largest"` to select the smallest
+            or largest available logo size, respectively.
+        variant
+            Which variant to use, only used when `name` is one of the brand.yml
+            fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be one
+            of:
+
+            * `"auto"`: Auto-detect, returns a light/dark logo resource if both
+              variants are present, otherwise it returns a single logo resource,
+              either the value for `brand.logo.{name}` or the single light or
+              dark variant if only one is present.
+            * `"light"`: Returns only the light variant. If no light variant is
+              present, but `brand.logo.{name}` is a single logo resource and
+              `allow_fallback` is `True`, `use_logo()` falls back to the single
+              logo resource.
+            * `"dark"`: Returns only the dark variant, or, as above, falls back
+              to the single logo resource if no dark variant is present and
+              `allow_fallback` is `True`.
+            * `"light-dark"`: Returns a light/dark object with both variants. If
+              a single logo resource is present for `brand.logo.{name}` and
+              `allow_fallback` is `True`, the single logo resource is promoted
+              to a light/dark logo resource with identical light and dark
+              variants.
+        required
+            Logical or string. If `True`, an error is thrown if the requested
+            logo is not found. If a string, it is used to describe why the logo
+            is required in the error message and completes the phrase `"is
+            required ____"`. Defaults to `False` when `name` is one of the fixed
+            sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or
+            `"largest"`. Otherwise, an error is thrown by default if the
+            requested logo is not found.
+        allow_fallback
+            If `True` (the default), allows falling back to a
+            non-variant-specific logo when a specific variant is requested. Only
+            used when `name` is one of the fixed logo sizes (`"small"`,
+            `"medium"`, or `"large"`).
+        **kwargs
+            Additional named attributes to be added to the image HTML or
+            markdown when created via formatting methods.
+
+        Returns
+        -------
+        :
+            A `BrandLogoResource` object, a `BrandLogoResourceLightDark` object,
+            or `None` if the requested logo doesn't exist and `required` is
+            `False`.
+
+        Raises
+        ------
+        BrandLogoMissingError
+            If the requested logo is not found and `required` is `True` or a
+            string.
+        ValueError
+            If `variant` is not one of `"auto"`, `"light"`, `"dark"`, or
+            `"light-dark"`.
+
+        Examples
+        --------
+
+        ```{python}
+        from brand_yml import Brand
+
+        brand = Brand.from_yaml_str('''
+        logo:
+          small:
+            light:
+              path: https://pandas.pydata.org/static/img/pandas_mark.svg
+              alt: Pandas logo
+            dark:
+              path: https://pandas.pydata.org/static/img/pandas_mark_white.svg
+              alt: Pandas logo
+          medium:
+            path: https://pandas.pydata.org/static/img/pandas_secondary.svg
+            alt: Pandas logo and name
+        ''')
+
+        brand.use_logo("small", width="100px")
+        ```
+        ```{python}
+        str(brand.use_logo("small", variant="light").to_html())
+        ```
+        ```{python}
+        brand.use_logo("small", variant="dark").to_markdown()
+        ```
+        ```{python}
+        brand.use_logo("medium").to_markdown()
+        ```
+        """
+        return use_logo(
+            self,
+            name,
+            variant,
+            required=required,
+            allow_fallback=allow_fallback,
+            **kwargs,
+        )
+
     @model_validator(mode="after")
     def _set_root_path(self):
         """
@@ -392,6 +513,7 @@ __all__ = [
     "BrandTypography",
     "BrandLightDark",
     "BrandLogoResource",
+    "BrandLogoResourceLightDark",
     "FileLocation",
     "FileLocationLocal",
     "FileLocationUrl",

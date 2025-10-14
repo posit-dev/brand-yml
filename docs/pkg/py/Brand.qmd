@@ -1,7 +1,7 @@
 # Brand { #brand_yml.Brand }
 
 ```python
-Brand()
+Brand(**data)
 ```
 
 Brand guidelines in a class.
@@ -68,11 +68,12 @@ path
 | [from_yaml](#brand_yml.Brand.from_yaml) | Create a Brand instance from a Brand YAML file. |
 | [from_yaml_str](#brand_yml.Brand.from_yaml_str) | Create a Brand instance from a string of YAML. |
 | [model_dump_yaml](#brand_yml.Brand.model_dump_yaml) | Serialize the Brand object to YAML. |
+| [use_logo](#brand_yml.Brand.use_logo) | Extract a logo resource from a brand. |
 
 ### from_yaml { #brand_yml.Brand.from_yaml }
 
 ```python
-Brand.from_yaml(path)
+Brand.from_yaml(path=None)
 ```
 
 Create a Brand instance from a Brand YAML file.
@@ -91,12 +92,14 @@ does not search into subdirectories of the current directory.
 
 #### Parameters {.doc-section .doc-section-parameters}
 
-<code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`) \| [Path](`pathlib.Path`)</span></code>
+<code><span class="parameter-name">path</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`) \| [Path](`pathlib.Path`) \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
 
 :   The path to the brand.yml file or a directory where `_brand.yml` is
     expected to be found. Typically, you can pass `__file__` from the
     calling script to find `_brand.yml` or `_brand.yaml` in the current
-    directory or any of its parent directories.
+    directory or any of its parent directories. Alternatively, if no
+    path is specified, the `BRAND_YML_PATH` environment variable is
+    checked for the path to the brand.yml file.
 
 #### Returns {.doc-section .doc-section-returns}
 
@@ -224,3 +227,121 @@ print(brand.model_dump_yaml())
 | Name   | Type                | Description                                                                                                                                                                                                                                                                                                                                                                                                            |
 |--------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |        | [Any](`typing.Any`) | A string with the YAML representation of the `brand` if `stream` is `None`. Otherwise, the YAML representation is written to `stream`, typically a file.  Note that the output YAML may not be 100% identical to the input `_brand.yml`. The output will contain the fully validated Brand instance where default or computed values may be included as well as any values resolved during validation, such as colors. |
+
+### use_logo { #brand_yml.Brand.use_logo }
+
+```python
+Brand.use_logo(
+    name,
+    variant='auto',
+    *,
+    required=None,
+    allow_fallback=True,
+    **kwargs,
+)
+```
+
+Extract a logo resource from a brand.
+
+Returns a brand logo resource specified by name and variant from a brand
+object. The image paths in the returned object are adjusted to be
+absolute, relative to the location of the brand YAML file, if `brand`
+was read from a file, or the local working directory otherwise.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">name</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[str](`str`)</span></code>
+
+:   The name of the logo to use. Either a size (`"small"`, `"medium"`,
+    `"large"`) or an image name from `brand.logo.images`. Alternatively,
+    you can also use `"smallest"` or `"largest"` to select the smallest
+    or largest available logo size, respectively.
+
+<code><span class="parameter-name">variant</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Literal](`typing.Literal`)\[\'auto\', \'light\', \'dark\', \'light-dark\'\]</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">'auto'</span></code>
+
+:   Which variant to use, only used when `name` is one of the brand.yml
+    fixed logo sizes (`"small"`, `"medium"`, or `"large"`). Can be one
+    of:
+
+    * `"auto"`: Auto-detect, returns a light/dark logo resource if both
+      variants are present, otherwise it returns a single logo resource,
+      either the value for `brand.logo.{name}` or the single light or
+      dark variant if only one is present.
+    * `"light"`: Returns only the light variant. If no light variant is
+      present, but `brand.logo.{name}` is a single logo resource and
+      `allow_fallback` is `True`, `use_logo()` falls back to the single
+      logo resource.
+    * `"dark"`: Returns only the dark variant, or, as above, falls back
+      to the single logo resource if no dark variant is present and
+      `allow_fallback` is `True`.
+    * `"light-dark"`: Returns a light/dark object with both variants. If
+      a single logo resource is present for `brand.logo.{name}` and
+      `allow_fallback` is `True`, the single logo resource is promoted
+      to a light/dark logo resource with identical light and dark
+      variants.
+
+<code><span class="parameter-name">required</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[bool](`bool`) \| [str](`str`) \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
+
+:   Logical or string. If `True`, an error is thrown if the requested
+    logo is not found. If a string, it is used to describe why the logo
+    is required in the error message and completes the phrase `"is
+    required ____"`. Defaults to `False` when `name` is one of the fixed
+    sizes -- `"small"`, `"medium"`, `"large"` or `"smallest"` or
+    `"largest"`. Otherwise, an error is thrown by default if the
+    requested logo is not found.
+
+<code><span class="parameter-name">allow_fallback</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[bool](`bool`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">True</span></code>
+
+:   If `True` (the default), allows falling back to a
+    non-variant-specific logo when a specific variant is requested. Only
+    used when `name` is one of the fixed logo sizes (`"small"`,
+    `"medium"`, or `"large"`).
+
+<code><span class="parameter-name">**kwargs</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[TagAttrValue](`htmltools.TagAttrValue`)</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">{}</span></code>
+
+:   Additional named attributes to be added to the image HTML or
+    markdown when created via formatting methods.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                                                                                                                         | Description                                                                                                                                   |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [BrandLogoResource](`brand_yml.logo.BrandLogoResource`) \| [BrandLogoResourceLightDark](`brand_yml.logo.BrandLogoResourceLightDark`) \| None | A `BrandLogoResource` object, a `BrandLogoResourceLightDark` object, or `None` if the requested logo doesn't exist and `required` is `False`. |
+
+#### Raises {.doc-section .doc-section-raises}
+
+| Name   | Type                                             | Description                                                                  |
+|--------|--------------------------------------------------|------------------------------------------------------------------------------|
+|        | [BrandLogoMissingError](`BrandLogoMissingError`) | If the requested logo is not found and `required` is `True` or a string.     |
+|        | [ValueError](`ValueError`)                       | If `variant` is not one of `"auto"`, `"light"`, `"dark"`, or `"light-dark"`. |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```{python}
+from brand_yml import Brand
+
+brand = Brand.from_yaml_str('''
+logo:
+  small:
+    light:
+      path: https://pandas.pydata.org/static/img/pandas_mark.svg
+      alt: Pandas logo
+    dark:
+      path: https://pandas.pydata.org/static/img/pandas_mark_white.svg
+      alt: Pandas logo
+  medium:
+    path: https://pandas.pydata.org/static/img/pandas_secondary.svg
+    alt: Pandas logo and name
+''')
+
+brand.use_logo("small", width="100px")
+```
+```{python}
+str(brand.use_logo("small", variant="light").to_html())
+```
+```{python}
+brand.use_logo("small", variant="dark").to_markdown()
+```
+```{python}
+brand.use_logo("medium").to_markdown()
+```
