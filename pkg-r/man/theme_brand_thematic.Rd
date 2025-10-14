@@ -54,7 +54,7 @@ R graphics.
 \section{Functions}{
 \itemize{
 \item \code{theme_brand_thematic()}: brand.yml wrapper for
-\code{\link[thematic:thematic_on]{thematic::thematic_on()}}
+\code{\link[thematic:thematic_on]{thematic::thematic_theme()}}
 
 \item \code{theme_brand_thematic_on()}: brand.yml wrapper for
 \code{\link[thematic:thematic_on]{thematic::thematic_theme()}}
@@ -74,9 +74,11 @@ color:
 
 
 library(ggplot2)
-ggplot(diamonds, aes(carat, price)) +
-  geom_point() +
-  theme_brand_thematic(brand)
+
+thematic::thematic_with_theme(theme_brand_thematic(brand), {
+  ggplot(diamonds, aes(carat, price)) +
+    geom_point()
+})
 \dontshow{\}) # examplesIf}
 }
 \seealso{

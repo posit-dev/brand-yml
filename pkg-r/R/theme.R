@@ -234,9 +234,11 @@ theme_brand_ggplot2 <- function(
 #'
 #'
 #' library(ggplot2)
-#' ggplot(diamonds, aes(carat, price)) +
-#'   geom_point() +
-#'   theme_brand_thematic(brand)
+#'
+#' thematic::thematic_with_theme(theme_brand_thematic(brand), {
+#'   ggplot(diamonds, aes(carat, price)) +
+#'     geom_point()
+#' })
 #'
 #' @inheritParams theme_brand_ggplot2
 #' @param ... Additional arguments passed to [thematic::thematic_theme()] or
@@ -247,7 +249,7 @@ theme_brand_ggplot2 <- function(
 #' @family branded theming functions
 #'
 #' @describeIn theme_brand_thematic brand.yml wrapper for
-#'   [thematic::thematic_on()]
+#'   [thematic::thematic_theme()]
 #' @export
 theme_brand_thematic <- function(
   brand = NULL,
