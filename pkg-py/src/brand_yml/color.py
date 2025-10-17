@@ -8,20 +8,73 @@ palette and mappings to common theme colors.
 from __future__ import annotations
 
 import re
-from copy import deepcopy
-from typing import Literal, Optional
+from typing import Annotated, Any, Literal, Union
 
 from pydantic import (
     ConfigDict,
+    Discriminator,
+    Tag,
     field_validator,
     model_validator,
 )
 
-from ._defs import check_circular_references, defs_replace_recursively
+from ._defs import (
+    BrandLightDark,
+    check_circular_references,
+    defs_replace_recursively,
+)
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 
 rgx_valid_sass_name = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_-]*$")
+
+
+class BrandColorLightDark(BrandLightDark[str]):
+    """
+    Light/Dark variant container for color values.
+
+    This class extends BrandLightDark[str] to hold color values that differ
+    between light and dark color schemes.
+    """
+
+    def __repr__(self) -> str:
+        return super().__repr__()
+
+    def __str__(self) -> str:
+        """String representation returns light value if present, otherwise dark."""
+        if self.light is not None:
+            return self.light
+        elif self.dark is not None:
+            return self.dark
+        return ""
+
+
+def brand_color_type_discriminator(x: Any) -> Literal["color", "light-dark"]:
+    """Discriminator function to determine if a value is a color string or light/dark variant."""
+    if isinstance(x, dict):
+        if "light" in x or "dark" in x:
+            return "light-dark"
+        # If it's a dict but not light/dark, it's invalid
+        raise TypeError(f"{x} is not a valid brand color type")
+
+    if isinstance(x, (BrandLightDark, BrandColorLightDark)):
+        return "light-dark"
+
+    # Assume it's a string color value
+    return "color"
+
+
+BrandColorType = Annotated[
+    Union[
+        Annotated[str, Tag("color")],
+        Annotated[BrandColorLightDark, Tag("light-dark")],
+    ],
+    Discriminator(brand_color_type_discriminator),
+]
+"""
+A color value can be either a string (hex, rgb, color name, etc.) or a
+light-dark variant that includes both a light and dark color value.
+"""
 
 
 @add_example_yaml(
@@ -196,17 +249,17 @@ class BrandColor(BrandBase):
 
     palette: dict[str, str] | None = None
 
-    foreground: Optional[str] = None
-    background: Optional[str] = None
-    primary: Optional[str] = None
-    secondary: Optional[str] = None
-    tertiary: Optional[str] = None
-    success: Optional[str] = None
-    info: Optional[str] = None
-    warning: Optional[str] = None
-    danger: Optional[str] = None
-    light: Optional[str] = None
-    dark: Optional[str] = None
+    foreground: BrandColorType | None = None
+    background: BrandColorType | None = None
+    primary: BrandColorType | None = None
+    secondary: BrandColorType | None = None
+    tertiary: BrandColorType | None = None
+    success: BrandColorType | None = None
+    info: BrandColorType | None = None
+    warning: BrandColorType | None = None
+    danger: BrandColorType | None = None
+    light: BrandColorType | None = None
+    dark: BrandColorType | None = None
 
     @field_validator("palette")
     @classmethod
@@ -248,7 +301,7 @@ class BrandColor(BrandBase):
     def to_dict(
         self,
         include: Literal["all", "theme", "palette"] = "all",
-    ) -> dict[str, str]:
+    ) -> dict[str, str | dict[str, str]]:
         """
         Returns a flat dictionary of color definitions.
 
@@ -269,14 +322,30 @@ class BrandColor(BrandBase):
             * `"theme"` returns a dictionary of only the theme colors, excluding
               `color.palette`.
             * `"palette"` returns a dictionary of only the palette colors
+
+            Colors may be strings or dictionaries with `light` and `dark` keys when
+            light/dark variants are used.
         """
-        defs: dict[str, str] = {}
-        defs_theme: dict[str, str] = {}
+        defs: dict[str, str | dict[str, str]] = {}
+        defs_theme: dict[str, str | dict[str, str]] = {}
 
         if include in ("all", "palette"):
-            defs = deepcopy(self.palette) if self.palette is not None else {}
+            if self.palette is not None:
+                # Copy palette entries as-is (they're all strings)
+                for key, value in self.palette.items():
+                    defs[key] = value
+            else:
+                defs = {}
         if include in ("all", "theme"):
-            defs_theme = self.model_dump(exclude={"palette"}, exclude_none=True)
+            theme_dump = self.model_dump(exclude={"palette"}, exclude_none=True)
+            # Convert BrandColorLightDark instances to dicts for resolution
+            for key, value in theme_dump.items():
+                if isinstance(value, dict) and (
+                    "light" in value or "dark" in value
+                ):
+                    defs_theme[key] = value
+                else:
+                    defs_theme[key] = value
 
         defs.update(defs_theme)
         return defs

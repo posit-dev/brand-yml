@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from typing import cast
+
 import pytest
 from brand_yml import Brand, BrandColor
+from brand_yml.color import BrandColorLightDark
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -156,3 +159,140 @@ def test_brand_color_palette_names_valid_sass_vars():
     )
     assert isinstance(brand.color, BrandColor)
     assert brand.color.palette == {"my_pink": "#f0f"}
+
+
+def test_brand_color_light_dark_variants():
+    """Test that light/dark color variants parse correctly."""
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          foreground:
+            light: "#111111"
+            dark: "#fafafa"
+          background:
+            light: "#FFFFFF"
+            dark: "#222222"
+          primary: "#6339E0"
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+
+    # Check that light/dark colors are parsed correctly
+    assert isinstance(brand.color.foreground, BrandColorLightDark)
+    assert brand.color.foreground.light == "#111111"
+    assert brand.color.foreground.dark == "#fafafa"
+
+    assert isinstance(brand.color.background, BrandColorLightDark)
+    assert brand.color.background.light == "#FFFFFF"
+    assert brand.color.background.dark == "#222222"
+
+    # Check that scalar colors still work
+    assert isinstance(brand.color.primary, str)
+    assert brand.color.primary == "#6339E0"
+
+
+def test_brand_color_light_dark_with_references():
+    """Test that light/dark colors work with palette references."""
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          palette:
+            purple: "#6339E0"
+            sky: "#87CEEB"
+            ocean: "#4A90A4"
+          foreground:
+            light: "#111111"
+            dark: "#fafafa"
+          primary: purple
+          secondary:
+            light: sky
+            dark: ocean
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+
+    # Primary references a palette color directly
+    assert brand.color.primary == "#6339E0"
+
+    # Secondary has light/dark variants referencing palette colors
+    assert isinstance(brand.color.secondary, BrandColorLightDark)
+    assert brand.color.secondary.light == "#87CEEB"
+    assert brand.color.secondary.dark == "#4A90A4"
+
+
+def test_brand_color_light_dark_example_file(snapshot_json):
+    """Test the brand-color-light-dark.yml example file."""
+    brand = Brand.from_yaml(path_examples("brand-color-light-dark.yml"))
+
+    assert brand.color is not None
+    assert brand.meta is not None
+    assert brand.meta.name is not None
+    assert brand.meta.name.full == "Light/Dark Color Variants Example"
+
+    # Check light/dark colors
+    assert isinstance(brand.color.foreground, BrandColorLightDark)
+    assert brand.color.foreground.light == "#111111"
+    assert brand.color.foreground.dark == "#fafafa"
+
+    assert isinstance(brand.color.background, BrandColorLightDark)
+    assert brand.color.background.light == "#FFFFFF"
+    assert brand.color.background.dark == "#222222"
+
+    # Check scalar color (primary)
+    assert brand.color.primary == "#6339E0"
+
+    # Check secondary with light/dark variants
+    assert isinstance(brand.color.secondary, BrandColorLightDark)
+    assert brand.color.secondary.light == "#87CEEB"
+    assert brand.color.secondary.dark == "#4A90A4"
+
+    # Check typography colors - these are resolved from color references
+    assert brand.typography is not None
+    assert brand.typography.headings is not None
+    # Note: headings.color is resolved from the foreground color reference
+    headings_color = brand.typography.headings.color
+    if isinstance(headings_color, BrandColorLightDark):
+        assert headings_color.light == "#111111"
+        assert headings_color.dark == "#fafafa"
+    elif isinstance(headings_color, dict):
+        headings_color_dict = cast(dict[str, str], headings_color)
+        assert headings_color_dict["light"] == "#111111"
+        assert headings_color_dict["dark"] == "#fafafa"
+
+    assert brand.typography.link is not None
+    assert brand.typography.link.color == "#6339E0"
+
+    assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_color_to_dict_with_light_dark():
+    """Test that to_dict() handles light/dark colors correctly."""
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          palette:
+            purple: "#6339E0"
+          foreground:
+            light: "#111111"
+            dark: "#fafafa"
+          primary: purple
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+
+    # Theme colors should include light/dark structures
+    theme_dict = brand.color.to_dict(include="theme")
+    assert "foreground" in theme_dict
+    assert isinstance(theme_dict["foreground"], dict)
+    assert theme_dict["foreground"]["light"] == "#111111"
+    assert theme_dict["foreground"]["dark"] == "#fafafa"
+    assert theme_dict["primary"] == "#6339E0"
+
+    # All colors should include both palette and theme
+    all_dict = brand.color.to_dict(include="all")
+    assert "purple" in all_dict
+    assert "foreground" in all_dict
+    assert "primary" in all_dict
