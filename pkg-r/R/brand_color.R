@@ -28,7 +28,8 @@ brand_color_normalize <- function(brand) {
 brand_color_check_fields <- function(color) {
   ptype <- list(palette = "list")
   for (theme_field in brand_color_fields_theme()) {
-    ptype[[theme_field]] <- "string"
+    # Theme fields can be strings or lists with light/dark keys
+    ptype[[theme_field]] <- c("string", "list")
   }
 
   check_list(color, ptype, "color")
@@ -41,6 +42,50 @@ brand_color_check_fields <- function(color) {
         color$palette[[field]],
         arg = sprintf("color.palette.%s", field)
       )
+    }
+  }
+
+  # Validate light/dark structures in theme colors
+  for (theme_field in brand_color_fields_theme()) {
+    if (is.list(color[[theme_field]])) {
+      # If it's a list, it should have light and/or dark keys
+      valid_keys <- c("light", "dark")
+      actual_keys <- names(color[[theme_field]])
+
+      if (!all(actual_keys %in% valid_keys)) {
+        invalid_keys <- setdiff(actual_keys, valid_keys)
+        abort(
+          sprintf(
+            "`brand.color.%s` has invalid keys: %s. Only 'light' and 'dark' are allowed.",
+            theme_field,
+            paste(sprintf("'%s'", invalid_keys), collapse = ", ")
+          )
+        )
+      }
+
+      if (length(actual_keys) == 0) {
+        abort(
+          sprintf(
+            "`brand.color.%s` must have at least one of 'light' or 'dark' keys.",
+            theme_field
+          )
+        )
+      }
+
+      # Check that light and dark values are strings
+      for (variant in c("light", "dark")) {
+        if (!is.null(color[[theme_field]][[variant]])) {
+          if (!is_string(color[[theme_field]][[variant]])) {
+            abort(
+              sprintf(
+                "`brand.color.%s.%s` must be a string.",
+                theme_field,
+                variant
+              )
+            )
+          }
+        }
+      }
     }
   }
 }
@@ -108,13 +153,30 @@ brand_color_fields_theme <- function() {
 #'
 #' @inheritParams brand_has
 #' @param key A character string representing the color key to extract.
+#' @param color_mode Which color mode to use when extracting colors with
+#'   light/dark variants. Can be one of:
+#'   * `"auto"` (default): Returns the full light/dark structure if present, or
+#'     the scalar color otherwise.
+#'   * `"light"`: Extracts the light mode value. If the color is a scalar, uses
+#'     it as the light value.
+#'   * `"dark"`: Extracts the dark mode value. If the color is a scalar, uses
+#'     it as the light value.
+#'   * `"light-dark"`: Returns a list with both `light` and `dark` values. If
+#'     the color is scalar, returns it for both modes.
 #'
-#' @return The resolved color value (typically a hex color code) if the key
-#'   exists, otherwise returns the key itself.
+#' @return The resolved color value. Depending on `color_mode`:
+#'   * `"auto"`: a string or a list with `light` and `dark` elements
+#'   * `"light"` or `"dark"`: a string
+#'   * `"light-dark"`: a list with `light` and `dark` elements
+#'   Returns the key itself if the color doesn't exist.
 #'
 #' @family brand.yml helpers
 #' @export
-brand_color_pluck <- function(brand, key) {
+brand_color_pluck <- function(
+  brand,
+  key,
+  color_mode = c("auto", "light", "dark", "light-dark")
+) {
   if (!brand_has(brand, "color")) {
     return(key)
   }
