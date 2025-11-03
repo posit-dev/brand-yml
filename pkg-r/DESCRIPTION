@@ -17,6 +17,8 @@ License: MIT + file LICENSE
 URL: https://posit-dev.github.io/brand-yml/pkg/r/,
     https://github.com/posit-dev/brand-yml
 BugReports: https://github.com/posit-dev/brand-yml/issues
+Depends: 
+    R (>= 4.1.0)
 Imports:
     cli,
     rlang (>= 1.1.0),
