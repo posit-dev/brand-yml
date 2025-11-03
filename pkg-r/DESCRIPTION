@@ -8,8 +8,8 @@ Authors@R: c(
            comment = c(ROR = "03wc8by49"))
   )
 Description: Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a
-    simple, portable YAML file that codifies your company's brand
-    guidelines into a format that can be used by 'Quarto', 'Shiny' and R
+    simple, portable 'YAML' file that codifies your company's brand
+    guidelines into a format that can be used by 'Quarto', 'Shiny' and 'R'
     tooling to create branded outputs. Maintain unified, branded theming
     for web applications to printed reports to dashboards and
     presentations with a consistent look and feel.
@@ -44,9 +44,10 @@ Suggests:
     tidyr,
     tidyverse,
     withr
+VignetteBuilder:
+    knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-VignetteBuilder: knitr
