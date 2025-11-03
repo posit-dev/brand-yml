@@ -27,6 +27,14 @@ Centralize brand guidelines in a single 'brand.yml' file, enabling consistent th
 
 ## Installation
 
+Install the latest release of brand.yml from CRAN with:
+
+```{r}
+#| eval: false
+
+install.packages("brand.yml")
+```
+
 You can install the development version of brand.yml from [GitHub](https://github.com/) with:
 
 ```{r}
