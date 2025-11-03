@@ -2,6 +2,8 @@
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/404.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/LICENSE-text.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/LICENSE.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/articles/branded-themes.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/articles/index.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/authors.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/index.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/as_brand_yml.html</loc></url>
@@ -17,6 +19,11 @@
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/brand_use_logo.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/index.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/read_brand_yml.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/theme_brand_flextable.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/theme_brand_ggplot2.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/theme_brand_gt.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/theme_brand_plotly.html</loc></url>
+<url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/theme_brand_thematic.html</loc></url>
 <url><loc>https://posit-dev.github.io/brand-yml/pkg/r/reference/with_brand_yml_path.html</loc></url>
 </urlset>
 
