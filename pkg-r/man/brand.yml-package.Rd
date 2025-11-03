@@ -6,7 +6,7 @@
 \alias{brand.yml-package}
 \title{brand.yml: Unified Branding with a Simple YAML File}
 \description{
-Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a simple, portable YAML file that codifies your company's brand guidelines into a format that can be used by 'Quarto', 'Shiny' and R tooling to create branded outputs. Maintain unified, branded theming for web applications to printed reports to dashboards and presentations with a consistent look and feel.
+Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a simple, portable 'YAML' file that codifies your company's brand guidelines into a format that can be used by 'Quarto', 'Shiny' and 'R' tooling to create branded outputs. Maintain unified, branded theming for web applications to printed reports to dashboards and presentations with a consistent look and feel.
 }
 \seealso{
 Useful links:

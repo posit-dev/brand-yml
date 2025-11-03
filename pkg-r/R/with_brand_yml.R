@@ -22,6 +22,8 @@
 #' @param path The path to a brand.yml file.
 #' @inheritParams withr::local_envvar
 #'
+#' @inherit withr::with_envvar return
+#'
 #' @describeIn with_brand_yml_path Run code in a temporary environment with the
 #'   `BRAND_YML_PATH` environment variable set to `path`.
 #'

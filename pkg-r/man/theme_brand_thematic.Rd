@@ -46,6 +46,13 @@ valid R color or the name of a color in \code{brand.color} or
 \item{...}{Additional arguments passed to \code{\link[thematic:thematic_on]{thematic::thematic_theme()}} or
 \code{\link[thematic:thematic_on]{thematic::thematic_on()}}.}
 }
+\value{
+\code{\link[thematic:thematic_theme]{thematic_theme()}} returns a theme object as a list (which can be
+activated with \code{\link[thematic:thematic_with_theme]{thematic_with_theme()}} or \code{\link[thematic:thematic_set_theme]{thematic_set_theme()}}).
+
+\code{\link[thematic:thematic_on]{thematic_on()}}, \code{\link[thematic:thematic_off]{thematic_off()}}, and \code{\link[thematic:thematic_shiny]{thematic_shiny()}} all return
+the previous global theme.
+}
 \description{
 Apply thematic styling using explicit colors or by automatically extracting
 colors from a \strong{brand.yml} file. This function sets global theming for base

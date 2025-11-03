@@ -244,6 +244,8 @@ theme_brand_ggplot2 <- function(
 #' @param ... Additional arguments passed to [thematic::thematic_theme()] or
 #'   [thematic::thematic_on()].
 #'
+#' @inherit thematic::thematic_theme return
+#'
 #' @seealso See the "Branded Theming" section of [theme_brand_ggplot2()] for
 #'   more details on how the `brand` argument works.
 #' @family branded theming functions
