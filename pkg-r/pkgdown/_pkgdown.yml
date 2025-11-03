@@ -77,6 +77,12 @@ reference:
   - read_brand_yml
   - as_brand_yml
 
+- title: branded Theming functions
+  desc: |
+    Apply brand.yml themes to plots and tables from popular packages.
+  contents:
+  - has_concept("branded theming functions")
+
 - title: brand.yml helpers
   contents:
   - brand_use_logo
