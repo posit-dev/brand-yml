@@ -14,9 +14,9 @@ Description: Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a
     for web applications to printed reports to dashboards and
     presentations with a consistent look and feel.
 License: MIT + file LICENSE
-URL: https://posit-dev.github.io/brand-yml/pkg/r,
-    https://github.com/posit-dev/brand-yaml
-BugReports: https://github.com/posit-dev/brand-yaml/issues
+URL: https://posit-dev.github.io/brand-yml/pkg/r/,
+    https://github.com/posit-dev/brand-yml
+BugReports: https://github.com/posit-dev/brand-yml/issues
 Imports:
     cli,
     rlang (>= 1.1.0),

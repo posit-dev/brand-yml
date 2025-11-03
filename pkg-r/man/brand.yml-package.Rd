@@ -11,9 +11,9 @@ Read and process 'brand.yml' 'YAML' files. 'brand.yml' is a simple, portable 'YA
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://posit-dev.github.io/brand-yml/pkg/r}
-  \item \url{https://github.com/posit-dev/brand-yaml}
-  \item Report bugs at \url{https://github.com/posit-dev/brand-yaml/issues}
+  \item \url{https://posit-dev.github.io/brand-yml/pkg/r/}
+  \item \url{https://github.com/posit-dev/brand-yml}
+  \item Report bugs at \url{https://github.com/posit-dev/brand-yml/issues}
 }
 
 }
