@@ -16,6 +16,10 @@ local_brand_yml_path(path, .local_envir = parent.frame())
 
 \item{.local_envir}{\verb{[environment]}\cr The environment to use for scoping.}
 }
+\value{
+\code{[any]}\cr The results of the evaluation of the \code{code}
+argument.
+}
 \description{
 This function sets the \code{BRAND_YML_PATH} environment variable to the specified
 path for the duration of the local environment. This ensures that, for the

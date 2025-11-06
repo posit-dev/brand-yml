@@ -18,6 +18,12 @@ presentations with minimal configuration.
 
 ## Installation
 
+Install the latest release of brand.yml from CRAN with:
+
+``` r
+install.packages("brand.yml")
+```
+
 You can install the development version of brand.yml from
 [GitHub](https://github.com/) with:
 
