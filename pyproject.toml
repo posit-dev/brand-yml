@@ -79,6 +79,9 @@ include = ["/pkg-py/src/brand_yml", "/examples"]
 source = "vcs"
 tag-pattern = "^py/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
 
+[tool.hatch.version.raw-options]
+git_describe_command = "git describe --dirty --tags --long --match 'py/v*'"
+
 [tool.hatch.build.hooks.vcs]
 version-file = "pkg-py/src/brand_yml/__version.py"
 
