@@ -13,7 +13,7 @@ discover a _brand.yml file will use the path specified."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">brand.yml</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,8 @@ discover a _brand.yml file will use the path specified."></head><body>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/posit-dev/brand-yaml/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/posit-dev/brand-yml/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch"><li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
@@ -59,7 +60,7 @@ discover a _brand.yml file will use the path specified."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Temporarily set the <code>BRAND_YML_PATH</code> environment variable</h1>
-      <small class="dont-index">Source: <a href="https://github.com/posit-dev/brand-yaml/blob/main/R/with_brand_yml.R" class="external-link"><code>R/with_brand_yml.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/posit-dev/brand-yml/blob/main/R/with_brand_yml.R" class="external-link"><code>R/with_brand_yml.R</code></a></small>
       <div class="d-none name"><code>with_brand_yml_path.Rd</code></div>
     </div>
 
@@ -94,6 +95,11 @@ discover a <code>_brand.yml</code> file will use the path specified.</p>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>[any]</code><br> The results of the evaluation of the <code>code</code>
+argument.</p>
+    </div>
+    <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
 
 <ul><li><p><code>with_brand_yml_path()</code>: Run code in a temporary environment with the
@@ -118,7 +124,7 @@ for the scope of the local environment (e.g. within the current function).</p></
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"#abc123"</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="va">path_brand</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/Rtmp0eeULp/brand1f6531237d20/my-brand.yml': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/Rtmp1nIO6F/brand1f5777eb694b/my-brand.yml': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "w", encoding = fileEncoding):</span> cannot open the connection</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">with_brand_yml_path</span><span class="op">(</span><span class="va">path_brand</span>, <span class="op">{</span></span></span>

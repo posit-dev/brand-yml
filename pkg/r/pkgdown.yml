@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   branded-themes: branded-themes.html
-last_built: 2025-11-03T15:29Z
+last_built: 2025-11-06T17:00Z
 urls:
   reference: https://posit-dev.github.io/brand-yml/pkg/r/reference
   article: https://posit-dev.github.io/brand-yml/pkg/r/articles

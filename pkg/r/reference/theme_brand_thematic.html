@@ -11,7 +11,7 @@ R graphics."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">brand.yml</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,8 @@ R graphics."></head><body>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/posit-dev/brand-yaml/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/posit-dev/brand-yml/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch"><li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
@@ -57,7 +58,7 @@ R graphics."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a thematic theme using brand colors</h1>
-      <small class="dont-index">Source: <a href="https://github.com/posit-dev/brand-yaml/blob/main/R/theme.R" class="external-link"><code>R/theme.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/posit-dev/brand-yml/blob/main/R/theme.R" class="external-link"><code>R/theme.R</code></a></small>
       <div class="d-none name"><code>theme_brand_thematic.Rd</code></div>
     </div>
 
@@ -122,6 +123,13 @@ valid R color or the name of a color in <code>brand.color</code> or
 <code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html" class="external-link">thematic::thematic_on()</a></code>.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html" class="external-link">thematic_theme()</a></code> returns a theme object as a list (which can be
+activated with <code><a href="https://rstudio.github.io/thematic/reference/thematic_with_theme.html" class="external-link">thematic_with_theme()</a></code> or <code><a href="https://rstudio.github.io/thematic/reference/thematic_with_theme.html" class="external-link">thematic_set_theme()</a></code>).</p>
+<p><code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html" class="external-link">thematic_on()</a></code>, <code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html" class="external-link">thematic_off()</a></code>, and <code><a href="https://rstudio.github.io/thematic/reference/thematic_on.html" class="external-link">thematic_shiny()</a></code> all return
+the previous global theme.</p>
+    </div>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
 
