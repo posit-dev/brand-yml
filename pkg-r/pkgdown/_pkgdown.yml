@@ -1,5 +1,10 @@
 url: https://posit-dev.github.io/brand-yml/pkg/r
 
+repo:
+  url:
+    home: https://github.com/posit-dev/brand-yml/tree/main/pkg-r
+    source: https://github.com/posit-dev/brand-yml/blob/HEAD/pkg-r
+
 destination: "../docs/pkg/r"
 
 development:
