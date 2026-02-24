@@ -218,8 +218,7 @@ describe("theme_brand_plotly()", {
 
   brand <- test_example("brand-posit.yml")
 
-  library(plotly)
-  p <- plot_ly(x = 1:3, y = 1:3, type = "scatter", mode = "markers")
+  p <- plotly::plot_ly(x = 1:3, y = 1:3, type = "scatter", mode = "markers")
 
   get_plotly_attr <- function(plot, attr) {
     layout_attrs <- plot$x$layoutAttrs

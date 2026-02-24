@@ -3,10 +3,8 @@
     Code
       as_brand_yml(list(logo = 1234))
     Condition
-      Error:
-      ! Could not evaluate cli `{}` expression: `x`.
-      Caused by error:
-      ! object 'x' not found
+      Error in `brand_logo_normalize()`:
+      ! `logo` must be a string or a list, not a number.
     Code
       as_brand_yml(list(logo = list(path = "foo", bad = "foo")))
     Condition

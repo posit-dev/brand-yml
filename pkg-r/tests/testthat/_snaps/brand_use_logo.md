@@ -1,4 +1,4 @@
-# brand_use_logo(): errors if logo doesn't exist and is required
+# brand_use_logo() / errors if logo doesn't exist and is required
 
     Code
       brand_use_logo(brand, name = "large", .required = TRUE)
@@ -16,7 +16,7 @@
       Error in `brand_use_logo()`:
       ! `brand.logo.images['tiny']` is required.
 
-# brand_use_logo(): handles errors for smallest/largest when no logos available
+# brand_use_logo() / handles errors for smallest/largest when no logos available
 
     Code
       brand_use_logo(brand_no_logos, name = "smallest", .required = TRUE)
@@ -29,7 +29,7 @@
       Error in `brand_use_logo()`:
       ! No logos are available to satisfy `largest` in `brand.logo` or `brand.logo.images` for header display.
 
-# brand_use_logo(): errors when variant is specified and required but not available and fallback not allowed
+# brand_use_logo() / errors when variant is specified and required but not available and fallback not allowed
 
     Code
       brand_use_logo(brand, "small", variant = "light", .required = TRUE,
@@ -50,7 +50,7 @@
       Error in `brand_use_logo()`:
       ! `brand.logo.large.light` is required for light plot icons.
 
-# brand_use_logo(): errors when requesting light_dark with required=TRUE on non-light_dark logo without fallback
+# brand_use_logo() / errors when requesting light_dark with required=TRUE on non-light_dark logo without fallback
 
     Code
       brand_use_logo(brand, name = "small", variant = "light-dark", .required = TRUE,
@@ -65,35 +65,35 @@
       Error in `brand_use_logo()`:
       ! `brand.logo.small` requires light/dark variants for theme support.
 
-# format() method for brand_logo_resource: formats as HTML by default
+# format() method for brand_logo_resource / formats as HTML by default
 
     Code
       cat(format(logo_resource))
     Output
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Test logo" class="brand-logo"/>
 
-# format() method for brand_logo_resource: formats as HTML with additional attributes
+# format() method for brand_logo_resource / formats as HTML with additional attributes
 
     Code
       cat(format(logo_resource, class = "my-logo", width = 100, height = 50))
     Output
       <img alt="Test logo" class="brand-logo my-logo" height="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="100"/>
 
-# format() method for brand_logo_resource: formats as markdown
+# format() method for brand_logo_resource / formats as markdown
 
     Code
       cat(format(logo_resource, .format = "markdown"))
     Output
       ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo alt="Test logo"}
 
-# format() method for brand_logo_resource: formats as markdown with additional attributes
+# format() method for brand_logo_resource / formats as markdown with additional attributes
 
     Code
       cat(format(logo_resource, .format = "markdown", class = "my-logo", width = 100))
     Output
       ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .my-logo alt="Test logo" width="100"}
 
-# format() method for brand_logo_resource_light_dark: formats as HTML by default
+# format() method for brand_logo_resource_light_dark / formats as HTML by default
 
     Code
       cat(format(logo_light_dark))
@@ -103,7 +103,7 @@
         <img alt="Dark logo" class="brand-logo dark-content" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="/>
       </span>
 
-# format() method for brand_logo_resource_light_dark: formats as HTML with additional attributes
+# format() method for brand_logo_resource_light_dark / formats as HTML with additional attributes
 
     Code
       cat(format(logo_light_dark, class = "my-logo", width = 100, height = 50))
@@ -113,21 +113,21 @@
         <img alt="Dark logo" class="brand-logo dark-content my-logo" height="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="100"/>
       </span>
 
-# format() method for brand_logo_resource_light_dark: formats as markdown
+# format() method for brand_logo_resource_light_dark / formats as markdown
 
     Code
       cat(format(logo_light_dark, .format = "markdown"))
     Output
       ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-content alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .dark-content alt="Dark logo"}
 
-# format() method for brand_logo_resource_light_dark: formats as markdown with additional attributes
+# format() method for brand_logo_resource_light_dark / formats as markdown with additional attributes
 
     Code
       cat(format(logo_light_dark, .format = "markdown", class = "my-logo", width = 100))
     Output
       ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-content .my-logo alt="Light logo" width="100"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .dark-content .my-logo alt="Dark logo" width="100"}
 
-# format() method for brand_logo_resource_light_dark: handles a vector of classes
+# format() method for brand_logo_resource_light_dark / handles a vector of classes
 
     Code
       cat(format(logo_light_dark, .format = "markdown", class = c("my-logo",
@@ -135,7 +135,7 @@
     Output
       ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .light-content .my-logo .my-logo-other alt="Light logo"} ![](data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==){.brand-logo .dark-content .my-logo .my-logo-other alt="Dark logo"}
 
-# as.tags() method: converts brand_logo_resource to HTML tags
+# as.tags() method / converts brand_logo_resource to HTML tags
 
     Code
       cat(format(logo_resource, .format = "html"))
@@ -149,7 +149,7 @@
     Output
       <img alt="Test logo" class="brand-logo custom-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200"/>
 
-# as.tags() method: converts brand_logo_resource_light_dark to HTML tags
+# as.tags() method / converts brand_logo_resource_light_dark to HTML tags
 
     Code
       cat(format(logo_light_dark, .format = "html"))
@@ -169,14 +169,14 @@
         <img alt="Dark logo" class="brand-logo dark-content custom-logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200"/>
       </span>
 
-# knit_print() method: renders brand_logo_resource in knitr
+# knit_print() method / renders brand_logo_resource in knitr
 
     Code
       cat(result$out)
     Output
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Test logo" class="brand-logo"/>
 
-# knit_print() method: renders brand_logo_resource_light_dark in knitr
+# knit_print() method / renders brand_logo_resource_light_dark in knitr
 
     Code
       cat(result$out)

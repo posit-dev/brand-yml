@@ -79,7 +79,7 @@ brand_logo_normalize <- function(brand) {
 
   if (!is.list(brand$logo)) {
     cli::cli_abort(
-      "{.var logo} must be a string or a list, not {.obj_type_friendly {x}}."
+      "{.var logo} must be a string or a list, not {.obj_type_friendly {brand$logo}}."
     )
   }
 
