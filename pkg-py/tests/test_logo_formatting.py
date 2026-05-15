@@ -6,10 +6,10 @@ import htmltools
 import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
+from brand_yml._html_deps import html_dep_brand_light_dark
 from brand_yml.logo import (
     BrandLogoResource,
     BrandLogoResourceLightDark,
-    html_dep_brand_light_dark,
 )
 
 
