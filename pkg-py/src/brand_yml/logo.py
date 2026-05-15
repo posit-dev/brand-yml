@@ -140,7 +140,7 @@ class BrandLogoResource(BrandBase):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tag:
+    def tagify(self) -> htmltools.Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
@@ -149,7 +149,7 @@ class BrandLogoResource(BrandBase):
         :
             HTML img tag as a string.
         """
-        return self.to_html()
+        return self.to_html().tagify()
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""
@@ -328,7 +328,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tag:
+    def tagify(self) -> htmltools.Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
@@ -337,7 +337,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         :
             HTML span with light and dark images.
         """
-        return self.to_html()
+        return self.to_html().tagify()
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""
