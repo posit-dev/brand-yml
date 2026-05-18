@@ -11,7 +11,7 @@ import base64
 import mimetypes
 import warnings
 from pathlib import Path
-from typing import Annotated, Any, Literal, Union
+from typing import TYPE_CHECKING, Annotated, Any, Literal, Union
 
 import htmltools
 from pydantic import (
@@ -28,6 +28,13 @@ from ._html_deps import html_dep_brand_light_dark
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
+
+if TYPE_CHECKING:
+    # `Tagified` is only available in htmltools >= 0.7.0
+    # (posit-dev/py-htmltools#105). Reference it via a TYPE_CHECKING
+    # import so this module still loads against the released htmltools
+    # — `from __future__ import annotations` defers the annotation.
+    from htmltools import Tagified
 
 
 class BrandLogoResource(BrandBase):
@@ -140,7 +147,7 @@ class BrandLogoResource(BrandBase):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tagified:
+    def tagify(self) -> Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
@@ -328,7 +335,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tagified:
+    def tagify(self) -> Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
