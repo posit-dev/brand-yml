@@ -7,7 +7,8 @@ dependencies = [
     "ruamel-yaml>=0.18.0",
     "pydantic>=2.10.0",
     "eval-type-backport>=0.2.0",
-    "htmltools>=0.7.0"
+    "htmltools>=0.7.0;python_version>='3.10'",
+    "htmltools<0.7.0;python_version<'3.10'"
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -64,7 +65,9 @@ upgrade-package = ["brand_yml"]
 # (posit-dev/py-htmltools#106). Flip back to the released htmltools
 # once it ships.
 [tool.uv.sources]
-htmltools = { git = "https://github.com/posit-dev/py-htmltools.git", branch = "schloerke/tagify-tag-class-issue" }
+htmltools = [
+    { git = "https://github.com/posit-dev/py-htmltools.git", branch = "schloerke/tagify-tag-class-issue", marker = "python_version >= '3.10'" },
+]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
