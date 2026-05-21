@@ -35,7 +35,7 @@ jobs:
         run: uv python install ${{ env.PYTHON_VERSION }}
 
       - name: 📦 Install the project
-        run: uv sync --python ${{ env.PYTHON_VERSION }} --no-dev --extra test
+        run: uv sync --python ${{ env.PYTHON_VERSION }} --no-dev --group test
 
       - name: 🧪 Check tests
         run: make py-check-tests
