@@ -2,19 +2,17 @@
 name = "brand_yml"
 description = "Read brand yaml files, a unified way to store brand information."
 readme = "pkg-py/README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "ruamel-yaml>=0.18.0",
     "pydantic>=2.10.0",
     "eval-type-backport>=0.2.0",
-    "htmltools>=0.7.0;python_version>='3.10'",
-    "htmltools<0.7.0;python_version<'3.10'"
+    "htmltools>=0.7.0",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -112,7 +110,7 @@ exclude_lines = [
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-env_list = type-py3{9,10,11,12,13,14}, py3{9,10,11,12,13,14}
+env_list = type-py3{10,11,12,13,14}, py3{10,11,12,13,14}
 isolated_build = True
 
 [testenv]
@@ -164,7 +162,7 @@ exclude = [
 line-length = 80
 indent-width = 4
 
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = ['E', 'F', 'W', 'A', 'PLC', 'PLE', 'PLW', 'I']
