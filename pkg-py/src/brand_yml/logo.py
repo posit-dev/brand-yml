@@ -30,16 +30,7 @@ from .base import BrandBase
 from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
 
 if TYPE_CHECKING:
-    import sys
-
-    # `Tagified` is only available in htmltools >= 0.7.0
-    # (posit-dev/py-htmltools#105), which requires Python >= 3.10.
-    # On 3.9 we pin to an older htmltools that doesn't export
-    # `Tagified`, so fall back to `object` for type-checking.
-    if sys.version_info >= (3, 10):
-        from htmltools import Tagified
-    else:
-        Tagified = object
+    from htmltools import Tagified
 
 
 class BrandLogoResource(BrandBase):
