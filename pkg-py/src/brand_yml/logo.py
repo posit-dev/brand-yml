@@ -11,7 +11,7 @@ import base64
 import mimetypes
 import warnings
 from pathlib import Path
-from typing import Annotated, Any, Literal, Union
+from typing import TYPE_CHECKING, Annotated, Any, Literal, Union
 
 import htmltools
 from pydantic import (
@@ -28,6 +28,18 @@ from ._html_deps import html_dep_brand_light_dark
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 from .file import FileLocation, FileLocationLocal, FileLocationLocalOrUrlType
+
+if TYPE_CHECKING:
+    import sys
+
+    # `Tagified` is only available in htmltools >= 0.7.0
+    # (posit-dev/py-htmltools#105), which requires Python >= 3.10.
+    # On 3.9 we pin to an older htmltools that doesn't export
+    # `Tagified`, so fall back to `object` for type-checking.
+    if sys.version_info >= (3, 10):
+        from htmltools import Tagified
+    else:
+        Tagified = object
 
 
 class BrandLogoResource(BrandBase):
@@ -140,7 +152,7 @@ class BrandLogoResource(BrandBase):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tag:
+    def tagify(self) -> Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
@@ -149,7 +161,7 @@ class BrandLogoResource(BrandBase):
         :
             HTML img tag as a string.
         """
-        return self.to_html()
+        return self.to_html().tagify()
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""
@@ -328,7 +340,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         else:
             raise ValueError("format_type must be 'html' or 'markdown'")
 
-    def tagify(self) -> htmltools.Tag:
+    def tagify(self) -> Tagified:
         """
         Convenience method for `.to_html()`, for use in Shiny apps.
 
@@ -337,7 +349,7 @@ class BrandLogoResourceLightDark(BrandLightDark[BrandLogoResource]):
         :
             HTML span with light and dark images.
         """
-        return self.to_html()
+        return self.to_html().tagify()
 
     def _repr_html_(self) -> str:
         """Jupyter notebook HTML representation."""

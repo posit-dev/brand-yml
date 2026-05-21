@@ -6,10 +6,10 @@ import htmltools
 import pytest
 from brand_yml import Brand
 from brand_yml._defs import BrandLightDark
+from brand_yml._html_deps import html_dep_brand_light_dark
 from brand_yml.logo import (
     BrandLogoResource,
     BrandLogoResourceLightDark,
-    html_dep_brand_light_dark,
 )
 
 
@@ -101,8 +101,10 @@ class TestBrandLogoResourceFormatting:
         html1 = simple_logo.tagify()
         html2 = simple_logo.to_html()
 
-        # Should be identical
-        assert html1 == html2
+        # `tagify()` returns a `TagifiedTag` (immutable sibling of `Tag`
+        # from htmltools >= 0.7.0), so `==` is never true across the two
+        # sibling types. Compare rendered HTML instead.
+        assert str(html1) == str(html2)
 
     def test_str_method(self, simple_logo):
         """Test __str__ method defaults to markdown"""
