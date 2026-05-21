@@ -101,8 +101,10 @@ class TestBrandLogoResourceFormatting:
         html1 = simple_logo.tagify()
         html2 = simple_logo.to_html()
 
-        # Should be identical
-        assert html1 == html2
+        # `tagify()` returns a `TagifiedTag` (immutable sibling of `Tag`
+        # from htmltools >= 0.7.0), so `==` is never true across the two
+        # sibling types. Compare rendered HTML instead.
+        assert str(html1) == str(html2)
 
     def test_str_method(self, simple_logo):
         """Test __str__ method defaults to markdown"""
