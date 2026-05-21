@@ -60,15 +60,6 @@ dev = [
 [tool.uv]
 upgrade-package = ["brand_yml"]
 
-# TODO(htmltools-116): remove this source override before merging.
-# Pins htmltools to PR #120 (the sibling-classes refactor for
-# tagified content). Flip back to the released htmltools once 0.7.0
-# ships.
-[tool.uv.sources]
-htmltools = [
-    { git = "https://github.com/posit-dev/py-htmltools.git", branch = "main", marker = "python_version >= '3.10'" },
-]
-
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
