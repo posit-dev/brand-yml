@@ -65,10 +65,34 @@ path
 
 | Name | Description |
 | --- | --- |
+| [css_variables](#brand_yml.Brand.css_variables) | Generate mode-aware CSS custom properties for this brand. |
 | [from_yaml](#brand_yml.Brand.from_yaml) | Create a Brand instance from a Brand YAML file. |
 | [from_yaml_str](#brand_yml.Brand.from_yaml_str) | Create a Brand instance from a string of YAML. |
 | [model_dump_yaml](#brand_yml.Brand.model_dump_yaml) | Serialize the Brand object to YAML. |
 | [use_logo](#brand_yml.Brand.use_logo) | Extract a logo resource from a brand. |
+
+### css_variables { #brand_yml.Brand.css_variables }
+
+```python
+Brand.css_variables(mode_scopes=None)
+```
+
+Generate mode-aware CSS custom properties for this brand.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+<code><span class="parameter-name">mode_scopes</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation">[Mapping](`collections.abc.Mapping`)\[[Literal](`typing.Literal`)\[\'light\', \'dark\'\], [str](`str`)\] \| None</span> <span class="parameter-default-sep">=</span> <span class="parameter-default">None</span></code>
+
+:   A mapping with exactly ``"light"`` and ``"dark"`` values. An empty
+    value emits variables under ``:root``.
+    ``"prefers-color-scheme"`` emits a matching media query. Any other
+    value is used as a CSS selector.
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                        |
+|--------|--------------|--------------------------------------------------------------------|
+|        | [str](`str`) | CSS rules containing brand custom properties for both color modes. |
 
 ### from_yaml { #brand_yml.Brand.from_yaml }
 
