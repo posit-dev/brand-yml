@@ -128,6 +128,25 @@
     "BrandColorValue": {
       "type": "string"
     },
+    "BrandColorLightDark": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BrandColorValue"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "light": {
+              "$ref": "#/$defs/BrandColorValue"
+            },
+            "dark": {
+              "$ref": "#/$defs/BrandColorValue"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "BrandColor": {
       "object": {
         "properties": {
@@ -137,40 +156,40 @@
             }
           },
           "foreground": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "background": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "primary": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "secondary": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "tertiary": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "success": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "info": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "warning": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "danger": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "light": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "dark": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           },
           "link": {
-            "$ref": "#/$defs/BrandColorValue"
+            "$ref": "#/$defs/BrandColorLightDark"
           }
         }
       }
@@ -182,6 +201,25 @@
         },
         {
           "type": "string"
+        }
+      ]
+    },
+    "BrandMaybeNamedColorLightDark": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BrandMaybeNamedColor"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "light": {
+              "$ref": "#/$defs/BrandMaybeNamedColor"
+            },
+            "dark": {
+              "$ref": "#/$defs/BrandMaybeNamedColor"
+            }
+          },
+          "additionalProperties": false
         }
       ]
     },
@@ -274,7 +312,7 @@
                 "$ref": "#/$defs/BrandFontStyle"
               },
               "color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "line-height": {
                 "$ref": "#/$defs/LineHeightNumberString"
@@ -302,10 +340,10 @@
                 "$ref": "#/$defs/BrandFontWeight"
               },
               "color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "background-color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               }
             }
           }
@@ -330,10 +368,10 @@
                 "$ref": "#/$defs/BrandFontWeight"
               },
               "color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "background-color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               }
             }
           }
@@ -358,10 +396,10 @@
                 "$ref": "#/$defs/BrandFontWeight"
               },
               "color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "background-color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "line-height": {
                 "$ref": "#/$defs/LineHeightNumberString"
@@ -383,10 +421,10 @@
                 "$ref": "#/$defs/BrandFontWeight"
               },
               "color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "background-color": {
-                "$ref": "#/$defs/BrandMaybeNamedColor"
+                "$ref": "#/$defs/BrandMaybeNamedColorLightDark"
               },
               "decoration": {
                 "type": "string"

@@ -110,6 +110,7 @@ color:
 
 Other than `palette`, the remaining attributes in `color` are used to map brand colors to semantic theme colors.
 These theme colors can then be used in web apps and reports by tools that support brand.yml to maintain a consistent color scheme across the brand.
+Each theme color can be a single color or a light/dark mapping.
 
 | Name | Description |
 |-----------------------|-------------------------------------------------|
@@ -124,6 +125,37 @@ These theme colors can then be used in web apps and reports by tools that suppor
 | `danger` | The color used for errors, dangerous actions, or negative information. |
 | `light` | A bright color, used as a high-contrast foreground color on dark elements or low-contrast background color on light elements. |
 | `dark` | A dark color, used as a high-contrast foreground color on light elements or high-contrast background color on light elements. |
+
+### Light/Dark Theme Colors
+
+Use a `light`/`dark` mapping when a semantic color needs to change with the active color scheme.
+For example, foreground and background colors usually need opposite values in dark mode.
+
+```{.yaml filename="_brand.yml"}
+color:
+  palette:
+    blue: "#447099"
+
+  foreground:
+    light: "#151515"
+    dark: "#F7F7F7"
+  background:
+    light: "#FFFFFF"
+    dark: "#1A1A1A"
+  primary: blue
+  link:
+    light: primary
+    dark: primary
+```
+
+Light and dark values are optional, so a mapping may override only one mode.
+The available value is used when the requested mode is missing. A scalar color,
+such as `primary` above, works in both modes.
+
+`color.palette` remains a mapping of scalar color values. Theme colors may
+reference palette colors or other theme colors. A reference inside a `light`
+or `dark` mapping resolves in that same mode; if it falls back to the other
+mode, the referenced color is resolved in the fallback mode as well.
 
 ## Additional Features
 
@@ -144,6 +176,8 @@ color:
 ```
 
 This approach allows for easy reuse of colors and maintains consistency throughout the brand definition.
+Palette references can also be used inside `light` and `dark` mappings for
+theme colors.
 
 ### Using Brand Colors in Typography
 
