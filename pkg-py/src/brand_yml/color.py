@@ -352,10 +352,64 @@ class BrandColor(BrandBase):
 
     @model_validator(mode="after")
     def resolve_palette_values(self):
-        defs_replace_recursively(
-            self,
-            defs=self.to_dict(),
-            name="color",
-            exclude="palette",
-        )
+        theme = {
+            key: getattr(self, key)
+            for key in self.__class__.model_fields
+            if key != "palette"
+        }
+        palette = self.palette or {}
+
+        def resolve(
+            key: str | None,
+            mode: Literal["auto", "light", "dark"] = "auto",
+            visited: tuple[str, ...] = (),
+        ) -> str | BrandColorLightDark | None:
+            if key is None:
+                return None
+
+            in_theme = key in theme and theme[key] is not None
+            theme_unseen = in_theme and key not in visited
+            in_palette = key in palette
+
+            if in_palette and not theme_unseen:
+                node = f"palette.{key}"
+                if node in visited:
+                    path = " -> ".join((*visited, node))
+                    raise ValueError(f"Circular color reference: {path}")
+                return resolve(palette[key], mode, (*visited, node))
+
+            if not in_theme:
+                return key
+
+            if key in visited:
+                path = " -> ".join((*visited, key))
+                raise ValueError(f"Circular color reference: {path}")
+
+            value = theme[key]
+            next_visited = (*visited, key)
+            if isinstance(value, str):
+                return resolve(value, mode, next_visited)
+
+            if not isinstance(value, BrandColorLightDark):
+                return value
+
+            if mode == "auto":
+                light = resolve(value.light, "light", next_visited)
+                dark = resolve(value.dark, "dark", next_visited)
+                return BrandColorLightDark(light=light, dark=dark)
+
+            fallback_mode = "dark" if mode == "light" else "light"
+            resolved_mode = (
+                mode if getattr(value, mode) is not None else fallback_mode
+            )
+            return resolve(
+                getattr(value, resolved_mode),
+                resolved_mode,
+                next_visited,
+            )
+
+        for key, value in theme.items():
+            if value is not None:
+                object.__setattr__(self, key, resolve(key))
+
         return self

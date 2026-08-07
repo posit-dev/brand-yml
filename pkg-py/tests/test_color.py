@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import cast
+import warnings
 
 import pytest
 from brand_yml import Brand, BrandColor
@@ -222,6 +222,45 @@ def test_brand_color_light_dark_with_references():
     assert brand.color.secondary.dark == "#4A90A4"
 
 
+def test_brand_color_light_dark_references_use_variant_context():
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          primary:
+            light: "#111111"
+            dark: "#eeeeee"
+          secondary:
+            light: primary
+            dark: primary
+          tertiary:
+            dark: primary
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+    assert isinstance(brand.color.secondary, BrandColorLightDark)
+    assert brand.color.secondary.light == "#111111"
+    assert brand.color.secondary.dark == "#eeeeee"
+
+    assert isinstance(brand.color.tertiary, BrandColorLightDark)
+    assert brand.color.tertiary.dark == "#eeeeee"
+
+
+def test_brand_color_light_dark_references_detect_cycles():
+    with pytest.raises(ValueError, match="primary -> secondary -> primary"):
+        Brand.from_yaml_str(
+            """
+            color:
+              primary:
+                light: secondary
+                dark: "#eeeeee"
+              secondary:
+                light: primary
+                dark: "#dddddd"
+            """
+        )
+
+
 def test_brand_color_light_dark_example_file(snapshot_json):
     """Test the brand-color-light-dark.yml example file."""
     brand = Brand.from_yaml(path_examples("brand-color-light-dark.yml"))
@@ -251,20 +290,48 @@ def test_brand_color_light_dark_example_file(snapshot_json):
     # Check typography colors - these are resolved from color references
     assert brand.typography is not None
     assert brand.typography.headings is not None
-    # Note: headings.color is resolved from the foreground color reference
     headings_color = brand.typography.headings.color
-    if isinstance(headings_color, BrandColorLightDark):
-        assert headings_color.light == "#111111"
-        assert headings_color.dark == "#fafafa"
-    elif isinstance(headings_color, dict):
-        headings_color_dict = cast(dict[str, str], headings_color)
-        assert headings_color_dict["light"] == "#111111"
-        assert headings_color_dict["dark"] == "#fafafa"
+    assert isinstance(headings_color, BrandColorLightDark)
+    assert headings_color.light == "#111111"
+    assert headings_color.dark == "#fafafa"
 
     assert brand.typography.link is not None
     assert brand.typography.link.color == "#6339E0"
 
-    assert snapshot_json == pydantic_data_from_json(brand)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert snapshot_json == pydantic_data_from_json(brand)
+
+
+def test_brand_typography_light_dark_references_use_variant_context():
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          primary:
+            light: "#0066cc"
+            dark: "#66b2ff"
+        typography:
+          link:
+            color:
+              light: primary
+              dark: primary
+        """
+    )
+
+    assert brand.typography is not None
+    assert brand.typography.link is not None
+    assert isinstance(brand.typography.link.color, BrandColorLightDark)
+    assert brand.typography.link.color.light == "#0066cc"
+    assert brand.typography.link.color.dark == "#66b2ff"
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        dumped = brand.model_dump(mode="json", by_alias=True, exclude_none=True)
+
+    round_trip = Brand.model_validate(dumped)
+    assert round_trip.typography is not None
+    assert round_trip.typography.link is not None
+    assert isinstance(round_trip.typography.link.color, BrandColorLightDark)
 
 
 def test_brand_color_to_dict_with_light_dark():

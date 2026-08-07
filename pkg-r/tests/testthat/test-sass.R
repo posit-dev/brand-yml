@@ -106,6 +106,7 @@ describe("brand_sass_color()", {
       "#ffffff !default"
     )
   })
+
 })
 
 describe("brand_sass_typography()", {

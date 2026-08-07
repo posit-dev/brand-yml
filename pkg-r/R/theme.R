@@ -48,6 +48,8 @@
 #'   `brand.color.palette.accent`. If provided directly, this value can be a
 #'   valid R color or the name of a color in `brand.color` or
 #'   `brand.color.palette`.
+#' @param color_mode The color mode to use when a brand color has light and dark
+#'   variants. Either `"light"` (the default) or `"dark"`.
 #' @param ... Reserved for future use.
 #' @param base_size Base font size in points. Used for the `size` property of
 #'   [ggplot2::element_text()] in the `text` theme element.
@@ -120,28 +122,30 @@ theme_brand_ggplot2 <- function(
   panel_grid_major_color = NULL,
   panel_grid_minor_color = NULL,
   axis_text_color = NULL,
-  plot_caption_color = NULL
+  plot_caption_color = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("ggplot2")
   check_installed("prismatic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
   # fmt: skip
   {
-  background_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  foreground_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color     <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
-  title_color      <- brand_color_maybe_pluck(brand, title_color)
-  line_color       <- brand_color_maybe_pluck(brand, line_color)
-  rect_fill        <- brand_color_maybe_pluck(brand, rect_fill)
-  text_color       <- brand_color_maybe_pluck(brand, text_color)
-  plot_background_fill   <- brand_color_maybe_pluck(brand, plot_background_fill)
-  panel_background_fill  <- brand_color_maybe_pluck(brand, panel_background_fill)
-  panel_grid_major_color <- brand_color_maybe_pluck(brand, panel_grid_major_color)
-  panel_grid_minor_color <- brand_color_maybe_pluck(brand, panel_grid_minor_color)
-  axis_text_color        <- brand_color_maybe_pluck(brand, axis_text_color)
-  plot_caption_color     <- brand_color_maybe_pluck(brand, plot_caption_color)
+  background_color <- brand_color_maybe_pluck(brand, background, "background", "black", color_mode = color_mode)
+  foreground_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white", color_mode = color_mode)
+  accent_color     <- brand_color_maybe_pluck(brand, accent, "accent", "primary", color_mode = color_mode)
+  title_color      <- brand_color_maybe_pluck(brand, title_color, color_mode = color_mode)
+  line_color       <- brand_color_maybe_pluck(brand, line_color, color_mode = color_mode)
+  rect_fill        <- brand_color_maybe_pluck(brand, rect_fill, color_mode = color_mode)
+  text_color       <- brand_color_maybe_pluck(brand, text_color, color_mode = color_mode)
+  plot_background_fill   <- brand_color_maybe_pluck(brand, plot_background_fill, color_mode = color_mode)
+  panel_background_fill  <- brand_color_maybe_pluck(brand, panel_background_fill, color_mode = color_mode)
+  panel_grid_major_color <- brand_color_maybe_pluck(brand, panel_grid_major_color, color_mode = color_mode)
+  panel_grid_minor_color <- brand_color_maybe_pluck(brand, panel_grid_minor_color, color_mode = color_mode)
+  axis_text_color        <- brand_color_maybe_pluck(brand, axis_text_color, color_mode = color_mode)
+  plot_caption_color     <- brand_color_maybe_pluck(brand, plot_caption_color, color_mode = color_mode)
   }
 
   # Create blend function for intermediate colors
@@ -258,15 +262,26 @@ theme_brand_thematic <- function(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 ) {
   check_installed("thematic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  bg_color <- brand_color_maybe_pluck(
+    brand, background, "background", "black",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand, foreground, "foreground", "white",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand, accent, "accent", "primary",
+    color_mode = color_mode
+  )
 
   thematic::thematic_theme(
     bg = bg_color,
@@ -284,15 +299,26 @@ theme_brand_thematic_on <- function(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 ) {
   check_installed("thematic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  bg_color <- brand_color_maybe_pluck(
+    brand, background, "background", "black",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand, foreground, "foreground", "white",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand, accent, "accent", "primary",
+    color_mode = color_mode
+  )
 
   thematic::thematic_on(
     bg = bg_color,
@@ -354,9 +380,11 @@ theme_brand_flextable <- function(
   table,
   brand = NULL,
   background = NULL,
-  foreground = NULL
+  foreground = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("flextable")
+  color_mode <- arg_match(color_mode)
   if (!inherits(table, "flextable")) {
     cli::cli_abort(
       "{.var table} must be a flextable object, not {.obj_type_friendly {table}}."
@@ -365,8 +393,14 @@ theme_brand_flextable <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  bg_color <- brand_color_maybe_pluck(
+    brand, background, "background", "black",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand, foreground, "foreground", "white",
+    color_mode = color_mode
+  )
 
   table <- flextable::bg(table, bg = bg_color, part = "all")
   table <- flextable::color(table, color = fg_color, part = "all")
@@ -424,9 +458,11 @@ theme_brand_gt <- function(
   table,
   brand = NULL,
   background = NULL,
-  foreground = NULL
+  foreground = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("gt")
+  color_mode <- arg_match(color_mode)
   if (!inherits(table, "gt_tbl")) {
     cli::cli_abort(
       "{.var table} must be a gt table object, not {.obj_type_friendly {table}}."
@@ -435,8 +471,14 @@ theme_brand_gt <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  bg_color <- brand_color_maybe_pluck(
+    brand, background, "background", "black",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand, foreground, "foreground", "white",
+    color_mode = color_mode
+  )
 
   gt::tab_options(
     table,
@@ -493,9 +535,11 @@ theme_brand_plotly <- function(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("plotly")
+  color_mode <- arg_match(color_mode)
   if (!inherits(plot, "plotly")) {
     cli::cli_abort(
       "{.var plot} must be a plotly object, not {.obj_type_friendly {plot}}."
@@ -504,9 +548,18 @@ theme_brand_plotly <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  bg_color <- brand_color_maybe_pluck(
+    brand, background, "background", "black",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand, foreground, "foreground", "white",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand, accent, "accent", "primary",
+    color_mode = color_mode
+  )
 
   plot <- plotly::layout(
     plot,
@@ -527,27 +580,21 @@ theme_brand_plotly <- function(
 
 # Helpers ---------------------------------------------------------------------
 
-brand_color_maybe_pluck <- function(brand, value, ...) {
-  # Try brand color directly
-  color <- brand_pluck(brand, "color", value)
-  if (!is.null(color)) {
-    return(color)
-  }
+brand_color_maybe_pluck <- function(
+  brand,
+  value,
+  ...,
+  color_mode = c("light", "dark")
+) {
+  color_mode <- arg_match(color_mode)
 
-  # Try brand color palette
-  color <- brand_pluck(brand, "color", "palette", value)
-  if (!is.null(color)) {
-    return(color)
-  }
-
-  # Use explicit value if provided
   if (!is.null(value)) {
-    return(value)
+    return(brand_color_pluck(brand, value, color_mode = color_mode))
   }
 
   # Try fallback keys
   for (key in c(...)) {
-    color <- brand_color_pluck(brand, key)
+    color <- brand_color_pluck(brand, key, color_mode = color_mode)
     if (!is.null(color) && !identical(color, key)) {
       return(color)
     }

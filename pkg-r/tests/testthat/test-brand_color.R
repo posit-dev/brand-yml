@@ -317,4 +317,55 @@ describe("brand_color light/dark variants", {
       "#111"
     )
   })
+
+  it("resolves light/dark references in the current variant context", {
+    brand <- list(
+      color = list(
+        primary = list(light = "#111", dark = "#eee"),
+        secondary = list(light = "primary", dark = "primary"),
+        tertiary = "primary"
+      )
+    )
+
+    secondary <- brand_color_pluck(brand, "secondary")
+    expect_equal(secondary$light, "#111")
+    expect_equal(secondary$dark, "#eee")
+
+    expect_equal(
+      brand_color_pluck(brand, "tertiary", color_mode = "light"),
+      "#111"
+    )
+    expect_equal(
+      brand_color_pluck(brand, "tertiary", color_mode = "dark"),
+      "#eee"
+    )
+  })
+
+  it("resolves a missing variant in the fallback variant context", {
+    brand <- list(
+      color = list(
+        primary = list(light = "#111", dark = "#eee"),
+        secondary = list(light = "primary")
+      )
+    )
+
+    expect_equal(
+      brand_color_pluck(brand, "secondary", color_mode = "dark"),
+      "#111"
+    )
+  })
+
+  it("detects cycles through light/dark references", {
+    brand <- list(
+      color = list(
+        primary = list(light = "secondary", dark = "#eee"),
+        secondary = list(light = "primary", dark = "#ddd")
+      )
+    )
+
+    expect_error(
+      brand_color_pluck(brand, "primary", color_mode = "light"),
+      "primary -> secondary -> primary"
+    )
+  })
 })

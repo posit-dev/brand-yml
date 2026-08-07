@@ -174,8 +174,6 @@ brand_sass_typography <- function(brand) {
       prop_value <- prop[[prop_key]]
       if (field == "base" && prop_key == "size") {
         prop_value <- maybe_convert_font_size_to_rem(prop_value)
-      } else if (prop_key %in% c("color", "background-color")) {
-        prop_value <- brand_color_pluck(brand, prop_value)
       }
       field <- gsub("-", "_", field)
       prop_key <- gsub("-", "_", prop_key)

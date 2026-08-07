@@ -52,6 +52,26 @@ describe("theme_brand_ggplot2()", {
     # Text color is blended with background
     expect_equal(theme$text$colour, "#1A1A1AFF")
   })
+
+  it("selects light or dark brand colors", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(light = "#FFFFFF", dark = "#222222"),
+        foreground = list(light = "#111111", dark = "#EEEEEE"),
+        primary = list(light = "#0066CC", dark = "#66B2FF")
+      )
+    ))
+
+    light <- theme_brand_ggplot2(brand)
+    dark <- theme_brand_ggplot2(brand, color_mode = "dark")
+
+    expect_equal(light$plot.background$fill, "#FFFFFF")
+    expect_equal(light$geom$ink, "#111111")
+    expect_equal(light$geom$accent, "#0066CC")
+    expect_equal(dark$plot.background$fill, "#222222")
+    expect_equal(dark$geom$ink, "#EEEEEE")
+    expect_equal(dark$geom$accent, "#66B2FF")
+  })
 })
 
 describe("theme_brand_thematic()", {
@@ -125,6 +145,26 @@ describe("theme_brand_thematic()", {
       brand_color_pluck(brand, "accent")
     )
   })
+
+  it("selects light or dark brand colors", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(light = "#FFFFFF", dark = "#222222"),
+        foreground = list(light = "#111111", dark = "#EEEEEE"),
+        primary = list(light = "#0066CC", dark = "#66B2FF")
+      )
+    ))
+
+    light <- theme_brand_thematic(brand)
+    dark <- theme_brand_thematic(brand, color_mode = "dark")
+
+    expect_equal(light$bg, "#FFFFFF")
+    expect_equal(light$fg, "#111111")
+    expect_equal(light$accent, "#0066CC")
+    expect_equal(dark$bg, "#222222")
+    expect_equal(dark$fg, "#EEEEEE")
+    expect_equal(dark$accent, "#66B2FF")
+  })
 })
 
 describe("theme_brand_flextable()", {
@@ -172,6 +212,22 @@ describe("theme_brand_flextable()", {
     )
     expect_equal(get_flextable_color(ft_default, "body", "text"), "#151515")
   })
+
+  it("selects light or dark brand colors", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(light = "#FFFFFF", dark = "#222222"),
+        foreground = list(light = "#111111", dark = "#EEEEEE")
+      )
+    ))
+
+    ft_dark <- theme_brand_flextable(ft, brand, color_mode = "dark")
+    expect_equal(
+      get_flextable_color(ft_dark, "body", "background"),
+      "#222222"
+    )
+    expect_equal(get_flextable_color(ft_dark, "body", "text"), "#EEEEEE")
+  })
 })
 
 describe("theme_brand_gt()", {
@@ -210,6 +266,22 @@ describe("theme_brand_gt()", {
     tbl_default <- theme_brand_gt(tbl, brand)
     expect_equal(get_gt_color(tbl_default, "table_background_color"), "#FFFFFF")
     expect_equal(get_gt_color(tbl_default, "table_font_color"), "#151515")
+  })
+
+  it("selects light or dark brand colors", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(light = "#FFFFFF", dark = "#222222"),
+        foreground = list(light = "#111111", dark = "#EEEEEE")
+      )
+    ))
+
+    tbl_dark <- theme_brand_gt(tbl, brand, color_mode = "dark")
+    expect_equal(
+      get_gt_color(tbl_dark, "table_background_color"),
+      "#222222"
+    )
+    expect_equal(get_gt_color(tbl_dark, "table_font_color"), "#EEEEEE")
   })
 })
 
@@ -257,5 +329,20 @@ describe("theme_brand_plotly()", {
     p_accent <- theme_brand_plotly(p, brand, accent = "blue")
     colorway <- get_plotly_attr(p_accent, "colorway")
     expect_equal(colorway[1], "#447099")
+  })
+
+  it("selects light or dark brand colors", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(light = "#FFFFFF", dark = "#222222"),
+        foreground = list(light = "#111111", dark = "#EEEEEE"),
+        primary = list(light = "#0066CC", dark = "#66B2FF")
+      )
+    ))
+
+    p_dark <- theme_brand_plotly(p, brand, color_mode = "dark")
+    expect_equal(get_plotly_attr(p_dark, "paper_bgcolor"), "#222222")
+    expect_equal(get_plotly_attr(p_dark, "font")$color, "#EEEEEE")
+    expect_equal(get_plotly_attr(p_dark, "colorway")[1], "#66B2FF")
   })
 })

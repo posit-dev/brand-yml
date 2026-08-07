@@ -4,7 +4,13 @@
 \alias{theme_brand_gt}
 \title{Create a gt table theme using brand colors}
 \usage{
-theme_brand_gt(table, brand = NULL, background = NULL, foreground = NULL)
+theme_brand_gt(
+  table,
+  brand = NULL,
+  background = NULL,
+  foreground = NULL,
+  color_mode = c("light", "dark")
+)
 }
 \arguments{
 \item{table}{A gt table object to theme.}
@@ -24,6 +30,9 @@ color in \code{brand.color} or \code{brand.color.palette}.}
 \item{foreground}{The foreground color, defaults to \code{brand.color.foreground}.
 If provided directly, this value can be a valid R color or the name of a
 color in \code{brand.color} or \code{brand.color.palette}.}
+
+\item{color_mode}{The color mode to use when a brand color has light and dark
+variants. Either \code{"light"} (the default) or \code{"dark"}.}
 }
 \value{
 Returns a themed gt table object.
@@ -68,10 +77,10 @@ theme_brand_gt(
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other branded theming functions: 
-\code{\link{theme_brand_flextable}()},
-\code{\link{theme_brand_ggplot2}()},
-\code{\link{theme_brand_plotly}()},
-\code{\link{theme_brand_thematic}()}
+Other branded theming functions:
+\code{\link[=theme_brand_flextable]{theme_brand_flextable()}},
+\code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}},
+\code{\link[=theme_brand_plotly]{theme_brand_plotly()}},
+\code{\link[=theme_brand_thematic]{theme_brand_thematic()}}
 }
 \concept{branded theming functions}

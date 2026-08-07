@@ -50,9 +50,27 @@ brand_typography_check <- function(typography) {
 
 brand_typography_prototype <- function() {
   opt_family <- "string"
-  opt_color <- "string"
   opt_size <- "string"
-  opt_background_color <- "string"
+  opt_color <- function(path) {
+    force(path)
+
+    function(color) {
+      brand_color_check_value(
+        color,
+        arg = paste.("typography", path, "color")
+      )
+    }
+  }
+  opt_background_color <- function(path) {
+    force(path)
+
+    function(color) {
+      brand_color_check_value(
+        color,
+        arg = paste.("typography", path, "background-color")
+      )
+    }
+  }
   opt_style <- function(path) {
     force(path)
 
@@ -111,7 +129,7 @@ brand_typography_prototype <- function() {
       weight = opt_weight("headings"),
       style = opt_style("headings"),
       "line-height" = opt_line_height("headings"),
-      color = opt_color
+      color = opt_color("headings")
     ),
     monospace = list(
       family = opt_family,
@@ -122,21 +140,21 @@ brand_typography_prototype <- function() {
       family = opt_family,
       weight = opt_weight("monospace-inline"),
       size = opt_size,
-      color = opt_color,
-      "background-color" = opt_background_color
+      color = opt_color("monospace-inline"),
+      "background-color" = opt_background_color("monospace-inline")
     ),
     "monospace-block" = list(
       family = opt_family,
       weight = opt_weight("monospace-block"),
       size = opt_size,
-      color = opt_color,
-      "background-color" = opt_background_color,
+      color = opt_color("monospace-block"),
+      "background-color" = opt_background_color("monospace-block"),
       "line-height" = opt_line_height("monospace-block")
     ),
     "link" = list(
       weight = opt_weight("link"),
-      color = opt_color,
-      "background-color" = opt_background_color,
+      color = opt_color("link"),
+      "background-color" = opt_background_color("link"),
       decoration = "string"
     )
   )
@@ -212,6 +230,17 @@ brand_resolve_typography_colors <- function(brand) {
   }
 
   theme_color_fields <- brand_color_fields_theme()
+  resolve_color <- function(value, mode = "auto", path) {
+    resolved <- brand_color_pluck(brand, value, color_mode = mode)
+
+    if (identical(value, resolved) && value %in% theme_color_fields) {
+      cli::cli_abort(
+        "{.field {path}} referred to {.code color.{value}} which is not defined."
+      )
+    }
+
+    resolved
+  }
 
   for (field in names(typography)) {
     if (field == "fonts") {
@@ -229,13 +258,17 @@ brand_resolve_typography_colors <- function(brand) {
         next # nocovr
       }
 
-      new <- brand_color_pluck(brand, old)
-
-      if (identical(old, new) && old %in% theme_color_fields) {
-        path <- as_kebab_case(paste.(field, key))
-        cli::cli_abort(
-          "{.field typography.{path}} referred to {.code color.{old}} which is not defined."
-        )
+      path <- paste.("typography", field, key)
+      if (is.list(old)) {
+        light <- if (!is.null(old$light)) {
+          resolve_color(old$light, "light", paste.(path, "light"))
+        }
+        dark <- if (!is.null(old$dark)) {
+          resolve_color(old$dark, "dark", paste.(path, "dark"))
+        }
+        new <- as_light_dark(light, dark)
+      } else {
+        new <- resolve_color(old, path = path)
       }
 
       typography[[field]][[key]] <- new

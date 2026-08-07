@@ -48,9 +48,8 @@ brand_color_check_fields <- function(color) {
   for (theme_field in brand_color_fields_theme()) {
     field_value <- color[[theme_field]]
     if (!is.null(field_value)) {
-      check_string_or_list(
+      brand_color_check_value(
         field_value,
-        allow_null = TRUE,
         arg = sprintf("color.%s", theme_field)
       )
     }
@@ -67,49 +66,44 @@ brand_color_check_fields <- function(color) {
     }
   }
 
-  # Validate light/dark structures in theme colors
-  for (theme_field in brand_color_fields_theme()) {
-    if (is.list(color[[theme_field]])) {
-      # If it's a list, it should have light and/or dark keys
-      valid_keys <- c("light", "dark")
-      actual_keys <- names(color[[theme_field]])
+}
 
-      if (!all(actual_keys %in% valid_keys)) {
-        invalid_keys <- setdiff(actual_keys, valid_keys)
-        abort(
-          sprintf(
-            "`brand.color.%s` has invalid keys: %s. Only 'light' and 'dark' are allowed.",
-            theme_field,
-            paste(sprintf("'%s'", invalid_keys), collapse = ", ")
-          )
-        )
-      }
+brand_color_check_value <- function(value, arg) {
+  if (!is.list(value)) {
+    check_string(value, arg = arg)
+    return(invisible(value))
+  }
 
-      if (length(actual_keys) == 0) {
-        abort(
-          sprintf(
-            "`brand.color.%s` must have at least one of 'light' or 'dark' keys.",
-            theme_field
-          )
-        )
-      }
+  valid_keys <- c("light", "dark")
+  actual_keys <- names(value)
+  invalid_keys <- setdiff(actual_keys, valid_keys)
 
-      # Check that light and dark values are strings
-      for (variant in c("light", "dark")) {
-        if (!is.null(color[[theme_field]][[variant]])) {
-          if (!is_string(color[[theme_field]][[variant]])) {
-            abort(
-              sprintf(
-                "`brand.color.%s.%s` must be a string.",
-                theme_field,
-                variant
-              )
-            )
-          }
-        }
-      }
+  if (length(invalid_keys) > 0) {
+    abort(
+      sprintf(
+        "`%s` has invalid keys: %s. Only 'light' and 'dark' are allowed.",
+        arg,
+        paste(sprintf("'%s'", invalid_keys), collapse = ", ")
+      )
+    )
+  }
+
+  if (length(actual_keys) == 0) {
+    abort(
+      sprintf(
+        "`%s` must have at least one of 'light' or 'dark' keys.",
+        arg
+      )
+    )
+  }
+
+  for (variant in valid_keys) {
+    if (!is.null(value[[variant]]) && !is_string(value[[variant]])) {
+      abort(sprintf("`%s.%s` must be a string.", arg, variant))
     }
   }
+
+  invisible(value)
 }
 
 brand_color_fields_theme <- function() {
@@ -124,7 +118,8 @@ brand_color_fields_theme <- function() {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "link"
   )
 }
 
@@ -210,9 +205,7 @@ brand_color_pluck <- function(
   palette <- brand[["color"]][["palette"]] %||% list()
 
   key_og <- key
-  visited <- c()
-
-  cycle <- function(key) {
+  cycle <- function(visited, key) {
     path <- c(visited, key)
     if (length(path) > 10) {
       path <- c(path[1:2], "...", path[-(1:(length(path) - 2))])
@@ -220,7 +213,7 @@ brand_color_pluck <- function(
     paste(path, collapse = " -> ")
   }
 
-  assert_no_cycles <- function(key) {
+  assert_no_cycles <- function(key, visited) {
     if (key %in% visited) {
       abort(
         c(
@@ -228,11 +221,10 @@ brand_color_pluck <- function(
             "Cyclic references detected in `brand.color` for color '%s'.",
             key_og
           ),
-          "i" = cycle(key)
+          "i" = cycle(visited, key)
         )
       )
     }
-    visited <<- c(visited, key)
   }
 
   check_string_or_null <- function(key, value) {
@@ -247,22 +239,20 @@ brand_color_pluck <- function(
   }
 
   p_key <- function(key) paste0("palette.", key)
-  value <- ""
-  i <- 0
-  while (!identical(value, key)) {
-    if (is.null(key) || is.null(value)) {
+
+  resolve <- function(key, mode, visited = character(), depth = 0) {
+    if (is.null(key)) {
       return()
     }
 
-    i <- i + 1
-    if (i > 100) {
+    if (depth > 100) {
       abort(
         c(
           sprintf(
             "Max recursion limit reached while trying to resolve color '%s' using `brand.color`.",
             key_og
           ),
-          i = cycle(key)
+          i = cycle(visited, key)
         )
       )
     }
@@ -273,71 +263,69 @@ brand_color_pluck <- function(
 
     if (in_pal && !in_theme_unseen) {
       # Prioritize palette if theme was already visited
-      assert_no_cycles(p_key(key))
-      key <- check_string_or_null(p_key(key), palette[[key]])
-    } else if (in_theme) {
-      assert_no_cycles(key)
-      theme_value <- theme_colors[[key]]
-
-      # Handle light/dark structures
-      if (is.list(theme_value) && any(names(theme_value) %in% c("light", "dark"))) {
-        # It's a light/dark structure, resolve each variant
-        resolved <- list()
-        if (!is.null(theme_value$light)) {
-          resolved$light <- brand_color_pluck(brand, theme_value$light, color_mode = "auto")
-        }
-        if (!is.null(theme_value$dark)) {
-          resolved$dark <- brand_color_pluck(brand, theme_value$dark, color_mode = "auto")
-        }
-
-        # Apply color_mode to the resolved light/dark structure
-        value <- brand_color_apply_mode(resolved, color_mode)
-        return(value)
-      } else {
-        # It's a string reference, continue resolving
-        key <- check_string_or_null(key, theme_value)
-      }
-    } else {
-      value <- key
+      node <- p_key(key)
+      assert_no_cycles(node, visited)
+      value <- check_string_or_null(node, palette[[key]])
+      return(resolve(value, mode, c(visited, node), depth + 1))
     }
+
+    if (!in_theme) {
+      return(key)
+    }
+
+    assert_no_cycles(key, visited)
+    visited <- c(visited, key)
+    value <- theme_colors[[key]]
+
+    if (!is.list(value)) {
+      value <- check_string_or_null(key, value)
+      return(resolve(value, mode, visited, depth + 1))
+    }
+
+    if (mode == "auto") {
+      light <- if (!is.null(value$light)) {
+        resolve(value$light, "light", visited, depth + 1)
+      }
+      dark <- if (!is.null(value$dark)) {
+        resolve(value$dark, "dark", visited, depth + 1)
+      }
+      return(as_light_dark(light, dark))
+    }
+
+    fallback_mode <- if (mode == "light") "dark" else "light"
+    resolved_mode <- if (!is.null(value[[mode]])) mode else fallback_mode
+    resolve(value[[resolved_mode]], resolved_mode, visited, depth + 1)
   }
 
-  # Apply color_mode to scalar value
-  brand_color_apply_mode(value, color_mode)
-}
+  resolve_mode <- if (color_mode == "light-dark") "auto" else color_mode
+  value <- resolve(key, resolve_mode)
 
-# Helper function to apply color_mode to a resolved value
-brand_color_apply_mode <- function(value, color_mode) {
-  # If value is a light/dark structure (list with light/dark keys)
-  is_light_dark <- is.list(value) && any(names(value) %in% c("light", "dark"))
-
-  if (is_light_dark) {
-    if (color_mode == "auto") {
-      # Return as-is
-      return(as_light_dark(value$light, value$dark))
-    } else if (color_mode == "light") {
-      # Return light value, or dark as fallback if light is NULL
-      return(value$light %||% value$dark)
-    } else if (color_mode == "dark") {
-      # Return dark value, or light as fallback if dark is NULL
-      return(value$dark %||% value$light)
-    } else if (color_mode == "light-dark") {
-      # Return both
-      return(as_light_dark(value$light, value$dark))
-    }
-  } else {
-    # Scalar value
-    if (color_mode == "auto") {
-      return(value)
-    } else if (color_mode == "light") {
-      return(value)
-    } else if (color_mode == "dark") {
-      return(value)
-    } else if (color_mode == "light-dark") {
-      # Promote scalar to light/dark
-      return(as_light_dark(value, value))
-    }
+  if (color_mode == "light-dark" && !inherits(value, "light_dark")) {
+    return(as_light_dark(value, value))
   }
 
   value
+}
+
+brand_color_select <- function(
+  value,
+  color_mode = c("auto", "light", "dark", "light-dark")
+) {
+  color_mode <- arg_match(color_mode)
+  is_light_dark <- inherits(value, "light_dark") ||
+    is.list(value) && any(names(value) %in% c("light", "dark"))
+
+  if (!is_light_dark) {
+    if (color_mode == "light-dark") {
+      return(as_light_dark(value, value))
+    }
+    return(value)
+  }
+
+  if (color_mode %in% c("auto", "light-dark")) {
+    return(as_light_dark(value$light, value$dark))
+  }
+
+  fallback_mode <- if (color_mode == "light") "dark" else "light"
+  value[[color_mode]] %||% value[[fallback_mode]]
 }

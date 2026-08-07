@@ -21,7 +21,8 @@ theme_brand_ggplot2(
   panel_grid_major_color = NULL,
   panel_grid_minor_color = NULL,
   axis_text_color = NULL,
-  plot_caption_color = NULL
+  plot_caption_color = NULL,
+  color_mode = c("light", "dark")
 )
 }
 \arguments{
@@ -49,64 +50,67 @@ valid R color or the name of a color in \code{brand.color} or
 \item{...}{Reserved for future use.}
 
 \item{base_size}{Base font size in points. Used for the \code{size} property of
-\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{text} theme element.}
+\code{\link[ggplot2:element_text]{ggplot2::element_text()}} in the \code{text} theme element.}
 
 \item{title_size}{Title font size in points. Used for the \code{size} property of
-\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{title} theme element. Defaults to
+\code{\link[ggplot2:element_text]{ggplot2::element_text()}} in the \code{title} theme element. Defaults to
 \code{base_size * 1.2}.}
 
 \item{title_color, }{Color for the \code{color} property of
-\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{title} theme element. Can be a valid R
+\code{\link[ggplot2:element_text]{ggplot2::element_text()}} in the \code{title} theme element. Can be a valid R
 color or the name of a color in \code{brand.color} or \code{brand.color.palette}. If
 not provided, defaults to the \code{foreground} color.}
 
-\item{line_color}{Color for the \code{color} property of \code{\link[ggplot2:element]{ggplot2::element_line()}}
+\item{line_color}{Color for the \code{color} property of \code{\link[ggplot2:element_line]{ggplot2::element_line()}}
 in the \code{line} theme element. Can be a valid R color or the name of a color
 in \code{brand.color} or \code{brand.color.palette}. If not provided, defaults to a
 blend of foreground and background colors.}
 
 \item{rect_fill}{Fill color for the \code{fill} property of
-\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{rect} theme element. Can be a valid R
+\code{\link[ggplot2:element_rect]{ggplot2::element_rect()}} in the \code{rect} theme element. Can be a valid R
 color or the name of a color in \code{brand.color} or \code{brand.color.palette}. If
 not provided, defaults to the background color.}
 
-\item{text_color}{Color for the \code{color} property of \code{\link[ggplot2:element]{ggplot2::element_text()}}
+\item{text_color}{Color for the \code{color} property of \code{\link[ggplot2:element_text]{ggplot2::element_text()}}
 in the \code{text} theme element. Can be a valid R color or the name of a color
 in \code{brand.color} or \code{brand.color.palette}. If not provided, defaults to a
 blend of foreground and background colors.}
 
 \item{plot_background_fill}{Fill color for the \code{fill} property of
-\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{plot.background} theme element. Can be a
+\code{\link[ggplot2:element_rect]{ggplot2::element_rect()}} in the \code{plot.background} theme element. Can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}. If not provided, defaults to the background color.}
 
 \item{panel_background_fill}{Fill color for the \code{fill} property of
-\code{\link[ggplot2:element]{ggplot2::element_rect()}} in the \code{panel.background} theme element. Can be a
+\code{\link[ggplot2:element_rect]{ggplot2::element_rect()}} in the \code{panel.background} theme element. Can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}. If not provided, defaults to the background color.}
 
 \item{panel_grid_major_color}{Color for the \code{color} property of
-\code{\link[ggplot2:element]{ggplot2::element_line()}} in the \code{panel.grid.major} theme element. Can be a
+\code{\link[ggplot2:element_line]{ggplot2::element_line()}} in the \code{panel.grid.major} theme element. Can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}. If not provided, defaults to a blend of foreground
 and background colors.}
 
 \item{panel_grid_minor_color}{Color for the \code{color} property of
-\code{\link[ggplot2:element]{ggplot2::element_line()}} in the \code{panel.grid.minor} theme element. Can be a
+\code{\link[ggplot2:element_line]{ggplot2::element_line()}} in the \code{panel.grid.minor} theme element. Can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}. If not provided, defaults to a blend of foreground
 and background colors.}
 
 \item{axis_text_color}{Color for the \code{color} property of
-\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{axis.text} theme element. Can be a valid
+\code{\link[ggplot2:element_text]{ggplot2::element_text()}} in the \code{axis.text} theme element. Can be a valid
 R color or the name of a color in \code{brand.color} or \code{brand.color.palette}.
 If not provided, defaults to a blend of foreground and background colors.}
 
 \item{plot_caption_color}{Color for the \code{color} property of
-\code{\link[ggplot2:element]{ggplot2::element_text()}} in the \code{plot.caption} theme element. Can be a
+\code{\link[ggplot2:element_text]{ggplot2::element_text()}} in the \code{plot.caption} theme element. Can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}. If not provided, defaults to a blend of foreground
 and background colors.}
+
+\item{color_mode}{The color mode to use when a brand color has light and dark
+variants. Either \code{"light"} (the default) or \code{"dark"}.}
 }
 \value{
 A \code{\link[ggplot2:theme]{ggplot2::theme()}} object.
@@ -150,10 +154,10 @@ ggplot(diamonds, aes(carat, price)) +
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other branded theming functions: 
-\code{\link{theme_brand_flextable}()},
-\code{\link{theme_brand_gt}()},
-\code{\link{theme_brand_plotly}()},
-\code{\link{theme_brand_thematic}()}
+Other branded theming functions:
+\code{\link[=theme_brand_flextable]{theme_brand_flextable()}},
+\code{\link[=theme_brand_gt]{theme_brand_gt()}},
+\code{\link[=theme_brand_plotly]{theme_brand_plotly()}},
+\code{\link[=theme_brand_thematic]{theme_brand_thematic()}}
 }
 \concept{branded theming functions}

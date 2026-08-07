@@ -10,7 +10,8 @@ theme_brand_thematic(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 )
 
 theme_brand_thematic_on(
@@ -18,7 +19,8 @@ theme_brand_thematic_on(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 )
 }
 \arguments{
@@ -43,8 +45,11 @@ color in \code{brand.color} or \code{brand.color.palette}.}
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}.}
 
-\item{...}{Additional arguments passed to \code{\link[thematic:thematic_on]{thematic::thematic_theme()}} or
+\item{...}{Additional arguments passed to \code{\link[thematic:thematic_theme]{thematic::thematic_theme()}} or
 \code{\link[thematic:thematic_on]{thematic::thematic_on()}}.}
+
+\item{color_mode}{The color mode to use when a brand color has light and dark
+variants. Either \code{"light"} (the default) or \code{"dark"}.}
 }
 \value{
 \code{\link[thematic:thematic_theme]{thematic_theme()}} returns a theme object as a list (which can be
@@ -61,10 +66,10 @@ R graphics.
 \section{Functions}{
 \itemize{
 \item \code{theme_brand_thematic()}: brand.yml wrapper for
-\code{\link[thematic:thematic_on]{thematic::thematic_theme()}}
+\code{\link[thematic:thematic_theme]{thematic::thematic_theme()}}
 
 \item \code{theme_brand_thematic_on()}: brand.yml wrapper for
-\code{\link[thematic:thematic_on]{thematic::thematic_theme()}}
+\code{\link[thematic:thematic_theme]{thematic::thematic_theme()}}
 
 }}
 \examples{
@@ -92,10 +97,10 @@ thematic::thematic_with_theme(theme_brand_thematic(brand), {
 See the "Branded Theming" section of \code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}} for
 more details on how the \code{brand} argument works.
 
-Other branded theming functions: 
-\code{\link{theme_brand_flextable}()},
-\code{\link{theme_brand_ggplot2}()},
-\code{\link{theme_brand_gt}()},
-\code{\link{theme_brand_plotly}()}
+Other branded theming functions:
+\code{\link[=theme_brand_flextable]{theme_brand_flextable()}},
+\code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}},
+\code{\link[=theme_brand_gt]{theme_brand_gt()}},
+\code{\link[=theme_brand_plotly]{theme_brand_plotly()}}
 }
 \concept{branded theming functions}
