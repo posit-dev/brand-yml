@@ -37,7 +37,7 @@ test = [
     "syrupy>=4",
 ]
 docs = [
-    "griffe>=1",
+    "griffe>=1,<2",
     "quartodoc>=0.7",
     # Quarto requires...
     "ipykernel",
