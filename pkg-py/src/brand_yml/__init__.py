@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Literal
 
@@ -12,6 +13,7 @@ from pydantic import (
     model_validator,
 )
 
+from ._css import brand_css_variables
 from ._defs import BrandLightDark
 from ._use_logo import use_logo
 from ._utils import (
@@ -316,7 +318,12 @@ class Brand(BrandBase):
                 raise TypeError("A light/dark color requires a mode.")
 
             fallback_mode = "dark" if mode == "light" else "light"
-            return resolved.get(mode) or resolved.get(fallback_mode)
+            selected = resolved.get(mode) or resolved.get(fallback_mode)
+            if selected is None:
+                raise ValueError(
+                    f"`{path}` must define at least one light/dark color."
+                )
+            return selected
 
         for top_field in self.typography.__class__.model_fields.keys():
             typography_node = getattr(self.typography, top_field)
@@ -512,6 +519,28 @@ class Brand(BrandBase):
             **kwargs,
         )
 
+    def css_variables(
+        self,
+        mode_scopes: Mapping[Literal["light", "dark"], str] | None = None,
+    ) -> str:
+        """
+        Generate mode-aware CSS custom properties for this brand.
+
+        Parameters
+        ----------
+        mode_scopes
+            A mapping with exactly ``"light"`` and ``"dark"`` values. An empty
+            value emits variables under ``:root``.
+            ``"prefers-color-scheme"`` emits a matching media query. Any other
+            value is used as a CSS selector.
+
+        Returns
+        -------
+        :
+            CSS rules containing brand custom properties for both color modes.
+        """
+        return brand_css_variables(self, mode_scopes)
+
     @model_validator(mode="after")
     def _set_root_path(self):
         """
@@ -554,6 +583,7 @@ __all__ = [
     "BrandColor",
     "BrandTypography",
     "BrandLightDark",
+    "brand_css_variables",
     "BrandLogoResource",
     "BrandLogoResourceLightDark",
     "FileLocation",

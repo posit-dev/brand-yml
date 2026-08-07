@@ -12,10 +12,9 @@ brand.yml file.}
 
 }
 \value{
-A list with one component:
-\itemize{
-\item \code{defaults}: Sass variable definitions with \code{!default} flag
-}
+A list with a \code{defaults} component containing light-mode Sass
+variables with \code{!default} flags. When any color is mode-dependent, the
+list also contains \code{defaults_dark} with the complete dark-mode variables.
 }
 \description{
 Creates Sass variables for brand colors with the \code{brand_color_} prefix.

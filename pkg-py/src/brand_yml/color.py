@@ -394,8 +394,8 @@ class BrandColor(BrandBase):
                 return value
 
             if mode == "auto":
-                light = resolve(value.light, "light", next_visited)
-                dark = resolve(value.dark, "dark", next_visited)
+                light = resolve_variant(value.light, "light", next_visited)
+                dark = resolve_variant(value.dark, "dark", next_visited)
                 return BrandColorLightDark(light=light, dark=dark)
 
             fallback_mode = "dark" if mode == "light" else "light"
@@ -407,6 +407,16 @@ class BrandColor(BrandBase):
                 resolved_mode,
                 next_visited,
             )
+
+        def resolve_variant(
+            key: str | None,
+            mode: Literal["light", "dark"],
+            visited: tuple[str, ...],
+        ) -> str | None:
+            value = resolve(key, mode, visited)
+            if isinstance(value, BrandColorLightDark):
+                raise TypeError("A resolved color variant must be scalar.")
+            return value
 
         for key, value in theme.items():
             if value is not None:

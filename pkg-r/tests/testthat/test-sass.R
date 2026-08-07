@@ -107,6 +107,39 @@ describe("brand_sass_color()", {
     )
   })
 
+  it("returns complete light and dark defaults for mode-dependent colors", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111111", dark = "#eeeeee"),
+        background = list(light = "#ffffff"),
+        primary = "foreground"
+      )
+    )
+
+    result <- brand_sass_color(brand)
+
+    expect_equal(
+      result$defaults$brand_color_foreground,
+      "#111111 !default"
+    )
+    expect_equal(
+      result$defaults_dark$brand_color_foreground,
+      "#eeeeee !default"
+    )
+    expect_equal(result$defaults$brand_color_primary, "#111111 !default")
+    expect_equal(
+      result$defaults_dark$brand_color_primary,
+      "#eeeeee !default"
+    )
+    expect_equal(
+      result$defaults_dark$brand_color_background,
+      "#ffffff !default"
+    )
+    expect_setequal(
+      names(result$defaults),
+      names(result$defaults_dark)
+    )
+  })
 })
 
 describe("brand_sass_typography()", {
@@ -187,6 +220,44 @@ describe("brand_sass_typography()", {
     expect_equal(
       result$defaults[["brand_typography_base_line_height"]],
       "1.6 !default"
+    )
+  })
+
+  it("returns complete light and dark defaults for typography colors", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111111", dark = "#eeeeee")
+      ),
+      typography = list(
+        base = list(size = "16px"),
+        headings = list(color = "foreground"),
+        link = list(
+          color = list(light = "#0066cc", dark = "#66b2ff")
+        )
+      )
+    )
+
+    result <- brand_sass_typography(brand)
+
+    expect_equal(
+      result$defaults$brand_typography_headings_color,
+      "#111111 !default"
+    )
+    expect_equal(
+      result$defaults_dark$brand_typography_headings_color,
+      "#eeeeee !default"
+    )
+    expect_equal(
+      result$defaults_dark$brand_typography_link_color,
+      "#66b2ff !default"
+    )
+    expect_equal(
+      result$defaults_dark$brand_typography_base_size,
+      "1rem !default"
+    )
+    expect_setequal(
+      names(result$defaults),
+      names(result$defaults_dark)
     )
   })
 })
