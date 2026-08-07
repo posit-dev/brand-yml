@@ -108,7 +108,7 @@ brand_typography_prototype <- function() {
       }
     }
   }
-  opt_line_height = function(path) {
+  opt_line_height <- function(path) {
     path <- paste.("typography", path, "line-height")
 
     function(...) {

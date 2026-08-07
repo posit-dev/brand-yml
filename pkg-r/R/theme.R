@@ -271,15 +271,24 @@ theme_brand_thematic <- function(
   brand <- resolve_brand_yml(brand)
 
   bg_color <- brand_color_maybe_pluck(
-    brand, background, "background", "black",
+    brand,
+    background,
+    "background",
+    "black",
     color_mode = color_mode
   )
   fg_color <- brand_color_maybe_pluck(
-    brand, foreground, "foreground", "white",
+    brand,
+    foreground,
+    "foreground",
+    "white",
     color_mode = color_mode
   )
   accent_color <- brand_color_maybe_pluck(
-    brand, accent, "accent", "primary",
+    brand,
+    accent,
+    "accent",
+    "primary",
     color_mode = color_mode
   )
 
@@ -308,15 +317,24 @@ theme_brand_thematic_on <- function(
   brand <- resolve_brand_yml(brand)
 
   bg_color <- brand_color_maybe_pluck(
-    brand, background, "background", "black",
+    brand,
+    background,
+    "background",
+    "black",
     color_mode = color_mode
   )
   fg_color <- brand_color_maybe_pluck(
-    brand, foreground, "foreground", "white",
+    brand,
+    foreground,
+    "foreground",
+    "white",
     color_mode = color_mode
   )
   accent_color <- brand_color_maybe_pluck(
-    brand, accent, "accent", "primary",
+    brand,
+    accent,
+    "accent",
+    "primary",
     color_mode = color_mode
   )
 
@@ -394,11 +412,17 @@ theme_brand_flextable <- function(
   brand <- resolve_brand_yml(brand)
 
   bg_color <- brand_color_maybe_pluck(
-    brand, background, "background", "black",
+    brand,
+    background,
+    "background",
+    "black",
     color_mode = color_mode
   )
   fg_color <- brand_color_maybe_pluck(
-    brand, foreground, "foreground", "white",
+    brand,
+    foreground,
+    "foreground",
+    "white",
     color_mode = color_mode
   )
 
@@ -472,11 +496,17 @@ theme_brand_gt <- function(
   brand <- resolve_brand_yml(brand)
 
   bg_color <- brand_color_maybe_pluck(
-    brand, background, "background", "black",
+    brand,
+    background,
+    "background",
+    "black",
     color_mode = color_mode
   )
   fg_color <- brand_color_maybe_pluck(
-    brand, foreground, "foreground", "white",
+    brand,
+    foreground,
+    "foreground",
+    "white",
     color_mode = color_mode
   )
 
@@ -549,15 +579,24 @@ theme_brand_plotly <- function(
   brand <- resolve_brand_yml(brand)
 
   bg_color <- brand_color_maybe_pluck(
-    brand, background, "background", "black",
+    brand,
+    background,
+    "background",
+    "black",
     color_mode = color_mode
   )
   fg_color <- brand_color_maybe_pluck(
-    brand, foreground, "foreground", "white",
+    brand,
+    foreground,
+    "foreground",
+    "white",
     color_mode = color_mode
   )
   accent_color <- brand_color_maybe_pluck(
-    brand, accent, "accent", "primary",
+    brand,
+    accent,
+    "accent",
+    "primary",
     color_mode = color_mode
   )
 

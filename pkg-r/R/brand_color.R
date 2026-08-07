@@ -65,7 +65,6 @@ brand_color_check_fields <- function(color) {
       )
     }
   }
-
 }
 
 brand_color_check_value <- function(value, arg) {

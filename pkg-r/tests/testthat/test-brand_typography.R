@@ -362,7 +362,9 @@ test_that("brand.typography CSS fonts local", {
     names(fonts_bundle$defaults),
     c("brand-font-open-sans", "brand-font-roboto")
   )
-  local_file_dep <- fonts_bundle$defaults[["brand-font-open-sans"]]$html_deps[[1]]() # fmt: skip
+  local_file_dep <- fonts_bundle$defaults[["brand-font-open-sans"]]$html_deps[[
+    1
+  ]]() # fmt: skip
   expect_s3_class(local_file_dep, "html_dependency")
 
   local_file_css <- readLines(file.path(local_file_dep$src$file, "font.css"))
