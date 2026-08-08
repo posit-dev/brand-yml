@@ -24,7 +24,7 @@ the scalar color otherwise.
 \item \code{"light"}: Extracts the light mode value. If the color is a scalar, uses
 it as the light value.
 \item \code{"dark"}: Extracts the dark mode value. If the color is a scalar, uses
-it as the light value.
+it as the dark value.
 \item \code{"light-dark"}: Returns a list with both \code{light} and \code{dark} values. If
 the color is scalar, returns it for both modes.
 }}
@@ -33,7 +33,7 @@ the color is scalar, returns it for both modes.
 The resolved color value. Depending on \code{color_mode}:
 \itemize{
 \item \code{"auto"}: a string or a list with \code{light} and \code{dark} elements
-\item \code{"light"} or \code{"dark"}: a string
+\item \code{"light"} or \code{"dark"}: a string or \code{NULL} when that variant is undefined
 \item \code{"light-dark"}: a list with \code{light} and \code{dark} elements
 Returns the key itself if the color doesn't exist.
 }

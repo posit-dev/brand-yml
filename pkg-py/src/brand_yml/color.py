@@ -396,15 +396,13 @@ class BrandColor(BrandBase):
             if mode == "auto":
                 light = resolve_variant(value.light, "light", next_visited)
                 dark = resolve_variant(value.dark, "dark", next_visited)
+                if light is None and dark is None:
+                    return None
                 return BrandColorLightDark(light=light, dark=dark)
 
-            fallback_mode = "dark" if mode == "light" else "light"
-            resolved_mode = (
-                mode if getattr(value, mode) is not None else fallback_mode
-            )
             return resolve(
-                getattr(value, resolved_mode),
-                resolved_mode,
+                getattr(value, mode),
+                mode,
                 next_visited,
             )
 

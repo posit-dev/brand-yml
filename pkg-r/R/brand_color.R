@@ -176,13 +176,13 @@ brand_color_fields_theme <- function() {
 #'   * `"light"`: Extracts the light mode value. If the color is a scalar, uses
 #'     it as the light value.
 #'   * `"dark"`: Extracts the dark mode value. If the color is a scalar, uses
-#'     it as the light value.
+#'     it as the dark value.
 #'   * `"light-dark"`: Returns a list with both `light` and `dark` values. If
 #'     the color is scalar, returns it for both modes.
 #'
 #' @return The resolved color value. Depending on `color_mode`:
 #'   * `"auto"`: a string or a list with `light` and `dark` elements
-#'   * `"light"` or `"dark"`: a string
+#'   * `"light"` or `"dark"`: a string or `NULL` when that variant is undefined
 #'   * `"light-dark"`: a list with `light` and `dark` elements
 #'   Returns the key itself if the color doesn't exist.
 #'
@@ -288,12 +288,13 @@ brand_color_pluck <- function(
       dark <- if (!is.null(value$dark)) {
         resolve(value$dark, "dark", visited, depth + 1)
       }
+      if (is.null(light) && is.null(dark)) {
+        return()
+      }
       return(as_light_dark(light, dark))
     }
 
-    fallback_mode <- if (mode == "light") "dark" else "light"
-    resolved_mode <- if (!is.null(value[[mode]])) mode else fallback_mode
-    resolve(value[[resolved_mode]], resolved_mode, visited, depth + 1)
+    resolve(value[[mode]], mode, visited, depth + 1)
   }
 
   resolve_mode <- if (color_mode == "light-dark") "auto" else color_mode
@@ -325,6 +326,5 @@ brand_color_select <- function(
     return(as_light_dark(value$light, value$dark))
   }
 
-  fallback_mode <- if (color_mode == "light") "dark" else "light"
-  value[[color_mode]] %||% value[[fallback_mode]]
+  value[[color_mode]]
 }

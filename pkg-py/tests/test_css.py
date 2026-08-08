@@ -16,6 +16,7 @@ color:
     dark: "#eeeeee"
   background:
     light: "#ffffff"
+    dark: "#222222"
   primary: "#0066cc"
 typography:
   headings:
@@ -38,7 +39,7 @@ def test_css_variables_uses_root_and_system_preference_by_default(
     assert "--brand-color-foreground: #111111;" in css
     assert "--brand-typography-headings-color: #111111;" in css
     assert "@media (prefers-color-scheme: dark)" in css
-    assert "--brand-color-background: #ffffff;" in css
+    assert "--brand-color-background: #222222;" in css
     assert "--brand-typography-link-color: #66b2ff;" in css
 
 
@@ -93,3 +94,24 @@ def test_css_variables_emits_complete_sets_for_each_mode(brand: Brand):
     }
 
     assert light_names == dark_names
+
+
+def test_css_variables_omits_partial_overrides_from_an_undefined_mode():
+    brand = Brand.from_yaml_str(
+        """
+color:
+  foreground:
+    dark: "#eeeeee"
+typography:
+  headings:
+    color: foreground
+"""
+    )
+
+    css = brand.css_variables({"light": ".light", "dark": ".dark"})
+    light, dark = css.split("\n.dark {")
+
+    assert "--brand-color-foreground:" not in light
+    assert "--brand-typography-headings-color:" not in light
+    assert "--brand-color-foreground: #eeeeee;" in dark
+    assert "--brand-typography-headings-color: #eeeeee;" in dark

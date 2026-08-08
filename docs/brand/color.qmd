@@ -149,13 +149,14 @@ color:
 ```
 
 Light and dark values are optional, so a mapping may override only one mode.
-The available value is used when the requested mode is missing. A scalar color,
-such as `primary` above, works in both modes.
+An undefined mode keeps the value provided by the consuming theme. A scalar
+color, such as `primary` above, applies in both modes.
 
 `color.palette` remains a mapping of scalar color values. Theme colors may
 reference palette colors or other theme colors. A reference inside a `light`
-or `dark` mapping resolves in that same mode; if it falls back to the other
-mode, the referenced color is resolved in the fallback mode as well.
+or `dark` mapping resolves in that same mode. If the referenced color does not
+define that mode, the reference is undefined and the consuming theme keeps its
+base value.
 
 ## Additional Features
 

@@ -298,7 +298,7 @@ describe("brand_color light/dark variants", {
     expect_equal(result, "#6339E0")
   })
 
-  it("brand_color_pluck() falls back when light or dark is missing", {
+  it("brand_color_pluck() preserves an undefined light or dark mode", {
     brand <- list(
       color = list(
         foreground = list(light = "#111")
@@ -311,11 +311,7 @@ describe("brand_color light/dark variants", {
       "#111"
     )
 
-    # Dark mode: falls back to light value
-    expect_equal(
-      brand_color_pluck(brand, "foreground", color_mode = "dark"),
-      "#111"
-    )
+    expect_null(brand_color_pluck(brand, "foreground", color_mode = "dark"))
   })
 
   it("resolves light/dark references in the current variant context", {
@@ -341,7 +337,7 @@ describe("brand_color light/dark variants", {
     )
   })
 
-  it("resolves a missing variant in the fallback variant context", {
+  it("does not resolve a missing reference variant in the other mode", {
     brand <- list(
       color = list(
         primary = list(light = "#111", dark = "#eee"),
@@ -349,10 +345,18 @@ describe("brand_color light/dark variants", {
       )
     )
 
-    expect_equal(
-      brand_color_pluck(brand, "secondary", color_mode = "dark"),
-      "#111"
-    )
+    expect_null(brand_color_pluck(brand, "secondary", color_mode = "dark"))
+  })
+
+  it("removes a reference with no resolved variants", {
+    brand <- as_brand_yml(list(
+      color = list(
+        primary = list(dark = "#eee"),
+        secondary = list(light = "primary")
+      )
+    ))
+
+    expect_null(brand$color$secondary)
   })
 
   it("detects cycles through light/dark references", {

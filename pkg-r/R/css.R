@@ -2,7 +2,8 @@
 #'
 #' Emits brand-owned CSS custom properties for palette colors, theme colors,
 #' and typography color fields. Light and dark values are emitted under
-#' configurable CSS scopes.
+#' configurable CSS scopes. A value that is undefined in one mode is omitted
+#' from that scope so a consuming framework can retain its base value.
 #'
 #' @param brand A brand object, YAML string, or path accepted by
 #'   [as_brand_yml()].
@@ -73,7 +74,10 @@ brand_css_declarations <- function(brand, mode) {
         property_css,
         sep = "-"
       )
-      declarations[[variable]] <- brand_color_select(value, mode)
+      value <- brand_color_select(value, mode)
+      if (!is.null(value)) {
+        declarations[[variable]] <- value
+      }
     }
   }
 

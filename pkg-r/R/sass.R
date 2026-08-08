@@ -90,7 +90,7 @@ bootstrap_colors <- c(
 #' @inheritParams as_brand_yml
 #' @return A list with a `defaults` component containing light-mode Sass
 #'   variables with `!default` flags. When any color is mode-dependent, the
-#'   list also contains `defaults_dark` with the complete dark-mode variables.
+#'   list also contains `defaults_dark` with the defined dark-mode variables.
 #'
 #' @family brand.yml Sass helpers
 #' @export
@@ -122,6 +122,7 @@ brand_sass_color <- function(brand) {
       brand = brand,
       color_mode = mode
     )
+    values <- Filter(Negate(is.null), values)
     names(values) <- sprintf("brand_color_%s", names(values))
     lapply(values, paste, "!default")
   }
@@ -157,7 +158,7 @@ brand_sass_color <- function(brand) {
 #' @inheritParams as_brand_yml
 #' @return A list with a `defaults` component containing light-mode Sass
 #'   variables with `!default` flags. When any typography color is
-#'   mode-dependent, the list also contains `defaults_dark` with the complete
+#'   mode-dependent, the list also contains `defaults_dark` with the defined
 #'   dark-mode variables.
 #'
 #' @family brand.yml Sass helpers
@@ -194,6 +195,9 @@ brand_sass_typography <- function(brand) {
           prop_value <- maybe_convert_font_size_to_rem(prop_value)
         } else if (prop_key %in% color_properties) {
           prop_value <- brand_color_select(prop_value, mode)
+        }
+        if (is.null(prop_value)) {
+          next
         }
         field_name <- gsub("-", "_", field)
         prop_name <- gsub("-", "_", prop_key)

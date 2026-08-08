@@ -211,8 +211,8 @@ typography:
 ```
 
 A scalar value works in both modes. A mapping may provide only `light` or
-`dark`; the available value is used as the fallback for the missing mode.
-References inside a variant resolve in that variant's color mode.
+`dark`; the missing mode keeps the value provided by the consuming theme.
+References inside a variant resolve only in that variant's color mode.
 
 ## Attributes
 

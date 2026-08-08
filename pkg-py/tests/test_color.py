@@ -246,7 +246,7 @@ def test_brand_color_light_dark_references_use_variant_context():
     assert brand.color.tertiary.dark == "#eeeeee"
 
 
-def test_brand_color_light_dark_references_fall_back_to_available_variant():
+def test_brand_color_light_dark_references_preserve_undefined_variants():
     brand = Brand.from_yaml_str(
         """
         color:
@@ -263,13 +263,29 @@ def test_brand_color_light_dark_references_fall_back_to_available_variant():
 
     assert brand.color is not None
     assert isinstance(brand.color.secondary, BrandColorLightDark)
-    assert brand.color.secondary.light == "#eeeeee"
+    assert brand.color.secondary.light is None
     assert brand.color.secondary.dark == "#eeeeee"
 
     assert brand.typography is not None
     assert brand.typography.headings is not None
     assert isinstance(brand.typography.headings.color, BrandColorLightDark)
+    assert brand.typography.headings.color.light is None
     assert brand.typography.headings.color.dark == "#eeeeee"
+
+
+def test_brand_color_light_dark_removes_references_with_no_resolved_variants():
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          primary:
+            dark: "#eeeeee"
+          secondary:
+            light: primary
+        """
+    )
+
+    assert brand.color is not None
+    assert brand.color.secondary is None
 
 
 def test_brand_color_light_dark_references_detect_cycles():

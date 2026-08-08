@@ -302,7 +302,7 @@ class Brand(BrandBase):
             *,
             mode: Literal["light", "dark"] | None = None,
             path: str,
-        ) -> str:
+        ) -> str | None:
             if value not in color_defs:
                 if value in color_names:
                     raise ValueError(
@@ -317,13 +317,7 @@ class Brand(BrandBase):
             if mode is None:
                 raise TypeError("A light/dark color requires a mode.")
 
-            fallback_mode = "dark" if mode == "light" else "light"
-            selected = resolved.get(mode) or resolved.get(fallback_mode)
-            if selected is None:
-                raise ValueError(
-                    f"`{path}` must define at least one light/dark color."
-                )
-            return selected
+            return resolved.get(mode)
 
         for top_field in self.typography.__class__.model_fields.keys():
             typography_node = getattr(self.typography, top_field)

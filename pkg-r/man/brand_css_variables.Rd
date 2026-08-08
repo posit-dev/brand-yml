@@ -23,5 +23,6 @@ A string containing CSS rules.
 \description{
 Emits brand-owned CSS custom properties for palette colors, theme colors,
 and typography color fields. Light and dark values are emitted under
-configurable CSS scopes.
+configurable CSS scopes. A value that is undefined in one mode is omitted
+from that scope so a consuming framework can retain its base value.
 }

@@ -72,6 +72,24 @@ describe("theme_brand_ggplot2()", {
     expect_equal(dark$geom$ink, "#EEEEEE")
     expect_equal(dark$geom$accent, "#66B2FF")
   })
+
+  it("omits undefined selected color variants", {
+    brand <- as_brand_yml(list(
+      color = list(
+        background = list(dark = "#222222"),
+        foreground = list(dark = "#EEEEEE")
+      )
+    ))
+
+    light <- theme_brand_ggplot2(brand, color_mode = "light")
+    dark <- theme_brand_ggplot2(brand, color_mode = "dark")
+
+    expect_null(light$plot.background)
+    expect_null(light$geom)
+    expect_null(light$text$colour)
+    expect_equal(dark$plot.background$fill, "#222222")
+    expect_equal(dark$geom$ink, "#EEEEEE")
+  })
 })
 
 describe("theme_brand_thematic()", {

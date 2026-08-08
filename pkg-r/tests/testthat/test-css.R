@@ -81,4 +81,33 @@ describe("brand_css_variables()", {
       "mode_scopes.dark"
     )
   })
+
+  it("omits partial color overrides from an undefined mode", {
+    partial <- as_brand_yml(list(
+      color = list(
+        foreground = list(dark = "#eeeeee")
+      ),
+      typography = list(
+        headings = list(color = "foreground")
+      )
+    ))
+
+    css <- brand_css_variables(
+      partial,
+      mode_scopes = list(light = ".light", dark = ".dark")
+    )
+    light <- strsplit(css, "\n.dark \\{")[[1]][1]
+    dark <- strsplit(css, "\n.dark \\{")[[1]][2]
+
+    expect_false(grepl("--brand-color-foreground:", light, fixed = TRUE))
+    expect_false(
+      grepl("--brand-typography-headings-color:", light, fixed = TRUE)
+    )
+    expect_match(dark, "--brand-color-foreground: #eeeeee;", fixed = TRUE)
+    expect_match(
+      dark,
+      "--brand-typography-headings-color: #eeeeee;",
+      fixed = TRUE
+    )
+  })
 })

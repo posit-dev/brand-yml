@@ -14,7 +14,7 @@ brand.yml file.}
 \value{
 A list with a \code{defaults} component containing light-mode Sass
 variables with \code{!default} flags. When any typography color is
-mode-dependent, the list also contains \code{defaults_dark} with the complete
+mode-dependent, the list also contains \code{defaults_dark} with the defined
 dark-mode variables.
 }
 \description{

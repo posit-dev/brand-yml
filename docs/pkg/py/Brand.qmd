@@ -90,9 +90,9 @@ Generate mode-aware CSS custom properties for this brand.
 
 #### Returns {.doc-section .doc-section-returns}
 
-| Name   | Type         | Description                                                        |
-|--------|--------------|--------------------------------------------------------------------|
-|        | [str](`str`) | CSS rules containing brand custom properties for both color modes. |
+| Name   | Type         | Description                                                                                                                          |
+|--------|--------------|--------------------------------------------------------------------------------------------------------------------------------------|
+|        | [str](`str`) | CSS rules containing defined brand custom properties for both color modes. A value undefined in one mode is omitted from that scope. |
 
 ### from_yaml { #brand_yml.Brand.from_yaml }
 

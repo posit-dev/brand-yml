@@ -107,7 +107,7 @@ describe("brand_sass_color()", {
     )
   })
 
-  it("returns complete light and dark defaults for mode-dependent colors", {
+  it("omits partial color overrides from an undefined mode", {
     brand <- list(
       color = list(
         foreground = list(light = "#111111", dark = "#eeeeee"),
@@ -131,14 +131,8 @@ describe("brand_sass_color()", {
       result$defaults_dark$brand_color_primary,
       "#eeeeee !default"
     )
-    expect_equal(
-      result$defaults_dark$brand_color_background,
-      "#ffffff !default"
-    )
-    expect_setequal(
-      names(result$defaults),
-      names(result$defaults_dark)
-    )
+    expect_equal(result$defaults$brand_color_background, "#ffffff !default")
+    expect_null(result$defaults_dark$brand_color_background)
   })
 })
 
@@ -258,6 +252,24 @@ describe("brand_sass_typography()", {
     expect_setequal(
       names(result$defaults),
       names(result$defaults_dark)
+    )
+  })
+
+  it("omits partial typography color overrides from an undefined mode", {
+    brand <- list(
+      typography = list(
+        headings = list(
+          color = list(dark = "#eeeeee")
+        )
+      )
+    )
+
+    result <- brand_sass_typography(brand)
+
+    expect_null(result$defaults$brand_typography_headings_color)
+    expect_equal(
+      result$defaults_dark$brand_typography_headings_color,
+      "#eeeeee !default"
     )
   })
 })

@@ -37,7 +37,8 @@ def brand_css_variables(
     Returns
     -------
     :
-        CSS rules containing brand custom properties for both color modes.
+        CSS rules containing defined brand custom properties for both color
+        modes. A value undefined in one mode is omitted from that scope.
     """
     scopes = _validate_mode_scopes(mode_scopes)
     return "\n".join(
@@ -66,15 +67,13 @@ def _validate_mode_scopes(
     return scopes
 
 
-def _select_color(value: str | BrandColorLightDark, mode: ColorMode) -> str:
+def _select_color(
+    value: str | BrandColorLightDark, mode: ColorMode
+) -> str | None:
     if isinstance(value, str):
         return value
 
-    fallback_mode: ColorMode = "dark" if mode == "light" else "light"
-    selected = getattr(value, mode) or getattr(value, fallback_mode)
-    if selected is None:  # Validation requires at least one variant.
-        raise ValueError("A light/dark color must define at least one variant.")
-    return selected
+    return getattr(value, mode)
 
 
 def _css_declarations(brand: Brand, mode: ColorMode) -> list[str]:
@@ -89,9 +88,11 @@ def _css_declarations(brand: Brand, mode: ColorMode) -> list[str]:
                 continue
             value = getattr(brand.color, name)
             if value is not None:
-                declarations[f"--brand-color-{name.replace('_', '-')}"] = (
-                    _select_color(value, mode)
-                )
+                selected = _select_color(value, mode)
+                if selected is not None:
+                    declarations[f"--brand-color-{name.replace('_', '-')}"] = (
+                        selected
+                    )
 
     if brand.typography is not None:
         for field in brand.typography.__class__.model_fields:
@@ -107,7 +108,9 @@ def _css_declarations(brand: Brand, mode: ColorMode) -> list[str]:
                     f"--brand-typography-{field.replace('_', '-')}-"
                     f"{property_name.replace('_', '-')}"
                 )
-                declarations[variable] = _select_color(value, mode)
+                selected = _select_color(value, mode)
+                if selected is not None:
+                    declarations[variable] = selected
 
     return [f"  {name}: {value};" for name, value in declarations.items()]
 
