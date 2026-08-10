@@ -5,6 +5,7 @@ import warnings
 import pytest
 from brand_yml import Brand, BrandColor
 from brand_yml.color import BrandColorLightDark
+from pydantic import ValidationError
 from syrupy.extensions.json import JSONSnapshotExtension
 from utils import path_examples, pydantic_data_from_json
 
@@ -405,3 +406,81 @@ def test_brand_color_to_dict_with_light_dark():
     assert "purple" in all_dict
     assert "foreground" in all_dict
     assert "primary" in all_dict
+
+
+def test_brand_color_link_field():
+    """`color.link` accepts scalar and light/dark values and round-trips."""
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          primary: "#6339E0"
+          link: primary
+          danger:
+            light: "#b00020"
+            dark: "#ff5370"
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+
+    # Scalar reference resolves like any other theme color
+    assert brand.color.link == "#6339E0"
+
+    # And light/dark values are preserved on a theme color
+    assert isinstance(brand.color.danger, BrandColorLightDark)
+    assert brand.color.danger.light == "#b00020"
+    assert brand.color.danger.dark == "#ff5370"
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        dumped = brand.model_dump(mode="json", by_alias=True, exclude_none=True)
+
+    round_trip = Brand.model_validate(dumped)
+    assert round_trip.color is not None
+    assert round_trip.color.link == "#6339E0"
+
+
+def test_brand_color_link_light_dark():
+    """`color.link` accepts a light/dark mapping directly."""
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          link:
+            light: "#0066cc"
+            dark: "#66b2ff"
+        """
+    )
+
+    assert isinstance(brand.color, BrandColor)
+    assert isinstance(brand.color.link, BrandColorLightDark)
+    assert brand.color.link.light == "#0066cc"
+    assert brand.color.link.dark == "#66b2ff"
+
+
+def test_brand_color_invalid_dict_reports_location():
+    """A malformed color mapping raises a located validation error."""
+    with pytest.raises(ValidationError) as exc_info:
+        Brand.from_yaml_str(
+            """
+            color:
+              primary:
+                foo: "#00f"
+            """
+        )
+
+    errors = exc_info.value.errors()
+    assert any(error["loc"][:2] == ("color", "primary") for error in errors)
+
+
+def test_brand_color_empty_dict_is_rejected():
+    """An empty color mapping requires at least one of light or dark."""
+    with pytest.raises(ValidationError) as exc_info:
+        Brand.from_yaml_str(
+            """
+            color:
+              primary: {}
+            """
+        )
+
+    errors = exc_info.value.errors()
+    assert any(error["loc"][:2] == ("color", "primary") for error in errors)
