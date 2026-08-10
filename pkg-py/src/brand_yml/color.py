@@ -326,27 +326,14 @@ class BrandColor(BrandBase):
             light/dark variants are used.
         """
         defs: dict[str, str | dict[str, str]] = {}
-        defs_theme: dict[str, str | dict[str, str]] = {}
 
-        if include in ("all", "palette"):
-            if self.palette is not None:
-                # Copy palette entries as-is (they're all strings)
-                for key, value in self.palette.items():
-                    defs[key] = value
-            else:
-                defs = {}
+        if include in ("all", "palette") and self.palette is not None:
+            defs.update(self.palette)
         if include in ("all", "theme"):
-            theme_dump = self.model_dump(exclude={"palette"}, exclude_none=True)
-            # Convert BrandColorLightDark instances to dicts for resolution
-            for key, value in theme_dump.items():
-                if isinstance(value, dict) and (
-                    "light" in value or "dark" in value
-                ):
-                    defs_theme[key] = value
-                else:
-                    defs_theme[key] = value
+            # Theme colors overlay the palette. `model_dump()` already renders
+            # light/dark values as `{"light": ..., "dark": ...}` dicts.
+            defs.update(self.model_dump(exclude={"palette"}, exclude_none=True))
 
-        defs.update(defs_theme)
         return defs
 
     @model_validator(mode="after")
