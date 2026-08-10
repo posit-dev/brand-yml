@@ -39,11 +39,6 @@ brand_color_check_fields <- function(color) {
     )
   }
 
-  # Validate palette structure
-  if (!is.null(color$palette)) {
-    check_is_list(color$palette, arg = "color.palette")
-  }
-
   # Validate each theme field separately (can be string or light/dark list)
   for (theme_field in brand_color_fields_theme()) {
     field_value <- color[[theme_field]]
