@@ -238,6 +238,10 @@ class BrandColor(BrandBase):
     dark
         A dark color, used as a high-contrast foreground color on light elements
         or high-contrast background color on light elements.
+
+    link
+        The color used for hyperlinks. If not defined, the `primary` color is
+        used.
     """
 
     model_config = ConfigDict(
@@ -260,6 +264,7 @@ class BrandColor(BrandBase):
     danger: BrandColorType | None = None
     light: BrandColorType | None = None
     dark: BrandColorType | None = None
+    link: BrandColorType | None = None
 
     @field_validator("palette")
     @classmethod
