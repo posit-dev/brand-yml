@@ -37,27 +37,21 @@ class BrandColorLightDark(BrandLightDark[str]):
     between light and dark color schemes.
     """
 
-    def __repr__(self) -> str:
-        return super().__repr__()
-
-    def __str__(self) -> str:
-        """String representation returns light value if present, otherwise dark."""
-        if self.light is not None:
-            return self.light
-        elif self.dark is not None:
-            return self.dark
-        return ""
+    @model_validator(mode="after")
+    def _require_light_or_dark(self):
+        if self.light is None and self.dark is None:
+            raise ValueError(
+                "A light/dark color must define at least one of "
+                "`light` or `dark`."
+            )
+        return self
 
 
 def brand_color_type_discriminator(x: Any) -> Literal["color", "light-dark"]:
     """Discriminator function to determine if a value is a color string or light/dark variant."""
-    if isinstance(x, dict):
-        if "light" in x or "dark" in x:
-            return "light-dark"
-        # If it's a dict but not light/dark, it's invalid
-        raise TypeError(f"{x} is not a valid brand color type")
-
-    if isinstance(x, (BrandLightDark, BrandColorLightDark)):
+    if isinstance(x, (dict, BrandLightDark, BrandColorLightDark)):
+        # Any mapping is routed to the light/dark variant so that invalid keys
+        # produce a located pydantic error instead of an unlocated exception.
         return "light-dark"
 
     # Assume it's a string color value

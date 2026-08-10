@@ -351,10 +351,15 @@ class Brand(BrandBase):
                         if value.dark is not None
                         else None
                     )
+                    resolved_light_dark = (
+                        None
+                        if light is None and dark is None
+                        else BrandColorLightDark(light=light, dark=dark)
+                    )
                     setattr(
                         typography_node,
                         typography_node_field,
-                        BrandColorLightDark(light=light, dark=dark),
+                        resolved_light_dark,
                     )
                     continue
 
