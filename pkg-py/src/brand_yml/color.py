@@ -256,8 +256,9 @@ class BrandColor(BrandBase):
         or high-contrast background color on light elements.
 
     link
-        The color used for hyperlinks. If not defined, the `primary` color is
-        used.
+        The color used for hyperlinks. When not defined this field is `None`;
+        consuming frameworks are encouraged to fall back to the `primary` color
+        in that case.
     """
 
     model_config = ConfigDict(

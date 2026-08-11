@@ -115,6 +115,33 @@ describe("brand_color_pluck()", {
   })
 })
 
+describe("brand.color.link", {
+  it("resolves a scalar reference to another theme color", {
+    brand <- as_brand_yml(list(
+      color = list(
+        palette = list(purple = "#6339E0"),
+        primary = "purple",
+        link = "purple"
+      )
+    ))
+
+    expect_equal(brand_color_pluck(brand, "link"), "#6339E0")
+  })
+
+  it("accepts a light/dark mapping", {
+    brand <- as_brand_yml(list(
+      color = list(
+        link = list(light = "#0066cc", dark = "#66b2ff")
+      )
+    ))
+
+    link <- brand_color_pluck(brand, "link")
+    expect_s3_class(link, "light_dark")
+    expect_equal(link$light, "#0066cc")
+    expect_equal(link$dark, "#66b2ff")
+  })
+})
+
 test_that("brand.color is validated for unexpected fields and basic field structure", {
   expect_error(
     as_brand_yml(list(color = list(palette = "one"))),
