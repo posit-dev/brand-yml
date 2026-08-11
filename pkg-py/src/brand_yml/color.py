@@ -8,6 +8,7 @@ palette and mappings to common theme colors.
 from __future__ import annotations
 
 import re
+from collections.abc import Mapping
 from typing import Annotated, Any, Literal, Union
 
 from pydantic import (
@@ -36,6 +37,27 @@ class BrandColorLightDark(BrandLightDark[str]):
     This class extends BrandLightDark[str] to hold color values that differ
     between light and dark color schemes.
     """
+
+    @model_validator(mode="before")
+    @classmethod
+    def _reject_explicit_null_variants(cls, value):
+        if isinstance(value, Mapping):
+            null_variants = [
+                variant
+                for variant in ("light", "dark")
+                if variant in value and value[variant] is None
+            ]
+            if null_variants:
+                if len(null_variants) == 1:
+                    raise ValueError(
+                        f"The `{null_variants[0]}` color value must be a "
+                        "string when provided."
+                    )
+                raise ValueError(
+                    "The `light` and `dark` color values must be strings "
+                    "when provided."
+                )
+        return value
 
     @model_validator(mode="after")
     def _require_light_or_dark(self):
@@ -384,7 +406,16 @@ class BrandColor(BrandBase):
                 dark = resolve_variant(value.dark, "dark", next_visited)
                 if light is None and dark is None:
                     return None
-                return BrandColorLightDark(light=light, dark=dark)
+                return BrandColorLightDark.model_validate(
+                    {
+                        variant: resolved
+                        for variant, resolved in (
+                            ("light", light),
+                            ("dark", dark),
+                        )
+                        if resolved is not None
+                    }
+                )
 
             return resolve(
                 getattr(value, mode),

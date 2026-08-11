@@ -25,6 +25,23 @@ describe("theme_brand_ggplot2()", {
     expect_equal(theme_default$text$colour, "#2C2C2CFF")
   })
 
+  it("does not infer semantic colors from palette names", {
+    brand <- as_brand_yml(list(
+      color = list(
+        palette = list(
+          black = "#111111",
+          white = "#FAFAFA"
+        )
+      )
+    ))
+
+    theme <- theme_brand_ggplot2(brand)
+
+    expect_null(theme$plot.background)
+    expect_null(theme$text$colour)
+    expect_null(theme$geom)
+  })
+
   it("resolves foreground color with correct precedence", {
     theme_fg <- theme_brand_ggplot2(brand, foreground = "#00FF00")
     # Text color is blended with background

@@ -289,6 +289,24 @@ def test_brand_color_light_dark_removes_references_with_no_resolved_variants():
     assert brand.color.secondary is None
 
 
+def test_brand_typography_light_dark_removes_unresolved_variants():
+    brand = Brand.from_yaml_str(
+        """
+        color:
+          primary:
+            dark: "#eeeeee"
+        typography:
+          headings:
+            color:
+              light: primary
+        """
+    )
+
+    assert brand.typography is not None
+    assert brand.typography.headings is not None
+    assert brand.typography.headings.color is None
+
+
 def test_brand_color_light_dark_references_detect_cycles():
     with pytest.raises(ValueError, match="primary -> secondary -> primary"):
         Brand.from_yaml_str(
@@ -484,3 +502,36 @@ def test_brand_color_empty_dict_is_rejected():
 
     errors = exc_info.value.errors()
     assert any(error["loc"][:2] == ("color", "primary") for error in errors)
+
+
+@pytest.mark.parametrize(
+    ("yaml", "location"),
+    [
+        (
+            """
+            color:
+              primary:
+                light: null
+                dark: "#eeeeee"
+            """,
+            ("color", "primary"),
+        ),
+        (
+            """
+            typography:
+              headings:
+                color:
+                  light: null
+                  dark: "#eeeeee"
+            """,
+            ("typography", "headings", "color"),
+        ),
+    ],
+)
+def test_brand_color_explicit_null_variant_is_rejected(yaml, location):
+    with pytest.raises(ValidationError) as exc_info:
+        Brand.from_yaml_str(yaml)
+
+    errors = exc_info.value.errors()
+    assert any(error["loc"][: len(location)] == location for error in errors)
+    assert "must be a string when provided" in str(exc_info.value)

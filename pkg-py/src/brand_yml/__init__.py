@@ -354,7 +354,16 @@ class Brand(BrandBase):
                     resolved_light_dark = (
                         None
                         if light is None and dark is None
-                        else BrandColorLightDark(light=light, dark=dark)
+                        else BrandColorLightDark.model_validate(
+                            {
+                                variant: resolved
+                                for variant, resolved in (
+                                    ("light", light),
+                                    ("dark", dark),
+                                )
+                                if resolved is not None
+                            }
+                        )
                     )
                     setattr(
                         typography_node,

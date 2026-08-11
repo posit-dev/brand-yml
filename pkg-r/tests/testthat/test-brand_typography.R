@@ -298,6 +298,17 @@ describe("brand.typography light/dark colors", {
       )),
       "typography.headings.color.light.*must be a string"
     )
+
+    expect_error(
+      as_brand_yml(list(
+        typography = list(
+          headings = list(
+            color = list(light = NULL, dark = "#eee")
+          )
+        )
+      )),
+      "typography.headings.color.light.*must be a string"
+    )
   })
 
   it("reports undefined theme colors within variants", {
@@ -309,6 +320,22 @@ describe("brand.typography light/dark colors", {
       )),
       "typography.headings.color.light"
     )
+  })
+
+  it("removes color properties with no resolved variants", {
+    brand <- as_brand_yml(list(
+      color = list(
+        primary = list(dark = "#eee")
+      ),
+      typography = list(
+        headings = list(
+          color = list(light = "primary")
+        )
+      )
+    ))
+
+    expect_false("color" %in% names(brand$typography$headings))
+    expect_null(brand$typography$headings$color)
   })
 })
 

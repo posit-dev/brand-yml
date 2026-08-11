@@ -195,6 +195,17 @@ describe("brand_color light/dark variants", {
     )
   })
 
+  it("rejects explicitly null values in light/dark structures", {
+    expect_error(
+      as_brand_yml(list(
+        color = list(
+          foreground = list(light = NULL, dark = "#fff")
+        )
+      )),
+      "color.foreground.light.*must be a string"
+    )
+  })
+
   it("resolves light/dark color references", {
     brand <- as_brand_yml(list(
       color = list(

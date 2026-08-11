@@ -91,8 +91,8 @@ brand_color_check_value <- function(value, arg) {
     )
   }
 
-  for (variant in valid_keys) {
-    if (!is.null(value[[variant]]) && !is_string(value[[variant]])) {
+  for (variant in intersect(valid_keys, actual_keys)) {
+    if (!is_string(value[[variant]])) {
       abort(sprintf("`%s.%s` must be a string.", arg, variant))
     }
   }

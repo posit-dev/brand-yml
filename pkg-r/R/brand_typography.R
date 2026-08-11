@@ -266,7 +266,11 @@ brand_resolve_typography_colors <- function(brand) {
         dark <- if (!is.null(old$dark)) {
           resolve_color(old$dark, "dark", paste.(path, "dark"))
         }
-        new <- as_light_dark(light, dark)
+        new <- if (is.null(light) && is.null(dark)) {
+          NULL
+        } else {
+          as_light_dark(light, dark)
+        }
       } else {
         new <- resolve_color(old, path = path)
       }
