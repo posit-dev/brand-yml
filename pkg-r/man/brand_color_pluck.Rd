@@ -4,17 +4,39 @@
 \alias{brand_color_pluck}
 \title{Extract a color value from a brand object}
 \usage{
-brand_color_pluck(brand, key)
+brand_color_pluck(
+  brand,
+  key,
+  color_mode = c("auto", "light", "dark", "light-dark")
+)
 }
 \arguments{
 \item{brand}{A brand object created by \code{\link[=read_brand_yml]{read_brand_yml()}} or
 \code{\link[=as_brand_yml]{as_brand_yml()}}.}
 
 \item{key}{A character string representing the color key to extract.}
+
+\item{color_mode}{Which color mode to use when extracting colors with
+light/dark variants. Can be one of:
+\itemize{
+\item \code{"auto"} (default): Returns the full light/dark structure if present, or
+the scalar color otherwise.
+\item \code{"light"}: Extracts the light mode value. If the color is a scalar, uses
+it as the light value.
+\item \code{"dark"}: Extracts the dark mode value. If the color is a scalar, uses
+it as the dark value.
+\item \code{"light-dark"}: Returns a list with both \code{light} and \code{dark} values. If
+the color is scalar, returns it for both modes.
+}}
 }
 \value{
-The resolved color value (typically a hex color code) if the key
-exists, otherwise returns the key itself.
+The resolved color value. Depending on \code{color_mode}:
+\itemize{
+\item \code{"auto"}: a string or a list with \code{light} and \code{dark} elements
+\item \code{"light"} or \code{"dark"}: a string or \code{NULL} when that variant is undefined
+\item \code{"light-dark"}: a list with \code{light} and \code{dark} elements
+Returns the key itself if the color doesn't exist.
+}
 }
 \description{
 Safely extracts a color value from a \code{brand} object based on the provided
@@ -61,9 +83,9 @@ brand_pluck(brand, "color", "green") # NULL
 
 }
 \seealso{
-Other brand.yml helpers: 
-\code{\link{brand_has}()},
-\code{\link{brand_pluck}()},
-\code{\link{with_brand_yml_path}()}
+Other brand.yml helpers:
+\code{\link[=brand_has]{brand_has()}},
+\code{\link[=brand_pluck]{brand_pluck()}},
+\code{\link[=with_brand_yml_path]{with_brand_yml_path()}}
 }
 \concept{brand.yml helpers}

@@ -103,8 +103,8 @@
     Code
       as_brand_yml(list(typography = list(headings = list(color = 42))))
     Condition
-      Error in `check_list()`:
-      ! `typography.headings.color` must be a single string or `NULL`, not the number 42.
+      Error in `brand_color_check_value()`:
+      ! `typography.headings.color` must be a single string, not the number 42.
 
 # brand.typography CSS fonts
 

@@ -48,6 +48,8 @@
 #'   `brand.color.palette.accent`. If provided directly, this value can be a
 #'   valid R color or the name of a color in `brand.color` or
 #'   `brand.color.palette`.
+#' @param color_mode The color mode to use when a brand color has light and dark
+#'   variants. Either `"light"` (the default) or `"dark"`.
 #' @param ... Reserved for future use.
 #' @param base_size Base font size in points. Used for the `size` property of
 #'   [ggplot2::element_text()] in the `text` theme element.
@@ -120,32 +122,91 @@ theme_brand_ggplot2 <- function(
   panel_grid_major_color = NULL,
   panel_grid_minor_color = NULL,
   axis_text_color = NULL,
-  plot_caption_color = NULL
+  plot_caption_color = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("ggplot2")
   check_installed("prismatic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
-  # fmt: skip
-  {
-  background_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  foreground_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color     <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
-  title_color      <- brand_color_maybe_pluck(brand, title_color)
-  line_color       <- brand_color_maybe_pluck(brand, line_color)
-  rect_fill        <- brand_color_maybe_pluck(brand, rect_fill)
-  text_color       <- brand_color_maybe_pluck(brand, text_color)
-  plot_background_fill   <- brand_color_maybe_pluck(brand, plot_background_fill)
-  panel_background_fill  <- brand_color_maybe_pluck(brand, panel_background_fill)
-  panel_grid_major_color <- brand_color_maybe_pluck(brand, panel_grid_major_color)
-  panel_grid_minor_color <- brand_color_maybe_pluck(brand, panel_grid_minor_color)
-  axis_text_color        <- brand_color_maybe_pluck(brand, axis_text_color)
-  plot_caption_color     <- brand_color_maybe_pluck(brand, plot_caption_color)
-  }
+  background_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
+  )
+  foreground_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand,
+    accent,
+    "accent",
+    "primary",
+    color_mode = color_mode
+  )
+  title_color <- brand_color_maybe_pluck(
+    brand,
+    title_color,
+    color_mode = color_mode
+  )
+  line_color <- brand_color_maybe_pluck(
+    brand,
+    line_color,
+    color_mode = color_mode
+  )
+  rect_fill <- brand_color_maybe_pluck(
+    brand,
+    rect_fill,
+    color_mode = color_mode
+  )
+  text_color <- brand_color_maybe_pluck(
+    brand,
+    text_color,
+    color_mode = color_mode
+  )
+  plot_background_fill <- brand_color_maybe_pluck(
+    brand,
+    plot_background_fill,
+    color_mode = color_mode
+  )
+  panel_background_fill <- brand_color_maybe_pluck(
+    brand,
+    panel_background_fill,
+    color_mode = color_mode
+  )
+  panel_grid_major_color <- brand_color_maybe_pluck(
+    brand,
+    panel_grid_major_color,
+    color_mode = color_mode
+  )
+  panel_grid_minor_color <- brand_color_maybe_pluck(
+    brand,
+    panel_grid_minor_color,
+    color_mode = color_mode
+  )
+  axis_text_color <- brand_color_maybe_pluck(
+    brand,
+    axis_text_color,
+    color_mode = color_mode
+  )
+  plot_caption_color <- brand_color_maybe_pluck(
+    brand,
+    plot_caption_color,
+    color_mode = color_mode
+  )
 
-  # Create blend function for intermediate colors
-  blend <- color_blender(foreground_color, background_color)
+  blend <- if (!is.null(foreground_color) && !is.null(background_color)) {
+    color_blender(foreground_color, background_color)
+  }
+  blend_or_null <- function(alpha) {
+    if (!is.null(blend)) blend(alpha)
+  }
 
   # TODO: ggplot2 fonts
   # text_font <- brand_pluck(brand, "typography", "base", "family")
@@ -157,11 +218,9 @@ theme_brand_ggplot2 <- function(
   # text_font_size <- text_font_size %||% 11
   # title_font_size <- text_font_size * 1.2
 
-  theme <- ggplot2::theme(
-    line = ggplot2::element_line(color = line_color %||% blend(0.2)),
-    rect = ggplot2::element_rect(fill = rect_fill %||% background_color),
+  theme_args <- list(
     text = ggplot2::element_text(
-      color = text_color %||% blend(0.1),
+      color = text_color %||% blend_or_null(0.1),
       # TODO: ggplot2 fonts
       # family = text_font,
       size = base_size
@@ -172,46 +231,79 @@ theme_brand_ggplot2 <- function(
       # family = title_font,
       size = title_size
     ),
-    plot.background = ggplot2::element_rect(
-      fill = plot_background_fill %||% background_color,
-      color = plot_background_fill %||% background_color
-    ),
-    panel.background = ggplot2::element_rect(
-      fill = panel_background_fill %||% background_color,
-      color = panel_background_fill %||% background_color
-    ),
-    panel.grid.major = ggplot2::element_line(
-      color = panel_grid_major_color %||% blend(0.85),
-      inherit.blank = TRUE
-    ),
-    panel.grid.minor = ggplot2::element_line(
-      color = panel_grid_minor_color %||% blend(0.9),
-      inherit.blank = TRUE
-    ),
     axis.title = ggplot2::element_text(size = title_size * 0.8),
-    axis.ticks = ggplot2::element_line(
-      color = panel_grid_major_color %||% blend(0.85)
-    ),
-    axis.text = ggplot2::element_text(color = axis_text_color %||% blend(0.4)),
     legend.key = ggplot2::element_rect(fill = "transparent", colour = NA),
     plot.caption = ggplot2::element_text(
       size = base_size * 0.8,
-      color = plot_caption_color %||% blend(0.3)
+      color = plot_caption_color %||% blend_or_null(0.3)
     )
   )
 
-  if (utils::packageVersion("ggplot2") >= "4.0.0") {
-    theme <- theme +
-      ggplot2::theme(
-        geom = ggplot2::element_geom(
-          ink = foreground_color,
-          paper = background_color,
-          accent = accent_color
-        )
-      )
+  line_color <- line_color %||% blend_or_null(0.2)
+  if (!is.null(line_color)) {
+    theme_args$line <- ggplot2::element_line(color = line_color)
   }
 
-  theme
+  rect_fill <- rect_fill %||% background_color
+  if (!is.null(rect_fill)) {
+    theme_args$rect <- ggplot2::element_rect(fill = rect_fill)
+  }
+
+  plot_background_fill <- plot_background_fill %||% background_color
+  if (!is.null(plot_background_fill)) {
+    theme_args$plot.background <- ggplot2::element_rect(
+      fill = plot_background_fill,
+      color = plot_background_fill
+    )
+  }
+
+  panel_background_fill <- panel_background_fill %||% background_color
+  if (!is.null(panel_background_fill)) {
+    theme_args$panel.background <- ggplot2::element_rect(
+      fill = panel_background_fill,
+      color = panel_background_fill
+    )
+  }
+
+  panel_grid_major_color <- panel_grid_major_color %||% blend_or_null(0.85)
+  if (!is.null(panel_grid_major_color)) {
+    theme_args$panel.grid.major <- ggplot2::element_line(
+      color = panel_grid_major_color,
+      inherit.blank = TRUE
+    )
+    theme_args$axis.ticks <- ggplot2::element_line(
+      color = panel_grid_major_color
+    )
+  }
+
+  panel_grid_minor_color <- panel_grid_minor_color %||% blend_or_null(0.9)
+  if (!is.null(panel_grid_minor_color)) {
+    theme_args$panel.grid.minor <- ggplot2::element_line(
+      color = panel_grid_minor_color,
+      inherit.blank = TRUE
+    )
+  }
+
+  axis_text_color <- axis_text_color %||% blend_or_null(0.4)
+  if (!is.null(axis_text_color)) {
+    theme_args$axis.text <- ggplot2::element_text(color = axis_text_color)
+  }
+
+  if (utils::packageVersion("ggplot2") >= "4.0.0") {
+    geom_args <- Filter(
+      Negate(is.null),
+      list(
+        ink = foreground_color,
+        paper = background_color,
+        accent = accent_color
+      )
+    )
+    if (length(geom_args) > 0) {
+      theme_args$geom <- do.call(ggplot2::element_geom, geom_args)
+    }
+  }
+
+  do.call(ggplot2::theme, theme_args)
 }
 
 
@@ -258,21 +350,47 @@ theme_brand_thematic <- function(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 ) {
   check_installed("thematic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  bg_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand,
+    accent,
+    "accent",
+    "primary",
+    color_mode = color_mode
+  )
 
-  thematic::thematic_theme(
-    bg = bg_color,
-    fg = fg_color,
-    accent = accent_color,
-    ...
+  do.call(
+    thematic::thematic_theme,
+    c(
+      list(...),
+      Filter(
+        Negate(is.null),
+        list(
+          bg = bg_color,
+          fg = fg_color,
+          accent = accent_color
+        )
+      )
+    )
   )
 }
 
@@ -284,21 +402,47 @@ theme_brand_thematic_on <- function(
   background = NULL,
   foreground = NULL,
   accent = NULL,
-  ...
+  ...,
+  color_mode = c("light", "dark")
 ) {
   check_installed("thematic")
+  color_mode <- arg_match(color_mode)
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
+  bg_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand,
+    accent,
+    "accent",
+    "primary",
+    color_mode = color_mode
+  )
 
-  thematic::thematic_on(
-    bg = bg_color,
-    fg = fg_color,
-    accent = accent_color,
-    ...
+  do.call(
+    thematic::thematic_on,
+    c(
+      list(...),
+      Filter(
+        Negate(is.null),
+        list(
+          bg = bg_color,
+          fg = fg_color,
+          accent = accent_color
+        )
+      )
+    )
   )
 }
 
@@ -354,9 +498,11 @@ theme_brand_flextable <- function(
   table,
   brand = NULL,
   background = NULL,
-  foreground = NULL
+  foreground = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("flextable")
+  color_mode <- arg_match(color_mode)
   if (!inherits(table, "flextable")) {
     cli::cli_abort(
       "{.var table} must be a flextable object, not {.obj_type_friendly {table}}."
@@ -365,11 +511,25 @@ theme_brand_flextable <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
+  bg_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
+  )
+  fg_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
 
-  table <- flextable::bg(table, bg = bg_color, part = "all")
-  table <- flextable::color(table, color = fg_color, part = "all")
+  if (!is.null(bg_color)) {
+    table <- flextable::bg(table, bg = bg_color, part = "all")
+  }
+  if (!is.null(fg_color)) {
+    table <- flextable::color(table, color = fg_color, part = "all")
+  }
   flextable::autofit(table)
 }
 
@@ -424,9 +584,11 @@ theme_brand_gt <- function(
   table,
   brand = NULL,
   background = NULL,
-  foreground = NULL
+  foreground = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("gt")
+  color_mode <- arg_match(color_mode)
   if (!inherits(table, "gt_tbl")) {
     cli::cli_abort(
       "{.var table} must be a gt table object, not {.obj_type_friendly {table}}."
@@ -435,14 +597,30 @@ theme_brand_gt <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-
-  gt::tab_options(
-    table,
-    table.background.color = bg_color,
-    table.font.color = fg_color
+  bg_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
   )
+  fg_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
+
+  options <- Filter(
+    Negate(is.null),
+    list(
+      table.background.color = bg_color,
+      table.font.color = fg_color
+    )
+  )
+  if (length(options) == 0) {
+    return(table)
+  }
+  do.call(gt::tab_options, c(list(table), options))
 }
 
 
@@ -493,9 +671,11 @@ theme_brand_plotly <- function(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  color_mode = c("light", "dark")
 ) {
   check_installed("plotly")
+  color_mode <- arg_match(color_mode)
   if (!inherits(plot, "plotly")) {
     cli::cli_abort(
       "{.var plot} must be a plotly object, not {.obj_type_friendly {plot}}."
@@ -504,16 +684,37 @@ theme_brand_plotly <- function(
 
   brand <- resolve_brand_yml(brand)
 
-  bg_color <- brand_color_maybe_pluck(brand, background, "background", "black")
-  fg_color <- brand_color_maybe_pluck(brand, foreground, "foreground", "white")
-  accent_color <- brand_color_maybe_pluck(brand, accent, "accent", "primary")
-
-  plot <- plotly::layout(
-    plot,
-    paper_bgcolor = bg_color,
-    plot_bgcolor = bg_color,
-    font = list(color = fg_color)
+  bg_color <- brand_color_maybe_pluck(
+    brand,
+    background,
+    "background",
+    color_mode = color_mode
   )
+  fg_color <- brand_color_maybe_pluck(
+    brand,
+    foreground,
+    "foreground",
+    color_mode = color_mode
+  )
+  accent_color <- brand_color_maybe_pluck(
+    brand,
+    accent,
+    "accent",
+    "primary",
+    color_mode = color_mode
+  )
+
+  layout_args <- list()
+  if (!is.null(bg_color)) {
+    layout_args$paper_bgcolor <- bg_color
+    layout_args$plot_bgcolor <- bg_color
+  }
+  if (!is.null(fg_color)) {
+    layout_args$font <- list(color = fg_color)
+  }
+  if (length(layout_args) > 0) {
+    plot <- do.call(plotly::layout, c(list(plot), layout_args))
+  }
 
   if (!is.null(accent_color)) {
     plot <- plotly::layout(
@@ -527,27 +728,21 @@ theme_brand_plotly <- function(
 
 # Helpers ---------------------------------------------------------------------
 
-brand_color_maybe_pluck <- function(brand, value, ...) {
-  # Try brand color directly
-  color <- brand_pluck(brand, "color", value)
-  if (!is.null(color)) {
-    return(color)
-  }
+brand_color_maybe_pluck <- function(
+  brand,
+  value,
+  ...,
+  color_mode = c("light", "dark")
+) {
+  color_mode <- arg_match(color_mode)
 
-  # Try brand color palette
-  color <- brand_pluck(brand, "color", "palette", value)
-  if (!is.null(color)) {
-    return(color)
-  }
-
-  # Use explicit value if provided
   if (!is.null(value)) {
-    return(value)
+    return(brand_color_pluck(brand, value, color_mode = color_mode))
   }
 
   # Try fallback keys
   for (key in c(...)) {
-    color <- brand_color_pluck(brand, key)
+    color <- brand_color_pluck(brand, key, color_mode = color_mode)
     if (!is.null(color) && !identical(color, key)) {
       return(color)
     }

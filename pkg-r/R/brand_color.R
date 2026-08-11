@@ -26,12 +26,29 @@ brand_color_normalize <- function(brand) {
 }
 
 brand_color_check_fields <- function(color) {
-  ptype <- list(palette = "list")
-  for (theme_field in brand_color_fields_theme()) {
-    ptype[[theme_field]] <- "string"
+  # Check for unexpected fields
+  expected_fields <- c("palette", brand_color_fields_theme())
+  actual_fields <- names(color)
+  unexpected <- setdiff(actual_fields, expected_fields)
+  if (length(unexpected) > 0) {
+    abort(
+      sprintf(
+        "Unexpected fields in `color`: %s",
+        paste(sprintf("'%s'", unexpected), collapse = ", ")
+      )
+    )
   }
 
-  check_list(color, ptype, "color")
+  # Validate each theme field separately (can be string or light/dark list)
+  for (theme_field in brand_color_fields_theme()) {
+    field_value <- color[[theme_field]]
+    if (!is.null(field_value)) {
+      brand_color_check_value(
+        field_value,
+        arg = sprintf("color.%s", theme_field)
+      )
+    }
+  }
 
   if (!is.null(color$palette)) {
     check_is_list(color$palette, all_named = TRUE, arg = "color.palette")
@@ -43,6 +60,44 @@ brand_color_check_fields <- function(color) {
       )
     }
   }
+}
+
+brand_color_check_value <- function(value, arg) {
+  if (!is.list(value)) {
+    check_string(value, arg = arg)
+    return(invisible(value))
+  }
+
+  valid_keys <- c("light", "dark")
+  actual_keys <- names(value)
+  invalid_keys <- setdiff(actual_keys, valid_keys)
+
+  if (length(invalid_keys) > 0) {
+    abort(
+      sprintf(
+        "`%s` has invalid keys: %s. Only 'light' and 'dark' are allowed.",
+        arg,
+        paste(sprintf("'%s'", invalid_keys), collapse = ", ")
+      )
+    )
+  }
+
+  if (length(actual_keys) == 0) {
+    abort(
+      sprintf(
+        "`%s` must have at least one of 'light' or 'dark' keys.",
+        arg
+      )
+    )
+  }
+
+  for (variant in intersect(valid_keys, actual_keys)) {
+    if (!is_string(value[[variant]])) {
+      abort(sprintf("`%s.%s` must be a string.", arg, variant))
+    }
+  }
+
+  invisible(value)
 }
 
 brand_color_fields_theme <- function() {
@@ -57,7 +112,8 @@ brand_color_fields_theme <- function() {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "link"
   )
 }
 
@@ -108,13 +164,32 @@ brand_color_fields_theme <- function() {
 #'
 #' @inheritParams brand_has
 #' @param key A character string representing the color key to extract.
+#' @param color_mode Which color mode to use when extracting colors with
+#'   light/dark variants. Can be one of:
+#'   * `"auto"` (default): Returns the full light/dark structure if present, or
+#'     the scalar color otherwise.
+#'   * `"light"`: Extracts the light mode value. If the color is a scalar, uses
+#'     it as the light value.
+#'   * `"dark"`: Extracts the dark mode value. If the color is a scalar, uses
+#'     it as the dark value.
+#'   * `"light-dark"`: Returns a list with both `light` and `dark` values. If
+#'     the color is scalar, returns it for both modes.
 #'
-#' @return The resolved color value (typically a hex color code) if the key
-#'   exists, otherwise returns the key itself.
+#' @return The resolved color value. Depending on `color_mode`:
+#'   * `"auto"`: a string or a list with `light` and `dark` elements
+#'   * `"light"` or `"dark"`: a string or `NULL` when that variant is undefined
+#'   * `"light-dark"`: a list with `light` and `dark` elements
+#'   Returns the key itself if the color doesn't exist.
 #'
 #' @family brand.yml helpers
 #' @export
-brand_color_pluck <- function(brand, key) {
+brand_color_pluck <- function(
+  brand,
+  key,
+  color_mode = c("auto", "light", "dark", "light-dark")
+) {
+  color_mode <- arg_match(color_mode)
+
   if (!brand_has(brand, "color")) {
     return(key)
   }
@@ -124,9 +199,7 @@ brand_color_pluck <- function(brand, key) {
   palette <- brand[["color"]][["palette"]] %||% list()
 
   key_og <- key
-  visited <- c()
-
-  cycle <- function(key) {
+  cycle <- function(visited, key) {
     path <- c(visited, key)
     if (length(path) > 10) {
       path <- c(path[1:2], "...", path[-(1:(length(path) - 2))])
@@ -134,7 +207,7 @@ brand_color_pluck <- function(brand, key) {
     paste(path, collapse = " -> ")
   }
 
-  assert_no_cycles <- function(key) {
+  assert_no_cycles <- function(key, visited) {
     if (key %in% visited) {
       abort(
         c(
@@ -142,11 +215,10 @@ brand_color_pluck <- function(brand, key) {
             "Cyclic references detected in `brand.color` for color '%s'.",
             key_og
           ),
-          "i" = cycle(key)
+          "i" = cycle(visited, key)
         )
       )
     }
-    visited <<- c(visited, key)
   }
 
   check_string_or_null <- function(key, value) {
@@ -161,22 +233,20 @@ brand_color_pluck <- function(brand, key) {
   }
 
   p_key <- function(key) paste0("palette.", key)
-  value <- ""
-  i <- 0
-  while (!identical(value, key)) {
-    if (is.null(key) || is.null(value)) {
+
+  resolve <- function(key, mode, visited = character(), depth = 0) {
+    if (is.null(key)) {
       return()
     }
 
-    i <- i + 1
-    if (i > 100) {
+    if (depth > 100) {
       abort(
         c(
           sprintf(
             "Max recursion limit reached while trying to resolve color '%s' using `brand.color`.",
             key_og
           ),
-          i = cycle(key)
+          i = cycle(visited, key)
         )
       )
     }
@@ -187,15 +257,69 @@ brand_color_pluck <- function(brand, key) {
 
     if (in_pal && !in_theme_unseen) {
       # Prioritize palette if theme was already visited
-      assert_no_cycles(p_key(key))
-      key <- check_string_or_null(p_key(key), palette[[key]])
-    } else if (in_theme) {
-      assert_no_cycles(key)
-      key <- check_string_or_null(key, theme_colors[[key]])
-    } else {
-      value <- key
+      node <- p_key(key)
+      assert_no_cycles(node, visited)
+      value <- check_string_or_null(node, palette[[key]])
+      return(resolve(value, mode, c(visited, node), depth + 1))
     }
+
+    if (!in_theme) {
+      return(key)
+    }
+
+    assert_no_cycles(key, visited)
+    visited <- c(visited, key)
+    value <- theme_colors[[key]]
+
+    if (!is.list(value)) {
+      value <- check_string_or_null(key, value)
+      return(resolve(value, mode, visited, depth + 1))
+    }
+
+    if (mode == "auto") {
+      light <- if (!is.null(value$light)) {
+        resolve(value$light, "light", visited, depth + 1)
+      }
+      dark <- if (!is.null(value$dark)) {
+        resolve(value$dark, "dark", visited, depth + 1)
+      }
+      if (is.null(light) && is.null(dark)) {
+        return()
+      }
+      return(as_light_dark(light, dark))
+    }
+
+    resolve(value[[mode]], mode, visited, depth + 1)
   }
 
-  return(value)
+  resolve_mode <- if (color_mode == "light-dark") "auto" else color_mode
+  value <- resolve(key, resolve_mode)
+
+  if (color_mode == "light-dark" && !inherits(value, "light_dark")) {
+    return(as_light_dark(value, value))
+  }
+
+  value
+}
+
+brand_color_select <- function(
+  value,
+  color_mode = c("auto", "light", "dark", "light-dark")
+) {
+  color_mode <- arg_match(color_mode)
+  is_light_dark <- inherits(value, "light_dark") ||
+    is.list(value) && any(names(value) %in% c("light", "dark"))
+
+  if (!is_light_dark) {
+    if (color_mode == "light-dark") {
+      return(as_light_dark(value, value))
+    }
+    return(value)
+  }
+
+  if (color_mode %in% c("auto", "light-dark")) {
+    return(as_light_dark(value$light, value$dark))
+  }
+
+  value[[color_mode]]
 }

@@ -185,6 +185,35 @@ typography:
     color: danger
 ```
 
+### Light/Dark Typography Colors
+
+Typography `color` and `background-color` values can use light/dark mappings,
+just like theme colors. They can also reference a theme color that has
+light/dark variants.
+
+```{.yaml filename="_brand.yml"}
+color:
+  foreground:
+    light: "#151515"
+    dark: "#F7F7F7"
+  background:
+    light: "#FFFFFF"
+    dark: "#1A1A1A"
+
+typography:
+  headings:
+    color: foreground
+  monospace-inline:
+    color:
+      light: "#7D12BA"
+      dark: "#B794F6"
+    background-color: background
+```
+
+A scalar value works in both modes. A mapping may provide only `light` or
+`dark`; the missing mode keeps the value provided by the consuming theme.
+References inside a variant resolve only in that variant's color mode.
+
 ## Attributes
 
 ### fonts {#fonts}

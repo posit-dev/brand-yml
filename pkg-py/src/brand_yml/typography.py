@@ -52,6 +52,7 @@ from pydantic import (
 from ._utils import maybe_convert_font_size_to_rem
 from ._utils_docs import BaseDocAttributeModel, add_example_yaml
 from .base import BrandBase
+from .color import BrandColorType
 from .file import FileLocationLocal, FileLocationLocalOrUrlType
 
 # Types ------------------------------------------------------------------------
@@ -791,11 +792,12 @@ class BrandTypographyOptionsSize(BaseDocAttributeModel):
 
 
 class BrandTypographyOptionsColor(BaseDocAttributeModel):
-    color: str | None = None
+    color: BrandColorType | None = None
     """
     The color to be used for this typographic element. Can be any CSS-compatible
     color definition, but in general hexidecimal (`"#abc123") or `rgb()`
-    (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    (`rgb(171, 193, 35)`) are preferred and most widely compatible. Can also be
+    a light/dark variant with separate colors for light and dark modes.
     """
 
 
@@ -805,11 +807,14 @@ class BrandTypographyOptionsBackgroundColor(BaseModel):
         use_attribute_docstrings=True,
     )
 
-    background_color: str | None = Field(None, alias=str("background-color"))
+    background_color: BrandColorType | None = Field(
+        None, alias=str("background-color")
+    )
     """
     The background color to be used for this typographic element. Can be any
     CSS-compatible color definition, but in general hexidecimal (`"#abc123") or
-    `rgb()` (`rgb(171, 193, 35)`) are preferred and most widely compatible.
+    `rgb()` (`rgb(171, 193, 35)`) are preferred and most widely compatible. Can
+    also be a light/dark variant with separate colors for light and dark modes.
     """
 
 

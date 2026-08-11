@@ -115,6 +115,33 @@ describe("brand_color_pluck()", {
   })
 })
 
+describe("brand.color.link", {
+  it("resolves a scalar reference to another theme color", {
+    brand <- as_brand_yml(list(
+      color = list(
+        palette = list(purple = "#6339E0"),
+        primary = "purple",
+        link = "purple"
+      )
+    ))
+
+    expect_equal(brand_color_pluck(brand, "link"), "#6339E0")
+  })
+
+  it("accepts a light/dark mapping", {
+    brand <- as_brand_yml(list(
+      color = list(
+        link = list(light = "#0066cc", dark = "#66b2ff")
+      )
+    ))
+
+    link <- brand_color_pluck(brand, "link")
+    expect_s3_class(link, "light_dark")
+    expect_equal(link$light, "#0066cc")
+    expect_equal(link$dark, "#66b2ff")
+  })
+})
+
 test_that("brand.color is validated for unexpected fields and basic field structure", {
   expect_error(
     as_brand_yml(list(color = list(palette = "one"))),
@@ -145,4 +172,242 @@ test_that("brand.color is validated for unexpected fields and basic field struct
       sprintf("color[.]%s", key)
     )
   }
+})
+
+describe("brand_color light/dark variants", {
+  it("validates light/dark color structures", {
+    # Valid light/dark structure
+    brand <- as_brand_yml(list(
+      color = list(
+        foreground = list(light = "#111111", dark = "#fafafa")
+      )
+    ))
+    expect_true(inherits(brand, "brand_yml"))
+    expect_s3_class(brand$color$foreground, "character_light_dark")
+    expect_s3_class(brand$color$foreground, "light_dark")
+    expect_equal(brand$color$foreground$light, "#111111")
+    expect_equal(brand$color$foreground$dark, "#fafafa")
+  })
+
+  it("rejects light/dark structures with invalid keys", {
+    expect_error(
+      as_brand_yml(list(
+        color = list(
+          foreground = list(light = "#111", invalid = "#fff")
+        )
+      )),
+      "invalid keys.*'invalid'"
+    )
+  })
+
+  it("rejects empty light/dark structures", {
+    expect_error(
+      as_brand_yml(list(
+        color = list(
+          foreground = list()
+        )
+      )),
+      "must have at least one"
+    )
+  })
+
+  it("rejects non-string values in light/dark structures", {
+    expect_error(
+      as_brand_yml(list(
+        color = list(
+          foreground = list(light = 123, dark = "#fff")
+        )
+      )),
+      "must be a string"
+    )
+  })
+
+  it("rejects explicitly null values in light/dark structures", {
+    expect_error(
+      as_brand_yml(list(
+        color = list(
+          foreground = list(light = NULL, dark = "#fff")
+        )
+      )),
+      "color.foreground.light.*must be a string"
+    )
+  })
+
+  it("resolves light/dark color references", {
+    brand <- as_brand_yml(list(
+      color = list(
+        palette = list(
+          sky = "#87CEEB",
+          ocean = "#4A90A4"
+        ),
+        secondary = list(light = "sky", dark = "ocean")
+      )
+    ))
+
+    expect_s3_class(brand$color$secondary, "character_light_dark")
+    expect_s3_class(brand$color$secondary, "light_dark")
+    expect_equal(brand$color$secondary$light, "#87CEEB")
+    expect_equal(brand$color$secondary$dark, "#4A90A4")
+  })
+
+  it("brand_color_pluck() with color_mode='auto' returns light/dark structure", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111", dark = "#fff")
+      )
+    )
+
+    result <- brand_color_pluck(brand, "foreground", color_mode = "auto")
+    expect_s3_class(result, "character_light_dark")
+    expect_s3_class(result, "light_dark")
+    expect_equal(result$light, "#111")
+    expect_equal(result$dark, "#fff")
+  })
+
+  it("brand_color_pluck() with color_mode='light' returns light value", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111", dark = "#fff")
+      )
+    )
+
+    result <- brand_color_pluck(brand, "foreground", color_mode = "light")
+    expect_equal(result, "#111")
+  })
+
+  it("brand_color_pluck() with color_mode='dark' returns dark value", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111", dark = "#fff")
+      )
+    )
+
+    result <- brand_color_pluck(brand, "foreground", color_mode = "dark")
+    expect_equal(result, "#fff")
+  })
+
+  it("brand_color_pluck() with color_mode='light-dark' returns both", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111", dark = "#fff")
+      )
+    )
+
+    result <- brand_color_pluck(brand, "foreground", color_mode = "light-dark")
+    expect_s3_class(result, "character_light_dark")
+    expect_s3_class(result, "light_dark")
+    expect_equal(result$light, "#111")
+    expect_equal(result$dark, "#fff")
+  })
+
+  it("brand_color_pluck() promotes scalar to light-dark with color_mode='light-dark'", {
+    brand <- list(
+      color = list(
+        primary = "#6339E0"
+      )
+    )
+
+    result <- brand_color_pluck(brand, "primary", color_mode = "light-dark")
+    expect_s3_class(result, "character_light_dark")
+    expect_s3_class(result, "light_dark")
+    expect_equal(result$light, "#6339E0")
+    expect_equal(result$dark, "#6339E0")
+  })
+
+  it("brand_color_pluck() with color_mode='light' uses scalar for light", {
+    brand <- list(
+      color = list(
+        primary = "#6339E0"
+      )
+    )
+
+    result <- brand_color_pluck(brand, "primary", color_mode = "light")
+    expect_equal(result, "#6339E0")
+  })
+
+  it("brand_color_pluck() with color_mode='dark' uses scalar for dark", {
+    brand <- list(
+      color = list(
+        primary = "#6339E0"
+      )
+    )
+
+    result <- brand_color_pluck(brand, "primary", color_mode = "dark")
+    expect_equal(result, "#6339E0")
+  })
+
+  it("brand_color_pluck() preserves an undefined light or dark mode", {
+    brand <- list(
+      color = list(
+        foreground = list(light = "#111")
+      )
+    )
+
+    # Light mode: returns light value
+    expect_equal(
+      brand_color_pluck(brand, "foreground", color_mode = "light"),
+      "#111"
+    )
+
+    expect_null(brand_color_pluck(brand, "foreground", color_mode = "dark"))
+  })
+
+  it("resolves light/dark references in the current variant context", {
+    brand <- list(
+      color = list(
+        primary = list(light = "#111", dark = "#eee"),
+        secondary = list(light = "primary", dark = "primary"),
+        tertiary = "primary"
+      )
+    )
+
+    secondary <- brand_color_pluck(brand, "secondary")
+    expect_equal(secondary$light, "#111")
+    expect_equal(secondary$dark, "#eee")
+
+    expect_equal(
+      brand_color_pluck(brand, "tertiary", color_mode = "light"),
+      "#111"
+    )
+    expect_equal(
+      brand_color_pluck(brand, "tertiary", color_mode = "dark"),
+      "#eee"
+    )
+  })
+
+  it("does not resolve a missing reference variant in the other mode", {
+    brand <- list(
+      color = list(
+        primary = list(light = "#111", dark = "#eee"),
+        secondary = list(light = "primary")
+      )
+    )
+
+    expect_null(brand_color_pluck(brand, "secondary", color_mode = "dark"))
+  })
+
+  it("removes a reference with no resolved variants", {
+    brand <- as_brand_yml(list(
+      color = list(
+        primary = list(dark = "#eee"),
+        secondary = list(light = "primary")
+      )
+    ))
+
+    expect_null(brand$color$secondary)
+  })
+
+  it("detects cycles through light/dark references", {
+    brand <- list(
+      color = list(
+        primary = list(light = "secondary", dark = "#eee"),
+        secondary = list(light = "primary", dark = "#ddd")
+      )
+    )
+
+    expect_error(
+      brand_color_pluck(brand, "primary", color_mode = "light"),
+      "primary -> secondary -> primary"
+    )
+  })
 })
