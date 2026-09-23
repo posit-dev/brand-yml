@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>typography – brand.yml</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -74,10 +80,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d9ba53a9c8b69c20ae55cb87ba696a21.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0f05cba98e93abd5bfacabf37e46c573.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-36489fe9f95e83378e31b3375ef0b6a4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0f05cba98e93abd5bfacabf37e46c573.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a136562f70550e23e65e4acd68dba3ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -148,7 +158,8 @@ cookieconsent.run({
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo">
+    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo light-content">
+    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">brand.yml</span>
@@ -161,7 +172,7 @@ cookieconsent.run({
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -263,7 +274,8 @@ cookieconsent.run({
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../logos/wide/brand-yml-wide-color.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../../logos/wide/brand-yml-wide-color.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../logos/wide/brand-yml-wide-color.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
@@ -391,13 +403,13 @@ cookieconsent.run({
 
 <section id="brand_yml.BrandTypography" class="level1">
 <h1>BrandTypography</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandTypography(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BrandTypography(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Represents the typographic choices of a brand.</p>
 <p>This class defines the structure and behavior of typography settings, including fonts, base text, headings, monospace text, and links.</p>
 <section id="examples" class="level2 doc-section doc-section-examples">
 <h2 class="doc-section doc-section-examples anchored" data-anchor-id="examples">Examples</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Minimal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Minimal with System Font</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Simple</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">With Fonts</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">With Color</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Minimal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Minimal with System Font</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Simple</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">With Fonts</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">With Color</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>This minimal example chooses only the font family for the base text, headings and monospace. These fonts will be sourced, by default, from <a href="https://fonts.google.com">Google Fonts</a>.</p>
@@ -405,10 +417,10 @@ cookieconsent.run({
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="sourceCode" id="cb2" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span><span class="at"> Roboto Slab</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> Fira Code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> Fira Code</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -417,13 +429,13 @@ cookieconsent.run({
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="sourceCode" id="cb3" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> system</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span><span class="at"> Roboto Slab</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> Fira Code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span><span class="at"> Fira Code</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
@@ -432,7 +444,7 @@ cookieconsent.run({
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="sourceCode" id="cb4" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> blue</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">base</span><span class="kw">:</span></span>
@@ -445,7 +457,7 @@ cookieconsent.run({
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> semi-bold</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
@@ -460,7 +472,7 @@ cookieconsent.run({
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="sourceCode" id="cb5" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> </span><span class="st">'#f24242'</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
@@ -505,7 +517,7 @@ cookieconsent.run({
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
@@ -514,7 +526,7 @@ cookieconsent.run({
 <div class="code-with-filename-file">
 <pre><strong>_brand.yml</strong></pre>
 </div>
-<div class="sourceCode" id="cb6" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="_brand.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red</span><span class="kw">:</span><span class="at"> </span><span class="st">'#FF6F61'</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> </span><span class="st">'#87CEEB'</span></span>
@@ -533,7 +545,7 @@ cookieconsent.run({
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> foreground</span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> background</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> danger</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> danger</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -544,7 +556,7 @@ cookieconsent.run({
 <dl>
 <dt>fonts</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyFontFamily">BrandTypographyFontFamily</a>]</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#list">list</a>[<a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyFontFamily">BrandTypographyFontFamily</a>]</p>
 <p>A list of font family definitions. Each definition in the list describes a font family that is available to the brand. Fonts may be stored in files (either adjacent to <code>_brand.yml</code> or hosted online) or may be provided by <a href="https://fonts.google.com/">Google Fonts</a> or <a href="https://fonts.bunny.net/">Font Bunny</a> (a GDPR-compliant Google Fonts alternative).</p>
 </dd>
 <dt>base</dt>
@@ -605,7 +617,7 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.BrandTypography.fonts_css_include" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.BrandTypography.fonts_css_include">fonts_css_include</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_css_include()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_css_include()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Generates CSS include statements for the defined fonts.</p>
 <p>This method creates CSS <code>@import</code> or <code>@font-face</code> rules for all fonts defined in the typography configuration.</p>
 <section id="returns" class="level4 doc-section doc-section-returns">
@@ -621,7 +633,7 @@ cookieconsent.run({
 <tbody>
 <tr class="odd">
 <td></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a></td>
 <td>A string containing CSS include statements for all defined fonts.</td>
 </tr>
 </tbody>
@@ -630,25 +642,25 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.BrandTypography.fonts_html_dependency" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.BrandTypography.fonts_html_dependency">fonts_html_dependency</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_html_dependency(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_html_dependency(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    path_dir,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'brand-fonts'</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">'0.0.1'</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Generate an HTMLDependency for the font CSS and font files.</p>
 <p>This method creates an <a href="https://shiny.posit.co/py/api/core/Htmltools.html#htmltools.HTMLDependency">HTMLDependency object</a> for the font CSS file and supporting font files written by the <a href="../../pkg/py/typography.html#brand_yml.BrandTypography.fonts_html_dependency"><code>.fonts_html_dependency()</code></a> method. It’s useful for integrating the font styles into web or <a href="https://shiny.posit.co/py">Shiny</a> applications that use <a href="https://pypi.org/project/htmltools/">htmltools</a>.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
+<dt><code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
 <dd>
 <p>The directory path where the CSS file will be written.</p>
 </dd>
-<dt><code><span class="parameter-name">name</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘brand-fonts’</span></code></dt>
+<dt><code><span class="parameter-name">name</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘brand-fonts’</span></code></dt>
 <dd>
 <p>The name of the dependency. Defaults to “brand-fonts”.</p>
 </dd>
-<dt><code><span class="parameter-name">version</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘0.0.1’</span></code></dt>
+<dt><code><span class="parameter-name">version</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘0.0.1’</span></code></dt>
 <dd>
 <p>The version of the dependency. Defaults to “0.0.1”.</p>
 </dd>
@@ -681,17 +693,17 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.BrandTypography.fonts_write_css" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.BrandTypography.fonts_write_css">fonts_write_css</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_write_css(path_dir, file_css<span class="op">=</span><span class="st">'fonts.css'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BrandTypography.fonts_write_css(path_dir, file_css<span class="op">=</span><span class="st">'fonts.css'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Writes <code>fonts.css</code> into a directory, with copies of local fonts.</p>
 <p>Writes a <code>fonts.css</code> file (or <code>file_css</code>) into <code>path_dir</code> and copies any local fonts into the directory as well.</p>
 <section id="parameters-1" class="level4 doc-section doc-section-parameters">
 <h4 class="doc-section doc-section-parameters anchored" data-anchor-id="parameters-1">Parameters</h4>
 <dl>
-<dt><code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
+<dt><code><span class="parameter-name">path_dir</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span></code></dt>
 <dd>
 <p>Path to the directory with the CSS file and copies of the local fonts should be written. If it does not exist it will be created.</p>
 </dd>
-<dt><code><span class="parameter-name">file_css</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘fonts.css’</span></code></dt>
+<dt><code><span class="parameter-name">file_css</span><span class="parameter-annotation-sep">:</span> <span class="parameter-annotation"><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a></span> <span class="parameter-default-sep">=</span> <span class="parameter-default">‘fonts.css’</span></code></dt>
 <dd>
 <p>The name of the CSS file with the font <code>@import</code> and <code>@font-face</code> rules should be written.</p>
 </dd>
@@ -809,7 +821,7 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.typography.BrandTypographyFontSource" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontSource">BrandTypographyFontSource</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A base class representing a font source.</p>
 <p>This class serves as a template for various font sources, encapsulating common properties and behaviors.</p>
 <section id="attributes-2" class="level4">
@@ -851,19 +863,19 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.typography.BrandTypographyFontSource.to_css" class="level5">
 <h5 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontSource.to_css">to_css</h5>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource.to_css()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontSource.to_css()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Create the CSS declarations needed to use the font family.</p>
 </section>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyFontFiles" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontFiles">BrandTypographyFontFiles</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontFiles(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontFiles(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A font family defined by a collection of font files.</p>
 <p>This class represents a font family that is specified using individual font files, either from local files or files hosted online. A font family is generally composed of multiple font files for different weights and styles within the same family. Currently, TrueType (<code>.ttf</code>), OpenType (<code>.otf</code>), and WOFF (<code>.woff</code> or <code>.woff2</code>) formats are supported.</p>
 <section id="examples-1" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-1">Examples</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # Local font files</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Open Sans</span></span>
@@ -879,12 +891,12 @@ cookieconsent.run({
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">path</span><span class="kw">:</span><span class="at"> https://example.com/Closed-Sans-Bold.woff2</span></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> bold</span></span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> </span><span class="fu">path</span><span class="kw">:</span><span class="at"> https://example.com/Closed-Sans-Italic.woff2</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">style</span><span class="kw">:</span><span class="at"> italic</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">style</span><span class="kw">:</span><span class="at"> italic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyFontGoogle" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontGoogle">BrandTypographyFontGoogle</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontGoogle(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontGoogle(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A font family provided by Google Fonts.</p>
 <p>This class represents a font family that is sourced from Google Fonts. It allows you to specify the font family name, weight range, and style.</p>
 <p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
@@ -896,24 +908,24 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.typography.BrandTypographyFontBunny" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyFontBunny">BrandTypographyFontBunny</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontBunny(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyFontBunny(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A font family provided by Bunny Fonts.</p>
 <p>This class represents a font family that is sourced from Bunny Fonts. It allows you to specify the font family name, weight range, and style.</p>
 <p>Subclass of <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyGoogleFontsApi"><code>brand_yml.typography.BrandTypographyGoogleFontsApi</code></a>, the generic Google Fonts API font source.</p>
 <section id="examples-3" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-3">Examples</h4>
 <p>In this example, the Fira Code font is sourced from Bunny Fonts. By default all available weights and styles will be used.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> bunny</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">      # weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # style: [normal, italic]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">      # style: [normal, italic]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsApi" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsApi">BrandTypographyGoogleFontsApi</h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>A font source that utilizes the Google Fonts (or a compatible) API.</p>
 <p>This class provides a way to fetch and manage typography assets from Google Fonts, allowing for easy integration with brand-specific typographic styles.</p>
 <section id="attributes-3" class="level4">
@@ -967,14 +979,14 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsApi.to_import_url" class="level5">
 <h5 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsApi.to_import_url">to_import_url</h5>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi.to_import_url()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsApi.to_import_url()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Returns the URL for the font family to be used in a CSS <code>@import</code> statement.</p>
 </section>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange">BrandTypographyGoogleFontsWeightRange</h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange(root<span class="op">=</span>PydanticUndefined, <span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Represents a range of font weights for Google Fonts.</p>
 <p>This class is used to specify a continuous range of font weights to be imported from Google Fonts for variable fonts that support a range of font weights. The weight range is represented as a list of two integers, where the first integer is the start of the range and the second is the end.</p>
 <section id="examples-4" class="level4 doc-section doc-section-examples">
@@ -993,7 +1005,7 @@ cookieconsent.run({
 <dl>
 <dt>root</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<code>BrandTypographyFontWeightInt</code>]</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#list">list</a>[<code>BrandTypographyFontWeightInt</code>]</p>
 <p>A list containing two integers representing the start and end of the weight range.</p>
 </dd>
 </dl>
@@ -1016,7 +1028,7 @@ cookieconsent.run({
 </table>
 <section id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump" class="level5">
 <h5 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump">model_dump</h5>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange.model_dump(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyGoogleFontsWeightRange.model_dump(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    mode<span class="op">=</span><span class="st">'python'</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    include<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    exclude<span class="op">=</span><span class="va">None</span>,</span>
@@ -1030,23 +1042,24 @@ cookieconsent.run({
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    warnings<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    fallback<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    serialize_as_any<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    polymorphic_serialization<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>!!! abstract “Usage Documentation” <a href="../concepts/serialization.md#python-mode"><code>model_dump</code></a></p>
 <p>Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.</p>
-<p>Args: mode: The mode in which <code>to_python</code> should run. If mode is ‘json’, the output will only contain JSON serializable types. If mode is ‘python’, the output may contain non-JSON-serializable Python objects. include: A set of fields to include in the output. exclude: A set of fields to exclude from the output. context: Additional context to pass to the serializer. by_alias: Whether to use the field’s alias in the dictionary key if defined. exclude_unset: Whether to exclude fields that have not been explicitly set. exclude_defaults: Whether to exclude fields that are set to their default value. exclude_none: Whether to exclude fields that have a value of <code>None</code>. exclude_computed_fields: Whether to exclude computed fields. While this can be useful for round-tripping, it is usually recommended to use the dedicated <code>round_trip</code> parameter instead. round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T]. warnings: How to handle serialization errors. False/“none” ignores them, True/“warn” logs errors, “error” raises a [<code>PydanticSerializationError</code>][pydantic_core.PydanticSerializationError]. fallback: A function to call when an unknown value is encountered. If not provided, a [<code>PydanticSerializationError</code>][pydantic_core.PydanticSerializationError] error is raised. serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.</p>
+<p>Args: mode: The mode in which <code>to_python</code> should run. If mode is ‘json’, the output will only contain JSON serializable types. If mode is ‘python’, the output may contain non-JSON-serializable Python objects. include: A set of fields to include in the output. exclude: A set of fields to exclude from the output. context: Additional context to pass to the serializer. by_alias: Whether to use the field’s alias in the dictionary key if defined. exclude_unset: Whether to exclude fields that have not been explicitly set. exclude_defaults: Whether to exclude fields that are set to their default value. exclude_none: Whether to exclude fields that have a value of <code>None</code>. exclude_computed_fields: Whether to exclude computed fields. While this can be useful for round-tripping, it is usually recommended to use the dedicated <code>round_trip</code> parameter instead. round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T]. warnings: How to handle serialization errors. False/“none” ignores them, True/“warn” logs errors, “error” raises a [<code>PydanticSerializationError</code>][pydantic_core.PydanticSerializationError]. fallback: A function to call when an unknown value is encountered. If not provided, a [<code>PydanticSerializationError</code>][pydantic_core.PydanticSerializationError] error is raised. serialize_as_any: Whether to serialize fields with duck-typing serialization behavior. polymorphic_serialization: Whether to use model and dataclass polymorphic serialization for this call.</p>
 <p>Returns: A dictionary representation of the model.</p>
 </section>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyBase" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyBase">BrandTypographyBase</h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyBase(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyBase(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for base (or body) text.</p>
 <section id="notes" class="level4 doc-section doc-section-notes">
 <h4 class="doc-section doc-section-notes anchored" data-anchor-id="notes">Notes</h4>
 <p>In some cases, you may wish to convert the base font size to an appropriate unit, such as <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem"><code>rem</code></a> (i.e.&nbsp;a font size relative to the root element’s font size). Use <code>typography_base_size_unit</code> in <a href="https://docs.pydantic.dev/2.9/concepts/serialization/#serialization-context">pydantic’s serialization context</a> to request the units for the base font size. (Note that currently only <code>"rem"</code> is supported.)</p>
-<div id="0eeb8237" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
+<div id="072d20d5" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> brand_yml <span class="im">import</span> Brand</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>brand <span class="op">=</span> Brand.from_yaml_str(</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"""</span></span>
@@ -1059,7 +1072,7 @@ cookieconsent.run({
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>brand.typography.model_dump(</span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  exclude_none <span class="op">=</span> <span class="va">True</span>,</span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  context<span class="op">=</span>{<span class="st">"typography_base_size_unit"</span>: <span class="st">"rem"</span>}</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>{'fonts': [], 'base': {'size': '1.125rem'}}</code></pre>
 </div>
@@ -1070,7 +1083,7 @@ cookieconsent.run({
 <dl>
 <dt>family</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
@@ -1080,12 +1093,12 @@ cookieconsent.run({
 </dd>
 <dt>size</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the text. Should be a CSS length unit (e.g., 14px).</p>
 </dd>
 <dt>line_height</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/functions.html#float">float</a> | None</p>
 <p>The line height of the text. Line height refers to the vertical space between lines of text.</p>
 </dd>
 </dl>
@@ -1093,14 +1106,14 @@ cookieconsent.run({
 </section>
 <section id="brand_yml.typography.BrandTypographyHeadings" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyHeadings">BrandTypographyHeadings</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyHeadings(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyHeadings(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for headings and titles.</p>
 <section id="attributes-6" class="level4 doc-section doc-section-attributes">
 <h4 class="doc-section doc-section-attributes anchored" data-anchor-id="attributes-6">Attributes</h4>
 <dl>
 <dt>family</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font family used for headings. Note that this should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
@@ -1115,12 +1128,12 @@ cookieconsent.run({
 </dd>
 <dt>line_height</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/functions.html#float">float</a> | None</p>
 <p>The line height of the heading. Line height refers to the vertical space between lines of text.</p>
 </dd>
 <dt>color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The color of the text.</p>
 </dd>
 </dl>
@@ -1128,16 +1141,16 @@ cookieconsent.run({
 <section id="examples-5" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-5">Examples</h4>
 <p>This example sets up typography settings for headings using the Inter font at a weight of 600 and with a line height that is 1.2 times the font size.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode yml code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode yml code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">headings</span><span class="kw">:</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Inter</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">600</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line_height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line_height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospace" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospace">BrandTypographyMonospace</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospace(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospace(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for monospace text.</p>
 <p>This class defines general typography options for monospace text, typically used for code blocks and other programming-related content. These choices can be further refined for inline and block monospace text using <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceInline"><code>brand_yml.typography.BrandTypographyMonospaceInline</code></a> and <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospaceBlock"><code>brand_yml.typography.BrandTypographyMonospaceBlock</code></a> respectively.</p>
 <section id="attributes-7" class="level4 doc-section doc-section-attributes">
@@ -1145,7 +1158,7 @@ cookieconsent.run({
 <dl>
 <dt>family</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
@@ -1155,7 +1168,7 @@ cookieconsent.run({
 </dd>
 <dt>size</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 </dl>
@@ -1163,21 +1176,21 @@ cookieconsent.run({
 <section id="examples-6" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-6">Examples</h4>
 <p>This example sets up typography settings for monospace text using the Fira Code font at a slightly smaller size than the base text:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> bunny</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also specify additional properties like weight:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For more complex setups, you can define different styles for inline and block monospace text:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace</span><span class="kw">:</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span>
@@ -1186,12 +1199,12 @@ cookieconsent.run({
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#f8f9fa"</span><span class="co"> # light gray</span></span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace-block</span><span class="kw">:</span></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> foreground</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> background</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> background</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospaceInline" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceInline">BrandTypographyMonospaceInline</h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceInline(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceInline(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for inline monospace text.</p>
 <p>This class defines typography options for inline monospace text, typically used for code snippets or technical terms within regular text. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> with additional options for foreground and background colors.</p>
 <section id="attributes-8" class="level4 doc-section doc-section-attributes">
@@ -1199,7 +1212,7 @@ cookieconsent.run({
 <dl>
 <dt>family</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for inline monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
@@ -1209,17 +1222,17 @@ cookieconsent.run({
 </dd>
 <dt>size</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the inline monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 <dt>color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the inline monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 </dl>
@@ -1227,7 +1240,7 @@ cookieconsent.run({
 <section id="examples-7" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-7">Examples</h4>
 <p>This example sets up typography settings for inline monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> bunny</span></span>
@@ -1236,9 +1249,9 @@ cookieconsent.run({
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">size</span><span class="kw">:</span><span class="at"> 0.9em</span></span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace-inline</span><span class="kw">:</span></span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#7d12ba"</span><span class="co">  # purple</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#f8f9fa"</span><span class="co">  # light gray</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#f8f9fa"</span><span class="co">  # light gray</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also use color names defined in your brand’s color palette:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red-light</span><span class="kw">:</span><span class="at"> </span><span class="st">"#fff1f0"</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">primary</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FF6F61"</span></span>
@@ -1247,12 +1260,12 @@ cookieconsent.run({
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace-inline</span><span class="kw">:</span></span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> red</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> red-light</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> red-light</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyMonospaceBlock" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyMonospaceBlock">BrandTypographyMonospaceBlock</h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceBlock(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyMonospaceBlock(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for block monospace text.</p>
 <p>This class defines typography options for block monospace text, typically used for code blocks or other larger sections of monospaced content. It inherits properties from <a href="../../pkg/py/typography.html#brand_yml.typography.BrandTypographyMonospace"><code>brand_yml.typography.BrandTypographyMonospace</code></a> and adds options for line height, foreground color, and background color.</p>
 <section id="attributes-9" class="level4 doc-section doc-section-attributes">
@@ -1260,7 +1273,7 @@ cookieconsent.run({
 <dl>
 <dt>family</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font family to be used for block monospace text. Note that the font family name should match a resource in <code>typography.fonts</code>.</p>
 </dd>
 <dt>weight</dt>
@@ -1270,22 +1283,22 @@ cookieconsent.run({
 </dd>
 <dt>size</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The font size of the block monospace text. Should be a CSS length unit (e.g., “0.9em”, “14px”).</p>
 </dd>
 <dt>line_height</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/functions.html#float">float</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/functions.html#float">float</a> | None</p>
 <p>The line height of the block monospace text. Line height refers to the vertical space between lines of text.</p>
 </dd>
 <dt>color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the block monospace text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 </dl>
@@ -1293,7 +1306,7 @@ cookieconsent.run({
 <section id="examples-8" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-8">Examples</h4>
 <p>This example sets up typography settings for block monospace text using the Fira Code font at a slightly smaller size than the base text, with custom colors:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fonts</span><span class="kw">:</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">family</span><span class="kw">:</span><span class="at"> Fira Code</span></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">source</span><span class="kw">:</span><span class="at"> bunny</span></span>
@@ -1303,12 +1316,12 @@ cookieconsent.run({
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">monospace-block</span><span class="kw">:</span></span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> foreground</span></span>
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">background-color</span><span class="kw">:</span><span class="at"> background</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line-height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">line-height</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="brand_yml.typography.BrandTypographyLink" class="level3">
 <h3 class="anchored" data-anchor-id="brand_yml.typography.BrandTypographyLink">BrandTypographyLink</h3>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyLink(<span class="op">**</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>typography.BrandTypographyLink(<span class="op">**</span>data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Typographic settings for hyperlinks.</p>
 <p>This class defines typography options for hyperlinks, allowing customization of font weight, colors, and text decoration.</p>
 <section id="attributes-10" class="level4 doc-section doc-section-attributes">
@@ -1321,17 +1334,17 @@ cookieconsent.run({
 </dd>
 <dt>color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>background_color</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The background color of the hyperlink text. Can be any CSS-compatible color definition or a reference to a color defined in the brand’s color palette.</p>
 </dd>
 <dt>decoration</dt>
 <dd>
-<p><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</p>
+<p><a href="https://docs.python.org/3/builtins/stdtypes.html#str">str</a> | None</p>
 <p>The text decoration for the hyperlink. Common values include “underline”, “none”, or “underline”.</p>
 </dd>
 </dl>
@@ -1339,20 +1352,20 @@ cookieconsent.run({
 <section id="examples-9" class="level4 doc-section doc-section-examples">
 <h4 class="doc-section doc-section-examples anchored" data-anchor-id="examples-9">Examples</h4>
 <p>This example sets up typography settings for hyperlinks with a custom color and text decoration:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">600</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FF6F61"</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">decoration</span><span class="kw">:</span><span class="at"> underline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">decoration</span><span class="kw">:</span><span class="at"> underline</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also use color names defined in your brand’s color palette:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color</span><span class="kw">:</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">palette</span><span class="kw">:</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">red</span><span class="kw">:</span><span class="at"> </span><span class="st">"#FF6F61"</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typography</span><span class="kw">:</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">link</span><span class="kw">:</span></span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">weight</span><span class="kw">:</span><span class="at"> </span><span class="dv">600</span></span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">color</span><span class="kw">:</span><span class="at"> red</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">decoration</span><span class="kw">:</span><span class="at"> underline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">decoration</span><span class="kw">:</span><span class="at"> underline</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -1412,13 +1425,14 @@ cookieconsent.run({
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1764,7 +1778,7 @@ cookieconsent.run({
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Proudly supported by <a href="https://posit.co"><img src="https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg" class="img-fluid" alt="Posit" width="65"></a></p>
+<p>Proudly supported by <a href="https://posit.co"><img src="https://www.tidyverse.org/posit-logo.svg" class="img-fluid" alt="Posit" width="65"></a></p>
 </div>   
     <div class="nav-footer-center">
 

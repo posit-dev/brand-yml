@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,16 @@
 
 <title>Creating a brand.yml with an LLM – brand.yml</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -77,10 +83,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d9ba53a9c8b69c20ae55cb87ba696a21.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0f05cba98e93abd5bfacabf37e46c573.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-36489fe9f95e83378e31b3375ef0b6a4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0f05cba98e93abd5bfacabf37e46c573.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a136562f70550e23e65e4acd68dba3ab.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-28172870c04e8b8d0a116f5411ec05bf.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -150,7 +160,8 @@ cookieconsent.run({
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo">
+    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo light-content">
+    <img src="../../logos/icon/brand-yml-icon-color.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">brand.yml</span>
@@ -318,19 +329,19 @@ cookieconsent.run({
 <h2 class="anchored" data-anchor-id="teaching-llms-about-brand.yml">Teaching LLMs about brand.yml</h2>
 <p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="brand.yml Prompt">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-brand.yml Prompt
+<span class="screen-reader-only">Tip</span>brand.yml Prompt
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Copy the code block below and paste it into a chat interface or use it as a system prompt.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## About brand.yml</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## About brand.yml</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>brand.yml is a structured YAML file to hold brand information for key</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>brand elements. The goal of brand.yml is to capture the essence of the</span>
@@ -541,14 +552,14 @@ brand.yml Prompt
 <span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Prefer hex color syntax for raw color values.</span>
 <span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>Provide the YAML file directly in a markdown block. Include any</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>follow-up instructions in the YAML as inline comments.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>follow-up instructions in the YAML as inline comments.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p>If you’ve copied the above text into the chat (as opposed to using it as a system prompt), make sure that you follow up with additional instructions, for example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Create a _brand.yml for {company} using the following context from {company}'s' brand guidelines</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Create a _brand.yml for {company} using the following context from {company}'s' brand guidelines</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="some-tips-and-tricks" class="level2">
 <h2 class="anchored" data-anchor-id="some-tips-and-tricks">Some tips and tricks</h2>
@@ -561,15 +572,15 @@ brand.yml Prompt
 <h3 class="anchored" data-anchor-id="ask-for-alternative-fonts">Ask for alternative fonts</h3>
 <p>Many brands use proprietary fonts that aren’t freely available online. When translating typographic choices from brand guidelines, LLMs tend to include placeholder YAML for these font files assuming that you’ll be able to download them.</p>
 <p>It can be helpful to ask a follow-up question to request publicly-available font substitutes using either <a href="https://fonts.google.com">Google Fonts</a> or <a href="https://fonts.bunny.net">Bunny Fonts</a> (a GDPR-compliant alternative to Google Fonts).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Find alternative fonts that match {company}'s fonts using Google Fonts.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Find alternative fonts that match {company}'s fonts using Google Fonts.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>I’ve been impressed with the ability of LLMs to pick reasonable font substitutes with this simple level of prompting.</p>
 </section>
 <section id="ask-for-bootstrap-color-aliases" class="level3">
 <h3 class="anchored" data-anchor-id="ask-for-bootstrap-color-aliases">Ask for Bootstrap color aliases</h3>
 <p>Both brand guidelines and LLMs tend to use creative language when naming colors, e.g.&nbsp;<code>tea-green</code>, <code>amethyst</code>, <code>raisin</code> and <code>hunter</code> (color names used in <a href="https://www.dell.com/en-us/lp/brand-guidelines-color">Dell’s brand guidelines</a>). On the other hand, many web frameworks like Bootstrap have hooks for <a href="https://getbootstrap.com/docs/5.0/customize/color/">simple, common color names</a> such as <code>blue</code>, <code>green</code>, <code>yellow</code>, <code>purple</code>, etc.</p>
 <p>It can be helpful to ask a follow-up question to make sure that your <code>_brand.yml</code> includes aliases for these color names.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Update <span class="in">`color.palette`</span> to include aliases for Bootstrap's</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>primary colors drawing from the brand's color palette.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Update <span class="in">`color.palette`</span> to include aliases for Bootstrap's</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>primary colors drawing from the brand's color palette.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="try-_brand.yml-in-a-live-example" class="level3">
 <h3 class="anchored" data-anchor-id="try-_brand.yml-in-a-live-example">Try <code>_brand.yml</code> in a live example</h3>
@@ -643,13 +654,14 @@ Branded Shiny App
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -995,7 +1007,7 @@ Branded Shiny App
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Proudly supported by <a href="https://posit.co"><img src="https://posit.co/wp-content/uploads/2024/06/Posit-Logos-2024_horiz-full-color.svg" class="img-fluid" alt="Posit" width="65"></a></p>
+<p>Proudly supported by <a href="https://posit.co"><img src="https://www.tidyverse.org/posit-logo.svg" class="img-fluid" alt="Posit" width="65"></a></p>
 </div>   
     <div class="nav-footer-center">
 

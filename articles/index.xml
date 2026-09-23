@@ -14,7 +14,7 @@
 <title>brand.yml</title>
 <link>https://posit-dev.github.io/brand-yml/articles/</link>
 </image>
-<generator>quarto-1.7.31</generator>
+<generator>quarto-1.10.18</generator>
 <lastBuildDate>Fri, 15 Nov 2024 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Creating a brand.yml with an LLM</title>
@@ -35,19 +35,19 @@
 <h2 class="anchored" data-anchor-id="teaching-llms-about-brand.yml">Teaching LLMs about brand.yml</h2>
 <p>Fortunately, it’s relatively easy to teach an LLM everything it needs to know about brand.yml. We’ve created a <a href="brand-yml.prompt.txt">simple markdown file explaining brand.yml</a><sup>2</sup> that you can copy and paste into a chat interface or that you can use as <a href="https://github.com/mustvlad/ChatGPT-System-Prompts#what-are-system-prompts">a system prompt</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="brand.yml Prompt">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-brand.yml Prompt
+<span class="screen-reader-only">Tip</span>brand.yml Prompt
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Copy the code block below and paste it into a chat interface or use it as a system prompt.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">## About brand.yml</span></span>
 <span id="cb1-2"></span>
@@ -1566,16 +1566,16 @@ background-color: null;
 font-style: inherit;">-   </span>Prefer hex color syntax for raw color values.</span>
 <span id="cb1-210"></span>
 <span id="cb1-211">Provide the YAML file directly in a markdown block. Include any</span>
-<span id="cb1-212">follow-up instructions in the YAML as inline comments.</span></code></pre></div>
+<span id="cb1-212">follow-up instructions in the YAML as inline comments.</span></code></pre></div></div>
 </div>
 </div>
 </div>
 <p>If you’ve copied the above text into the chat (as opposed to using it as a system prompt), make sure that you follow up with additional instructions, for example:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1">Create a _brand.yml for {company} using the following context from {company}'s' brand guidelines</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1">Create a _brand.yml for {company} using the following context from {company}'s' brand guidelines</span>
 <span id="cb2-2"></span>
 <span id="cb2-3"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;</span></span></code></pre></div>
+font-style: inherit;">&lt;!-- paste text or screenshots from typography, color, logos sections --&gt;</span></span></code></pre></div></div>
 </section>
 <section id="some-tips-and-tricks" class="level2">
 <h2 class="anchored" data-anchor-id="some-tips-and-tricks">Some tips and tricks</h2>
@@ -1588,17 +1588,17 @@ font-style: inherit;">&lt;!-- paste text or screenshots from typography, color, 
 <h3 class="anchored" data-anchor-id="ask-for-alternative-fonts">Ask for alternative fonts</h3>
 <p>Many brands use proprietary fonts that aren’t freely available online. When translating typographic choices from brand guidelines, LLMs tend to include placeholder YAML for these font files assuming that you’ll be able to download them.</p>
 <p>It can be helpful to ask a follow-up question to request publicly-available font substitutes using either <a href="https://fonts.google.com">Google Fonts</a> or <a href="https://fonts.bunny.net">Bunny Fonts</a> (a GDPR-compliant alternative to Google Fonts).</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1">Find alternative fonts that match {company}'s fonts using Google Fonts.</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1">Find alternative fonts that match {company}'s fonts using Google Fonts.</span></code></pre></div></div>
 <p>I’ve been impressed with the ability of LLMs to pick reasonable font substitutes with this simple level of prompting.</p>
 </section>
 <section id="ask-for-bootstrap-color-aliases" class="level3">
 <h3 class="anchored" data-anchor-id="ask-for-bootstrap-color-aliases">Ask for Bootstrap color aliases</h3>
 <p>Both brand guidelines and LLMs tend to use creative language when naming colors, e.g.&nbsp;<code>tea-green</code>, <code>amethyst</code>, <code>raisin</code> and <code>hunter</code> (color names used in <a href="https://www.dell.com/en-us/lp/brand-guidelines-color">Dell’s brand guidelines</a>). On the other hand, many web frameworks like Bootstrap have hooks for <a href="https://getbootstrap.com/docs/5.0/customize/color/">simple, common color names</a> such as <code>blue</code>, <code>green</code>, <code>yellow</code>, <code>purple</code>, etc.</p>
 <p>It can be helpful to ask a follow-up question to make sure that your <code>_brand.yml</code> includes aliases for these color names.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1">Update <span class="in" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1">Update <span class="in" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">`color.palette`</span> to include aliases for Bootstrap's</span>
-<span id="cb4-2">primary colors drawing from the brand's color palette.</span></code></pre></div>
+<span id="cb4-2">primary colors drawing from the brand's color palette.</span></code></pre></div></div>
 </section>
 <section id="try-_brand.yml-in-a-live-example" class="level3">
 <h3 class="anchored" data-anchor-id="try-_brand.yml-in-a-live-example">Try <code>_brand.yml</code> in a live example</h3>
