@@ -40,10 +40,10 @@ brand_sass_fonts(brand)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other brand.yml Sass helpers: 
-\code{\link{brand_sass_color}()},
-\code{\link{brand_sass_color_palette}()},
-\code{\link{brand_sass_defaults_bootstrap}()},
-\code{\link{brand_sass_typography}()}
+Other brand.yml Sass helpers:
+\code{\link[=brand_sass_color]{brand_sass_color()}},
+\code{\link[=brand_sass_color_palette]{brand_sass_color_palette()}},
+\code{\link[=brand_sass_defaults_bootstrap]{brand_sass_defaults_bootstrap()}},
+\code{\link[=brand_sass_typography]{brand_sass_typography()}}
 }
 \concept{brand.yml Sass helpers}

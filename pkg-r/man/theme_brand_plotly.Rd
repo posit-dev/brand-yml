@@ -75,10 +75,10 @@ plot_ly(mtcars, x = ~wt, y = ~mpg) |>
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other branded theming functions: 
-\code{\link{theme_brand_flextable}()},
-\code{\link{theme_brand_ggplot2}()},
-\code{\link{theme_brand_gt}()},
-\code{\link{theme_brand_thematic}()}
+Other branded theming functions:
+\code{\link[=theme_brand_flextable]{theme_brand_flextable()}},
+\code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}},
+\code{\link[=theme_brand_gt]{theme_brand_gt()}},
+\code{\link[=theme_brand_thematic]{theme_brand_thematic()}}
 }
 \concept{branded theming functions}

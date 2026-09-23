@@ -73,10 +73,10 @@ theme_brand_flextable(
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other branded theming functions: 
-\code{\link{theme_brand_ggplot2}()},
-\code{\link{theme_brand_gt}()},
-\code{\link{theme_brand_plotly}()},
-\code{\link{theme_brand_thematic}()}
+Other branded theming functions:
+\code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}},
+\code{\link[=theme_brand_gt]{theme_brand_gt()}},
+\code{\link[=theme_brand_plotly]{theme_brand_plotly()}},
+\code{\link[=theme_brand_thematic]{theme_brand_thematic()}}
 }
 \concept{branded theming functions}

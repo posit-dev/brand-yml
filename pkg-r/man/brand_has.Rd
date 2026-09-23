@@ -35,9 +35,9 @@ brand_has(brand, "color", "secondary") # FALSE
 
 }
 \seealso{
-Other brand.yml helpers: 
-\code{\link{brand_color_pluck}()},
-\code{\link{brand_pluck}()},
-\code{\link{with_brand_yml_path}()}
+Other brand.yml helpers:
+\code{\link[=brand_color_pluck]{brand_color_pluck()}},
+\code{\link[=brand_pluck]{brand_pluck()}},
+\code{\link[=with_brand_yml_path]{with_brand_yml_path()}}
 }
 \concept{brand.yml helpers}
