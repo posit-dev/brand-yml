@@ -182,9 +182,9 @@ Convenience method for `.to_html()`, for use in Shiny apps.
 
 #### Returns {.doc-section .doc-section-returns}
 
-| Name   | Type                                            | Description               |
-|--------|-------------------------------------------------|---------------------------|
-|        | [htmltools](`htmltools`).[Tag](`htmltools.Tag`) | HTML img tag as a string. |
+| Name   | Type                             | Description               |
+|--------|----------------------------------|---------------------------|
+|        | [Tagified](`htmltools.Tagified`) | HTML img tag as a string. |
 
 ### to_html { #brand_yml.BrandLogoResource.to_html }
 

@@ -554,7 +554,7 @@ root
 
 | Name | Description |
 | --- | --- |
-| [model_dump](#brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump) | !!! abstract "Usage Documentation"     [`model_dump`](../concepts/serialization.md#modelmodel_dump) |
+| [model_dump](#brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump) | !!! abstract "Usage Documentation"     [`model_dump`](../concepts/serialization.md#python-mode) |
 
 ##### model_dump { #brand_yml.typography.BrandTypographyGoogleFontsWeightRange.model_dump }
 
@@ -568,15 +568,17 @@ typography.BrandTypographyGoogleFontsWeightRange.model_dump(
     exclude_unset=False,
     exclude_defaults=False,
     exclude_none=False,
+    exclude_computed_fields=False,
     round_trip=False,
     warnings=True,
     fallback=None,
     serialize_as_any=False,
+    polymorphic_serialization=None,
 )
 ```
 
 !!! abstract "Usage Documentation"
-    [`model_dump`](../concepts/serialization.md#modelmodel_dump)
+    [`model_dump`](../concepts/serialization.md#python-mode)
 
 Generate a dictionary representation of the model, optionally specifying which fields to include or exclude.
 
@@ -591,12 +593,16 @@ Args:
     exclude_unset: Whether to exclude fields that have not been explicitly set.
     exclude_defaults: Whether to exclude fields that are set to their default value.
     exclude_none: Whether to exclude fields that have a value of `None`.
+    exclude_computed_fields: Whether to exclude computed fields.
+        While this can be useful for round-tripping, it is usually recommended to use the dedicated
+        `round_trip` parameter instead.
     round_trip: If True, dumped values should be valid as input for non-idempotent types such as Json[T].
     warnings: How to handle serialization errors. False/"none" ignores them, True/"warn" logs errors,
         "error" raises a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError].
     fallback: A function to call when an unknown value is encountered. If not provided,
         a [`PydanticSerializationError`][pydantic_core.PydanticSerializationError] error is raised.
     serialize_as_any: Whether to serialize fields with duck-typing serialization behavior.
+    polymorphic_serialization: Whether to use model and dataclass polymorphic serialization for this call.
 
 Returns:
     A dictionary representation of the model.
