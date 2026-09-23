@@ -2,6 +2,12 @@ project:
   type: website
   preview:
     port: 4243
+  render:
+    # pkg/r/ contains the pre-built pkgdown site; its .md sources are copied
+    # via resources but must not be rendered by Quarto
+    - "*.qmd"
+    - "*.md"
+    - "!pkg/r/"
   resources:
     # TODO: remove when logo is supported by brand meta
     - "logos/**/*.png"

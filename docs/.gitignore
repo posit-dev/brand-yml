@@ -3,3 +3,5 @@
 /_inv
 *.quarto_ipynb
 objects.txt
+
+**/*.quarto_ipynb
