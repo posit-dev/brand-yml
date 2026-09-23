@@ -26,9 +26,9 @@
             weight:
               ref: brand-font-weight
             color:
-              ref: brand-maybe-named-color
+              ref: brand-maybe-named-color-light-dark
             background-color:
-              ref: brand-maybe-named-color
+              ref: brand-maybe-named-color-light-dark
       link:
         description: The text properties used for hyperlinks.
         object:
@@ -39,10 +39,10 @@
             decoration: string
             color:
               schema:
-                ref: brand-maybe-named-color
+                ref: brand-maybe-named-color-light-dark
               default: primary
             background-color:
-              ref: brand-maybe-named-color
+              ref: brand-maybe-named-color-light-dark
 
 - id: brand-typography-options
   description: Typographic options.
@@ -57,9 +57,9 @@
       style:
         ref: brand-font-style
       color:
-        ref: brand-maybe-named-color
+        ref: brand-maybe-named-color-light-dark
       background-color:
-        ref: brand-maybe-named-color
+        ref: brand-maybe-named-color-light-dark
 
 - id: brand-typography-options-no-size
   description: Typographic options without a font size.
@@ -73,9 +73,9 @@
       style:
         ref: brand-font-style
       color:
-        ref: brand-maybe-named-color
+        ref: brand-maybe-named-color-light-dark
       background-color:
-        ref: brand-maybe-named-color
+        ref: brand-maybe-named-color-light-dark
 
 - id: brand-font
   description: Font files and definitions for the brand.

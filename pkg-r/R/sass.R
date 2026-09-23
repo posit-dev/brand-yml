@@ -88,8 +88,9 @@ bootstrap_colors <- c(
 #' brand_sass_color(brand)
 #'
 #' @inheritParams as_brand_yml
-#' @return A list with one component:
-#'   * `defaults`: Sass variable definitions with `!default` flag
+#' @return A list with a `defaults` component containing light-mode Sass
+#'   variables with `!default` flags. When any color is mode-dependent, the
+#'   list also contains `defaults_dark` with the defined dark-mode variables.
 #'
 #' @family brand.yml Sass helpers
 #' @export
@@ -107,20 +108,30 @@ brand_sass_color <- function(brand) {
     return(list())
   }
 
-  # Resolve internal references in colors
-  colors <- lapply(
+  resolved <- lapply(
     rlang::set_names(names(colors)),
     brand_color_pluck,
     brand = brand
   )
+  has_modes <- any(vapply(resolved, inherits, logical(1), "light_dark"))
 
-  defaults <- list()
-  for (thm_name in names(colors)) {
-    brand_color_var <- sprintf("brand_color_%s", thm_name)
-    defaults[[brand_color_var]] <- paste(colors[[thm_name]], "!default")
+  defaults_for_mode <- function(mode) {
+    values <- lapply(
+      rlang::set_names(names(colors)),
+      brand_color_pluck,
+      brand = brand,
+      color_mode = mode
+    )
+    values <- Filter(Negate(is.null), values)
+    names(values) <- sprintf("brand_color_%s", names(values))
+    lapply(values, paste, "!default")
   }
 
-  list(defaults = defaults)
+  result <- list(defaults = defaults_for_mode("light"))
+  if (has_modes) {
+    result$defaults_dark <- defaults_for_mode("dark")
+  }
+  result
 }
 
 #' Generate Sass variables for brand typography
@@ -145,8 +156,10 @@ brand_sass_color <- function(brand) {
 #' brand_sass_typography(brand)
 #'
 #' @inheritParams as_brand_yml
-#' @return A list with one component:
-#'   * `defaults`: Sass variable definitions with `!default` flag
+#' @return A list with a `defaults` component containing light-mode Sass
+#'   variables with `!default` flags. When any typography color is
+#'   mode-dependent, the list also contains `defaults_dark` with the defined
+#'   dark-mode variables.
 #'
 #' @family brand.yml Sass helpers
 #' @export
@@ -162,29 +175,49 @@ brand_sass_typography <- function(brand) {
     return(list(defaults = list()))
   }
 
-  defaults <- list()
-
-  for (field in names(typography)) {
-    if (field == "fonts") {
-      next
-    }
-
-    prop <- typography[[field]]
-    for (prop_key in names(prop)) {
-      prop_value <- prop[[prop_key]]
-      if (field == "base" && prop_key == "size") {
-        prop_value <- maybe_convert_font_size_to_rem(prop_value)
-      } else if (prop_key %in% c("color", "background-color")) {
-        prop_value <- brand_color_pluck(brand, prop_value)
+  color_properties <- c("color", "background_color", "background-color")
+  has_modes <- FALSE
+  for (field in setdiff(names(typography), "fonts")) {
+    for (prop_key in intersect(names(typography[[field]]), color_properties)) {
+      if (inherits(typography[[field]][[prop_key]], "light_dark")) {
+        has_modes <- TRUE
       }
-      field <- gsub("-", "_", field)
-      prop_key <- gsub("-", "_", prop_key)
-      typo_sass_var <- paste("brand_typography", field, prop_key, sep = "_")
-      defaults[[typo_sass_var]] <- paste(prop_value, "!default")
     }
   }
 
-  list(defaults = defaults)
+  defaults_for_mode <- function(mode) {
+    defaults <- list()
+    for (field in setdiff(names(typography), "fonts")) {
+      prop <- typography[[field]]
+      for (prop_key in names(prop)) {
+        prop_value <- prop[[prop_key]]
+        if (field == "base" && prop_key == "size") {
+          prop_value <- maybe_convert_font_size_to_rem(prop_value)
+        } else if (prop_key %in% color_properties) {
+          prop_value <- brand_color_select(prop_value, mode)
+        }
+        if (is.null(prop_value)) {
+          next
+        }
+        field_name <- gsub("-", "_", field)
+        prop_name <- gsub("-", "_", prop_key)
+        typo_sass_var <- paste(
+          "brand_typography",
+          field_name,
+          prop_name,
+          sep = "_"
+        )
+        defaults[[typo_sass_var]] <- paste(prop_value, "!default")
+      }
+    }
+    defaults
+  }
+
+  result <- list(defaults = defaults_for_mode("light"))
+  if (has_modes) {
+    result$defaults_dark <- defaults_for_mode("dark")
+  }
+  result
 }
 
 #' Generate Sass variables and CSS rules for brand fonts

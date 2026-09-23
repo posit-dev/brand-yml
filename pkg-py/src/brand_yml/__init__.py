@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Literal
 
@@ -12,6 +13,7 @@ from pydantic import (
     model_validator,
 )
 
+from ._css import brand_css_variables
 from ._defs import BrandLightDark
 from ._use_logo import use_logo
 from ._utils import (
@@ -22,7 +24,7 @@ from ._utils import (
 )
 from ._utils_yaml import yaml_brand as yaml
 from .base import BrandBase
-from .color import BrandColor
+from .color import BrandColor, BrandColorLightDark
 from .file import FileLocation, FileLocationLocal, FileLocationUrl
 from .logo import BrandLogo, BrandLogoResource, BrandLogoResourceLightDark
 from .meta import BrandMeta
@@ -295,6 +297,28 @@ class Brand(BrandBase):
             k for k in BrandColor.model_fields.keys() if k != "palette"
         ]
 
+        def resolve_color(
+            value: str,
+            *,
+            mode: Literal["light", "dark"] | None = None,
+            path: str,
+        ) -> str | None:
+            if value not in color_defs:
+                if value in color_names:
+                    raise ValueError(
+                        f"`{path}` referred to `color.{value}` which is not defined."
+                    )
+                return value
+
+            resolved = color_defs[value]
+            if not isinstance(resolved, dict):
+                return resolved
+
+            if mode is None:
+                raise TypeError("A light/dark color requires a mode.")
+
+            return resolved.get(mode)
+
         for top_field in self.typography.__class__.model_fields.keys():
             typography_node = getattr(self.typography, top_field)
 
@@ -308,26 +332,59 @@ class Brand(BrandBase):
                     continue
 
                 value = getattr(typography_node, typography_node_field)
-                if value is None or not isinstance(value, str):
+                if value is None:
                     continue
 
-                is_defined = value in color_defs
-                is_theme_color = value in color_names
-
-                if not is_defined:
-                    if is_theme_color:
-                        raise ValueError(
-                            f"`typography.{top_field}.{typography_node_field}` "
-                            f"referred to `color.{value}` which is not defined."
+                path = f"typography.{top_field}.{typography_node_field}"
+                if isinstance(value, BrandColorLightDark):
+                    light = (
+                        resolve_color(
+                            value.light, mode="light", path=f"{path}.light"
                         )
-                    else:
-                        continue
+                        if value.light is not None
+                        else None
+                    )
+                    dark = (
+                        resolve_color(
+                            value.dark, mode="dark", path=f"{path}.dark"
+                        )
+                        if value.dark is not None
+                        else None
+                    )
+                    resolved_light_dark = (
+                        None
+                        if light is None and dark is None
+                        else BrandColorLightDark.model_validate(
+                            {
+                                variant: resolved
+                                for variant, resolved in (
+                                    ("light", light),
+                                    ("dark", dark),
+                                )
+                                if resolved is not None
+                            }
+                        )
+                    )
+                    setattr(
+                        typography_node,
+                        typography_node_field,
+                        resolved_light_dark,
+                    )
+                    continue
 
-                setattr(
-                    typography_node,
-                    typography_node_field,
-                    color_defs[value],
-                )
+                resolved = color_defs.get(value)
+                if isinstance(resolved, dict):
+                    setattr(
+                        typography_node,
+                        typography_node_field,
+                        BrandColorLightDark.model_validate(resolved),
+                    )
+                else:
+                    setattr(
+                        typography_node,
+                        typography_node_field,
+                        resolve_color(value, path=path),
+                    )
 
         return self
 
@@ -470,6 +527,28 @@ class Brand(BrandBase):
             **kwargs,
         )
 
+    def css_variables(
+        self,
+        mode_scopes: Mapping[Literal["light", "dark"], str] | None = None,
+    ) -> str:
+        """
+        Generate mode-aware CSS custom properties for this brand.
+
+        Parameters
+        ----------
+        mode_scopes
+            A mapping with exactly ``"light"`` and ``"dark"`` values. An empty
+            value emits variables under ``:root``.
+            ``"prefers-color-scheme"`` emits a matching media query. Any other
+            value is used as a CSS selector.
+
+        Returns
+        -------
+        :
+            CSS rules containing brand custom properties for both color modes.
+        """
+        return brand_css_variables(self, mode_scopes)
+
     @model_validator(mode="after")
     def _set_root_path(self):
         """
@@ -512,6 +591,7 @@ __all__ = [
     "BrandColor",
     "BrandTypography",
     "BrandLightDark",
+    "brand_css_variables",
     "BrandLogoResource",
     "BrandLogoResourceLightDark",
     "FileLocation",

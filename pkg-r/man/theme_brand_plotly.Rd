@@ -9,7 +9,8 @@ theme_brand_plotly(
   brand = NULL,
   background = NULL,
   foreground = NULL,
-  accent = NULL
+  accent = NULL,
+  color_mode = c("light", "dark")
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ color in \code{brand.color} or \code{brand.color.palette}.}
 \code{brand.color.palette.accent}. If provided directly, this value can be a
 valid R color or the name of a color in \code{brand.color} or
 \code{brand.color.palette}.}
+
+\item{color_mode}{The color mode to use when a brand color has light and dark
+variants. Either \code{"light"} (the default) or \code{"dark"}.}
 }
 \value{
 Returns a themed plotly plot object.
@@ -75,10 +79,10 @@ plot_ly(mtcars, x = ~wt, y = ~mpg) |>
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-Other branded theming functions: 
-\code{\link{theme_brand_flextable}()},
-\code{\link{theme_brand_ggplot2}()},
-\code{\link{theme_brand_gt}()},
-\code{\link{theme_brand_thematic}()}
+Other branded theming functions:
+\code{\link[=theme_brand_flextable]{theme_brand_flextable()}},
+\code{\link[=theme_brand_ggplot2]{theme_brand_ggplot2()}},
+\code{\link[=theme_brand_gt]{theme_brand_gt()}},
+\code{\link[=theme_brand_thematic]{theme_brand_thematic()}}
 }
 \concept{branded theming functions}

@@ -1,0 +1,47 @@
+{
+  "color": {
+    "background": {
+      "dark": "#222222",
+      "light": "#FFFFFF"
+    },
+    "foreground": {
+      "dark": "#fafafa",
+      "light": "#111111"
+    },
+    "palette": {
+      "purple": "#6339E0"
+    },
+    "primary": "#6339E0",
+    "secondary": {
+      "dark": "#4A90A4",
+      "light": "#87CEEB"
+    }
+  },
+  "meta": {
+    "name": {
+      "full": "Light/Dark Color Variants Example"
+    }
+  },
+  "typography": {
+    "fonts": [],
+    "headings": {
+      "color": {
+        "dark": "#fafafa",
+        "light": "#111111"
+      }
+    },
+    "link": {
+      "color": "#6339E0"
+    },
+    "monospace-inline": {
+      "background-color": {
+        "dark": "#2d2d2d",
+        "light": "#f8f9fa"
+      },
+      "color": {
+        "dark": "#b794f6",
+        "light": "#7d12ba"
+      }
+    }
+  }
+}

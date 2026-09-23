@@ -237,6 +237,108 @@ test_that("brand.typography with colors", {
   expect_equal(t$link$color, color$palette$red)
 })
 
+describe("brand.typography light/dark colors", {
+  it("accepts direct light/dark color values", {
+    brand <- as_brand_yml(list(
+      typography = list(
+        headings = list(
+          color = list(light = "#111", dark = "#eee")
+        ),
+        "monospace-inline" = list(
+          "background-color" = list(light = "#eee", dark = "#222")
+        )
+      )
+    ))
+
+    expect_s3_class(brand$typography$headings$color, "light_dark")
+    expect_equal(brand$typography$headings$color$light, "#111")
+    expect_equal(brand$typography$headings$color$dark, "#eee")
+
+    background <- brand$typography$monospace_inline$background_color
+    expect_s3_class(background, "light_dark")
+    expect_equal(background$light, "#eee")
+    expect_equal(background$dark, "#222")
+  })
+
+  it("resolves theme color references in variant context", {
+    brand <- as_brand_yml(list(
+      color = list(
+        foreground = list(light = "#111", dark = "#eee"),
+        primary = list(light = "#0066cc", dark = "#66b2ff")
+      ),
+      typography = list(
+        headings = list(color = "foreground"),
+        link = list(
+          color = list(light = "primary", dark = "primary")
+        )
+      )
+    ))
+
+    expect_equal(brand$typography$headings$color$light, "#111")
+    expect_equal(brand$typography$headings$color$dark, "#eee")
+    expect_equal(brand$typography$link$color$light, "#0066cc")
+    expect_equal(brand$typography$link$color$dark, "#66b2ff")
+  })
+
+  it("validates light/dark color structures", {
+    expect_error(
+      as_brand_yml(list(
+        typography = list(
+          headings = list(color = list(light = "#111", other = "#eee"))
+        )
+      )),
+      "typography.headings.color.*invalid keys"
+    )
+
+    expect_error(
+      as_brand_yml(list(
+        typography = list(
+          headings = list(color = list(light = 42))
+        )
+      )),
+      "typography.headings.color.light.*must be a string"
+    )
+
+    expect_error(
+      as_brand_yml(list(
+        typography = list(
+          headings = list(
+            color = list(light = NULL, dark = "#eee")
+          )
+        )
+      )),
+      "typography.headings.color.light.*must be a string"
+    )
+  })
+
+  it("reports undefined theme colors within variants", {
+    expect_error(
+      as_brand_yml(list(
+        typography = list(
+          headings = list(color = list(light = "foreground"))
+        )
+      )),
+      "typography.headings.color.light"
+    )
+  })
+
+  it("removes color properties with no resolved variants", {
+    brand <- as_brand_yml(list(
+      color = list(
+        primary = list(dark = "#eee")
+      ),
+      typography = list(
+        headings = list(
+          color = list(light = "primary")
+        )
+      )
+    ))
+
+    expect_false("color" %in% names(brand$typography$headings))
+    expect_null(brand$typography$headings$color)
+  })
+})
+
 test_that("brand.typography CSS fonts", {
   brand <- read_brand_yml(test_example("brand-typography-fonts.yml"))
   brand_fonts <- brand_sass_fonts(brand)
@@ -287,7 +389,9 @@ test_that("brand.typography CSS fonts local", {
     names(fonts_bundle$defaults),
     c("brand-font-open-sans", "brand-font-roboto")
   )
-  local_file_dep <- fonts_bundle$defaults[["brand-font-open-sans"]]$html_deps[[1]]() # fmt: skip
+  local_file_dep <- fonts_bundle$defaults[["brand-font-open-sans"]]$html_deps[[
+    1
+  ]]() # fmt: skip
   expect_s3_class(local_file_dep, "html_dependency")
 
   local_file_css <- readLines(file.path(local_file_dep$src$file, "font.css"))

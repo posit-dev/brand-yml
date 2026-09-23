@@ -710,7 +710,7 @@ line_height
 
 color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color of the text.
 
@@ -846,7 +846,7 @@ size
 
 color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color of the inline monospace text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
@@ -854,7 +854,7 @@ color
 
 background_color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The background color of the inline monospace text. Can be any
     CSS-compatible color definition or a reference to a color defined in the
@@ -940,7 +940,7 @@ line_height
 
 color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color of the block monospace text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
@@ -948,7 +948,7 @@ color
 
 background_color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The background color of the block monospace text. Can be any
     CSS-compatible color definition or a reference to a color defined in the
@@ -996,7 +996,7 @@ weight
 
 color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color of the hyperlink text. Can be any CSS-compatible color
     definition or a reference to a color defined in the brand's color
@@ -1004,7 +1004,7 @@ color
 
 background_color
 
-:   [str](`str`) \| None
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The background color of the hyperlink text. Can be any CSS-compatible
     color definition or a reference to a color defined in the brand's color

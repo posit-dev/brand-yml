@@ -8,20 +8,89 @@ palette and mappings to common theme colors.
 from __future__ import annotations
 
 import re
-from copy import deepcopy
-from typing import Literal, Optional
+from collections.abc import Mapping
+from typing import Annotated, Any, Literal, Union
 
 from pydantic import (
     ConfigDict,
+    Discriminator,
+    Tag,
     field_validator,
     model_validator,
 )
 
-from ._defs import check_circular_references, defs_replace_recursively
+from ._defs import (
+    BrandLightDark,
+    check_circular_references,
+    defs_replace_recursively,
+)
 from ._utils_docs import add_example_yaml
 from .base import BrandBase
 
 rgx_valid_sass_name = re.compile(r"^[a-zA-Z_][a-zA-Z0-9_-]*$")
+
+
+class BrandColorLightDark(BrandLightDark[str]):
+    """
+    Light/Dark variant container for color values.
+
+    This class extends BrandLightDark[str] to hold color values that differ
+    between light and dark color schemes.
+    """
+
+    @model_validator(mode="before")
+    @classmethod
+    def _reject_explicit_null_variants(cls, value):
+        if isinstance(value, Mapping):
+            null_variants = [
+                variant
+                for variant in ("light", "dark")
+                if variant in value and value[variant] is None
+            ]
+            if null_variants:
+                if len(null_variants) == 1:
+                    raise ValueError(
+                        f"The `{null_variants[0]}` color value must be a "
+                        "string when provided."
+                    )
+                raise ValueError(
+                    "The `light` and `dark` color values must be strings "
+                    "when provided."
+                )
+        return value
+
+    @model_validator(mode="after")
+    def _require_light_or_dark(self):
+        if self.light is None and self.dark is None:
+            raise ValueError(
+                "A light/dark color must define at least one of "
+                "`light` or `dark`."
+            )
+        return self
+
+
+def brand_color_type_discriminator(x: Any) -> Literal["color", "light-dark"]:
+    """Discriminator function to determine if a value is a color string or light/dark variant."""
+    if isinstance(x, (dict, BrandLightDark, BrandColorLightDark)):
+        # Any mapping is routed to the light/dark variant so that invalid keys
+        # produce a located pydantic error instead of an unlocated exception.
+        return "light-dark"
+
+    # Assume it's a string color value
+    return "color"
+
+
+BrandColorType = Annotated[
+    Union[
+        Annotated[str, Tag("color")],
+        Annotated[BrandColorLightDark, Tag("light-dark")],
+    ],
+    Discriminator(brand_color_type_discriminator),
+]
+"""
+A color value can be either a string (hex, rgb, color name, etc.) or a
+light-dark variant that includes both a light and dark color value.
+"""
 
 
 @add_example_yaml(
@@ -185,6 +254,11 @@ class BrandColor(BrandBase):
     dark
         A dark color, used as a high-contrast foreground color on light elements
         or high-contrast background color on light elements.
+
+    link
+        The color used for hyperlinks. When not defined this field is `None`;
+        consuming frameworks are encouraged to fall back to the `primary` color
+        in that case.
     """
 
     model_config = ConfigDict(
@@ -196,17 +270,18 @@ class BrandColor(BrandBase):
 
     palette: dict[str, str] | None = None
 
-    foreground: Optional[str] = None
-    background: Optional[str] = None
-    primary: Optional[str] = None
-    secondary: Optional[str] = None
-    tertiary: Optional[str] = None
-    success: Optional[str] = None
-    info: Optional[str] = None
-    warning: Optional[str] = None
-    danger: Optional[str] = None
-    light: Optional[str] = None
-    dark: Optional[str] = None
+    foreground: BrandColorType | None = None
+    background: BrandColorType | None = None
+    primary: BrandColorType | None = None
+    secondary: BrandColorType | None = None
+    tertiary: BrandColorType | None = None
+    success: BrandColorType | None = None
+    info: BrandColorType | None = None
+    warning: BrandColorType | None = None
+    danger: BrandColorType | None = None
+    light: BrandColorType | None = None
+    dark: BrandColorType | None = None
+    link: BrandColorType | None = None
 
     @field_validator("palette")
     @classmethod
@@ -248,7 +323,7 @@ class BrandColor(BrandBase):
     def to_dict(
         self,
         include: Literal["all", "theme", "palette"] = "all",
-    ) -> dict[str, str]:
+    ) -> dict[str, str | dict[str, str]]:
         """
         Returns a flat dictionary of color definitions.
 
@@ -269,24 +344,98 @@ class BrandColor(BrandBase):
             * `"theme"` returns a dictionary of only the theme colors, excluding
               `color.palette`.
             * `"palette"` returns a dictionary of only the palette colors
+
+            Colors may be strings or dictionaries with `light` and `dark` keys when
+            light/dark variants are used.
         """
-        defs: dict[str, str] = {}
-        defs_theme: dict[str, str] = {}
+        defs: dict[str, str | dict[str, str]] = {}
 
-        if include in ("all", "palette"):
-            defs = deepcopy(self.palette) if self.palette is not None else {}
+        if include in ("all", "palette") and self.palette is not None:
+            defs.update(self.palette)
         if include in ("all", "theme"):
-            defs_theme = self.model_dump(exclude={"palette"}, exclude_none=True)
+            # Theme colors overlay the palette. `model_dump()` already renders
+            # light/dark values as `{"light": ..., "dark": ...}` dicts.
+            defs.update(self.model_dump(exclude={"palette"}, exclude_none=True))
 
-        defs.update(defs_theme)
         return defs
 
     @model_validator(mode="after")
     def resolve_palette_values(self):
-        defs_replace_recursively(
-            self,
-            defs=self.to_dict(),
-            name="color",
-            exclude="palette",
-        )
+        theme = {
+            key: getattr(self, key)
+            for key in self.__class__.model_fields
+            if key != "palette"
+        }
+        palette = self.palette or {}
+
+        def resolve(
+            key: str | None,
+            mode: Literal["auto", "light", "dark"] = "auto",
+            visited: tuple[str, ...] = (),
+        ) -> str | BrandColorLightDark | None:
+            if key is None:
+                return None
+
+            in_theme = key in theme and theme[key] is not None
+            theme_unseen = in_theme and key not in visited
+            in_palette = key in palette
+
+            if in_palette and not theme_unseen:
+                node = f"palette.{key}"
+                if node in visited:
+                    path = " -> ".join((*visited, node))
+                    raise ValueError(f"Circular color reference: {path}")
+                return resolve(palette[key], mode, (*visited, node))
+
+            if not in_theme:
+                return key
+
+            if key in visited:
+                path = " -> ".join((*visited, key))
+                raise ValueError(f"Circular color reference: {path}")
+
+            value = theme[key]
+            next_visited = (*visited, key)
+            if isinstance(value, str):
+                return resolve(value, mode, next_visited)
+
+            if not isinstance(value, BrandColorLightDark):
+                return value
+
+            if mode == "auto":
+                light = resolve_variant(value.light, "light", next_visited)
+                dark = resolve_variant(value.dark, "dark", next_visited)
+                if light is None and dark is None:
+                    return None
+                return BrandColorLightDark.model_validate(
+                    {
+                        variant: resolved
+                        for variant, resolved in (
+                            ("light", light),
+                            ("dark", dark),
+                        )
+                        if resolved is not None
+                    }
+                )
+
+            return resolve(
+                getattr(value, mode),
+                mode,
+                next_visited,
+            )
+
+        def resolve_variant(
+            key: str | None,
+            mode: Literal["light", "dark"],
+            visited: tuple[str, ...],
+        ) -> str | None:
+            value = resolve(key, mode, visited)
+            if isinstance(value, BrandColorLightDark):
+                raise TypeError("A resolved color variant must be scalar.")
+            return value
+
+        for key, value in theme.items():
+            if value is not None:
+                object.__setattr__(self, key, resolve(key))
+
         return self

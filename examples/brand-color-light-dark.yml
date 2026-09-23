@@ -1,0 +1,41 @@
+meta:
+  name: Light/Dark Color Variants Example
+
+color:
+  palette:
+    purple: "#6339E0"
+
+  # Light/dark variants for foreground and background
+  foreground:
+    light: "#111111"  # near-black in light mode
+    dark: "#fafafa"   # near-white in dark mode
+
+  background:
+    light: "#FFFFFF"  # white in light mode
+    dark: "#222222"   # dark gray in dark mode
+
+  # Primary color stays the same across modes
+  primary: purple
+
+  # Secondary color with light/dark variants
+  secondary:
+    light: "#87CEEB"
+    dark: "#4A90A4"
+
+typography:
+  headings:
+    # Uses foreground's light/dark variants
+    color: foreground
+
+  monospace-inline:
+    # Custom light/dark colors
+    color:
+      light: "#7d12ba"
+      dark: "#b794f6"
+    background-color:
+      light: "#f8f9fa"
+      dark: "#2d2d2d"
+
+  link:
+    # Uses primary (stable across modes)
+    color: primary

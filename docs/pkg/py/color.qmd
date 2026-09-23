@@ -169,14 +169,14 @@ palette
 
 foreground
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The foreground color, used for text. For best results, this color should
     be close to black and should have a high contrast with `background`.
 
 background
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The background color, used for the page or main background. For best
     results, this color should be close to white and should have a high
@@ -184,59 +184,59 @@ background
 
 primary
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The primary accent color, i.e. the main theme color. Typically used for
     hyperlinks, active states, primary action buttons, etc.
 
 secondary
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The secondary accent color. Typically used for lighter text or disabled
     states.
 
 tertiary
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The tertiary accent color. Typically an even lighter color, used for
     hover states, accents, and wells.
 
 success
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color used for positive or successful actions and information.
 
 info
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color used for neutral or informational actions and information.
 
 warning
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color used for warning or cautionary actions and information.
 
 danger
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     The color used for errors, dangerous actions, or negative information.
 
 light
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     A bright color, used as a high-contrast foreground color on dark
     elements or low-contrast background color on light elements.
 
 dark
 
-:   [Optional](`typing.Optional`)\[[str](`str`)\]
+:   [BrandColorType](`brand_yml.color.BrandColorType`) \| None
 
     A dark color, used as a high-contrast foreground color on light elements
     or high-contrast background color on light elements.
@@ -264,6 +264,6 @@ Returns a flat dictionary of color definitions.
 
 #### Returns {.doc-section .doc-section-returns}
 
-| Name   | Type                                         | Description                                                                                                                                                                                                                                                                                                                                                |
-|--------|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|        | [dict](`dict`)\[[str](`str`), [str](`str`)\] | A flat dictionary of color definitions. Which colors are returned depends on the value of `include`:  * `"all"` returns a flat dictionary of colors with theme colors overlaid   on `color.palette`. * `"theme"` returns a dictionary of only the theme colors, excluding   `color.palette`. * `"palette"` returns a dictionary of only the palette colors |
+| Name   | Type                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|--------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | [dict](`dict`)\[[str](`str`), [str](`str`) \| [dict](`dict`)\[[str](`str`), [str](`str`)\]\] | A flat dictionary of color definitions. Which colors are returned depends on the value of `include`:  * `"all"` returns a flat dictionary of colors with theme colors overlaid   on `color.palette`. * `"theme"` returns a dictionary of only the theme colors, excluding   `color.palette`. * `"palette"` returns a dictionary of only the palette colors  Colors may be strings or dictionaries with `light` and `dark` keys when light/dark variants are used. |
